@@ -10,11 +10,17 @@ namespace CodeBase.UI.Elements
         [SerializeField] private Button _button;
         [SerializeField] private WindowId _windowId;
 
-        [Inject] private IWindowService _windowService;
+        private IWindowService _windowService;
 
         private void Awake()
         {
             _button.onClick.AddListener(Open);
+        }
+
+        [Inject]
+        private void Construct(IWindowService windowService)
+        {
+            _windowService = windowService;
         }
 
         private void Open() =>

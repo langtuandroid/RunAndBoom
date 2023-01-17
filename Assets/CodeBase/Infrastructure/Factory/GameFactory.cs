@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
-        private GameObject _playerGameObject;
+        private GameObject _heroGameObject;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
@@ -47,13 +47,12 @@ namespace CodeBase.Infrastructure.Factory
             await _assets.Load<GameObject>(AssetAddresses.Spawner);
         }
 
-        public async Task<GameObject> CreatePlayer(Vector3 at)
+        public async Task<GameObject> CreateHero(Vector3 at)
         {
-            _playerGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Player, at);
-            GameObject playerRotating = _playerGameObject.transform.GetChild(0).gameObject;
-            HeroShooting heroShooting = playerRotating.GetComponent<HeroShooting>();
-            heroShooting.Construct();
-            return _playerGameObject;
+            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
+            GameObject heroRotating = _heroGameObject.transform.GetChild(0).gameObject;
+            HeroShooting heroShooting = heroRotating.GetComponent<HeroShooting>();
+            return _heroGameObject;
         }
 
         public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
@@ -68,11 +67,11 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<EnemyDeath>().Construct(monsterData.DeathPoints);
             monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
-            monster.GetComponent<AgentMoveToHero>()?.Construct(_playerGameObject.transform);
-            monster.GetComponent<RotateToHero>()?.Construct(_playerGameObject.transform);
+            monster.GetComponent<AgentMoveToHero>()?.Construct(_heroGameObject.transform);
+            monster.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
 
             Attack attack = monster.GetComponent<Attack>();
-            attack.Construct(_playerGameObject.transform);
+            attack.Construct(_heroGameObject.transform);
             attack.Damage = monsterData.Damage;
             attack.Cleavage = monsterData.Cleavage;
             attack.EffectiveDistance = monsterData.EffectiveDistance;

@@ -4,11 +4,10 @@ using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace CodeBase.UI.Elements
 {
-    public class SceneOpenButton : MonoBehaviour
+    public abstract class SceneOpenButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
 
@@ -26,8 +25,8 @@ namespace CodeBase.UI.Elements
             _saveLoadService = saveLoadService;
         }
 
-        protected virtual string Scene { get; }
-        protected virtual bool Checked { get; }
+        protected abstract string Scene { get; }
+        protected abstract bool Checked { get; }
 
         private void Awake()
         {

@@ -20,10 +20,14 @@ namespace CodeBase.Infrastructure
         {
             gameObject.SetActive(true);
             _curtain.alpha = MaximumAlpha;
+            Debug.Log("Show LoadingCurtain");
         }
 
-        public void Hide() =>
+        public void Hide()
+        {
             StartCoroutine(FadeOut());
+            Debug.Log("Hide LoadingCurtain");
+        }
 
         private IEnumerator FadeOut()
         {

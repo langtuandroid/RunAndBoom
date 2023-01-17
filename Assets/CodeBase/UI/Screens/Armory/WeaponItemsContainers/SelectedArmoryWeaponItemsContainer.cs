@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.CustomClasses;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Weapon;
 using CodeBase.UI.Screens.Armory.WeaponItems;
+using CodeBase.UI.Services.Factory;
 using CodeBase.Weapons;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.UI.Screens.Armory.WeaponItemsContainers
 {
@@ -13,7 +17,7 @@ namespace CodeBase.UI.Screens.Armory.WeaponItemsContainers
     {
         private AvailableArmoryWeaponItemsContainer _availableArmoryWeaponItemsContainer;
 
-        // private WeaponsSelection _weaponsSelection;
+        private WeaponsSelection _weaponsSelection;
         public static LinkedHashSet<WeaponTypeId> SelectedWeaponTypeIds { get; private set; }
         private List<GameObject> _weaponItemGameObjects = new List<GameObject>();
 
@@ -25,15 +29,13 @@ namespace CodeBase.UI.Screens.Armory.WeaponItemsContainers
         //     base.Construct(progressService, staticData, uiFactory);
         // }
 
-        public void Construct(
-            // IPersistentProgressService progressService, IStaticDataService staticData,
-            // IUIFactory uiFactory,
-            LinkedHashSet<WeaponTypeId> weaponTypeIds, WeaponsSelection weaponsSelection
-        )
+        [Inject]
+        public void Construct(IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory,
+            LinkedHashSet<WeaponTypeId> weaponTypeIds, WeaponsSelection weaponsSelection)
         {
-            // base.Construct(progressService, staticData, uiFactory);
+            base.Construct(progressService, staticData, uiFactory);
             SelectedWeaponTypeIds = weaponTypeIds;
-            // _weaponsSelection = weaponsSelection;
+            _weaponsSelection = weaponsSelection;
             FillWeaponItems(weaponTypeIds);
         }
 

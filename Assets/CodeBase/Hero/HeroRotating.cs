@@ -12,7 +12,8 @@ namespace CodeBase.Hero
     {
         [SerializeField] private float _rotationSpeed = 5f;
 
-        [Inject] private IPlatformInputService _platformInputService;
+        private IPlatformInputService _platformInputService;
+
         private EnemiesChecker _enemiesChecker;
         private HeroShooting _heroShooting;
         private GameObject _rotatingBody;
@@ -34,11 +35,14 @@ namespace CodeBase.Hero
         {
             _enemiesChecker = GetComponent<EnemiesChecker>();
             _rotatingBody = gameObject;
-            // _platformInputService = AllServices.Container.Single<IPlatformInputService>();
 
             _platformInputService.Shot += RotateTo;
             _enemiesChecker.FoundClosestEnemy += RotateToPoint;
         }
+
+        [Inject]
+        public void Construct(IPlatformInputService platformInputService) => 
+            _platformInputService = platformInputService;
 
         // private void OnDisable()
         // {

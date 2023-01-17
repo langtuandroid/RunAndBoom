@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -8,6 +9,7 @@ namespace CodeBase.Infrastructure.States
         private Dictionary<Type, IExitableState> registeredStates;
         private IExitableState currentState;
 
+        [Inject]
         public GameStateMachine(
             BootstrapState.Factory bootstrapStateFactory,
             LoadPlayerProgressState.Factory loadGameSaveStateFactory,

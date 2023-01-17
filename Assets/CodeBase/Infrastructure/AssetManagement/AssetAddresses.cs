@@ -3,7 +3,7 @@
     public static class AssetAddresses
     {
         public const string UIRoot = "UIRoot";
-        public const string Player = "Player";
+        public const string Hero = "Hero";
         public const string Hud = "Hud";
         public const string MainUI = "MainUI";
         public const string ArmoryUI = "ArmoryUI";

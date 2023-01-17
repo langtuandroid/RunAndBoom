@@ -12,7 +12,7 @@ namespace CodeBase.Hero
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _delay = 0f;
 
-        [Inject] private IPlatformInputService _platformInputService;
+        [Inject]  private IPlatformInputService _platformInputService;
         private float _startX;
         private float _lineOffset = 5f;
 
@@ -21,10 +21,12 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            // _platformInputService = AllServices.Container.Single<IPlatformInputService>();
-
             _platformInputService.Moved += MoveTo;
         }
+
+        // [Inject]
+        // public void Construct(IPlatformInputService platformInputService) => 
+        //     _platformInputService = platformInputService;
 
         private void MoveTo(Vector2 direction)
         {

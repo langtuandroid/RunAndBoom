@@ -19,38 +19,36 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadSceneState : IPayloadedState<string>
     {
-        [Inject] private readonly IGameStateMachine _stateMachine;
-        [Inject] private readonly ISceneLoader _sceneLoader;
-        [Inject] private readonly ILoadingCurtain _loadingCurtain;
-        [Inject] private readonly IGameFactory _gameFactory;
-        [Inject] private readonly IPlayerProgressService _progressService;
-        [Inject] private readonly IStaticDataService _staticData;
-        [Inject] private readonly IUIFactory _uiFactory;
-        [Inject] private readonly IAssets _assets;
+        private readonly IGameStateMachine _stateMachine;
+        private readonly ISceneLoader _sceneLoader;
+        private readonly ILoadingCurtain _loadingCurtain;
+        private readonly IGameFactory _gameFactory;
+        private readonly IPlayerProgressService _progressService;
+        private readonly IStaticDataService _staticData;
+        private readonly IUIFactory _uiFactory;
+        private readonly IAssets _assets;
 
         private string _sceneName;
 
-        // public LoadSceneState(GameStateMachine gameStateMachine
-        //     // , SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-        //     // IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData,
-        //     // IUIFactory uiFactory, IAssets assets
-        //     )
-        // {
-        //     _stateMachine = gameStateMachine;
-        //     // _sceneLoader = sceneLoader;
-        //     // _loadingCurtain = loadingCurtain;
-        //     // _gameFactory = gameFactory;
-        //     // _progressService = progressService;
-        //     // _staticData = staticData;
-        //     // _uiFactory = uiFactory;
-        //     // _assets = assets;
-        // }
+        [Inject]
+        public LoadSceneState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
+            IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory, IAssets assets)
+        {
+            _stateMachine = gameStateMachine;
+            _sceneLoader = sceneLoader;
+            _loadingCurtain = loadingCurtain;
+            _gameFactory = gameFactory;
+            _progressService = progressService;
+            _staticData = staticData;
+            _uiFactory = uiFactory;
+            _assets = assets;
+        }
 
         public void Enter(string sceneName)
         {
             _sceneName = sceneName;
 
-            if (_sceneName == Scenes.Level1 || _sceneName == Scenes.Initial)
+            if (_sceneName == Scenes.Level1)
             {
                 _loadingCurtain.Show();
             }
@@ -66,7 +64,8 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            if (_sceneName == Scenes.Level1 || _sceneName == Scenes.Initial)
+            Debug.Log($"Exit {_sceneName}");
+            if (_sceneName == Scenes.Level1)
                 _loadingCurtain.Hide();
         }
 
@@ -125,16 +124,16 @@ namespace CodeBase.Infrastructure.States
 
             await InitSpawners(levelData);
 
-            if (levelData.InitializePersonPosition)
+            if (levelData.InitializeHeroPosition)
             {
-                GameObject player = await InitPlayer(levelData);
-                await InitHud(player);
-                CameraFollow(player);
+                GameObject hero = await InitHero(levelData);
+                await InitHud(hero);
+                CameraFollow(hero);
             }
         }
 
-        private async Task<GameObject> InitPlayer(LevelStaticData levelStaticData) =>
-            await _gameFactory.CreatePlayer(levelStaticData.InitialPersonPosition);
+        private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
+            await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
         private async Task InitSpawners(LevelStaticData levelData)
         {

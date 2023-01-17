@@ -8,7 +8,6 @@ using CodeBase.Services.Randomizer;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
-using CodeBase.UI.Elements;
 using CodeBase.UI.Screens.Armory;
 using CodeBase.UI.Screens.Level;
 using CodeBase.UI.Screens.Main;
@@ -55,8 +54,6 @@ namespace CodeBase.CompositionRoot
             BindWindowService();
 
             BindRegistratorService();
-
-            // BindButtons();
         }
 
         private void BindStaticDataService()
@@ -236,30 +233,6 @@ namespace CodeBase.CompositionRoot
                 .ByInstaller<WindowFactoryInstaller>()
                 .AsSingle();
             Debug.Log("Bind WindowService");
-        }
-
-        private void BindButtons()
-        {
-            Container
-                .Bind<ArmorySceneOpenButton>()
-                .AsTransient();
-
-            Container
-                .Bind<MainSceneOpenButton>()
-                .AsTransient();
-
-            Container
-                .Bind<MapSceneOpenButton>()
-                .AsTransient();
-
-            Container
-                .Bind<SettingsSceneOpenButton>()
-                .AsTransient();
-
-            Container
-                .Bind<LevelSceneOpenButton>()
-                .AsTransient();
-            Debug.Log("Bind Buttons");
         }
     }
 }

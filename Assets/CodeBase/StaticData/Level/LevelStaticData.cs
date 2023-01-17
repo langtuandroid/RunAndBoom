@@ -7,9 +7,8 @@ namespace CodeBase.StaticData.Level
     public class LevelStaticData : ScriptableObject
     {
         public string LevelKey;
-        public bool InitializePersonPosition;
-
-        public Vector3 InitialPersonPosition;
+        public bool InitializeHeroPosition;
+        public Vector3 InitialHeroPosition;
 
         // public LevelTransferStaticData LevelTransfer;
         public List<EnemySpawnerData> EnemySpawners;

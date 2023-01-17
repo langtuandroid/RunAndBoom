@@ -30,8 +30,8 @@ namespace CodeBase.Editor
 
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
 
-                if (levelData.InitializePersonPosition)
-                    levelData.InitialPersonPosition = GameObject.FindWithTag(InitialPointTag).transform.position;
+                if (levelData.InitializeHeroPosition)
+                    levelData.InitialHeroPosition = GameObject.FindWithTag(InitialPointTag).transform.position;
             }
 
             EditorUtility.SetDirty(target);

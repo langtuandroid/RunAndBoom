@@ -13,7 +13,7 @@ namespace CodeBase.Infrastructure.Factory
         List<IProgressSaver> ProgressWriters { get; }
 
         Task WarmUp();
-        Task<GameObject> CreatePlayer(Vector3 at);
+        Task<GameObject> CreateHero(Vector3 at);
 
         Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);
         Task CreateSpawner(string spawnerId, Vector3 at, MonsterTypeId spawnerDataMonsterTypeId);

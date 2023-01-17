@@ -86,7 +86,7 @@ namespace CodeBase.UI.Screens.Armory
             _selectedWeaponItemsContainer = selectedWeaponItemsContainerGameObject
                 .GetComponent<SelectedArmoryWeaponItemsContainer>();
             _selectedWeaponItemsContainer.Construct(
-                // _progressService, _staticData, _uiFactory, 
+                _progressService, _staticData, _uiFactory, 
                 weaponTypeIds, this);
             _selectedWeaponItemsContainer.Initialize();
             // _selectedWeaponItemsContainer.FillWeaponItems(weaponTypeIds);

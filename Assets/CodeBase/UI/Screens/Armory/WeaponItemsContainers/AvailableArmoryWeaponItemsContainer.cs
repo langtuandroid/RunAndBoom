@@ -8,31 +8,31 @@ using CodeBase.UI.Screens.Armory.WeaponItems;
 using CodeBase.UI.Services.Factory;
 using CodeBase.Weapons;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.UI.Screens.Armory.WeaponItemsContainers
 {
     public class AvailableArmoryWeaponItemsContainer : ArmoryWeaponItemsContainer
     {
         private SelectedArmoryWeaponItemsContainer _selectedArmoryWeaponItemsContainer;
-        // private WeaponsSelection _weaponsSelection;
+        private WeaponsSelection _weaponsSelection;
 
         public static Dictionary<WeaponTypeId, bool> AvailableWeaponDates { get; private set; }
         private List<GameObject> _weaponItemGameObjects = new List<GameObject>();
         public static event Action<WeaponTypeId> ItemSelected;
 
-        // public new void Construct(IPersistentProgressService progressService, IStaticDataService staticData,
+        // public new void Construct(IPlayerProgressService progressService, IStaticDataService staticData,
         //     IUIFactory uiFactory)
         // {
         //     base.Construct(progressService, staticData, uiFactory);
         // }
 
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticData,
-            IUIFactory uiFactory, Dictionary<WeaponTypeId, bool> availableWeaponDates,
-            WeaponsSelection weaponsSelection)
+        [Inject]
+        public void Construct(IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory, Dictionary<WeaponTypeId, bool> availableWeaponDates, WeaponsSelection weaponsSelection)
         {
-            // base.Construct(progressService, staticData, uiFactory);
+            base.Construct(progressService, staticData, uiFactory);
             AvailableWeaponDates = availableWeaponDates;
-            // _weaponsSelection = weaponsSelection;
+            _weaponsSelection = weaponsSelection;
             FillWeaponItems(availableWeaponDates);
             // WeaponsSelection.OnItemClicked += ;
             // ItemSelected += ItemCheck;

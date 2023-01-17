@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Services.Input.Platforms
 {
@@ -11,6 +12,7 @@ namespace CodeBase.Services.Input.Platforms
         public override event Action<Vector2> Moved;
         public override event Action<Vector2> Shot;
 
+        [Inject]
         public EditorPlatformInputService(DesktopPlatformInputService desktopPlatformInputService,
             MobilePlatformInputService mobilePlatformInputService)
         {
@@ -46,5 +48,5 @@ namespace CodeBase.Services.Input.Platforms
 
         protected override void ManualAimedTo(Vector2 direction) =>
             Shot?.Invoke(direction);
-        }
+    }
 }

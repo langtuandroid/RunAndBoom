@@ -15,6 +15,7 @@ namespace CodeBase.Infrastructure.States
         private readonly ISaveLoadService _saveLoadService;
         private readonly IEnumerable<IProgressReader> _progressReaderServices;
 
+        [Inject]
         public LoadPlayerProgressState(IGameStateMachine stateMachine, IPlayerProgressService progressService, ISaveLoadService saveLoadService,
             IEnumerable<IProgressReader> progressReaderServices)
         {

@@ -6,6 +6,7 @@ namespace CodeBase.Infrastructure.States
     {
         private readonly IGameStateMachine _stateMachine;
 
+        [Inject]
         public GameLoopState(IGameStateMachine stateMachine)
         {
             _stateMachine = stateMachine;

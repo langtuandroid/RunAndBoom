@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using CodeBase.CustomClasses;
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Weapon;
+using CodeBase.UI.Services.Factory;
 using CodeBase.Weapons;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.UI.Screens.Level
 {
@@ -14,11 +17,12 @@ namespace CodeBase.UI.Screens.Level
         public Action<WeaponTypeId> ItemClicked;
         private static List<GameObject> _weaponItemGameObjects = new List<GameObject>();
 
-        // public new void Construct(IPersistentProgressService progressService, IStaticDataService staticData,
-        //     IUIFactory uiFactory)
-        // {
-        //     base.Construct(progressService, staticData, uiFactory);
-        // }
+        [Inject]
+        public  void Construct(IPlayerProgressService progressService, IStaticDataService staticData,
+            IUIFactory uiFactory)
+        {
+            base.Construct(progressService, staticData, uiFactory);
+        }
 
         public new void Initialize()
         {

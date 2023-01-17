@@ -2,11 +2,10 @@
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace CodeBase.UI.Windows
 {
-    public abstract class WindowBase : MonoBehaviour
+    public class WindowBase : MonoBehaviour
     {
         [SerializeField] private Button _closeButton;
 
@@ -14,7 +13,6 @@ namespace CodeBase.UI.Windows
         protected PlayerProgress Progress => ProgressService.Progress;
         protected string CurrentError => ProgressService.CurrentError;
 
-        [Inject]
         public void Construct(IPlayerProgressService progressService) =>
             ProgressService = progressService;
 

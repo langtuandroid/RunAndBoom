@@ -16,23 +16,12 @@ namespace CodeBase.Hero
         [SerializeField] private WeaponModel _weaponModel;
         [SerializeField] private HudWeaponItemsContainer _weaponItemsContainer;
 
+        private  IStaticDataService _staticDataService;
+        
         private HeroRotating _heroRotating;
         private WeaponArmoryDescription _weaponArmoryDescription;
         private LevelStats _currentLevelStats;
-
-        [Inject] private readonly IStaticDataService _staticData
-            // = AllServices.Container.Single<IStaticDataService>()
-            ;
-
         private EnemiesChecker _enemiesChecker;
-
-        public void Construct()
-        {
-            // _weaponItemsContainer.Construct(AllServices.Container.Single<IPersistentProgressService>(),
-            //     AllServices.Container.Single<IStaticDataService>(),
-            //     AllServices.Container.Single<IUIFactory>());
-            _weaponItemsContainer.Initialize();
-        }
 
         private void Awake()
         {
@@ -42,6 +31,16 @@ namespace CodeBase.Hero
             _heroRotating.ShootEnemy += ShootEnemy;
             _enemiesChecker.DirectionForEnemyChecked += ShootEnemy;
             _weaponItemsContainer.ItemClicked += ChangeWeaponItem;
+        }
+
+        [Inject]
+        public void Construct(IStaticDataService staticDataService)
+        {
+            _staticDataService = staticDataService;
+            // _weaponItemsContainer.Construct(AllServices.Container.Single<IPersistentProgressService>(),
+            //     AllServices.Container.Single<IStaticDataService>(),
+            //     AllServices.Container.Single<IUIFactory>());
+            _weaponItemsContainer.Initialize();
         }
 
         private void Start()
@@ -59,7 +58,7 @@ namespace CodeBase.Hero
 
         private void CreateWeaponArmoryDescription()
         {
-            WeaponStaticData weaponStaticData = _staticData.ForWeaponUI(_weaponModel.WeaponTypeId);
+            WeaponStaticData weaponStaticData = _staticDataService.ForWeaponUI(_weaponModel.WeaponTypeId);
             WeaponArmoryDescription description = new WeaponArmoryDescription(name: weaponStaticData.Name,
                 mainFireDamage: weaponStaticData.MainFireDamage, mainFireCost: weaponStaticData.MainFireCost,
                 mainFireCooldown: weaponStaticData.MainFireCooldown,
