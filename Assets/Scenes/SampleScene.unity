@@ -301,7 +301,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1996
+  m_Name: pb_Mesh96656
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1940,7 +1940,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2014
+  m_Name: pb_Mesh96708
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2153,7 +2153,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1946
+  m_Name: pb_Mesh95702
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2317,7 +2317,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2304
+  m_Name: pb_Mesh95998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2647,7 +2647,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2322
+  m_Name: pb_Mesh95552
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2811,7 +2811,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1964
+  m_Name: pb_Mesh95482
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3142,6 +3142,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3906b3ca0ea5d9141994995517126645, type: 3}
+--- !u!1001 &1913835327
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3415234937756363196, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemyWithShotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415234937756363197, guid: 6388bdd633fecdd47b364eae6bbdbcd9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6388bdd633fecdd47b364eae6bbdbcd9, type: 3}
 --- !u!1 &1938127422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,12 +4791,7 @@ PrefabInstance:
     - target: {fileID: 2698368795952774947, guid: d938c1d62c24aca4cb6949ab2e47eb5e,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Root'\n\tTransform 'Elbow_R'\n\tTransform
-        'Ball_L'\n\tTransform 'Ball_R'\n\tTransform 'Clavicle_L'\n\tTransform 'Neck'\n\tTransform
-        'Elbow_L'\n\tTransform 'Head'\n\tTransform 'UpperLeg_L'\n\tTransform 'UpperLeg_R'\n\tand
-        more ...\n\tFrom animation clip 'Baseball Hit'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4670147681724051766, guid: d938c1d62c24aca4cb6949ab2e47eb5e,
         type: 3}
