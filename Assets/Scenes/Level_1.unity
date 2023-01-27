@@ -2457,10 +2457,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 330585544, guid: c8e71b1462e04ff4e97983073942dc05, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3469050827539787869, guid: c8e71b1462e04ff4e97983073942dc05,
         type: 3}
       propertyPath: m_Name
@@ -2523,6 +2519,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e71b1462e04ff4e97983073942dc05, type: 3}
+--- !u!1 &4801597986677240932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3469050827539787869, guid: c8e71b1462e04ff4e97983073942dc05,
+    type: 3}
+  m_PrefabInstance: {fileID: 4801597986677240931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4801597986677240933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4801597986677240932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52822762fa2d4afbb6ddee6f4c72fc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootVfx: {fileID: 0}
+  _shootPosition: {fileID: 0}
+--- !u!114 &4801597986677240934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4801597986677240932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3cb1633d3ea43ba82480bcec1896519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 5
 --- !u!1001 &6590435181351029972
 PrefabInstance:
   m_ObjectHideFlags: 0

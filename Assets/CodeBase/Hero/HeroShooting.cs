@@ -12,7 +12,8 @@ namespace CodeBase.Hero
 {
     public class HeroShooting : MonoBehaviour, IProgressSaver
     {
-        [SerializeField] private WeaponModel _weaponModel;
+        [SerializeField] private GameObject _shootVfx;
+        [SerializeField] private Transform _shootPosition;
 
         private IStaticDataService _staticDataService;
 
@@ -34,32 +35,6 @@ namespace CodeBase.Hero
         public void Construct(IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
-        }
-
-        private void Start()
-        {
-            CreateWeaponArmoryDescription();
-        }
-
-        private void ChangeWeaponItem(WeaponTypeId typeId)
-        {
-            if (_weaponModel.WeaponTypeId == typeId)
-                return;
-
-            // TODO(Finish it)
-        }
-
-        private void CreateWeaponArmoryDescription()
-        {
-            WeaponStaticData weaponStaticData = _staticDataService.ForWeaponUI(_weaponModel.WeaponTypeId);
-            WeaponArmoryDescription description = new WeaponArmoryDescription(name: weaponStaticData.Name,
-                mainFireDamage: weaponStaticData.MainFireDamage, mainFireCost: weaponStaticData.MainFireCost,
-                mainFireCooldown: weaponStaticData.MainFireCooldown,
-                mainFireBarrels: weaponStaticData.MainFireBarrels, mainFireRange: weaponStaticData.MainFireRange,
-                mainFireBulletSpeed: weaponStaticData.MainFireBulletSpeed,
-                mainFireRotatingSpeed: weaponStaticData.MainFireRotationSpeed);
-
-            _weaponArmoryDescription = description;
         }
 
         private void OnDisable()
@@ -86,11 +61,7 @@ namespace CodeBase.Hero
 
         private void CreateShotVfx()
         {
-            foreach (GameObject muzzle in _weaponModel.Muzzles)
-            {
-                Vector3 vfxPosition = muzzle.transform.position;
-                Instantiate(_weaponModel.ShootVfx, vfxPosition, Quaternion.identity);
-            }
+            Instantiate(_shootVfx, _shootPosition.position, Quaternion.identity);
         }
 
         public void LoadProgress(PlayerProgress progress)

@@ -16,7 +16,6 @@ namespace CodeBase.Hero
 
         private EnemiesChecker _enemiesChecker;
         private HeroShooting _heroShooting;
-        private GameObject _rotatingBody;
         private Vector3 _shootPosition;
         private Quaternion _startGameRotation;
         private Vector3 _direction;
@@ -34,7 +33,6 @@ namespace CodeBase.Hero
         private void Awake()
         {
             _enemiesChecker = GetComponent<EnemiesChecker>();
-            _rotatingBody = gameObject;
 
             _platformInputService.Shot += RotateTo;
             _enemiesChecker.FoundClosestEnemy += RotateToPoint;
@@ -54,11 +52,11 @@ namespace CodeBase.Hero
         {
             if (!_rotating && _shootPositionExists)
             {
-                _rotatingBody.transform.rotation = Quaternion.LookRotation(_direction, Vector3.up);
+                transform.rotation = Quaternion.LookRotation(_direction, Vector3.up);
                 // _rotatingBody.transform.LookAt(_shootPosition);
                 //     _rotatingBody.transform.DORotate(_shootPosition, 0f);
 
-                _angle = Vector3.Angle(_rotatingBody.transform.forward, _direction.normalized);
+                _angle = Vector3.Angle(transform.forward, _direction.normalized);
             }
         }
 
@@ -76,7 +74,7 @@ namespace CodeBase.Hero
         {
             _rotating = true;
             _shootPositionExists = true;
-            Vector3 position = _rotatingBody.transform.position;
+            Vector3 position = transform.position;
             _shootPosition = new Vector3(target.x, position.y, target.y
             );
             // _shootPosition = new Vector3(target.x, _rotatingBody.transform.position.y, target.z);
@@ -105,15 +103,15 @@ namespace CodeBase.Hero
 
                 ///
                 /// 
-                _direction = (_shootPosition - _rotatingBody.transform.position).normalized;
+                _direction = (_shootPosition - transform.position).normalized;
                 Debug.Log($"DoRotateToPoint direction {_direction}");
                 Quaternion targetRotation = Quaternion.LookRotation(_direction);
                 Debug.Log($"DoRotateToPoint targetRotation {targetRotation}");
-                _rotatingBody.transform.rotation = Quaternion.Slerp(_rotatingBody.transform.rotation, targetRotation,
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                     _rotationSpeed);
-                Debug.Log($"DoRotateToPoint current rotation {_rotatingBody.transform.rotation}");
+                Debug.Log($"DoRotateToPoint current rotation {transform.rotation}");
 
-                _angle = Vector3.Angle(_rotatingBody.transform.forward, _direction);
+                _angle = Vector3.Angle(transform.forward, _direction);
 
                 if (_angle < 5f)
                 {
@@ -136,25 +134,25 @@ namespace CodeBase.Hero
         private IEnumerator DoRotateTo(EnemyHealth enemy)
         {
             _rotating = true;
-            _shootPosition = new Vector3(enemy.transform.position.x, _rotatingBody.transform.position.y,
+            _shootPosition = new Vector3(enemy.transform.position.x, transform.position.y,
                 enemy.transform.position.z);
             _shootPositionExists = true;
 
             while (_rotating)
             {
-                _direction = (_shootPosition - _rotatingBody.transform.position).normalized;
+                _direction = (_shootPosition - transform.position).normalized;
                 Debug.Log($"DoRotateToPoint direction {_direction}");
                 Quaternion targetRotation = Quaternion.LookRotation(_direction);
                 Debug.Log($"DoRotateToPoint targetRotation {targetRotation}");
-                _rotatingBody.transform.rotation = Quaternion.Slerp(_rotatingBody.transform.rotation, targetRotation,
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                     _rotationSpeed);
-                Debug.Log($"DoRotateToPoint current rotation {_rotatingBody.transform.rotation}");
+                Debug.Log($"DoRotateToPoint current rotation {transform.rotation}");
 
-                _angle = Vector3.Angle(_rotatingBody.transform.forward, _direction);
+                _angle = Vector3.Angle(transform.forward, _direction);
 
                 if (_angle < 5f)
                 {
-                    _rotatingBody.transform.LookAt(_shootPosition, Vector3.up);
+                    transform.LookAt(_shootPosition, Vector3.up);
                     // int points = 0;
                     // enemy.TakeDamage(ref points);
                     // _gameWindow.AddScore(points);
