@@ -8,11 +8,6 @@ using CodeBase.Services.Randomizer;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
-using CodeBase.UI.Screens.Armory;
-using CodeBase.UI.Screens.Level;
-using CodeBase.UI.Screens.Main;
-using CodeBase.UI.Screens.Map;
-using CodeBase.UI.Screens.Settings;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
@@ -138,8 +133,6 @@ namespace CodeBase.CompositionRoot
         {
             Container
                 .BindInterfacesAndSelfTo<LoadingCurtain>()
-                // .Bind<ILoadingCurtain>()
-                // .To<LoadingCurtain>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.CurtainPath)
                 .AsSingle();
             Debug.Log("Bind ILoadingCurtain");
@@ -213,7 +206,9 @@ namespace CodeBase.CompositionRoot
                 .Bind<IPlatformInputService>()
                 .FromSubContainerResolve()
                 .ByInstaller<EditorInputFactoryInstaller>()
-                .AsSingle();
+                .AsSingle()
+                // .WhenInjectedInto<HeroMovement>()
+                ;
             Debug.Log("Bind EditorInputFactoryInstaller");
         }
 

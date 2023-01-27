@@ -8,7 +8,7 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadPlayerProgressState : IState
     {
-        private const string InitialLevel = Scenes.Main;
+        private const string InitialLevel = Scenes.Level1;
 
         private readonly IGameStateMachine _stateMachine;
         private readonly IPlayerProgressService _progressService;

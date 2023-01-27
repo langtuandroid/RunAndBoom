@@ -41,7 +41,7 @@ namespace CodeBase.Hero
         }
 
         [Inject]
-        public void Construct(IPlatformInputService platformInputService) => 
+        public void Construct(IPlatformInputService platformInputService) =>
             _platformInputService = platformInputService;
 
         // private void OnDisable()

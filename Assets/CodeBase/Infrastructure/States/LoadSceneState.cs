@@ -9,7 +9,6 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Level;
 using CodeBase.UI.Elements.Hud;
-using CodeBase.UI.Screens.Armory;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -71,13 +70,13 @@ namespace CodeBase.Infrastructure.States
 
         private async void OnLoaded(string name)
         {
-            await InitUIRoot();
-            await InitUI(name);
+            // await InitUIRoot();
+            // await InitUI(name);
 
             switch (name)
             {
                 case Scenes.Level1:
-                    await InitGameWorld();
+                    // await InitGameWorld();
                     break;
             }
 
@@ -96,26 +95,26 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitUI(string name)
         {
-            switch (name)
-            {
-                case Scenes.Main:
-                    await _uiFactory.CreateMainUI();
-                    break;
-                case Scenes.Map:
-                    await _uiFactory.CreateMapUI();
-                    break;
-                case Scenes.Armory:
-                    GameObject armory = await _uiFactory.CreateArmoryUI();
-                    WeaponsSelection weaponsSelection = armory.GetComponentInChildren<WeaponsSelection>();
-                    // weaponsSelection.Construct(_progressService, _assets, _staticData, _uiFactory);
-                    weaponsSelection.Initialize();
-                    break;
-                case Scenes.Settings:
-                    await _uiFactory.CreateSettingsUI();
-                    break;
-                case Scenes.Level1:
-                    break;
-            }
+            // switch (name)
+            // {
+            //     case Scenes.Main:
+            //         await _uiFactory.CreateMainUI();
+            //         break;
+            //     case Scenes.Map:
+            //         await _uiFactory.CreateMapUI();
+            //         break;
+            //     case Scenes.Armory:
+            //         GameObject armory = await _uiFactory.CreateArmoryUI();
+            //         WeaponsSelection weaponsSelection = armory.GetComponentInChildren<WeaponsSelection>();
+            //         // weaponsSelection.Construct(_progressService, _assets, _staticData, _uiFactory);
+            //         weaponsSelection.Initialize();
+            //         break;
+            //     case Scenes.Settings:
+            //         await _uiFactory.CreateSettingsUI();
+            //         break;
+            //     case Scenes.Level1:
+            //         break;
+            // }
         }
 
         private async Task InitGameWorld()
@@ -127,8 +126,8 @@ namespace CodeBase.Infrastructure.States
             if (levelData.InitializeHeroPosition)
             {
                 GameObject hero = await InitHero(levelData);
-                await InitHud(hero);
-                CameraFollow(hero);
+                // await InitHud(hero);
+                // CameraFollow(hero);
             }
         }
 

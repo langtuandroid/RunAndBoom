@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Initial.unity
+    guid: 76a66002c3ec9ab48b655027c6fbf7bc
+  - enabled: 1
+    path: Assets/Scenes/Level_1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/3d party/Epic Toon FX/Demo/Scenes/etfx_2ddemo.unity
@@ -95,4 +98,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3d party/Epic Toon FX/Demo/Scenes/etfx_wind.unity
     guid: 565750a970c487a4280f95fd0ed4f9fc
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: c430dff17d2d1a44881760605e918f8c,
+      type: 2}

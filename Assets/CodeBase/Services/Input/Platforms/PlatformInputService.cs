@@ -14,6 +14,6 @@ namespace CodeBase.Services.Input.Platforms
 
         protected abstract void MoveTo(Vector2 direction);
 
-        protected abstract void ManualAimedTo(Vector2 direction);
+        protected abstract void ShotTo(Vector2 direction);
     }
 }

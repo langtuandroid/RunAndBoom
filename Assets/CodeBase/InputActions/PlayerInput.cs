@@ -28,42 +28,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
             ""id"": ""dcc5bfb4-181c-488c-ba08-379b504aedb4"",
             ""actions"": [
                 {
-                    ""name"": ""SwipeContact"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""dea51f87-38d9-40b1-b71d-279a99ad9ba2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SwipePosition"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""58e52caa-32be-40df-88f9-a5de5942aa33"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DoubleTapContact"",
-                    ""type"": ""Button"",
-                    ""id"": ""a102c396-8195-4c3e-8178-2fc02df05cec"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""MultiTap"",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DoubleTapPosition"",
-                    ""type"": ""Value"",
-                    ""id"": ""5d04123b-d576-4e41-85b5-200c2cc1488f"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""5717085c-6f30-4e3f-9545-03c33fd773b8"",
@@ -73,9 +37,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Break out"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""6ef44956-0714-44f6-b027-fe296d23ec18"",
+                    ""id"": ""c23f18b0-e297-406d-bc1c-5706ccb03e54"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -83,94 +47,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""9d54a7bd-34fd-4084-b80f-d2c78df4d5ae"",
-                    ""path"": ""<Touchscreen>/primaryTouch/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""SwipeContact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5f05f204-43ef-4c3d-9bb2-e59f88688274"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""SwipePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""beedda02-b8fa-4781-a956-15b4735b3f8e"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""SwipePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6e72413f-c3fe-4276-bfd5-8cb5e45f5cbc"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""SwipeContact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5002b663-e62a-42d8-9e2a-4a9fb4af263a"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""DoubleTapPosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2dcdfa2c-395c-47a6-a9dd-f471cf404645"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""DoubleTapPosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2c57fd35-8ee0-45f5-bf84-372376696d51"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""DoubleTapContact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c3ebbb9c-df85-4e18-87cc-8811d9eca632"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""DoubleTapContact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": ""Keyboard"",
                     ""id"": ""b095afe9-da2d-4ab1-b1fd-02831f93c70f"",
@@ -194,9 +70,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""up"",
+                    ""name"": ""left"",
                     ""id"": ""60199fbb-ad96-4379-8961-f2330269b5d2"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
@@ -216,9 +92,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
+                    ""name"": ""right"",
                     ""id"": ""eb420192-3e2e-4a53-a354-a2a178625505"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
@@ -228,12 +104,23 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ecd24b00-1505-4c87-b061-ac849ce0af68"",
+                    ""id"": ""e624aa4c-8ff4-49a1-8a6a-3d0c878d64cf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c37eb2c-f59d-41ee-bc2b-7eb9afbfbabc"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Break out"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -272,12 +159,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_SwipeContact = m_Player.FindAction("SwipeContact", throwIfNotFound: true);
-        m_Player_SwipePosition = m_Player.FindAction("SwipePosition", throwIfNotFound: true);
-        m_Player_DoubleTapContact = m_Player.FindAction("DoubleTapContact", throwIfNotFound: true);
-        m_Player_DoubleTapPosition = m_Player.FindAction("DoubleTapPosition", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Breakout = m_Player.FindAction("Break out", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -337,22 +220,14 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_SwipeContact;
-    private readonly InputAction m_Player_SwipePosition;
-    private readonly InputAction m_Player_DoubleTapContact;
-    private readonly InputAction m_Player_DoubleTapPosition;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Breakout;
+    private readonly InputAction m_Player_Shoot;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @SwipeContact => m_Wrapper.m_Player_SwipeContact;
-        public InputAction @SwipePosition => m_Wrapper.m_Player_SwipePosition;
-        public InputAction @DoubleTapContact => m_Wrapper.m_Player_DoubleTapContact;
-        public InputAction @DoubleTapPosition => m_Wrapper.m_Player_DoubleTapPosition;
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Breakout => m_Wrapper.m_Player_Breakout;
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,46 +237,22 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @SwipeContact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipeContact;
-                @SwipeContact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipeContact;
-                @SwipeContact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipeContact;
-                @SwipePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipePosition;
-                @SwipePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipePosition;
-                @SwipePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwipePosition;
-                @DoubleTapContact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapContact;
-                @DoubleTapContact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapContact;
-                @DoubleTapContact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapContact;
-                @DoubleTapPosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapPosition;
-                @DoubleTapPosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapPosition;
-                @DoubleTapPosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleTapPosition;
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Breakout.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreakout;
-                @Breakout.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreakout;
-                @Breakout.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreakout;
+                @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @SwipeContact.started += instance.OnSwipeContact;
-                @SwipeContact.performed += instance.OnSwipeContact;
-                @SwipeContact.canceled += instance.OnSwipeContact;
-                @SwipePosition.started += instance.OnSwipePosition;
-                @SwipePosition.performed += instance.OnSwipePosition;
-                @SwipePosition.canceled += instance.OnSwipePosition;
-                @DoubleTapContact.started += instance.OnDoubleTapContact;
-                @DoubleTapContact.performed += instance.OnDoubleTapContact;
-                @DoubleTapContact.canceled += instance.OnDoubleTapContact;
-                @DoubleTapPosition.started += instance.OnDoubleTapPosition;
-                @DoubleTapPosition.performed += instance.OnDoubleTapPosition;
-                @DoubleTapPosition.canceled += instance.OnDoubleTapPosition;
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Breakout.started += instance.OnBreakout;
-                @Breakout.performed += instance.OnBreakout;
-                @Breakout.canceled += instance.OnBreakout;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
@@ -426,11 +277,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnSwipeContact(InputAction.CallbackContext context);
-        void OnSwipePosition(InputAction.CallbackContext context);
-        void OnDoubleTapContact(InputAction.CallbackContext context);
-        void OnDoubleTapPosition(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnBreakout(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

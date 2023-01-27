@@ -6,7 +6,6 @@
 
         // bool isAttack();
 
-        //TODO(QTE)
         // bool isQTESuccessfulFinished();
     }
 }

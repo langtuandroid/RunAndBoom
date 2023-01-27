@@ -14,18 +14,7 @@ namespace CodeBase.UI.Screens.Level
 
         protected override bool Checked
         {
-            get
-            {
-                if (ProgressService.Progress.SelectedWeaponTypeIds.Count == 0)
-                {
-                    ProgressService.CurrentError = Errors.WeaponNotChosen;
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
+            get { return true; }
         }
 
         [Inject]

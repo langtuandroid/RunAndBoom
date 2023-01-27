@@ -4,7 +4,6 @@ using CodeBase.Logic;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Weapon;
-using CodeBase.UI.Screens.Level;
 using CodeBase.Weapons;
 using UnityEngine;
 using Zenject;
@@ -14,10 +13,9 @@ namespace CodeBase.Hero
     public class HeroShooting : MonoBehaviour, IProgressSaver
     {
         [SerializeField] private WeaponModel _weaponModel;
-        [SerializeField] private HudWeaponItemsContainer _weaponItemsContainer;
 
-        private  IStaticDataService _staticDataService;
-        
+        private IStaticDataService _staticDataService;
+
         private HeroRotating _heroRotating;
         private WeaponArmoryDescription _weaponArmoryDescription;
         private LevelStats _currentLevelStats;
@@ -30,17 +28,12 @@ namespace CodeBase.Hero
 
             _heroRotating.ShootEnemy += ShootEnemy;
             _enemiesChecker.DirectionForEnemyChecked += ShootEnemy;
-            _weaponItemsContainer.ItemClicked += ChangeWeaponItem;
         }
 
         [Inject]
         public void Construct(IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
-            // _weaponItemsContainer.Construct(AllServices.Container.Single<IPersistentProgressService>(),
-            //     AllServices.Container.Single<IStaticDataService>(),
-            //     AllServices.Container.Single<IUIFactory>());
-            _weaponItemsContainer.Initialize();
         }
 
         private void Start()

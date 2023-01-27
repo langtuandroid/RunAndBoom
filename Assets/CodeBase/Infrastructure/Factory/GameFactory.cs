@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Enemy;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
@@ -44,14 +42,14 @@ namespace CodeBase.Infrastructure.Factory
 
         public async Task WarmUp()
         {
-            await _assets.Load<GameObject>(AssetAddresses.Spawner);
+            // await _assets.Load<GameObject>(AssetAddresses.Spawner);
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
-            GameObject heroRotating = _heroGameObject.transform.GetChild(0).gameObject;
-            HeroShooting heroShooting = heroRotating.GetComponent<HeroShooting>();
+            // GameObject heroRotating = _heroGameObject.transform.GetChild(0).gameObject;
+            // HeroShooting heroShooting = heroRotating.GetComponent<HeroShooting>();
             return _heroGameObject;
         }
 
@@ -89,13 +87,13 @@ namespace CodeBase.Infrastructure.Factory
 
         public async Task CreateSpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId)
         {
-            GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
-            SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
-                .GetComponent<SpawnPoint>();
-            spawner.Construct(this);
-            spawner.Initialize();
-            spawner.Id = spawnerId;
-            spawner.MonsterTypeId = monsterTypeId;
+            // GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
+            // SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
+            //     .GetComponent<SpawnPoint>();
+            // spawner.Construct(this);
+            // spawner.Initialize();
+            // spawner.Id = spawnerId;
+            // spawner.MonsterTypeId = monsterTypeId;
         }
     }
 }

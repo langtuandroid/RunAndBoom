@@ -7,13 +7,13 @@ namespace CodeBase.Services.Input.Platforms
     {
         public override void InstallBindings()
         {
-            Container.BindFactory<IPlatformInputService, KeyboardMouseInputType, KeyboardMouseInputType.Factory>();
-            Container.BindFactory<IPlatformInputService, TouchScreenInputType, TouchScreenInputType.Factory>();
-            Container.BindFactory<IPlatformInputService, SwipeDetection, SwipeDetection.Factory>();
+            PlayerInput playerInput = new PlayerInput();
 
             Container
                 .Bind<IPlatformInputService>()
                 .To<EditorPlatformInputService>()
+                .FromInstance(new EditorPlatformInputService(new DesktopPlatformInputService(new KeyboardMouseInputType(playerInput)),
+                    new MobilePlatformInputService(new TouchScreenInputType(playerInput))))
                 .AsSingle();
         }
     }

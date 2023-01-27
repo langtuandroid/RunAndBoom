@@ -25,11 +25,13 @@ namespace CodeBase.Services.Input.Types
         private void SubscribeEvents()
         {
             _playerInput.Player.Move.performed += MoveTo;
+            _playerInput.Player.Move.canceled += MoveTo;
         }
 
         private void UnsubscribeEvents()
         {
             _playerInput.Player.Move.performed -= MoveTo;
+            _playerInput.Player.Move.canceled -= MoveTo;
         }
 
         private void MoveTo(InputAction.CallbackContext ctx)

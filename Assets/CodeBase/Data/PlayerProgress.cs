@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.CustomClasses;
 using CodeBase.StaticData.Weapon;
 
 namespace CodeBase.Data
@@ -9,7 +8,6 @@ namespace CodeBase.Data
     [Serializable]
     public class PlayerProgress
     {
-        public LinkedHashSet<WeaponTypeId> SelectedWeaponTypeIds { get; private set; }
         public Dictionary<WeaponTypeId, bool> AvailableWeaponDatas { get; private set; }
         public LevelStats CurrentLevelStats { get; private set; }
         public List<LevelStats> LevelStats { get; private set; }
@@ -20,8 +18,6 @@ namespace CodeBase.Data
         public PlayerProgress()
         {
             FillAvailableWeaponDates();
-            // SelectedWeaponTypeIds = new LinkedHashSet<WeaponTypeId>(AvailableWeaponDatas.Count);
-            FillSelectedWeaponTypeIds();
             CurrentLevelStats = new LevelStats();
         }
 
@@ -31,20 +27,6 @@ namespace CodeBase.Data
 
             foreach (WeaponTypeId typeId in typeIds)
                 AvailableWeaponDatas.Add(typeId, false);
-        }
-
-        private void FillSelectedWeaponTypeIds()
-        {
-            SelectedWeaponTypeIds = new LinkedHashSet<WeaponTypeId>();
-
-            foreach (WeaponTypeId typeId in typeIds)
-                SelectedWeaponTypeIds.Add(typeId);
-        }
-
-        public void SetSelectedWeapons(LinkedHashSet<WeaponTypeId> selectedWeaponTypeIds)
-        {
-            SelectedWeaponTypeIds.Clear();
-            SelectedWeaponTypeIds = selectedWeaponTypeIds;
         }
 
         public void SetAvailableWeapons(Dictionary<WeaponTypeId, bool> availableWeaponDates)

@@ -1,8 +1,6 @@
 using System;
-using CodeBase.Data;
 using CodeBase.Services.Input.Platforms;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace CodeBase.Services.Input.Types
@@ -41,16 +39,10 @@ namespace CodeBase.Services.Input.Types
 
         private void UnsubscribeEvents()
         {
-            _playerInput.Player.SwipeContact.started -= StartTouchPrimary;
-            _playerInput.Player.SwipeContact.canceled -= EndTouchPrimary;
-            _playerInput.Player.DoubleTapContact.performed -= RotateToPoint;
         }
 
         private void InitTouchEvents()
         {
-            _playerInput.Player.SwipeContact.started += StartTouchPrimary;
-            _playerInput.Player.SwipeContact.canceled += EndTouchPrimary;
-            _playerInput.Player.DoubleTapContact.performed += RotateToPoint;
         }
 
         private void OnEnable()
@@ -61,30 +53,6 @@ namespace CodeBase.Services.Input.Types
         public void OnDisable()
         {
             _playerInput.Disable();
-        }
-
-        private void StartTouchPrimary(InputAction.CallbackContext ctx)
-        {
-            if (TouchedStart != null)
-                TouchedStart(PrimaryPosition(_playerInput.Player.SwipePosition.ReadValue<Vector2>()),
-                    (float)ctx.startTime);
-        }
-
-        private void EndTouchPrimary(InputAction.CallbackContext ctx)
-        {
-            if (TouchedEnd != null)
-                TouchedEnd(PrimaryPosition(_playerInput.Player.SwipePosition.ReadValue<Vector2>()), (float)ctx.time);
-        }
-
-        private Vector3 PrimaryPosition(Vector2 target) =>
-            new Vector3(target.x, target.y).FromScreenToWorld(Camera.main);
-
-        private void RotateToPoint(InputAction.CallbackContext ctx)
-        {
-            Vector3 raw = _playerInput.Player.DoubleTapPosition.ReadValue<Vector2>();
-            Vector3 rotatingToPointV3 = PrimaryPosition(raw);
-            Vector2 rotatingToPoint = new Vector2(rotatingToPointV3.x, rotatingToPointV3.z);
-            ManualAimed?.Invoke(rotatingToPoint);
         }
 
         public class Factory : PlaceholderFactory<IPlatformInputService, TouchScreenInputType>
