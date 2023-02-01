@@ -1,31 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.StaticData.Enemy;
 using CodeBase.StaticData.Level;
-using CodeBase.StaticData.Monster;
+using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
-using CodeBase.StaticData.Windows;
-using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        private const string StaticDataMonstersPath = "StaticData/Monsters";
+        private const string StaticDataEnemiesPath = "StaticData/Enemies";
         private const string StaticDataWeaponsPath = "StaticData/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
-        private const string StaticDataWindowsPath = "StaticData/Windows";
 
-        private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
+        private const string StaticDataProjectileTracesPath = "StaticData/ProjectileTraces";
+        // private const string StaticDataWindowsPath = "StaticData/Windows";
+
+        private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<WeaponTypeId, WeaponStaticData> _weapons;
         private Dictionary<string, LevelStaticData> _levels;
-        private Dictionary<WindowId, WindowStaticData> _windows;
+
+        private Dictionary<ProjectileTraceTypeId, ProjectileTraceStaticData> _projectileTraces;
+        // private Dictionary<WindowId, WindowStaticData> _windows;
 
         public void Load()
         {
-            _monsters = Resources
-                .LoadAll<MonsterStaticData>(StaticDataMonstersPath)
-                .ToDictionary(x => x.MonsterTypeId, x => x);
+            _enemies = Resources
+                .LoadAll<EnemyStaticData>(StaticDataEnemiesPath)
+                .ToDictionary(x => x.enemyTypeId, x => x);
 
             _weapons = Resources
                 .LoadAll<WeaponStaticData>(StaticDataWeaponsPath)
@@ -35,13 +38,17 @@ namespace CodeBase.Services.StaticData
                 .LoadAll<LevelStaticData>(StaticDataLevelsPath)
                 .ToDictionary(x => x.LevelKey, x => x);
 
-            _windows = Resources
-                .LoadAll<WindowStaticData>(StaticDataWindowsPath)
-                .ToDictionary(x => x.WindowId, x => x);
+            _projectileTraces = Resources
+                .LoadAll<ProjectileTraceStaticData>(StaticDataProjectileTracesPath)
+                .ToDictionary(x => x.ProjectileTraceTypeId, x => x);
+
+            // _windows = Resources
+            //     .LoadAll<WindowStaticData>(StaticDataWindowsPath)
+            //     .ToDictionary(x => x.WindowId, x => x);
         }
 
-        public MonsterStaticData ForMonster(MonsterTypeId typeId) =>
-            _monsters.TryGetValue(typeId, out MonsterStaticData staticData)
+        public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
+            _enemies.TryGetValue(typeId, out EnemyStaticData staticData)
                 ? staticData
                 : null;
 
@@ -55,9 +62,14 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public WindowStaticData ForWindow(WindowId windowId) =>
-            _windows.TryGetValue(windowId, out WindowStaticData windowData)
-                ? windowData
+        public ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId) =>
+            _projectileTraces.TryGetValue(projectileTraceTypeId, out ProjectileTraceStaticData staticData)
+                ? staticData
                 : null;
+
+        // public WindowStaticData ForWindow(WindowId windowId) =>
+        //     _windows.TryGetValue(windowId, out WindowStaticData windowData)
+        //         ? windowData
+        //         : null;
     }
 }

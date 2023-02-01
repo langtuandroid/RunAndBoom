@@ -1,5 +1,5 @@
+using CodeBase.StaticData.ProjectileTrace;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace CodeBase.StaticData.Weapon
 {
@@ -7,30 +7,21 @@ namespace CodeBase.StaticData.Weapon
     public class WeaponStaticData : ScriptableObject
     {
         public WeaponTypeId WeaponTypeId;
-        public string Name;
+        public ProjectileTraceTypeId ProjectileTraceTypeId;
 
-        [Range(1f, 100f)] public int MainFireCost;
+        [Range(1, 30)] public int Damage;
 
-        // [Range(1f, 100f)] public int SecondaryFireCost;
-        [Range(1f, 30f)] public int MainFireDamage;
+        [Range(1, 10)] public int RotationSpeed;
 
-        // [Range(1f, 30f)] public int SecondaryFireDamage;
-        [Range(0f, 10f)] public float MainFireRotationSpeed;
+        [Range(1, 5)] public int Cooldown;
 
-        // [Range(0f, 10f)] public float SecondaryFireRotationSpeed;
-        [Range(0f, 5f)] public float MainFireCooldown;
+        [Range(1, 50)] public int Range;
 
-        // [Range(0f, 5f)] public float SecondaryFireCooldown;
-        [Range(1f, 6)] public int MainFireBarrels;
+        [Range(1, 30)] public int ProjectileSpeed;
 
-        // [Range(1f, 6)] public int SecondaryFireBarrels;
-        [Range(0f, 50f)] public float MainFireRange;
-
-        // [Range(0f, 50f)] public float SecondaryFireRange;
-        [Range(0f, 30f)] public float MainFireBulletSpeed;
-        // [Range(0f, 30f)] public float SecondaryFireBulletSpeed;
-
-        public Sprite Icon;
-        public AssetReferenceGameObject PrefabReference;
+        public GameObject MuzzleVfx;
+        public GameObject BlastVfx;
+        public GameObject WeaponPrefab;
+        public GameObject ProjectilePrefab;
     }
 }

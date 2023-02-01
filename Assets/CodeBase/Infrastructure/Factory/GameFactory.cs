@@ -5,7 +5,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
-using CodeBase.StaticData.Monster;
+using CodeBase.StaticData.Enemy;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,28 +53,27 @@ namespace CodeBase.Infrastructure.Factory
             return _heroGameObject;
         }
 
-        public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
+        public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
         {
-            MonsterStaticData monsterData = _staticData.ForMonster(typeId);
+            EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
 
-            GameObject monster = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
-            EnemyHealth health = monster.GetComponent<EnemyHealth>();
-            health.Current = monsterData.Hp;
-            health.Max = monsterData.Hp;
+            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
+            EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+            health.Current = enemyData.Hp;
+            health.Max = enemyData.Hp;
 
-            monster.GetComponent<EnemyDeath>().Construct(monsterData.DeathPoints);
-            monster.GetComponent<ActorUI>().Construct(health);
-            monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
-            monster.GetComponent<AgentMoveToHero>()?.Construct(_heroGameObject.transform);
-            monster.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
+            enemy.GetComponent<ActorUI>().Construct(health);
+            enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
+            enemy.GetComponent<AgentMoveToHero>()?.Construct(_heroGameObject.transform);
+            enemy.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
 
-            Attack attack = monster.GetComponent<Attack>();
+            Attack attack = enemy.GetComponent<Attack>();
             attack.Construct(_heroGameObject.transform);
-            attack.Damage = monsterData.Damage;
-            attack.Cleavage = monsterData.Cleavage;
-            attack.EffectiveDistance = monsterData.EffectiveDistance;
+            attack.Damage = enemyData.Damage;
+            attack.Cleavage = enemyData.Cleavage;
+            attack.EffectiveDistance = enemyData.EffectiveDistance;
 
-            return monster;
+            return enemy;
         }
 
         public void CleanUp()
@@ -85,7 +84,7 @@ namespace CodeBase.Infrastructure.Factory
             _assets.CleanUp();
         }
 
-        public async Task CreateSpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId)
+        public async Task CreateSpawner(string spawnerId, Vector3 at, EnemyTypeId enemyTypeId)
         {
             // GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
             // SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
@@ -93,7 +92,7 @@ namespace CodeBase.Infrastructure.Factory
             // spawner.Construct(this);
             // spawner.Initialize();
             // spawner.Id = spawnerId;
-            // spawner.MonsterTypeId = monsterTypeId;
+            // spawner.EnemyTypeId = enemyTypeId;
         }
     }
 }

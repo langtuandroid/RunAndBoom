@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.StaticData.Monster
+namespace CodeBase.StaticData.Enemy
 {
-    [CreateAssetMenu(fileName = "MonsterData", menuName = "StaticData/Monster")]
-    public class MonsterStaticData : ScriptableObject
+    [CreateAssetMenu(fileName = "EnemyData", menuName = "StaticData/Enemy")]
+    public class EnemyStaticData : ScriptableObject
     {
-        public MonsterTypeId MonsterTypeId;
+        public EnemyTypeId enemyTypeId;
 
         [Range(1, 100)] public int Hp;
 
@@ -18,7 +18,5 @@ namespace CodeBase.StaticData.Monster
         [Range(0.5f, 1)] public float Cleavage;
 
         [Range(0.5f, 1)] public float AttackCooldown;
-
-        public int DeathPoints;
     }
 }

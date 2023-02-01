@@ -3,7 +3,6 @@ using CodeBase.Data;
 using CodeBase.Logic;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
-using CodeBase.StaticData.Weapon;
 using CodeBase.Weapons;
 using UnityEngine;
 using Zenject;
@@ -13,6 +12,7 @@ namespace CodeBase.Hero
     public class HeroShooting : MonoBehaviour, IProgressSaver
     {
         [SerializeField] private GameObject _shootVfx;
+        [SerializeField] private GameObject _bullet;
         [SerializeField] private Transform _shootPosition;
 
         private IStaticDataService _staticDataService;

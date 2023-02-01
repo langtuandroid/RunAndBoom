@@ -1,13 +1,13 @@
 ﻿using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.StaticData.Monster;
+using CodeBase.StaticData.Enemy;
 using UnityEngine;
 
 namespace CodeBase.Logic.EnemySpawners
 {
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] public MonsterTypeId MonsterTypeId;
+        [SerializeField] public EnemyTypeId enemyTypeId;
         public string Id { get; set; }
 
         private IGameFactory _factory;
@@ -23,8 +23,8 @@ namespace CodeBase.Logic.EnemySpawners
 
         private async void Spawn()
         {
-            GameObject monster = await _factory.CreateMonster(MonsterTypeId, transform);
-            _enemyDeath = monster.GetComponent<EnemyDeath>();
+            GameObject enemy = await _factory.CreateEnemy(enemyTypeId, transform);
+            _enemyDeath = enemy.GetComponent<EnemyDeath>();
             _enemyDeath.Died += Slain;
         }
 

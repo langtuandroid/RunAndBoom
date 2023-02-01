@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeBase.StaticData.Monster;
+using CodeBase.StaticData.Enemy;
 using UnityEngine;
 
 namespace CodeBase.StaticData
@@ -8,13 +8,13 @@ namespace CodeBase.StaticData
     public class EnemySpawnerData
     {
         public string Id;
-        public MonsterTypeId MonsterTypeId;
+        public EnemyTypeId EnemyTypeId;
         public Vector3 Position;
 
-        public EnemySpawnerData(string id, MonsterTypeId monsterTypeId, Vector3 position)
+        public EnemySpawnerData(string id, EnemyTypeId enemyTypeId, Vector3 position)
         {
             Id = id;
-            MonsterTypeId = monsterTypeId;
+            EnemyTypeId = enemyTypeId;
             Position = position;
         }
     }

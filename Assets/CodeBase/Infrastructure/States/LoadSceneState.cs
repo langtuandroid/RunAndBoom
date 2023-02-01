@@ -137,7 +137,7 @@ namespace CodeBase.Infrastructure.States
         private async Task InitSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-                await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
+                await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.EnemyTypeId);
         }
 
         private async Task InitHud(GameObject player)
