@@ -19,6 +19,8 @@ namespace CodeBase.StaticData.Weapon
 
         [Range(1, 30)] public int ProjectileSpeed;
 
+        [Range(1f, 5f)] public float MuzzleVfxLifeTime;
+
         public GameObject MuzzleVfx;
         public GameObject BlastVfx;
         public GameObject WeaponPrefab;

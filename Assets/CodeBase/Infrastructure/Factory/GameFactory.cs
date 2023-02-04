@@ -9,6 +9,7 @@ using CodeBase.StaticData.Enemy;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -18,18 +19,20 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
+        private readonly DiContainer _container;
         private GameObject _heroGameObject;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
         public GameFactory(IAssets assets, IPlayerProgressService progressService, IStaticDataService staticData,
-            IRegistratorService registratorService)
+            IRegistratorService registratorService, DiContainer container)
         {
             _assets = assets;
             _progressService = progressService;
             _staticData = staticData;
             _registratorService = registratorService;
+            _container = container;
 
             SetProgressReadersWriters(registratorService);
         }
@@ -47,9 +50,11 @@ namespace CodeBase.Infrastructure.Factory
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
-            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
-            // GameObject heroRotating = _heroGameObject.transform.GetChild(0).gameObject;
-            // HeroShooting heroShooting = heroRotating.GetComponent<HeroShooting>();
+            var prefab = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
+            // _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
+            // _container.Inject(_heroGameObject);
+            _heroGameObject = _container.InstantiatePrefab(prefab);
+            prefab.SetActive(false);
             return _heroGameObject;
         }
 
@@ -57,7 +62,9 @@ namespace CodeBase.Infrastructure.Factory
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
 
-            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
+            var prefab = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
+            GameObject enemy = _container.InstantiatePrefab(prefab);
+
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Current = enemyData.Hp;
             health.Max = enemyData.Hp;

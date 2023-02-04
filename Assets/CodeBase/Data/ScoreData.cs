@@ -11,21 +11,12 @@ namespace CodeBase.Data
 
         public ScoreData()
         {
-            Score = 50;
+            Score = 0;
         }
 
         public void AddScore(int value)
         {
             Score += value;
-            ScoreChanged?.Invoke();
-        }
-
-        public void ReduceScore(int value)
-        {
-            if (Score < value)
-                return;
-
-            Score -= value;
             ScoreChanged?.Invoke();
         }
     }

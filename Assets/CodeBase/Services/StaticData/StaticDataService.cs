@@ -28,7 +28,7 @@ namespace CodeBase.Services.StaticData
         {
             _enemies = Resources
                 .LoadAll<EnemyStaticData>(StaticDataEnemiesPath)
-                .ToDictionary(x => x.enemyTypeId, x => x);
+                .ToDictionary(x => x.EnemyTypeId, x => x);
 
             _weapons = Resources
                 .LoadAll<WeaponStaticData>(StaticDataWeaponsPath)
@@ -52,7 +52,7 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public WeaponStaticData ForWeaponUI(WeaponTypeId typeId) =>
+        public WeaponStaticData ForWeapon(WeaponTypeId typeId) =>
             _weapons.TryGetValue(typeId, out WeaponStaticData staticData)
                 ? staticData
                 : null;

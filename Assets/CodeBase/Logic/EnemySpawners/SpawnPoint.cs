@@ -11,7 +11,6 @@ namespace CodeBase.Logic.EnemySpawners
         public string Id { get; set; }
 
         private IGameFactory _factory;
-        private EnemyDeath _enemyDeath;
 
         public void Construct(IGameFactory factory) =>
             _factory = factory;
@@ -24,14 +23,6 @@ namespace CodeBase.Logic.EnemySpawners
         private async void Spawn()
         {
             GameObject enemy = await _factory.CreateEnemy(enemyTypeId, transform);
-            _enemyDeath = enemy.GetComponent<EnemyDeath>();
-            _enemyDeath.Died += Slain;
-        }
-
-        private void Slain()
-        {
-            if (_enemyDeath != null)
-                _enemyDeath.Died -= Slain;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace CodeBase.Services.Input.Platforms
     public abstract class PlatformInputService : IPlatformInputService
     {
         public abstract event Action<Vector2> Moved;
-        public abstract event Action<Vector2> Shot;
+        public abstract event Action Shot;
 
         protected abstract void SubscribeEvents();
 
@@ -14,6 +14,6 @@ namespace CodeBase.Services.Input.Platforms
 
         protected abstract void MoveTo(Vector2 direction);
 
-        protected abstract void ShotTo(Vector2 direction);
+        protected abstract void ShotTo();
     }
 }

@@ -310,12 +310,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683702becfc8a794a86c7bcd81468fa3, type: 3}
---- !u!1 &1562960278 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8561911510446919819, guid: 683702becfc8a794a86c7bcd81468fa3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1562960277}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1787949346
 GameObject:
   m_ObjectHideFlags: 11
@@ -345,9 +339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a7c62fccbafd342991629222351294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scenePrefabInstances:
-  - _gameObject: {fileID: 1562960278}
-    _prefab: Assets/Resources/Prefabs/Infrastructure/GameRunner.prefab
 --- !u!4 &1787949348
 Transform:
   m_ObjectHideFlags: 11

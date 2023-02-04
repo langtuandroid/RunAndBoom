@@ -9,7 +9,7 @@ namespace CodeBase.Services.Input.Platforms
         private readonly KeyboardMouseInputType _keyboardMouseInputType;
 
         public override event Action<Vector2> Moved;
-        public override event Action<Vector2> Shot;
+        public override event Action Shot;
 
         public DesktopPlatformInputService(KeyboardMouseInputType.Factory keyboardMouseInputType)
         {
@@ -31,19 +31,20 @@ namespace CodeBase.Services.Input.Platforms
         protected override void SubscribeEvents()
         {
             _keyboardMouseInputType.Moved += MoveTo;
+            _keyboardMouseInputType.Shot += ShotTo;
         }
 
         protected override void UnsubscribeEvents()
         {
             _keyboardMouseInputType.Moved -= MoveTo;
+            _keyboardMouseInputType.Shot -= ShotTo;
         }
 
 
         protected override void MoveTo(Vector2 direction) =>
             Moved?.Invoke(direction);
 
-        protected override void ShotTo(Vector2 direction)
-        {
-        }
+        protected override void ShotTo() =>
+            Shot?.Invoke();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CodeBase.CameraLogic;
 using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
@@ -76,7 +75,7 @@ namespace CodeBase.Infrastructure.States
             switch (name)
             {
                 case Scenes.Level1:
-                    // await InitGameWorld();
+                    await InitGameWorld();
                     break;
             }
 
@@ -125,20 +124,23 @@ namespace CodeBase.Infrastructure.States
 
             if (levelData.InitializeHeroPosition)
             {
-                GameObject hero = await InitHero(levelData);
+                // GameObject hero = 
+                await InitHero(levelData);
                 // await InitHud(hero);
-                // CameraFollow(hero);
             }
         }
 
-        private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
-            await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
+        private LevelStaticData LevelStaticData() =>
+            _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
         private async Task InitSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
                 await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.EnemyTypeId);
         }
+
+        private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
+            await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
         private async Task InitHud(GameObject player)
         {
@@ -147,12 +149,6 @@ namespace CodeBase.Infrastructure.States
             heroHealth.Construct();
             hud.GetComponentInChildren<ActorUI>().Construct(heroHealth);
         }
-
-        private LevelStaticData LevelStaticData() =>
-            _staticData.ForLevel(SceneManager.GetActiveScene().name);
-
-        private void CameraFollow(GameObject player) =>
-            Camera.main.GetComponent<CameraFollower>().Follow(player);
 
         public class Factory : PlaceholderFactory<IGameStateMachine, LoadSceneState>
         {

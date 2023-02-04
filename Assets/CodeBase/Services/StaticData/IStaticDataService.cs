@@ -1,5 +1,6 @@
 ﻿using CodeBase.StaticData.Enemy;
 using CodeBase.StaticData.Level;
+using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 
 namespace CodeBase.Services.StaticData
@@ -8,7 +9,8 @@ namespace CodeBase.Services.StaticData
     {
         void Load();
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
-        WeaponStaticData ForWeaponUI(WeaponTypeId typeId);
+        WeaponStaticData ForWeapon(WeaponTypeId typeId);
+        ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId);
 
         LevelStaticData ForLevel(string sceneKey);
         // WindowStaticData ForWindow(WindowId windowId);

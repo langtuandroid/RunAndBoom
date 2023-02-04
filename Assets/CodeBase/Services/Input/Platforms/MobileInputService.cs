@@ -9,7 +9,7 @@ namespace CodeBase.Services.Input.Platforms
         private readonly TouchScreenInputType _touchScreenInputType;
 
         public override event Action<Vector2> Moved;
-        public override event Action<Vector2> Shot;
+        public override event Action Shot;
 
         public MobilePlatformInputService(TouchScreenInputType.Factory touchScreenInputType)
         {
@@ -36,7 +36,7 @@ namespace CodeBase.Services.Input.Platforms
         protected override void MoveTo(Vector2 direction) =>
             Moved?.Invoke(direction);
 
-        protected override void ShotTo(Vector2 direction) =>
-            Shot?.Invoke(direction);
+        protected override void ShotTo() =>
+            Shot?.Invoke();
     }
 }

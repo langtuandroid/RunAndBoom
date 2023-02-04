@@ -10,7 +10,7 @@ namespace CodeBase.Services.Input.Platforms
         private readonly IPlatformInputService _platformInputService2;
 
         public override event Action<Vector2> Moved;
-        public override event Action<Vector2> Shot;
+        public override event Action Shot;
 
         [Inject]
         public EditorPlatformInputService(IPlatformInputService platformInputService1, IPlatformInputService platformInputService2)
@@ -45,7 +45,7 @@ namespace CodeBase.Services.Input.Platforms
         protected override void MoveTo(Vector2 direction) =>
             Moved?.Invoke(direction);
 
-        protected override void ShotTo(Vector2 direction) =>
-            Shot?.Invoke(direction);
+        protected override void ShotTo() =>
+            Shot?.Invoke();
     }
 }

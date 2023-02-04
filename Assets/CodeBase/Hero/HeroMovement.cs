@@ -6,17 +6,23 @@ namespace CodeBase.Hero
 {
     public class HeroMovement : MonoBehaviour
     {
-        [SerializeField] private float _moveSpeed = 5f;
+        private IPlatformInputService _platformInputService;
 
-        [Inject] private IPlatformInputService _platformInputService;
-
+        private float _moveSpeed = 5f;
         private Vector3 _movement = Vector3.zero;
-
-        private void Awake() =>
-            _platformInputService.Moved += MoveTo;
 
         private void Update() =>
             transform.Translate(_movement * _moveSpeed * Time.deltaTime);
+
+        [Inject]
+        public void Construct(IPlatformInputService platformInputService)
+        {
+            _platformInputService = platformInputService;
+            SubscribeServicesEvents();
+        }
+
+        private void SubscribeServicesEvents() =>
+            _platformInputService.Moved += MoveTo;
 
         private void MoveTo(Vector2 direction) =>
             _movement = new Vector3(direction.x, transform.position.y, direction.y);

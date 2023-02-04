@@ -18,10 +18,11 @@ MonoBehaviour:
   RotationSpeed: 6
   Cooldown: 2
   Range: 15
-  ProjectileSpeed: 10
-  MuzzleVfx: {fileID: 0}
-  BlastVfx: {fileID: 0}
+  ProjectileSpeed: 30
+  MuzzleVfxLifeTime: 0
+  MuzzleVfx: {fileID: 1509306094841910, guid: 009f9e61721d7e649ab0936e1987d943, type: 3}
+  BlastVfx: {fileID: 180702, guid: f21797a0db2754848a9bbc535e1a8666, type: 3}
   WeaponPrefab: {fileID: 9047281119026366967, guid: 683fffe87b611004fa545d1671de946e,
     type: 3}
-  ProjectilePrefab: {fileID: 4083371411377536956, guid: 23aa0d549d44a7e4b9710862f8bfa847,
+  ProjectilePrefab: {fileID: 4469147708820065836, guid: 23aa0d549d44a7e4b9710862f8bfa847,
     type: 3}

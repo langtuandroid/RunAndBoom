@@ -14,7 +14,6 @@ namespace CodeBase.Infrastructure.Factory
 
         Task WarmUp();
         Task<GameObject> CreateHero(Vector3 at);
-
         Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent);
         Task CreateSpawner(string spawnerId, Vector3 at, EnemyTypeId spawnerDataEnemyTypeId);
         void CleanUp();

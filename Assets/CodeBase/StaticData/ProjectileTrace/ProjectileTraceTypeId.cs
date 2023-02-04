@@ -2,8 +2,8 @@
 {
     public enum ProjectileTraceTypeId
     {
-        None = 0,
-        RPG = 1,
-        RocketLauncher = 2,
+        None,
+        RPG,
+        RocketLauncher,
     }
 }

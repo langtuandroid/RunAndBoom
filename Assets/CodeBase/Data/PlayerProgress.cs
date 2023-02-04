@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapon;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Data
 {
     [Serializable]
     public class PlayerProgress
     {
-        public Dictionary<WeaponTypeId, bool> AvailableWeaponDatas { get; private set; }
+        [FormerlySerializedAs("currentWeaponTypeId")] [FormerlySerializedAs("CurrentWeapon")]
+        public WeaponTypeId CurrentWeaponTypeId;
+
+        public Dictionary<WeaponTypeId, bool> AvailableWeapons { get; private set; }
         public LevelStats CurrentLevelStats { get; private set; }
         public List<LevelStats> LevelStats { get; private set; }
         public int MaxHP { get; private set; }
@@ -19,20 +23,24 @@ namespace CodeBase.Data
         {
             FillAvailableWeaponDates();
             CurrentLevelStats = new LevelStats();
+            CurrentWeaponTypeId = AvailableWeapons.First(x => x.Value).Key;
         }
 
         private void FillAvailableWeaponDates()
         {
-            AvailableWeaponDatas = new Dictionary<WeaponTypeId, bool>();
+            AvailableWeapons = new Dictionary<WeaponTypeId, bool>();
 
             foreach (WeaponTypeId typeId in typeIds)
-                AvailableWeaponDatas.Add(typeId, false);
+            {
+                if (typeId == WeaponTypeId.GrenadeLauncher) AvailableWeapons.Add(typeId, true);
+                else AvailableWeapons.Add(typeId, false);
+            }
         }
 
         public void SetAvailableWeapons(Dictionary<WeaponTypeId, bool> availableWeaponDates)
         {
-            AvailableWeaponDatas.Clear();
-            AvailableWeaponDatas = availableWeaponDates;
+            AvailableWeapons.Clear();
+            AvailableWeapons = availableWeaponDates;
         }
 
         public void SetMaxHP(int value) =>
