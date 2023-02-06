@@ -18,15 +18,13 @@ namespace CodeBase.Hero
         private int _enemiesHitsCount = 10;
         private float _sphereDistance = 0f;
         private float _distanceToEnemy = 0f;
-        private float _sphereRadius = 20f;
-        public event Action<EnemyHealth> FoundClosestEnemy;
-        public event Action EnemyVisibilityChecked;
-
+        private float _sphereRadius = 1f;
+        private float _checkEnemiesDelay = 0.1f;
+        private float _fixedDeltaTimeCounter = 0;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
 
-        private void Awake()
-        {
-        }
+        public event Action<EnemyHealth> FoundClosestEnemy;
+        public event Action EnemyVisibilityChecked;
 
         [Inject]
         public void Construct()
@@ -40,11 +38,23 @@ namespace CodeBase.Hero
         private void SetWeaponRange(WeaponStaticData weaponStaticData, Transform transform) =>
             _sphereRadius = weaponStaticData.Range;
 
-        private void FixedUpdate() =>
-            CheckEnemiesAround();
+        private void FixedUpdate()
+        {
+            UpFixedTime();
+
+            if (CheckFixedTimeCounter())
+                CheckEnemiesAround();
+        }
+
+        private void UpFixedTime() =>
+            _fixedDeltaTimeCounter += Time.fixedDeltaTime;
+
+        private bool CheckFixedTimeCounter() =>
+            _fixedDeltaTimeCounter >= _checkEnemiesDelay;
 
         private void CheckEnemiesAround()
         {
+            _fixedDeltaTimeCounter = 0f;
             _enemies.Clear();
             RaycastHit[] enemiesHits = new RaycastHit[_enemiesHitsCount];
             int enemiesHitsCount = GetEnemiesHits(enemiesHits);
@@ -69,7 +79,7 @@ namespace CodeBase.Hero
             {
                 for (int i = 0; i < enemiesHitsCount; i++)
                 {
-                    EnemyHealth enemyHealth = enemiesHits[i].transform.parent.gameObject.GetComponent<EnemyHealth>();
+                    EnemyHealth enemyHealth = enemiesHits[i].transform.gameObject.GetComponent<EnemyHealth>();
 
                     if (enemyHealth.Current > 0)
                         _enemies.Add(enemyHealth);
@@ -83,13 +93,11 @@ namespace CodeBase.Hero
         private void FindClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
             EnemyHealth closestEnemy = visibleEnemies[0];
-            float minDistance =
-                Vector3.Distance(visibleEnemies[0].transform.position, transform.position);
+            float minDistance = Vector3.Distance(visibleEnemies[0].transform.position, transform.position);
 
             foreach (EnemyHealth enemy in visibleEnemies)
             {
-                float distanceToEnemy =
-                    Vector3.Distance(enemy.transform.position, transform.position);
+                float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
 
                 if (distanceToEnemy < minDistance)
                     closestEnemy = enemy;
@@ -101,9 +109,9 @@ namespace CodeBase.Hero
         private void CheckEnemyVisibility(Vector3 enemyPosition)
         {
             Vector3 direction = (enemyPosition - transform.position).normalized;
-            _distanceToEnemy = Vector3.Distance(enemyPosition, transform.position) + 10f;
-            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy,
-                _visibleObstaclesLayerMask, QueryTriggerInteraction.UseGlobal);
+            _distanceToEnemy = Vector3.Distance(enemyPosition, transform.position);
+            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
+                QueryTriggerInteraction.UseGlobal);
 
             if (raycastHits.Length == 0)
                 EnemyVisibilityChecked?.Invoke();

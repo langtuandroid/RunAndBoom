@@ -1,5 +1,4 @@
-﻿using CodeBase.Enemy;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.StaticData.Enemy;
 using UnityEngine;
 

@@ -23,16 +23,13 @@ namespace CodeBase.Hero
 
         public event Action<Vector3> ShootDirection;
 
-        private void Awake()
-        {
-        }
-
         [Inject]
         public void Construct()
         {
             _heroAiming = GetComponent<HeroAiming>();
             _heroAiming.FoundClosestEnemy += RotateTo;
         }
+
         private void RotateTo(EnemyHealth enemy)
         {
             if (_rotatingToClickCoroutine != null) StopCoroutine(_rotatingToClickCoroutine);
@@ -57,7 +54,8 @@ namespace CodeBase.Hero
                 if (_angle < 5f)
                 {
                     transform.LookAt(_shootPosition, Vector3.up);
-                    ShootDirection?.Invoke(enemy.gameObject.transform.position);
+                    Vector3 targetPosition = enemy.gameObject.transform.position;
+                    ShootDirection?.Invoke(targetPosition);
                     _rotating = false;
                 }
 

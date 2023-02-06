@@ -17,8 +17,8 @@ MonoBehaviour:
   Damage: 10
   RotationSpeed: 6
   Cooldown: 2
-  Range: 15
-  ProjectileSpeed: 30
+  Range: 5
+  ProjectileSpeed: 10
   MuzzleVfxLifeTime: 0
   MuzzleVfx: {fileID: 1509306094841910, guid: 009f9e61721d7e649ab0936e1987d943, type: 3}
   BlastVfx: {fileID: 180702, guid: f21797a0db2754848a9bbc535e1a8666, type: 3}

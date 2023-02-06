@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -10,18 +11,30 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _broken;
 
         private float _deathDelay = 5f;
+        private bool _isBroken = false;
+        private List<Rigidbody> _parts;
 
         private void Awake()
         {
             _solid.SetActive(true);
             _broken.SetActive(false);
+            _parts = new List<Rigidbody>(_broken.transform.childCount);
+
+            for (int i = 0; i < _broken.transform.childCount; i++) 
+                _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
         }
 
         public void Die()
         {
             _solid.SetActive(false);
             _broken.SetActive(true);
-            _broken.GetComponent<Rigidbody>().AddForce(Vector3.up, ForceMode.Force);
+
+            if (_isBroken == false)
+                foreach (Rigidbody part in _parts)
+                    part.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+
+            _isBroken = true;
+
             StartCoroutine(DestroyTimer());
         }
 

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using CodeBase.StaticData.ProjectileTrace;
 using UnityEngine;
 
 namespace CodeBase.Projectile
 {
-    [RequireComponent(typeof(DestroyWithBlast))]
+    [RequireComponent(typeof(DestroyWithBlast)
+        , typeof(Rigidbody)
+    )]
     public class Projectile : MonoBehaviour
     {
         private DestroyWithBlast _destroyWithBlast;
@@ -13,12 +14,24 @@ namespace CodeBase.Projectile
         private GameObject _traceVfx;
         private GameObject _blastVfx;
         private Transform _tracePosition;
+        private Rigidbody _rigidBody;
 
-        private void Awake() => 
+        private void Awake()
+        {
             _destroyWithBlast = GetComponent<DestroyWithBlast>();
+            _rigidBody = GetComponent<Rigidbody>();
+        }
 
-        public void CreateTrace() => 
-            StartCoroutine(CoroutineCreateTrace());
+        public void SetSpeed(Vector3 speed) =>
+            _rigidBody.velocity = speed;
+
+
+        public void CreateTrace()
+        {
+            if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
+                StartCoroutine(CoroutineCreateTrace());
+        }
+
 
         private IEnumerator CoroutineCreateTrace()
         {
@@ -36,10 +49,11 @@ namespace CodeBase.Projectile
         {
             gameObject.SetActive(false);
             Instantiate(_blastVfx);
-            
+
             _destroyWithBlast.DestroyAllAround();
 
-            StartCoroutine(DestroyTrace());
+            if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
+                StartCoroutine(DestroyTrace());
         }
 
         private IEnumerator DestroyTrace()

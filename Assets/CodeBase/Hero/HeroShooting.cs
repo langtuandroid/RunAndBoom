@@ -28,12 +28,25 @@ namespace CodeBase.Hero
         private GameObject _vfxShot;
         private float _vfxShotLifetime = 1f;
 
-        private bool _enableShot = false;
-        private GameObject _projectile;
+        private bool _enableSpotted = false;
+        private float _currentAttackCooldown;
+        private GameObject _projectilePrefab;
+        private Projectile.Projectile _projectile;
 
-        private void Awake()
+        private void Update() =>
+            UpdateCooldown();
+
+        private void UpdateCooldown()
         {
+            if (!CooldownUp())
+                _currentAttackCooldown -= Time.deltaTime;
         }
+
+        private bool CooldownUp() =>
+            _currentAttackCooldown <= 0;
+
+        private bool CanAttack() =>
+            CooldownUp();
 
         [Inject]
         public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
@@ -44,12 +57,13 @@ namespace CodeBase.Hero
             SubscribeServicesEvents();
         }
 
+
         private void SubscribeServicesEvents()
         {
             _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
             _heroAiming = GetComponent<HeroAiming>();
             _heroWeaponSelection.WeaponSelected += PrepareWeaponVfx;
-            _heroAiming.EnemyVisibilityChecked += EnableShoot;
+            _heroAiming.EnemyVisibilityChecked += EnemySpotted;
             _platformInputService.Shot += Shoot;
         }
 
@@ -66,14 +80,14 @@ namespace CodeBase.Hero
             _weaponTransform = weaponTransform;
 
             CheckWeaponChildrenGameObjects();
+            CreateShotVfx();
+            CreateProjectile();
         }
 
         private void CheckWeaponChildrenGameObjects()
         {
             for (int i = 0; i < _weaponTransform.childCount; i++)
             {
-                CreateShotVfx();
-                CreateProjectile();
                 AddMuzzlesPositions(i);
                 ProjectileRespawnPositions(i);
             }
@@ -97,52 +111,45 @@ namespace CodeBase.Hero
                 _muzzlesRespawns.Add(_weaponTransform.GetChild(i).gameObject.transform);
         }
 
-        private void EnableShoot() =>
-            _enableShot = true;
+        private void EnemySpotted() =>
+            _enableSpotted = true;
 
         private void Shoot()
         {
-            Debug.Log($"enableShot {_enableShot}");
-
-            if (_enableShot)
+            if (_enableSpotted && CanAttack())
                 StartCoroutine(CoroutineShoot());
         }
 
         private IEnumerator CoroutineShoot()
         {
-            _enableShot = false;
+            Debug.Log("CoroutineShoot");
             SetProjectile(_projectileRespawns[0]);
             LaunchProjectile();
             LaunchShotVfx();
-            Debug.Log($"Cooldown {_currentWeaponStaticData.Cooldown}");
-            float start = Time.deltaTime;
-            Debug.Log($"start {start}");
-
-            WaitForSeconds wait = new WaitForSeconds(_currentWeaponStaticData.Cooldown);
-            yield return wait;
-
-            float end = Time.deltaTime;
-            Debug.Log($"end {end}");
-            float result = end - start;
-            Debug.Log($"result {result}");
+            _currentAttackCooldown = _currentWeaponStaticData.Cooldown;
+            yield return null;
         }
 
         private void LaunchProjectile()
         {
-            _projectile.SetActive(true);
-            _projectile.GetComponent<Rigidbody>().velocity = _muzzlesRespawns[0].transform.forward * _currentWeaponStaticData.ProjectileSpeed;
+            _projectilePrefab.SetActive(true);
+            _projectile.CreateTrace();
         }
 
         private void SetProjectile(Transform projectileTransform)
         {
-            _projectile.transform.position = projectileTransform.position;
-            _projectile.transform.rotation = projectileTransform.rotation;
+            _projectilePrefab.transform.position = projectileTransform.position;
+            _projectilePrefab.transform.rotation = projectileTransform.rotation;
         }
 
         private void CreateProjectile()
         {
-            _projectile = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
-            _projectile.SetActive(false);
+            _projectilePrefab = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
+            _projectilePrefab.SetActive(false);
+            _projectile = _projectilePrefab.GetComponent<Projectile.Projectile>();
+            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData);
+            // _projectile.SetSpeed(_muzzlesRespawns[0].transform.forward * 0f);
+            _projectile.SetSpeed(_muzzlesRespawns[0].transform.forward * _currentWeaponStaticData.ProjectileSpeed);
         }
 
         private void LaunchShotVfx()

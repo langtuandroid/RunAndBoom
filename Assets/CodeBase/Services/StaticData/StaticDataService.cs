@@ -14,7 +14,7 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataWeaponsPath = "StaticData/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
 
-        private const string StaticDataProjectileTracesPath = "StaticData/ProjectileTraces";
+        private const string StaticDataProjectileTracesPath = "StaticData/ProjectilesTraces";
         // private const string StaticDataWindowsPath = "StaticData/Windows";
 
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;

@@ -20,16 +20,21 @@ namespace CodeBase.Projectile
             _enemies.Clear();
             RaycastHit[] objectsHits = new RaycastHit[_objectsHitsCount];
             int objectsHitsCount = GetObjectsHits(objectsHits);
+            IDeath death = null;
 
             for (int i = 0; i < objectsHitsCount; i++)
             {
-                IDeath death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
-                death.Die();
+                death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
+
+                if (death == null)
+                    death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
+
+                death?.Die();
             }
         }
 
-        private int GetObjectsHits(RaycastHit[] enemiesHits) =>
-            Physics.SphereCastNonAlloc(transform.position, _sphereRadius, transform.forward, enemiesHits, _sphereDistance, _objectLayerMask,
+        private int GetObjectsHits(RaycastHit[] hits) =>
+            Physics.SphereCastNonAlloc(transform.position, _sphereRadius, transform.forward, hits, _sphereDistance, _objectLayerMask,
                 QueryTriggerInteraction.UseGlobal);
     }
 }

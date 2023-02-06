@@ -4,15 +4,22 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(EnemyHealth), typeof(EnemyAnimator))]
+    [RequireComponent(typeof(EnemyHealth))]
     public class EnemyDeath : MonoBehaviour, IDeath
     {
         private float _deathDelay = 5f;
+        private IHealth _health;
+
+        private void Awake() =>
+            _health = GetComponent<IHealth>();
 
         public void Die()
         {
-            GetComponent<IHealth>().TakeDamage(100);
-            GetComponent<Rigidbody>().AddForce(Vector3.up, ForceMode.Force);
+            _health.TakeDamage(100);
+
+            if (_health.Current > 0)
+                GetComponent<Rigidbody>().AddForce(Vector3.up * 50f, ForceMode.Impulse);
+
             StartCoroutine(DestroyTimer());
         }
 

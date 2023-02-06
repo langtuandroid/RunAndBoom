@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(EnemyAnimator))]
     public class EnemyHealth : MonoBehaviour, IHealth
     {
         [SerializeField] private float _max;
@@ -14,7 +13,7 @@ namespace CodeBase.Enemy
 
         private void Awake()
         {
-            _animator = GetComponent<EnemyAnimator>();
+            _animator = transform.GetChild(0).GetComponent<EnemyAnimator>();
             _current = _max;
         }
 
@@ -36,11 +35,9 @@ namespace CodeBase.Enemy
         {
             Current -= damage;
 
-            _animator.PlayHit();
+            // _animator.PlayHit();
 
             HealthChanged?.Invoke();
         }
-
-        public int DeathPoints { get; set; }
     }
 }

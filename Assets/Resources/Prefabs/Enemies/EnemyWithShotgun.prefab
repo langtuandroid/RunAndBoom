@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3415234937756363197}
   - component: {fileID: 7830974374781353773}
-  m_Layer: 6
+  - component: {fileID: 37594953491158779}
+  - component: {fileID: 4173937154182935379}
+  m_Layer: 0
   m_Name: EnemyWithShotgun
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,8 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6973424199440305775}
   - {fileID: 3757947869811643707}
+  - {fileID: 6973424199440305775}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,8 +48,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffcf1ef7ec1c4402939390d325298a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _current: 1
   _max: 1
+--- !u!114 &37594953491158779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415234937756363196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc607ffb5b941248cca5654579569e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &4173937154182935379
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415234937756363196}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6974397823881622875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,6 +2865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6973424199440305775}
   - component: {fileID: 7033077135702514105}
+  - component: {fileID: 6260663080318074193}
   m_Layer: 0
   m_Name: SM_Chr_GangBoss_01
   m_TagString: Untagged
@@ -2874,7 +2904,7 @@ Transform:
   - {fileID: 6973459980371160635}
   - {fileID: 6973801747140575873}
   m_Father: {fileID: 3415234937756363197}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7033077135702514105
 Animator:
@@ -2896,6 +2926,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6260663080318074193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975794563209170869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7459c660c1ff46d7a889f6a307476a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6975819095096444535
 GameObject:
   m_ObjectHideFlags: 0
@@ -4059,8 +4101,8 @@ GameObject:
   - component: {fileID: 3757947869811643707}
   - component: {fileID: 2213985631041506637}
   m_Layer: 6
-  m_Name: HurtBox
-  m_TagString: Untagged
+  m_Name: HitBox
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4078,7 +4120,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3415234937756363197}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2213985631041506637
 BoxCollider:

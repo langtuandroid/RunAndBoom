@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3830175157917846877}
   m_Layer: 0
   m_Name: Hero
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   _visibleObstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  _checkEnemiesDelay: 2
 --- !u!114 &158166958466717589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ GameObject:
   - component: {fileID: 2377033606692445656}
   - component: {fileID: 8529080311199125359}
   - component: {fileID: 3477267580536293968}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
