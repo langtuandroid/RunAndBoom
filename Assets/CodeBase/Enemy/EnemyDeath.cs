@@ -22,7 +22,7 @@ namespace CodeBase.Enemy
             StartCoroutine(DestroyTimer());
         }
 
-        public void Die() => 
+        public void Die() =>
             _health.TakeDamage(100);
 
         private IEnumerator DestroyTimer()

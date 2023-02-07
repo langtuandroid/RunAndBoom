@@ -7,7 +7,7 @@ using Zenject;
 
 namespace CodeBase.Hero
 {
-    public class HeroAiming : MonoBehaviour
+    public class EnemiesChecker : MonoBehaviour
     {
         [SerializeField] private LayerMask _enemyLayerMask;
         [SerializeField] private LayerMask _visibleObstaclesLayerMask;
@@ -24,6 +24,7 @@ namespace CodeBase.Hero
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
 
         public event Action<EnemyHealth> FoundClosestEnemy;
+        public event Action EnemyNotFound;
         public event Action EnemyVisibilityChecked;
 
         [Inject]
@@ -31,12 +32,12 @@ namespace CodeBase.Hero
         {
             _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
             _heroRotating = GetComponent<HeroRotating>();
-            _heroWeaponSelection.WeaponSelected += SetWeaponRange;
+            _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
             _heroRotating.ShootDirection += CheckEnemyVisibility;
         }
 
-        private void SetWeaponRange(WeaponStaticData weaponStaticData, Transform transform) =>
-            _sphereRadius = weaponStaticData.Range;
+        private void SetWeaponAimRange(WeaponStaticData weaponStaticData, Transform transform) =>
+            _sphereRadius = weaponStaticData.AimRange;
 
         private void FixedUpdate()
         {
@@ -92,18 +93,29 @@ namespace CodeBase.Hero
 
         private void FindClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
-            EnemyHealth closestEnemy = visibleEnemies[0];
-            float minDistance = Vector3.Distance(visibleEnemies[0].transform.position, transform.position);
+            EnemyHealth closestEnemy = null;
+            float minDistance = 500f;
 
             foreach (EnemyHealth enemy in visibleEnemies)
             {
                 float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
 
                 if (distanceToEnemy < minDistance)
-                    closestEnemy = enemy;
+                {
+                    minDistance = distanceToEnemy;
+
+                    if (enemy.Current > 0)
+                        closestEnemy = enemy;
+                }
             }
 
-            FoundClosestEnemy?.Invoke(closestEnemy);
+            if (closestEnemy != null)
+            {
+                Debug.Log($"closestEnemy name {closestEnemy.transform.gameObject.name}");
+                FoundClosestEnemy?.Invoke(closestEnemy);
+            }
+            else
+                EnemyNotFound?.Invoke();
         }
 
         private void CheckEnemyVisibility(Vector3 enemyPosition)
@@ -115,6 +127,8 @@ namespace CodeBase.Hero
 
             if (raycastHits.Length == 0)
                 EnemyVisibilityChecked?.Invoke();
+            else
+                EnemyNotFound?.Invoke();
         }
     }
 }

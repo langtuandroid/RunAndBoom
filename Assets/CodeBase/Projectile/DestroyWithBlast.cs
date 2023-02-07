@@ -11,15 +11,13 @@ namespace CodeBase.Projectile
 
         private int _objectsHitsCount = 16;
         private float _sphereDistance = 0f;
-        private float _sphereRadius = 20f;
-
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
 
-        public void DestroyAllAround()
+        public void DestroyAllAround(float sphereRadius)
         {
             _enemies.Clear();
             RaycastHit[] objectsHits = new RaycastHit[_objectsHitsCount];
-            int objectsHitsCount = GetObjectsHits(objectsHits);
+            int objectsHitsCount = GetObjectsHits(objectsHits, sphereRadius);
             IDeath death = null;
 
             for (int i = 0; i < objectsHitsCount; i++)
@@ -33,8 +31,8 @@ namespace CodeBase.Projectile
             }
         }
 
-        private int GetObjectsHits(RaycastHit[] hits) =>
-            Physics.SphereCastNonAlloc(transform.position, _sphereRadius, transform.forward, hits, _sphereDistance, _objectLayerMask,
+        private int GetObjectsHits(RaycastHit[] hits, float sphereRadius) =>
+            Physics.SphereCastNonAlloc(transform.position, sphereRadius, transform.forward, hits, _sphereDistance, _objectLayerMask,
                 QueryTriggerInteraction.UseGlobal);
     }
 }

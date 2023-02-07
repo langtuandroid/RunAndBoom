@@ -15,15 +15,13 @@ namespace CodeBase.Projectile
         private GameObject _blastVfx;
         private Transform _tracePosition;
         private Rigidbody _rigidBody;
+        private float _sphereRadius;
 
         private void Awake()
         {
             _destroyWithBlast = GetComponent<DestroyWithBlast>();
             _rigidBody = GetComponent<Rigidbody>();
         }
-
-        public void SetSpeed(Vector3 speed) =>
-            _rigidBody.velocity = speed;
 
 
         public void CreateTrace()
@@ -39,10 +37,12 @@ namespace CodeBase.Projectile
             _traceVfx = Instantiate(_traceVfx, _tracePosition);
         }
 
-        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData)
+        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, Vector3 speed, float sphereRadius)
         {
             _blastVfx = blastVfx;
             _projectileTraceStaticData = projectileTraceStaticData;
+            _rigidBody.velocity = speed;
+            _sphereRadius = sphereRadius;
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -50,7 +50,7 @@ namespace CodeBase.Projectile
             gameObject.SetActive(false);
             Instantiate(_blastVfx);
 
-            _destroyWithBlast.DestroyAllAround();
+            _destroyWithBlast.DestroyAllAround(_sphereRadius);
 
             if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
                 StartCoroutine(DestroyTrace());

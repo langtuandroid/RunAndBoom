@@ -18,20 +18,29 @@ namespace CodeBase.Hero
         private IPlatformInputService _platformInputService;
 
         private HeroWeaponSelection _heroWeaponSelection;
-        private HeroAiming _heroAiming;
+        private EnemiesChecker _enemiesChecker;
         private WeaponStaticData _currentWeaponStaticData;
         private ProjectileTraceStaticData _currentProjectileTraceStaticData;
         private List<Transform> _muzzlesRespawns = new List<Transform>();
         private List<Transform> _projectileRespawns = new List<Transform>();
-
         private Transform _weaponTransform;
         private GameObject _vfxShot;
         private float _vfxShotLifetime = 1f;
 
-        private bool _enableSpotted = false;
+        private bool _enemySpotted = false;
         private float _currentAttackCooldown;
         private GameObject _projectilePrefab;
         private Projectile.Projectile _projectile;
+
+        private void Awake()
+        {
+            _enemiesChecker.EnemyVisibilityChecked += EnemyNotSpotted;
+        }
+
+        private void EnemyNotSpotted()
+        {
+            _enemySpotted = false;
+        }
 
         private void Update() =>
             UpdateCooldown();
@@ -61,9 +70,9 @@ namespace CodeBase.Hero
         private void SubscribeServicesEvents()
         {
             _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
-            _heroAiming = GetComponent<HeroAiming>();
+            _enemiesChecker = GetComponent<EnemiesChecker>();
             _heroWeaponSelection.WeaponSelected += PrepareWeaponVfx;
-            _heroAiming.EnemyVisibilityChecked += EnemySpotted;
+            _enemiesChecker.EnemyVisibilityChecked += EnemySpotted;
             _platformInputService.Shot += Shoot;
         }
 
@@ -112,11 +121,11 @@ namespace CodeBase.Hero
         }
 
         private void EnemySpotted() =>
-            _enableSpotted = true;
+            _enemySpotted = true;
 
         private void Shoot()
         {
-            if (_enableSpotted && CanAttack())
+            if (_enemySpotted && CanAttack())
                 StartCoroutine(CoroutineShoot());
         }
 
@@ -147,9 +156,8 @@ namespace CodeBase.Hero
             _projectilePrefab = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
             _projectilePrefab.SetActive(false);
             _projectile = _projectilePrefab.GetComponent<Projectile.Projectile>();
-            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData);
-            // _projectile.SetSpeed(_muzzlesRespawns[0].transform.forward * 0f);
-            _projectile.SetSpeed(_muzzlesRespawns[0].transform.forward * _currentWeaponStaticData.ProjectileSpeed);
+            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData,
+                _muzzlesRespawns[0].transform.forward * _currentWeaponStaticData.ProjectileSpeed, _currentWeaponStaticData.BlastRange);
         }
 
         private void LaunchShotVfx()

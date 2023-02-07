@@ -8,16 +8,16 @@ namespace CodeBase.Hero
 {
     public class HeroRotating : MonoBehaviour
     {
-        private float _rotationSpeed = 0.05f;
+        private float _rotationSpeed = 0.01f;
 
-        private HeroAiming _heroAiming;
+        private EnemiesChecker _enemiesChecker;
         private Vector3 _shootPosition;
         private Quaternion _startGameRotation;
         private Vector3 _direction;
         private bool _rotating = false;
         private float _angle;
 
-        private Coroutine _rotatingToClickCoroutine;
+        private Coroutine _rotatingToEnemyCoroutine;
         private Coroutine _rotatingToClosesEnemyCoroutine;
         private Coroutine _lookAtCoroutine;
 
@@ -26,15 +26,21 @@ namespace CodeBase.Hero
         [Inject]
         public void Construct()
         {
-            _heroAiming = GetComponent<HeroAiming>();
-            _heroAiming.FoundClosestEnemy += RotateTo;
+            _enemiesChecker = GetComponent<EnemiesChecker>();
+            _enemiesChecker.FoundClosestEnemy += RotateTo;
+            _enemiesChecker.EnemyNotFound += StopRotate;
+        }
+
+        private void StopRotate()
+        {
+            StopCoroutine(_rotatingToEnemyCoroutine);
         }
 
         private void RotateTo(EnemyHealth enemy)
         {
-            if (_rotatingToClickCoroutine != null) StopCoroutine(_rotatingToClickCoroutine);
+            if (_rotatingToEnemyCoroutine != null) StopCoroutine(_rotatingToEnemyCoroutine);
 
-            _rotatingToClickCoroutine = StartCoroutine(CoroutineRotateTo(enemy));
+            _rotatingToEnemyCoroutine = StartCoroutine(CoroutineRotateTo(enemy));
         }
 
         private IEnumerator CoroutineRotateTo(EnemyHealth enemy)

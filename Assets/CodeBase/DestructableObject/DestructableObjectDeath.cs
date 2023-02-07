@@ -20,7 +20,7 @@ namespace CodeBase.DestructableObject
             _broken.SetActive(false);
             _parts = new List<Rigidbody>(_broken.transform.childCount);
 
-            for (int i = 0; i < _broken.transform.childCount; i++) 
+            for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
         }
 
