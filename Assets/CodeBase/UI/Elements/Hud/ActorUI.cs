@@ -21,7 +21,7 @@ namespace CodeBase.UI.Elements.Hud
         {
             _health = health;
 
-            _health.HealthChanged += UpdateHpBar;
+            _health.Died += UpdateHpBar;
         }
 
         private void UpdateHpBar()
@@ -29,7 +29,7 @@ namespace CodeBase.UI.Elements.Hud
             _hpBar.SetValue(_health.Current, _health.Max);
 
             if (_health.Current < 0)
-                _health.HealthChanged -= UpdateHpBar;
+                _health.Died -= UpdateHpBar;
         }
     }
 }

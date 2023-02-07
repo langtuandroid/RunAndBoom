@@ -10,18 +10,20 @@ namespace CodeBase.Enemy
         private float _deathDelay = 5f;
         private IHealth _health;
 
-        private void Awake() =>
-            _health = GetComponent<IHealth>();
-
-        public void Die()
+        private void Awake()
         {
-            _health.TakeDamage(100);
+            _health = GetComponent<IHealth>();
+            _health.Died += ForceUp;
+        }
 
-            if (_health.Current > 0)
-                GetComponent<Rigidbody>().AddForce(Vector3.up * 50f, ForceMode.Impulse);
-
+        private void ForceUp()
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.up * 50f, ForceMode.Force);
             StartCoroutine(DestroyTimer());
         }
+
+        public void Die() => 
+            _health.TakeDamage(100);
 
         private IEnumerator DestroyTimer()
         {

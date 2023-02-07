@@ -10,6 +10,7 @@ namespace CodeBase.Hero
     {
         public int Current { get; set; }
         public int Max { get; set; }
+        public event Action Died;
         public event Action HealthChanged;
 
         public void Construct()

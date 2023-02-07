@@ -9,6 +9,7 @@ namespace CodeBase.Enemy
         [SerializeField] private float _max;
 
         private EnemyAnimator _animator;
+        private float _previousCurrent;
         private float _current;
 
         private void Awake()
@@ -29,15 +30,24 @@ namespace CodeBase.Enemy
             set => _max = value;
         }
 
+        public event Action Died;
         public event Action HealthChanged;
 
         public void TakeDamage(int damage)
         {
-            Current -= damage;
+            _previousCurrent = _current;
+            _current -= damage;
 
-            // _animator.PlayHit();
+            if (_current <= 0 && _previousCurrent > 0)
+            {
+                Died?.Invoke();
+            }
 
-            HealthChanged?.Invoke();
+            if (_current > 0)
+            {
+                // _animator.PlayHit();
+                HealthChanged?.Invoke();
+            }
         }
     }
 }
