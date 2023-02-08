@@ -143,7 +143,7 @@ namespace CodeBase.Hero
             _projectile.CreateTrace();
 
             yield return new WaitForSeconds(_currentAttackCooldown);
-            
+
             _projectilePrefab.SetActive(false);
         }
 

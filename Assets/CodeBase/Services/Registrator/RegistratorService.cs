@@ -53,11 +53,10 @@ namespace CodeBase.Services.Registrator
         public async Task<GameObject> LoadRegisteredAsync(string prefabPath)
         {
             GameObject gameObject = await _assets.Load<GameObject>(prefabPath);
-            RegisterProgressWatchers(gameObject);
             return gameObject;
         }
 
-        private void RegisterProgressWatchers(GameObject gameObject)
+        public void RegisterProgressWatchers(GameObject gameObject)
         {
             foreach (IProgressReader progressReader in gameObject.GetComponentsInChildren<IProgressReader>())
                 Register(progressReader);

@@ -10,15 +10,15 @@ namespace CodeBase.UI.Elements.Hud
         private Camera _mainCamera;
 
         // private void Start() =>
-            // StartCoroutine(CoroutineLookAt());
+        // StartCoroutine(CoroutineLookAt());
 
         private IEnumerator CoroutineLookAt()
         {
             yield return new WaitForSeconds(MainCameraCreationDelay);
-                _mainCamera = Camera.main;
-                Quaternion rotation = _mainCamera.transform.rotation;
-                transform.LookAt(transform.position + rotation * Vector3.back, rotation * Vector3.up);
-                yield return new WaitForSeconds(RefreshDelay);
+            _mainCamera = Camera.main;
+            Quaternion rotation = _mainCamera.transform.rotation;
+            transform.LookAt(transform.position + rotation * Vector3.back, rotation * Vector3.up);
+            yield return new WaitForSeconds(RefreshDelay);
         }
     }
 }

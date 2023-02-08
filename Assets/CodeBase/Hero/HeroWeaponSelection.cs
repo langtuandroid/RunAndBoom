@@ -12,6 +12,7 @@ namespace CodeBase.Hero
     {
         private const string WeaponContainerName = "Weapon";
 
+        // [Inject]
         private IStaticDataService _staticDataService;
 
         private WeaponTypeId _currentWeaponTypeId;
@@ -24,14 +25,13 @@ namespace CodeBase.Hero
         public void Construct(IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
-
-            _currentWeaponStaticData = _staticDataService.ForWeapon(_currentWeaponTypeId);
-            FindWeaponContainer();
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
             _currentWeaponTypeId = progress.CurrentWeaponTypeId;
+            _currentWeaponStaticData = _staticDataService.ForWeapon(_currentWeaponTypeId);
+            FindWeaponContainer();
         }
 
         public void UpdateProgress(PlayerProgress progress)

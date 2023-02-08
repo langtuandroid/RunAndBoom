@@ -64,7 +64,7 @@ namespace CodeBase.Projectile
 
                 if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
                     StartCoroutine(DestroyTrace());
-                
+
                 gameObject.SetActive(false);
             }
         }
