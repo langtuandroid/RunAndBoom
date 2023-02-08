@@ -58,7 +58,6 @@ namespace CodeBase.Hero
         {
             string weaponName = _currentWeaponStaticData.WeaponTypeId.ToString();
 
-
             for (int i = 0; i < _transform.childCount; i++)
             {
                 if (_transform.GetChild(i).gameObject.name == weaponName)

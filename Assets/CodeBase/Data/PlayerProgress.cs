@@ -32,7 +32,7 @@ namespace CodeBase.Data
 
             foreach (WeaponTypeId typeId in typeIds)
             {
-                if (typeId == WeaponTypeId.GrenadeLauncher) AvailableWeapons.Add(typeId, true);
+                if (typeId == WeaponTypeId.RPG) AvailableWeapons.Add(typeId, true);
                 else AvailableWeapons.Add(typeId, false);
             }
         }

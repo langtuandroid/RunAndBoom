@@ -53,8 +53,12 @@ namespace CodeBase.Infrastructure.Factory
             var prefab = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
             // _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
             // _container.Inject(_heroGameObject);
+            // _heroGameObject = prefab;
+            // prefab = _container.InstantiatePrefab(prefab);
+            // _container.Inject(prefab);
             _heroGameObject = _container.InstantiatePrefab(prefab);
             prefab.SetActive(false);
+            // return prefab;
             return _heroGameObject;
         }
 
