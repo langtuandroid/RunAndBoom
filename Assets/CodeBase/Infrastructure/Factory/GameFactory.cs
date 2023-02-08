@@ -51,13 +51,14 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             var prefab = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
+            // var prefab = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hero);
             // _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at);
             // _container.Inject(_heroGameObject);
             // _heroGameObject = prefab;
             // prefab = _container.InstantiatePrefab(prefab);
             // _container.Inject(prefab);
-            _heroGameObject = _container.InstantiatePrefab(prefab);
-            prefab.SetActive(false);
+            _heroGameObject = _container.InstantiatePrefab(prefab, at, Quaternion.identity, null);
+            // prefab.SetActive(false);
             // return prefab;
             return _heroGameObject;
         }

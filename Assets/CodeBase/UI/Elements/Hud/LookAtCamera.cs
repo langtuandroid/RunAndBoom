@@ -9,8 +9,8 @@ namespace CodeBase.UI.Elements.Hud
         private const float RefreshDelay = 0.2f;
         private Camera _mainCamera;
 
-        private void Start() =>
-            StartCoroutine(CoroutineLookAt());
+        // private void Start() =>
+            // StartCoroutine(CoroutineLookAt());
 
         private IEnumerator CoroutineLookAt()
         {

@@ -14,5 +14,6 @@ namespace CodeBase.Services.Registrator
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at);
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Transform parent);
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath);
+        Task<GameObject> LoadRegisteredAsync(string prefabPath);
     }
 }

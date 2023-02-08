@@ -15,16 +15,16 @@ namespace CodeBase.Services.Registrator
         public RegistratorService(IAssets assets) =>
             _assets = assets;
 
-        public GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
+        public GameObject InstantiateRegistered(GameObject prefab)
         {
-            GameObject gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
+            GameObject gameObject = Object.Instantiate(prefab);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
 
-        public GameObject InstantiateRegistered(GameObject prefab)
+        public GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
         {
-            GameObject gameObject = Object.Instantiate(prefab);
+            GameObject gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
@@ -46,6 +46,13 @@ namespace CodeBase.Services.Registrator
         public async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
         {
             GameObject gameObject = await _assets.Instantiate(prefabPath);
+            RegisterProgressWatchers(gameObject);
+            return gameObject;
+        }
+
+        public async Task<GameObject> LoadRegisteredAsync(string prefabPath)
+        {
+            GameObject gameObject = await _assets.Load<GameObject>(prefabPath);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
