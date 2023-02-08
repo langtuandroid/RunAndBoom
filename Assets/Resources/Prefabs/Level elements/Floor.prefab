@@ -107,9 +107,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2244674872416163740}
+  - component: {fileID: 8423704924508617137}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +133,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8423704924508617137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2244674872416163741}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 0, y: -0.5, z: 5}
 --- !u!1001 &3014758334952083721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,6 +157,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Border Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431770444990319635, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4612950056180135315, guid: 43461be5c688e644bbfe4c1473815114,
         type: 3}
@@ -233,6 +252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Border Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431770444990319635, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4612950056180135315, guid: 43461be5c688e644bbfe4c1473815114,
         type: 3}

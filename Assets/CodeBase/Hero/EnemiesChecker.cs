@@ -88,6 +88,11 @@ namespace CodeBase.Hero
 
                 if (_enemies.Count > 0)
                     FindClosestEnemy(_enemies);
+                else
+                {
+                    Debug.Log("Not Found");
+                    EnemyNotFound?.Invoke();
+                }
             }
         }
 
@@ -115,7 +120,10 @@ namespace CodeBase.Hero
                 FoundClosestEnemy?.Invoke(closestEnemy);
             }
             else
+            {
+                Debug.Log("Not Found");
                 EnemyNotFound?.Invoke();
+            }
         }
 
         private void CheckEnemyVisibility(Vector3 enemyPosition)
@@ -126,9 +134,15 @@ namespace CodeBase.Hero
                 QueryTriggerInteraction.UseGlobal);
 
             if (raycastHits.Length == 0)
+            {
+                Debug.Log("EnemyVisibilityChecked");
                 EnemyVisibilityChecked?.Invoke();
+            }
             else
+            {
+                Debug.Log("EnemyNotFound");
                 EnemyNotFound?.Invoke();
+            }
         }
     }
 }

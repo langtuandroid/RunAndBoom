@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wooden Crate Destructionable
       objectReference: {fileID: 0}
+    - target: {fileID: 4276193562229367596, guid: 86b9f38c123720a429014702c9957411,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environments
+      objectReference: {fileID: 0}
     - target: {fileID: 4276193562229367597, guid: 86b9f38c123720a429014702c9957411,
         type: 3}
       propertyPath: m_RootOrder

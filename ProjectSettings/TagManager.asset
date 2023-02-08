@@ -5,8 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Barrier
   - Hero
+  - Environments
+  - Barrier
+  - Floor
   layers:
   - Default
   - TransparentFX

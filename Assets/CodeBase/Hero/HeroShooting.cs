@@ -32,16 +32,6 @@ namespace CodeBase.Hero
         private GameObject _projectilePrefab;
         private Projectile.Projectile _projectile;
 
-        private void Awake()
-        {
-            _enemiesChecker.EnemyVisibilityChecked += EnemyNotSpotted;
-        }
-
-        private void EnemyNotSpotted()
-        {
-            _enemySpotted = false;
-        }
-
         private void Update() =>
             UpdateCooldown();
 
@@ -53,9 +43,6 @@ namespace CodeBase.Hero
 
         private bool CooldownUp() =>
             _currentAttackCooldown <= 0;
-
-        private bool CanAttack() =>
-            CooldownUp();
 
         [Inject]
         public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
@@ -73,7 +60,13 @@ namespace CodeBase.Hero
             _enemiesChecker = GetComponent<EnemiesChecker>();
             _heroWeaponSelection.WeaponSelected += PrepareWeaponVfx;
             _enemiesChecker.EnemyVisibilityChecked += EnemySpotted;
-            _platformInputService.Shot += Shoot;
+            _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
+            _platformInputService.Shot += TryShoot;
+        }
+
+        private void EnemyNotSpotted()
+        {
+            _enemySpotted = false;
         }
 
         // private void OnDisable()
@@ -123,26 +116,35 @@ namespace CodeBase.Hero
         private void EnemySpotted() =>
             _enemySpotted = true;
 
-        private void Shoot()
+        private void TryShoot()
         {
             if (_enemySpotted && CanAttack())
-                StartCoroutine(CoroutineShoot());
+                Shoot();
         }
 
-        private IEnumerator CoroutineShoot()
+        private bool CanAttack() =>
+            CooldownUp();
+
+        private void Shoot()
         {
-            Debug.Log("CoroutineShoot");
-            SetProjectile(_projectileRespawns[0]);
-            LaunchProjectile();
-            LaunchShotVfx();
+            Debug.Log("Shoot");
             _currentAttackCooldown = _currentWeaponStaticData.Cooldown;
-            yield return null;
+            SetProjectile(_projectileRespawns[0]);
+            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData, _currentWeaponStaticData.ProjectileSpeed,
+                _currentWeaponStaticData.BlastRange);
+            StartCoroutine(LaunchProjectile());
+            LaunchShotVfx();
         }
 
-        private void LaunchProjectile()
+        private IEnumerator LaunchProjectile()
         {
             _projectilePrefab.SetActive(true);
+            _projectile.Launch();
             _projectile.CreateTrace();
+
+            yield return new WaitForSeconds(_currentAttackCooldown);
+            
+            _projectilePrefab.SetActive(false);
         }
 
         private void SetProjectile(Transform projectileTransform)
@@ -156,8 +158,6 @@ namespace CodeBase.Hero
             _projectilePrefab = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
             _projectilePrefab.SetActive(false);
             _projectile = _projectilePrefab.GetComponent<Projectile.Projectile>();
-            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData,
-                _muzzlesRespawns[0].transform.forward * _currentWeaponStaticData.ProjectileSpeed, _currentWeaponStaticData.BlastRange);
         }
 
         private void LaunchShotVfx()

@@ -8,7 +8,7 @@ namespace CodeBase.Hero
 {
     public class HeroRotating : MonoBehaviour
     {
-        private float _rotationSpeed = 0.01f;
+        private const float RotationSpeed = 0.01f;
 
         private EnemiesChecker _enemiesChecker;
         private Vector3 _shootPosition;
@@ -52,12 +52,11 @@ namespace CodeBase.Hero
             {
                 _direction = (_shootPosition - transform.position).normalized;
                 Quaternion targetRotation = Quaternion.LookRotation(_direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-                    _rotationSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed);
 
                 _angle = Vector3.Angle(transform.forward, _direction);
 
-                if (_angle < 5f)
+                if (_angle < 0.5f)
                 {
                     transform.LookAt(_shootPosition, Vector3.up);
                     Vector3 targetPosition = enemy.gameObject.transform.position;

@@ -40,6 +40,7 @@ namespace CodeBase.Enemy
 
             if (_current <= 0 && _previousCurrent > 0)
             {
+                Debug.Log($"died {transform.gameObject.name}");
                 Died?.Invoke();
             }
 

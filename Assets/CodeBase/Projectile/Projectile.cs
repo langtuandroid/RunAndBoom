@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace CodeBase.Projectile
 {
-    [RequireComponent(typeof(DestroyWithBlast)
-        , typeof(Rigidbody)
+    [RequireComponent(typeof(DestroyWithBlast), typeof(Rigidbody)
     )]
     public class Projectile : MonoBehaviour
     {
+        private const float LaunchForce = 50f;
         private DestroyWithBlast _destroyWithBlast;
         private ProjectileTraceStaticData _projectileTraceStaticData;
         private GameObject _traceVfx;
         private GameObject _blastVfx;
         private Transform _tracePosition;
         private Rigidbody _rigidBody;
+        private float _speed;
         private float _sphereRadius;
 
         private void Awake()
@@ -37,30 +38,47 @@ namespace CodeBase.Projectile
             _traceVfx = Instantiate(_traceVfx, _tracePosition);
         }
 
-        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, Vector3 speed, float sphereRadius)
+        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, float speed, float sphereRadius)
         {
             _blastVfx = blastVfx;
             _projectileTraceStaticData = projectileTraceStaticData;
-            _rigidBody.velocity = speed;
+            _speed = speed;
             _sphereRadius = sphereRadius;
+        }
+
+        public void Launch()
+        {
+            _rigidBody.AddForce(Vector3.forward * _speed * LaunchForce, ForceMode.Force);
+            Debug.Log($"velocity {_rigidBody.velocity}");
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            gameObject.SetActive(false);
-            Instantiate(_blastVfx);
+            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Environments") || collision.gameObject.CompareTag("Floor"))
+            {
+                Debug.Log("Blast!");
+                var blastVfx = Instantiate(_blastVfx, transform.position, Quaternion.identity);
+                StartCoroutine(DestroyBlast(blastVfx));
 
-            _destroyWithBlast.DestroyAllAround(_sphereRadius);
+                _destroyWithBlast.DestroyAllAround(_sphereRadius);
 
-            if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
-                StartCoroutine(DestroyTrace());
+                if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
+                    StartCoroutine(DestroyTrace());
+                
+                gameObject.SetActive(false);
+            }
+        }
+
+        private IEnumerator DestroyBlast(GameObject blastVfx)
+        {
+            yield return new WaitForSeconds(2f);
+            Destroy(blastVfx);
         }
 
         private IEnumerator DestroyTrace()
         {
             yield return new WaitForSeconds(_projectileTraceStaticData.EndDelay);
             Destroy(_traceVfx);
-            Destroy(this);
         }
     }
 }

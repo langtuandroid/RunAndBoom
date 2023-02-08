@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3089855370304842797}
   m_Layer: 0
   m_Name: Floor Downhill 10
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Border Left
       objectReference: {fileID: 0}
+    - target: {fileID: 3431770444990319635, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4612950056180135315, guid: 43461be5c688e644bbfe4c1473815114,
         type: 3}
       propertyPath: m_Mesh
@@ -233,6 +238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Border Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431770444990319635, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4612950056180135315, guid: 43461be5c688e644bbfe4c1473815114,
         type: 3}
