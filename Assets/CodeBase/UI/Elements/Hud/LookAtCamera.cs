@@ -1,18 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace CodeBase.UI.Elements.Hud
 {
     public class LookAtCamera : MonoBehaviour
     {
+        private const float MainCameraCreationDelay = 0.01f;
+        private const float RefreshDelay = 0.2f;
         private Camera _mainCamera;
 
         private void Start() =>
-            _mainCamera = Camera.main;
+            StartCoroutine(CoroutineLookAt());
 
-        private void Update()
+        private IEnumerator CoroutineLookAt()
         {
-            Quaternion rotation = _mainCamera.transform.rotation;
-            transform.LookAt(transform.position + rotation * Vector3.back, rotation * Vector3.up);
+            yield return new WaitForSeconds(MainCameraCreationDelay);
+                _mainCamera = Camera.main;
+                Quaternion rotation = _mainCamera.transform.rotation;
+                transform.LookAt(transform.position + rotation * Vector3.back, rotation * Vector3.up);
+                yield return new WaitForSeconds(RefreshDelay);
         }
     }
 }
