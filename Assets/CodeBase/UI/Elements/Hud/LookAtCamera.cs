@@ -5,12 +5,12 @@ namespace CodeBase.UI.Elements.Hud
 {
     public class LookAtCamera : MonoBehaviour
     {
-        private const float MainCameraCreationDelay = 0.01f;
+        private const float MainCameraCreationDelay = 0.5f;
         private const float RefreshDelay = 0.2f;
         private Camera _mainCamera;
 
-        // private void Start() =>
-        // StartCoroutine(CoroutineLookAt());
+        private void Start() =>
+            StartCoroutine(CoroutineLookAt());
 
         private IEnumerator CoroutineLookAt()
         {

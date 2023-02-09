@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.StaticData.Weapon;
+using CodeBase.UI.Elements.Hud;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -20,15 +20,15 @@ namespace CodeBase.Hero
         private float _distanceToEnemy = 0f;
         private float _sphereRadius = 1f;
         private float _checkEnemiesDelay = 0.1f;
-        private float _fixedDeltaTimeCounter = 0;
+        private float _fixedDeltaTimeCounter = 0f;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
+        private EnemyHealth _targetEnemy = null;
 
         public event Action<EnemyHealth> FoundClosestEnemy;
         public event Action EnemyNotFound;
         public event Action EnemyVisibilityChecked;
 
-        [Inject]
-        public void Construct()
+        private void Awake()
         {
             _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
             _heroRotating = GetComponent<HeroRotating>();
@@ -98,26 +98,22 @@ namespace CodeBase.Hero
 
         private void FindClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
-            EnemyHealth closestEnemy = null;
-            float minDistance = 500f;
+            EnemyHealth closestEnemy = visibleEnemies[0];
 
-            foreach (EnemyHealth enemy in visibleEnemies)
-            {
-                float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
-
-                if (distanceToEnemy < minDistance)
-                {
-                    minDistance = distanceToEnemy;
-
-                    if (enemy.Current > 0)
-                        closestEnemy = enemy;
-                }
-            }
+            GetClosestEnemy(visibleEnemies, ref closestEnemy);
 
             if (closestEnemy != null)
             {
-                Debug.Log($"closestEnemy name {closestEnemy.transform.gameObject.name}");
-                FoundClosestEnemy?.Invoke(closestEnemy);
+                if (_targetEnemy != closestEnemy || _targetEnemy == null)
+                {
+                    _targetEnemy = closestEnemy;
+
+                    TurnOffAnotherTargets(visibleEnemies);
+                    TurnOnTarget();
+
+                    Debug.Log($"closestEnemy name {closestEnemy.transform.gameObject.name}");
+                    FoundClosestEnemy?.Invoke(closestEnemy);
+                }
             }
             else
             {
@@ -125,6 +121,37 @@ namespace CodeBase.Hero
                 EnemyNotFound?.Invoke();
             }
         }
+
+        private void GetClosestEnemy(List<EnemyHealth> visibleEnemies, ref EnemyHealth closestEnemy)
+        {
+            float minDistance = 500f;
+
+            if (visibleEnemies.Count > 1)
+            {
+                foreach (EnemyHealth enemy in visibleEnemies)
+                {
+                    float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
+
+                    if (distanceToEnemy < minDistance)
+                    {
+                        minDistance = distanceToEnemy;
+                        closestEnemy = enemy;
+                    }
+                }
+            }
+        }
+
+        private void TurnOffAnotherTargets(List<EnemyHealth> visibleEnemies)
+        {
+            foreach (EnemyHealth enemy in visibleEnemies)
+            {
+                if (_targetEnemy != enemy)
+                    enemy.transform.GetComponentInChildren<Target>().Hide();
+            }
+        }
+
+        private void TurnOnTarget() =>
+            _targetEnemy.transform.GetComponentInChildren<Target>().Show();
 
         private void CheckEnemyVisibility(Vector3 enemyPosition)
         {

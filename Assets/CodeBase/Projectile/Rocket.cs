@@ -1,14 +1,16 @@
 ﻿using System.Collections;
+using CodeBase.Services.StaticData;
 using CodeBase.StaticData.ProjectileTrace;
 using UnityEngine;
 
 namespace CodeBase.Projectile
 {
-    [RequireComponent(typeof(DestroyWithBlast), typeof(Rigidbody)
-    )]
-    public class Projectile : MonoBehaviour
+    [RequireComponent(typeof(DestroyWithBlast), typeof(Rigidbody))]
+    public class GrenadeLauncherGrenade : MonoBehaviour
     {
         private const float LaunchForce = 50f;
+
+        private IStaticDataService _staticDataService;
         private DestroyWithBlast _destroyWithBlast;
         private ProjectileTraceStaticData _projectileTraceStaticData;
         private GameObject _traceVfx;
@@ -31,16 +33,16 @@ namespace CodeBase.Projectile
                 StartCoroutine(CoroutineCreateTrace());
         }
 
-
         private IEnumerator CoroutineCreateTrace()
         {
             yield return new WaitForSeconds(_projectileTraceStaticData.StartDelay);
             _traceVfx = Instantiate(_traceVfx, _tracePosition);
         }
 
-        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, float speed, float sphereRadius)
+        public void AddData(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, float speed, float sphereRadius)
         {
             _blastVfx = blastVfx;
+            _traceVfx = projectileTraceStaticData.PrefabReference;
             _projectileTraceStaticData = projectileTraceStaticData;
             _speed = speed;
             _sphereRadius = sphereRadius;

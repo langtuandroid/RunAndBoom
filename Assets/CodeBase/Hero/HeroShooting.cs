@@ -30,10 +30,27 @@ namespace CodeBase.Hero
         private bool _enemySpotted = false;
         private float _currentAttackCooldown;
         private GameObject _projectilePrefab;
-        private Projectile.Projectile _projectile;
+        private Projectile.GrenadeLauncherGrenade _grenadeLauncherGrenade;
+
+        private void Awake()
+        {
+            _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
+            _enemiesChecker = GetComponent<EnemiesChecker>();
+            _heroWeaponSelection.WeaponSelected += PrepareWeaponVfx;
+            _enemiesChecker.EnemyVisibilityChecked += EnemySpotted;
+            _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
+            _platformInputService.Shot += TryShoot;
+        }
 
         private void Update() =>
             UpdateCooldown();
+
+        [Inject]
+        public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
+        {
+            _staticDataService = staticDataService;
+            _platformInputService = platformInputService;
+        }
 
         private void UpdateCooldown()
         {
@@ -44,36 +61,18 @@ namespace CodeBase.Hero
         private bool CooldownUp() =>
             _currentAttackCooldown <= 0;
 
-        [Inject]
-        public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
-        {
-            _staticDataService = staticDataService;
-            _platformInputService = platformInputService;
-
-            SubscribeServicesEvents();
-        }
-
-
-        private void SubscribeServicesEvents()
-        {
-            _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
-            _enemiesChecker = GetComponent<EnemiesChecker>();
-            _heroWeaponSelection.WeaponSelected += PrepareWeaponVfx;
-            _enemiesChecker.EnemyVisibilityChecked += EnemySpotted;
-            _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
-            _platformInputService.Shot += TryShoot;
-        }
-
         private void EnemyNotSpotted()
         {
             _enemySpotted = false;
         }
 
-        // private void OnDisable()
-        // {
-        //     _heroWeaponSelection.WeaponSelected -= PrepareWeaponVfx;
-        //     _enemiesChecker.EnemyVisibilityChecked -= EnableShoot;
-        // }
+        private void OnDisable()
+        {
+            _heroWeaponSelection.WeaponSelected -= PrepareWeaponVfx;
+            _enemiesChecker.EnemyVisibilityChecked -= EnemySpotted;
+            _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
+            _platformInputService.Shot -= TryShoot;
+        }
 
         private void PrepareWeaponVfx(WeaponStaticData weaponStaticData, Transform weaponTransform)
         {
@@ -130,7 +129,7 @@ namespace CodeBase.Hero
             Debug.Log("Shoot");
             _currentAttackCooldown = _currentWeaponStaticData.Cooldown;
             SetProjectile(_projectileRespawns[0]);
-            _projectile.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData, _currentWeaponStaticData.ProjectileSpeed,
+            _grenadeLauncherGrenade.AddData(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData, _currentWeaponStaticData.ProjectileSpeed,
                 _currentWeaponStaticData.BlastRange);
             StartCoroutine(LaunchProjectile());
             LaunchShotVfx();
@@ -139,8 +138,8 @@ namespace CodeBase.Hero
         private IEnumerator LaunchProjectile()
         {
             _projectilePrefab.SetActive(true);
-            _projectile.Launch();
-            _projectile.CreateTrace();
+            _grenadeLauncherGrenade.Launch();
+            _grenadeLauncherGrenade.CreateTrace();
 
             yield return new WaitForSeconds(_currentAttackCooldown);
 
@@ -157,7 +156,7 @@ namespace CodeBase.Hero
         {
             _projectilePrefab = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
             _projectilePrefab.SetActive(false);
-            _projectile = _projectilePrefab.GetComponent<Projectile.Projectile>();
+            _grenadeLauncherGrenade = _projectilePrefab.GetComponent<Projectile.GrenadeLauncherGrenade>();
         }
 
         private void LaunchShotVfx()
