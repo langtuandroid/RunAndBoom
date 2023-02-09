@@ -20,7 +20,7 @@ MonoBehaviour:
   AimRange: 6
   BlastRange: 4
   ProjectileSpeed: 15
-  MuzzleVfxLifeTime: 0
+  MuzzleVfxLifeTime: 1
   WeaponPrefab: {fileID: 9047281119026366967, guid: 683fffe87b611004fa545d1671de946e,
     type: 3}
   MuzzleVfx: {fileID: 1509306094841910, guid: 009f9e61721d7e649ab0936e1987d943, type: 3}

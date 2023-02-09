@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapon;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Data
 {
     [Serializable]
     public class PlayerProgress
     {
-        [FormerlySerializedAs("currentWeaponTypeId")] [FormerlySerializedAs("CurrentWeapon")]
         public WeaponTypeId CurrentWeaponTypeId;
 
         public Dictionary<WeaponTypeId, bool> AvailableWeapons { get; private set; }
@@ -32,8 +30,10 @@ namespace CodeBase.Data
 
             foreach (WeaponTypeId typeId in typeIds)
             {
-                if (typeId == WeaponTypeId.RPG) AvailableWeapons.Add(typeId, true);
-                else AvailableWeapons.Add(typeId, false);
+                if (typeId == WeaponTypeId.RPG)
+                    AvailableWeapons.Add(typeId, true);
+                else
+                    AvailableWeapons.Add(typeId, false);
             }
         }
 

@@ -195,6 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8762105987277903360}
+  - component: {fileID: 1219143798298873059}
   m_Layer: 0
   m_Name: RocketLauncherCase
   m_TagString: Untagged
@@ -224,6 +225,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1219143798298873059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9120523011494693737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilesRespawns:
+  - {fileID: 2917520859068684657}
+  - {fileID: 335872343281585320}
+  - {fileID: 413500386708576378}
+  _muzzlesRespawns:
+  - {fileID: 4336231503418874829}
+  - {fileID: 2124582923085960504}
+  - {fileID: 8103507412569437613}
 --- !u!1001 &1804579041526566015
 PrefabInstance:
   m_ObjectHideFlags: 0

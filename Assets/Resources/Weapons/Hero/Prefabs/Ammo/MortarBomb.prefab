@@ -93,8 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4678265301993082750}
   - component: {fileID: -700232552346568597}
-  - component: {fileID: 894126983272568322}
   - component: {fileID: 6238544052741066514}
+  - component: {fileID: -280808534346466171}
   m_Layer: 0
   m_Name: MortarBomb
   m_TagString: Untagged
@@ -134,18 +134,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &894126983272568322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420419689749651886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7b0375cf8e476f97e18cb53e2cee43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6238544052741066514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +149,15 @@ MonoBehaviour:
   _objectLayerMask:
     serializedVersion: 2
     m_Bits: 192
+--- !u!114 &-280808534346466171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420419689749651886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2567f9a910504d538dfe3a4da07bf2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

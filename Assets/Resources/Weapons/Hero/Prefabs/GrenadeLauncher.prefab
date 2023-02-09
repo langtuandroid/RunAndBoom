@@ -2156,6 +2156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3509205997966544200}
+  - component: {fileID: 2766325045989098034}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -2181,3 +2182,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2766325045989098034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047281119026366967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilesRespawns:
+  - {fileID: 6256389252596755060}
+  _muzzlesRespawns:
+  - {fileID: 343220600158306073}

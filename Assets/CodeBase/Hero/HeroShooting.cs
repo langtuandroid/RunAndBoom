@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using CodeBase.Projectile;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
+using CodeBase.Weapons;
 using UnityEngine;
 using Zenject;
 
@@ -11,15 +13,13 @@ namespace CodeBase.Hero
 {
     public class HeroShooting : MonoBehaviour
     {
-        private const string MuzzleName = "Muzzle";
-        private const string ProjectileRespawnName = "ProjectileRespawn";
-
         private IStaticDataService _staticDataService;
         private IPlatformInputService _platformInputService;
 
         private HeroWeaponSelection _heroWeaponSelection;
         private EnemiesChecker _enemiesChecker;
         private WeaponStaticData _currentWeaponStaticData;
+        private WeaponTypeId _weaponTypeId;
         private ProjectileTraceStaticData _currentProjectileTraceStaticData;
         private List<Transform> _muzzlesRespawns = new List<Transform>();
         private List<Transform> _projectileRespawns = new List<Transform>();
@@ -30,7 +30,7 @@ namespace CodeBase.Hero
         private bool _enemySpotted = false;
         private float _currentAttackCooldown;
         private GameObject _projectilePrefab;
-        private Projectile.GrenadeLauncherGrenade _grenadeLauncherGrenade;
+        private Projectile.Projectile _projectile;
 
         private void Awake()
         {
@@ -61,10 +61,8 @@ namespace CodeBase.Hero
         private bool CooldownUp() =>
             _currentAttackCooldown <= 0;
 
-        private void EnemyNotSpotted()
-        {
+        private void EnemyNotSpotted() =>
             _enemySpotted = false;
-        }
 
         private void OnDisable()
         {
@@ -77,21 +75,14 @@ namespace CodeBase.Hero
         private void PrepareWeaponVfx(WeaponStaticData weaponStaticData, Transform weaponTransform)
         {
             _currentWeaponStaticData = weaponStaticData;
+            _weaponTypeId = _currentWeaponStaticData.WeaponTypeId;
             _currentProjectileTraceStaticData = _staticDataService.ForProjectileTrace(_currentWeaponStaticData.ProjectileTraceTypeId);
             _weaponTransform = weaponTransform;
 
-            CheckWeaponChildrenGameObjects();
+            AddMuzzlesPositions();
+            ProjectileRespawnPositions();
             CreateShotVfx();
             CreateProjectile();
-        }
-
-        private void CheckWeaponChildrenGameObjects()
-        {
-            for (int i = 0; i < _weaponTransform.childCount; i++)
-            {
-                AddMuzzlesPositions(i);
-                ProjectileRespawnPositions(i);
-            }
         }
 
         private void CreateShotVfx()
@@ -100,16 +91,16 @@ namespace CodeBase.Hero
             _vfxShot.SetActive(false);
         }
 
-        private void ProjectileRespawnPositions(int i)
+        private void ProjectileRespawnPositions()
         {
-            if (_weaponTransform.GetChild(i).gameObject.name.Contains(ProjectileRespawnName))
-                _projectileRespawns.Add(_weaponTransform.GetChild(i).gameObject.transform);
+            foreach (Transform projectilesRespawn in _weaponTransform.GetComponent<Weapon>().ProjectilesRespawns)
+                _projectileRespawns.Add(projectilesRespawn);
         }
 
-        private void AddMuzzlesPositions(int i)
+        private void AddMuzzlesPositions()
         {
-            if (_weaponTransform.GetChild(i).gameObject.name.Contains(MuzzleName))
-                _muzzlesRespawns.Add(_weaponTransform.GetChild(i).gameObject.transform);
+            foreach (Transform muzzlesRespawn in _weaponTransform.GetComponent<Weapon>().MuzzlesRespawns)
+                _muzzlesRespawns.Add(muzzlesRespawn);
         }
 
         private void EnemySpotted() =>
@@ -129,17 +120,17 @@ namespace CodeBase.Hero
             Debug.Log("Shoot");
             _currentAttackCooldown = _currentWeaponStaticData.Cooldown;
             SetProjectile(_projectileRespawns[0]);
-            _grenadeLauncherGrenade.AddData(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData, _currentWeaponStaticData.ProjectileSpeed,
-                _currentWeaponStaticData.BlastRange);
             StartCoroutine(LaunchProjectile());
             LaunchShotVfx();
         }
 
         private IEnumerator LaunchProjectile()
         {
-            _projectilePrefab.SetActive(true);
-            _grenadeLauncherGrenade.Launch();
-            _grenadeLauncherGrenade.CreateTrace();
+            if (_weaponTypeId == WeaponTypeId.GrenadeLauncher)
+                _projectilePrefab.SetActive(true);
+
+            _projectile.Launch();
+            _projectile.CreateTrace();
 
             yield return new WaitForSeconds(_currentAttackCooldown);
 
@@ -148,15 +139,63 @@ namespace CodeBase.Hero
 
         private void SetProjectile(Transform projectileTransform)
         {
-            _projectilePrefab.transform.position = projectileTransform.position;
+            float y = 0f;
+
+            if (_weaponTypeId == WeaponTypeId.RPG)
+                y = 0.14f;
+
+            _projectilePrefab.transform.position = projectileTransform.position + new Vector3(0, y, 0);
             _projectilePrefab.transform.rotation = projectileTransform.rotation;
         }
 
         private void CreateProjectile()
         {
             _projectilePrefab = Instantiate(_currentWeaponStaticData.ProjectilePrefab, _weaponTransform.position, _weaponTransform.rotation);
-            _projectilePrefab.SetActive(false);
-            _grenadeLauncherGrenade = _projectilePrefab.GetComponent<Projectile.GrenadeLauncherGrenade>();
+
+            SetProjectileObjectVisibility();
+
+            switch (_currentWeaponStaticData.WeaponTypeId)
+            {
+                case WeaponTypeId.GrenadeLauncher:
+                    SetGrenadeBehavior();
+                    break;
+
+                case WeaponTypeId.Mortar:
+                    SetGrenadeBehavior();
+                    break;
+
+                case WeaponTypeId.RPG:
+                    SetBulletBehavior();
+                    break;
+
+                case WeaponTypeId.RocketLaucher:
+                    SetBulletBehavior();
+                    break;
+            }
+        }
+
+        private void SetGrenadeBehavior()
+        {
+            _projectile = _projectilePrefab.GetComponent<Grenade>();
+            (_projectile as Grenade)?.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData,
+                _currentWeaponStaticData.ProjectileSpeed,
+                _currentWeaponStaticData.BlastRange);
+        }
+
+        private void SetBulletBehavior()
+        {
+            _projectile = _projectilePrefab.GetComponent<Bullet>();
+            (_projectile as Bullet)?.Construct(_currentWeaponStaticData.BlastVfx, _currentProjectileTraceStaticData,
+                _currentWeaponStaticData.ProjectileSpeed,
+                _currentWeaponStaticData.BlastRange, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+        }
+
+        private void SetProjectileObjectVisibility()
+        {
+            if (_weaponTypeId == WeaponTypeId.RPG || _weaponTypeId == WeaponTypeId.Mortar || _weaponTypeId == WeaponTypeId.RocketLaucher)
+                _projectilePrefab.SetActive(true);
+            else
+                _projectilePrefab.SetActive(false);
         }
 
         private void LaunchShotVfx()

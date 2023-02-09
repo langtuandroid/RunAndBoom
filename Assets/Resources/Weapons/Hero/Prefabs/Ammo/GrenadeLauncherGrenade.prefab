@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5314609815579541260}
   - component: {fileID: 5610552984511960411}
-  - component: {fileID: 3480547164284348766}
   - component: {fileID: 1105254651833691468}
   - component: {fileID: 5973687610614497853}
+  - component: {fileID: 3074521974432510776}
   m_Layer: 0
   m_Name: GrenadeLauncherGrenade
   m_TagString: Untagged
@@ -52,18 +52,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3480547164284348766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4469147708820065836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7b0375cf8e476f97e18cb53e2cee43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1105254651833691468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +80,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.05, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3074521974432510776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469147708820065836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2567f9a910504d538dfe3a4da07bf2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6518442286862400633
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Logic;
+using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -22,6 +23,7 @@ namespace CodeBase.Enemy
 
         private void ForceUp()
         {
+            transform.GetComponentInChildren<Target>().Hide();
             _rigidbody.AddForce(Vector3.up * UpForce, ForceMode.Force);
             StartCoroutine(DestroyTimer());
         }
