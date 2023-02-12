@@ -2,7 +2,9 @@
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
+using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
+using CodeBase.Weapons;
 using UnityEngine;
 using Zenject;
 
@@ -10,16 +12,11 @@ namespace CodeBase.Hero
 {
     public class HeroWeaponSelection : MonoBehaviour, IProgressSaver
     {
-        private const string WeaponContainerName = "Weapon";
+        [SerializeField] private GameObject[] _weapons;
 
-        // [Inject]
         private IStaticDataService _staticDataService;
 
-        private WeaponTypeId _currentWeaponTypeId;
-        private Transform _transform;
-        private WeaponStaticData _currentWeaponStaticData;
-
-        public event Action<WeaponStaticData, Transform> WeaponSelected;
+        public event Action<GameObject, WeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
         [Inject]
         public void Construct(IStaticDataService staticDataService)
@@ -29,49 +26,33 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _currentWeaponTypeId = progress.CurrentWeaponTypeId;
-            _currentWeaponStaticData = _staticDataService.ForWeapon(_currentWeaponTypeId);
-            FindWeaponContainer();
+            FindWeaponContainer(progress.CurrentWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)
         {
         }
 
-        private void FindWeaponContainer()
+        private void FindWeaponContainer(WeaponTypeId weaponTypeId)
         {
-            _transform = transform;
-
-            for (int i = 0; i < _transform.childCount; i++)
+            foreach (GameObject weapon in _weapons)
             {
-                if (_transform.GetChild(i).gameObject.name == WeaponContainerName)
+                if (weapon.name == weaponTypeId.ToString())
                 {
-                    _transform = _transform.GetChild(i).gameObject.transform;
-
-                    FindWeapon();
-                    break;
+                    weapon.GetComponent<WeaponAppearance>().Construct(_staticDataService, this);
+                    weapon.SetActive(true);
+                    WeaponChosen(weapon, weaponTypeId);
                 }
-            }
-        }
-
-        private void FindWeapon()
-        {
-            string weaponName = _currentWeaponStaticData.WeaponTypeId.ToString();
-
-            for (int i = 0; i < _transform.childCount; i++)
-            {
-                if (_transform.GetChild(i).gameObject.name == weaponName)
-                    SetWeaponVisible(i);
                 else
-                    _transform.GetChild(i).gameObject.SetActive(false);
+                    weapon.SetActive(false);
             }
         }
 
-        private void SetWeaponVisible(int i)
+        private void WeaponChosen(GameObject currentWeapon, WeaponTypeId weaponTypeId)
         {
-            _transform.GetChild(i).gameObject.SetActive(true);
-            Transform current = _transform.GetChild(i).gameObject.transform;
-            WeaponSelected?.Invoke(_currentWeaponStaticData, current);
+            WeaponStaticData weaponStaticData = _staticDataService.ForWeapon(weaponTypeId);
+            ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(weaponStaticData.ProjectileTraceTypeId);
+            WeaponSelected?.Invoke(currentWeapon, weaponStaticData, projectileTraceStaticData);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.Enemy;
+using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
@@ -30,13 +31,13 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _heroWeaponSelection = GetComponent<HeroWeaponSelection>();
+            _heroWeaponSelection = transform.gameObject.GetComponentInChildren<HeroWeaponSelection>();
             _heroRotating = GetComponent<HeroRotating>();
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
             _heroRotating.ShootDirection += CheckEnemyVisibility;
         }
 
-        private void SetWeaponAimRange(WeaponStaticData weaponStaticData, Transform transform) =>
+        private void SetWeaponAimRange(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData) =>
             _sphereRadius = weaponStaticData.AimRange;
 
         private void FixedUpdate()
@@ -160,16 +161,16 @@ namespace CodeBase.Hero
             RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
-            if (raycastHits.Length == 0)
-            {
-                Debug.Log("EnemyVisibilityChecked");
-                EnemyVisibilityChecked?.Invoke();
-            }
-            else
-            {
-                Debug.Log("EnemyNotFound");
-                EnemyNotFound?.Invoke();
-            }
+            // if (raycastHits.Length == 0)
+            // {
+            //     Debug.Log("EnemyVisibilityChecked");
+            EnemyVisibilityChecked?.Invoke();
+            // }
+            // else
+            // {
+            //     Debug.Log("EnemyNotFound");
+            //     EnemyNotFound?.Invoke();
+            // }
         }
     }
 }

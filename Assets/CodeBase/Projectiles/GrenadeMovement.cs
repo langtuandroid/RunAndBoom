@@ -1,25 +1,22 @@
-﻿using CodeBase.StaticData.ProjectileTrace;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CodeBase.Projectile
+namespace CodeBase.Projectiles
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Grenade : Projectile
+    public class GrenadeMovement : ProjectileMovement
     {
         private const float LaunchForce = 50f;
 
         private Rigidbody _rigidBody;
         private float _speed;
 
-        private void Awake()
-        {
+        private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
-        }
 
-        public void Construct(GameObject blastVfx, ProjectileTraceStaticData projectileTraceStaticData, float speed, float blastRadius)
+        public void Construct(float speed, Transform parent)
         {
-            _speed = speed;
-            base.Construct(blastVfx, projectileTraceStaticData, blastRadius);
+            _speed = speed * 1f;
+            base.Construct(parent);
         }
 
         public override void Launch()

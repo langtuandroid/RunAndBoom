@@ -18,8 +18,6 @@ namespace CodeBase.Hero
         private float _angle;
 
         private Coroutine _rotatingToEnemyCoroutine;
-        private Coroutine _rotatingToClosesEnemyCoroutine;
-        private Coroutine _lookAtCoroutine;
 
         public event Action<Vector3> ShootDirection;
 
@@ -48,7 +46,7 @@ namespace CodeBase.Hero
             _rotating = true;
             _shootPosition = new Vector3(enemy.transform.position.x, transform.position.y, enemy.transform.position.z);
 
-            while (_rotating)
+            while (_rotating && enemy.Current > 0)
             {
                 _direction = (_shootPosition - transform.position).normalized;
                 Quaternion targetRotation = Quaternion.LookRotation(_direction);
@@ -61,7 +59,6 @@ namespace CodeBase.Hero
                     transform.LookAt(_shootPosition, Vector3.up);
                     Vector3 targetPosition = enemy.gameObject.transform.position;
                     ShootDirection?.Invoke(targetPosition);
-                    _rotating = false;
                 }
 
                 yield return null;

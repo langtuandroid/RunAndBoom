@@ -3,7 +3,7 @@ using CodeBase.Enemy;
 using CodeBase.Logic;
 using UnityEngine;
 
-namespace CodeBase.Projectile
+namespace CodeBase.Projectiles
 {
     public class DestroyWithBlast : MonoBehaviour
     {

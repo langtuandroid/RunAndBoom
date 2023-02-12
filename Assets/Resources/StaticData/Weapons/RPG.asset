@@ -18,8 +18,8 @@ MonoBehaviour:
   RotationSpeed: 6
   Cooldown: 3
   AimRange: 7
-  BlastRange: 8
-  ProjectileSpeed: 25
+  BlastRange: 3
+  ProjectileSpeed: 10
   MuzzleVfxLifeTime: 1
   WeaponPrefab: {fileID: 8085246352978153365, guid: cfe307f2d81702542ad4f5e8b1775a3c,
     type: 3}

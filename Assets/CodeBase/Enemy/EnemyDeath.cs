@@ -25,13 +25,16 @@ namespace CodeBase.Enemy
         {
             transform.GetComponentInChildren<Target>().Hide();
             _rigidbody.AddForce(Vector3.up * UpForce, ForceMode.Force);
-            StartCoroutine(DestroyTimer());
+            StartCoroutine(CoroutineDestroyTimer());
         }
 
-        public void Die() =>
+        public void Die()
+        {
             _health.TakeDamage(100);
+            // GetComponentInChildren<BoxCollider>().enabled = false;
+        }
 
-        private IEnumerator DestroyTimer()
+        private IEnumerator CoroutineDestroyTimer()
         {
             yield return new WaitForSeconds(_deathDelay);
             Destroy(gameObject);
