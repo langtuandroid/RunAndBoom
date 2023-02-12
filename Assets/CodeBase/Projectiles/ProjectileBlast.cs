@@ -11,12 +11,13 @@ namespace CodeBase.Projectiles
         private ProjectileTrace _projectileTrace;
         private GameObject _blastVfx;
         private float _sphereRadius;
-        private Transform _parent;
+        private ProjectileMovement _movement;
 
         private void Awake()
         {
             _destroyWithBlast = GetComponent<DestroyWithBlast>();
             _projectileTrace = GetComponent<ProjectileTrace>();
+            _movement = GetComponent<ProjectileMovement>();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -29,8 +30,7 @@ namespace CodeBase.Projectiles
 
                 _destroyWithBlast.DestroyAllAround(_sphereRadius);
                 _projectileTrace.DestroyTrace();
-
-                gameObject.transform.SetParent(_parent);
+                _movement.Stop();
                 gameObject.SetActive(false);
             }
 
@@ -41,11 +41,10 @@ namespace CodeBase.Projectiles
             }
         }
 
-        public void Construct(GameObject blastVfx, float blastRadius, Transform parent)
+        public void Construct(GameObject blastVfxPrefab, float blastRadius)
         {
-            _blastVfx = blastVfx;
+            _blastVfx = blastVfxPrefab;
             _sphereRadius = blastRadius;
-            _parent = parent;
         }
 
         private IEnumerator DestroyBlast(GameObject blastVfx)

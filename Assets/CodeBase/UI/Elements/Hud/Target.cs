@@ -18,7 +18,7 @@ namespace CodeBase.UI.Elements.Hud
             _image.transform.DOPath(path, 1f, PathType.Linear, PathMode.Ignore).SetLoops(-1);
         }
 
-        public void Hide() => 
+        public void Hide() =>
             _image.transform.gameObject.SetActive(false);
     }
 }

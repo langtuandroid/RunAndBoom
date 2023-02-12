@@ -970,6 +970,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 24490548495976460, guid: 86b9f38c123720a429014702c9957411,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environments
+      objectReference: {fileID: 0}
+    - target: {fileID: 129337124775080499, guid: 86b9f38c123720a429014702c9957411,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 129337124775080499, guid: 86b9f38c123720a429014702c9957411,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2524135245560831747, guid: 86b9f38c123720a429014702c9957411,
         type: 3}
       propertyPath: _solid
@@ -993,7 +1008,7 @@ PrefabInstance:
     - target: {fileID: 4276193562229367596, guid: 86b9f38c123720a429014702c9957411,
         type: 3}
       propertyPath: m_TagString
-      value: Environments
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4276193562229367597, guid: 86b9f38c123720a429014702c9957411,
         type: 3}

@@ -4,11 +4,12 @@ namespace CodeBase.Projectiles
 {
     public abstract class ProjectileMovement : MonoBehaviour
     {
-        private Transform _parent;
+        protected Transform Parent;
 
         protected void Construct(Transform parent) =>
-            _parent = parent;
+            Parent = parent;
 
         public abstract void Launch();
+        public abstract void Stop();
     }
 }

@@ -39,7 +39,7 @@ namespace CodeBase.Hero
             {
                 if (weapon.name == weaponTypeId.ToString())
                 {
-                    weapon.GetComponent<WeaponAppearance>().Construct(_staticDataService, this);
+                    weapon.GetComponent<WeaponAppearance>().Construct(this);
                     weapon.SetActive(true);
                     WeaponChosen(weapon, weaponTypeId);
                 }

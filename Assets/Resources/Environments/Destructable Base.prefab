@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 129337124775080499}
   m_Layer: 0
   m_Name: HitBox
-  m_TagString: Untagged
+  m_TagString: Environments
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,4 +91,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _solid: {fileID: 0}
-  _separated: {fileID: 0}
+  _broken: {fileID: 0}

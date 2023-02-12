@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Projectiles;
-using CodeBase.Services.StaticData;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using UnityEngine;
@@ -21,7 +20,6 @@ namespace CodeBase.Weapons
         private List<ProjectileMovement> _projectileMovements;
         private List<ProjectileTrace> _traces;
 
-        private IStaticDataService _staticDataService;
         private HeroWeaponSelection _heroWeaponSelection;
         private WeaponStaticData _currentWeaponStaticData;
         private WeaponTypeId _weaponTypeId;
@@ -30,7 +28,6 @@ namespace CodeBase.Weapons
         private float _muzzleVfxLifetime = 1f;
         private bool _enemySpotted = false;
         private float _attackCooldownTimer;
-        private Quaternion _worldRotation;
         private WaitForSeconds _launchProjectileCooldown;
 
         private void Awake()
@@ -41,11 +38,9 @@ namespace CodeBase.Weapons
             _traces = new List<ProjectileTrace>(_projectilesRespawns.Length);
         }
 
-        public void Construct(IStaticDataService staticDataService, HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroWeaponSelection heroWeaponSelection)
         {
-            _staticDataService = staticDataService;
             _heroWeaponSelection = heroWeaponSelection;
-            _worldRotation = _heroWeaponSelection.transform.parent.gameObject.transform.rotation;
             _heroWeaponSelection.WeaponSelected += PrepareWeapon;
         }
 
@@ -84,9 +79,25 @@ namespace CodeBase.Weapons
 
                 ProjectileBlast projectileBlast = projectileObject.GetComponent<ProjectileBlast>();
                 SetBlast(ref projectileBlast);
+                // projectileBlast.BlastHappened += ShowLaterProjectile;
                 _blasts.Add(projectileBlast);
             }
 
+            ShowProjectile();
+        }
+
+        // private void ShowLaterProjectile() =>
+        //     StartCoroutine(CoroutineShowLaterProjectile());
+        //
+        // private IEnumerator CoroutineShowLaterProjectile()
+        // {
+        //     yield return _launchProjectileCooldown;
+        //     ShowProjectile();
+        // }
+
+        private void ShowProjectile()
+        {
+            SetPosition(_projectilesRespawns[0]);
             SetInitialVisibility();
         }
 
@@ -128,35 +139,29 @@ namespace CodeBase.Weapons
             trace.Construct(_currentProjectileTraceStaticData);
 
         private void SetBlast(ref ProjectileBlast blast) =>
-            blast.Construct(_currentWeaponStaticData.BlastVfx, _currentWeaponStaticData.BlastRange, transform);
+            blast.Construct(_currentWeaponStaticData.blastVfxPrefab, _currentWeaponStaticData.BlastRange);
 
         public void LaunchProjectile() =>
             StartCoroutine(CoroutineLaunchProjectile());
 
         private IEnumerator CoroutineLaunchProjectile()
         {
-            SetPosition(_projectilesRespawns[0]);
-
+            _projectileObjects[0].transform.SetParent(null);
             _projectileMovements[0].Launch();
+            Debug.Log("Launched");
             _traces[0].CreateTrace();
 
             LaunchShotVfx();
 
             yield return _launchProjectileCooldown;
+            ShowProjectile();
         }
 
         private void SetPosition(Transform projectileTransform)
         {
+            _projectileObjects[0].transform.SetParent(transform);
             _projectileObjects[0].transform.position = projectileTransform.position;
-            // _projectileObjects[0].transform.rotation = projectileTransform.rotation;
-            _projectileObjects[0].transform.SetParent(null);
-            // _projectiles[0].transform.rotation = projectileTransform.localRotation;
-            // _projectiles[0].transform.eulerAngles = _worldRotation;
-            // _projectiles[0].transform.Rotate(0, 1, 0, Space.World);
-            // _projectiles[0].transform.Rotate(projectileTransform.localEulerAngles, Space.World);
-            // _projectiles[0].transform.LookAt();
-
-            _projectileObjects[0].SetActive(true);
+            _projectileObjects[0].transform.rotation = projectileTransform.rotation;
         }
 
         private void LaunchShotVfx()

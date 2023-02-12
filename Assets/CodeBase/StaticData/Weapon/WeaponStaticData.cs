@@ -1,5 +1,6 @@
 using CodeBase.StaticData.ProjectileTrace;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.StaticData.Weapon
 {
@@ -19,7 +20,7 @@ namespace CodeBase.StaticData.Weapon
 
         public GameObject WeaponPrefab;
         public GameObject MuzzleVfx;
-        public GameObject BlastVfx;
+        [FormerlySerializedAs("BlastVfx")] public GameObject blastVfxPrefab;
         public GameObject ProjectilePrefab;
     }
 }
