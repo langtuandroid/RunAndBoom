@@ -9,6 +9,7 @@ TagManager:
   - Environments
   - Barrier
   - Floor
+  - InitialPoint
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Enemy
   - Barrier
   - Hero
-  - 
+  - Floor
   - 
   - 
   - 

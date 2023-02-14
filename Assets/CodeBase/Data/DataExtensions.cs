@@ -10,6 +10,9 @@ namespace CodeBase.Data
             return camera.ScreenToWorldPoint(position);
         }
 
+        public static Vector3 AddY(this Vector3 position, float y) =>
+            new Vector3(position.x, position.y + y, position.z);
+
         public static bool CompareByTag(this Collision other, string tag) =>
             other.gameObject.CompareTag(tag);
 

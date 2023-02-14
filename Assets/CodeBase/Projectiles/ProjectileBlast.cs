@@ -39,11 +39,11 @@ namespace CodeBase.Projectiles
                 gameObject.SetActive(false);
             }
 
-            if (collision.gameObject.CompareTag("Hero"))
-            {
-                HeroHealth heroHealth = collision.gameObject.GetComponent<HeroHealth>();
-                heroHealth.TakeDamage(1);
-            }
+            // if (collision.gameObject.CompareTag("Hero"))
+            // {
+            //     HeroHealth heroHealth = collision.gameObject.GetComponent<HeroHealth>();
+            //     heroHealth.TakeDamage(1);
+            // }
         }
 
         public void Construct(GameObject blastVfxPrefab, float blastRadius)

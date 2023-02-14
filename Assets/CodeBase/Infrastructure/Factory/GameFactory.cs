@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.PersistentProgress;
@@ -52,7 +53,7 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             var prefab = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hero);
-            _heroGameObject = _container.InstantiatePrefab(prefab, at, Quaternion.identity, null);
+            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(2f), Quaternion.identity, null);
             _registratorService.RegisterProgressWatchers(_heroGameObject);
             return _heroGameObject;
         }
