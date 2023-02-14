@@ -156,8 +156,19 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 7089599302767958054, guid: d19b11a31f792cd4c8aada8b50d1a233,
+        type: 3}
+      propertyPath: _tracePosition
+      value: 
+      objectReference: {fileID: 7124252914283363340}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d19b11a31f792cd4c8aada8b50d1a233, type: 3}
+--- !u!4 &7124252914283363340 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6845473786046702743, guid: d19b11a31f792cd4c8aada8b50d1a233,
+    type: 3}
+  m_PrefabInstance: {fileID: 4458119858657777819}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7650083282726657514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6337939419923400049, guid: d19b11a31f792cd4c8aada8b50d1a233,

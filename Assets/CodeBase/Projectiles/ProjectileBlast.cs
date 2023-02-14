@@ -9,9 +9,11 @@ namespace CodeBase.Projectiles
     {
         private DestroyWithBlast _destroyWithBlast;
         private ProjectileTrace _projectileTrace;
-        private GameObject _blastVfx;
+        private GameObject _blastVfxPrefab;
         private float _sphereRadius;
         private ProjectileMovement _movement;
+        private ParticleSystem _particleSystem;
+        private GameObject _blastVfx;
 
         private void Awake()
         {
@@ -20,13 +22,16 @@ namespace CodeBase.Projectiles
             _movement = GetComponent<ProjectileMovement>();
         }
 
+        // private void OnEnable() => 
+        //     HideBlast();
+
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Environments") || collision.gameObject.CompareTag("Floor"))
             {
-                Debug.Log("Blast!");
-                var blastVfx = Instantiate(_blastVfx, transform.position, Quaternion.identity);
-                StartCoroutine(DestroyBlast(blastVfx));
+                ShowBlast();
+
+                StartCoroutine(DestroyBlast());
 
                 _destroyWithBlast.DestroyAllAround(_sphereRadius);
                 _projectileTrace.DestroyTrace();
@@ -43,14 +48,33 @@ namespace CodeBase.Projectiles
 
         public void Construct(GameObject blastVfxPrefab, float blastRadius)
         {
-            _blastVfx = blastVfxPrefab;
+            _blastVfxPrefab = blastVfxPrefab;
             _sphereRadius = blastRadius;
         }
 
-        private IEnumerator DestroyBlast(GameObject blastVfx)
+        private void ShowBlast()
+        {
+            Debug.Log("Blast!");
+            if (_particleSystem == null)
+            {
+                _blastVfx = Instantiate(_blastVfxPrefab, transform.position, Quaternion.identity, null);
+                _particleSystem = _blastVfx.GetComponent<ParticleSystem>();
+            }
+            else
+            {
+                _blastVfx.transform.position = transform.position;
+            }
+
+            _particleSystem.Play(true);
+        }
+
+        private void HideBlast() =>
+            _particleSystem?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        private IEnumerator DestroyBlast()
         {
             yield return new WaitForSeconds(2f);
-            blastVfx.SetActive(false);
+            HideBlast();
         }
     }
 }

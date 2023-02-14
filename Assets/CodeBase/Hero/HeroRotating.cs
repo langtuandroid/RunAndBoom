@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using CodeBase.Enemy;
 using UnityEngine;
@@ -19,8 +18,6 @@ namespace CodeBase.Hero
 
         private Coroutine _rotatingToEnemyCoroutine;
 
-        public event Action<Vector3> ShootDirection;
-
         [Inject]
         public void Construct()
         {
@@ -31,12 +28,14 @@ namespace CodeBase.Hero
 
         private void StopRotate()
         {
-            StopCoroutine(_rotatingToEnemyCoroutine);
+            if (_rotatingToEnemyCoroutine != null)
+                StopCoroutine(_rotatingToEnemyCoroutine);
         }
 
         private void RotateTo(EnemyHealth enemy)
         {
-            if (_rotatingToEnemyCoroutine != null) StopCoroutine(_rotatingToEnemyCoroutine);
+            if (_rotatingToEnemyCoroutine != null)
+                StopCoroutine(_rotatingToEnemyCoroutine);
 
             _rotatingToEnemyCoroutine = StartCoroutine(CoroutineRotateTo(enemy));
         }
@@ -58,7 +57,6 @@ namespace CodeBase.Hero
                 {
                     transform.LookAt(_shootPosition, Vector3.up);
                     Vector3 targetPosition = enemy.gameObject.transform.position;
-                    ShootDirection?.Invoke(targetPosition);
                 }
 
                 yield return null;

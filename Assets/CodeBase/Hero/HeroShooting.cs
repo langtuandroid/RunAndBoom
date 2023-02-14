@@ -1,3 +1,4 @@
+using CodeBase.Enemy;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
@@ -17,13 +18,14 @@ namespace CodeBase.Hero
         private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
         private float _weaponCooldown = 0f;
+        private Vector3 _enemyPosition;
 
         private void Awake()
         {
             _heroWeaponSelection = transform.gameObject.GetComponentInChildren<HeroWeaponSelection>();
             _enemiesChecker = GetComponent<EnemiesChecker>();
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
-            _enemiesChecker.EnemyVisibilityChecked += EnemySpotted;
+            _enemiesChecker.FoundClosestEnemy += EnemySpotted;
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
             _platformInputService.Shot += TryShoot;
         }
@@ -57,13 +59,16 @@ namespace CodeBase.Hero
 
         private void OnDisable()
         {
-            _enemiesChecker.EnemyVisibilityChecked -= EnemySpotted;
+            _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
             _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
             _platformInputService.Shot -= TryShoot;
         }
 
-        private void EnemySpotted() =>
+        private void EnemySpotted(EnemyHealth enemyHealth)
+        {
+            _enemyPosition = enemyHealth.gameObject.transform.position;
             _enemySpotted = true;
+        }
 
         private void TryShoot()
         {
@@ -75,7 +80,7 @@ namespace CodeBase.Hero
         {
             Debug.Log("Shoot");
             _currentAttackCooldown = _weaponCooldown;
-            _weaponAppearance.LaunchProjectile();
+            _weaponAppearance.LaunchProjectile(_enemyPosition);
         }
     }
 }

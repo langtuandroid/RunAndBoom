@@ -13,7 +13,6 @@ namespace CodeBase.Hero
         [SerializeField] private LayerMask _enemyLayerMask;
         [SerializeField] private LayerMask _visibleObstaclesLayerMask;
 
-        private HeroRotating _heroRotating;
         private HeroWeaponSelection _heroWeaponSelection;
 
         private int _enemiesHitsCount = 10;
@@ -27,14 +26,11 @@ namespace CodeBase.Hero
 
         public event Action<EnemyHealth> FoundClosestEnemy;
         public event Action EnemyNotFound;
-        public event Action EnemyVisibilityChecked;
 
         private void Awake()
         {
             _heroWeaponSelection = transform.gameObject.GetComponentInChildren<HeroWeaponSelection>();
-            _heroRotating = GetComponent<HeroRotating>();
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
-            _heroRotating.ShootDirection += CheckEnemyVisibility;
         }
 
         private void SetWeaponAimRange(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData) =>
@@ -109,11 +105,8 @@ namespace CodeBase.Hero
                 {
                     _targetEnemy = closestEnemy;
 
-                    TurnOffAnotherTargets(visibleEnemies);
-                    TurnOnTarget();
-
                     Debug.Log($"closestEnemy name {closestEnemy.transform.gameObject.name}");
-                    FoundClosestEnemy?.Invoke(closestEnemy);
+                    CheckEnemyVisibility(closestEnemy);
                 }
             }
             else
@@ -142,6 +135,28 @@ namespace CodeBase.Hero
             }
         }
 
+        private void CheckEnemyVisibility(EnemyHealth enemy)
+        {
+            Vector3 enemyPosition = enemy.gameObject.transform.position;
+            Vector3 direction = (enemyPosition - transform.position).normalized;
+            _distanceToEnemy = Vector3.Distance(enemyPosition, transform.position);
+            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
+                QueryTriggerInteraction.UseGlobal);
+
+            if (raycastHits.Length == 0)
+            {
+                Debug.Log("EnemyVisibilityChecked");
+                TurnOffAnotherTargets(_enemies);
+                TurnOnTarget();
+                FoundClosestEnemy?.Invoke(enemy);
+            }
+            else
+            {
+                Debug.Log("EnemyNotFound");
+                EnemyNotFound?.Invoke();
+            }
+        }
+
         private void TurnOffAnotherTargets(List<EnemyHealth> visibleEnemies)
         {
             foreach (EnemyHealth enemy in visibleEnemies)
@@ -153,24 +168,5 @@ namespace CodeBase.Hero
 
         private void TurnOnTarget() =>
             _targetEnemy.transform.GetComponentInChildren<Target>().Show();
-
-        private void CheckEnemyVisibility(Vector3 enemyPosition)
-        {
-            Vector3 direction = (enemyPosition - transform.position).normalized;
-            _distanceToEnemy = Vector3.Distance(enemyPosition, transform.position);
-            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
-                QueryTriggerInteraction.UseGlobal);
-
-            // if (raycastHits.Length == 0)
-            // {
-            //     Debug.Log("EnemyVisibilityChecked");
-            EnemyVisibilityChecked?.Invoke();
-            // }
-            // else
-            // {
-            //     Debug.Log("EnemyNotFound");
-            //     EnemyNotFound?.Invoke();
-            // }
-        }
     }
 }

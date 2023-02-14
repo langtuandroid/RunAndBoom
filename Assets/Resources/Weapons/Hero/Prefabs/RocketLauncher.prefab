@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 8762105987277903360}
   - component: {fileID: 1219143798298873059}
   m_Layer: 0
-  m_Name: RocketLauncherCase
+  m_Name: RocketLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
@@ -350,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
@@ -425,7 +425,7 @@ PrefabInstance:
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}

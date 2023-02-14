@@ -12,6 +12,10 @@ namespace CodeBase.Projectiles
         private GameObject _traceVfx;
         private float _startDelay;
         private float _endDelay;
+        private ParticleSystem _particleSystem;
+
+        private void OnEnable() =>
+            HideTrace();
 
         public void Construct(ProjectileTraceStaticData projectileTraceStaticData)
         {
@@ -20,26 +24,31 @@ namespace CodeBase.Projectiles
             _endDelay = projectileTraceStaticData.EndDelay;
         }
 
-        public void CreateTrace()
-        {
-            // StartCoroutine(CoroutineCreateTrace());
-        }
+        public void CreateTrace() =>
+            StartCoroutine(CoroutineCreateTrace());
 
         private IEnumerator CoroutineCreateTrace()
         {
+            if (_particleSystem == null)
+            {
+                var traceVfx = Instantiate(_traceVfxPrefab, _tracePosition.position, Quaternion.identity, _tracePosition);
+                _particleSystem = traceVfx.GetComponent<ParticleSystem>();
+            }
+
             yield return new WaitForSeconds(_startDelay);
-            _traceVfx = Instantiate(_traceVfxPrefab, _tracePosition);
+            _particleSystem.Play(true);
         }
 
-        public void DestroyTrace()
-        {
-            // StartCoroutine(CoroutineDestroyTrace());
-        }
+        private void HideTrace() =>
+            _particleSystem?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        public void DestroyTrace() =>
+            StartCoroutine(CoroutineDestroyTrace());
 
         private IEnumerator CoroutineDestroyTrace()
         {
             yield return new WaitForSeconds(_endDelay);
-            Destroy(_traceVfx);
+            HideTrace();
         }
     }
 }

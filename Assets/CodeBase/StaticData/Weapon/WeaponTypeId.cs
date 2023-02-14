@@ -4,7 +4,7 @@ namespace CodeBase.StaticData.Weapon
     {
         GrenadeLauncher,
         RPG,
-        RocketLaucher,
+        RocketLauncher,
         Mortar,
     }
 }

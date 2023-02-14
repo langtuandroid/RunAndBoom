@@ -30,7 +30,7 @@ namespace CodeBase.Data
 
             foreach (WeaponTypeId typeId in typeIds)
             {
-                if (typeId == WeaponTypeId.RPG)
+                if (typeId == WeaponTypeId.Mortar)
                     AvailableWeapons.Add(typeId, true);
                 else
                     AvailableWeapons.Add(typeId, false);

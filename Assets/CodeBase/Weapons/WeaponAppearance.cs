@@ -29,6 +29,7 @@ namespace CodeBase.Weapons
         private bool _enemySpotted = false;
         private float _attackCooldownTimer;
         private WaitForSeconds _launchProjectileCooldown;
+        private int _currentProjectileIndex = 0;
 
         private void Awake()
         {
@@ -79,25 +80,10 @@ namespace CodeBase.Weapons
 
                 ProjectileBlast projectileBlast = projectileObject.GetComponent<ProjectileBlast>();
                 SetBlast(ref projectileBlast);
-                // projectileBlast.BlastHappened += ShowLaterProjectile;
                 _blasts.Add(projectileBlast);
             }
 
-            ShowProjectile();
-        }
-
-        // private void ShowLaterProjectile() =>
-        //     StartCoroutine(CoroutineShowLaterProjectile());
-        //
-        // private IEnumerator CoroutineShowLaterProjectile()
-        // {
-        //     yield return _launchProjectileCooldown;
-        //     ShowProjectile();
-        // }
-
-        private void ShowProjectile()
-        {
-            SetPosition(_projectilesRespawns[0]);
+            SetPosition(_currentProjectileIndex);
             SetInitialVisibility();
         }
 
@@ -116,14 +102,14 @@ namespace CodeBase.Weapons
                     break;
 
                 case WeaponTypeId.Mortar:
-                    SetGrenadeMovement(ref movement);
+                    SetBombMovement(ref movement);
                     break;
 
                 case WeaponTypeId.RPG:
                     SetBulletMovement(ref movement);
                     break;
 
-                case WeaponTypeId.RocketLaucher:
+                case WeaponTypeId.RocketLauncher:
                     SetBulletMovement(ref movement);
                     break;
             }
@@ -131,6 +117,9 @@ namespace CodeBase.Weapons
 
         private void SetGrenadeMovement(ref ProjectileMovement movement) =>
             (movement as GrenadeMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
+
+        private void SetBombMovement(ref ProjectileMovement movement) =>
+            (movement as BombMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
 
         private void SetBulletMovement(ref ProjectileMovement movement) =>
             (movement as BulletMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
@@ -141,32 +130,52 @@ namespace CodeBase.Weapons
         private void SetBlast(ref ProjectileBlast blast) =>
             blast.Construct(_currentWeaponStaticData.blastVfxPrefab, _currentWeaponStaticData.BlastRange);
 
-        public void LaunchProjectile() =>
-            StartCoroutine(CoroutineLaunchProjectile());
+        public void LaunchProjectile(Vector3 enemyPosition) =>
+            StartCoroutine(CoroutineLaunchProjectile(enemyPosition));
 
-        private IEnumerator CoroutineLaunchProjectile()
+        private IEnumerator CoroutineLaunchProjectile(Vector3 enemyPosition)
         {
-            _projectileObjects[0].transform.SetParent(null);
-            _projectileMovements[0].Launch();
+            _projectileObjects[_currentProjectileIndex].transform.SetParent(null);
+            _projectileObjects[_currentProjectileIndex].SetActive(true);
+
+            (_projectileMovements[_currentProjectileIndex] as BombMovement)?.SetTargetPosition(enemyPosition);
+            _projectileMovements[_currentProjectileIndex].Launch();
             Debug.Log("Launched");
-            _traces[0].CreateTrace();
+            Debug.Log($"index {_currentProjectileIndex}");
+            _traces[_currentProjectileIndex].CreateTrace();
 
             LaunchShotVfx();
 
             yield return _launchProjectileCooldown;
-            ShowProjectile();
+            ChangeProjectileIndex();
+            SetPosition(_currentProjectileIndex);
         }
 
-        private void SetPosition(Transform projectileTransform)
+        private void ChangeProjectileIndex()
         {
-            _projectileObjects[0].transform.SetParent(transform);
-            _projectileObjects[0].transform.position = projectileTransform.position;
-            _projectileObjects[0].transform.rotation = projectileTransform.rotation;
+            bool notLastIndex = _currentProjectileIndex < (_projectileObjects.Count - 1);
+
+            if (notLastIndex)
+            {
+                _currentProjectileIndex++;
+            }
+            else
+            {
+                _currentProjectileIndex = 0;
+                SetInitialVisibility();
+            }
+        }
+
+        private void SetPosition(int index)
+        {
+            _projectileObjects[index].transform.SetParent(transform);
+            _projectileObjects[index].transform.position = _projectilesRespawns[index].position;
+            _projectileObjects[index].transform.rotation = _projectilesRespawns[index].rotation;
         }
 
         private void LaunchShotVfx()
         {
-            SetShotVfx(_muzzlesRespawns[0]);
+            SetShotVfx(_muzzlesRespawns[_currentProjectileIndex]);
             StartCoroutine(CoroutineLaunchShotVfx());
         }
 

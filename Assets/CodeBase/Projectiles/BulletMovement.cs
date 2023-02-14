@@ -9,7 +9,7 @@ namespace CodeBase.Projectiles
 
         private void Update()
         {
-            if (_move) 
+            if (_move)
                 transform.position += transform.forward * _speed * Time.deltaTime;
         }
 

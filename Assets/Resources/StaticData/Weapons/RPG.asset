@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RPG
   m_EditorClassIdentifier: 
   WeaponTypeId: 1
-  ProjectileTraceTypeId: 1
+  ProjectileTraceTypeId: 2
   Damage: 20
   RotationSpeed: 6
   Cooldown: 3
@@ -24,6 +24,6 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 8085246352978153365, guid: cfe307f2d81702542ad4f5e8b1775a3c,
     type: 3}
   MuzzleVfx: {fileID: 1509306094841910, guid: 009f9e61721d7e649ab0936e1987d943, type: 3}
-  BlastVfx: {fileID: 100000, guid: 21f44255aefa30e409c5b4c64a46be0c, type: 3}
+  blastVfxPrefab: {fileID: 100000, guid: 21f44255aefa30e409c5b4c64a46be0c, type: 3}
   ProjectilePrefab: {fileID: 5534813618486378921, guid: fa59bb7c057ce2d4c91fd025a8d3ca72,
     type: 3}

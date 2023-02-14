@@ -3,7 +3,7 @@
     public enum ProjectileTraceTypeId
     {
         None,
-        RPG,
-        RocketLauncher,
+        Grenade,
+        Rocket,
     }
 }

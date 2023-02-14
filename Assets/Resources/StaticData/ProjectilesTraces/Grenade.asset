@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7e00a436b06464bb27bdb0f409c3caf, type: 3}
-  m_Name: RocketLauncher
+  m_Name: Grenade
   m_EditorClassIdentifier: 
-  ProjectileTraceTypeId: 2
+  ProjectileTraceTypeId: 1
   StartDelay: 0
-  EndDelay: 1
-  PrefabReference: {fileID: 1703263380272892, guid: 7b56a74560338f9408c8f2d50b2e6ce6,
+  EndDelay: 0
+  PrefabReference: {fileID: 4846815598672956020, guid: 7b94bb8f3d437d4468678f8182a68b04,
     type: 3}
