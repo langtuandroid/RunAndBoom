@@ -25,6 +25,6 @@ namespace CodeBase.Hero
             _platformInputService.Moved += MoveTo;
 
         private void MoveTo(Vector2 direction) =>
-            _movement = new Vector3(direction.x, transform.position.y, direction.y);
+            _movement = new Vector3(direction.x, 0, direction.y);
     }
 }
