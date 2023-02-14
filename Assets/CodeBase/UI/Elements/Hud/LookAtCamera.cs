@@ -5,7 +5,7 @@ namespace CodeBase.UI.Elements.Hud
 {
     public class LookAtCamera : MonoBehaviour
     {
-        private const float MainCameraCreationDelay = 0.5f;
+        private const float MainCameraCreationDelay = 1f;
         private const float RefreshDelay = 0.2f;
         private Camera _mainCamera;
 
