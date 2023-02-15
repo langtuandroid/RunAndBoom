@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using CodeBase.Hero;
 using UnityEngine;
 
 namespace CodeBase.Projectiles
