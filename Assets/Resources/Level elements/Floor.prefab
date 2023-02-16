@@ -135,6 +135,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9144610911364557560, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 4327
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43461be5c688e644bbfe4c1473815114, type: 3}
 --- !u!4 &7850788842183901538 stripped
@@ -209,6 +214,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794889842106207125, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8c671d07b170d42b8ab91c00efad04, type: 3}
@@ -304,6 +314,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144610911364557560, guid: 43461be5c688e644bbfe4c1473815114,
+        type: 3}
+      propertyPath: m_VersionIndex
+      value: 4330
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43461be5c688e644bbfe4c1473815114, type: 3}

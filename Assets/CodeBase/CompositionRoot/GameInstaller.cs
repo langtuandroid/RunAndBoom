@@ -56,7 +56,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<StaticDataService>()
                 .AsSingle();
-            Debug.Log("Bind StaticDataService");
         }
 
         private void BindGameBootstrapperFactory()
@@ -64,7 +63,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindFactory<GameBootstrapper, GameBootstrapper.Factory>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.GameBootstrapper);
-            Debug.Log("Bind GameBootstrapper.Factory");
         }
 
         private void BindSaveLoadService()
@@ -72,9 +70,7 @@ namespace CodeBase.CompositionRoot
             Container
                 .Bind<ISaveLoadService>()
                 .To<SaveLoadService>()
-                // .BindInterfacesAndSelfTo<SaveLoadService>()
                 .AsSingle();
-            Debug.Log("Bind SaveLoadService");
         }
 
         private void BindPlayerProgressService()
@@ -82,7 +78,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<PlayerProgressService>()
                 .AsSingle();
-            Debug.Log("Bind PlayerProgressService");
         }
 
         private void BindRandomService()
@@ -90,7 +85,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<RandomService>()
                 .AsSingle();
-            Debug.Log("Bind RandomService");
         }
 
         private void BindGameFactory()
@@ -99,7 +93,6 @@ namespace CodeBase.CompositionRoot
                 .Bind<IGameFactory>()
                 .To<GameFactory>()
                 .AsSingle();
-            Debug.Log("Bind IGameFactory");
         }
 
         private void BindUIFactory()
@@ -108,7 +101,6 @@ namespace CodeBase.CompositionRoot
                 .Bind<IUIFactory>()
                 .To<UIFactory>()
                 .AsSingle();
-            Debug.Log("Bind IUIFactory");
         }
 
         private void BindCoroutineRunner()
@@ -118,7 +110,6 @@ namespace CodeBase.CompositionRoot
                 .To<CoroutineRunner>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.CoroutineRunnerPath)
                 .AsSingle();
-            Debug.Log("Bind ICoroutineRunner");
         }
 
         private void BindSceneLoader()
@@ -126,7 +117,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<SceneLoader>()
                 .AsSingle();
-            Debug.Log("Bind SceneLoader");
         }
 
         private void BindLoadingCurtain()
@@ -135,7 +125,6 @@ namespace CodeBase.CompositionRoot
                 .BindInterfacesAndSelfTo<LoadingCurtain>()
                 .FromComponentInNewPrefabResource(InfrastructureAssetPath.CurtainPath)
                 .AsSingle();
-            Debug.Log("Bind ILoadingCurtain");
         }
 
         private void BindGameStateMachine()
@@ -145,7 +134,6 @@ namespace CodeBase.CompositionRoot
                 .FromSubContainerResolve()
                 .ByInstaller<GameStateMachineInstaller>()
                 .AsSingle();
-            Debug.Log("Bind IGameStateMachine");
         }
 
         private void BindAssetsService()
@@ -153,7 +141,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<AssetsProvider>()
                 .AsSingle();
-            Debug.Log("Bind AssetsProvider");
         }
 
         private void BindInputTypeServicesService()
@@ -161,23 +148,16 @@ namespace CodeBase.CompositionRoot
             Container
                 .Bind<PlayerInput>()
                 .AsSingle();
-            Debug.Log("Bind PlayerInput");
 
             if (Application.isEditor)
-            {
                 BindEditorInputFactoryInstaller();
-            }
             else if (Application.platform == RuntimePlatform.WindowsPlayer ||
                      Application.platform == RuntimePlatform.OSXPlayer ||
                      Application.platform == RuntimePlatform.LinuxPlayer)
-            {
                 BindDesktopInputFactoryInstaller();
-            }
             else if (Application.platform == RuntimePlatform.Android ||
                      Application.platform == RuntimePlatform.IPhonePlayer)
-            {
                 BindMobileInputFactoryInstaller();
-            }
         }
 
         private void BindDesktopInputFactoryInstaller()
@@ -187,7 +167,6 @@ namespace CodeBase.CompositionRoot
                 .FromSubContainerResolve()
                 .ByInstaller<DesktopInputFactoryInstaller>()
                 .AsSingle();
-            Debug.Log("Bind DesktopInputFactoryInstaller");
         }
 
         private void BindMobileInputFactoryInstaller()
@@ -197,7 +176,6 @@ namespace CodeBase.CompositionRoot
                 .FromSubContainerResolve()
                 .ByInstaller<MobileInputFactoryInstaller>()
                 .AsSingle();
-            Debug.Log("Bind MobileInputFactoryInstaller");
         }
 
         private void BindEditorInputFactoryInstaller()
@@ -206,10 +184,7 @@ namespace CodeBase.CompositionRoot
                 .Bind<IPlatformInputService>()
                 .FromSubContainerResolve()
                 .ByInstaller<EditorInputFactoryInstaller>()
-                .AsSingle()
-                // .WhenInjectedInto<HeroMovement>()
-                ;
-            Debug.Log("Bind EditorInputFactoryInstaller");
+                .AsSingle();
         }
 
         private void BindRegistratorService()
@@ -217,7 +192,6 @@ namespace CodeBase.CompositionRoot
             Container
                 .BindInterfacesAndSelfTo<RegistratorService>()
                 .AsSingle();
-            Debug.Log("Bind RegistratorService");
         }
 
         private void BindWindowService()
@@ -227,7 +201,6 @@ namespace CodeBase.CompositionRoot
                 .FromSubContainerResolve()
                 .ByInstaller<WindowFactoryInstaller>()
                 .AsSingle();
-            Debug.Log("Bind WindowService");
         }
     }
 }

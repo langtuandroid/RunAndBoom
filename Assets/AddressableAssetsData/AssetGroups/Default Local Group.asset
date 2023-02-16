@@ -21,6 +21,22 @@ MonoBehaviour:
     m_Address: Hero
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7111efd0fe461dc4a989f30c48c92001
+    m_Address: SpawnPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d9274ade267839a408f64aa881fb72dd
+    m_Address: WithBat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2771bd6ad4dc5634ca3983f149d5749f
+    m_Address: WithPistol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ca95cd5e32b87614e9c8f99b0c249712
+    m_Address: WithShotgun
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9cc2a55e604bc944590d8a935a0bb2a9, type: 2}
   m_SchemaSet:

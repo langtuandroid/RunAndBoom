@@ -127,6 +127,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3471177278023538607}
     m_Modifications:
+    - target: {fileID: 1594704561130300, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646308757587086, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1874755923645608, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
       propertyPath: m_Name
       value: Whisky Bottle Cracked
@@ -193,6 +201,14 @@ PrefabInstance:
     - target: {fileID: 1000013120505474, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
       propertyPath: m_Name
       value: Whisky Bottle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013120505474, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013120505474, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4000014294075672, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
       propertyPath: m_RootOrder

@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Infrastructure.States
@@ -13,8 +12,6 @@ namespace CodeBase.Infrastructure.States
             Container.BindFactory<IGameStateMachine, GameLoopState, GameLoopState.Factory>();
 
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
-
-            Debug.Log("GameStateMachineInstaller");
         }
     }
 }

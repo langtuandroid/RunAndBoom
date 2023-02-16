@@ -31,19 +31,13 @@ namespace CodeBase.Level
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Hero"))
-            {
                 _targetY = _minY;
-                Debug.Log("OnTriggerEnter");
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("Hero"))
-            {
                 _targetY = _maxY;
-                Debug.Log("OnTriggerExit");
-            }
         }
     }
 }

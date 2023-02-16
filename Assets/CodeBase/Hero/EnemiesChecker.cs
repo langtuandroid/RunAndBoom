@@ -18,11 +18,12 @@ namespace CodeBase.Hero
         private int _enemiesHitsCount = 10;
         private float _sphereDistance = 0f;
         private float _distanceToEnemy = 0f;
-        private float _sphereRadius = 1f;
-        private float _checkEnemiesDelay = 0.1f;
-        private float _fixedDeltaTimeCounter = 0f;
+        private float _aimRange = 1f;
+        private float _checkEnemiesDelay = 0.2f;
+        private float _checkEnemiesTimer = 0f;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
         private EnemyHealth _targetEnemy = null;
+        private Vector3 _targetPosition;
 
         public event Action<EnemyHealth> FoundClosestEnemy;
         public event Action EnemyNotFound;
@@ -34,25 +35,25 @@ namespace CodeBase.Hero
         }
 
         private void SetWeaponAimRange(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData) =>
-            _sphereRadius = weaponStaticData.AimRange;
+            _aimRange = weaponStaticData.AimRange;
 
         private void FixedUpdate()
         {
             UpFixedTime();
 
-            if (CheckFixedTimeCounter())
+            if (IsCheckEnemiesTimerReached())
                 CheckEnemiesAround();
         }
 
         private void UpFixedTime() =>
-            _fixedDeltaTimeCounter += Time.fixedDeltaTime;
+            _checkEnemiesTimer += Time.fixedDeltaTime;
 
-        private bool CheckFixedTimeCounter() =>
-            _fixedDeltaTimeCounter >= _checkEnemiesDelay;
+        private bool IsCheckEnemiesTimerReached() =>
+            _checkEnemiesTimer >= _checkEnemiesDelay;
 
         private void CheckEnemiesAround()
         {
-            _fixedDeltaTimeCounter = 0f;
+            _checkEnemiesTimer = 0f;
             _enemies.Clear();
             RaycastHit[] enemiesHits = new RaycastHit[_enemiesHitsCount];
             int enemiesHitsCount = GetEnemiesHits(enemiesHits);
@@ -61,14 +62,14 @@ namespace CodeBase.Hero
         }
 
         private int GetEnemiesHits(RaycastHit[] enemiesHits) =>
-            Physics.SphereCastNonAlloc(transform.position, _sphereRadius, transform.forward, enemiesHits, _sphereDistance, _enemyLayerMask,
+            Physics.SphereCastNonAlloc(transform.position, _aimRange, transform.forward, enemiesHits, _sphereDistance, _enemyLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Debug.DrawLine(transform.position, transform.position + Vector3.forward * _distanceToEnemy);
-            Gizmos.DrawWireSphere(transform.position + Vector3.forward * _sphereDistance, _sphereRadius);
+            Gizmos.DrawWireSphere(transform.position + Vector3.forward * _sphereDistance, _aimRange);
         }
 
         private void CheckEnemiesHits(int enemiesHitsCount, RaycastHit[] enemiesHits)
@@ -86,84 +87,76 @@ namespace CodeBase.Hero
                 if (_enemies.Count > 0)
                     FindClosestEnemy(_enemies);
                 else
-                {
-                    Debug.Log("Not Found");
                     EnemyNotFound?.Invoke();
-                }
             }
         }
 
         private void FindClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
-            EnemyHealth closestEnemy = visibleEnemies[0];
-
-            GetClosestEnemy(visibleEnemies, ref closestEnemy);
+            EnemyHealth closestEnemy = GetClosestEnemy(visibleEnemies);
 
             if (closestEnemy != null)
             {
                 if (_targetEnemy != closestEnemy || _targetEnemy == null)
                 {
                     _targetEnemy = closestEnemy;
-
-                    Debug.Log($"closestEnemy name {closestEnemy.transform.gameObject.name}");
+                    _targetPosition = new Vector3(closestEnemy.transform.position.x, closestEnemy.transform.position.y, closestEnemy.transform.position.z);
                     CheckEnemyVisibility(closestEnemy);
                 }
+
+                if (_targetEnemy == closestEnemy && _targetPosition != closestEnemy.transform.position)
+                    CheckEnemyVisibility(closestEnemy);
             }
             else
-            {
-                Debug.Log("Not Found");
                 EnemyNotFound?.Invoke();
-            }
         }
 
-        private void GetClosestEnemy(List<EnemyHealth> visibleEnemies, ref EnemyHealth closestEnemy)
+        private EnemyHealth GetClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
-            float minDistance = 500f;
+            float minDistance = _aimRange;
 
-            if (visibleEnemies.Count > 1)
+            if (visibleEnemies.Count > 0)
             {
+                EnemyHealth closestEnemy = null;
+
                 foreach (EnemyHealth enemy in visibleEnemies)
                 {
-                    float distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
+                    _distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
 
-                    if (distanceToEnemy < minDistance)
+                    if (_distanceToEnemy < minDistance)
                     {
-                        minDistance = distanceToEnemy;
+                        minDistance = _distanceToEnemy;
                         closestEnemy = enemy;
                     }
                 }
+
+                return closestEnemy;
             }
+
+            return null;
         }
 
         private void CheckEnemyVisibility(EnemyHealth enemy)
         {
-            Vector3 enemyPosition = enemy.gameObject.transform.position;
-            Vector3 direction = (enemyPosition - transform.position).normalized;
-            _distanceToEnemy = Vector3.Distance(enemyPosition, transform.position);
+            Vector3 direction = (enemy.gameObject.transform.position - transform.position).normalized;
             RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
             if (raycastHits.Length == 0)
             {
-                Debug.Log("EnemyVisibilityChecked");
                 TurnOffAnotherTargets(_enemies);
                 TurnOnTarget();
                 FoundClosestEnemy?.Invoke(enemy);
             }
             else
-            {
-                Debug.Log("EnemyNotFound");
                 EnemyNotFound?.Invoke();
-            }
         }
 
         private void TurnOffAnotherTargets(List<EnemyHealth> visibleEnemies)
         {
             foreach (EnemyHealth enemy in visibleEnemies)
-            {
                 if (_targetEnemy != enemy)
                     enemy.transform.GetComponentInChildren<Target>().Hide();
-            }
         }
 
         private void TurnOnTarget() =>

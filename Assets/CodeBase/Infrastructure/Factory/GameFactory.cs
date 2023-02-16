@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemy;
-using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -53,7 +53,7 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             var prefab = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hero);
-            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(2f), Quaternion.identity, null);
+            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(0.5f), Quaternion.identity, null);
             _registratorService.RegisterProgressWatchers(_heroGameObject);
             return _heroGameObject;
         }
@@ -62,23 +62,21 @@ namespace CodeBase.Infrastructure.Factory
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
 
-            var prefab = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
-            GameObject enemy = _container.InstantiatePrefab(prefab);
+            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString());
+            // var prefab = await _registratorService.LoadRegisteredAsync(typeId.ToString());
+            // GameObject enemy = _container.InstantiatePrefab(prefab, parent);
 
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Current = enemyData.Hp;
             health.Max = enemyData.Hp;
 
-            enemy.GetComponent<ActorUI>().Construct(health);
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
             enemy.GetComponent<AgentMoveToHero>()?.Construct(_heroGameObject.transform);
             enemy.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
 
             Attack attack = enemy.GetComponent<Attack>();
-            attack.Construct(_heroGameObject.transform);
-            attack.Damage = enemyData.Damage;
-            attack.Cleavage = enemyData.Cleavage;
-            attack.EffectiveDistance = enemyData.EffectiveDistance;
+            attack.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown, cleavage: enemyData.Cleavage,
+                effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
 
             return enemy;
         }
@@ -91,15 +89,13 @@ namespace CodeBase.Infrastructure.Factory
             _assets.CleanUp();
         }
 
-        public async Task CreateSpawner(string spawnerId, Vector3 at, EnemyTypeId enemyTypeId)
+        public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
         {
-            // GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
-            // SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
-            //     .GetComponent<SpawnPoint>();
-            // spawner.Construct(this);
-            // spawner.Initialize();
-            // spawner.Id = spawnerId;
-            // spawner.EnemyTypeId = enemyTypeId;
+            GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
+            SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
+                .GetComponent<SpawnPoint>();
+            spawner.Construct(this, enemyTypeId);
+            spawner.Initialize();
         }
     }
 }

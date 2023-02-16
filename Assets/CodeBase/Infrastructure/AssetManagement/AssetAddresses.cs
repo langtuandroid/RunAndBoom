@@ -4,13 +4,13 @@
     {
         // public const string UIRoot = "UIRoot";
         public const string Hero = "Hero";
-
         public const string Hud = "Hud";
+
+        public const string Spawner = "SpawnPoint";
         // public const string MainUI = "MainUI";
         // public const string ArmoryUI = "ArmoryUI";
         // public const string MapUI = "MapUI";
         // public const string SettingsUI = "SettingsUI";
-        // public const string Spawner = "SpawnPoint";
         // public const string SelectedArmoryWeaponItem = "SelectedArmoryWeaponItem";
         // public const string AvailableArmoryWeaponItem = "AvailableArmoryWeaponItem";
         // public const string LevelWeaponItem = "LevelWeaponItem";

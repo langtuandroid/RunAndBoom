@@ -78,7 +78,7 @@ namespace CodeBase.Weapons
                 SetTrace(ref projectileTrace);
                 _traces.Add(projectileTrace);
 
-                ProjectileBlast projectileBlast = projectileObject.GetComponent<ProjectileBlast>();
+                ProjectileBlast projectileBlast = projectileObject.GetComponentInChildren<ProjectileBlast>();
                 SetBlast(ref projectileBlast);
                 _blasts.Add(projectileBlast);
             }

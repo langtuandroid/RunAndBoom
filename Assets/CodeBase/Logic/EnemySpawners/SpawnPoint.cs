@@ -6,22 +6,20 @@ namespace CodeBase.Logic.EnemySpawners
 {
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] public EnemyTypeId enemyTypeId;
-        public string Id { get; set; }
+        [SerializeField] private EnemyTypeId _enemyTypeId;
 
         private IGameFactory _factory;
 
-        public void Construct(IGameFactory factory) =>
+        public void Construct(IGameFactory factory, EnemyTypeId enemyTypeId)
+        {
             _factory = factory;
+            _enemyTypeId = enemyTypeId;
+        }
 
-        public void Initialize()
-        {
+        public void Initialize() =>
             Spawn();
-        }
 
-        private async void Spawn()
-        {
-            GameObject enemy = await _factory.CreateEnemy(enemyTypeId, transform);
-        }
+        private async void Spawn() =>
+            await _factory.CreateEnemy(_enemyTypeId, transform);
     }
 }

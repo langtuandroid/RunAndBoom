@@ -14,7 +14,7 @@ namespace CodeBase.Enemy
 
         private void Awake()
         {
-            _animator = transform.GetChild(0).GetComponent<EnemyAnimator>();
+            // _animator = transform.GetChild(0).GetComponent<EnemyAnimator>();
             _current = _max;
         }
 

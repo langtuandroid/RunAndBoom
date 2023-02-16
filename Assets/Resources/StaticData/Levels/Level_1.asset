@@ -15,4 +15,6 @@ MonoBehaviour:
   LevelKey: Level_1
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0, z: -9}
-  EnemySpawners: []
+  EnemySpawners:
+  - EnemyTypeId: 0
+    Position: {x: 0, y: 0, z: 0}

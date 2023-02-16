@@ -7,13 +7,14 @@ namespace CodeBase.Enemy
     [RequireComponent(typeof(EnemyAnimator))]
     public class Attack : MonoBehaviour
     {
-        private const float YLevitation = 0.5f;
         [SerializeField] private EnemyAnimator _animator;
 
-        public float AttackCooldown = 1f;
-        public float Cleavage = YLevitation;
-        public float EffectiveDistance = YLevitation;
-        public int Damage = 10;
+        private const float YLevitation = 0.5f;
+
+        private float _attackCooldown;
+        private float _cleavage;
+        private float _effectiveDistance;
+        private int _damage;
 
         private Transform _heroTransform;
         private float _currentAttackCooldown;
@@ -22,10 +23,8 @@ namespace CodeBase.Enemy
         private Collider[] _hits = new Collider[1];
         private bool _attackIsActive;
 
-        private void Awake()
-        {
-            _layerMask = 1 << LayerMask.NameToLayer("Player");
-        }
+        private void Awake() =>
+            _layerMask = 1 << LayerMask.NameToLayer("Hero");
 
         private void Update()
         {
@@ -35,8 +34,14 @@ namespace CodeBase.Enemy
                 StartAttack();
         }
 
-        public void Construct(Transform heroTransform) =>
+        public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance, int damage)
+        {
             _heroTransform = heroTransform;
+            _attackCooldown = attackCooldown;
+            _cleavage = cleavage;
+            _effectiveDistance = effectiveDistance;
+            _damage = damage;
+        }
 
         private void UpdateCooldown()
         {
@@ -56,8 +61,8 @@ namespace CodeBase.Enemy
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1);
-                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
+                PhysicsDebug.DrawDebug(StartPoint(), _cleavage, 1);
+                hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
             }
         }
 
@@ -69,7 +74,7 @@ namespace CodeBase.Enemy
 
         private bool Hit(out Collider hit)
         {
-            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), Cleavage, _hits, _layerMask);
+            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _cleavage, _hits, _layerMask);
 
             hit = _hits.FirstOrDefault();
 
@@ -78,11 +83,11 @@ namespace CodeBase.Enemy
 
         private Vector3 StartPoint() =>
             new Vector3(transform.position.x, transform.position.y + YLevitation, transform.position.z) +
-            transform.forward * EffectiveDistance;
+            transform.forward * _effectiveDistance;
 
         private void OnAttackEnded()
         {
-            _currentAttackCooldown = AttackCooldown;
+            _currentAttackCooldown = _attackCooldown;
             _isAttacking = false;
         }
 

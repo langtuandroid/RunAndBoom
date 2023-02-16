@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 6337939419923400048}
   - component: {fileID: 8976935804904259732}
   - component: {fileID: 6181332064804091446}
-  - component: {fileID: 7288409585217776626}
   m_Layer: 0
   m_Name: BaseGrenade
   m_TagString: Untagged
@@ -112,18 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tracePosition: {fileID: 6845473786046702743}
---- !u!114 &7288409585217776626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337939419923400050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ed8059861d42029f5f8d5b4cb15c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6337939420664514641
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6337939420664514640}
   - component: {fileID: 6337939420664514639}
+  - component: {fileID: 5403269399937166348}
   m_Layer: 0
   m_Name: HitCapsule
   m_TagString: Untagged
@@ -170,3 +158,18 @@ CapsuleCollider:
   m_Height: 0.1
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5403269399937166348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337939420664514641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ed8059861d42029f5f8d5b4cb15c84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyWithBlast: {fileID: 8976935804904259732}
+  _projectileTrace: {fileID: 6181332064804091446}
+  _movement: {fileID: 0}

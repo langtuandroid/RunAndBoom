@@ -62,7 +62,6 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            Debug.Log($"Exit {_sceneName}");
             if (_sceneName == Scenes.Level1)
                 _loadingCurtain.Hide();
         }
@@ -136,7 +135,7 @@ namespace CodeBase.Infrastructure.States
         private async Task InitSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-                await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.EnemyTypeId);
+                await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>

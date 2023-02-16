@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace CodeBase.Projectiles
 {
-    [RequireComponent(typeof(DestroyWithBlast), typeof(ProjectileTrace))]
     public class ProjectileBlast : MonoBehaviour
     {
-        private DestroyWithBlast _destroyWithBlast;
-        private ProjectileTrace _projectileTrace;
+        [SerializeField] private DestroyWithBlast _destroyWithBlast;
+        [SerializeField] private ProjectileTrace _projectileTrace;
+        [SerializeField] private ProjectileMovement _movement;
+
         private GameObject _blastVfxPrefab;
         private float _sphereRadius;
-        private ProjectileMovement _movement;
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
 
