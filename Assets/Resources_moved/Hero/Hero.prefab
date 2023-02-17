@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 4801597986677240933}
   - component: {fileID: 4801597986677240934}
   - component: {fileID: 3576587852183587754}
+  - component: {fileID: 4565476155018466935}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Hero
@@ -282,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cb1633d3ea43ba82480bcec1896519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemiesChecker: {fileID: 4801597986677240933}
 --- !u!114 &3576587852183587754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +296,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fdeef1a8f44efcbd2e6a4d29bc4ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _heroWeaponSelection: {fileID: 2265719662692678730}
+  _enemiesChecker: {fileID: 4801597986677240933}
+--- !u!114 &4565476155018466935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469050827539787869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f97ab46c41f43d892c2172b7b5ac962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _heroRotating: {fileID: 4801597986677240934}
+  _enemiesChecker: {fileID: 4801597986677240933}
 --- !u!1 &3673460294750622001
 GameObject:
   m_ObjectHideFlags: 0

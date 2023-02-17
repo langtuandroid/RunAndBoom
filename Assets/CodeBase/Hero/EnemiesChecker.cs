@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.Enemy;
+using CodeBase.Logic;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using CodeBase.UI.Elements.Hud;
@@ -22,10 +23,12 @@ namespace CodeBase.Hero
         private float _checkEnemiesDelay = 0.2f;
         private float _checkEnemiesTimer = 0f;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
+        private string _targetEnemyId = null;
         private EnemyHealth _targetEnemy = null;
         private Vector3 _targetPosition;
 
-        public event Action<EnemyHealth> FoundClosestEnemy;
+        // public event Action<EnemyHealth> FoundClosestEnemy;
+        public event Action<GameObject> FoundClosestEnemy;
         public event Action EnemyNotFound;
 
         private void Awake()
@@ -97,18 +100,25 @@ namespace CodeBase.Hero
 
             if (closestEnemy != null)
             {
-                if (_targetEnemy != closestEnemy || _targetEnemy == null)
+                string id = closestEnemy.gameObject.GetComponent<UniqueId>().Id;
+
+                if (_targetEnemyId != id || _targetEnemyId == null)
                 {
+                    _targetEnemyId = id;
                     _targetEnemy = closestEnemy;
                     _targetPosition = new Vector3(closestEnemy.transform.position.x, closestEnemy.transform.position.y, closestEnemy.transform.position.z);
                     CheckEnemyVisibility(closestEnemy);
                 }
 
-                if (_targetEnemy == closestEnemy && _targetPosition != closestEnemy.transform.position)
+                if (_targetEnemyId == id && _targetPosition != closestEnemy.transform.position)
                     CheckEnemyVisibility(closestEnemy);
             }
             else
+            {
+                _targetEnemyId = null;
+                _targetEnemy = null;
                 EnemyNotFound?.Invoke();
+            }
         }
 
         private EnemyHealth GetClosestEnemy(List<EnemyHealth> visibleEnemies)
@@ -146,7 +156,8 @@ namespace CodeBase.Hero
             {
                 TurnOffAnotherTargets(_enemies);
                 TurnOnTarget();
-                FoundClosestEnemy?.Invoke(enemy);
+                FoundClosestEnemy?.Invoke(enemy.gameObject);
+                // FoundClosestEnemy?.Invoke(enemy);
             }
             else
                 EnemyNotFound?.Invoke();
@@ -155,7 +166,7 @@ namespace CodeBase.Hero
         private void TurnOffAnotherTargets(List<EnemyHealth> visibleEnemies)
         {
             foreach (EnemyHealth enemy in visibleEnemies)
-                if (_targetEnemy != enemy)
+                if (_targetEnemyId != enemy.gameObject.GetComponent<UniqueId>().Id)
                     enemy.transform.GetComponentInChildren<Target>().Hide();
         }
 

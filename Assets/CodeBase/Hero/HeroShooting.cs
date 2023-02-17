@@ -1,4 +1,3 @@
-using CodeBase.Enemy;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
@@ -10,10 +9,10 @@ namespace CodeBase.Hero
 {
     public class HeroShooting : MonoBehaviour
     {
-        private IPlatformInputService _platformInputService;
+        [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
+        [SerializeField] private EnemiesChecker _enemiesChecker;
 
-        private HeroWeaponSelection _heroWeaponSelection;
-        private EnemiesChecker _enemiesChecker;
+        private IPlatformInputService _platformInputService;
         private WeaponAppearance _weaponAppearance;
         private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
@@ -22,8 +21,6 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _heroWeaponSelection = transform.gameObject.GetComponentInChildren<HeroWeaponSelection>();
-            _enemiesChecker = GetComponent<EnemiesChecker>();
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
             _enemiesChecker.FoundClosestEnemy += EnemySpotted;
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
@@ -64,9 +61,10 @@ namespace CodeBase.Hero
             _platformInputService.Shot -= TryShoot;
         }
 
-        private void EnemySpotted(EnemyHealth enemyHealth)
+        private void EnemySpotted(GameObject enemy)
+            // private void EnemySpotted(EnemyHealth enemy)
         {
-            _enemyPosition = enemyHealth.gameObject.transform.position;
+            _enemyPosition = enemy.gameObject.transform.position;
             _enemySpotted = true;
         }
 

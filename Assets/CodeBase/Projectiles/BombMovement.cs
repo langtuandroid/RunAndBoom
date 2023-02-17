@@ -39,7 +39,7 @@ namespace CodeBase.Projectiles
             _rigidBody.velocity = bombSpeed;
             transform.forward = _targetPosition;
 
-            transform.DORotate(new Vector3(120, 0, 0), time, RotateMode.LocalAxisAdd)
+            transform.DORotate(new Vector3(120, 0, 0), time, RotateMode.Fast)
                 .SetDelay(0.1f);
             Debug.Log($"velocity {_rigidBody.velocity}");
         }
