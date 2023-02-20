@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using CodeBase.Enemy;
+using UnityEngine;
 
 namespace CodeBase.Hero
 {
@@ -7,41 +9,45 @@ namespace CodeBase.Hero
         [SerializeField] private HeroRotating _heroRotating;
         [SerializeField] private EnemiesChecker _enemiesChecker;
 
-        private GameObject _target;
-        private bool _lookAtForward;
+        private GameObject _enemy;
+        private EnemyHealth _health;
+
         private Coroutine _lookAtCoroutine;
+
+        public event Action LookedAtEnemy;
 
         private void Awake()
         {
             _heroRotating.EndedRotatingToEnemy += LookAt;
-            _heroRotating.EndedRotatingToForward += LookToForward;
             _heroRotating.StartedRotating += NotLookAtTarget;
             _enemiesChecker.EnemyNotFound += NotLookAtTarget;
         }
 
         private void Update()
         {
-            if (_target)
-                transform.LookAt(_target.transform);
-
-            if (_lookAtForward)
-                transform.LookAt(Vector3.forward);
+            if (_enemy)
+            {
+                var position = _enemy.transform.position;
+                transform.LookAt(new Vector3(position.x, position.y + Constants.AdditionYToEnemy, position.z));
+            }
         }
 
-        private void LookAt(GameObject target)
+        private void LookAt(GameObject enemy)
         {
-            Debug.Log("LookAt");
-            _lookAtForward = false;
-            _target = target;
+            Debug.Log($"LookAt {enemy.transform.position}");
+            _enemy = enemy;
+            _health = enemy.GetComponent<EnemyHealth>();
+            _health.Died += EnemyDied;
+            LookedAtEnemy?.Invoke();
         }
 
-        private void LookToForward()
+        private void EnemyDied()
         {
-            Debug.Log("LookToForward");
-            _lookAtForward = true;
+            Debug.Log("EnemyDied");
+            _enemy = null;
         }
 
         private void NotLookAtTarget() =>
-            _target = null;
+            _enemy = null;
     }
 }

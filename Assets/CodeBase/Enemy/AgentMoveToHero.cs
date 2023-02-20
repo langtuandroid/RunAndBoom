@@ -18,7 +18,10 @@ namespace CodeBase.Enemy
         private void SetDestinationForAgent()
         {
             if (_heroTransform)
+            {
                 _agent.destination = _heroTransform.position;
+                // Debug.Log($"hero position {_heroTransform.position}");
+            }
         }
     }
 }

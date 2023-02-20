@@ -1,39 +1,55 @@
 using System;
 using System.Collections;
-using CodeBase.Enemy;
-using CodeBase.Logic;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Hero
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
         [SerializeField] private EnemiesChecker _enemiesChecker;
+        [SerializeField] private HeroLookAt _heroLookAt;
 
         private const float RotationSpeed = 0.01f;
         private const float SmoothRotationSpeed = 0.02f;
-        private const float AngleForSmoothRotating = 10f;
-        private const float MaxAngleForLookAt = 5f;
+        private const float AngleForFastRotating = 10f;
+        private const float MaxAngleForLookAt = 2f;
+        private float _anglesToRotate = 5f;
 
+        private Vector3 _forwardDirection;
+        private Rigidbody _rigidbody;
         private Vector3 _shootPosition;
         private Vector3 _direction;
-        private bool _rotating = false;
-        private float _angle;
-        private string _currentEnemyId;
-        private GameObject _currentEnemy = null;
+        private bool _toEnemy;
 
         private Coroutine _rotatingToEnemyCoroutine;
+        private Coroutine _rotatingToForwardCoroutine;
+        private bool _lookForward = false;
+        private Quaternion _targetRotation;
 
         public event Action<GameObject> EndedRotatingToEnemy;
-        public event Action EndedRotatingToForward;
         public event Action StartedRotating;
 
-        [Inject]
-        public void Construct()
+        private void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody>();
             _enemiesChecker.FoundClosestEnemy += RotateTo;
             _enemiesChecker.EnemyNotFound += RotateToForward;
+            _heroLookAt.LookedAtEnemy += StopRotatingToEnemy;
+            _forwardDirection = transform.eulerAngles;
+        }
+
+        private void RotateTo(GameObject enemy)
+        {
+            Debug.Log("RotateToEnemy");
+            if (_rotatingToEnemyCoroutine != null)
+                StopCoroutine(_rotatingToEnemyCoroutine);
+            if (_rotatingToForwardCoroutine != null)
+                StopCoroutine(_rotatingToForwardCoroutine);
+
+            var position = enemy.transform.position;
+            _shootPosition = new Vector3(position.x, position.y + Constants.AdditionYToEnemy, position.z);
+            _rotatingToEnemyCoroutine = StartCoroutine(CoroutineRotateTo(enemy));
         }
 
         private void RotateToForward()
@@ -42,104 +58,69 @@ namespace CodeBase.Hero
             if (_rotatingToEnemyCoroutine != null)
                 StopCoroutine(_rotatingToEnemyCoroutine);
 
-            _rotatingToEnemyCoroutine = StartCoroutine(CoroutineRotateTo(Vector3.forward));
+            _rotatingToForwardCoroutine = StartCoroutine(CoroutineRotateToForward());
         }
 
-        private void RotateTo(GameObject enemy)
-            // private void RotateTo(EnemyHealth enemy)
+        private IEnumerator CoroutineRotateToForward()
         {
-            if (_currentEnemy == null || _currentEnemy.GetComponent<UniqueId>().Id != enemy.GetComponent<UniqueId>().Id)
-            {
-                if (_rotatingToEnemyCoroutine != null)
-                    StopCoroutine(_rotatingToEnemyCoroutine);
+            Debug.Log("CoroutineRotateToForward");
+            var position = transform.position;
+            _shootPosition = new Vector3(position.x, position.y + Constants.AdditionYToEnemy, position.z + 50f);
+            _direction = (_shootPosition - position).normalized;
+            _targetRotation = Quaternion.LookRotation(_direction);
+            float angle = Vector3.Angle(transform.forward, _direction);
 
-                Debug.Log("StartCoroutine");
-                _rotatingToEnemyCoroutine = StartCoroutine(CoroutineRotateTo(enemy));
+            while (angle > 0f)
+            {
+                _shootPosition = new Vector3(position.x, position.y + Constants.AdditionYToEnemy, position.z + 50f);
+                _direction = (_shootPosition - position).normalized;
+                _targetRotation = Quaternion.LookRotation(_direction);
+                angle = Vector3.Angle(transform.forward, _direction);
+                Debug.Log($"angle {angle}");
+
+                if (angle < AngleForFastRotating)
+                    transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, SmoothRotationSpeed);
+                else
+                    transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, RotationSpeed);
+
+                yield return null;
             }
         }
 
         private IEnumerator CoroutineRotateTo(GameObject enemy)
-            // private IEnumerator CoroutineRotateTo(EnemyHealth enemy)
         {
             Debug.Log("CoroutineRotateTo");
-            _currentEnemy = enemy;
-            _rotating = true;
-            // _shootPosition = new Vector3(enemy.transform.position.x, transform.position.y, enemy.transform.position.z);
-
-            while (IsRotatingToAliveEnemy(_currentEnemy.GetComponent<EnemyHealth>().Current))
-                // while (IsRotatingToAliveEnemy(enemy.Current))
-            {
-                Debug.Log("while true");
-                _shootPosition = new Vector3(_currentEnemy.transform.position.x, transform.position.y, _currentEnemy.transform.position.z);
-
-                if (IsEnemyLookedAt(enemy.GetComponent<EnemyHealth>()))
-                    // if (IsEnemyLookedAt(enemy))
-                {
-                    Debug.Log("IsEnemyLookedAt true");
-                    LookAt();
-                }
-                else
-                {
-                    Debug.Log("IsEnemyLookedAt false");
-                    Rotate();
-                    _currentEnemyId = enemy.gameObject.GetComponent<UniqueId>().Id;
-                }
-
-                yield return null;
-            }
-        }
-
-        private bool IsRotatingToAliveEnemy(int health) =>
-            _rotating && health > 0;
-
-        private bool IsEnemyLookedAt(EnemyHealth enemy) =>
-            _currentEnemyId == enemy.gameObject.GetComponent<UniqueId>().Id && _rotating == false;
-
-        private IEnumerator CoroutineRotateTo(Vector3 target)
-        {
-            Debug.Log("CoroutineRotateTo");
-            _currentEnemy = null;
-
-            _rotating = true;
-            _shootPosition = new Vector3(target.x, transform.position.y, target.z);
-
-            while (_rotating)
-            {
-                Rotate();
-
-                yield return null;
-            }
-        }
-
-        private void Rotate()
-        {
-            Debug.Log("Rotate");
             StartedRotating?.Invoke();
             _direction = (_shootPosition - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(_direction);
+            _targetRotation = Quaternion.LookRotation(_direction);
+            float angle = Vector3.Angle(transform.forward, _direction);
 
-            _angle = Vector3.Angle(transform.forward, _direction);
-            Debug.Log($"angle {_angle}");
-
-            if (_angle < AngleForSmoothRotating)
+            while (angle > 0f)
             {
-                if (_angle < MaxAngleForLookAt)
-                    LookAt();
+                angle = Vector3.Angle(transform.forward, _direction);
+                Debug.Log($"angle {angle}");
+
+                if (angle < AngleForFastRotating)
+                {
+                    if (angle < MaxAngleForLookAt)
+                        EndedRotatingToEnemy?.Invoke(enemy);
+                    else
+                        transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, SmoothRotationSpeed);
+                }
                 else
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, SmoothRotationSpeed);
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, RotationSpeed);
+                }
+
+                yield return null;
             }
-            else
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed);
         }
 
-        private void LookAt()
+        private void StopRotatingToEnemy()
         {
-            _rotating = false;
-            
-            if (_currentEnemy != null)
-                EndedRotatingToEnemy?.Invoke(_currentEnemy);
-            else
-                EndedRotatingToForward?.Invoke();
+            Debug.Log("StopRotating");
+            if (_rotatingToEnemyCoroutine != null)
+                StopCoroutine(_rotatingToEnemyCoroutine);
         }
     }
 }

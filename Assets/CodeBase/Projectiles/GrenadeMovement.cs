@@ -23,7 +23,6 @@ namespace CodeBase.Projectiles
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(Parent.forward * _speed * LaunchForce, ForceMode.Force);
-            Debug.Log($"velocity {_rigidBody.velocity}");
         }
 
         public override void Stop() =>

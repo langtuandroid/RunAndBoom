@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2244674872416163740}
   - component: {fileID: 8423704924508617137}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ BoxCollider:
   m_GameObject: {fileID: 2244674872416163741}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: -0.5, z: 5}

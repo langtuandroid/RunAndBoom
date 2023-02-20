@@ -1830,6 +1830,11 @@ PrefabInstance:
       propertyPath: _cooldown
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1336165730307011856, guid: f3dcb60c3c2885d488b4d3288cc50933,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2604969150810982036, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_RootOrder
@@ -1890,6 +1895,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WithBat
       objectReference: {fileID: 0}
+    - target: {fileID: 4022132266649269147, guid: f3dcb60c3c2885d488b4d3288cc50933,
+        type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4436406550568646129, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_RootOrder
@@ -1947,6 +1957,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 7609512935413722872}
+  _speed: 10
+  _height: 5
+  _upset: 0.5
 --- !u!114 &7609512935413722872 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6867560909820684197, guid: f3dcb60c3c2885d488b4d3288cc50933,

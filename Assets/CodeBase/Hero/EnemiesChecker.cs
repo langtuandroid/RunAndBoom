@@ -26,8 +26,9 @@ namespace CodeBase.Hero
         private string _targetEnemyId = null;
         private EnemyHealth _targetEnemy = null;
         private Vector3 _targetPosition;
+        private string _enemyId = null;
+        private bool _enemyNotFound = false;
 
-        // public event Action<EnemyHealth> FoundClosestEnemy;
         public event Action<GameObject> FoundClosestEnemy;
         public event Action EnemyNotFound;
 
@@ -88,9 +89,14 @@ namespace CodeBase.Hero
                 }
 
                 if (_enemies.Count > 0)
+                {
+                    _enemyNotFound = false;
                     FindClosestEnemy(_enemies);
+                }
                 else
-                    EnemyNotFound?.Invoke();
+                {
+                    NotFound();
+                }
             }
         }
 
@@ -115,6 +121,15 @@ namespace CodeBase.Hero
             }
             else
             {
+                NotFound();
+            }
+        }
+
+        private void NotFound()
+        {
+            if (_enemyNotFound == false)
+            {
+                _enemyNotFound = true;
                 _targetEnemyId = null;
                 _targetEnemy = null;
                 EnemyNotFound?.Invoke();
@@ -124,26 +139,20 @@ namespace CodeBase.Hero
         private EnemyHealth GetClosestEnemy(List<EnemyHealth> visibleEnemies)
         {
             float minDistance = _aimRange;
+            EnemyHealth closestEnemy = null;
 
-            if (visibleEnemies.Count > 0)
+            foreach (EnemyHealth enemy in visibleEnemies)
             {
-                EnemyHealth closestEnemy = null;
+                _distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
 
-                foreach (EnemyHealth enemy in visibleEnemies)
+                if (_distanceToEnemy < minDistance)
                 {
-                    _distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
-
-                    if (_distanceToEnemy < minDistance)
-                    {
-                        minDistance = _distanceToEnemy;
-                        closestEnemy = enemy;
-                    }
+                    minDistance = _distanceToEnemy;
+                    closestEnemy = enemy;
                 }
-
-                return closestEnemy;
             }
 
-            return null;
+            return closestEnemy;
         }
 
         private void CheckEnemyVisibility(EnemyHealth enemy)
@@ -157,10 +166,11 @@ namespace CodeBase.Hero
                 TurnOffAnotherTargets(_enemies);
                 TurnOnTarget();
                 FoundClosestEnemy?.Invoke(enemy.gameObject);
-                // FoundClosestEnemy?.Invoke(enemy);
             }
             else
-                EnemyNotFound?.Invoke();
+            {
+                NotFound();
+            }
         }
 
         private void TurnOffAnotherTargets(List<EnemyHealth> visibleEnemies)

@@ -37,10 +37,8 @@ namespace CodeBase.Hero
             UpdateCooldown();
 
         [Inject]
-        public void Construct(IPlatformInputService platformInputService)
-        {
+        public void Construct(IPlatformInputService platformInputService) =>
             _platformInputService = platformInputService;
-        }
 
         private void UpdateCooldown()
         {
@@ -54,12 +52,12 @@ namespace CodeBase.Hero
         private void EnemyNotSpotted() =>
             _enemySpotted = false;
 
-        private void OnDisable()
-        {
-            _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
-            _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
-            _platformInputService.Shot -= TryShoot;
-        }
+        // private void OnDisable()
+        // {
+        //     _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
+        //     _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
+        //     _platformInputService.Shot -= TryShoot;
+        // }
 
         private void EnemySpotted(GameObject enemy)
             // private void EnemySpotted(EnemyHealth enemy)

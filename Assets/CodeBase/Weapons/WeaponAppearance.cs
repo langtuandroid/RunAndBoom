@@ -10,6 +10,7 @@ namespace CodeBase.Weapons
 {
     public class WeaponAppearance : MonoBehaviour
     {
+        [SerializeField] private HeroRotating _heroRotating;
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private Transform[] _projectilesRespawns;
         [SerializeField] private Transform[] _muzzlesRespawns;

@@ -9,24 +9,19 @@ namespace CodeBase.Projectiles
         [SerializeField] private ProjectileTrace _projectileTrace;
         [SerializeField] private ProjectileMovement _movement;
 
+        private const float BlastDuration = 2f;
+
         private GameObject _blastVfxPrefab;
         private float _sphereRadius;
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
 
-        private void Awake()
-        {
-            _destroyWithBlast = GetComponent<DestroyWithBlast>();
-            _projectileTrace = GetComponent<ProjectileTrace>();
-            _movement = GetComponent<ProjectileMovement>();
-        }
+        private void OnEnable() =>
+            HideBlast();
 
-        // private void OnEnable() => 
-        //     HideBlast();
-
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Environments") || collision.gameObject.CompareTag("Floor"))
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Environments") || other.gameObject.CompareTag("Floor"))
             {
                 ShowBlast();
 
@@ -38,7 +33,7 @@ namespace CodeBase.Projectiles
                 gameObject.SetActive(false);
             }
 
-            // if (collision.gameObject.CompareTag("Hero"))
+            // if (other.gameObject.CompareTag("Hero"))
             // {
             //     HeroHealth heroHealth = collision.gameObject.GetComponent<HeroHealth>();
             //     heroHealth.TakeDamage(1);
@@ -72,7 +67,7 @@ namespace CodeBase.Projectiles
 
         private IEnumerator DestroyBlast()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(BlastDuration);
             HideBlast();
         }
     }

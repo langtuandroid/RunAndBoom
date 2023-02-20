@@ -8,11 +8,12 @@ namespace CodeBase.Enemy
     [RequireComponent(typeof(EnemyHealth))]
     public class EnemyDeath : MonoBehaviour, IDeath
     {
+        private IHealth _health;
+
         private const float UpForce = 500f;
 
         private Rigidbody _rigidbody;
         private float _deathDelay = 5f;
-        private IHealth _health;
 
         private void Awake()
         {
