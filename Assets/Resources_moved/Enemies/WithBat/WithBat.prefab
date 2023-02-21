@@ -1830,6 +1830,11 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 817033157289958094, guid: f3dcb60c3c2885d488b4d3288cc50933,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1304178068267955029, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: _cooldown

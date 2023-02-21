@@ -19,7 +19,8 @@ namespace CodeBase.Enemy
         {
             if (_heroTransform)
             {
-                _agent.SetDestination(_heroTransform.position);
+                _agent.destination = _heroTransform.position;
+                // _agent.SetDestination(_heroTransform.position);
                 // Debug.Log($"hero position {_heroTransform.position}");
             }
         }
