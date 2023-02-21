@@ -60,7 +60,6 @@ namespace CodeBase.Hero
         // }
 
         private void EnemySpotted(GameObject enemy)
-            // private void EnemySpotted(EnemyHealth enemy)
         {
             _enemyPosition = enemy.gameObject.transform.position;
             _enemySpotted = true;
