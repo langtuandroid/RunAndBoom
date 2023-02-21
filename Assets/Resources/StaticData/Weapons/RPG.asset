@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponTypeId: 1
   ProjectileTraceTypeId: 2
+  MovementLifeTime: 2
   Damage: 20
   RotationSpeed: 6
   Cooldown: 3

@@ -34,7 +34,7 @@ namespace CodeBase.Hero
 
         private void LookAt(GameObject enemy)
         {
-            Debug.Log($"LookAt {enemy.transform.position}");
+            // Debug.Log($"LookAt {enemy.transform.position}");
             _enemy = enemy;
             _health = enemy.GetComponent<EnemyHealth>();
             _health.Died += EnemyDied;
@@ -43,11 +43,14 @@ namespace CodeBase.Hero
 
         private void EnemyDied()
         {
-            Debug.Log("EnemyDied");
+            // Debug.Log("EnemyDied");
             _enemy = null;
         }
 
-        private void NotLookAtTarget() =>
+        private void NotLookAtTarget()
+        {
+            // Debug.Log("NotLookAtTarget");
             _enemy = null;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Enemy;
+using CodeBase.Enemy.Attacks;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.PersistentProgress;
@@ -71,14 +72,29 @@ namespace CodeBase.Infrastructure.Factory
             health.Max = enemyData.Hp;
 
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
-            enemy.GetComponent<AgentMoveToHero>()?.Construct(_heroGameObject.transform);
-            enemy.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
+            enemy.GetComponent<AgentMoveToHero>().Construct(_heroGameObject.transform);
+            enemy.GetComponent<RotateToHero>().Construct(_heroGameObject.transform);
+            enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
+            enemy.GetComponent<CheckAttackRange>().Construct(enemyData.EffectiveDistance);
 
-            Attack attack = enemy.GetComponent<Attack>();
-            attack.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown, cleavage: enemyData.Cleavage,
-                effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+            ConstructEnemyAttack(typeId, enemyData, enemy);
 
             return enemy;
+        }
+
+        private void ConstructEnemyAttack(EnemyTypeId typeId, EnemyStaticData enemyData, GameObject enemy)
+        {
+            Attack attack = enemy.GetComponent<Attack>();
+
+            switch (typeId)
+            {
+                case EnemyTypeId.WithBat:
+                    (attack as WithBatAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown,
+                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void CleanUp()

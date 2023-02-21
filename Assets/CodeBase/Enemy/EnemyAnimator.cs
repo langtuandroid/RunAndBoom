@@ -6,16 +6,16 @@ namespace CodeBase.Enemy
 {
     public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
     {
-        private static readonly int Attack = Animator.StringToHash("Attack_1");
-        private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        private static readonly int Hit = Animator.StringToHash("Hit");
-        private static readonly int Die = Animator.StringToHash("Die");
+        private static readonly int Attack = Animator.StringToHash("Attack");
 
-        private readonly int _idleStateHash = Animator.StringToHash("idle");
-        private readonly int _attackStateHash = Animator.StringToHash("attack01");
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+        // protected abstract int Speed { get; }
+        // protected abstract int Hit { get; }
+        // protected abstract int Die { get; }
+
+        private readonly int _idleStateHash = Animator.StringToHash("Idle");
+        private readonly int _attackStateHash = Animator.StringToHash("Attack");
         private readonly int _walkingStateHash = Animator.StringToHash("Move");
-        private readonly int _deathStateHash = Animator.StringToHash("die");
 
         private Animator _animator;
 
@@ -27,14 +27,10 @@ namespace CodeBase.Enemy
         private void Awake() =>
             _animator = GetComponent<Animator>();
 
-        public void PlayHit() => _animator.SetTrigger(Hit);
-        public void PlayDeath() => _animator.SetTrigger(Die);
+        // public void PlayHit() => _animator.SetTrigger(Hit);
+        // public void PlayDeath() => _animator.SetTrigger(Die);
 
-        public void Move(float speed)
-        {
-            _animator.SetBool(IsMoving, true);
-            _animator.SetFloat(Speed, speed);
-        }
+        public void Move() => _animator.SetBool(IsMoving, true);
 
         public void StopMoving() => _animator.SetBool(IsMoving, false);
 
@@ -58,8 +54,6 @@ namespace CodeBase.Enemy
                 state = AnimatorState.Attack;
             else if (stateHash == _walkingStateHash)
                 state = AnimatorState.Walking;
-            else if (stateHash == _deathStateHash)
-                state = AnimatorState.Died;
             else
                 state = AnimatorState.Unknown;
 

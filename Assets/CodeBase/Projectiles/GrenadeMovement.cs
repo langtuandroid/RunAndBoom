@@ -13,10 +13,10 @@ namespace CodeBase.Projectiles
         private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
 
-        public void Construct(float speed, Transform parent)
+        public void Construct(float speed, Transform parent, float lifeTime)
         {
             _speed = speed * 1f;
-            base.Construct(parent);
+            base.Construct(parent, lifeTime);
         }
 
         public override void Launch()
@@ -25,7 +25,10 @@ namespace CodeBase.Projectiles
             _rigidBody.AddForce(Parent.forward * _speed * LaunchForce, ForceMode.Force);
         }
 
-        public override void Stop() =>
+        public override void Stop()
+        {
             _rigidBody.isKinematic = true;
+            gameObject.SetActive(false);
+        }
     }
 }

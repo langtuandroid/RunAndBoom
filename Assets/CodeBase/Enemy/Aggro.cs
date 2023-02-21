@@ -7,7 +7,8 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private Follow _follow;
-        [SerializeField] private float _cooldown;
+
+        private float _cooldown;
 
         private bool _hasAggroTarget;
         private WaitForSeconds _switchFollowOffAfterCooldown;
@@ -22,6 +23,9 @@ namespace CodeBase.Enemy
 
             _follow.enabled = false;
         }
+
+        public void Construct(float cooldown) =>
+            _cooldown = cooldown;
 
         private void OnDestroy()
         {

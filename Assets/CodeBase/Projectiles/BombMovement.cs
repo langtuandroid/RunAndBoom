@@ -16,10 +16,10 @@ namespace CodeBase.Projectiles
         private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
 
-        public void Construct(float speed, Transform parent)
+        public void Construct(float speed, Transform parent, float lifeTime)
         {
             _speed = speed * 1f;
-            base.Construct(parent);
+            base.Construct(parent, lifeTime);
         }
 
         public void SetTargetPosition(Vector3 targetPosition) =>
@@ -47,6 +47,7 @@ namespace CodeBase.Projectiles
         {
             _rotate = false;
             _rigidBody.isKinematic = true;
+            gameObject.SetActive(false);
         }
     }
 }

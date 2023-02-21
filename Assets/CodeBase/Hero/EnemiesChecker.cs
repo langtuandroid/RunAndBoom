@@ -13,8 +13,7 @@ namespace CodeBase.Hero
     {
         [SerializeField] private LayerMask _enemyLayerMask;
         [SerializeField] private LayerMask _visibleObstaclesLayerMask;
-
-        private HeroWeaponSelection _heroWeaponSelection;
+        [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
 
         private int _enemiesHitsCount = 10;
         private float _sphereDistance = 0f;
@@ -34,7 +33,6 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _heroWeaponSelection = transform.gameObject.GetComponentInChildren<HeroWeaponSelection>();
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
         }
 
@@ -95,8 +93,14 @@ namespace CodeBase.Hero
                 }
                 else
                 {
+                    // Debug.Log($"CheckEnemiesHits NotFound");
                     NotFound();
                 }
+            }
+            else
+            {
+                // Debug.Log($"CheckEnemiesHits NotFound");
+                NotFound();
             }
         }
 
@@ -116,11 +120,12 @@ namespace CodeBase.Hero
                     CheckEnemyVisibility(closestEnemy);
                 }
 
-                if (_targetEnemyId == id && _targetPosition != closestEnemy.transform.position)
-                    CheckEnemyVisibility(closestEnemy);
+                // if (_targetEnemyId == id && _targetPosition != closestEnemy.transform.position)
+                //     CheckEnemyVisibility(closestEnemy);
             }
             else
             {
+                // Debug.Log($"FindClosestEnemy NotFound");
                 NotFound();
             }
         }
@@ -129,6 +134,7 @@ namespace CodeBase.Hero
         {
             if (_enemyNotFound == false)
             {
+                // Debug.Log("NotLookAtTarget");
                 _enemyNotFound = true;
                 _targetEnemyId = null;
                 _targetEnemy = null;
@@ -169,6 +175,7 @@ namespace CodeBase.Hero
             }
             else
             {
+                // Debug.Log($"CheckEnemyVisibility NotFound");
                 NotFound();
             }
         }

@@ -10,6 +10,7 @@ namespace CodeBase.StaticData.Weapon
         public WeaponTypeId WeaponTypeId;
         public ProjectileTraceTypeId ProjectileTraceTypeId;
 
+        [Range(1f, 3f)] public float MovementLifeTime;
         [Range(1, 30)] public int Damage;
         [Range(1, 10)] public int RotationSpeed;
         [Range(1, 5)] public int Cooldown;

@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using CodeBase.Enemy.Attacks;
+using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(Attack))]
     public class CheckAttackRange : MonoBehaviour
     {
-        [SerializeField] private Attack _attack;
         [SerializeField] private TriggerObserver _triggerObserver;
+
+        private Attack _attack;
+
+        private void Awake() =>
+            _attack = GetComponent<Attack>();
 
         private void Start()
         {
@@ -16,14 +20,13 @@ namespace CodeBase.Enemy
             _attack.DisableAttack();
         }
 
-        private void TriggerEnter(Collider obj)
-        {
-            _attack.EnableAttack();
-        }
+        public void Construct(float radius) =>
+            _triggerObserver.GetComponent<SphereCollider>().radius = radius;
 
-        private void TriggerExit(Collider obj)
-        {
+        private void TriggerEnter(Collider obj) =>
+            _attack.EnableAttack();
+
+        private void TriggerExit(Collider obj) =>
             _attack.DisableAttack();
-        }
     }
 }

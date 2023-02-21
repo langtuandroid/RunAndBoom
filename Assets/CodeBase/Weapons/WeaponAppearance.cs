@@ -10,7 +10,6 @@ namespace CodeBase.Weapons
 {
     public class WeaponAppearance : MonoBehaviour
     {
-        [SerializeField] private HeroRotating _heroRotating;
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private Transform[] _projectilesRespawns;
         [SerializeField] private Transform[] _muzzlesRespawns;
@@ -117,13 +116,13 @@ namespace CodeBase.Weapons
         }
 
         private void SetGrenadeMovement(ref ProjectileMovement movement) =>
-            (movement as GrenadeMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
+            (movement as GrenadeMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform, _currentWeaponStaticData.MovementLifeTime);
 
         private void SetBombMovement(ref ProjectileMovement movement) =>
-            (movement as BombMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
+            (movement as BombMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform, _currentWeaponStaticData.MovementLifeTime);
 
         private void SetBulletMovement(ref ProjectileMovement movement) =>
-            (movement as BulletMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform);
+            (movement as BulletMovement)?.Construct(_currentWeaponStaticData.ProjectileSpeed, transform, _currentWeaponStaticData.MovementLifeTime);
 
         private void SetTrace(ref ProjectileTrace trace) =>
             trace.Construct(_currentProjectileTraceStaticData);

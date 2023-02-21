@@ -15,7 +15,7 @@ namespace CodeBase.Enemy
         private void Update()
         {
             if (ShouldMove())
-                _animator.Move(_agent.velocity.magnitude);
+                _animator.Move();
             else
                 _animator.StopMoving();
         }

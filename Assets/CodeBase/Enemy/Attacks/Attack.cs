@@ -1,30 +1,30 @@
-﻿using System.Linq;
-using CodeBase.Logic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CodeBase.Enemy
+namespace CodeBase.Enemy.Attacks
 {
     [RequireComponent(typeof(EnemyAnimator))]
     public class Attack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator _animator;
 
-        private const float YLevitation = 0.5f;
+        // private const float YLevitation = 0.5f;
 
         private float _attackCooldown;
-        private float _cleavage;
-        private float _effectiveDistance;
-        private int _damage;
+        // private float _cleavage;
+        // private float _effectiveDistance;
+        // private int _damage;
 
         private Transform _heroTransform;
         private float _currentAttackCooldown;
+
         private bool _isAttacking;
-        private int _layerMask;
-        private Collider[] _hits = new Collider[1];
+
+        // private int _layerMask;
+        // private Collider[] _hits = new Collider[1];
         private bool _attackIsActive;
 
-        private void Awake() =>
-            _layerMask = 1 << LayerMask.NameToLayer("Hero");
+        // private void Awake() =>
+        //     _layerMask = 1 << LayerMask.NameToLayer("Hero");
 
         private void Update()
         {
@@ -34,13 +34,10 @@ namespace CodeBase.Enemy
                 StartAttack();
         }
 
-        public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance, int damage)
+        protected void Construct(Transform heroTransform, float attackCooldown)
         {
             _heroTransform = heroTransform;
             _attackCooldown = attackCooldown;
-            _cleavage = cleavage;
-            _effectiveDistance = effectiveDistance;
-            _damage = damage;
         }
 
         private void UpdateCooldown()
@@ -57,13 +54,8 @@ namespace CodeBase.Enemy
             _isAttacking = true;
         }
 
-        private void OnAttack()
+        protected virtual void OnAttack()
         {
-            if (Hit(out Collider hit))
-            {
-                PhysicsDebug.DrawDebug(StartPoint(), _cleavage, 1);
-                hit.transform.GetComponent<IHealth>().TakeDamage(_damage);
-            }
         }
 
         public void EnableAttack() =>
@@ -71,19 +63,6 @@ namespace CodeBase.Enemy
 
         public void DisableAttack() =>
             _attackIsActive = false;
-
-        private bool Hit(out Collider hit)
-        {
-            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _cleavage, _hits, _layerMask);
-
-            hit = _hits.FirstOrDefault();
-
-            return hitsCount > 0;
-        }
-
-        private Vector3 StartPoint() =>
-            new Vector3(transform.position.x, transform.position.y + YLevitation, transform.position.z) +
-            transform.forward * _effectiveDistance;
 
         private void OnAttackEnded()
         {

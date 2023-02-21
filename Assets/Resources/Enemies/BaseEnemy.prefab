@@ -127,14 +127,15 @@ GameObject:
   - component: {fileID: 2604969150810982036}
   - component: {fileID: 4297067491358668949}
   - component: {fileID: 817033157289958094}
-  - component: {fileID: 1304178068267955029}
   - component: {fileID: 2784321666038494259}
-  - component: {fileID: 8979059092158463926}
-  - component: {fileID: 7848830071185068191}
-  - component: {fileID: 8887338773145427541}
+  - component: {fileID: 1304178068267955029}
   - component: {fileID: 7110066953073642459}
+  - component: {fileID: 8979059092158463926}
+  - component: {fileID: 8887338773145427541}
   - component: {fileID: 390787140654921393}
   - component: {fileID: 651460749503453293}
+  - component: {fileID: 3011881117668741496}
+  - component: {fileID: 2680576690207760363}
   - component: {fileID: 5986783145914018286}
   - component: {fileID: 3250547100617661447}
   m_Layer: 6
@@ -189,7 +190,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 1500
@@ -201,6 +202,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2784321666038494259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604969150810982037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c35cdf2ed442c8b7e1caebee9300ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 817033157289958094}
 --- !u!114 &1304178068267955029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,59 +229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerObserver: {fileID: 9107164485434776977}
   _follow: {fileID: 2784321666038494259}
-  _cooldown: 0
---- !u!114 &2784321666038494259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604969150810982037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c35cdf2ed442c8b7e1caebee9300ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 817033157289958094}
---- !u!114 &8979059092158463926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604969150810982037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7459c660c1ff46d7a889f6a307476a2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7848830071185068191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604969150810982037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e305f82bd0a74f62abfc6acf8303e923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 8979059092158463926}
---- !u!114 &8887338773145427541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604969150810982037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06184e94ed64e2ea679f27ce89d2bb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attack: {fileID: 7848830071185068191}
-  _triggerObserver: {fileID: 3524462868181177421}
 --- !u!114 &7110066953073642459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +243,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 817033157289958094}
   _animator: {fileID: 8979059092158463926}
+--- !u!114 &8979059092158463926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604969150810982037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7459c660c1ff46d7a889f6a307476a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8887338773145427541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604969150810982037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06184e94ed64e2ea679f27ce89d2bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerObserver: {fileID: 3524462868181177421}
 --- !u!114 &390787140654921393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +293,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc607ffb5b941248cca5654579569e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3011881117668741496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604969150810982037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d08ea1c8aaf4403b047c8d32aecfc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+--- !u!114 &2680576690207760363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604969150810982037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a401c97dfbe469d92e7c4c4ab8de0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &5986783145914018286
 Animator:
   serializedVersion: 4
@@ -316,9 +327,9 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2604969150810982037}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
+  m_Avatar: {fileID: 9000000, guid: 0c526fcf08992a0468ec17df08f9c855, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2522eb3b09ec7414b80a4fad7c0649aa, type: 2}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
