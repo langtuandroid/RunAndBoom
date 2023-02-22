@@ -23,13 +23,13 @@ namespace CodeBase.Projectiles
         {
             if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Environments") || other.gameObject.CompareTag("Floor"))
             {
-                // ShowBlast();
-                //
-                // StartCoroutine(DestroyBlast());
-                //
+                ShowBlast();
+
+                StartCoroutine(DestroyBlast());
+
                 // _destroyWithBlast.DestroyAllAround(_sphereRadius);
-                // _projectileTrace.DestroyTrace();
-                // _movement.Stop();
+                _projectileTrace.DestroyTrace();
+                _movement.Stop();
             }
 
             // if (other.gameObject.CompareTag("Hero"))

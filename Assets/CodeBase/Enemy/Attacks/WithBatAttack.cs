@@ -4,11 +4,8 @@ using UnityEngine;
 
 namespace CodeBase.Enemy.Attacks
 {
-    [RequireComponent(typeof(EnemyAnimator))]
     public class WithBatAttack : Attack
     {
-        // [SerializeField] private EnemyAnimator _animator;
-
         private const float YLevitation = 0.5f;
 
         private float _cleavage;

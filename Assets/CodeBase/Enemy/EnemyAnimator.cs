@@ -6,12 +6,8 @@ namespace CodeBase.Enemy
 {
     public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
     {
-        private static readonly int Attack = Animator.StringToHash("Attack");
-
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        // protected abstract int Speed { get; }
-        // protected abstract int Hit { get; }
-        // protected abstract int Die { get; }
+        private readonly int _attackTriggerHash = Animator.StringToHash("Attack");
+        private readonly int _isMovingTriggerHash = Animator.StringToHash("IsMoving");
 
         private readonly int _idleStateHash = Animator.StringToHash("Idle");
         private readonly int _attackStateHash = Animator.StringToHash("Attack");
@@ -27,14 +23,11 @@ namespace CodeBase.Enemy
         private void Awake() =>
             _animator = GetComponent<Animator>();
 
-        // public void PlayHit() => _animator.SetTrigger(Hit);
-        // public void PlayDeath() => _animator.SetTrigger(Die);
+        public void Move() => _animator.SetBool(_isMovingTriggerHash, true);
 
-        public void Move() => _animator.SetBool(IsMoving, true);
+        public void StopMoving() => _animator.SetBool(_isMovingTriggerHash, false);
 
-        public void StopMoving() => _animator.SetBool(IsMoving, false);
-
-        public void PlayAttack() => _animator.SetTrigger(Attack);
+        public void PlayAttack() => _animator.SetTrigger(_attackTriggerHash);
 
         public void EnteredState(int stateHash)
         {
@@ -48,6 +41,7 @@ namespace CodeBase.Enemy
         private AnimatorState StateFor(int stateHash)
         {
             AnimatorState state;
+
             if (stateHash == _idleStateHash)
                 state = AnimatorState.Idle;
             else if (stateHash == _attackStateHash)
@@ -59,5 +53,8 @@ namespace CodeBase.Enemy
 
             return state;
         }
+
+        public bool IsSameState(AnimatorState state) =>
+            State == state;
     }
 }

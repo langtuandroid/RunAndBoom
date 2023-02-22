@@ -9,11 +9,20 @@ namespace CodeBase.Enemy
 
         private Transform _heroTransform;
 
+        private void OnEnable() =>
+            _agent.enabled = true;
+
+        private void OnDisable() =>
+            _agent.enabled = false;
+
         private void Update() =>
             SetDestinationForAgent();
 
-        public void Construct(Transform heroTransform) =>
+        public void Construct(Transform heroTransform)
+        {
             _heroTransform = heroTransform;
+            _agent.enabled = false;
+        }
 
         private void SetDestinationForAgent()
         {
@@ -21,6 +30,7 @@ namespace CodeBase.Enemy
             {
                 _agent.destination = _heroTransform.position;
                 // _agent.SetDestination(_heroTransform.position);
+                // _agent.speed = 3f;
                 // Debug.Log($"hero position {_heroTransform.position}");
             }
         }
