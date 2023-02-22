@@ -1923,7 +1923,7 @@ PrefabInstance:
     - target: {fileID: 4950368143769653709, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5986783145914018286, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
@@ -1993,7 +1993,6 @@ MonoBehaviour:
   _image: {fileID: 7609512935413722872}
   _speed: 10
   _height: 5
-  _upset: 0.5
 --- !u!114 &5352553839011821291 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8979059092158463926, guid: f3dcb60c3c2885d488b4d3288cc50933,
