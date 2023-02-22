@@ -24,7 +24,7 @@ namespace CodeBase.Enemy
 
         private void ForceUp()
         {
-            transform.GetComponentInChildren<Target>().Hide();
+            transform.GetComponentInChildren<TargetMovement>().Hide();
             _rigidbody.AddForce(Vector3.up * UpForce, ForceMode.Force);
             StartCoroutine(CoroutineDestroyTimer());
         }

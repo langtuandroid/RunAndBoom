@@ -184,10 +184,10 @@ namespace CodeBase.Hero
         {
             foreach (EnemyHealth enemy in visibleEnemies)
                 if (_targetEnemyId != enemy.gameObject.GetComponent<UniqueId>().Id)
-                    enemy.transform.GetComponentInChildren<Target>().Hide();
+                    enemy.transform.GetComponentInChildren<TargetMovement>().Hide();
         }
 
         private void TurnOnTarget() =>
-            _targetEnemy.transform.GetComponentInChildren<Target>().Show();
+            _targetEnemy.transform.GetComponentInChildren<TargetMovement>().Show();
     }
 }

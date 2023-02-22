@@ -9,6 +9,7 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemy;
+using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -76,6 +77,7 @@ namespace CodeBase.Infrastructure.Factory
             enemy.GetComponent<RotateToHero>().Construct(_heroGameObject.transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.EffectiveDistance);
+            enemy.GetComponentInChildren<TargetMovement>().Hide();
 
             ConstructEnemyAttack(typeId, enemyData, enemy);
 
