@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    public class RotateToHero : Follow
+    public class RotateToHero : MonoBehaviour
     {
         [SerializeField] private float _speed;
 

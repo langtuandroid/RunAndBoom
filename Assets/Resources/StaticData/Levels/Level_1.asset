@@ -16,5 +16,5 @@ MonoBehaviour:
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0, z: -9}
   EnemySpawners:
-  - EnemyTypeId: 0
-    Position: {x: 0, y: 0, z: 0}
+  - EnemyTypeId: 1
+    Position: {x: 2, y: 0, z: 0}

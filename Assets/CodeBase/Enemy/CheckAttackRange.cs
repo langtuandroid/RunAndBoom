@@ -6,6 +6,7 @@ namespace CodeBase.Enemy
     public class CheckAttackRange : MonoBehaviour
     {
         [SerializeField] private TriggerObserver _triggerObserver;
+        [SerializeField] private Follow _follow;
 
         private Attack _attack;
 
@@ -23,10 +24,17 @@ namespace CodeBase.Enemy
         public void Construct(float radius) =>
             _triggerObserver.GetComponent<SphereCollider>().radius = radius;
 
-        private void TriggerEnter(Collider obj) =>
+        private void TriggerEnter(Collider obj)
+        {
             _attack.EnableAttack();
+            _follow.Stop();
+            _follow.enabled = false;
+        }
 
-        private void TriggerExit(Collider obj) =>
+        private void TriggerExit(Collider obj)
+        {
             _attack.DisableAttack();
+            _follow.enabled = true;
+        }
     }
 }

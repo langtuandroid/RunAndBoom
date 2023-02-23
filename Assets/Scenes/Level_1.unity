@@ -4127,7 +4127,7 @@ PrefabInstance:
     - target: {fileID: 8218972763815303122, guid: 637935c2f58d3b248a356582f4f0603b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8218972763815303132, guid: 637935c2f58d3b248a356582f4f0603b,
         type: 3}
@@ -4341,6 +4341,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MarkerEnemyWithBat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085217726527540331, guid: 618c7818578295944855dcbe9b4b1472,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618c7818578295944855dcbe9b4b1472, type: 3}

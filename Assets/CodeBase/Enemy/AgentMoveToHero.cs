@@ -8,6 +8,7 @@ namespace CodeBase.Enemy
         [SerializeField] private NavMeshAgent _agent;
 
         private Transform _heroTransform;
+        private bool _run;
 
         private void OnEnable() =>
             _agent.enabled = true;
@@ -15,8 +16,11 @@ namespace CodeBase.Enemy
         private void OnDisable() =>
             _agent.enabled = false;
 
-        private void Update() =>
-            SetDestinationForAgent();
+        private void Update()
+        {
+            if (_run)
+                SetDestinationForAgent();
+        }
 
         public void Construct(Transform heroTransform)
         {
@@ -29,10 +33,20 @@ namespace CodeBase.Enemy
             if (_heroTransform)
             {
                 _agent.destination = _heroTransform.position;
-                // _agent.SetDestination(_heroTransform.position);
-                // _agent.speed = 3f;
-                // Debug.Log($"hero position {_heroTransform.position}");
+                Debug.Log($"agent.enabled: {_agent.enabled}");
             }
+        }
+
+        public override void Run()
+        {
+            _agent.enabled = true;
+            _run = true;
+        }
+
+        public override void Stop()
+        {
+            _agent.enabled = false;
+            _run = false;
         }
     }
 }

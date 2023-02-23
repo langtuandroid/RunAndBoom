@@ -23,11 +23,14 @@ namespace CodeBase.Enemy
         private void Awake() =>
             _animator = GetComponent<Animator>();
 
-        public void Move() => _animator.SetBool(_isMovingTriggerHash, true);
+        public void Move() =>
+            _animator.SetBool(_isMovingTriggerHash, true);
 
-        public void StopMoving() => _animator.SetBool(_isMovingTriggerHash, false);
+        public void StopMoving() =>
+            _animator.SetBool(_isMovingTriggerHash, false);
 
-        public void PlayAttack() => _animator.SetTrigger(_attackTriggerHash);
+        public void PlayAttack() =>
+            _animator.SetTrigger(_attackTriggerHash);
 
         public void EnteredState(int stateHash)
         {

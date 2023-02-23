@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2903281461078553228
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8488337636399202610}
-  m_Layer: 0
-  m_Name: Muzzle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8488337636399202610
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2903281461078553228}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14, z: 0.28}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 497455042280132739}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3037236920645585390
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,8 +245,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 440173240757374666}
-  - {fileID: 8488337636399202610}
   - {fileID: 863799955004850132}
+  - {fileID: 6803598322285979206}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -3, z: 0}
@@ -298,7 +267,7 @@ MonoBehaviour:
   _projectilesRespawns:
   - {fileID: 863799955004850132}
   _muzzlesRespawns:
-  - {fileID: 8488337636399202610}
+  - {fileID: 6803598322285979206}
   _showProjectiles: 1
 --- !u!1 &7078969577470888347
 GameObject:
@@ -388,6 +357,81 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000023341272, y: 0.0012739828, z: -0.0031579416}
     m_Extent: {x: 0.0005590803, y: 0.0012974889, z: 0.0046118023}
   m_DirtyAABB: 0
+--- !u!1001 &2234978460742391565
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 497455042280132739}
+    m_Modifications:
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401264481358482066, guid: a3882ea06806cda4589059a5adedf221,
+        type: 3}
+      propertyPath: m_Name
+      value: Muzzle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3882ea06806cda4589059a5adedf221, type: 3}
+--- !u!4 &6803598322285979206 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4714989195062391115, guid: a3882ea06806cda4589059a5adedf221,
+    type: 3}
+  m_PrefabInstance: {fileID: 2234978460742391565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8447948885357651273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -403,7 +447,7 @@ PrefabInstance:
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,
         type: 3}

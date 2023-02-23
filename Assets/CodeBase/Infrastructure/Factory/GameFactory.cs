@@ -94,6 +94,10 @@ namespace CodeBase.Infrastructure.Factory
                     (attack as WithBatAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown,
                         cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
                     break;
+                case EnemyTypeId.WithPistol:
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown,
+                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+                    break;
                 default:
                     break;
             }

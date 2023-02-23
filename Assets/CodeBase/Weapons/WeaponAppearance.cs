@@ -8,41 +8,27 @@ using UnityEngine;
 
 namespace CodeBase.Weapons
 {
-    public class WeaponAppearance : MonoBehaviour
+    public class WeaponAppearance : BaseWeaponAppearance
     {
-        [SerializeField] private GameObject _projectilePrefab;
-        [SerializeField] private Transform[] _projectilesRespawns;
-        [SerializeField] private Transform[] _muzzlesRespawns;
-        [SerializeField] private bool _showProjectiles;
-
-        private List<GameObject> _projectileObjects;
         private List<ProjectileBlast> _blasts;
-        private List<ProjectileMovement> _projectileMovements;
-        private List<ProjectileTrace> _traces;
 
         private HeroWeaponSelection _heroWeaponSelection;
         private WeaponStaticData _currentWeaponStaticData;
         private WeaponTypeId _weaponTypeId;
-        private ProjectileTraceStaticData _currentProjectileTraceStaticData;
-        private GameObject _vfxShot;
-        private float _muzzleVfxLifetime = 1f;
         private bool _enemySpotted = false;
-        private float _attackCooldownTimer;
-        private WaitForSeconds _launchProjectileCooldown;
         private int _currentProjectileIndex = 0;
 
         private void Awake()
         {
-            _projectileObjects = new List<GameObject>(_projectilesRespawns.Length);
-            _projectileMovements = new List<ProjectileMovement>(_projectilesRespawns.Length);
-            _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
-            _traces = new List<ProjectileTrace>(_projectilesRespawns.Length);
         }
 
         public void Construct(HeroWeaponSelection heroWeaponSelection)
         {
             _heroWeaponSelection = heroWeaponSelection;
             _heroWeaponSelection.WeaponSelected += PrepareWeapon;
+
+            base.Construct();
+            _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
         }
 
         private void PrepareWeapon(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData)

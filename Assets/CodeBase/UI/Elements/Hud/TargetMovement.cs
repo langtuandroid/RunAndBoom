@@ -7,8 +7,9 @@ namespace CodeBase.UI.Elements.Hud
     public class TargetMovement : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        [SerializeField] private float _speed;
-        [SerializeField] private float _height;
+
+        private const float Speed = 1f;
+        private const float Height = 0.5f;
 
         private float _topY;
         private float _bottomY;
@@ -20,7 +21,7 @@ namespace CodeBase.UI.Elements.Hud
         private void Start()
         {
             _bottomY = transform.position.y;
-            _topY = _bottomY + _height;
+            _topY = _bottomY + Height;
         }
 
         private void Update()
@@ -28,7 +29,7 @@ namespace CodeBase.UI.Elements.Hud
             if (_show)
             {
                 _bottomY = transform.position.y;
-                _topY = _bottomY + _height;
+                _topY = _bottomY + Height;
 
                 _targetY = _up ? _topY : _bottomY;
 
@@ -57,7 +58,7 @@ namespace CodeBase.UI.Elements.Hud
         {
             var position = _image.transform.position;
             position = Vector3.MoveTowards(position,
-                new Vector3(position.x, _targetY, position.z), Time.deltaTime * _speed);
+                new Vector3(position.x, _targetY, position.z), Time.deltaTime * Speed);
             _image.transform.position = position;
             return position;
         }

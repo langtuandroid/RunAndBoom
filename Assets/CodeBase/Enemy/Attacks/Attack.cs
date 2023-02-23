@@ -54,7 +54,7 @@ namespace CodeBase.Enemy.Attacks
             _isAttacking = true;
         }
 
-        protected virtual void OnAttack()
+        protected void OnAttack()
         {
         }
 

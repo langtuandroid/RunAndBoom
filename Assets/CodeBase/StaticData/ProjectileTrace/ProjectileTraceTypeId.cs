@@ -2,7 +2,6 @@
 {
     public enum ProjectileTraceTypeId
     {
-        None,
         Grenade,
         Rocket,
     }

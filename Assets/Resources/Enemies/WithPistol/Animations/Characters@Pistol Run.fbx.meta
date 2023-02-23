@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f5bc51a951df5414c9992e3eb649e4ee
+guid: 5d9f7460adb40fb4a886f75cfb6df12a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -16,7 +16,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
+      Ensure both rig type match\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -33,11 +34,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle Walk
+      name: Pistol Run
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 39
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
