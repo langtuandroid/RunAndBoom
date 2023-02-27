@@ -27,6 +27,8 @@ namespace CodeBase.Projectiles.Movement
 
         public override void Launch()
         {
+            StartCoroutine(LaunchTime());
+
             _rotate = true;
             _rigidBody.isKinematic = false;
             Vector3 aim = _targetPosition - transform.position;

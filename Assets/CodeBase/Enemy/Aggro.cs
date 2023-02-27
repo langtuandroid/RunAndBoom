@@ -73,8 +73,8 @@ namespace CodeBase.Enemy
 
         private void SwitchFollowOff()
         {
-            _follow.Stop();
             _follow.enabled = false;
+            _follow.Stop();
             _hasAggroTarget = false;
         }
     }

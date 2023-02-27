@@ -1,7 +1,6 @@
-﻿using CodeBase.Projectiles.Movement;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.CodeBase.Projectiles.Movement
+namespace CodeBase.Projectiles.Movement
 {
     public class BulletMovement : ProjectileMovement
     {
@@ -20,8 +19,11 @@ namespace Assets.CodeBase.Projectiles.Movement
             base.Construct(parent, lifeTime);
         }
 
-        public override void Launch() =>
+        public override void Launch()
+        {
+            StartCoroutine(LaunchTime());
             _move = true;
+        }
 
         public override void Stop()
         {

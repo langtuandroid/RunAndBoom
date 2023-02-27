@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.CodeBase.Projectiles.Movement;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTrace;
@@ -23,15 +22,18 @@ namespace CodeBase.Weapons
         private float _muzzleVfxLifetime;
         protected int CurrentProjectileIndex = 0;
         private GameObject _muzzleVfx;
-        protected float MovementLifeTime;
         protected float ProjectileSpeed;
+        protected float MovementLifeTime;
         private ProjectileTraceStaticData _projectileTraceStaticData;
 
-        protected void Construct(GameObject muzzleVfx, float muzzleVfxLifeTime, float cooldown, ProjectileTraceStaticData projectileTraceStaticData)
+        protected void Construct(GameObject muzzleVfx, float muzzleVfxLifeTime, float cooldown, float speed, float lifeTime,
+            ProjectileTraceStaticData projectileTraceStaticData)
         {
             _muzzleVfx = muzzleVfx;
             _muzzleVfxLifetime = muzzleVfxLifeTime;
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
+            ProjectileSpeed = speed;
+            MovementLifeTime = lifeTime;
 
             ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length);
             ProjectileMovements = new List<ProjectileMovement>(_projectilesRespawns.Length);
@@ -41,7 +43,7 @@ namespace CodeBase.Weapons
 
         protected void CreateShotVfx()
         {
-            _vfxShot = Instantiate<GameObject>(_muzzleVfx, transform.position, transform.rotation);
+            _vfxShot = Instantiate(_muzzleVfx, transform.position, transform.rotation);
             _vfxShot.SetActive(false);
         }
 

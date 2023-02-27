@@ -20,7 +20,7 @@ namespace CodeBase.Enemy
         {
             if (_run)
                 SetDestinationForAgent();
-            
+
             Debug.Log($"agent.enabled: {_agent.enabled}");
         }
 
@@ -32,7 +32,7 @@ namespace CodeBase.Enemy
 
         private void SetDestinationForAgent()
         {
-            if (_heroTransform) 
+            if (_heroTransform)
                 _agent.destination = _heroTransform.position;
         }
 

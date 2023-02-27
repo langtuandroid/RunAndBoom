@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using CodeBase.Projectiles.Movement;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit
@@ -21,7 +20,7 @@ namespace CodeBase.Projectiles.Hit
         private void OnTriggerEnter(Collider other)
         {
             string targetTag = other.gameObject.tag;
-            
+
             if (IsTargetTag(targetTag))
             {
                 if (_blastVfxPrefab != null)

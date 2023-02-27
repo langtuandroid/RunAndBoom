@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Hero;
-using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTrace;
@@ -25,14 +24,15 @@ namespace CodeBase.Weapons
             _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
         }
 
-        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
             ProjectileTraceStaticData projectileTraceStaticData)
         {
-            base.Construct(heroWeaponStaticData.MuzzleVfx, heroWeaponStaticData.MuzzleVfxLifeTime, heroWeaponStaticData.Cooldown, projectileTraceStaticData);
+            base.Construct(weaponStaticData.MuzzleVfx, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileSpeed,
+                weaponStaticData.MovementLifeTime, projectileTraceStaticData);
 
-            _weaponTypeId = heroWeaponStaticData.WeaponTypeId;
-            _blastRange = heroWeaponStaticData.BlastRange;
-            _blastVfxPrefab = heroWeaponStaticData.blastVfxPrefab;
+            _weaponTypeId = weaponStaticData.WeaponTypeId;
+            _blastRange = weaponStaticData.BlastRange;
+            _blastVfxPrefab = weaponStaticData.blastVfxPrefab;
 
             CreateShotVfx();
             CreateProjectiles();

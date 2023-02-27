@@ -23,6 +23,7 @@ namespace CodeBase.Projectiles.Movement
         {
             _rigidBody.isKinematic = false;
             _rigidBody.AddForce(Parent.forward * _speed * LaunchForce, ForceMode.Force);
+            StartCoroutine(LaunchTime());
         }
 
         public override void Stop()

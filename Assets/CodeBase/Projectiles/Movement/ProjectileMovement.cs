@@ -6,6 +6,7 @@ namespace CodeBase.Projectiles.Movement
     public abstract class ProjectileMovement : MonoBehaviour
     {
         protected Transform Parent;
+
         private float _movementTimeLimit = 3f;
         private float _launchCounter = 0f;
 
@@ -18,7 +19,7 @@ namespace CodeBase.Projectiles.Movement
         public abstract void Launch();
         public abstract void Stop();
 
-        public IEnumerable LaunchTime()
+        protected IEnumerator LaunchTime()
         {
             _launchCounter = _movementTimeLimit;
 
