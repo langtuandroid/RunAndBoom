@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e00a436b06464bb27bdb0f409c3caf, type: 3}
   m_Name: Grenade
   m_EditorClassIdentifier: 
-  ProjectileTraceTypeId: 1
+  ProjectileTraceTypeId: 0
   StartDelay: 0
   EndDelay: 0
   PrefabReference: {fileID: 4846815598672956020, guid: 7b94bb8f3d437d4468678f8182a68b04,

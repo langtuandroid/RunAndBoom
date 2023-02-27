@@ -9,7 +9,8 @@ namespace CodeBase.Services.StaticData
     {
         void Load();
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
-        WeaponStaticData ForWeapon(WeaponTypeId typeId);
+        HeroWeaponStaticData ForHeroWeapon(HeroWeaponTypeId typeId);
+        EnemyWeaponStaticData ForEnemyWeapon(EnemyWeaponTypeId typeId);
         ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId);
 
         LevelStaticData ForLevel(string sceneKey);

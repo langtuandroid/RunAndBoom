@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d1c29dda97c7a44ac499dd04b71e1b, type: 3}
+  m_Name: Rocket launcher
+  m_EditorClassIdentifier: 
+  WeaponTypeId: 2
+  ProjectileTraceTypeId: 1
+  MovementLifeTime: 2
+  Damage: 20
+  RotationSpeed: 7
+  Cooldown: 3
+  AimRange: 5
+  BlastRange: 3
+  ProjectileSpeed: 15
+  MuzzleVfxLifeTime: 1
+  MuzzleVfx: {fileID: 169982, guid: 03b5266e6b05a334a996d475667697e3, type: 3}
+  blastVfxPrefab: {fileID: 161422, guid: 2963452af690ade448ed3146173416fa, type: 3}

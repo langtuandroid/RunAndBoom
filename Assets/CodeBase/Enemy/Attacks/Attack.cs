@@ -3,7 +3,7 @@
 namespace CodeBase.Enemy.Attacks
 {
     [RequireComponent(typeof(EnemyAnimator))]
-    public class Attack : MonoBehaviour
+    public abstract class Attack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator _animator;
 
@@ -54,9 +54,7 @@ namespace CodeBase.Enemy.Attacks
             _isAttacking = true;
         }
 
-        protected void OnAttack()
-        {
-        }
+        protected abstract void OnAttack();
 
         public void EnableAttack() =>
             _attackIsActive = true;

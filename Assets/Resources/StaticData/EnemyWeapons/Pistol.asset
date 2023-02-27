@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   WeaponTypeId: 0
+  ProjectileTraceTypeId: 0
   MovementLifeTime: 3
   Damage: 1
   Cooldown: 2
   ProjectileSpeed: 1
   MuzzleVfxLifeTime: 0.5
-  MuzzleVfx: {fileID: 0}
+  MuzzleVfx: {fileID: 152484, guid: 7e257b8211d08b344aa2b46c61fd79e9, type: 3}
   ProjectilePrefab: {fileID: 8881750742817861074, guid: dd1a26888535a1e4ba4f5462766c702a,
     type: 3}
   ProjectileTracePrefab: {fileID: 1703263380272892, guid: ffd6d9879a26ed04e9e84fc1c2cb3fd9,

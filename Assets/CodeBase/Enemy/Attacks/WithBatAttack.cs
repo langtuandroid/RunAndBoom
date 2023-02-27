@@ -26,7 +26,7 @@ namespace CodeBase.Enemy.Attacks
             _damage = damage;
         }
 
-        protected void OnAttack()
+        protected override void OnAttack()
         {
             if (Hit(out Collider hit))
             {

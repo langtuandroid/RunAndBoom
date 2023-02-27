@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d1c29dda97c7a44ac499dd04b71e1b, type: 3}
+  m_Name: Mortar
+  m_EditorClassIdentifier: 
+  WeaponTypeId: 3
+  ProjectileTraceTypeId: 0
+  MovementLifeTime: 3
+  Damage: 30
+  RotationSpeed: 3
+  Cooldown: 5
+  AimRange: 10
+  BlastRange: 5
+  ProjectileSpeed: 5
+  MuzzleVfxLifeTime: 1
+  MuzzleVfx: {fileID: 1509306094841910, guid: 5abbc342485727d4c8b75c66da35da51, type: 3}
+  blastVfxPrefab: {fileID: 150222, guid: 197cd41d6d0f0c441a4962c1cc67806e, type: 3}

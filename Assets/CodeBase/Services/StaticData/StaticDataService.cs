@@ -11,14 +11,16 @@ namespace CodeBase.Services.StaticData
     public class StaticDataService : IStaticDataService
     {
         private const string StaticDataEnemiesPath = "StaticData/Enemies";
-        private const string StaticDataWeaponsPath = "StaticData/Weapons";
+        private const string StaticDataHeroWeaponsPath = "StaticData/HeroWeapons";
+        private const string StaticDataEnemyWeaponsPath = "StaticData/EnemyWeapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
 
         private const string StaticDataProjectileTracesPath = "StaticData/ProjectilesTraces";
         // private const string StaticDataWindowsPath = "StaticData/Windows";
 
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
-        private Dictionary<WeaponTypeId, WeaponStaticData> _weapons;
+        private Dictionary<HeroWeaponTypeId, HeroWeaponStaticData> _heroWeapons;
+        private Dictionary<EnemyWeaponTypeId, EnemyWeaponStaticData> _enemyWeapons;
         private Dictionary<string, LevelStaticData> _levels;
 
         private Dictionary<ProjectileTraceTypeId, ProjectileTraceStaticData> _projectileTraces;
@@ -30,8 +32,12 @@ namespace CodeBase.Services.StaticData
                 .LoadAll<EnemyStaticData>(StaticDataEnemiesPath)
                 .ToDictionary(x => x.EnemyTypeId, x => x);
 
-            _weapons = Resources
-                .LoadAll<WeaponStaticData>(StaticDataWeaponsPath)
+            _heroWeapons = Resources
+                .LoadAll<HeroWeaponStaticData>(StaticDataHeroWeaponsPath)
+                .ToDictionary(x => x.WeaponTypeId, x => x);
+
+            _enemyWeapons = Resources
+                .LoadAll<EnemyWeaponStaticData>(StaticDataEnemyWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _levels = Resources
@@ -52,8 +58,13 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public WeaponStaticData ForWeapon(WeaponTypeId typeId) =>
-            _weapons.TryGetValue(typeId, out WeaponStaticData staticData)
+        public HeroWeaponStaticData ForHeroWeapon(HeroWeaponTypeId typeId) =>
+            _heroWeapons.TryGetValue(typeId, out HeroWeaponStaticData staticData)
+                ? staticData
+                : null;
+
+        public EnemyWeaponStaticData ForEnemyWeapon(EnemyWeaponTypeId typeId) =>
+            _enemyWeapons.TryGetValue(typeId, out EnemyWeaponStaticData staticData)
                 ? staticData
                 : null;
 

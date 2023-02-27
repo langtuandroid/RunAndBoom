@@ -1,3 +1,4 @@
+using CodeBase.StaticData.ProjectileTrace;
 using UnityEngine;
 
 namespace CodeBase.StaticData.Weapon
@@ -6,6 +7,7 @@ namespace CodeBase.StaticData.Weapon
     public class EnemyWeaponStaticData : ScriptableObject
     {
         public EnemyWeaponTypeId WeaponTypeId;
+        public ProjectileTraceTypeId ProjectileTraceTypeId;
 
         [Range(1f, 3f)] public float MovementLifeTime;
         [Range(1, 30)] public int Damage;

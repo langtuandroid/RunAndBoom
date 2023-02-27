@@ -4,5 +4,6 @@
     {
         Grenade,
         Rocket,
+        Bullet,
     }
 }

@@ -107,6 +107,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3008643511957468129}
     m_Modifications:
+    - target: {fileID: 5394273630717437515, guid: 3fe74d5d2cf0b6b4c830234bd57c6d91,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5440446695765946781, guid: 3fe74d5d2cf0b6b4c830234bd57c6d91,
         type: 3}
       propertyPath: m_RootOrder
@@ -167,5 +172,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Chr_GangBoss_01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9053531350066381475, guid: 3fe74d5d2cf0b6b4c830234bd57c6d91, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3fe74d5d2cf0b6b4c830234bd57c6d91, type: 3}

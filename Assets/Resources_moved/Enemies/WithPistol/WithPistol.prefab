@@ -193,5 +193,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Chr_DEA_Plainclothes_Male_01
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8782494294941235814, guid: cef9a8ffb7d201b4cbcc2f2c3679b957,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1629838173475263492, guid: cef9a8ffb7d201b4cbcc2f2c3679b957, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cef9a8ffb7d201b4cbcc2f2c3679b957, type: 3}

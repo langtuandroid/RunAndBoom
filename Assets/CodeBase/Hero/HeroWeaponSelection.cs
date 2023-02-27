@@ -16,43 +16,41 @@ namespace CodeBase.Hero
 
         private IStaticDataService _staticDataService;
 
-        public event Action<GameObject, WeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
+        public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
         [Inject]
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            FindWeaponContainer(progress.CurrentWeaponTypeId);
+            FindWeaponContainer(progress.currentHeroWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)
         {
         }
 
-        private void FindWeaponContainer(WeaponTypeId weaponTypeId)
+        private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
             foreach (GameObject weapon in _weapons)
             {
-                if (weapon.name == weaponTypeId.ToString())
+                if (weapon.name == heroWeaponTypeId.ToString())
                 {
-                    weapon.GetComponent<WeaponAppearance>().Construct(this);
+                    weapon.GetComponent<HeroWeaponAppearance>().Construct(this);
                     weapon.SetActive(true);
-                    WeaponChosen(weapon, weaponTypeId);
+                    WeaponChosen(weapon, heroWeaponTypeId);
                 }
                 else
                     weapon.SetActive(false);
             }
         }
 
-        private void WeaponChosen(GameObject currentWeapon, WeaponTypeId weaponTypeId)
+        private void WeaponChosen(GameObject currentWeapon, HeroWeaponTypeId heroWeaponTypeId)
         {
-            WeaponStaticData weaponStaticData = _staticDataService.ForWeapon(weaponTypeId);
-            ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(weaponStaticData.ProjectileTraceTypeId);
-            WeaponSelected?.Invoke(currentWeapon, weaponStaticData, projectileTraceStaticData);
+            HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
+            ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(heroWeaponStaticData.ProjectileTraceTypeId);
+            WeaponSelected?.Invoke(currentWeapon, heroWeaponStaticData, projectileTraceStaticData);
         }
     }
 }

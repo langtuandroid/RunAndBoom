@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CodeBase.StaticData.Weapon;
+using UnityEngine;
 
 namespace CodeBase.StaticData.Enemy
 {
@@ -6,6 +7,7 @@ namespace CodeBase.StaticData.Enemy
     public class EnemyStaticData : ScriptableObject
     {
         public EnemyTypeId EnemyTypeId;
+        public EnemyWeaponTypeId EnemyWeaponTypeId;
 
         [Range(1, 100)] public int Hp;
 

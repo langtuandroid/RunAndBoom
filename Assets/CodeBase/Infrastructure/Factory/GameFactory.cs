@@ -9,7 +9,10 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemy;
+using CodeBase.StaticData.ProjectileTrace;
+using CodeBase.StaticData.Weapon;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.Weapons;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -63,8 +66,11 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
+            EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
+            ProjectileTraceStaticData projectileTraceStaticData = _staticData.ForProjectileTrace(enemyWeaponStaticData.ProjectileTraceTypeId);
 
             GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString());
+            enemy.GetComponentInChildren<EnemyWeaponAppearance>().Construct(enemyWeaponStaticData, projectileTraceStaticData);
             // var prefab = await _registratorService.LoadRegisteredAsync(typeId.ToString());
             // GameObject enemy = _container.InstantiatePrefab(prefab, parent);
 
@@ -95,8 +101,7 @@ namespace CodeBase.Infrastructure.Factory
                         cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
                     break;
                 case EnemyTypeId.WithPistol:
-                    (attack as WithPistolAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown,
-                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown);
                     break;
                 default:
                     break;

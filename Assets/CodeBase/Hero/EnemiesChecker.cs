@@ -36,8 +36,9 @@ namespace CodeBase.Hero
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
         }
 
-        private void SetWeaponAimRange(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData) =>
-            _aimRange = weaponStaticData.AimRange;
+        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            ProjectileTraceStaticData projectileTraceStaticData) =>
+            _aimRange = heroWeaponStaticData.AimRange;
 
         private void FixedUpdate()
         {

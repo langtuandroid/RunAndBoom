@@ -13,7 +13,7 @@ namespace CodeBase.Hero
         [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private IPlatformInputService _platformInputService;
-        private WeaponAppearance _weaponAppearance;
+        private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
         private float _weaponCooldown = 0f;
@@ -27,10 +27,11 @@ namespace CodeBase.Hero
             _platformInputService.Shot += TryShoot;
         }
 
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, WeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData)
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            ProjectileTraceStaticData projectileTraceStaticData)
         {
-            _weaponAppearance = weaponPrefab.GetComponent<WeaponAppearance>();
-            _weaponCooldown = weaponStaticData.Cooldown;
+            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+            _weaponCooldown = heroWeaponStaticData.Cooldown;
         }
 
         private void Update() =>
@@ -75,7 +76,7 @@ namespace CodeBase.Hero
         {
             Debug.Log("Shoot");
             _currentAttackCooldown = _weaponCooldown;
-            _weaponAppearance.LaunchProjectile(_enemyPosition);
+            _heroWeaponAppearance.ShootTo(_enemyPosition);
         }
     }
 }

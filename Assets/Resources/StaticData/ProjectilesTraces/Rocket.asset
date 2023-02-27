@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e00a436b06464bb27bdb0f409c3caf, type: 3}
   m_Name: Rocket
   m_EditorClassIdentifier: 
-  ProjectileTraceTypeId: 2
+  ProjectileTraceTypeId: 1
   StartDelay: 0.1
   EndDelay: 0
   PrefabReference: {fileID: 4846815598672956020, guid: d828e8474fc9bc34a98143fb61621c93,
