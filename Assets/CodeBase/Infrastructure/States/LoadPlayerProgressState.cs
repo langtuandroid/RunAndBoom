@@ -51,7 +51,6 @@ namespace CodeBase.Infrastructure.States
         private PlayerProgress NewProgress()
         {
             var progress = new PlayerProgress();
-            progress.SetMaxHP(Constants.InitialMaxHP);
             return progress;
         }
 

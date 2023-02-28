@@ -29,14 +29,17 @@ namespace CodeBase.Projectiles
 
         private IEnumerator CoroutineCreateTrace()
         {
-            if (_particleSystem == null)
+            if (_traceVfxPrefab != null)
             {
-                var traceVfx = Instantiate(_traceVfxPrefab, _tracePosition.position, Quaternion.identity, _tracePosition);
-                _particleSystem = traceVfx.GetComponent<ParticleSystem>();
-            }
+                if (_particleSystem == null)
+                {
+                    var traceVfx = Instantiate(_traceVfxPrefab, _tracePosition.position, Quaternion.identity, _tracePosition);
+                    _particleSystem = traceVfx.GetComponent<ParticleSystem>();
+                }
 
-            yield return new WaitForSeconds(_startDelay);
-            _particleSystem.Play(true);
+                yield return new WaitForSeconds(_startDelay);
+                _particleSystem?.Play(true);
+            }
         }
 
         private void HideTrace() =>

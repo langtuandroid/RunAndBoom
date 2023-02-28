@@ -5,5 +5,6 @@
         Grenade,
         Rocket,
         Bullet,
+        None,
     }
 }

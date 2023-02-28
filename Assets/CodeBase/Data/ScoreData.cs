@@ -19,5 +19,14 @@ namespace CodeBase.Data
             Score += value;
             ScoreChanged?.Invoke();
         }
+
+        public void ReduceScore(int value)
+        {
+            if (Score > value)
+            {
+                Score -= value;
+                ScoreChanged?.Invoke();
+            }
+        }
     }
 }

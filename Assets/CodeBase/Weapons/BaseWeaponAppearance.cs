@@ -90,8 +90,11 @@ namespace CodeBase.Weapons
             return projectileObject;
         }
 
-        private void SetTrace(ref ProjectileTrace trace) =>
-            trace.Construct(_projectileTraceStaticData);
+        private void SetTrace(ref ProjectileTrace trace)
+        {
+            if (_projectileTraceStaticData.ProjectileTraceTypeId != ProjectileTraceTypeId.None)
+                trace.Construct(_projectileTraceStaticData);
+        }
 
         protected void CreateProjectileTrace(GameObject projectileObject)
         {

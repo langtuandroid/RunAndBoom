@@ -50,7 +50,8 @@ namespace CodeBase.Weapons
             ProjectileMovements[CurrentProjectileIndex].Launch();
             Debug.Log("Launched");
             Debug.Log($"index {CurrentProjectileIndex}");
-            ProjectileTraces[CurrentProjectileIndex].CreateTrace();
+
+            ProjectileTraces[CurrentProjectileIndex]?.CreateTrace();
 
             LaunchShotVfx();
 

@@ -21,7 +21,7 @@ namespace CodeBase.Enemy
             if (_run)
                 SetDestinationForAgent();
 
-            Debug.Log($"agent.enabled: {_agent.enabled}");
+            // Debug.Log($"agent.enabled: {_agent.enabled}");
         }
 
         public void Construct(Transform heroTransform)

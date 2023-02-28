@@ -9,18 +9,18 @@ namespace CodeBase.Data
     [Serializable]
     public class PlayerProgress
     {
-        [FormerlySerializedAs("CurrentWeaponTypeId")]
+        public State HeroState;
         public HeroWeaponTypeId currentHeroWeaponTypeId;
+
+        private List<HeroWeaponTypeId> _typeIds = Enum.GetValues(typeof(HeroWeaponTypeId)).Cast<HeroWeaponTypeId>().ToList();
 
         public Dictionary<HeroWeaponTypeId, bool> AvailableWeapons { get; private set; }
         public LevelStats CurrentLevelStats { get; private set; }
         public List<LevelStats> LevelStats { get; private set; }
-        public int MaxHP { get; private set; }
-
-        List<HeroWeaponTypeId> typeIds = Enum.GetValues(typeof(HeroWeaponTypeId)).Cast<HeroWeaponTypeId>().ToList();
 
         public PlayerProgress()
         {
+            HeroState = new State(Constants.InitialMaxHP);
             FillAvailableWeaponDates();
             CurrentLevelStats = new LevelStats();
             currentHeroWeaponTypeId = AvailableWeapons.First(x => x.Value).Key;
@@ -30,7 +30,7 @@ namespace CodeBase.Data
         {
             AvailableWeapons = new Dictionary<HeroWeaponTypeId, bool>();
 
-            foreach (HeroWeaponTypeId typeId in typeIds)
+            foreach (HeroWeaponTypeId typeId in _typeIds)
             {
                 if (typeId == HeroWeaponTypeId.GrenadeLauncher)
                     AvailableWeapons.Add(typeId, true);
@@ -44,9 +44,6 @@ namespace CodeBase.Data
             AvailableWeapons.Clear();
             AvailableWeapons = availableWeaponDates;
         }
-
-        public void SetMaxHP(int value) =>
-            MaxHP = value;
 
         public void AddNewLevelStats(LevelStats levelStats) =>
             LevelStats.Add(levelStats);
