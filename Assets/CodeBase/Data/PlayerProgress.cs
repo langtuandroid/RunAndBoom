@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapon;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Data
 {

@@ -56,8 +56,5 @@ namespace CodeBase.Enemy
 
             return state;
         }
-
-        public bool IsSameState(AnimatorState state) =>
-            State == state;
     }
 }

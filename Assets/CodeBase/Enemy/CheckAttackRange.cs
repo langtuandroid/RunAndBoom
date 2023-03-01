@@ -10,8 +10,7 @@ namespace CodeBase.Enemy
 
         private Attack _attack;
 
-        private void Awake() =>
-            _attack = GetComponent<Attack>();
+        private void Awake() => _attack = GetComponent<Attack>();
 
         private void Start()
         {

@@ -16,7 +16,7 @@ namespace CodeBase.Data
             SectionChanged += ChangeSection;
         }
 
-        private void ChangeSection(string section) => 
+        private void ChangeSection(string section) =>
             Section = section;
     }
 }

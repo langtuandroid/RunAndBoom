@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: WithBat
   m_EditorClassIdentifier: 
   EnemyTypeId: 0
+  EnemyWeaponTypeId: 0
   Hp: 1
   Damage: 2
   MoveSpeed: 1
   EffectiveDistance: 1
   Cleavage: 1
-  AttackCooldown: 2
+  AttackCooldown: 1

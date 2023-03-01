@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CodeBase.Enemy.Attacks;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTrace;
@@ -25,6 +26,10 @@ namespace CodeBase.Weapons
         protected float ProjectileSpeed;
         protected float MovementLifeTime;
         private ProjectileTraceStaticData _projectileTraceStaticData;
+        protected Attack Attack;
+
+        private void Awake() =>
+            Attack = GetComponent<Attack>();
 
         protected void Construct(GameObject muzzleVfx, float muzzleVfxLifeTime, float cooldown, float speed, float lifeTime,
             ProjectileTraceStaticData projectileTraceStaticData)
@@ -106,5 +111,19 @@ namespace CodeBase.Weapons
         protected abstract void CreateProjectiles();
 
         protected abstract void CreateProjectileMovement(GameObject projectileObject);
+
+        protected void ChangeProjectileIndex()
+        {
+            bool notLastIndex = CurrentProjectileIndex < (ProjectileObjects.Count - 1);
+
+            if (notLastIndex)
+            {
+                CurrentProjectileIndex++;
+            }
+            else
+            {
+                CurrentProjectileIndex = 0;
+            }
+        }
     }
 }

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: WithShotgun
   m_EditorClassIdentifier: 
   EnemyTypeId: 2
+  EnemyWeaponTypeId: 0
   Hp: 1
   Damage: 1
   MoveSpeed: 1
   EffectiveDistance: 2
   Cleavage: 1
-  AttackCooldown: 3
+  AttackCooldown: 1

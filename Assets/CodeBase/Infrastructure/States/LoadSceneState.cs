@@ -119,14 +119,14 @@ namespace CodeBase.Infrastructure.States
         {
             var levelData = LevelStaticData();
 
-            await InitSpawners(levelData);
-
             if (levelData.InitializeHeroPosition)
             {
                 // GameObject hero = 
                 await InitHero(levelData);
                 // await InitHud(hero);
             }
+
+            await InitSpawners(levelData);
         }
 
         private LevelStaticData LevelStaticData() =>

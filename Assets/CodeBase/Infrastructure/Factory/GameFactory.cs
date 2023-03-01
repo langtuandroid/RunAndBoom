@@ -69,8 +69,8 @@ namespace CodeBase.Infrastructure.Factory
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
             ProjectileTraceStaticData projectileTraceStaticData = _staticData.ForProjectileTrace(enemyWeaponStaticData.ProjectileTraceTypeId);
 
-            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString());
-            enemy.GetComponentInChildren<EnemyWeaponAppearance>().Construct(enemyWeaponStaticData, projectileTraceStaticData);
+            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
+            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData, projectileTraceStaticData);
             // var prefab = await _registratorService.LoadRegisteredAsync(typeId.ToString());
             // GameObject enemy = _container.InstantiatePrefab(prefab, parent);
 
@@ -103,7 +103,8 @@ namespace CodeBase.Infrastructure.Factory
                 case EnemyTypeId.WithPistol:
                     (attack as WithPistolAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown);
                     break;
-                default:
+                case EnemyTypeId.WithShotgun:
+                    (attack as WithShotgunAttack)?.Construct(heroTransform: _heroGameObject.transform, attackCooldown: enemyData.AttackCooldown);
                     break;
             }
         }

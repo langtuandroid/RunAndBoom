@@ -38,7 +38,6 @@ namespace CodeBase.Enemy.Attacks
         {
             transform.LookAt(_heroTransform);
             _animator.PlayAttack();
-
             _isAttacking = true;
         }
 

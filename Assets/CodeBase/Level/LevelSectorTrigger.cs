@@ -1,15 +1,14 @@
 using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace CodeBase.Level
 {
     public class LevelSectorTrigger : MonoBehaviour
     {
-       [SerializeField] private string _name;
-        
+        [SerializeField] private string _name;
+
         private const string HeroTag = "Hero";
 
         [Inject] private IWindowService _windowService;

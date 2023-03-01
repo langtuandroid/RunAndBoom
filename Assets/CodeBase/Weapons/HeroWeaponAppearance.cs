@@ -121,20 +121,5 @@ namespace CodeBase.Weapons
             ChangeProjectileIndex();
             SetPosition(CurrentProjectileIndex);
         }
-
-        private void ChangeProjectileIndex()
-        {
-            bool notLastIndex = CurrentProjectileIndex < (ProjectileObjects.Count - 1);
-
-            if (notLastIndex)
-            {
-                CurrentProjectileIndex++;
-            }
-            else
-            {
-                CurrentProjectileIndex = 0;
-                SetInitialVisibility();
-            }
-        }
     }
 }

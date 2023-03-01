@@ -7,7 +7,7 @@ namespace CodeBase.Enemy
         [SerializeField] private float _speed;
 
         private Transform _heroTransform;
-        private Vector3 _positionToLook;
+        private Vector3 _directionToLook;
 
         private void Update()
         {
@@ -21,14 +21,13 @@ namespace CodeBase.Enemy
         private void RotateTowardsHero()
         {
             UpdatePositionToLookAt();
-
-            transform.rotation = SmoothedRotation(transform.rotation, _positionToLook);
+            transform.rotation = SmoothedRotation(transform.rotation, _directionToLook);
         }
 
         private void UpdatePositionToLookAt()
         {
             Vector3 positionDelta = _heroTransform.position - transform.position;
-            _positionToLook = new Vector3(positionDelta.x, transform.position.y, positionDelta.z);
+            _directionToLook = new Vector3(positionDelta.x, transform.position.y, positionDelta.z).normalized;
         }
 
         private Quaternion SmoothedRotation(Quaternion rotation, Vector3 positionToLook) =>

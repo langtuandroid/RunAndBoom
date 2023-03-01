@@ -22,9 +22,7 @@ namespace CodeBase.Weapons
             for (int i = 0; i < _projectilesRespawns.Length; i++)
             {
                 var projectileObject = CreateProjectileObject(i);
-
                 CreateProjectileMovement(projectileObject);
-
                 CreateProjectileTrace(projectileObject);
             }
 
@@ -39,24 +37,31 @@ namespace CodeBase.Weapons
             ProjectileMovements.Add(projectileMovement);
         }
 
-        public void Shoot() =>
-            StartCoroutine(CoroutineShootTo());
+        public void Shoot(int projectilesCount, int shotVfxCount)
+        {
+            for (int i = 0; i < projectilesCount; i++)
+                StartCoroutine(CoroutineShootTo());
+
+            for (int i = 0; i < shotVfxCount; i++)
+                LaunchShotVfx();
+        }
 
         private IEnumerator CoroutineShootTo()
         {
-            ProjectileObjects[CurrentProjectileIndex].transform.SetParent(null);
-            ProjectileObjects[CurrentProjectileIndex].SetActive(true);
+            int index = CurrentProjectileIndex;
+            ChangeProjectileIndex();
+            ProjectileObjects[index].transform.SetParent(null);
+            ProjectileObjects[index].SetActive(true);
 
-            ProjectileMovements[CurrentProjectileIndex].Launch();
+            ProjectileMovements[index].Launch();
             Debug.Log("Launched");
-            Debug.Log($"index {CurrentProjectileIndex}");
+            Debug.Log($"index {index}");
 
-            ProjectileTraces[CurrentProjectileIndex]?.CreateTrace();
-
-            LaunchShotVfx();
+            ProjectileTraces[index]?.CreateTrace();
 
             yield return LaunchProjectileCooldown;
-            SetPosition(CurrentProjectileIndex);
+            ProjectileObjects[index].SetActive(false);
+            SetPosition(index);
         }
     }
 }
