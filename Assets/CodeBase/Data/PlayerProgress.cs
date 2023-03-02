@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapon;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Data
 {
     [Serializable]
     public class PlayerProgress
     {
-        public State HeroState;
+       public HealthState healthState;
+       
         public HeroWeaponTypeId currentHeroWeaponTypeId;
 
         private List<HeroWeaponTypeId> _typeIds = Enum.GetValues(typeof(HeroWeaponTypeId)).Cast<HeroWeaponTypeId>().ToList();
@@ -19,7 +21,7 @@ namespace CodeBase.Data
 
         public PlayerProgress()
         {
-            HeroState = new State(Constants.InitialMaxHP);
+            healthState = new HealthState();
             FillAvailableWeaponDates();
             CurrentLevelStats = new LevelStats();
             currentHeroWeaponTypeId = AvailableWeapons.First(x => x.Value).Key;

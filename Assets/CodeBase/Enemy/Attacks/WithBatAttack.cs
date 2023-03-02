@@ -7,6 +7,7 @@ namespace CodeBase.Enemy.Attacks
     public class WithBatAttack : Attack
     {
         private const float YLevitation = 0.5f;
+        private const int DrawingHitTime = 1;
 
         private float _cleavage;
         private float _effectiveDistance;
@@ -30,7 +31,7 @@ namespace CodeBase.Enemy.Attacks
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), _cleavage, 1);
+                PhysicsDebug.DrawDebug(StartPoint(), _cleavage, DrawingHitTime);
                 hit.gameObject.GetComponent<IHealth>().TakeDamage(_damage);
                 Debug.Log($"{gameObject.name} hit Hero with {_damage} damage");
             }

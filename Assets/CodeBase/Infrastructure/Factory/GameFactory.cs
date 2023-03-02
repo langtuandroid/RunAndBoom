@@ -63,6 +63,13 @@ namespace CodeBase.Infrastructure.Factory
             return _heroGameObject;
         }
 
+        public async Task<GameObject> CreateHud()
+        {
+            GameObject hud = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hud);
+
+            return hud;
+        }
+
         public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);

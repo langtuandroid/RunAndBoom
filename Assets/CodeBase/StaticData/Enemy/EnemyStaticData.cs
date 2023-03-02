@@ -20,5 +20,7 @@ namespace CodeBase.StaticData.Enemy
         [Range(0.5f, 5f)] public float Cleavage;
 
         [Range(0.5f, 5f)] public float AttackCooldown;
+
+        [Range(1, 3)] public int Reward;
     }
 }

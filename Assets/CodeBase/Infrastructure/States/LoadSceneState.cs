@@ -68,7 +68,7 @@ namespace CodeBase.Infrastructure.States
 
         private async void OnLoaded(string name)
         {
-            // await InitUIRoot();
+            await InitUIRoot();
             // await InitUI(name);
 
             switch (name)
@@ -82,37 +82,10 @@ namespace CodeBase.Infrastructure.States
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private async Task InitUIRoot() =>
-            await _uiFactory.CreateUIRoot();
-
         private void InformProgressReaders()
         {
             foreach (IProgressReader progressReader in _gameFactory.ProgressReaders)
                 progressReader.LoadProgress(_progressService.Progress);
-        }
-
-        private async Task InitUI(string name)
-        {
-            // switch (name)
-            // {
-            //     case Scenes.Main:
-            //         await _uiFactory.CreateMainUI();
-            //         break;
-            //     case Scenes.Map:
-            //         await _uiFactory.CreateMapUI();
-            //         break;
-            //     case Scenes.Armory:
-            //         GameObject armory = await _uiFactory.CreateArmoryUI();
-            //         WeaponsSelection weaponsSelection = armory.GetComponentInChildren<WeaponsSelection>();
-            //         // weaponsSelection.Construct(_progressService, _assets, _staticData, _uiFactory);
-            //         weaponsSelection.Initialize();
-            //         break;
-            //     case Scenes.Settings:
-            //         await _uiFactory.CreateSettingsUI();
-            //         break;
-            //     case Scenes.Level1:
-            //         break;
-            // }
         }
 
         private async Task InitGameWorld()
@@ -121,16 +94,22 @@ namespace CodeBase.Infrastructure.States
 
             if (levelData.InitializeHeroPosition)
             {
-                // GameObject hero = 
-                await InitHero(levelData);
-                // await InitHud(hero);
+                await InitGameWorld(levelData);
+                await InitSpawners(levelData);
             }
-
-            await InitSpawners(levelData);
         }
+
+        private async Task InitUIRoot() =>
+            await _uiFactory.CreateUIRoot();
 
         private LevelStaticData LevelStaticData() =>
             _staticData.ForLevel(SceneManager.GetActiveScene().name);
+
+        private async Task InitGameWorld(LevelStaticData levelData)
+        {
+            GameObject hero = await InitHero(levelData);
+            await InitHud(hero);
+        }
 
         private async Task InitSpawners(LevelStaticData levelData)
         {
@@ -141,10 +120,10 @@ namespace CodeBase.Infrastructure.States
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
             await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
-        private async Task InitHud(GameObject player)
+        private async Task InitHud(GameObject hero)
         {
             GameObject hud = await _uiFactory.CreateHud();
-            HeroHealth heroHealth = player.GetComponent<HeroHealth>();
+            HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             heroHealth.Construct();
             hud.GetComponentInChildren<ActorUI>().Construct(heroHealth);
         }
