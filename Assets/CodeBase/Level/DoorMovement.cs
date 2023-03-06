@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CodeBase.Data;
+using UnityEngine;
 
 namespace CodeBase.Level
 {
@@ -40,16 +41,22 @@ namespace CodeBase.Level
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Hero"))
+            if (other.CompareByTag("Hero"))
                 if (_close == false)
+                {
                     _targetY = _minY;
+                    Debug.Log($"minY {_minY}");
+                }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag("Hero"))
+            if (other.CompareByTag("Hero"))
                 if (_close == false)
+                {
                     _targetY = _maxY;
+                    Debug.Log($"maxY {_maxY}");
+                }
         }
     }
 }
