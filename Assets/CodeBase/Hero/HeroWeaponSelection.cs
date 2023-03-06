@@ -24,7 +24,7 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            FindWeaponContainer(progress.currentHeroWeaponTypeId);
+            FindWeaponContainer(progress.CurrentHeroWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)

@@ -29,6 +29,13 @@ namespace CodeBase.Services.Registrator
             return gameObject;
         }
 
+        public async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
+        {
+            GameObject gameObject = await _assets.Instantiate(prefabPath);
+            RegisterProgressWatchers(gameObject);
+            return gameObject;
+        }
+
         public async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at)
         {
             GameObject gameObject = await _assets.Instantiate(prefabPath, at: at);
@@ -39,13 +46,6 @@ namespace CodeBase.Services.Registrator
         public async Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Transform parent)
         {
             GameObject gameObject = await _assets.Instantiate(prefabPath, parent: parent);
-            RegisterProgressWatchers(gameObject);
-            return gameObject;
-        }
-
-        public async Task<GameObject> InstantiateRegisteredAsync(string prefabPath)
-        {
-            GameObject gameObject = await _assets.Instantiate(prefabPath);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }

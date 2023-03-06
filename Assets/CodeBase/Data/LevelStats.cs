@@ -9,8 +9,9 @@ namespace CodeBase.Data
 
         public ScoreData ScoreData { get; private set; }
 
-        public LevelStats()
+        public LevelStats(string name)
         {
+            Name = name;
             ScoreData = new ScoreData();
         }
     }

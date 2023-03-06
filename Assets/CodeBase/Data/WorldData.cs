@@ -5,18 +5,11 @@ namespace CodeBase.Data
     [Serializable]
     public class WorldData
     {
-        public string Level { get; private set; }
-        public string Section { get; private set; }
-
-        public event Action<string> SectionChanged;
+        public LevelNameData LevelNameData;
 
         public WorldData(string level)
         {
-            Level = level;
-            SectionChanged += ChangeSection;
+            LevelNameData = new LevelNameData(level);
         }
-
-        private void ChangeSection(string section) =>
-            Section = section;
     }
 }

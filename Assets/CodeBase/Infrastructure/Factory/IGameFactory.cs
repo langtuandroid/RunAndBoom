@@ -17,6 +17,5 @@ namespace CodeBase.Infrastructure.Factory
         Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent);
         Task CreateSpawner(Vector3 at, EnemyTypeId spawnerDataEnemyTypeId);
         void CleanUp();
-        Task<GameObject> CreateHud();
     }
 }

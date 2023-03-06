@@ -5,15 +5,17 @@ namespace CodeBase.Level
     public class DoorMovement : MonoBehaviour
     {
         [SerializeField] private GameObject _door;
-        [SerializeField] private float _speed;
+        [SerializeField] private LevelSectorTrigger _trigger;
 
-        [SerializeField] private float _minY;
-        [SerializeField] private float _maxY;
-
-        private Coroutine _movementCoroutine;
+        private float _speed;
+        private float _minY;
+        private float _maxY;
         private float _positionY;
         private float _targetY;
         private Transform _doorTransform;
+        private bool _close;
+
+        private Coroutine _movementCoroutine;
 
         private void Awake()
         {
@@ -22,6 +24,14 @@ namespace CodeBase.Level
             _targetY = _positionY;
             _minY = _positionY - _door.GetComponent<MeshRenderer>().bounds.size.y;
             _maxY = _positionY;
+
+            _trigger.Passed += Close;
+        }
+
+        private void Close()
+        {
+            _targetY = _maxY;
+            _close = true;
         }
 
         private void Update() =>
@@ -31,13 +41,15 @@ namespace CodeBase.Level
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Hero"))
-                _targetY = _minY;
+                if (_close == false)
+                    _targetY = _minY;
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("Hero"))
-                _targetY = _maxY;
+                if (_close == false)
+                    _targetY = _maxY;
         }
     }
 }

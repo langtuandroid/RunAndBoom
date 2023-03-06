@@ -21,6 +21,7 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
+        private const float Yaddition = 0.5f;
         private readonly IAssets _assets;
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
@@ -58,16 +59,9 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             var prefab = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hero);
-            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(0.5f), Quaternion.identity, null);
+            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(Yaddition), Quaternion.identity, null);
             _registratorService.RegisterProgressWatchers(_heroGameObject);
             return _heroGameObject;
-        }
-
-        public async Task<GameObject> CreateHud()
-        {
-            GameObject hud = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hud);
-
-            return hud;
         }
 
         public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)

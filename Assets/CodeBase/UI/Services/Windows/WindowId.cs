@@ -4,7 +4,7 @@
     {
         Unknown = 0,
         Settings = 1,
-        Finish = 2,
+        Shop = 2,
         Error = 3
     }
 }

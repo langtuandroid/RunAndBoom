@@ -29,7 +29,7 @@ namespace CodeBase.UI.Services.Factory
         public Transform GetUIRoot() =>
             _uiRoot;
 
-        public Task<GameObject> CreateHud() =>
-            _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
+        public async Task<GameObject> CreateHud() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
     }
 }

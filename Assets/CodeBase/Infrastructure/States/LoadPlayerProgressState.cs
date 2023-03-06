@@ -50,7 +50,7 @@ namespace CodeBase.Infrastructure.States
 
         private PlayerProgress NewProgress()
         {
-            var progress = new PlayerProgress();
+            var progress = new PlayerProgress("Level 1");
             return progress;
         }
 

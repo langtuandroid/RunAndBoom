@@ -28,8 +28,8 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            Max = progress.healthState.MaxHP;
-            Current = progress.healthState.CurrentHP;
+            Max = progress.HealthState.MaxHP;
+            Current = progress.HealthState.CurrentHP;
         }
 
         public void UpdateProgress(PlayerProgress progress)

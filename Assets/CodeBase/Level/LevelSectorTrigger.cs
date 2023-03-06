@@ -1,25 +1,39 @@
+using System;
 using CodeBase.Data;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Level
 {
-    public class LevelSectorTrigger : MonoBehaviour
+    public class LevelSectorTrigger : MonoBehaviour, IProgressReader
     {
         [SerializeField] private string _name;
 
         private const string HeroTag = "Hero";
 
-        [Inject] private IWindowService _windowService;
+        private IWindowService _windowService;
+        private PlayerProgress _playerProgress;
 
-        private void OnCollisionEnter(Collision collision)
+        public event Action Passed;
+
+        [Inject]
+        public void Construct(IWindowService windowService) =>
+            _windowService = windowService;
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.CompareByTag(HeroTag))
+            if (other.CompareByTag(HeroTag))
             {
                 Time.timeScale = 0;
-                _windowService.Open(WindowId.Finish);
+                _windowService.Open(WindowId.Shop);
+                Passed?.Invoke();
+                _playerProgress.WorldData.LevelNameData.ChangeSector(_name);
             }
         }
+
+        public void LoadProgress(PlayerProgress progress) =>
+            _playerProgress = progress;
     }
 }
