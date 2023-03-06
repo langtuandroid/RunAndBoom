@@ -7,33 +7,31 @@ using Zenject;
 
 namespace CodeBase.Level
 {
-    public class LevelSectorTrigger : MonoBehaviour, IProgressReader
+    public class LevelSectorTrigger : MonoBehaviour
     {
         [SerializeField] private string _name;
 
-        private const string HeroTag = "Hero";
-
         private IWindowService _windowService;
-        private PlayerProgress _playerProgress;
+        private IPlayerProgressService _progressService;
 
         public event Action Passed;
 
         [Inject]
-        public void Construct(IWindowService windowService) =>
+        public void Construct(IWindowService windowService, IPlayerProgressService progressService)
+        {
             _windowService = windowService;
+            _progressService = progressService;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag(HeroTag))
+            if (other.CompareByTag(Constants.HeroTag))
             {
-                Time.timeScale = 0;
-                _windowService.Open(WindowId.Shop);
+                // Time.timeScale = 0;
+                // _windowService.Open(WindowId.Shop);
                 Passed?.Invoke();
-                _playerProgress.WorldData.LevelNameData.ChangeSector(_name);
+                _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
             }
         }
-
-        public void LoadProgress(PlayerProgress progress) =>
-            _playerProgress = progress;
     }
 }

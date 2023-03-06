@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Data;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -11,13 +12,13 @@ namespace CodeBase.Enemy
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Hero"))
+            if (other.CompareByTag(Constants.HeroTag))
                 TriggerEnter?.Invoke(other);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag("Hero"))
+            if (other.CompareByTag(Constants.HeroTag))
                 TriggerExit?.Invoke(other);
         }
     }

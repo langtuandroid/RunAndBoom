@@ -7,7 +7,7 @@ namespace CodeBase.Data
     {
         public int Score { get; private set; }
 
-        public Action ScoreChanged;
+        public event Action ScoreChanged;
 
         public ScoreData()
         {

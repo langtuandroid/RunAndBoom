@@ -5,15 +5,30 @@ namespace CodeBase.Data
     [Serializable]
     public class HealthState
     {
-        public int CurrentHP { get; private set; }
-        public int MaxHP { get; private set; }
+        public float CurrentHp { get; private set; }
+        public float MaxHp { get; private set; }
 
-        public void ResetHP() => CurrentHP = MaxHP;
+        public event Action CurrentHpChanged;
+        public event Action MaxHpChanged;
+
+        public void ResetHP() => CurrentHp = MaxHp;
 
         public HealthState()
         {
-            MaxHP = Constants.InitialMaxHP;
+            MaxHp = Constants.InitialMaxHP;
             ResetHP();
+        }
+
+        public void ChangeCurrentHP(float value)
+        {
+            CurrentHp = value;
+            CurrentHpChanged?.Invoke();
+        }
+
+        public void ChangeMaxHP(float value)
+        {
+            MaxHp = value;
+            MaxHpChanged?.Invoke();
         }
     }
 }

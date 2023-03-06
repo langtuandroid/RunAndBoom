@@ -13,21 +13,31 @@ namespace CodeBase.Projectiles.Hit
         private float _sphereDistance = 0f;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
 
-        public void DestroyAllAround(float sphereRadius)
+        public void HitAllAround(float sphereRadius, float damage)
         {
             _enemies.Clear();
             RaycastHit[] objectsHits = new RaycastHit[_objectsHitsCount];
             int objectsHitsCount = GetObjectsHits(objectsHits, sphereRadius);
             IDeath death = null;
+            IHealth health = null;
 
             for (int i = 0; i < objectsHitsCount; i++)
             {
-                death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
+                health = objectsHits[i].transform.gameObject.GetComponent<IHealth>();
 
-                if (death == null)
-                    death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                }
+                else
+                {
+                    death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
 
-                death?.Die();
+                    if (death == null)
+                        death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
+
+                    death?.Die();
+                }
             }
         }
 

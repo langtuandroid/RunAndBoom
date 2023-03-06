@@ -8,47 +8,25 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private float _max;
 
-        private EnemyAnimator _animator;
         private float _previousCurrent;
         private float _current;
 
-        private void Awake()
-        {
-            // _animator = GetComponent<EnemyAnimator>();
+        public float Current => _current;
+        public float Max => _max;
+
+        private void Awake() =>
             _current = _max;
-        }
 
-        public int Current
-        {
-            get => (int)_current;
-            set => _current = value;
-        }
-
-        public int Max
-        {
-            get => (int)_max;
-            set => _max = value;
-        }
+        public void SetMaxHealth(int max) =>
+            _max = max;
 
         public event Action Died;
         public event Action HealthChanged;
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
-            _previousCurrent = _current;
             _current -= damage;
-
-            if (_current <= 0 && _previousCurrent > 0)
-            {
-                Debug.Log($"died {transform.gameObject.name}");
-                Died?.Invoke();
-            }
-
-            if (_current > 0)
-            {
-                // _animator.PlayHit();
-                HealthChanged?.Invoke();
-            }
+            HealthChanged?.Invoke();
         }
     }
 }

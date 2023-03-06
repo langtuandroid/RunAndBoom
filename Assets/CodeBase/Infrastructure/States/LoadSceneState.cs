@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Hero;
-using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -21,25 +20,25 @@ namespace CodeBase.Infrastructure.States
         private readonly ISceneLoader _sceneLoader;
         private readonly ILoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
+        private readonly IEnemyFactory _enemyFactory;
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IUIFactory _uiFactory;
-        private readonly IAssets _assets;
 
         private string _sceneName;
 
         [Inject]
         public LoadSceneState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
-            IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory, IAssets assets)
+            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _gameFactory = gameFactory;
+            _enemyFactory = enemyFactory;
             _progressService = progressService;
             _staticData = staticData;
             _uiFactory = uiFactory;
-            _assets = assets;
         }
 
         public void Enter(string sceneName)
@@ -69,7 +68,6 @@ namespace CodeBase.Infrastructure.States
         private async void OnLoaded(string name)
         {
             await InitUIRoot();
-            // await InitUI(name);
 
             switch (name)
             {
@@ -114,7 +112,7 @@ namespace CodeBase.Infrastructure.States
         private async Task InitSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-                await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
+                await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>

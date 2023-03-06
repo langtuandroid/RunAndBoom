@@ -11,28 +11,30 @@ namespace CodeBase.UI.Elements.Hud
 
         private string _level;
         private string _sector;
+        private LevelNameData _levelNameData;
 
         public void LoadProgress(PlayerProgress progress)
         {
-            SetLevel(progress.WorldData.LevelNameData.Level);
-            SetSector(progress.WorldData.LevelNameData.Sector);
-            progress.WorldData.LevelNameData.LevelChanged += SetLevel;
-            progress.WorldData.LevelNameData.SectorChanged += SetSector;
+            _levelNameData = progress.WorldData.LevelNameData;
+            _levelNameData.LevelChanged += SetLevel;
+            _levelNameData.SectorChanged += SetSector;
+            SetLevel();
+            SetSector();
         }
 
-        private void SetLevel(string level)
+        private void SetLevel()
         {
-            _level = level;
+            _level = _levelNameData.Level;
             SetLevelName(_level, _sector);
         }
 
-        private void SetSector(string section)
+        private void SetSector()
         {
-            _sector = section;
+            _sector = _levelNameData.Sector;
             SetLevelName(_level, _sector);
         }
 
-        private void SetLevelName(string level, string section) => 
+        private void SetLevelName(string level, string section) =>
             _levelNumber.text = $"{level}-{section}";
     }
 }

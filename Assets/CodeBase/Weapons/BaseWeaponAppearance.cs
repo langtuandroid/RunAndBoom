@@ -14,24 +14,25 @@ namespace CodeBase.Weapons
         [SerializeField] protected Transform[] _projectilesRespawns;
         [SerializeField] protected Transform[] _muzzlesRespawns;
         [SerializeField] protected bool _showProjectiles;
-
-        protected List<GameObject> ProjectileObjects;
-        protected List<ProjectileMovement> ProjectileMovements;
-        protected List<ProjectileTrace> ProjectileTraces;
-        protected WaitForSeconds LaunchProjectileCooldown;
         private GameObject _vfxShot;
         private float _muzzleVfxLifetime;
         protected int CurrentProjectileIndex = 0;
         private GameObject _muzzleVfx;
-        protected float ProjectileSpeed;
-        protected float MovementLifeTime;
         private ProjectileTraceStaticData _projectileTraceStaticData;
-        protected Attack Attack;
+
+        protected List<GameObject> ProjectileObjects { get; private set; }
+        protected List<ProjectileMovement> ProjectileMovements { get; private set; }
+        protected List<ProjectileTrace> ProjectileTraces { get; private set; }
+        protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
+        protected float ProjectileSpeed { get; private set; }
+        protected float MovementLifeTime { get; private set; }
+        protected float Damage { get; private set; }
+        protected Attack Attack { get; private set; }
 
         private void Awake() =>
             Attack = GetComponent<Attack>();
 
-        protected void Construct(GameObject muzzleVfx, float muzzleVfxLifeTime, float cooldown, float speed, float lifeTime,
+        protected void Construct(GameObject muzzleVfx, float muzzleVfxLifeTime, float cooldown, float speed, float lifeTime, float damage,
             ProjectileTraceStaticData projectileTraceStaticData)
         {
             _muzzleVfx = muzzleVfx;
@@ -39,6 +40,7 @@ namespace CodeBase.Weapons
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             ProjectileSpeed = speed;
             MovementLifeTime = lifeTime;
+            Damage = damage;
 
             ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length);
             ProjectileMovements = new List<ProjectileMovement>(_projectilesRespawns.Length);
@@ -117,13 +119,9 @@ namespace CodeBase.Weapons
             bool notLastIndex = CurrentProjectileIndex < (ProjectileObjects.Count - 1);
 
             if (notLastIndex)
-            {
                 CurrentProjectileIndex++;
-            }
             else
-            {
                 CurrentProjectileIndex = 0;
-            }
         }
     }
 }

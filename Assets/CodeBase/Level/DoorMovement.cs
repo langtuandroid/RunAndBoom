@@ -8,7 +8,8 @@ namespace CodeBase.Level
         [SerializeField] private GameObject _door;
         [SerializeField] private LevelSectorTrigger _trigger;
 
-        private float _speed;
+        private const float Speed = 10f;
+
         private float _minY;
         private float _maxY;
         private float _positionY;
@@ -37,26 +38,20 @@ namespace CodeBase.Level
 
         private void Update() =>
             _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
-                new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z), _speed * Time.deltaTime);
+                new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z), Speed * Time.deltaTime);
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag("Hero"))
+            if (other.CompareByTag(Constants.HeroTag))
                 if (_close == false)
-                {
                     _targetY = _minY;
-                    Debug.Log($"minY {_minY}");
-                }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareByTag("Hero"))
+            if (other.CompareByTag(Constants.HeroTag))
                 if (_close == false)
-                {
                     _targetY = _maxY;
-                    Debug.Log($"maxY {_maxY}");
-                }
         }
     }
 }

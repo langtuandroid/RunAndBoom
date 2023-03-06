@@ -8,9 +8,9 @@ namespace CodeBase.Logic.EnemySpawners
     {
         [SerializeField] private EnemyTypeId _enemyTypeId;
 
-        private IGameFactory _factory;
+        private IEnemyFactory _factory;
 
-        public void Construct(IGameFactory factory, EnemyTypeId enemyTypeId)
+        public void Construct(IEnemyFactory factory, EnemyTypeId enemyTypeId)
         {
             _factory = factory;
             _enemyTypeId = enemyTypeId;

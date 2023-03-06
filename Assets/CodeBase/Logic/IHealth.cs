@@ -4,10 +4,10 @@ namespace CodeBase.Logic
 {
     public interface IHealth
     {
-        int Current { get; set; }
-        int Max { get; set; }
+        float Current { get; }
+        float Max { get; }
         event Action Died;
         event Action HealthChanged;
-        void TakeDamage(int damage);
+        void TakeDamage(float damage);
     }
 }

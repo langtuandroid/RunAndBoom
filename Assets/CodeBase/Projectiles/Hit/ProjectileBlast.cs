@@ -13,6 +13,7 @@ namespace CodeBase.Projectiles.Hit
         private float _sphereRadius;
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
+        private float _damage;
 
         private void OnEnable() =>
             HideBlast();
@@ -27,7 +28,7 @@ namespace CodeBase.Projectiles.Hit
                 {
                     ShowBlast();
                     StartCoroutine(DestroyBlast());
-                    // _destroyWithBlast.DestroyAllAround(_sphereRadius);
+                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
                 }
 
                 Trace.DestroyTrace();
@@ -35,10 +36,11 @@ namespace CodeBase.Projectiles.Hit
             }
         }
 
-        public void Construct(GameObject blastVfxPrefab, float blastRadius)
+        public void Construct(GameObject blastVfxPrefab, float blastRadius, float damage)
         {
             _blastVfxPrefab = blastVfxPrefab;
             _sphereRadius = blastRadius;
+            _damage = damage;
         }
 
         private void ShowBlast()

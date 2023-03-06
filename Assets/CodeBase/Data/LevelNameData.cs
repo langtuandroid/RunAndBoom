@@ -11,8 +11,8 @@ namespace CodeBase.Data
         public string Level { get; private set; }
         public string Sector { get; private set; }
 
-        public event Action<string> LevelChanged;
-        public event Action<string> SectorChanged;
+        public event Action LevelChanged;
+        public event Action SectorChanged;
 
         public LevelNameData(string level)
         {
@@ -27,13 +27,13 @@ namespace CodeBase.Data
         public void ChangeLevel(string level)
         {
             Level = level;
-            LevelChanged?.Invoke(level);
+            LevelChanged?.Invoke();
         }
 
         public void ChangeSector(string section)
         {
             Sector = section;
-            SectorChanged?.Invoke(section);
+            SectorChanged?.Invoke();
         }
     }
 }

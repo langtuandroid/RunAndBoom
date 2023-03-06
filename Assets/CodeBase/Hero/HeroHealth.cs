@@ -8,33 +8,46 @@ namespace CodeBase.Hero
 {
     public class HeroHealth : MonoBehaviour, IHealth, IProgressSaver
     {
-        public int Current { get; set; }
-        public int Max { get; set; }
+        private float _max;
+        private float _current;
+        private PlayerProgress _playerProgress;
+
+        public float Current => _current;
+        public float Max => _max;
+
         public event Action Died;
         public event Action HealthChanged;
 
-        public void Construct()
-        {
+        public void Construct() =>
             HealthChanged?.Invoke();
-        }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
-            if (Current <= 0)
+            if (_current <= 0)
                 return;
 
-            Current -= damage;
+            _current -= damage;
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            Max = progress.HealthState.MaxHP;
-            Current = progress.HealthState.CurrentHP;
+            _max = progress.HealthState.MaxHp;
+            _current = progress.HealthState.CurrentHp;
+            _playerProgress = progress;
+            _playerProgress.HealthState.MaxHpChanged += ChangeMaxHp;
+            _playerProgress.HealthState.CurrentHpChanged += ChangeCurrentHp;
         }
+
+        private void ChangeMaxHp() =>
+            _max = _playerProgress.HealthState.MaxHp;
+
+        private void ChangeCurrentHp() =>
+            _current = _playerProgress.HealthState.CurrentHp;
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            // progress.MaxHP;
+            progress.HealthState.ChangeCurrentHP(_current);
+            progress.HealthState.ChangeMaxHP(_max);
         }
     }
 }

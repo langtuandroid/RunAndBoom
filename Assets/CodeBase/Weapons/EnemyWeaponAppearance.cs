@@ -11,7 +11,7 @@ namespace CodeBase.Weapons
         public void Construct(EnemyWeaponStaticData weaponStaticData, ProjectileTraceStaticData projectileTraceStaticData)
         {
             base.Construct(weaponStaticData.MuzzleVfx, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileSpeed,
-                weaponStaticData.MovementLifeTime, projectileTraceStaticData);
+                weaponStaticData.MovementLifeTime, weaponStaticData.Damage, projectileTraceStaticData);
 
             CreateShotVfx();
             CreateProjectiles();

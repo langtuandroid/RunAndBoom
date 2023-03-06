@@ -34,6 +34,8 @@ namespace CodeBase.CompositionRoot
 
             BindGameFactory();
 
+            BindEnemyFactory();
+
             BindUIFactory();
 
             BindRandomService();
@@ -92,6 +94,14 @@ namespace CodeBase.CompositionRoot
             Container
                 .Bind<IGameFactory>()
                 .To<GameFactory>()
+                .AsSingle();
+        }
+
+        private void BindEnemyFactory()
+        {
+            Container
+                .Bind<IEnemyFactory>()
+                .To<EnemyFactory>()
                 .AsSingle();
         }
 

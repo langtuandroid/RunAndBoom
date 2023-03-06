@@ -11,7 +11,7 @@ namespace CodeBase.Infrastructure
         private const int MaximumAlpha = 1;
         private const float StepAlpha = 0.03f;
 
-        private void Awake() => 
+        private void Awake() =>
             DontDestroyOnLoad(this);
 
         public void Show()
@@ -20,7 +20,7 @@ namespace CodeBase.Infrastructure
             _curtain.alpha = MaximumAlpha;
         }
 
-        public void Hide() => 
+        public void Hide() =>
             StartCoroutine(FadeOut());
 
         private IEnumerator FadeOut()

@@ -28,7 +28,7 @@ namespace CodeBase.Weapons
             ProjectileTraceStaticData projectileTraceStaticData)
         {
             base.Construct(weaponStaticData.MuzzleVfx, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileSpeed,
-                weaponStaticData.MovementLifeTime, projectileTraceStaticData);
+                weaponStaticData.MovementLifeTime, weaponStaticData.Damage, projectileTraceStaticData);
 
             _weaponTypeId = weaponStaticData.WeaponTypeId;
             _blastRange = weaponStaticData.BlastRange;
@@ -98,7 +98,7 @@ namespace CodeBase.Weapons
             (movement as BombMovement)?.Construct(ProjectileSpeed, transform, MovementLifeTime);
 
         private void SetBlast(ref ProjectileBlast blast) =>
-            blast.Construct(_blastVfxPrefab, _blastRange);
+            blast.Construct(_blastVfxPrefab, _blastRange, Damage);
 
         public void ShootTo(Vector3 enemyPosition) =>
             StartCoroutine(CoroutineShootTo(enemyPosition));

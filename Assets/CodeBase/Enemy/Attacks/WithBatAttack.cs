@@ -17,7 +17,7 @@ namespace CodeBase.Enemy.Attacks
         private Collider[] _hits = new Collider[1];
 
         private void Awake() =>
-            _layerMask = 1 << LayerMask.NameToLayer("Hero");
+            _layerMask = 1 << LayerMask.NameToLayer(Constants.HeroTag);
 
         public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance, int damage)
         {
