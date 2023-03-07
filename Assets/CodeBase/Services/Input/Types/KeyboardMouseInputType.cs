@@ -30,6 +30,7 @@ namespace CodeBase.Services.Input.Types
         private void SubscribeEvents()
         {
             _playerInput.Player.Move.performed += MoveTo;
+            _playerInput.Player.Move.canceled += MoveTo;
             _playerInput.Player.Shoot.started += Shoot;
             _playerInput.Player.ChooseWeapon1.started += ChooseWeapon1;
             _playerInput.Player.ChooseWeapon2.started += ChooseWeapon2;
