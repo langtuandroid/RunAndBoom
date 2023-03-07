@@ -11,7 +11,7 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _solid;
         [SerializeField] private GameObject _broken;
 
-        private float _deathDelay = 5f;
+        private float _deathDelay = 50f;
         private bool _isBroken = false;
         private List<Rigidbody> _parts;
 

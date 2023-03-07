@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23378979322197828}
   - component: {fileID: 64418106052705108}
   - component: {fileID: 54268040347557432}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4752768954203096}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wooden Crate Cracked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 23066912151236504}
   - component: {fileID: 64615538589961406}
   - component: {fileID: 54481766224049966}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 23028370185491258}
   - component: {fileID: 64299148920864770}
   - component: {fileID: 54217271611160768}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 23333477983275614}
   - component: {fileID: 64107313532597866}
   - component: {fileID: 54344169520555288}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 23735647875783824}
   - component: {fileID: 64172627948717676}
   - component: {fileID: 54337200077303570}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 23261032407589390}
   - component: {fileID: 64162255451632398}
   - component: {fileID: 54821887621020500}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 23871299299816216}
   - component: {fileID: 64388770282069162}
   - component: {fileID: 54846612881495612}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 23254996130152170}
   - component: {fileID: 64212878128543270}
   - component: {fileID: 54185743649207596}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +984,7 @@ GameObject:
   - component: {fileID: 23611513807759162}
   - component: {fileID: 64590641491157318}
   - component: {fileID: 54867765858857042}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1099,7 +1099,7 @@ GameObject:
   - component: {fileID: 23429183712136292}
   - component: {fileID: 64462539533974162}
   - component: {fileID: 54607069104982746}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 23951571062180340}
   - component: {fileID: 64235739529361566}
   - component: {fileID: 54821666389555654}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,7 +1329,7 @@ GameObject:
   - component: {fileID: 23175984831590720}
   - component: {fileID: 64222675006168872}
   - component: {fileID: 54926855946315348}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1444,7 +1444,7 @@ GameObject:
   - component: {fileID: 23651575337037770}
   - component: {fileID: 64077148683012862}
   - component: {fileID: 54365377134628994}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1559,7 +1559,7 @@ GameObject:
   - component: {fileID: 23382258366887154}
   - component: {fileID: 64401933007229396}
   - component: {fileID: 54245741579789264}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1674,7 +1674,7 @@ GameObject:
   - component: {fileID: 23129004569126042}
   - component: {fileID: 64212462849367360}
   - component: {fileID: 54470379678454018}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,7 +1789,7 @@ GameObject:
   - component: {fileID: 23630809717938362}
   - component: {fileID: 64628530743204208}
   - component: {fileID: 54266074422256650}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1904,7 +1904,7 @@ GameObject:
   - component: {fileID: 23579517004264564}
   - component: {fileID: 64133631717287812}
   - component: {fileID: 54540942468348288}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2019,7 +2019,7 @@ GameObject:
   - component: {fileID: 23785862531347020}
   - component: {fileID: 64968475558770030}
   - component: {fileID: 54865403327181054}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2134,7 +2134,7 @@ GameObject:
   - component: {fileID: 23383313739850744}
   - component: {fileID: 64719823587358298}
   - component: {fileID: 54890338155666732}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2249,7 +2249,7 @@ GameObject:
   - component: {fileID: 23642834563182602}
   - component: {fileID: 64270253621032526}
   - component: {fileID: 54517308400465106}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Crate_Piece_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

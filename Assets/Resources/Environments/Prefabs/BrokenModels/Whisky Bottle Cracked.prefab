@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23638679174539182}
   - component: {fileID: 64230402544218488}
   - component: {fileID: 54620149768533576}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Bottle_Cracked_Half_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 23927019247499086}
   - component: {fileID: 64737044057493944}
   - component: {fileID: 54951070373720084}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Bottle_Cracked_Half_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780547785073262}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Whisky Bottle Cracked
   m_TagString: Untagged
   m_Icon: {fileID: 0}

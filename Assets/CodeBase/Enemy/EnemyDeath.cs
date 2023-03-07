@@ -10,19 +10,18 @@ using Zenject;
 namespace CodeBase.Enemy
 {
     [RequireComponent(typeof(EnemyHealth))]
-    [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(AgentMoveToHero))]
     [RequireComponent(typeof(Attack))]
     public class EnemyDeath : MonoBehaviour, IDeath
     {
-        [SerializeField] private BoxCollider _hitBox;
-        [SerializeField] private BoxCollider _diedBox;
+        [SerializeField] private GameObject _hitBox;
+        [SerializeField] private GameObject _diedBox;
 
-        private const float UpForce = 500f;
+        private const float UpForce = 800f;
 
         private IHealth _health;
         private AgentMoveToHero _agentMoveToHero;
-        private Rigidbody _rigidbody;
+        private TargetMovement _targetMovement;
         private float _deathDelay = 3f;
         private int _reward;
         private bool _isDead;
@@ -33,24 +32,22 @@ namespace CodeBase.Enemy
         private void Awake()
         {
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
-            _rigidbody = GetComponent<Rigidbody>();
+            _targetMovement = GetComponentInChildren<TargetMovement>();
             _health = GetComponent<IHealth>();
             _health.HealthChanged += HealthChanged;
         }
 
         private void Start()
         {
-            _diedBox.enabled = false;
+            _diedBox.SetActive(false);
         }
 
         private void OnDestroy() =>
             _health.HealthChanged -= HealthChanged;
 
         [Inject]
-        public void Construct(IPlayerProgressService progressService)
-        {
+        public void Construct(IPlayerProgressService progressService) =>
             _progressService = progressService;
-        }
 
         private void HealthChanged()
         {
@@ -63,8 +60,7 @@ namespace CodeBase.Enemy
 
         private void ForceUp()
         {
-            transform.GetComponentInChildren<TargetMovement>().Hide();
-            _rigidbody.AddForce(Vector3.up * UpForce, ForceMode.Force);
+            _diedBox.GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
             StartCoroutine(CoroutineDestroyTimer());
         }
 
@@ -73,16 +69,20 @@ namespace CodeBase.Enemy
             _isDead = true;
             Died?.Invoke();
 
-            ForceUp();
             _progressService.Progress.CurrentLevelStats.ScoreData.AddScore(_reward);
             _agentMoveToHero.Stop();
             _agentMoveToHero.enabled = false;
-
+            _targetMovement.Hide();
+            _targetMovement.enabled = false;
             GetComponent<Attack>().enabled = false;
-            _diedBox.enabled = true;
-            // _hitBox.enabled = false;
             GetComponent<EnemyAnimator>().enabled = false;
             GetComponent<RotateToHero>().enabled = false;
+
+            _hitBox.SetActive(false);
+            _diedBox.SetActive(true);
+            ForceUp();
+            // _diedBox.enabled = true;
+            // _hitBox.enabled = false;
         }
 
         private IEnumerator CoroutineDestroyTimer()

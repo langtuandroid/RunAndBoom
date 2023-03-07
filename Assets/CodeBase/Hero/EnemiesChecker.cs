@@ -61,7 +61,8 @@ namespace CodeBase.Hero
             RaycastHit[] enemiesHits = new RaycastHit[_enemiesHitsCount];
             int enemiesHitsCount = GetEnemiesHits(enemiesHits);
 
-            CheckEnemiesHits(enemiesHitsCount, enemiesHits);
+            if (enemiesHitsCount > 0)
+                CheckEnemiesHits(enemiesHitsCount, enemiesHits);
         }
 
         private int GetEnemiesHits(RaycastHit[] enemiesHits) =>
@@ -81,7 +82,7 @@ namespace CodeBase.Hero
             {
                 for (int i = 0; i < enemiesHitsCount; i++)
                 {
-                    EnemyHealth enemyHealth = enemiesHits[i].transform.gameObject.GetComponent<EnemyHealth>();
+                    EnemyHealth enemyHealth = enemiesHits[i].transform.parent.gameObject.GetComponent<EnemyHealth>();
 
                     if (enemyHealth.Current > 0)
                         _enemies.Add(enemyHealth);
@@ -94,13 +95,11 @@ namespace CodeBase.Hero
                 }
                 else
                 {
-                    // Debug.Log($"CheckEnemiesHits NotFound");
                     NotFound();
                 }
             }
             else
             {
-                // Debug.Log($"CheckEnemiesHits NotFound");
                 NotFound();
             }
         }
@@ -120,13 +119,9 @@ namespace CodeBase.Hero
                     _targetPosition = new Vector3(closestEnemy.transform.position.x, closestEnemy.transform.position.y, closestEnemy.transform.position.z);
                     CheckEnemyVisibility(closestEnemy);
                 }
-
-                // if (_targetEnemyId == id && _targetPosition != closestEnemy.transform.position)
-                //     CheckEnemyVisibility(closestEnemy);
             }
             else
             {
-                // Debug.Log($"FindClosestEnemy NotFound");
                 NotFound();
             }
         }
@@ -135,7 +130,6 @@ namespace CodeBase.Hero
         {
             if (_enemyNotFound == false)
             {
-                // Debug.Log("NotLookAtTarget");
                 _enemyNotFound = true;
                 _targetEnemyId = null;
                 _targetEnemy = null;
@@ -176,7 +170,6 @@ namespace CodeBase.Hero
             }
             else
             {
-                // Debug.Log($"CheckEnemyVisibility NotFound");
                 NotFound();
             }
         }

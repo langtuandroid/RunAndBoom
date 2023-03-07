@@ -274,7 +274,7 @@ MonoBehaviour:
     m_Bits: 64
   _visibleObstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4096
   _heroWeaponSelection: {fileID: 2265719662692678730}
 --- !u!114 &4801597986677240934
 MonoBehaviour:
