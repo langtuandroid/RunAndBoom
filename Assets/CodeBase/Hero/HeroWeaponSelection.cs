@@ -17,23 +17,20 @@ namespace CodeBase.Hero
 
         private IStaticDataService _staticDataService;
         private IPlatformInputService _platformInputService;
-        private IPlayerProgressService _progressService;
+        private PlayerProgress _progress;
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
         [Inject]
-        public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService, IPlayerProgressService progressService)
+        public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
         {
             _staticDataService = staticDataService;
-            _progressService = progressService;
 
             if (platformInputService is DesktopPlatformInputService service)
                 _platformInputService = service;
 
             if (platformInputService is EditorPlatformInputService inputService)
                 _platformInputService = inputService;
-
-            FindWeaponContainer(progressService.Progress.WeaponsData.CurrentHeroWeaponTypeId);
         }
 
         private void Awake()
@@ -72,6 +69,8 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
+            _progress = progress;
+            FindWeaponContainer(progress.WeaponsData.CurrentHeroWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)
@@ -80,7 +79,7 @@ namespace CodeBase.Hero
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
-            if (!_progressService.Progress.WeaponsData.IsWeaponAvailable(heroWeaponTypeId))
+            if (!_progress.WeaponsData.IsWeaponAvailable(heroWeaponTypeId))
                 return;
 
             foreach (GameObject weapon in _weapons)
@@ -98,7 +97,7 @@ namespace CodeBase.Hero
 
         private void WeaponChosen(GameObject currentWeapon, HeroWeaponTypeId heroWeaponTypeId)
         {
-            _progressService.Progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
+            _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
             HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
             ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(heroWeaponStaticData.ProjectileTraceTypeId);
             WeaponSelected?.Invoke(currentWeapon, heroWeaponStaticData, projectileTraceStaticData);
