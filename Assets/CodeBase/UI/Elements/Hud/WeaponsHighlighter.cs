@@ -7,7 +7,7 @@ using Zenject;
 
 namespace CodeBase.UI.Elements.Hud
 {
-    public class WeaponsContainer : MonoBehaviour
+    public class WeaponsHighlighter : MonoBehaviour
     {
         [SerializeField] private GameObject _grenadeLaucher;
         [SerializeField] private GameObject _rpg;
@@ -17,14 +17,17 @@ namespace CodeBase.UI.Elements.Hud
         private IPlayerProgressService _progressService;
 
         [Inject]
-        public void Construct(IPlayerProgressService progressService) =>
+        public void Construct(IPlayerProgressService progressService)
+        {
             _progressService = progressService;
+            Subscribe();
+        }
 
-        private void Awake() =>
-            _progressService.Progress.WeaponsData.ChangedHeroWeapon += HighlightWeapon;
+        private void Subscribe() =>
+            _progressService.Progress.WeaponsData.HeroWeaponChanged += HighlightWeapon;
 
         private void OnDisable() =>
-            _progressService.Progress.WeaponsData.ChangedHeroWeapon -= HighlightWeapon;
+            _progressService.Progress.WeaponsData.HeroWeaponChanged -= HighlightWeapon;
 
         private void HighlightWeapon()
         {

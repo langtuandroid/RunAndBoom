@@ -18,10 +18,7 @@ namespace CodeBase.Enemy
 
         private void Update()
         {
-            if (_run)
-                SetDestinationForAgent();
-
-            // Debug.Log($"agent.enabled: {_agent.enabled}");
+            SetDestinationForAgent();
         }
 
         public void Construct(Transform heroTransform)
@@ -33,7 +30,8 @@ namespace CodeBase.Enemy
         private void SetDestinationForAgent()
         {
             if (_heroTransform)
-                _agent.destination = _heroTransform.position;
+                if (_run)
+                    _agent.destination = _heroTransform.position;
         }
 
         public override void Run()

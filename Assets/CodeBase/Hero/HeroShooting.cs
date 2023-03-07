@@ -1,4 +1,5 @@
 using CodeBase.Services.Input.Platforms;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using CodeBase.Weapons;
@@ -13,6 +14,7 @@ namespace CodeBase.Hero
         [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private IPlatformInputService _platformInputService;
+        private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
@@ -38,8 +40,11 @@ namespace CodeBase.Hero
             UpdateCooldown();
 
         [Inject]
-        public void Construct(IPlatformInputService platformInputService) =>
+        public void Construct(IPlatformInputService platformInputService, IPlayerProgressService progressService)
+        {
             _platformInputService = platformInputService;
+            _progressService = progressService;
+        }
 
         private void UpdateCooldown()
         {
@@ -47,18 +52,15 @@ namespace CodeBase.Hero
                 _currentAttackCooldown -= Time.deltaTime;
         }
 
-        private bool CooldownUp() =>
-            _currentAttackCooldown <= 0;
-
         private void EnemyNotSpotted() =>
             _enemySpotted = false;
 
-        // private void OnDisable()
-        // {
-        //     _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
-        //     _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
-        //     _platformInputService.Shot -= TryShoot;
-        // }
+        private void OnDisable()
+        {
+            _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
+            _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
+            _platformInputService.Shot -= TryShoot;
+        }
 
         private void EnemySpotted(GameObject enemy)
         {
@@ -68,12 +70,19 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
-            if (_enemySpotted && CooldownUp())
+            if (_enemySpotted && CooldownUp() && IsAvailableAmmo())
                 Shoot();
         }
 
+        private bool CooldownUp() =>
+            _currentAttackCooldown <= 0;
+
+        private bool IsAvailableAmmo() =>
+            _progressService.Progress.WeaponsData.IsAmmoAvailable();
+
         private void Shoot()
         {
+            _progressService.Progress.WeaponsData.ReduceAmmo();
             _currentAttackCooldown = _weaponCooldown;
             _heroWeaponAppearance.ShootTo(_enemyPosition);
         }
