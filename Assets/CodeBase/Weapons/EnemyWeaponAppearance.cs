@@ -37,12 +37,12 @@ namespace CodeBase.Weapons
             ProjectileMovements.Add(projectileMovement);
         }
 
-        public void Shoot(int projectilesCount, int shotVfxCount)
+        public void Shoot()
         {
-            for (int i = 0; i < projectilesCount; i++)
+            for (int i = 0; i < _projectilesRespawns.Length; i++)
                 StartCoroutine(CoroutineShootTo());
 
-            for (int i = 0; i < shotVfxCount; i++)
+            for (int i = 0; i < _muzzlesRespawns.Length; i++)
                 LaunchShotVfx();
         }
 

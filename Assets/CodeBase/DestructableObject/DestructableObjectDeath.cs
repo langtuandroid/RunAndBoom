@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Logic;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace CodeBase.DestructableObject
         private float _deathDelay = 5f;
         private bool _isBroken = false;
         private List<Rigidbody> _parts;
+
+        public event Action Died;
 
         private void Awake()
         {

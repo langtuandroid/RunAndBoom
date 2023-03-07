@@ -65,6 +65,7 @@ namespace CodeBase.Weapons
             ProjectileObjects[index].transform.SetParent(transform);
             ProjectileObjects[index].transform.position = _projectilesRespawns[index].position;
             ProjectileObjects[index].transform.rotation = _projectilesRespawns[index].rotation;
+            ProjectileObjects[index].SetActive(_showProjectiles);
         }
 
         protected void LaunchShotVfx()
@@ -110,10 +111,6 @@ namespace CodeBase.Weapons
             ProjectileTraces.Add(projectileTrace);
         }
 
-        protected abstract void CreateProjectiles();
-
-        protected abstract void CreateProjectileMovement(GameObject projectileObject);
-
         protected void ChangeProjectileIndex()
         {
             bool notLastIndex = CurrentProjectileIndex < (ProjectileObjects.Count - 1);
@@ -123,5 +120,9 @@ namespace CodeBase.Weapons
             else
                 CurrentProjectileIndex = 0;
         }
+
+        protected abstract void CreateProjectiles();
+
+        protected abstract void CreateProjectileMovement(GameObject projectileObject);
     }
 }

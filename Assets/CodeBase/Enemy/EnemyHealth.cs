@@ -20,7 +20,6 @@ namespace CodeBase.Enemy
         public void SetMaxHealth(int max) =>
             _max = max;
 
-        public event Action Died;
         public event Action HealthChanged;
 
         public void TakeDamage(float damage)

@@ -100,26 +100,33 @@ namespace CodeBase.Weapons
         private void SetBlast(ref ProjectileBlast blast) =>
             blast.Construct(_blastVfxPrefab, _blastRange, Damage);
 
-        public void ShootTo(Vector3 enemyPosition) =>
-            StartCoroutine(CoroutineShootTo(enemyPosition));
+        public void ShootTo(Vector3 enemyPosition)
+        {
+            for (int i = 0; i < _projectilesRespawns.Length; i++)
+                StartCoroutine(CoroutineShootTo(enemyPosition));
+
+            for (int i = 0; i < _muzzlesRespawns.Length; i++)
+                LaunchShotVfx();
+        }
 
         private IEnumerator CoroutineShootTo(Vector3 targetPosition)
         {
-            ProjectileObjects[CurrentProjectileIndex].transform.SetParent(null);
-            ProjectileObjects[CurrentProjectileIndex].SetActive(true);
+            int index = CurrentProjectileIndex;
+            ChangeProjectileIndex();
+            ProjectileObjects[index].transform.SetParent(null);
+            ProjectileObjects[index].SetActive(true);
 
-            (ProjectileMovements[CurrentProjectileIndex] as BombMovement)?.SetTargetPosition(targetPosition);
+            (ProjectileMovements[index] as BombMovement)?.SetTargetPosition(targetPosition);
 
-            ProjectileMovements[CurrentProjectileIndex].Launch();
+            ProjectileMovements[index].Launch();
             Debug.Log("Launched");
-            Debug.Log($"index {CurrentProjectileIndex}");
-            ProjectileTraces[CurrentProjectileIndex].CreateTrace();
+            Debug.Log($"index {index}");
+            ProjectileTraces[index].CreateTrace();
 
             LaunchShotVfx();
 
             yield return LaunchProjectileCooldown;
-            ChangeProjectileIndex();
-            SetPosition(CurrentProjectileIndex);
+            SetPosition(index);
         }
     }
 }

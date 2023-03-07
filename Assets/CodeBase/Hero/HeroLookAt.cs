@@ -10,7 +10,7 @@ namespace CodeBase.Hero
         [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private GameObject _enemy;
-        private EnemyHealth _health;
+        private EnemyDeath _death;
 
         private Coroutine _lookAtCoroutine;
 
@@ -34,23 +34,16 @@ namespace CodeBase.Hero
 
         private void LookAt(GameObject enemy)
         {
-            // Debug.Log($"LookAt {enemy.transform.position}");
             _enemy = enemy;
-            _health = enemy.GetComponent<EnemyHealth>();
-            _health.Died += EnemyDied;
+            _death = enemy.GetComponent<EnemyDeath>();
+            _death.Died += EnemyDied;
             LookedAtEnemy?.Invoke();
         }
 
-        private void EnemyDied()
-        {
-            // Debug.Log("EnemyDied");
+        private void EnemyDied() =>
             _enemy = null;
-        }
 
-        private void NotLookAtTarget()
-        {
-            // Debug.Log("NotLookAtTarget");
+        private void NotLookAtTarget() =>
             _enemy = null;
-        }
     }
 }
