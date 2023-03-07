@@ -8,10 +8,12 @@ namespace CodeBase.Enemy
     {
         private readonly int _attackTriggerHash = Animator.StringToHash("Attack");
         private readonly int _isMovingTriggerHash = Animator.StringToHash("IsMoving");
+        private readonly int _dieTriggerHash = Animator.StringToHash("Die");
 
         private readonly int _idleStateHash = Animator.StringToHash("Idle");
         private readonly int _attackStateHash = Animator.StringToHash("Attack");
         private readonly int _walkingStateHash = Animator.StringToHash("Move");
+        private readonly int _deathStateHash = Animator.StringToHash("Death");
 
         private Animator _animator;
 
@@ -32,6 +34,9 @@ namespace CodeBase.Enemy
         public void PlayAttack() =>
             _animator.SetTrigger(_attackTriggerHash);
 
+        public void PlayDeath() =>
+            _animator.SetTrigger(_dieTriggerHash);
+
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
@@ -51,6 +56,8 @@ namespace CodeBase.Enemy
                 state = AnimatorState.Attack;
             else if (stateHash == _walkingStateHash)
                 state = AnimatorState.Walking;
+            else if (stateHash == _deathStateHash)
+                state = AnimatorState.Died;
             else
                 state = AnimatorState.Unknown;
 

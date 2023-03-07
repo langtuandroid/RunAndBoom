@@ -9,6 +9,7 @@ using Zenject;
 
 namespace CodeBase.Enemy
 {
+    [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyHealth))]
     [RequireComponent(typeof(AgentMoveToHero))]
     [RequireComponent(typeof(Attack))]
@@ -17,20 +18,22 @@ namespace CodeBase.Enemy
         [SerializeField] private GameObject _hitBox;
         [SerializeField] private GameObject _diedBox;
 
-        private const float UpForce = 800f;
+        private const float UpForce = 100f;
 
         private IHealth _health;
         private AgentMoveToHero _agentMoveToHero;
         private TargetMovement _targetMovement;
-        private float _deathDelay = 3f;
+        private float _deathDelay = 30f;
         private int _reward;
         private bool _isDead;
         private IPlayerProgressService _progressService;
+        private EnemyAnimator _enemyAnimator;
 
         public event Action Died;
 
         private void Awake()
         {
+            _enemyAnimator = GetComponent<EnemyAnimator>();
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
             _targetMovement = GetComponentInChildren<TargetMovement>();
             _health = GetComponent<IHealth>();
@@ -58,12 +61,6 @@ namespace CodeBase.Enemy
         public void SetReward(int reward) =>
             _reward = reward;
 
-        private void ForceUp()
-        {
-            _diedBox.GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
-            StartCoroutine(CoroutineDestroyTimer());
-        }
-
         public void Die()
         {
             _isDead = true;
@@ -71,16 +68,15 @@ namespace CodeBase.Enemy
 
             _progressService.Progress.CurrentLevelStats.ScoreData.AddScore(_reward);
             _agentMoveToHero.Stop();
-            _agentMoveToHero.enabled = false;
             _targetMovement.Hide();
-            _targetMovement.enabled = false;
+            _enemyAnimator.PlayDeath();
             GetComponent<Attack>().enabled = false;
-            GetComponent<EnemyAnimator>().enabled = false;
             GetComponent<RotateToHero>().enabled = false;
 
             _hitBox.SetActive(false);
             _diedBox.SetActive(true);
-            ForceUp();
+            GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
+            StartCoroutine(CoroutineDestroyTimer());
             // _diedBox.enabled = true;
             // _hitBox.enabled = false;
         }

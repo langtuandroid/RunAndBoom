@@ -6,5 +6,6 @@ namespace CodeBase.Logic
         Idle,
         Attack,
         Walking,
+        Died,
     }
 }

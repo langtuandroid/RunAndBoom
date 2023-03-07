@@ -63,6 +63,8 @@ namespace CodeBase.Hero
 
             if (enemiesHitsCount > 0)
                 CheckEnemiesHits(enemiesHitsCount, enemiesHits);
+            else
+                NotFound();
         }
 
         private int GetEnemiesHits(RaycastHit[] enemiesHits) =>
@@ -78,25 +80,18 @@ namespace CodeBase.Hero
 
         private void CheckEnemiesHits(int enemiesHitsCount, RaycastHit[] enemiesHits)
         {
-            if (enemiesHitsCount > 0)
+            for (int i = 0; i < enemiesHitsCount; i++)
             {
-                for (int i = 0; i < enemiesHitsCount; i++)
-                {
-                    EnemyHealth enemyHealth = enemiesHits[i].transform.parent.gameObject.GetComponent<EnemyHealth>();
+                EnemyHealth enemyHealth = enemiesHits[i].transform.gameObject.GetComponent<EnemyHealth>();
 
-                    if (enemyHealth.Current > 0)
-                        _enemies.Add(enemyHealth);
-                }
+                if (enemyHealth.Current > 0)
+                    _enemies.Add(enemyHealth);
+            }
 
-                if (_enemies.Count > 0)
-                {
-                    _enemyNotFound = false;
-                    FindClosestEnemy(_enemies);
-                }
-                else
-                {
-                    NotFound();
-                }
+            if (_enemies.Count > 0)
+            {
+                _enemyNotFound = false;
+                FindClosestEnemy(_enemies);
             }
             else
             {
