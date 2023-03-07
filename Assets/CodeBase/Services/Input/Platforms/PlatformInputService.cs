@@ -7,6 +7,10 @@ namespace CodeBase.Services.Input.Platforms
     {
         public abstract event Action<Vector2> Moved;
         public abstract event Action Shot;
+        public abstract event Action ChoseWeapon1;
+        public abstract event Action ChoseWeapon2;
+        public abstract event Action ChoseWeapon3;
+        public abstract event Action ChoseWeapon4;
 
         protected abstract void SubscribeEvents();
 
@@ -14,6 +18,6 @@ namespace CodeBase.Services.Input.Platforms
 
         protected abstract void MoveTo(Vector2 direction);
 
-        protected abstract void ShotTo();
+        protected abstract void ShootTo();
     }
 }

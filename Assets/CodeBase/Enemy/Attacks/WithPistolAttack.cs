@@ -12,10 +12,7 @@ namespace CodeBase.Enemy.Attacks
 
         public void Construct(Transform heroTransform, float attackCooldown) => base.Construct(heroTransform, attackCooldown);
 
-        protected override void OnAttack()
-        {
+        protected override void OnAttack() =>
             _enemyWeaponAppearance.Shoot();
-            Debug.Log($"{gameObject.name} shoot Hero");
-        }
     }
 }

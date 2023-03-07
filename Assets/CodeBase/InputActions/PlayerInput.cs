@@ -46,9 +46,36 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Choosing weapon"",
+                    ""name"": ""ChooseWeapon 1"",
                     ""type"": ""Button"",
-                    ""id"": ""3e9d7063-3013-435b-9562-ccac986d3125"",
+                    ""id"": ""7b05dfd3-7055-4f5a-b66c-4ef944051494"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChooseWeapon 2"",
+                    ""type"": ""Button"",
+                    ""id"": ""d9273457-4361-4fca-941b-6e95aa57e36a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChooseWeapon 3"",
+                    ""type"": ""Button"",
+                    ""id"": ""04e3f148-4aa2-418d-bdae-e56a84abc306"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChooseWeapon 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""2473459d-1929-4c97-9f5e-ef525137a5e4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -135,45 +162,45 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5f37320e-7320-499d-99ec-a3816c2b8a19"",
+                    ""id"": ""03fae841-5031-4075-b1b6-5e0044dd623e"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Choosing weapon"",
+                    ""action"": ""ChooseWeapon 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8e532009-3501-4799-9ab5-0ba930c62017"",
+                    ""id"": ""a6e30304-a583-4259-89d8-b0203912a820"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Choosing weapon"",
+                    ""action"": ""ChooseWeapon 2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""41291d07-e45f-4965-ad07-9380c1915e0a"",
+                    ""id"": ""129c9ff3-b7dd-4e4e-bae5-899fc5651f53"",
                     ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Choosing weapon"",
+                    ""action"": ""ChooseWeapon 3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f9234d9f-412b-43d8-b06f-1be56b0663ea"",
+                    ""id"": ""cc4caeac-87ed-4b86-ab90-3f5787567476"",
                     ""path"": ""<Keyboard>/4"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Choosing weapon"",
+                    ""action"": ""ChooseWeapon 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -214,7 +241,10 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
-        m_Player_Choosingweapon = m_Player.FindAction("Choosing weapon", throwIfNotFound: true);
+        m_Player_ChooseWeapon1 = m_Player.FindAction("ChooseWeapon 1", throwIfNotFound: true);
+        m_Player_ChooseWeapon2 = m_Player.FindAction("ChooseWeapon 2", throwIfNotFound: true);
+        m_Player_ChooseWeapon3 = m_Player.FindAction("ChooseWeapon 3", throwIfNotFound: true);
+        m_Player_ChooseWeapon4 = m_Player.FindAction("ChooseWeapon 4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -276,14 +306,20 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Shoot;
-    private readonly InputAction m_Player_Choosingweapon;
+    private readonly InputAction m_Player_ChooseWeapon1;
+    private readonly InputAction m_Player_ChooseWeapon2;
+    private readonly InputAction m_Player_ChooseWeapon3;
+    private readonly InputAction m_Player_ChooseWeapon4;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
-        public InputAction @Choosingweapon => m_Wrapper.m_Player_Choosingweapon;
+        public InputAction @ChooseWeapon1 => m_Wrapper.m_Player_ChooseWeapon1;
+        public InputAction @ChooseWeapon2 => m_Wrapper.m_Player_ChooseWeapon2;
+        public InputAction @ChooseWeapon3 => m_Wrapper.m_Player_ChooseWeapon3;
+        public InputAction @ChooseWeapon4 => m_Wrapper.m_Player_ChooseWeapon4;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -299,9 +335,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
-                @Choosingweapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChoosingweapon;
-                @Choosingweapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChoosingweapon;
-                @Choosingweapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChoosingweapon;
+                @ChooseWeapon1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon1;
+                @ChooseWeapon1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon1;
+                @ChooseWeapon1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon1;
+                @ChooseWeapon2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon2;
+                @ChooseWeapon2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon2;
+                @ChooseWeapon2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon2;
+                @ChooseWeapon3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon3;
+                @ChooseWeapon3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon3;
+                @ChooseWeapon3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon3;
+                @ChooseWeapon4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon4;
+                @ChooseWeapon4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon4;
+                @ChooseWeapon4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChooseWeapon4;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -312,9 +357,18 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
-                @Choosingweapon.started += instance.OnChoosingweapon;
-                @Choosingweapon.performed += instance.OnChoosingweapon;
-                @Choosingweapon.canceled += instance.OnChoosingweapon;
+                @ChooseWeapon1.started += instance.OnChooseWeapon1;
+                @ChooseWeapon1.performed += instance.OnChooseWeapon1;
+                @ChooseWeapon1.canceled += instance.OnChooseWeapon1;
+                @ChooseWeapon2.started += instance.OnChooseWeapon2;
+                @ChooseWeapon2.performed += instance.OnChooseWeapon2;
+                @ChooseWeapon2.canceled += instance.OnChooseWeapon2;
+                @ChooseWeapon3.started += instance.OnChooseWeapon3;
+                @ChooseWeapon3.performed += instance.OnChooseWeapon3;
+                @ChooseWeapon3.canceled += instance.OnChooseWeapon3;
+                @ChooseWeapon4.started += instance.OnChooseWeapon4;
+                @ChooseWeapon4.performed += instance.OnChooseWeapon4;
+                @ChooseWeapon4.canceled += instance.OnChooseWeapon4;
             }
         }
     }
@@ -341,6 +395,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnChoosingweapon(InputAction.CallbackContext context);
+        void OnChooseWeapon1(InputAction.CallbackContext context);
+        void OnChooseWeapon2(InputAction.CallbackContext context);
+        void OnChooseWeapon3(InputAction.CallbackContext context);
+        void OnChooseWeapon4(InputAction.CallbackContext context);
     }
 }

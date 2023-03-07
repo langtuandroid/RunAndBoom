@@ -74,7 +74,6 @@ namespace CodeBase.Hero
 
         private void Shoot()
         {
-            Debug.Log("Shoot");
             _currentAttackCooldown = _weaponCooldown;
             _heroWeaponAppearance.ShootTo(_enemyPosition);
         }

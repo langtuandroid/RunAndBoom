@@ -12,6 +12,10 @@ namespace CodeBase.Services.Input.Types
 
         public event Action<Vector2> Moved;
         public event Action Shot;
+        public event Action ChoseWeapon1;
+        public event Action ChoseWeapon2;
+        public event Action ChoseWeapon3;
+        public event Action ChoseWeapon4;
 
         public KeyboardMouseInputType(PlayerInput playerInput)
         {
@@ -26,8 +30,11 @@ namespace CodeBase.Services.Input.Types
         private void SubscribeEvents()
         {
             _playerInput.Player.Move.performed += MoveTo;
-            _playerInput.Player.Move.canceled += MoveTo;
             _playerInput.Player.Shoot.started += Shoot;
+            _playerInput.Player.ChooseWeapon1.started += ChooseWeapon1;
+            _playerInput.Player.ChooseWeapon2.started += ChooseWeapon2;
+            _playerInput.Player.ChooseWeapon3.started += ChooseWeapon3;
+            _playerInput.Player.ChooseWeapon4.started += ChooseWeapon4;
         }
 
         private void UnsubscribeEvents()
@@ -35,6 +42,10 @@ namespace CodeBase.Services.Input.Types
             _playerInput.Player.Move.performed -= MoveTo;
             _playerInput.Player.Move.canceled -= MoveTo;
             _playerInput.Player.Shoot.started -= Shoot;
+            _playerInput.Player.ChooseWeapon1.started -= ChooseWeapon1;
+            _playerInput.Player.ChooseWeapon2.started -= ChooseWeapon2;
+            _playerInput.Player.ChooseWeapon3.started -= ChooseWeapon3;
+            _playerInput.Player.ChooseWeapon4.started -= ChooseWeapon4;
         }
 
         private void MoveTo(InputAction.CallbackContext ctx)
@@ -45,6 +56,18 @@ namespace CodeBase.Services.Input.Types
 
         private void Shoot(InputAction.CallbackContext ctx) =>
             Shot?.Invoke();
+
+        private void ChooseWeapon1(InputAction.CallbackContext ctx) =>
+            ChoseWeapon1?.Invoke();
+
+        private void ChooseWeapon2(InputAction.CallbackContext ctx) =>
+            ChoseWeapon2?.Invoke();
+
+        private void ChooseWeapon3(InputAction.CallbackContext ctx) =>
+            ChoseWeapon3?.Invoke();
+
+        private void ChooseWeapon4(InputAction.CallbackContext ctx) =>
+            ChoseWeapon4?.Invoke();
 
         public class Factory : PlaceholderFactory<IPlatformInputService, KeyboardMouseInputType>
         {

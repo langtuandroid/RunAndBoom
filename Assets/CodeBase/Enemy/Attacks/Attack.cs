@@ -15,7 +15,6 @@ namespace CodeBase.Enemy.Attacks
 
         private void Update()
         {
-            Debug.Log($"currentAttackCooldown {_currentAttackCooldown}");
             UpdateCooldown();
 
             if (CanAttack())
