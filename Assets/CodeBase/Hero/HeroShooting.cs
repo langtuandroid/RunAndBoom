@@ -13,7 +13,7 @@ namespace CodeBase.Hero
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
         [SerializeField] private EnemiesChecker _enemiesChecker;
 
-        private IPlatformInputService _platformInputService;
+        // private IPlatformInputService _platformInputService;
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _enemySpotted = false;
@@ -23,13 +23,13 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _platformInputService = AllServices.Container.Single<IPlatformInputService>();
+            // _platformInputService = AllServices.Container.Single<IPlatformInputService>();
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
 
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
             _enemiesChecker.FoundClosestEnemy += EnemySpotted;
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
-            _platformInputService.Shot += TryShoot;
+            // _platformInputService.Shot += TryShoot;
         }
 
         private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
@@ -39,8 +39,13 @@ namespace CodeBase.Hero
             _weaponCooldown = heroWeaponStaticData.Cooldown;
         }
 
-        private void Update() =>
+        private void Update()
+        {
             UpdateCooldown();
+
+            if (Input.GetMouseButton(0))
+                TryShoot();
+        }
 
         private void UpdateCooldown()
         {
@@ -55,7 +60,7 @@ namespace CodeBase.Hero
         {
             _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
             _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
-            _platformInputService.Shot -= TryShoot;
+            // _platformInputService.Shot -= TryShoot;
         }
 
         private void EnemySpotted(GameObject enemy)

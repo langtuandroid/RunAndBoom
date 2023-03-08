@@ -60,7 +60,7 @@ namespace CodeBase.Data
                 if (typeId == HeroWeaponTypeId.GrenadeLauncher)
                     AvailableWeapons.Add(typeId, true);
                 else
-                    AvailableWeapons.Add(typeId, false);
+                    AvailableWeapons.Add(typeId, true);
             }
         }
 

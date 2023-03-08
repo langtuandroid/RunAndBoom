@@ -68,11 +68,15 @@ namespace CodeBase.Enemy
             _agentMoveToHero.Stop();
             _targetMovement.Hide();
             _enemyAnimator.PlayDeath();
+            
             GetComponent<Attack>().enabled = false;
             GetComponent<RotateToHero>().enabled = false;
+            _agentMoveToHero.enabled = false;
+            GetComponent<Aggro>().enabled = false;
+            GetComponent<StopMovingOnAttack>().enabled = false;
 
-            _hitBox.SetActive(false);
-            _diedBox.SetActive(true);
+            // _hitBox.SetActive(false);
+            // _diedBox.SetActive(true);
             GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
             StartCoroutine(CoroutineDestroyTimer());
             // _diedBox.enabled = true;

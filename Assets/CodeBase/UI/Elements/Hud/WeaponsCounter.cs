@@ -36,12 +36,12 @@ namespace CodeBase.UI.Elements.Hud
             _grenadeLaucher.text = $"{ammo}";
 
         private void ChangeRpgAmmo(int ammo) =>
-            _grenadeLaucher.text = $"{ammo}";
+            _rpg.text = $"{ammo}";
 
         private void ChangeRocketLauncherAmmo(int ammo) =>
-            _grenadeLaucher.text = $"{ammo}";
+            _rocketLaucher.text = $"{ammo}";
 
         private void ChangeMortarAmmo(int ammo) =>
-            _grenadeLaucher.text = $"{ammo}";
+            _mortar.text = $"{ammo}";
     }
 }
