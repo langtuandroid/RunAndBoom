@@ -24,17 +24,14 @@ namespace CodeBase.Hero
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
         private string _targetEnemyId = null;
         private EnemyHealth _targetEnemy = null;
-        private Vector3 _targetPosition;
         private string _enemyId = null;
         private bool _enemyNotFound = false;
 
         public event Action<GameObject> FoundClosestEnemy;
         public event Action EnemyNotFound;
 
-        private void Awake()
-        {
+        private void Awake() => 
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
-        }
 
         private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
             ProjectileTraceStaticData projectileTraceStaticData) =>
@@ -111,8 +108,7 @@ namespace CodeBase.Hero
                 {
                     _targetEnemyId = id;
                     _targetEnemy = closestEnemy;
-                    _targetPosition = new Vector3(closestEnemy.transform.position.x, closestEnemy.transform.position.y, closestEnemy.transform.position.z);
-                    CheckEnemyVisibility(closestEnemy);
+                    CheckEnemyVisibility(closestEnemy.gameObject);
                 }
             }
             else
@@ -151,9 +147,9 @@ namespace CodeBase.Hero
             return closestEnemy;
         }
 
-        private void CheckEnemyVisibility(EnemyHealth enemy)
+        private void CheckEnemyVisibility(GameObject enemy)
         {
-            Vector3 direction = (enemy.gameObject.transform.position - transform.position).normalized;
+            Vector3 direction = (enemy.transform.position - transform.position).normalized;
             RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
@@ -161,7 +157,7 @@ namespace CodeBase.Hero
             {
                 TurnOffAnotherTargets(_enemies);
                 TurnOnTarget();
-                FoundClosestEnemy?.Invoke(enemy.gameObject);
+                FoundClosestEnemy?.Invoke(enemy);
             }
             else
             {
