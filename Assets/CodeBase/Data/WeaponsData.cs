@@ -87,7 +87,7 @@ namespace CodeBase.Data
 
         public void ReduceAmmo()
         {
-            WeaponsAmmo[CurrentHeroWeaponTypeId] -= WeaponsAmmo[CurrentHeroWeaponTypeId];
+            WeaponsAmmo[CurrentHeroWeaponTypeId] -= WeaponsBarrels[CurrentHeroWeaponTypeId];
             AmmoChanged(CurrentHeroWeaponTypeId);
         }
 

@@ -8,10 +8,8 @@ namespace CodeBase.Logic
     {
         public string Id;
 
-        private void Start()
-        {
+        private void Start() => 
             GenerateId();
-        }
 
         private void GenerateId()
         {
