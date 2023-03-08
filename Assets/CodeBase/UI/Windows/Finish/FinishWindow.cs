@@ -1,9 +1,7 @@
-using CodeBase.Services.PersistentProgress;
+using CodeBase.Services;
 using CodeBase.Services.SaveLoad;
-using CodeBase.UI.Services.Windows;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Windows.Finish
 {
@@ -15,21 +13,13 @@ namespace CodeBase.UI.Windows.Finish
 
         protected override void OnAwake()
         {
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _saveLoadService.SaveProgress();
             base.OnAwake();
         }
 
-        [Inject]
-        public void Construct(IPlayerProgressService progressService, ISaveLoadService saveLoadService)
-        {
-            base.Construct(progressService);
-            _saveLoadService = saveLoadService;
-        }
-
-        protected override void Initialize()
-        {
+        protected override void Initialize() =>
             RefreshScoreText();
-        }
 
         private void RefreshScoreText() =>
             _scoreText.text = Progress.CurrentLevelStats.ScoreData.Score.ToString();
@@ -43,10 +33,6 @@ namespace CodeBase.UI.Windows.Finish
         {
             base.CleanUp();
             Progress.CurrentLevelStats.ScoreData.ScoreChanged -= RefreshScoreText;
-        }
-
-        public class Factory : PlaceholderFactory<IWindowService, FinishWindow>
-        {
         }
     }
 }

@@ -1,28 +1,19 @@
 ﻿using CodeBase.Infrastructure.States;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Infrastructure
 {
-    public class GameBootstrapper : MonoBehaviour
+    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        private IGameStateMachine _gameStateMachine;
+        public LoadingCurtain CurtainPrefab;
+        private Game _game;
 
-        [Inject]
-        void Construct(IGameStateMachine gameStateMachine)
+        private void Awake()
         {
-            _gameStateMachine = gameStateMachine;
-        }
-
-        private void Start()
-        {
-            _gameStateMachine.Enter<BootstrapState>();
+            _game = new Game(this, Instantiate(CurtainPrefab));
+            _game.StateMachine.Enter<BootstrapState>();
 
             DontDestroyOnLoad(this);
-        }
-
-        public class Factory : PlaceholderFactory<GameBootstrapper>
-        {
         }
     }
 }

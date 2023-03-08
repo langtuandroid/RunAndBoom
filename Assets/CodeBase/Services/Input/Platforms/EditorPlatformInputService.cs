@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Services.Input.Platforms
 {
@@ -16,7 +15,6 @@ namespace CodeBase.Services.Input.Platforms
         public override event Action ChoseWeapon3;
         public override event Action ChoseWeapon4;
 
-        [Inject]
         public EditorPlatformInputService(IPlatformInputService platformInputService1, IPlatformInputService platformInputService2)
         {
             _platformInputService1 = platformInputService1;

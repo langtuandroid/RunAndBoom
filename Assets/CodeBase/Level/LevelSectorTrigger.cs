@@ -1,9 +1,9 @@
 using System;
 using CodeBase.Data;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Level
 {
@@ -16,11 +16,10 @@ namespace CodeBase.Level
 
         public event Action Passed;
 
-        [Inject]
-        public void Construct(IWindowService windowService, IPlayerProgressService progressService)
+        private void Awake()
         {
-            _windowService = windowService;
-            _progressService = progressService;
+            _windowService = AllServices.Container.Single<IWindowService>();
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
         }
 
         private void OnTriggerEnter(Collider other)

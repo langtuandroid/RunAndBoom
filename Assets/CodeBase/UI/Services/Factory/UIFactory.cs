@@ -2,7 +2,6 @@
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.Registrator;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Services.Factory
 {
@@ -13,7 +12,6 @@ namespace CodeBase.UI.Services.Factory
 
         private Transform _uiRoot;
 
-        [Inject]
         public UIFactory(IAssets assets, IRegistratorService registratorService)
         {
             _assets = assets;

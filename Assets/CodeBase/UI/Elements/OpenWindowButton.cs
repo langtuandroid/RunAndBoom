@@ -1,7 +1,7 @@
-﻿using CodeBase.UI.Services.Windows;
+﻿using CodeBase.Services;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace CodeBase.UI.Elements
 {
@@ -14,13 +14,8 @@ namespace CodeBase.UI.Elements
 
         private void Awake()
         {
+            _windowService = AllServices.Container.Single<IWindowService>();
             _button.onClick.AddListener(Open);
-        }
-
-        [Inject]
-        private void Construct(IWindowService windowService)
-        {
-            _windowService = windowService;
         }
 
         private void Open() =>

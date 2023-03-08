@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.Factories;
+using CodeBase.Services;
 using CodeBase.StaticData.Enemy;
 using UnityEngine;
 
@@ -10,11 +11,11 @@ namespace CodeBase.Logic.EnemySpawners
 
         private IEnemyFactory _factory;
 
-        public void Construct(IEnemyFactory factory, EnemyTypeId enemyTypeId)
-        {
-            _factory = factory;
+        private void Awake() =>
+            _factory = AllServices.Container.Single<IEnemyFactory>();
+
+        public void Construct(EnemyTypeId enemyTypeId) =>
             _enemyTypeId = enemyTypeId;
-        }
 
         public void Initialize() =>
             Spawn();

@@ -12,9 +12,8 @@ using CodeBase.UI.Elements.Hud;
 using CodeBase.Weapons;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 
-namespace CodeBase.Infrastructure.Factory
+namespace CodeBase.Infrastructure.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
@@ -22,16 +21,13 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
         private readonly IGameFactory _gameFactory;
-        private readonly DiContainer _container;
 
-        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService, IGameFactory gameFactory,
-            DiContainer container)
+        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService, IGameFactory gameFactory)
         {
             _assets = assets;
             _staticData = staticData;
             _registratorService = registratorService;
             _gameFactory = gameFactory;
-            _container = container;
         }
 
         public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
@@ -39,7 +35,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
             SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
                 .GetComponent<SpawnPoint>();
-            spawner.Construct(this, enemyTypeId);
+            spawner.Construct(enemyTypeId);
             spawner.Initialize();
         }
 
@@ -49,10 +45,7 @@ namespace CodeBase.Infrastructure.Factory
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
             ProjectileTraceStaticData projectileTraceStaticData = _staticData.ForProjectileTrace(enemyWeaponStaticData.ProjectileTraceTypeId);
 
-            // GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
-
-            var prefab = await _registratorService.LoadRegisteredAsync(typeId.ToString());
-            GameObject enemy = _container.InstantiatePrefab(prefab, parent);
+            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
             _registratorService.RegisterProgressWatchers(enemy);
 
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData, projectileTraceStaticData);

@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBase.Data;
+using CodeBase.Services;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -7,7 +8,6 @@ using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using CodeBase.Weapons;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -21,15 +21,11 @@ namespace CodeBase.Hero
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
-        [Inject]
-        public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
-        {
-            _staticDataService = staticDataService;
-            _platformInputService = platformInputService;
-        }
-
         private void Awake()
         {
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _platformInputService = AllServices.Container.Single<IPlatformInputService>();
+
             _platformInputService.ChoseWeapon1 += SelectWeapon1;
             _platformInputService.ChoseWeapon2 += SelectWeapon2;
             _platformInputService.ChoseWeapon3 += SelectWeapon3;
@@ -38,10 +34,10 @@ namespace CodeBase.Hero
 
         private void OnDestroy()
         {
-            // _platformInputService.ChoseWeapon1 -= SelectWeapon1;
-            // _platformInputService.ChoseWeapon2 -= SelectWeapon2;
-            // _platformInputService.ChoseWeapon3 -= SelectWeapon3;
-            // _platformInputService.ChoseWeapon4 -= SelectWeapon4;
+            _platformInputService.ChoseWeapon1 -= SelectWeapon1;
+            _platformInputService.ChoseWeapon2 -= SelectWeapon2;
+            _platformInputService.ChoseWeapon3 -= SelectWeapon3;
+            _platformInputService.ChoseWeapon4 -= SelectWeapon4;
         }
 
         private void SelectWeapon1() =>

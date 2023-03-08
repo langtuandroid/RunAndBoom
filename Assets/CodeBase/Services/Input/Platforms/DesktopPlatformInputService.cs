@@ -15,13 +15,6 @@ namespace CodeBase.Services.Input.Platforms
         public override event Action ChoseWeapon3;
         public override event Action ChoseWeapon4;
 
-        public DesktopPlatformInputService(KeyboardMouseInputType.Factory keyboardMouseInputType)
-        {
-            _keyboardMouseInputType = keyboardMouseInputType.Create(this);
-
-            SubscribeEvents();
-        }
-
         public DesktopPlatformInputService(KeyboardMouseInputType keyboardMouseInputType)
         {
             _keyboardMouseInputType = keyboardMouseInputType;

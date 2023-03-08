@@ -1,4 +1,5 @@
 using CodeBase.Infrastructure.States;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
@@ -16,20 +17,15 @@ namespace CodeBase.UI.Elements
         private IWindowService _windowService;
         private ISaveLoadService _saveLoadService;
 
-        protected void Construct(IGameStateMachine stateMachine, IPlayerProgressService progressService, IWindowService windowService,
-            ISaveLoadService saveLoadService)
-        {
-            _stateMachine = stateMachine;
-            ProgressService = progressService;
-            _windowService = windowService;
-            _saveLoadService = saveLoadService;
-        }
-
         protected abstract string Scene { get; }
         protected abstract bool Checked { get; }
 
         private void Awake()
         {
+            _stateMachine = AllServices.Container.Single<IGameStateMachine>();
+            ProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            _windowService = AllServices.Container.Single<IWindowService>();
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _button.onClick.AddListener(Open);
         }
 

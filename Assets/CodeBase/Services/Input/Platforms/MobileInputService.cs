@@ -15,13 +15,6 @@ namespace CodeBase.Services.Input.Platforms
         public override event Action ChoseWeapon3;
         public override event Action ChoseWeapon4;
 
-        public MobilePlatformInputService(TouchScreenInputType.Factory touchScreenInputType)
-        {
-            _touchScreenInputType = touchScreenInputType.Create(this);
-
-            SubscribeEvents();
-        }
-
         public MobilePlatformInputService(TouchScreenInputType touchScreenInputType)
         {
             _touchScreenInputType = touchScreenInputType;

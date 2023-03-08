@@ -1,6 +1,6 @@
+using CodeBase.Services;
 using CodeBase.Services.Input.Platforms;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -14,15 +14,12 @@ namespace CodeBase.Hero
         private void Update() =>
             transform.Translate(_movement * _moveSpeed * Time.deltaTime);
 
-        [Inject]
-        public void Construct(IPlatformInputService platformInputService)
+        private void Awake()
         {
-            _platformInputService = platformInputService;
-            SubscribeServicesEvents();
-        }
+            _platformInputService = AllServices.Container.Single<IPlatformInputService>();
 
-        private void SubscribeServicesEvents() =>
             _platformInputService.Moved += MoveTo;
+        }
 
         private void MoveTo(Vector2 direction) =>
             _movement = new Vector3(direction.x, 0, direction.y);

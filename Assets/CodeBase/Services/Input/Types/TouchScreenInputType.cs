@@ -1,7 +1,5 @@
 using System;
-using CodeBase.Services.Input.Platforms;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Services.Input.Types
 {
@@ -53,10 +51,6 @@ namespace CodeBase.Services.Input.Types
         public void OnDisable()
         {
             _playerInput.Disable();
-        }
-
-        public class Factory : PlaceholderFactory<IPlatformInputService, TouchScreenInputType>
-        {
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace CodeBase.UI.Elements.Hud
+namespace CodeBase.UI.Elements.Enemy
 {
     public class LookAtCamera : MonoBehaviour
     {

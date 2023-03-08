@@ -1,7 +1,7 @@
-﻿using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Elements.Hud
 {
@@ -14,15 +14,10 @@ namespace CodeBase.UI.Elements.Hud
 
         private IPlayerProgressService _progressService;
 
-        [Inject]
-        public void Construct(IPlayerProgressService progressService)
+        private void Awake()
         {
-            _progressService = progressService;
-            Subscribe();
-        }
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
 
-        private void Subscribe()
-        {
             _progressService.Progress.WeaponsData.GrenadeLauncherAmmoChanged += ChangeGrenadeLauncherAmmo;
             _progressService.Progress.WeaponsData.RpgAmmoChanged += ChangeRpgAmmo;
             _progressService.Progress.WeaponsData.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;

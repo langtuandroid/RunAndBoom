@@ -4,7 +4,7 @@ using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Factory
+namespace CodeBase.Infrastructure.Factories
 {
     public interface IGameFactory : IService
     {

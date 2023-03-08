@@ -1,7 +1,7 @@
-﻿using CodeBase.Services.SaveLoad;
+﻿using CodeBase.Services;
+using CodeBase.Services.SaveLoad;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Logic
 {
@@ -10,7 +10,10 @@ namespace CodeBase.Logic
         [SerializeField] private BoxCollider _collider;
         [SerializeField] private TextMeshPro _scoreText;
 
-        [Inject] private ISaveLoadService _saveLoadService;
+        private ISaveLoadService _saveLoadService;
+
+        private void Awake() =>
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
 
         private void OnTriggerEnter(Collider other)
         {

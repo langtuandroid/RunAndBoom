@@ -1,55 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zenject;
+using CodeBase.Infrastructure.Factories;
+using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
+using CodeBase.Services.StaticData;
+using CodeBase.UI.Services.Factory;
 
 namespace CodeBase.Infrastructure.States
 {
     public class GameStateMachine : IGameStateMachine
     {
-        private Dictionary<Type, IExitableState> registeredStates;
-        private IExitableState currentState;
+        private readonly Dictionary<Type, IExitableState> _states;
+        private IExitableState _activeState;
 
-        [Inject]
-        public GameStateMachine(
-            BootstrapState.Factory bootstrapStateFactory,
-            LoadPlayerProgressState.Factory loadGameSaveStateFactory,
-            LoadSceneState.Factory loadLevelStateFactory,
-            GameLoopState.Factory gameLoopStateFactory)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
         {
-            registeredStates = new Dictionary<Type, IExitableState>();
-
-            RegisterState(bootstrapStateFactory.Create(this));
-            RegisterState(loadGameSaveStateFactory.Create(this));
-            RegisterState(loadLevelStateFactory.Create(this));
-            RegisterState(gameLoopStateFactory.Create(this));
+            _states = new Dictionary<Type, IExitableState>()
+            {
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
+                [typeof(LoadSceneState)] =
+                    new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(), services.Single<IEnemyFactory>(),
+                        services.Single<IPlayerProgressService>(), services.Single<IStaticDataService>(),
+                        services.Single<IUIFactory>()),
+                [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this, services.Single<IPlayerProgressService>(),
+                    services.Single<ISaveLoadService>()),
+                [typeof(GameLoopState)] = new GameLoopState(this),
+            };
         }
 
         public void Enter<TState>() where TState : class, IState
         {
-            TState newState = ChangeState<TState>();
-            newState.Enter();
+            TState state = ChangeState<TState>();
+            state.Enter();
         }
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
-            TState newState = ChangeState<TState>();
-            newState.Enter(payload);
+            TState state = ChangeState<TState>();
+            state.Enter(payload);
         }
-
-        protected void RegisterState<TState>(TState state) where TState : IExitableState =>
-            registeredStates.Add(typeof(TState), state);
 
         private TState ChangeState<TState>() where TState : class, IExitableState
         {
-            currentState?.Exit();
+            _activeState?.Exit();
 
             TState state = GetState<TState>();
-            currentState = state;
+            _activeState = state;
 
             return state;
         }
 
         private TState GetState<TState>() where TState : class, IExitableState =>
-            registeredStates[typeof(TState)] as TState;
+            _states[typeof(TState)] as TState;
     }
 }

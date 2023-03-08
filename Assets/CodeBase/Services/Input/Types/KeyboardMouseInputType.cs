@@ -1,8 +1,6 @@
 using System;
-using CodeBase.Services.Input.Platforms;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 namespace CodeBase.Services.Input.Types
 {
@@ -69,9 +67,5 @@ namespace CodeBase.Services.Input.Types
 
         private void ChooseWeapon4(InputAction.CallbackContext ctx) =>
             ChoseWeapon4?.Invoke();
-
-        public class Factory : PlaceholderFactory<IPlatformInputService, KeyboardMouseInputType>
-        {
-        }
     }
 }

@@ -2,10 +2,10 @@
 using System.Collections;
 using CodeBase.Enemy.Attacks;
 using CodeBase.Logic;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Enemy
 {
@@ -20,19 +20,21 @@ namespace CodeBase.Enemy
 
         private const float UpForce = 100f;
 
+        private IPlayerProgressService _progressService;
         private IHealth _health;
         private AgentMoveToHero _agentMoveToHero;
         private TargetMovement _targetMovement;
         private float _deathDelay = 30f;
         private int _reward;
         private bool _isDead;
-        private IPlayerProgressService _progressService;
         private EnemyAnimator _enemyAnimator;
 
         public event Action Died;
 
         private void Awake()
         {
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
             _targetMovement = GetComponentInChildren<TargetMovement>();
@@ -47,10 +49,6 @@ namespace CodeBase.Enemy
 
         private void OnDestroy() =>
             _health.HealthChanged -= HealthChanged;
-
-        [Inject]
-        public void Construct(IPlayerProgressService progressService) =>
-            _progressService = progressService;
 
         private void HealthChanged()
         {

@@ -1,23 +1,22 @@
 ﻿using CodeBase.Data;
-using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Factories;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService
     {
-        [Inject] private readonly IPlayerProgressService _progressService;
-        [Inject] private readonly IGameFactory _gameFactory;
+        private readonly IPlayerProgressService _progressService;
+        private readonly IGameFactory _gameFactory;
 
         private const string ProgressKey = "Progress";
 
-        // public SaveLoadService(IPersistentProgressService progressService, IGameFactory gameFactory)
-        // {
-        //     _progressService = progressService;
-        //     _gameFactory = gameFactory;
-        // }
+        public SaveLoadService(IPlayerProgressService progressService, IGameFactory gameFactory)
+        {
+            _progressService = progressService;
+            _gameFactory = gameFactory;
+        }
 
         public void SaveProgress()
         {

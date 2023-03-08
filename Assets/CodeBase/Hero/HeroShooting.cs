@@ -1,10 +1,10 @@
+using CodeBase.Services;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
 using CodeBase.Weapons;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -23,6 +23,9 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
+            _platformInputService = AllServices.Container.Single<IPlatformInputService>();
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
             _enemiesChecker.FoundClosestEnemy += EnemySpotted;
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
@@ -38,13 +41,6 @@ namespace CodeBase.Hero
 
         private void Update() =>
             UpdateCooldown();
-
-        [Inject]
-        public void Construct(IPlatformInputService platformInputService, IPlayerProgressService progressService)
-        {
-            _platformInputService = platformInputService;
-            _progressService = progressService;
-        }
 
         private void UpdateCooldown()
         {

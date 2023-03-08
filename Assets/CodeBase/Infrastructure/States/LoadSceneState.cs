@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Factories;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
@@ -10,7 +10,6 @@ using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -27,8 +26,7 @@ namespace CodeBase.Infrastructure.States
 
         private string _sceneName;
 
-        [Inject]
-        public LoadSceneState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory,
+        public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
             IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = gameStateMachine;
@@ -124,10 +122,6 @@ namespace CodeBase.Infrastructure.States
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             heroHealth.Construct();
             hud.GetComponentInChildren<ActorUI>().Construct(heroHealth);
-        }
-
-        public class Factory : PlaceholderFactory<IGameStateMachine, LoadSceneState>
-        {
         }
     }
 }

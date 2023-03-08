@@ -24,7 +24,7 @@ namespace CodeBase.UI.Elements.Hud
 
         private void SetLevel()
         {
-            _level = _levelNameData.Level;
+            _level = _levelNameData.Level.Replace("Level_", "").Trim();
             SetLevelName(_level, _sector);
         }
 

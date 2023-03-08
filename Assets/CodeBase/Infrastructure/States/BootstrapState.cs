@@ -1,35 +1,212 @@
-﻿using CodeBase.Services.StaticData;
-using Zenject;
+﻿using System;
+using System.Collections.Generic;
+using CodeBase.Data;
+using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Factories;
+using CodeBase.Services;
+using CodeBase.Services.Input.Platforms;
+using CodeBase.Services.Input.Types;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.Registrator;
+using CodeBase.Services.SaveLoad;
+using CodeBase.Services.StaticData;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
     public class BootstrapState : IState
     {
-        private readonly IGameStateMachine _gameStateMachine;
-        private readonly IStaticDataService _staticDataService;
+        private readonly GameStateMachine _stateMachine;
+        private readonly SceneLoader _sceneLoader;
+        private AllServices _services;
 
-        public BootstrapState(IGameStateMachine gameStateMachine,
-            IStaticDataService staticDataService)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
         {
-            _staticDataService = staticDataService;
-            _gameStateMachine = gameStateMachine;
+            _stateMachine = stateMachine;
+            _sceneLoader = sceneLoader;
+            _services = services;
+
+            RegisterServices();
         }
 
-        public void Enter()
+        public void Enter() => _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
+
+        private void EnterLoadLevel() => _stateMachine.Enter<LoadPlayerProgressState>();
+
+        private void RegisterServices()
         {
-            InitServices();
-            _gameStateMachine.Enter<LoadPlayerProgressState>();
+            RegisterStaticData();
+
+            _services.RegisterSingle<IGameStateMachine>(_stateMachine);
+            RegisterAssetsProvider();
+            RegisterInputService();
+            RegisterPlatformInputService();
+            _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
+            _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
+
+            _services.RegisterSingle<IUIFactory>(
+                new UIFactory(_services.Single<IAssets>(),
+                    _services.Single<IRegistratorService>())
+            );
+
+            _services.RegisterSingle<IWindowService>(new WindowService(
+                _services.Single<IStaticDataService>(),
+                _services.Single<IPlayerProgressService>(),
+                _services.Single<IUIFactory>())
+            );
+
+            _services.RegisterSingle<IGameFactory>(
+                new GameFactory(
+                    _services.Single<IAssets>(),
+                    _services.Single<IPlayerProgressService>(),
+                    _services.Single<IStaticDataService>(),
+                    _services.Single<IRegistratorService>()
+                ));
+
+            _services.RegisterSingle<IEnemyFactory>(
+                new EnemyFactory(
+                    _services.Single<IAssets>(),
+                    _services.Single<IStaticDataService>(),
+                    _services.Single<IRegistratorService>(),
+                    _services.Single<IGameFactory>()
+                ));
+
+            _services.RegisterSingle<ISaveLoadService>(
+                new SaveLoadService(_services.Single<IPlayerProgressService>(), _services.Single<IGameFactory>()));
         }
 
-        private void InitServices() =>
-            _staticDataService.Load();
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.Load();
+            _services.RegisterSingle(staticData);
+        }
+
+        private void RegisterAssetsProvider()
+        {
+            var assetsProvider = new AssetsProvider();
+            assetsProvider.Initialize();
+            _services.RegisterSingle<IAssets>(assetsProvider);
+        }
 
         public void Exit()
         {
         }
 
-        public class Factory : PlaceholderFactory<IGameStateMachine, BootstrapState>
+        private void RegisterInputService()
         {
+            PlayerInput playerInput = new PlayerInput();
+            InputTypesServices inputTypesServices = new InputTypesServices();
+
+            if (Application.isEditor)
+            {
+                TouchScreenInputType touchScreenInputType = new TouchScreenInputType(playerInput);
+                inputTypesServices.AddInputService(touchScreenInputType);
+                inputTypesServices.AddInputService(new KeyboardMouseInputType(playerInput));
+            }
+            else if (Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                inputTypesServices.AddInputService(new KeyboardMouseInputType(playerInput));
+            }
+            else
+            {
+                TouchScreenInputType touchScreenInputType = new TouchScreenInputType(playerInput);
+                inputTypesServices.AddInputService(touchScreenInputType);
+            }
+
+            _services.RegisterSingle<IInputTypesServices>(inputTypesServices);
         }
+
+        private void RegisterPlatformInputService()
+        {
+            IInputTypesServices inputTypesServices = _services.Single<IInputTypesServices>();
+
+            if (Application.isEditor)
+            {
+                RegisterEditorInput(inputTypesServices);
+            }
+            else if (Application.platform == RuntimePlatform.WindowsPlayer ||
+                     Application.platform == RuntimePlatform.OSXPlayer ||
+                     Application.platform == RuntimePlatform.LinuxPlayer)
+            {
+                RegisterDesktopInput(inputTypesServices);
+            }
+            else if (Application.platform == RuntimePlatform.Android ||
+                     Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                RegisterMobileInput(inputTypesServices);
+            }
+        }
+
+        private void RegisterEditorInput(IInputTypesServices inputTypesServices)
+        {
+            KeyboardMouseInputType keyboardMouseInputType = null;
+            TouchScreenInputType touchScreenInputType = null;
+
+            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
+
+            foreach (IInputTypeService inputService in inputServicesList)
+            {
+                if (inputService is KeyboardMouseInputType)
+                    keyboardMouseInputType = inputService as KeyboardMouseInputType;
+
+                if (inputService is TouchScreenInputType)
+                    touchScreenInputType = inputService as TouchScreenInputType;
+            }
+
+            if (keyboardMouseInputType != null && touchScreenInputType != null)
+            {
+                DesktopPlatformInputService desktopInputTypeService = new DesktopPlatformInputService(keyboardMouseInputType);
+                MobilePlatformInputService mobileInputTypeService =
+                    new MobilePlatformInputService(touchScreenInputType);
+                _services.RegisterSingle<IPlatformInputService>(new EditorPlatformInputService(desktopInputTypeService,
+                    mobileInputTypeService));
+            }
+            else
+            {
+                InputServicesException("Input services for EditorInput are not created");
+            }
+        }
+
+        private void RegisterDesktopInput(IInputTypesServices inputTypesServices)
+        {
+            KeyboardMouseInputType keyboardMouseInputType = null;
+
+            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
+
+            foreach (IInputTypeService inputService in inputServicesList)
+            {
+                if (inputService is KeyboardMouseInputType)
+                    keyboardMouseInputType = inputService as KeyboardMouseInputType;
+            }
+
+            if (keyboardMouseInputType != null)
+                _services.RegisterSingle<IPlatformInputService>(new DesktopPlatformInputService(keyboardMouseInputType));
+            else
+                InputServicesException("Input services for DesktopInput are not created");
+        }
+
+        private void RegisterMobileInput(IInputTypesServices inputTypesServices)
+        {
+            TouchScreenInputType touchScreenInputType = null;
+
+            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
+
+            foreach (IInputTypeService inputService in inputServicesList)
+            {
+                if (inputService is TouchScreenInputType)
+                    touchScreenInputType = inputService as TouchScreenInputType;
+            }
+
+            if (touchScreenInputType != null)
+                _services.RegisterSingle<IPlatformInputService>(new MobilePlatformInputService(touchScreenInputType));
+            else
+                InputServicesException("Input services for MobileInput are not created");
+        }
+
+        private void InputServicesException(string message) =>
+            throw new Exception(message);
     }
 }

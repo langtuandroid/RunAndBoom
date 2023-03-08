@@ -6,8 +6,6 @@ namespace CodeBase.Projectiles.Movement
     [RequireComponent(typeof(Rigidbody))]
     public class BombMovement : ProjectileMovement
     {
-        private const float LaunchForce = 100f;
-
         private Rigidbody _rigidBody;
         private float _speed;
         private bool _rotate = false;

@@ -34,7 +34,6 @@ namespace CodeBase.Hero
 
         private void RotateTo(GameObject enemy)
         {
-            // Debug.Log("RotateToEnemy");
             if (_rotatingCoroutine != null)
                 StopCoroutine(_rotatingCoroutine);
 
@@ -46,7 +45,6 @@ namespace CodeBase.Hero
 
         private void RotateToForward()
         {
-            // Debug.Log("RotateToForward");
             if (_rotatingCoroutine != null)
                 StopCoroutine(_rotatingCoroutine);
 
@@ -55,7 +53,6 @@ namespace CodeBase.Hero
 
         private IEnumerator CoroutineRotateToForward()
         {
-            // Debug.Log("CoroutineRotateToForward");
             StartedRotating?.Invoke();
             var position = transform.position;
             _shootPosition = new Vector3(position.x, position.y + Constants.AdditionYToEnemy, position.z + 50f);
@@ -69,7 +66,6 @@ namespace CodeBase.Hero
                 _direction = (_shootPosition - position).normalized;
                 _targetRotation = Quaternion.LookRotation(_direction);
                 angle = Vector3.Angle(transform.forward, _direction);
-                // Debug.Log($"angle {angle}");
 
                 if (angle < AngleForFastRotating)
                     transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, SmoothRotationSpeed);
@@ -82,7 +78,6 @@ namespace CodeBase.Hero
 
         private IEnumerator CoroutineRotateTo(GameObject enemy)
         {
-            // Debug.Log("CoroutineRotateTo");
             StartedRotating?.Invoke();
             _direction = (_shootPosition - transform.position).normalized;
             _targetRotation = Quaternion.LookRotation(_direction);
@@ -91,7 +86,6 @@ namespace CodeBase.Hero
             while (angle > 0f)
             {
                 angle = Vector3.Angle(transform.forward, _direction);
-                // Debug.Log($"angle {angle}");
 
                 if (angle < AngleForFastRotating)
                 {
@@ -111,7 +105,6 @@ namespace CodeBase.Hero
 
         private void StopRotatingToEnemy()
         {
-            // Debug.Log("StopRotating");
             if (_rotatingCoroutine != null)
                 StopCoroutine(_rotatingCoroutine);
         }

@@ -6,9 +6,8 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using UnityEngine;
-using Zenject;
 
-namespace CodeBase.Infrastructure.Factory
+namespace CodeBase.Infrastructure.Factories
 {
     public class GameFactory : IGameFactory
     {
@@ -17,20 +16,18 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
-        private readonly DiContainer _container;
         private GameObject _heroGameObject;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
         public GameFactory(IAssets assets, IPlayerProgressService progressService, IStaticDataService staticData,
-            IRegistratorService registratorService, DiContainer container)
+            IRegistratorService registratorService)
         {
             _assets = assets;
             _progressService = progressService;
             _staticData = staticData;
             _registratorService = registratorService;
-            _container = container;
 
             SetProgressReadersWriters(registratorService);
         }
@@ -52,8 +49,7 @@ namespace CodeBase.Infrastructure.Factory
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
-            var prefab = await _registratorService.LoadRegisteredAsync(AssetAddresses.Hero);
-            _heroGameObject = _container.InstantiatePrefab(prefab, at.AddY(Yaddition), Quaternion.identity, null);
+            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             _registratorService.RegisterProgressWatchers(_heroGameObject);
             return _heroGameObject;
         }
