@@ -4,6 +4,7 @@ using CodeBase.Enemy;
 using CodeBase.Logic;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
+using CodeBase.UI.Elements.Enemy;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 

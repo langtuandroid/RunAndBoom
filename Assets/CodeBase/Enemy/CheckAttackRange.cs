@@ -33,7 +33,7 @@ namespace CodeBase.Enemy
         private void TriggerExit(Collider obj)
         {
             _attack.DisableAttack();
-            _follow.Run();
+            _follow.Move();
             _follow.enabled = true;
         }
     }

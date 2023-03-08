@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.Hud
+namespace CodeBase.UI.Elements.Enemy
 {
     public class TargetMovement : MonoBehaviour
     {

@@ -8,6 +8,7 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemy;
 using CodeBase.StaticData.ProjectileTrace;
 using CodeBase.StaticData.Weapon;
+using CodeBase.UI.Elements.Enemy;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.Weapons;
 using UnityEngine;

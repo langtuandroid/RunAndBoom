@@ -67,7 +67,7 @@ namespace CodeBase.Enemy
         private void SwitchFollowOn()
         {
             _hasAggroTarget = true;
-            _follow.Run();
+            _follow.Move();
             _follow.enabled = true;
         }
 

@@ -4,6 +4,7 @@ using CodeBase.Enemy.Attacks;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.UI.Elements.Enemy;
 using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 
@@ -65,15 +66,12 @@ namespace CodeBase.Enemy
             Died?.Invoke();
 
             _progressService.Progress.CurrentLevelStats.ScoreData.AddScore(_reward);
+            GetComponent<Aggro>().enabled = false;
+            GetComponent<StopMovingOnAttack>().enabled = false;
+            GetComponent<CheckAttackRange>().enabled = false;
             _agentMoveToHero.Stop();
             _targetMovement.Hide();
             _enemyAnimator.PlayDeath();
-            
-            GetComponent<Attack>().enabled = false;
-            GetComponent<RotateToHero>().enabled = false;
-            _agentMoveToHero.enabled = false;
-            GetComponent<Aggro>().enabled = false;
-            GetComponent<StopMovingOnAttack>().enabled = false;
 
             // _hitBox.SetActive(false);
             // _diedBox.SetActive(true);
