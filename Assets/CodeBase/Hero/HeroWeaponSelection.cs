@@ -25,34 +25,23 @@ namespace CodeBase.Hero
         public void Construct(IStaticDataService staticDataService, IPlatformInputService platformInputService)
         {
             _staticDataService = staticDataService;
-
-            if (platformInputService is DesktopPlatformInputService service)
-                _platformInputService = service;
-
-            if (platformInputService is EditorPlatformInputService inputService)
-                _platformInputService = inputService;
+            _platformInputService = platformInputService;
         }
 
         private void Awake()
         {
-            if (_platformInputService != null)
-            {
-                _platformInputService.ChoseWeapon1 += SelectWeapon1;
-                _platformInputService.ChoseWeapon2 += SelectWeapon2;
-                _platformInputService.ChoseWeapon3 += SelectWeapon3;
-                _platformInputService.ChoseWeapon4 += SelectWeapon4;
-            }
+            _platformInputService.ChoseWeapon1 += SelectWeapon1;
+            _platformInputService.ChoseWeapon2 += SelectWeapon2;
+            _platformInputService.ChoseWeapon3 += SelectWeapon3;
+            _platformInputService.ChoseWeapon4 += SelectWeapon4;
         }
 
         private void OnDestroy()
         {
-            if (_platformInputService != null)
-            {
-                _platformInputService.ChoseWeapon1 -= SelectWeapon1;
-                _platformInputService.ChoseWeapon2 -= SelectWeapon2;
-                _platformInputService.ChoseWeapon3 -= SelectWeapon3;
-                _platformInputService.ChoseWeapon4 -= SelectWeapon4;
-            }
+            // _platformInputService.ChoseWeapon1 -= SelectWeapon1;
+            // _platformInputService.ChoseWeapon2 -= SelectWeapon2;
+            // _platformInputService.ChoseWeapon3 -= SelectWeapon3;
+            // _platformInputService.ChoseWeapon4 -= SelectWeapon4;
         }
 
         private void SelectWeapon1() =>

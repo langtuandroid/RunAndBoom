@@ -1,4 +1,6 @@
-﻿using CodeBase.Services.PersistentProgress;
+﻿using System;
+using CodeBase.Data;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Weapon;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -7,31 +9,39 @@ using Zenject;
 
 namespace CodeBase.UI.Elements.Hud
 {
-    public class WeaponsHighlighter : MonoBehaviour
+    public class WeaponsHighlighter : MonoBehaviour, IProgressReader
     {
         [SerializeField] private GameObject _grenadeLaucher;
         [SerializeField] private GameObject _rpg;
         [SerializeField] private GameObject _rocketLaucher;
         [SerializeField] private GameObject _mortar;
 
-        private IPlayerProgressService _progressService;
+        // private IPlayerProgressService _progressService;
+        private PlayerProgress _progress;
 
-        [Inject]
-        public void Construct(IPlayerProgressService progressService)
-        {
-            _progressService = progressService;
-            Subscribe();
-        }
+        // [Inject]
+        // public void Construct(IPlayerProgressService progressService)
+        // {
+        //     _progressService = progressService;
+        //     Subscribe();
+        // }
 
-        private void Subscribe() =>
-            _progressService.Progress.WeaponsData.HeroWeaponChanged += HighlightWeapon;
+        // private void Awake() =>
 
         private void OnDisable() =>
-            _progressService.Progress.WeaponsData.HeroWeaponChanged -= HighlightWeapon;
+            _progress.WeaponsData.HeroWeaponChanged -= HighlightWeapon;
+        // _progressService.Progress.WeaponsData.HeroWeaponChanged -= HighlightWeapon;
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            _progress.WeaponsData.HeroWeaponChanged += HighlightWeapon;
+        }
 
         private void HighlightWeapon()
         {
-            switch (_progressService.Progress.WeaponsData.CurrentHeroWeaponTypeId)
+            switch (_progress.WeaponsData.CurrentHeroWeaponTypeId)
+                // switch (_progressService.Progress.WeaponsData.CurrentHeroWeaponTypeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
                     _grenadeLaucher.GetComponent<Image>().ChangeImageAlpha(Constants.AlphaSelectedItem);
