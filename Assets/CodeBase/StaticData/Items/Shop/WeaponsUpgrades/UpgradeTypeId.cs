@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.StaticData.Items.Shop.WeaponsUpgrades
 {
-    public enum WeaponUpgradeTypeId
+    public enum UpgradeTypeId
     {
         Reloading,
         Aiming,

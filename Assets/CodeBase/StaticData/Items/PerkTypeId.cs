@@ -5,7 +5,7 @@
         Running,
         Armor,
         MaxHealth,
-        Vampirism,
+        Vampire,
         Regeneration,
     }
 }
