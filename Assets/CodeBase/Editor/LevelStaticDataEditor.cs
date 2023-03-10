@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
-using CodeBase.StaticData.Level;
+using CodeBase.StaticData.Levels;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;

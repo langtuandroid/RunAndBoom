@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
-using CodeBase.StaticData.ProjectileTrace;
-using CodeBase.StaticData.Weapon;
+using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Weapons;
 using UnityEngine;
 
 namespace CodeBase.Weapons

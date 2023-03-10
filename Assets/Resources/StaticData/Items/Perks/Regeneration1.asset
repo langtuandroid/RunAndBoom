@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b154b587e60943409890572f533412d5, type: 3}
+  m_Name: Regeneration1
+  m_EditorClassIdentifier: 
+  Cost: 10
+  MainImage: {fileID: 21300000, guid: e40e73a902293ae4581885d4cfa0bf91, type: 3}
+  Title: "\u0420\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u044F 1"
+  PerkTypeId: 4
+  LevelTypeId: 0
+  UpgradeLevel: {fileID: 0}

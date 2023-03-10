@@ -1,4 +1,3 @@
-using CodeBase.Services.Input.Platforms;
 using UnityEngine;
 
 namespace CodeBase.Hero

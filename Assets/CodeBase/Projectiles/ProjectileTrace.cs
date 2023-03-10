@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using CodeBase.StaticData.ProjectileTrace;
+using CodeBase.StaticData.ProjectileTraces;
 using UnityEngine;
 
 namespace CodeBase.Projectiles

@@ -1,7 +1,7 @@
-﻿using CodeBase.StaticData.Enemy;
-using CodeBase.StaticData.Level;
-using CodeBase.StaticData.ProjectileTrace;
-using CodeBase.StaticData.Weapon;
+﻿using CodeBase.StaticData.Enemies;
+using CodeBase.StaticData.Levels;
+using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Weapons;
 
 namespace CodeBase.Services.StaticData
 {

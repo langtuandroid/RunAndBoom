@@ -3,8 +3,8 @@ using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
-using CodeBase.StaticData.ProjectileTrace;
-using CodeBase.StaticData.Weapon;
+using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Weapons;
 using CodeBase.Weapons;
 using UnityEngine;
 

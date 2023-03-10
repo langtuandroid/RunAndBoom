@@ -1,6 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.StaticData.Weapon;
+using CodeBase.StaticData.Weapons;
 using UnityEngine;
 using UnityEngine.UI;
 

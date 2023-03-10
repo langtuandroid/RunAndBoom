@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using CodeBase.Services;
-using CodeBase.StaticData.Enemy;
+using CodeBase.StaticData.Enemies;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factories

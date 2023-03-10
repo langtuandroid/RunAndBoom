@@ -5,7 +5,6 @@ using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements.Enemy;
-using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 
 namespace CodeBase.Enemy

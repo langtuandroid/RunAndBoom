@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.Logic;
-using CodeBase.StaticData.ProjectileTrace;
-using CodeBase.StaticData.Weapon;
+using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Elements.Enemy;
-using CodeBase.UI.Elements.Hud;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -31,7 +30,7 @@ namespace CodeBase.Hero
         public event Action<GameObject> FoundClosestEnemy;
         public event Action EnemyNotFound;
 
-        private void Awake() => 
+        private void Awake() =>
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
 
         private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,

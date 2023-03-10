@@ -5,7 +5,7 @@ using CodeBase.Infrastructure.Factories;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
-using CodeBase.StaticData.Level;
+using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;

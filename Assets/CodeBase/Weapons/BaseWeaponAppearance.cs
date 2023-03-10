@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Enemy.Attacks;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Movement;
-using CodeBase.StaticData.ProjectileTrace;
+using CodeBase.StaticData.ProjectileTraces;
 using UnityEngine;
 
 namespace CodeBase.Weapons
