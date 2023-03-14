@@ -1,5 +1,4 @@
 ﻿using CodeBase.StaticData.Items.Shop;
-using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using UnityEngine;
 
 namespace CodeBase.StaticData.Items
@@ -8,6 +7,7 @@ namespace CodeBase.StaticData.Items
     public class PerkStaticData : BaseShopStaticData
     {
         public PerkTypeId PerkTypeId;
-        public UpgradeLevelTypeId LevelTypeId;
+        public LevelTypeId LevelTypeId;
+        public Sprite LevelImage;
     }
 }

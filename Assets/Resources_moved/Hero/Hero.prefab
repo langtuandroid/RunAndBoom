@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 3576587852183587754}
   - component: {fileID: 4565476155018466935}
   - component: {fileID: 2889076384633895999}
+  - component: {fileID: 5429242650814555242}
   - component: {fileID: 740292060144576828}
   - component: {fileID: 6805826884214988716}
   m_Layer: 8
@@ -288,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cb1633d3ea43ba82480bcec1896519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemiesChecker: {fileID: 4801597986677240933}
+  enemiesCheckerView: {fileID: 4801597986677240933}
   _heroLookAt: {fileID: 4565476155018466935}
 --- !u!114 &3576587852183587754
 MonoBehaviour:
@@ -303,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroWeaponSelection: {fileID: 2265719662692678730}
-  _enemiesChecker: {fileID: 4801597986677240933}
+  enemiesCheckerView: {fileID: 4801597986677240933}
 --- !u!114 &4565476155018466935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroRotating: {fileID: 4801597986677240934}
-  _enemiesChecker: {fileID: 4801597986677240933}
+  enemiesCheckerView: {fileID: 4801597986677240933}
 --- !u!114 &2889076384633895999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +331,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494773ef81d24983b3bcbdc9b052ca03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5429242650814555242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469050827539787869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e109fd7b094d1ebeb22048e4b6c550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _visibleObstaclesLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  _heroWeaponSelection: {fileID: 2265719662692678730}
 --- !u!143 &740292060144576828
 CharacterController:
   m_ObjectHideFlags: 0
@@ -339,7 +359,7 @@ CharacterController:
   m_GameObject: {fileID: 3469050827539787869}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5

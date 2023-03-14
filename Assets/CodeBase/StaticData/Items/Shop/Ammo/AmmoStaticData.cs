@@ -8,6 +8,6 @@ namespace CodeBase.StaticData.Items.Shop.Ammo
     {
         public HeroWeaponTypeId WeaponTypeId;
 
-        [Range(1, 20)] public int Ammo;
+        [Range(1, 20)] public int Count;
     }
 }

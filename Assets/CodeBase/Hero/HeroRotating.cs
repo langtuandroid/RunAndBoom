@@ -7,19 +7,18 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
-        [SerializeField] private EnemiesChecker _enemiesChecker;
+        [SerializeField] private EnemiesCheckerView enemiesCheckerView;
         [SerializeField] private HeroLookAt _heroLookAt;
 
         private const float RotationSpeed = 0.02f;
         private const float SmoothRotationSpeed = 0.04f;
         private const float AngleForFastRotating = 10f;
         private const float MaxAngleForLookAt = 1f;
-
+        
         private Vector3 _shootPosition;
         private Vector3 _direction;
         private bool _toEnemy;
         private Quaternion _targetRotation;
-
         private Coroutine _rotatingCoroutine;
 
         public event Action<GameObject> EndedRotatingToEnemy;
@@ -27,8 +26,8 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _enemiesChecker.FoundClosestEnemy += RotateTo;
-            _enemiesChecker.EnemyNotFound += RotateToForward;
+            enemiesCheckerView.FoundClosestEnemy += RotateTo;
+            enemiesCheckerView.EnemyNotFound += RotateToForward;
             _heroLookAt.LookedAtEnemy += StopRotatingToEnemy;
         }
 

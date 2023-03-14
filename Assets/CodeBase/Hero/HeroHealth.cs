@@ -6,16 +6,11 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroHealth : MonoBehaviour, IHealth, IProgressSaver
+    public class HeroHealth : MonoBehaviour, IHealth, IHeal, IProgressSaver
     {
-        private float _max;
-        private float _current;
-        private PlayerProgress _playerProgress;
+        public float Current { get; private set; }
+        public float Max { get; private set; }
 
-        public float Current => _current;
-        public float Max => _max;
-
-        public event Action Died;
         public event Action HealthChanged;
 
         public void Construct() =>
@@ -23,31 +18,32 @@ namespace CodeBase.Hero
 
         public void TakeDamage(float damage)
         {
-            if (_current <= 0)
-                return;
-
-            _current -= damage;
+            Current -= damage;
+            HealthChanged?.Invoke();
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _max = progress.HealthState.MaxHp;
-            _current = progress.HealthState.CurrentHp;
-            _playerProgress = progress;
-            _playerProgress.HealthState.MaxHpChanged += ChangeMaxHp;
-            _playerProgress.HealthState.CurrentHpChanged += ChangeCurrentHp;
+            Max = progress.HealthState.MaxHp;
+            Current = progress.HealthState.CurrentHp;
         }
-
-        private void ChangeMaxHp() =>
-            _max = _playerProgress.HealthState.MaxHp;
-
-        private void ChangeCurrentHp() =>
-            _current = _playerProgress.HealthState.CurrentHp;
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            progress.HealthState.ChangeCurrentHP(_current);
-            progress.HealthState.ChangeMaxHP(_max);
+            progress.HealthState.ChangeCurrentHP(Current);
+            progress.HealthState.ChangeMaxHP(Max);
+        }
+
+        public void UpMaxHp(float value)
+        {
+            Max = value;
+            HealthChanged?.Invoke();
+        }
+
+        public void Heal()
+        {
+            Current = Max;
+            HealthChanged?.Invoke();
         }
     }
 }

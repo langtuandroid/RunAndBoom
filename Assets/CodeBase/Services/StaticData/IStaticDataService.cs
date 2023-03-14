@@ -19,15 +19,16 @@ namespace CodeBase.Services.StaticData
         ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId);
 
         LevelStaticData ForLevel(string sceneKey);
+
         // WindowStaticData ForWindow(WindowId windowId);
-        InventoryLevelStaticData ForInventoryUpgradeLevel(UpgradeLevelTypeId typeId);
-        InventoryUpgradeStaticData ForInventoryUpgradeLevel(UpgradeTypeId typeId);
-        PerkStaticData ForPerk(PerkTypeId perkTypeId, UpgradeLevelTypeId levelTypeId);
-        AmmoStaticData ForAmmo(HeroWeaponTypeId typeId);
+        InventoryLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId);
+        InventoryUpgradeStaticData ForInventoryUpgrade(UpgradeTypeId typeId);
+        PerkStaticData ForPerk(PerkTypeId perkTypeId, LevelTypeId levelTypeId);
+        AmmoStaticData ForAmmo(HeroWeaponTypeId typeId, int cost, int count);
         ItemStaticData ForItem(ItemTypeId typeId);
         UpgradableWeaponStaticData ForUpgradableWeapon(HeroWeaponTypeId typeId);
-        ShopUpgradeLevelStaticData ForShopUpgradeLevel(UpgradeLevelTypeId typeId);
-        UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, UpgradeLevelTypeId levelTypeId);
+        ShopUpgradeLevelStaticData ForShopUpgradeLevel(LevelTypeId typeId);
+        UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId);
         ShopUpgradeStaticData ForUpgradeLevelsInfo(UpgradeTypeId typeId);
     }
 }

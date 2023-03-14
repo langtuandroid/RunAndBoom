@@ -7,6 +7,7 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -120,8 +121,10 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
+            HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroHealth.Construct();
-            hud.GetComponentInChildren<ActorUI>().Construct(heroHealth);
+            hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
+            hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
         }
     }
 }

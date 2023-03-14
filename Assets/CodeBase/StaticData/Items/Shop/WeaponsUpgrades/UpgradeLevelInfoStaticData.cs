@@ -9,6 +9,6 @@ namespace CodeBase.StaticData.Items.Shop.WeaponsUpgrades
         [Range(0f, 50f)] public float AdditionalValue;
 
         public UpgradeTypeId UpgradeTypeId;
-        public UpgradeLevelTypeId LevelTypeId;
+        public LevelTypeId LevelTypeId;
     }
 }

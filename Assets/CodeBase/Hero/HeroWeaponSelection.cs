@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -15,22 +16,13 @@ namespace CodeBase.Hero
         [SerializeField] private GameObject[] _weapons;
 
         private IStaticDataService _staticDataService;
-
-        // private IPlatformInputService _platformInputService;
+        private Dictionary<HeroWeaponTypeId, bool> _availableWeapons;
         private PlayerProgress _progress;
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
-        private void Awake()
-        {
+        private void Awake() =>
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
-            // _platformInputService = AllServices.Container.Single<IPlatformInputService>();
-
-            // _platformInputService.ChoseWeapon1 += SelectWeapon1;
-            // _platformInputService.ChoseWeapon2 += SelectWeapon2;
-            // _platformInputService.ChoseWeapon3 += SelectWeapon3;
-            // _platformInputService.ChoseWeapon4 += SelectWeapon4;
-        }
 
         private void Update()
         {
@@ -45,14 +37,6 @@ namespace CodeBase.Hero
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
                 SelectWeapon4();
-        }
-
-        private void OnDestroy()
-        {
-            // _platformInputService.ChoseWeapon1 -= SelectWeapon1;
-            // _platformInputService.ChoseWeapon2 -= SelectWeapon2;
-            // _platformInputService.ChoseWeapon3 -= SelectWeapon3;
-            // _platformInputService.ChoseWeapon4 -= SelectWeapon4;
         }
 
         private void SelectWeapon1() =>
@@ -70,16 +54,18 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
+            _availableWeapons = progress.WeaponsData.AvailableWeapons;
             FindWeaponContainer(progress.WeaponsData.CurrentHeroWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)
         {
+            progress.WeaponsData.SetAvailableWeapons(_availableWeapons);
         }
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
-            if (!_progress.WeaponsData.IsWeaponAvailable(heroWeaponTypeId))
+            if (!_availableWeapons[heroWeaponTypeId])
                 return;
 
             foreach (GameObject weapon in _weapons)
@@ -91,7 +77,9 @@ namespace CodeBase.Hero
                     WeaponChosen(weapon, heroWeaponTypeId);
                 }
                 else
+                {
                     weapon.SetActive(false);
+                }
             }
         }
 

@@ -27,28 +27,24 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
         private const string StaticDataShopUpgradesUpgradeLevelsInfoPath = "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
         private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
-
         private const string StaticDataLevelsPath = "StaticData/Levels";
-
         private const string StaticDataProjectileTracesPath = "StaticData/ProjectileTraces";
-        // private const string StaticDataWindowsPath = "StaticData/Windows";
 
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<EnemyWeaponTypeId, EnemyWeaponStaticData> _enemyWeapons;
         private Dictionary<HeroWeaponTypeId, HeroWeaponStaticData> _heroWeapons;
-        private Dictionary<UpgradeLevelTypeId, InventoryLevelStaticData> _inventoryUpgradeLevels;
+        private Dictionary<LevelTypeId, InventoryLevelStaticData> _inventoryUpgradeLevels;
         private Dictionary<UpgradeTypeId, InventoryUpgradeStaticData> _inventoryUpgrades;
-        private Dictionary<PerkData, PerkStaticData> _perks;
-        private Dictionary<HeroWeaponTypeId, AmmoStaticData> _ammo;
+        private Dictionary<PerkItem, PerkStaticData> _perks;
+        private Dictionary<AmmoItem, AmmoStaticData> _ammo;
         private Dictionary<ItemTypeId, ItemStaticData> _items;
         private Dictionary<HeroWeaponTypeId, UpgradableWeaponStaticData> _shopUpgradableWeapons;
-        private Dictionary<UpgradeLevelTypeId, ShopUpgradeLevelStaticData> _shopUpgradeLevels;
+        private Dictionary<LevelTypeId, ShopUpgradeLevelStaticData> _shopUpgradeLevels;
         private Dictionary<ShopUpgradeLevelInfoData, UpgradeLevelInfoStaticData> _shopUpgradeLevelsInfo;
         private Dictionary<UpgradeTypeId, ShopUpgradeStaticData> _shopUpgrades;
         private Dictionary<string, LevelStaticData> _levels;
 
         private Dictionary<ProjectileTraceTypeId, ProjectileTraceStaticData> _projectileTraces;
-        // private Dictionary<WindowId, WindowStaticData> _windows;
 
         public void Load()
         {
@@ -74,11 +70,11 @@ namespace CodeBase.Services.StaticData
 
             _perks = Resources
                 .LoadAll<PerkStaticData>(StaticDataPerksPath)
-                .ToDictionary(x => new PerkData(x.PerkTypeId, x.LevelTypeId), x => x);
+                .ToDictionary(x => new PerkItem(x.PerkTypeId, x.LevelTypeId), x => x);
 
             _ammo = Resources
                 .LoadAll<AmmoStaticData>(StaticDataShopAmmoPath)
-                .ToDictionary(x => x.WeaponTypeId, x => x);
+                .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
 
             _items = Resources
                 .LoadAll<ItemStaticData>(StaticDataShopItemsPath)
@@ -107,10 +103,6 @@ namespace CodeBase.Services.StaticData
             _projectileTraces = Resources
                 .LoadAll<ProjectileTraceStaticData>(StaticDataProjectileTracesPath)
                 .ToDictionary(x => x.ProjectileTraceTypeId, x => x);
-
-            // _windows = Resources
-            //     .LoadAll<WindowStaticData>(StaticDataWindowsPath)
-            //     .ToDictionary(x => x.WindowId, x => x);
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -133,23 +125,23 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public InventoryLevelStaticData ForInventoryUpgradeLevel(UpgradeLevelTypeId typeId) =>
+        public InventoryLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId) =>
             _inventoryUpgradeLevels.TryGetValue(typeId, out InventoryLevelStaticData staticData)
                 ? staticData
                 : null;
 
-        public InventoryUpgradeStaticData ForInventoryUpgradeLevel(UpgradeTypeId typeId) =>
+        public InventoryUpgradeStaticData ForInventoryUpgrade(UpgradeTypeId typeId) =>
             _inventoryUpgrades.TryGetValue(typeId, out InventoryUpgradeStaticData staticData)
                 ? staticData
                 : null;
 
-        public PerkStaticData ForPerk(PerkTypeId perkTypeId, UpgradeLevelTypeId levelTypeId) =>
-            _perks.TryGetValue(new PerkData(perkTypeId, levelTypeId), out PerkStaticData staticData)
+        public PerkStaticData ForPerk(PerkTypeId perkTypeId, LevelTypeId levelTypeId) =>
+            _perks.TryGetValue(new PerkItem(perkTypeId, levelTypeId), out PerkStaticData staticData)
                 ? staticData
                 : null;
 
-        public AmmoStaticData ForAmmo(HeroWeaponTypeId typeId) =>
-            _ammo.TryGetValue(typeId, out AmmoStaticData staticData)
+        public AmmoStaticData ForAmmo(HeroWeaponTypeId typeId, int cost, int count) =>
+            _ammo.TryGetValue(new AmmoItem(typeId, count), out AmmoStaticData staticData)
                 ? staticData
                 : null;
 
@@ -163,12 +155,12 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public ShopUpgradeLevelStaticData ForShopUpgradeLevel(UpgradeLevelTypeId typeId) =>
+        public ShopUpgradeLevelStaticData ForShopUpgradeLevel(LevelTypeId typeId) =>
             _shopUpgradeLevels.TryGetValue(typeId, out ShopUpgradeLevelStaticData staticData)
                 ? staticData
                 : null;
 
-        public UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, UpgradeLevelTypeId levelTypeId) =>
+        public UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId) =>
             _shopUpgradeLevelsInfo.TryGetValue(new ShopUpgradeLevelInfoData(upgradeTypeId, levelTypeId), out UpgradeLevelInfoStaticData staticData)
                 ? staticData
                 : null;
@@ -182,10 +174,5 @@ namespace CodeBase.Services.StaticData
             _projectileTraces.TryGetValue(projectileTraceTypeId, out ProjectileTraceStaticData staticData)
                 ? staticData
                 : null;
-
-        // public WindowStaticData ForWindow(WindowId windowId) =>
-        //     _windows.TryGetValue(windowId, out WindowStaticData windowData)
-        //         ? windowData
-        //         : null;
     }
 }
