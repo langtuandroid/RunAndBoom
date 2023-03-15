@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace CodeBase.Data
 {
@@ -18,5 +21,8 @@ namespace CodeBase.Data
 
         public static T ToDeserialized<T>(this string json) =>
             JsonUtility.FromJson<T>(json);
+
+        public static IEnumerable<T> GetValues<T>() =>
+            Enum.GetValues(typeof(T)).Cast<T>();
     }
 }

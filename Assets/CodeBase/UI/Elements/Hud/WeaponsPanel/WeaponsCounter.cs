@@ -18,18 +18,18 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         {
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
 
-            _progressService.Progress.WeaponsData.WeaponsAmmo.GrenadeLauncherAmmoChanged += ChangeGrenadeLauncherAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.RpgAmmoChanged += ChangeRpgAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.MortarAmmoChanged += ChangeMortarAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged += ChangeGrenadeLauncherAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
         }
 
         private void OnDisable()
         {
-            _progressService.Progress.WeaponsData.WeaponsAmmo.GrenadeLauncherAmmoChanged -= ChangeGrenadeLauncherAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.RpgAmmoChanged -= ChangeRpgAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.RocketLauncherAmmoChanged -= ChangeRocketLauncherAmmo;
-            _progressService.Progress.WeaponsData.WeaponsAmmo.MortarAmmoChanged -= ChangeMortarAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged -= ChangeGrenadeLauncherAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged -= ChangeRpgAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged -= ChangeRocketLauncherAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged -= ChangeMortarAmmo;
         }
 
         private void ChangeGrenadeLauncherAmmo(int ammo) =>

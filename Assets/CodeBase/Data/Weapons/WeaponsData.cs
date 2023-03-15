@@ -9,22 +9,22 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponsData
     {
-        public WeaponsAmmo WeaponsAmmo { get; private set; }
-        public WeaponsUpgrades WeaponsUpgrades { get; private set; }
+        public WeaponsAmmoData WeaponsAmmoData { get; private set; }
+        public WeaponUpgradesData WeaponUpgradesData { get; private set; }
         public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
         public Dictionary<HeroWeaponTypeId, bool> AvailableWeapons { get; private set; }
 
         public WeaponsData()
         {
-            WeaponsAmmo = new WeaponsAmmo();
-            WeaponsUpgrades = new WeaponsUpgrades();
+            WeaponsAmmoData = new WeaponsAmmoData();
+            WeaponUpgradesData = new WeaponUpgradesData();
             FillAvailableWeapons();
             CurrentHeroWeaponTypeId = AvailableWeapons.First(x => x.Value).Key;
         }
 
         private void FillAvailableWeapons()
         {
-            List<HeroWeaponTypeId> typeIds = Enum.GetValues(typeof(HeroWeaponTypeId)).Cast<HeroWeaponTypeId>().ToList();
+            List<HeroWeaponTypeId> typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
             AvailableWeapons = new Dictionary<HeroWeaponTypeId, bool>();
 
             foreach (HeroWeaponTypeId typeId in typeIds)
@@ -39,7 +39,7 @@ namespace CodeBase.Data.Weapons
         public void SetCurrentWeapon(HeroWeaponTypeId typeId)
         {
             CurrentHeroWeaponTypeId = typeId;
-            WeaponsAmmo.SetCurrentWeapon(typeId);
+            WeaponsAmmoData.SetCurrentWeapon(typeId);
         }
 
         public void SetAvailableWeapons(Dictionary<HeroWeaponTypeId, bool> availableWeapons) =>

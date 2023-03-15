@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4e0982d1eb4600b4d764a485ccb591, type: 3}
   m_Name: InventoryUpgradeLevel1
   m_EditorClassIdentifier: 
-  LevelTypeId: 0
-  UpgradeLevel: {fileID: 0}
+  LevelTypeId: 1
+  Level: {fileID: 0}

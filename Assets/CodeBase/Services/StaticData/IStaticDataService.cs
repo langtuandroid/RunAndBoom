@@ -21,7 +21,7 @@ namespace CodeBase.Services.StaticData
         LevelStaticData ForLevel(string sceneKey);
 
         // WindowStaticData ForWindow(WindowId windowId);
-        InventoryLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId);
+        InventoryUpgradeLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId);
         InventoryUpgradeStaticData ForInventoryUpgrade(UpgradeTypeId typeId);
         PerkStaticData ForPerk(PerkTypeId perkTypeId, LevelTypeId levelTypeId);
         AmmoStaticData ForAmmo(HeroWeaponTypeId typeId, int cost, int count);

@@ -14,7 +14,7 @@ namespace CodeBase.Hero
         private const float SmoothRotationSpeed = 0.04f;
         private const float AngleForFastRotating = 10f;
         private const float MaxAngleForLookAt = 1f;
-        
+
         private Vector3 _shootPosition;
         private Vector3 _direction;
         private bool _toEnemy;

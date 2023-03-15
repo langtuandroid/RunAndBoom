@@ -12,16 +12,14 @@ namespace CodeBase.UI.Elements.Hud.Perks
     public class PerkList : MonoBehaviour, IProgressReader
     {
         [SerializeField] private Transform _container;
-        [SerializeField] private Perk perk;
+        [SerializeField] private PerkView perkView;
 
         private IEnumerable<PerkTypeId> _perkTypeIds = Enum.GetValues(typeof(PerkTypeId)).Cast<PerkTypeId>();
-        private Dictionary<PerkTypeId, Perk> _activePerks;
+        private Dictionary<PerkTypeId, PerkView> _activePerks;
         private PlayerProgress _progress;
 
-        private void Awake()
-        {
-            _activePerks = new Dictionary<PerkTypeId, Perk>(_perkTypeIds.Count());
-        }
+        private void Awake() => 
+            _activePerks = new Dictionary<PerkTypeId, PerkView>(_perkTypeIds.Count());
 
         public void LoadProgress(PlayerProgress progress)
         {
@@ -31,16 +29,16 @@ namespace CodeBase.UI.Elements.Hud.Perks
             ConstructPerks();
         }
 
-        private void AddNewPerk(PerkData perkData)
+        private void AddNewPerk(PerkItemData perkItemData)
         {
-            Perk value = Instantiate(perk, _container);
-            value.Construct(perkData);
-            _activePerks.Add(perkData.PerkTypeId, value);
+            PerkView value = Instantiate(perkView, _container);
+            value.Construct(perkItemData);
+            _activePerks.Add(perkItemData.PerkTypeId, value);
         }
 
         private void ConstructPerks()
         {
-            foreach (PerkData perkData in _progress.PerksData.Perks)
+            foreach (PerkItemData perkData in _progress.PerksData.Perks)
             {
                 if (perkData.LevelTypeId != LevelTypeId.None)
                     AddNewPerk(perkData);

@@ -5,7 +5,7 @@ using CodeBase.StaticData.Weapons;
 namespace CodeBase.Data.Weapons
 {
     [Serializable]
-    public class WeaponsAmmo
+    public class WeaponsAmmoData
     {
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
 
@@ -17,7 +17,7 @@ namespace CodeBase.Data.Weapons
         public event Action<int> RocketLauncherAmmoChanged;
         public event Action<int> MortarAmmoChanged;
 
-        public WeaponsAmmo()
+        public WeaponsAmmoData()
         {
             FillAmmo();
             FillWeaponsBarrels();

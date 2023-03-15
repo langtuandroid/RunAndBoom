@@ -8,37 +8,52 @@ namespace CodeBase.Data.Perks
     [Serializable]
     public class PerksData
     {
-        public List<PerkData> Perks { get; private set; }
+        public List<PerkItemData> Perks { get; private set; }
 
-        public event Action<PerkData> NewPerkAdded;
+        public event Action<PerkItemData> NewPerkAdded;
 
         public PerksData()
         {
-            int count = Enum.GetValues(typeof(PerkTypeId)).Cast<PerkTypeId>().Count();
-            Perks = new List<PerkData>(count);
+            int count = DataExtensions.GetValues<PerkTypeId>().Count();
+            Perks = new List<PerkItemData>(count);
 
             FillTestData();
         }
 
         private void FillTestData()
         {
-            PerkData armor = new PerkData(PerkTypeId.Armor);
+            PerkItemData armor = new PerkItemData(PerkTypeId.Armor);
             Perks.Add(armor);
 
-            PerkData regeneration = new PerkData(PerkTypeId.Regeneration);
+            PerkItemData regeneration = new PerkItemData(PerkTypeId.Regeneration);
             regeneration.Up();
             Perks.Add(regeneration);
 
-            PerkData running = new PerkData(PerkTypeId.Running);
+            PerkItemData running = new PerkItemData(PerkTypeId.Running);
             running.Up();
             running.Up();
             Perks.Add(running);
 
-            PerkData vampire = new PerkData(PerkTypeId.Vampire);
+            PerkItemData vampire = new PerkItemData(PerkTypeId.Vampire);
             Perks.Add(vampire);
 
-            PerkData maxHealth = new PerkData(PerkTypeId.MaxHealth);
+            PerkItemData maxHealth = new PerkItemData(PerkTypeId.MaxHealth);
             maxHealth.Up();
+            Perks.Add(maxHealth);
+        }
+
+        private void FillEmptyData()
+        {
+            PerkItemData armor = new PerkItemData(PerkTypeId.Armor);
+            PerkItemData regeneration = new PerkItemData(PerkTypeId.Regeneration);
+            PerkItemData running = new PerkItemData(PerkTypeId.Running);
+            PerkItemData vampire = new PerkItemData(PerkTypeId.Vampire);
+            PerkItemData maxHealth = new PerkItemData(PerkTypeId.MaxHealth);
+
+            Perks.Add(armor);
+            Perks.Add(regeneration);
+            Perks.Add(running);
+            Perks.Add(vampire);
             Perks.Add(maxHealth);
         }
 
@@ -47,15 +62,15 @@ namespace CodeBase.Data.Perks
 
         public void LevelUp(PerkTypeId typeId)
         {
-            PerkData perkData = Perks.First(x => x.PerkTypeId == typeId);
+            PerkItemData perkItemData = Perks.First(x => x.PerkTypeId == typeId);
 
-            if (perkData.LevelTypeId == LevelTypeId.Level_3)
+            if (perkItemData.LevelTypeId == LevelTypeId.Level_3)
                 return;
 
-            perkData.Up();
+            perkItemData.Up();
 
-            if (perkData.LevelTypeId == LevelTypeId.None)
-                NewPerkAdded?.Invoke(perkData);
+            if (perkItemData.LevelTypeId == LevelTypeId.None)
+                NewPerkAdded?.Invoke(perkItemData);
         }
 
         public bool IsLastLevel(PerkTypeId typeId)

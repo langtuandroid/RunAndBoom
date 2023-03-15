@@ -77,11 +77,11 @@ namespace CodeBase.Hero
             _currentAttackCooldown <= 0;
 
         private bool IsAvailableAmmo() =>
-            _progressService.Progress.WeaponsData.WeaponsAmmo.IsAmmoAvailable();
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
 
         private void Shoot()
         {
-            _progressService.Progress.WeaponsData.WeaponsAmmo.ReduceAmmo();
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
             _currentAttackCooldown = _weaponCooldown;
             _heroWeaponAppearance.ShootTo(_enemyPosition);
         }

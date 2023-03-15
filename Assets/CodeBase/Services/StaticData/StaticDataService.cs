@@ -33,7 +33,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<EnemyWeaponTypeId, EnemyWeaponStaticData> _enemyWeapons;
         private Dictionary<HeroWeaponTypeId, HeroWeaponStaticData> _heroWeapons;
-        private Dictionary<LevelTypeId, InventoryLevelStaticData> _inventoryUpgradeLevels;
+        private Dictionary<LevelTypeId, InventoryUpgradeLevelStaticData> _inventoryUpgradeLevels;
         private Dictionary<UpgradeTypeId, InventoryUpgradeStaticData> _inventoryUpgrades;
         private Dictionary<PerkItem, PerkStaticData> _perks;
         private Dictionary<AmmoItem, AmmoStaticData> _ammo;
@@ -61,7 +61,7 @@ namespace CodeBase.Services.StaticData
                 .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _inventoryUpgradeLevels = Resources
-                .LoadAll<InventoryLevelStaticData>(StaticDataInventoryUpgradeLevelsPath)
+                .LoadAll<InventoryUpgradeLevelStaticData>(StaticDataInventoryUpgradeLevelsPath)
                 .ToDictionary(x => x.LevelTypeId, x => x);
 
             _inventoryUpgrades = Resources
@@ -70,7 +70,7 @@ namespace CodeBase.Services.StaticData
 
             _perks = Resources
                 .LoadAll<PerkStaticData>(StaticDataPerksPath)
-                .ToDictionary(x => new PerkItem(x.PerkTypeId, x.LevelTypeId), x => x);
+                .ToDictionary(x => new PerkItem(x.PerkTypeId, x.ILevelTypeId), x => x);
 
             _ammo = Resources
                 .LoadAll<AmmoStaticData>(StaticDataShopAmmoPath)
@@ -125,8 +125,8 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public InventoryLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId) =>
-            _inventoryUpgradeLevels.TryGetValue(typeId, out InventoryLevelStaticData staticData)
+        public InventoryUpgradeLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId) =>
+            _inventoryUpgradeLevels.TryGetValue(typeId, out InventoryUpgradeLevelStaticData staticData)
                 ? staticData
                 : null;
 
