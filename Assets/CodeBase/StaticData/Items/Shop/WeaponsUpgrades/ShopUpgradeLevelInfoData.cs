@@ -2,8 +2,8 @@
 {
     public struct ShopUpgradeLevelInfoData
     {
-        public UpgradeTypeId UpgradeTypeId { get; private set; }
-        public LevelTypeId LevelTypeId { get; private set; }
+        public UpgradeTypeId UpgradeTypeId { get; }
+        public LevelTypeId LevelTypeId { get; }
 
         public ShopUpgradeLevelInfoData(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId)
         {

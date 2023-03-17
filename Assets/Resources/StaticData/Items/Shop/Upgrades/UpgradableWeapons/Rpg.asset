@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4205c4deb81f47c9971092b26cbff167, type: 3}
   m_Name: Rpg
   m_EditorClassIdentifier: 
+  MainImage: {fileID: 21300000, guid: b439460eb889e9147a353237d2fad602, type: 3}
   WeaponTypeId: 1
-  UpgradableWeapon: {fileID: 21300000, guid: b439460eb889e9147a353237d2fad602, type: 3}
+  RuTitle: "\u0420\u041F\u0413"
+  EnTitle: 
+  TrTitle: 

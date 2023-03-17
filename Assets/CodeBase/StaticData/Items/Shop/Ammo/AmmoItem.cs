@@ -2,15 +2,15 @@
 
 namespace CodeBase.StaticData.Items.Shop.Ammo
 {
-    public class AmmoItem
+    public struct AmmoItem
     {
         public HeroWeaponTypeId WeaponTypeId;
-        public int Count;
+        public AmmoCountType CountType;
 
-        public AmmoItem(HeroWeaponTypeId weaponTypeId, int count)
+        public AmmoItem(HeroWeaponTypeId weaponTypeId, AmmoCountType countType)
         {
             WeaponTypeId = weaponTypeId;
-            Count = count;
+            CountType = countType;
         }
     }
 }

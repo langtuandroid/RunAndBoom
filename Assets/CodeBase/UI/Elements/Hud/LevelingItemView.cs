@@ -10,8 +10,8 @@ namespace CodeBase.UI.Elements.Hud
 {
     public abstract class LevelingItemView : MonoBehaviour
     {
-        public Image MainType;
-        public Image LevelType;
+        public Image MainTypeImage;
+        public Image LevelTypeImage;
 
         protected IStaticDataService StaticDataService;
         protected LevelingItemData ItemData;
@@ -32,17 +32,17 @@ namespace CodeBase.UI.Elements.Hud
         {
             if (LevelingStaticData == null || LevelingStaticData.ILevelTypeId == LevelTypeId.None)
             {
-                MainType.ChangeImageAlpha(Constants.AlphaInactiveItem);
-                LevelType.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                MainTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                LevelTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
                 return;
             }
 
             if (LevelingStaticData.ILevelTypeId == LevelTypeId.Level_1)
-                LevelType.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                LevelTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
             else
-                LevelType.ChangeImageAlpha(Constants.AlphaActiveItem);
+                LevelTypeImage.ChangeImageAlpha(Constants.AlphaActiveItem);
 
-            MainType.ChangeImageAlpha(Constants.AlphaActiveItem);
+            MainTypeImage.ChangeImageAlpha(Constants.AlphaActiveItem);
         }
     }
 }

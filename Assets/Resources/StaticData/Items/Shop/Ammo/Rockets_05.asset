@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
   m_Name: Rockets_05
   m_EditorClassIdentifier: 
-  Cost: 25
   MainImage: {fileID: 21300000, guid: 69d14815318f6d04a8e0d2c272458aee, type: 3}
-  Title: "5 \u0440\u0430\u043A\u0435\u0442"
+  Cost: 25
+  RuTitle: "5 \u0440\u0430\u043A\u0435\u0442"
+  EnTitle: 
+  TrTitle: 
   WeaponTypeId: 2
-  Ammo: 5
+  Count: 5

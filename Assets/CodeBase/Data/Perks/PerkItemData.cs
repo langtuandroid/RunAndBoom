@@ -11,9 +11,19 @@ namespace CodeBase.Data.Perks
         public PerkItemData(PerkTypeId perkTypeId)
         {
             PerkTypeId = perkTypeId;
+            InitNew();
+        }
+
+        public PerkItemData(PerkTypeId perkTypeId, LevelTypeId levelTypeId)
+        {
+            PerkTypeId = perkTypeId;
+            LevelTypeId = levelTypeId;
         }
 
         public void Up() =>
             base.Up();
+
+        public LevelTypeId GetNextLevel() =>
+            base.GetNextLevel();
     }
 }

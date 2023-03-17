@@ -7,12 +7,12 @@ namespace CodeBase.Data
     {
         public string Name { get; private set; }
 
-        public ScoreData ScoreData { get; private set; }
+        public MoneyData MoneyData { get; private set; }
 
         public LevelStats(string name)
         {
             Name = name;
-            ScoreData = new ScoreData();
+            MoneyData = new MoneyData();
         }
     }
 }

@@ -43,12 +43,11 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
 
         private void ConstructUpgrades()
         {
-            List<UpgradeItemData> list = _progress.WeaponsData.WeaponUpgradesData.UpgradeItemDatas[_weaponTypeId];
-
-            foreach (UpgradeItemData upgrade in list)
+            foreach (UpgradeItemData upgrade in _progress.WeaponsData.WeaponUpgradesData.UpgradeItemDatas)
             {
-                if (upgrade.LevelTypeId != LevelTypeId.None)
-                    AddNewUpgrade(_weaponTypeId, upgrade);
+                if (upgrade.WeaponTypeId == _weaponTypeId)
+                    if (upgrade.LevelTypeId != LevelTypeId.None)
+                        AddNewUpgrade(_weaponTypeId, upgrade);
             }
         }
     }

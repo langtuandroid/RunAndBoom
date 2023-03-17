@@ -64,7 +64,7 @@ namespace CodeBase.Enemy
             _isDead = true;
             Died?.Invoke();
 
-            _progressService.Progress.CurrentLevelStats.ScoreData.AddScore(_reward);
+            _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
             GetComponent<Aggro>().enabled = false;
             GetComponent<StopMovingOnAttack>().enabled = false;
             GetComponent<CheckAttackRange>().enabled = false;

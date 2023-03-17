@@ -5,6 +5,7 @@ using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
+using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.ProjectileTraces;
@@ -27,6 +28,7 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
         private const string StaticDataShopUpgradesUpgradeLevelsInfoPath = "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
         private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
+        private const string StaticDataShopWeaponsPath = "StaticData/Items/Shop/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
         private const string StaticDataProjectileTracesPath = "StaticData/ProjectileTraces";
 
@@ -36,12 +38,13 @@ namespace CodeBase.Services.StaticData
         private Dictionary<LevelTypeId, InventoryUpgradeLevelStaticData> _inventoryUpgradeLevels;
         private Dictionary<UpgradeTypeId, InventoryUpgradeStaticData> _inventoryUpgrades;
         private Dictionary<PerkItem, PerkStaticData> _perks;
-        private Dictionary<AmmoItem, AmmoStaticData> _ammo;
-        private Dictionary<ItemTypeId, ItemStaticData> _items;
+        private Dictionary<AmmoItem, ShopAmmoStaticData> _shopAmmo;
+        private Dictionary<ItemTypeId, ShopItemStaticData> _shopItems;
         private Dictionary<HeroWeaponTypeId, UpgradableWeaponStaticData> _shopUpgradableWeapons;
         private Dictionary<LevelTypeId, ShopUpgradeLevelStaticData> _shopUpgradeLevels;
         private Dictionary<ShopUpgradeLevelInfoData, UpgradeLevelInfoStaticData> _shopUpgradeLevelsInfo;
         private Dictionary<UpgradeTypeId, ShopUpgradeStaticData> _shopUpgrades;
+        private Dictionary<HeroWeaponTypeId, ShopWeaponStaticData> _shopWeapons;
         private Dictionary<string, LevelStaticData> _levels;
 
         private Dictionary<ProjectileTraceTypeId, ProjectileTraceStaticData> _projectileTraces;
@@ -72,12 +75,12 @@ namespace CodeBase.Services.StaticData
                 .LoadAll<PerkStaticData>(StaticDataPerksPath)
                 .ToDictionary(x => new PerkItem(x.PerkTypeId, x.ILevelTypeId), x => x);
 
-            _ammo = Resources
-                .LoadAll<AmmoStaticData>(StaticDataShopAmmoPath)
+            _shopAmmo = Resources
+                .LoadAll<ShopAmmoStaticData>(StaticDataShopAmmoPath)
                 .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
 
-            _items = Resources
-                .LoadAll<ItemStaticData>(StaticDataShopItemsPath)
+            _shopItems = Resources
+                .LoadAll<ShopItemStaticData>(StaticDataShopItemsPath)
                 .ToDictionary(x => x.TypeId, x => x);
 
             _shopUpgradableWeapons = Resources
@@ -95,6 +98,10 @@ namespace CodeBase.Services.StaticData
             _shopUpgrades = Resources
                 .LoadAll<ShopUpgradeStaticData>(StaticDataShopUpgradesPath)
                 .ToDictionary(x => x.UpgradeTypeId, x => x);
+
+            _shopWeapons = Resources
+                .LoadAll<ShopWeaponStaticData>(StaticDataShopWeaponsPath)
+                .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _levels = Resources
                 .LoadAll<LevelStaticData>(StaticDataLevelsPath)
@@ -140,13 +147,13 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public AmmoStaticData ForAmmo(HeroWeaponTypeId typeId, int cost, int count) =>
-            _ammo.TryGetValue(new AmmoItem(typeId, count), out AmmoStaticData staticData)
+        public ShopAmmoStaticData ForShopAmmo(HeroWeaponTypeId typeId, AmmoCountType countType) =>
+            _shopAmmo.TryGetValue(new AmmoItem(typeId, countType), out ShopAmmoStaticData staticData)
                 ? staticData
                 : null;
 
-        public ItemStaticData ForItem(ItemTypeId typeId) =>
-            _items.TryGetValue(typeId, out ItemStaticData staticData)
+        public ShopItemStaticData ForShopItem(ItemTypeId typeId) =>
+            _shopItems.TryGetValue(typeId, out ShopItemStaticData staticData)
                 ? staticData
                 : null;
 
@@ -165,8 +172,13 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public ShopUpgradeStaticData ForUpgradeLevelsInfo(UpgradeTypeId typeId) =>
+        public ShopUpgradeStaticData ForShopUpgrade(UpgradeTypeId typeId) =>
             _shopUpgrades.TryGetValue(typeId, out ShopUpgradeStaticData staticData)
+                ? staticData
+                : null;
+
+        public ShopWeaponStaticData ForShopWeapon(HeroWeaponTypeId typeId) =>
+            _shopWeapons.TryGetValue(typeId, out ShopWeaponStaticData staticData)
                 ? staticData
                 : null;
 

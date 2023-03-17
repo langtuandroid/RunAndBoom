@@ -3,6 +3,7 @@ using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
+using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.ProjectileTraces;
@@ -24,11 +25,12 @@ namespace CodeBase.Services.StaticData
         InventoryUpgradeLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId);
         InventoryUpgradeStaticData ForInventoryUpgrade(UpgradeTypeId typeId);
         PerkStaticData ForPerk(PerkTypeId perkTypeId, LevelTypeId levelTypeId);
-        AmmoStaticData ForAmmo(HeroWeaponTypeId typeId, int cost, int count);
-        ItemStaticData ForItem(ItemTypeId typeId);
+        ShopAmmoStaticData ForShopAmmo(HeroWeaponTypeId typeId, AmmoCountType countType);
+        ShopItemStaticData ForShopItem(ItemTypeId typeId);
         UpgradableWeaponStaticData ForUpgradableWeapon(HeroWeaponTypeId typeId);
         ShopUpgradeLevelStaticData ForShopUpgradeLevel(LevelTypeId typeId);
         UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId);
-        ShopUpgradeStaticData ForUpgradeLevelsInfo(UpgradeTypeId typeId);
+        ShopUpgradeStaticData ForShopUpgrade(UpgradeTypeId typeId);
+        ShopWeaponStaticData ForShopWeapon(HeroWeaponTypeId typeId);
     }
 }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c3d44945fb44fb929ebd50f43001d2, type: 3}
   m_Name: Reloading
   m_EditorClassIdentifier: 
+  MainImage: {fileID: 21300000, guid: b9392208cf12e6346ae6a290acfd8758, type: 3}
   UpgradeTypeId: 0
-  Title: "\u041F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430"
+  RuTitle: "\u041F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0430"
+  EnTitle: 
+  TrTitle: 

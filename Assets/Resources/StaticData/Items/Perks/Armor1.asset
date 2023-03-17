@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b154b587e60943409890572f533412d5, type: 3}
   m_Name: Armor1
   m_EditorClassIdentifier: 
-  Cost: 5
   MainImage: {fileID: 21300000, guid: ff625da084a1cac4c85adf6e0cb5388b, type: 3}
-  Title: "\u0411\u0440\u043E\u043D\u044F 1"
+  Cost: 5
+  RuTitle: "\u0411\u0440\u043E\u043D\u044F 1"
+  EnTitle: 
+  TrTitle: 
   PerkTypeId: 1
   LevelTypeId: 1
   LevelImage: {fileID: 0}

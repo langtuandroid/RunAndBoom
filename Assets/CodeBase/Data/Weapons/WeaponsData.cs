@@ -9,31 +9,28 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponsData
     {
+        List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
+
+        public List<WeaponData> WeaponDatas { get; private set; }
         public WeaponsAmmoData WeaponsAmmoData { get; private set; }
         public WeaponUpgradesData WeaponUpgradesData { get; private set; }
         public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
-        public Dictionary<HeroWeaponTypeId, bool> AvailableWeapons { get; private set; }
 
         public WeaponsData()
         {
+            WeaponDatas = new List<WeaponData>(_typeIds.Count);
             WeaponsAmmoData = new WeaponsAmmoData();
             WeaponUpgradesData = new WeaponUpgradesData();
             FillAvailableWeapons();
-            CurrentHeroWeaponTypeId = AvailableWeapons.First(x => x.Value).Key;
+            CurrentHeroWeaponTypeId = WeaponDatas.First(x => x.IsAvailable).WeaponTypeId;
         }
 
         private void FillAvailableWeapons()
         {
-            List<HeroWeaponTypeId> typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
-            AvailableWeapons = new Dictionary<HeroWeaponTypeId, bool>();
-
-            foreach (HeroWeaponTypeId typeId in typeIds)
-            {
-                if (typeId == HeroWeaponTypeId.GrenadeLauncher)
-                    AvailableWeapons.Add(typeId, true);
-                else
-                    AvailableWeapons.Add(typeId, true);
-            }
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, false));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, false));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, false));
         }
 
         public void SetCurrentWeapon(HeroWeaponTypeId typeId)
@@ -42,7 +39,7 @@ namespace CodeBase.Data.Weapons
             WeaponsAmmoData.SetCurrentWeapon(typeId);
         }
 
-        public void SetAvailableWeapons(Dictionary<HeroWeaponTypeId, bool> availableWeapons) =>
-            AvailableWeapons = availableWeapons;
+        public void SetAvailableWeapon(HeroWeaponTypeId typeId) =>
+            WeaponDatas.First(x => x.WeaponTypeId == typeId).SetWeaponAvailable();
     }
 }

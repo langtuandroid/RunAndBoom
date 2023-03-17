@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
   m_Name: Grenades_01
   m_EditorClassIdentifier: 
-  Cost: 1
   MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
-  Title: "1 \u0433\u0440\u0430\u043D\u0430\u0442\u0430 \u0433\u0440\u0430\u043D\u0430\u0442\u043E\u043C\u0451\u0442\u0430"
+  Cost: 1
+  RuTitle: "1 \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
+  EnTitle: 
+  TrTitle: 
   WeaponTypeId: 0
-  Ammo: 1
+  Count: 1

@@ -10,16 +10,16 @@ namespace CodeBase.UI.Elements.Hud
         [SerializeField] private TextMeshProUGUI _score;
 
         private string _sector;
-        private ScoreData _scoreData;
+        private MoneyData _moneyData;
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _scoreData = progress.CurrentLevelStats.ScoreData;
-            _scoreData.ScoreChanged += SetScore;
-            SetScore();
+            _moneyData = progress.CurrentLevelStats.MoneyData;
+            _moneyData.MoneyChanged += SetMoney;
+            SetMoney();
         }
 
-        private void SetScore() =>
-            _score.text = $"{_scoreData.Score}";
+        private void SetMoney() =>
+            _score.text = $"{_moneyData.Money}";
     }
 }

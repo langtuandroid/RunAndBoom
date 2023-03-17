@@ -8,9 +8,9 @@ namespace CodeBase.StaticData.Items
     {
         public PerkTypeId PerkTypeId;
         public LevelTypeId LevelTypeId;
-        public Sprite Level;
+        public Sprite LevelImage;
 
         public LevelTypeId ILevelTypeId => LevelTypeId;
-        public Sprite ILevel => Level;
+        public Sprite ILevel => LevelImage;
     }
 }

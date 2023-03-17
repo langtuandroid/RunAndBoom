@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b154b587e60943409890572f533412d5, type: 3}
   m_Name: Vampirism1
   m_EditorClassIdentifier: 
-  Cost: 10
   MainImage: {fileID: 21300000, guid: 28fe27762764df9408bcc10b98acd7d3, type: 3}
-  Title: "\u0412\u0430\u043C\u043F\u0438\u0440\u0438\u0437\u043C 1"
+  Cost: 10
+  RuTitle: "\u0412\u0430\u043C\u043F\u0438\u0440\u0438\u0437\u043C 1"
+  EnTitle: 
+  TrTitle: 
   PerkTypeId: 3
   LevelTypeId: 1
   LevelImage: {fileID: 0}

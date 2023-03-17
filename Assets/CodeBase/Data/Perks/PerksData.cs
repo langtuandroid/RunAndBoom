@@ -78,5 +78,12 @@ namespace CodeBase.Data.Perks
             var perk = Perks.First(x => x.PerkTypeId == typeId);
             return perk.LevelTypeId == LevelTypeId.Level_3;
         }
+
+        public PerkItemData GetNextLevelPerk(PerkTypeId typeId)
+        {
+            PerkItemData perk = new PerkItemData(Perks.First(x => x.PerkTypeId == typeId).PerkTypeId);
+            LevelTypeId nextLevel = perk.GetNextLevel();
+            return new PerkItemData(perk.PerkTypeId, nextLevel);
+        }
     }
 }

@@ -12,72 +12,60 @@ namespace CodeBase.Data.Upgrades
     {
         IEnumerable<HeroWeaponTypeId> _weaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>();
 
-        public Dictionary<HeroWeaponTypeId, List<UpgradeItemData>> UpgradeItemDatas { get; private set; }
+        public HashSet<UpgradeItemData> UpgradeItemDatas { get; private set; }
 
         public event Action<HeroWeaponTypeId, UpgradeItemData> NewUpgradeAdded;
 
         public WeaponUpgradesData()
         {
             int updatesCount = DataExtensions.GetValues<UpgradeTypeId>().Count();
-
-            UpgradeItemDatas = new Dictionary<HeroWeaponTypeId, List<UpgradeItemData>>(_weaponTypeIds.Count());
-
-            foreach (HeroWeaponTypeId typeId in _weaponTypeIds)
-                UpgradeItemDatas[typeId] = new List<UpgradeItemData>(updatesCount);
+            UpgradeItemDatas = new HashSet<UpgradeItemData>(_weaponTypeIds.Count() * updatesCount);
 
             FillTestData();
         }
 
         private void FillTestData()
         {
-            UpgradeItemData aiming = new UpgradeItemData(UpgradeTypeId.Aiming);
-
-            UpgradeItemData reloading = new UpgradeItemData(UpgradeTypeId.Reloading);
-            reloading.Up();
-
-            UpgradeItemData speed = new UpgradeItemData(UpgradeTypeId.Speed);
-            speed.Up();
-            speed.Up();
-
-            UpgradeItemData blastSize = new UpgradeItemData(UpgradeTypeId.BlastSize);
-            blastSize.Up();
-            blastSize.Up();
-            blastSize.Up();
-
             foreach (HeroWeaponTypeId typeId in _weaponTypeIds)
             {
-                UpgradeItemDatas[typeId].Add(aiming);
-                UpgradeItemDatas[typeId].Add(reloading);
-                UpgradeItemDatas[typeId].Add(speed);
-                UpgradeItemDatas[typeId].Add(blastSize);
+                UpgradeItemData aiming = new UpgradeItemData(typeId, UpgradeTypeId.Aiming);
+
+                UpgradeItemData reloading = new UpgradeItemData(typeId, UpgradeTypeId.Reloading);
+                reloading.Up();
+
+                UpgradeItemData speed = new UpgradeItemData(typeId, UpgradeTypeId.Speed);
+                speed.Up();
+                speed.Up();
+
+                UpgradeItemData blastSize = new UpgradeItemData(typeId, UpgradeTypeId.BlastSize);
+                blastSize.Up();
+                blastSize.Up();
+                blastSize.Up();
+
+                UpgradeItemDatas.Add(aiming);
+                UpgradeItemDatas.Add(reloading);
+                UpgradeItemDatas.Add(speed);
+                UpgradeItemDatas.Add(blastSize);
             }
         }
 
         private void FillEmptyData()
         {
-            UpgradeItemData aiming = new UpgradeItemData(UpgradeTypeId.Aiming);
-            UpgradeItemData reloading = new UpgradeItemData(UpgradeTypeId.Reloading);
-            UpgradeItemData speed = new UpgradeItemData(UpgradeTypeId.Speed);
-            UpgradeItemData blastSize = new UpgradeItemData(UpgradeTypeId.BlastSize);
-
             foreach (HeroWeaponTypeId typeId in _weaponTypeIds)
             {
-                UpgradeItemDatas[typeId].Add(aiming);
-                UpgradeItemDatas[typeId].Add(reloading);
-                UpgradeItemDatas[typeId].Add(speed);
-                UpgradeItemDatas[typeId].Add(blastSize);
+                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Aiming));
+                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Reloading));
+                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Speed));
+                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.BlastSize));
             }
         }
 
-        public bool IsAvailable(HeroWeaponTypeId weaponTypeId, UpgradeTypeId typeId) =>
-            UpgradeItemDatas[weaponTypeId].Exists(x => x.UpgradeTypeId == typeId && x.LevelTypeId != LevelTypeId.None);
+        public bool IsAvailable(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId) =>
+            UpgradeItemDatas.Any(x => x.WeaponTypeId == weaponTypeId && x.UpgradeTypeId == upgradeTypeId && x.LevelTypeId != LevelTypeId.None);
 
         public void LevelUp(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
         {
-            UpgradeItemData upgrade = UpgradeItemDatas[weaponTypeId].First(x => x.UpgradeTypeId == upgradeTypeId);
-
-            if (upgrade.LevelTypeId == LevelTypeId.Level_3)
-                return;
+            UpgradeItemData upgrade = UpgradeItemDatas.First(x => x.WeaponTypeId == weaponTypeId && x.UpgradeTypeId == upgradeTypeId);
 
             upgrade.Up();
 
@@ -87,8 +75,15 @@ namespace CodeBase.Data.Upgrades
 
         public bool IsLastLevel(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
         {
-            UpgradeItemData upgrade = UpgradeItemDatas[weaponTypeId].First(x => x.UpgradeTypeId == upgradeTypeId);
+            UpgradeItemData upgrade = UpgradeItemDatas.First(x => x.WeaponTypeId == weaponTypeId && x.UpgradeTypeId == upgradeTypeId);
             return upgrade.LevelTypeId == LevelTypeId.Level_3;
+        }
+
+        public UpgradeItemData GetNextLevelPerk(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
+        {
+            UpgradeItemData upgrade = UpgradeItemDatas.First(x => x.WeaponTypeId == weaponTypeId && x.UpgradeTypeId == upgradeTypeId);
+            LevelTypeId nextLevel = upgrade.GetNextLevel();
+            return new UpgradeItemData(upgrade.WeaponTypeId, upgrade.UpgradeTypeId, nextLevel);
         }
     }
 }

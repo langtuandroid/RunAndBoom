@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4205c4deb81f47c9971092b26cbff167, type: 3}
   m_Name: GrenadeLauncher
   m_EditorClassIdentifier: 
+  MainImage: {fileID: 21300000, guid: c9e949b38ebe96c4a8d8f8c40fc6d35b, type: 3}
   WeaponTypeId: 0
-  UpgradableWeapon: {fileID: 21300000, guid: c9e949b38ebe96c4a8d8f8c40fc6d35b, type: 3}
+  RuTitle: "\u0433\u0440\u0430\u043D\u0430\u0442\u043E\u043C\u0451\u0442\u0430"
+  EnTitle: 
+  TrTitle: 

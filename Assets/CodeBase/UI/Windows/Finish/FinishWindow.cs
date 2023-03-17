@@ -19,20 +19,20 @@ namespace CodeBase.UI.Windows.Finish
         }
 
         protected override void Initialize() =>
-            RefreshScoreText();
+            RefreshMoneyText();
 
-        private void RefreshScoreText() =>
-            _scoreText.text = Progress.CurrentLevelStats.ScoreData.Score.ToString();
+        private void RefreshMoneyText() =>
+            _scoreText.text = Progress.CurrentLevelStats.MoneyData.Money.ToString();
 
         protected override void SubscribeUpdates()
         {
-            Progress.CurrentLevelStats.ScoreData.ScoreChanged += RefreshScoreText;
+            Progress.CurrentLevelStats.MoneyData.MoneyChanged += RefreshMoneyText;
         }
 
         protected override void CleanUp()
         {
             base.CleanUp();
-            Progress.CurrentLevelStats.ScoreData.ScoreChanged -= RefreshScoreText;
+            Progress.CurrentLevelStats.MoneyData.MoneyChanged -= RefreshMoneyText;
         }
     }
 }

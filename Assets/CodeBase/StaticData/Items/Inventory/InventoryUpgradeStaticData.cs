@@ -4,9 +4,8 @@ using UnityEngine;
 namespace CodeBase.StaticData.Items.Inventory
 {
     [CreateAssetMenu(fileName = "InventoryUpgradeData", menuName = "StaticData/Items/Inventory/Upgrade")]
-    public class InventoryUpgradeStaticData : ScriptableObject
+    public class InventoryUpgradeStaticData : BaseItemStaticData
     {
         public UpgradeTypeId UpgradeTypeId;
-        public Sprite WeaponUpgrade;
     }
 }

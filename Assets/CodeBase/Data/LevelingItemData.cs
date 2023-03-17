@@ -4,13 +4,13 @@ using CodeBase.StaticData.Items;
 namespace CodeBase.Data
 {
     [Serializable]
-    public class LevelingItemData
+    public class LevelingItemData : ItemData
     {
-        public LevelTypeId LevelTypeId { get; private set; }
+        public LevelTypeId LevelTypeId { get; private protected set; }
 
         public event Action LevelChanged;
 
-        protected LevelingItemData()
+        protected void InitNew()
         {
             LevelTypeId = LevelTypeId.None;
         }
@@ -32,6 +32,26 @@ namespace CodeBase.Data
                     LevelChanged?.Invoke();
                     break;
             }
+        }
+
+        protected LevelTypeId GetNextLevel()
+        {
+            LevelTypeId nextLevel = LevelTypeId.None;
+
+            switch (LevelTypeId)
+            {
+                case LevelTypeId.None:
+                    nextLevel = LevelTypeId.Level_1;
+                    break;
+                case LevelTypeId.Level_1:
+                    nextLevel = LevelTypeId.Level_2;
+                    break;
+                case LevelTypeId.Level_2:
+                    nextLevel = LevelTypeId.Level_3;
+                    break;
+            }
+
+            return nextLevel;
         }
     }
 }

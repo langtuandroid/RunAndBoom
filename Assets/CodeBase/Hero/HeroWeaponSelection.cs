@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -16,7 +16,6 @@ namespace CodeBase.Hero
         [SerializeField] private GameObject[] _weapons;
 
         private IStaticDataService _staticDataService;
-        private Dictionary<HeroWeaponTypeId, bool> _availableWeapons;
         private PlayerProgress _progress;
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
@@ -54,18 +53,17 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
-            _availableWeapons = progress.WeaponsData.AvailableWeapons;
-            FindWeaponContainer(progress.WeaponsData.CurrentHeroWeaponTypeId);
+            FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
         }
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            progress.WeaponsData.SetAvailableWeapons(_availableWeapons);
+            // progress.WeaponsData.SetAvailableWeapons(_availableWeapons);
         }
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
-            if (!_availableWeapons[heroWeaponTypeId])
+            if (!_progress.WeaponsData.WeaponDatas.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
                 return;
 
             foreach (GameObject weapon in _weapons)

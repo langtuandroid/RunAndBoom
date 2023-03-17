@@ -2,10 +2,16 @@
 
 namespace CodeBase.StaticData.Items.Shop
 {
-    public class BaseShopStaticData : ScriptableObject
+    public abstract class BaseShopStaticData : BaseItemStaticData, IShopItemCost, IShopItemTitle
     {
         [Range(1, 50)] public int Cost;
-        public Sprite MainImage;
-        public string Title;
+        [SerializeField] private string RuTitle;
+        [SerializeField] private string EnTitle;
+        [SerializeField] private string TrTitle;
+
+        public int ICost => Cost;
+        public string IRuTitle => RuTitle;
+        public string IEnTitle => EnTitle;
+        public string ITrTitle => TrTitle;
     }
 }

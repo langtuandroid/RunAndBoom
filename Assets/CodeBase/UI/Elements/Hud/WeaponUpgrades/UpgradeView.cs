@@ -23,9 +23,9 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
             _levelStaticData = StaticDataService.ForInventoryUpgradeLevel(_upgradeItemData.LevelTypeId);
             LevelingStaticData = _levelStaticData;
 
-            MainType.sprite = _upgradeStaticData.WeaponUpgrade;
-            LevelType.sprite = _levelStaticData.Level;
-            
+            MainTypeImage.sprite = _upgradeStaticData.MainImage;
+            LevelTypeImage.sprite = _levelStaticData.Level;
+
             base.ChangeLevel();
         }
     }

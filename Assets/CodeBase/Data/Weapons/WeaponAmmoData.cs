@@ -5,7 +5,7 @@ using CodeBase.StaticData.Weapons;
 namespace CodeBase.Data.Weapons
 {
     [Serializable]
-    public class WeaponsAmmoData
+    public class WeaponsAmmoData : ItemData
     {
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
 
@@ -48,7 +48,7 @@ namespace CodeBase.Data.Weapons
             AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 
-        private void AddAmmo(HeroWeaponTypeId typeId, int ammo)
+        public void AddAmmo(HeroWeaponTypeId typeId, int ammo)
         {
             Ammo[typeId] += ammo;
             AmmoChanged(typeId);
