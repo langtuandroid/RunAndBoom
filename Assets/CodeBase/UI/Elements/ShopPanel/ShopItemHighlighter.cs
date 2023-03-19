@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel
+namespace CodeBase.UI.Elements.ShopPanel
 {
     public class ShopItemHighlighter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

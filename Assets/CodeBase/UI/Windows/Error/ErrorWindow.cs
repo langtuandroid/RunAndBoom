@@ -7,7 +7,7 @@ namespace CodeBase.UI.Windows.Error
     {
         [SerializeField] private TextMeshProUGUI _errorText;
 
-        protected override void Initialize() =>
-            _errorText.text = CurrentError;
+        // protected override void Initialize() =>
+        //     _errorText.text = CurrentError;
     }
 }

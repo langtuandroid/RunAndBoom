@@ -6,6 +6,7 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -22,7 +23,7 @@ namespace CodeBase.Infrastructure.States
                 [typeof(LoadSceneState)] =
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(), services.Single<IEnemyFactory>(),
                         services.Single<IPlayerProgressService>(), services.Single<IStaticDataService>(),
-                        services.Single<IUIFactory>()),
+                        services.Single<IUIFactory>(), services.Single<IWindowService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this, services.Single<IPlayerProgressService>(),
                     services.Single<ISaveLoadService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),

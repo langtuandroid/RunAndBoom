@@ -9,5 +9,7 @@ namespace CodeBase.UI.Services.Factory
         Task CreateUIRoot();
         Transform GetUIRoot();
         Task<GameObject> CreateHud();
+        Task<GameObject> CreateShopWindow();
+        Task<GameObject> CreateDeathWindow();
     }
 }

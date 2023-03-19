@@ -13,6 +13,7 @@ namespace CodeBase.Level
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
+        private bool _isPassed = false;
 
         public event Action Passed;
 
@@ -24,12 +25,13 @@ namespace CodeBase.Level
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag(Constants.HeroTag))
+            if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                // Time.timeScale = 0;
-                // _windowService.Open(WindowId.Shop);
+                Time.timeScale = 0;
+                _windowService.Open(WindowId.Shop);
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
+                _isPassed = true;
             }
         }
     }

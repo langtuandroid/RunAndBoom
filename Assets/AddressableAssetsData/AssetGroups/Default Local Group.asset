@@ -45,6 +45,14 @@ MonoBehaviour:
     m_Address: Hud
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0cc9c3825f5725c4cacaa0350aa89e2b
+    m_Address: DeathWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b809540d8aac0c242b28d2caa18989b0
+    m_Address: ShopWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9cc2a55e604bc944590d8a935a0bb2a9, type: 2}
   m_SchemaSet:

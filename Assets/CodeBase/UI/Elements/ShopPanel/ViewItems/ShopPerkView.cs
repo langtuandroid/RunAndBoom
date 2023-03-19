@@ -2,7 +2,7 @@
 using CodeBase.Data.Perks;
 using CodeBase.StaticData.Items;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ShopPerkView : BaseShopView, IShopItem
     {

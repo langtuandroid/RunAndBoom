@@ -11,10 +11,10 @@ using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
-using CodeBase.UI.Elements.Hud.ShopPanel.ViewModels;
+using CodeBase.UI.Elements.ShopPanel.ViewModels;
 using UnityEngine;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel
+namespace CodeBase.UI.Elements.ShopPanel
 {
     public class ShopItemsGenerator : MonoBehaviour
     {

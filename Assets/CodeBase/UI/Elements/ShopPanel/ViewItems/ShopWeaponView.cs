@@ -3,7 +3,7 @@ using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ShopWeaponView : BaseShopView, IShopItem
     {

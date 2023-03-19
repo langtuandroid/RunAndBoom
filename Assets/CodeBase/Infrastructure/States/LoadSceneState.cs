@@ -9,6 +9,7 @@ using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,11 +25,12 @@ namespace CodeBase.Infrastructure.States
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IUIFactory _uiFactory;
+        private readonly IWindowService _windowService;
 
         private string _sceneName;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
-            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
+            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory, IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -38,6 +40,7 @@ namespace CodeBase.Infrastructure.States
             _progressService = progressService;
             _staticData = staticData;
             _uiFactory = uiFactory;
+            _windowService = windowService;
         }
 
         public void Enter(string sceneName)
@@ -106,6 +109,7 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject hero = await InitHero(levelData);
             await InitHud(hero);
+            await InitWindows(hero);
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
@@ -125,6 +129,15 @@ namespace CodeBase.Infrastructure.States
             heroHealth.Construct();
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
+        }
+
+        private async Task InitWindows(GameObject hero)
+        {
+            GameObject shopWindow = await _uiFactory.CreateShopWindow();
+            GameObject deathWindow = await _uiFactory.CreateDeathWindow();
+            
+            _windowService.AddWindow(WindowId.Shop, shopWindow);
+            _windowService.AddWindow(WindowId.Death, deathWindow);
         }
     }
 }

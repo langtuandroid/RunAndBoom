@@ -2,7 +2,7 @@
 using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ShopUpgradeView : BaseShopView, IShopItem
     {

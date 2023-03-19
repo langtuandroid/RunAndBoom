@@ -5,6 +5,7 @@
         Unknown = 0,
         Settings = 1,
         Shop = 2,
-        Error = 3
+        Death = 3,
+        Error = 4
     }
 }

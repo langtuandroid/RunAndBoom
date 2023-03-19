@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel
+namespace CodeBase.UI.Elements.ShopPanel
 {
     public class ShopButtons : MonoBehaviour
     {

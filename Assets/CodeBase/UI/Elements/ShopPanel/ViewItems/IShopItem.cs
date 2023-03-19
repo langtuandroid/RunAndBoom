@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public interface IShopItem
     {

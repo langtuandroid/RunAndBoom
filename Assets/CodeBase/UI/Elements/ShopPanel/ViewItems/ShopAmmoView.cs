@@ -2,7 +2,7 @@
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ShopAmmoView : BaseShopView, IShopItem
     {

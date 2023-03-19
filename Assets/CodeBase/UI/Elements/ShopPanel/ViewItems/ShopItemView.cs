@@ -2,7 +2,7 @@
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewItems
+namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ShopItemView : BaseShopView, IShopItem
     {

@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.UI.Elements.Hud.ShopPanel.ViewModels
+namespace CodeBase.UI.Elements.ShopPanel
 {
-    public class AmmoViewModel
+    public class UpgradeViewModel
     {
         public Sprite MainImage { get; }
+        public Sprite LevelImage { get; }
+        public Sprite AdditionalImage { get; }
         public int Cost { get; }
-        public int Count { get; }
         public string RuTitle { get; }
         public string EnTitle { get; }
         public string TrTitle { get; }
 
-        public AmmoViewModel(Sprite mainImage, int cost, int count, string ruTitle, string enTitle, string trTitle)
+        public UpgradeViewModel(Sprite mainImage, Sprite levelImage, Sprite additionalImage, int cost, string ruTitle, string enTitle, string trTitle)
         {
             MainImage = mainImage;
+            LevelImage = levelImage;
+            AdditionalImage = additionalImage;
             Cost = cost;
-            Count = count;
             RuTitle = ruTitle;
             EnTitle = enTitle;
             TrTitle = trTitle;

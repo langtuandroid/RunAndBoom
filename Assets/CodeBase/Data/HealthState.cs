@@ -8,8 +8,11 @@ namespace CodeBase.Data
         public float CurrentHp { get; private set; }
         public float MaxHp { get; private set; }
 
-        public HealthState() =>
+        public HealthState()
+        {
+            MaxHp = Constants.InitialMaxHP;
             CurrentHp = MaxHp;
+        }
 
         public void ChangeCurrentHP(float value) =>
             CurrentHp = value;

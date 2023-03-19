@@ -29,5 +29,11 @@ namespace CodeBase.UI.Services.Factory
 
         public async Task<GameObject> CreateHud() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
+
+        public async Task<GameObject> CreateShopWindow() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ShopWindow, _uiRoot);
+
+        public async Task<GameObject> CreateDeathWindow() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.DeathWindow, _uiRoot);
     }
 }
