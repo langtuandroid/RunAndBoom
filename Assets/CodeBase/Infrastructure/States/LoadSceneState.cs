@@ -30,7 +30,8 @@ namespace CodeBase.Infrastructure.States
         private string _sceneName;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
-            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory, IWindowService windowService)
+            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory,
+            IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -135,7 +136,7 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            
+
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
         }

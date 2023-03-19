@@ -15,14 +15,17 @@ namespace CodeBase.Weapons
         [SerializeField] protected Transform[] _muzzlesRespawns;
         [SerializeField] protected bool _showProjectiles;
 
+        protected const int ProjectilesRatio = 3;
+
         private GameObject _vfxShot;
         private float _muzzleVfxLifetime;
         protected int CurrentProjectileIndex = 0;
         private GameObject _muzzleVfx;
         private ProjectileTraceStaticData _projectileTraceStaticData;
         protected bool CanShoot = true;
+        private int _respawnIndex = 0;
 
-        protected List<GameObject> ProjectileObjects { get; private set; }
+        [SerializeField] public List<GameObject> ProjectileObjects { get; private set; }
         protected List<ProjectileMovement> ProjectileMovements { get; private set; }
         protected List<ProjectileTrace> ProjectileTraces { get; private set; }
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
@@ -44,7 +47,7 @@ namespace CodeBase.Weapons
             MovementLifeTime = lifeTime;
             Damage = damage;
 
-            ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length * 3);
+            ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length * ProjectilesRatio);
             ProjectileMovements = new List<ProjectileMovement>(_projectilesRespawns.Length);
             ProjectileTraces = new List<ProjectileTrace>(_projectilesRespawns.Length);
             _projectileTraceStaticData = projectileTraceStaticData;
@@ -65,13 +68,14 @@ namespace CodeBase.Weapons
         protected void SetPosition(int index, Transform transform)
         {
             ProjectileObjects[index].transform.SetParent(transform);
-            ProjectileObjects[index].transform.position = _projectilesRespawns[index].position;
-            ProjectileObjects[index].transform.rotation = _projectilesRespawns[index].rotation;
+            ProjectileObjects[index].transform.position = _projectilesRespawns[index / ProjectilesRatio].position;
+            ProjectileObjects[index].transform.rotation = _projectilesRespawns[index / ProjectilesRatio].rotation;
+            ProjectileObjects[index].SetActive(_showProjectiles);
         }
 
-        protected void LaunchShotVfx()
+        protected void LaunchShotVfx(int i)
         {
-            SetShotVfx(_muzzlesRespawns[CurrentProjectileIndex]);
+            SetShotVfx(_muzzlesRespawns[i / ProjectilesRatio]);
             StartCoroutine(CoroutineLaunchShotVfx());
         }
 
@@ -91,13 +95,24 @@ namespace CodeBase.Weapons
         protected void SetBulletMovement(ref ProjectileMovement movement) =>
             (movement as BulletMovement)?.Construct(ProjectileSpeed, transform, MovementLifeTime);
 
-        protected GameObject CreateProjectileObject(int i)
+        protected void SetShotMovement(ref ProjectileMovement movement) =>
+            (movement as ShotMovement)?.Construct(ProjectileSpeed, transform, MovementLifeTime);
+
+        protected GameObject CreateProjectileObject(int index)
         {
-            GameObject projectileObject = Instantiate(_projectilePrefab, _projectilesRespawns[i].transform.position,
-                _projectilesRespawns[i].transform.rotation, transform);
+            if (index >= _projectilesRespawns.Length)
+                _respawnIndex = 1;
+            else
+                _respawnIndex++;
+
+            GameObject projectileObject = Instantiate(_projectilePrefab, _projectilesRespawns[_respawnIndex - 1].transform.position,
+                _projectilesRespawns[_respawnIndex - 1].transform.rotation, transform);
             ProjectileObjects.Add(projectileObject);
             return projectileObject;
         }
+
+        protected void ResetRespawnIndex() =>
+            _respawnIndex = 0;
 
         private void SetTrace(ref ProjectileTrace trace)
         {

@@ -156,6 +156,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6591293771587382832, guid: d19b11a31f792cd4c8aada8b50d1a233,
+        type: 3}
+      propertyPath: Movement
+      value: 
+      objectReference: {fileID: 3093549170982390069}
     - target: {fileID: 7089599302767958054, guid: d19b11a31f792cd4c8aada8b50d1a233,
         type: 3}
       propertyPath: _tracePosition
@@ -169,6 +174,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4458119858657777819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7650083282726657513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6337939419923400050, guid: d19b11a31f792cd4c8aada8b50d1a233,
+    type: 3}
+  m_PrefabInstance: {fileID: 4458119858657777819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3093549170982390069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650083282726657513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c17581b7e09148fd9a1a8bb75b680664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7650083282726657514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6337939419923400049, guid: d19b11a31f792cd4c8aada8b50d1a233,

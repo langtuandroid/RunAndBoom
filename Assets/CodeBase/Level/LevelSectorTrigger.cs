@@ -28,9 +28,9 @@ namespace CodeBase.Level
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
                 Time.timeScale = 0;
-                _windowService.Open(WindowId.Shop);
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
+                _windowService.Open(WindowId.Shop);
                 _isPassed = true;
             }
         }

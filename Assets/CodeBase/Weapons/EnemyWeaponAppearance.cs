@@ -20,7 +20,7 @@ namespace CodeBase.Weapons
 
         protected override void CreateProjectiles()
         {
-            for (int i = 0; i < _projectilesRespawns.Length; i++)
+            for (int i = 0; i < _projectilesRespawns.Length * ProjectilesRatio; i++)
             {
                 var projectileObject = CreateProjectileObject(i);
                 CreateProjectileMovement(projectileObject);
@@ -29,12 +29,16 @@ namespace CodeBase.Weapons
 
             SetPosition(CurrentProjectileIndex, transform);
             SetInitialVisibility();
+            ResetRespawnIndex();
         }
 
         protected override void CreateProjectileMovement(GameObject projectileObject)
         {
             ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-            SetBulletMovement(ref projectileMovement);
+
+            if (projectileMovement is BulletMovement) SetBulletMovement(ref projectileMovement);
+            else if (projectileMovement is ShotMovement) SetShotMovement(ref projectileMovement);
+
             ProjectileMovements.Add(projectileMovement);
         }
 
@@ -44,39 +48,28 @@ namespace CodeBase.Weapons
             {
                 for (int i = 0; i < _projectilesRespawns.Length; i++)
                     StartCoroutine(CoroutineShootTo(targetPosition));
-
-                for (int i = 0; i < _muzzlesRespawns.Length; i++)
-                    LaunchShotVfx();
             }
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            int index = -1;
+            int index = CurrentProjectileIndex;
+            ChangeProjectileIndex();
+            ProjectileObjects[index].transform.SetParent(null);
+            ProjectileObjects[index].SetActive(true);
 
-            bool found = GetIndexNotActiveProjectile(ref index);
+            if (targetPosition != null && ProjectileMovements[index] is BulletMovement)
+                (ProjectileMovements[index] as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
 
-            if (found)
-            {
-                CanShoot = false;
-                SetPosition(index, null);
-                ProjectileObjects[index].SetActive(true);
+            ProjectileMovements[index].Launch();
+            Debug.Log("Launched");
+            Debug.Log($"index {index}");
 
-                if (targetPosition != null && ProjectileMovements[index] is BulletMovement)
-                    (ProjectileMovements[index] as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
+            ProjectileTraces[index]?.CreateTrace();
 
-                ProjectileMovements[index].Launch();
-                Debug.Log($"index: {index}");
-                Debug.Log("Launched");
-                ProjectileObjects[index].GetComponent<ProjectileTrace>().CreateTrace();
-
-                LaunchShotVfx();
-
-                yield return LaunchProjectileCooldown;
-
-                SetNextProjectileReady(index);
-                CanShoot = true;
-            }
+            yield return LaunchProjectileCooldown;
+            // ProjectileObjects[index].SetActive(false);
+            SetPosition(index, transform);
         }
     }
 }

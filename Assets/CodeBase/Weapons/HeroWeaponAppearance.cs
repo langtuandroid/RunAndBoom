@@ -23,6 +23,7 @@ namespace CodeBase.Weapons
             _heroWeaponSelection = heroWeaponSelection;
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
             _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
+            CanShoot = true;
         }
 
         private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
@@ -41,7 +42,7 @@ namespace CodeBase.Weapons
 
         protected override void CreateProjectiles()
         {
-            for (int i = 0; i < _projectilesRespawns.Length; i++)
+            for (int i = 0; i < _projectilesRespawns.Length * ProjectilesRatio; i++)
             {
                 var projectileObject = CreateProjectileObject(i);
 
@@ -53,6 +54,7 @@ namespace CodeBase.Weapons
             }
 
             SetPosition(CurrentProjectileIndex, transform);
+            ResetRespawnIndex();
             SetInitialVisibility();
         }
 
@@ -83,11 +85,11 @@ namespace CodeBase.Weapons
                     break;
 
                 case HeroWeaponTypeId.RPG:
-                    SetBulletMovement(ref movement);
+                    SetShotMovement(ref movement);
                     break;
 
                 case HeroWeaponTypeId.RocketLauncher:
-                    SetBulletMovement(ref movement);
+                    SetShotMovement(ref movement);
                     break;
             }
         }
@@ -106,40 +108,47 @@ namespace CodeBase.Weapons
             if (CanShoot)
             {
                 for (int i = 0; i < _projectilesRespawns.Length; i++)
+                {
                     StartCoroutine(CoroutineShootTo(enemyPosition));
-
-                for (int i = 0; i < _muzzlesRespawns.Length; i++)
-                    LaunchShotVfx();
+                    ProjectileObjects[InvisibleIndex(i)].SetActive(false);
+                }
             }
+        }
+
+        private int InvisibleIndex(int index)
+        {
+            int result = index + ProjectileObjects.Count / ProjectilesRatio;
+
+            if (result >= ProjectileObjects.Count)
+                result = index;
+
+            Debug.Log($"result index {result}");
+            return result;
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            int index = -1;
+            int index = CurrentProjectileIndex;
+            ChangeProjectileIndex();
+            ProjectileObjects[index].transform.SetParent(null);
+            ProjectileObjects[index].SetActive(true);
 
-            bool found = GetIndexNotActiveProjectile(ref index);
+            if (targetPosition != null && ProjectileMovements[index] is BombMovement)
+                (ProjectileMovements[index] as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
 
-            if (found)
-            {
-                CanShoot = false;
-                SetPosition(index, null);
-                ProjectileObjects[index].SetActive(true);
+            ProjectileMovements[index].Launch();
+            CanShoot = false;
+            Debug.Log("Launched");
+            Debug.Log($"index {index}");
+            ProjectileTraces[index].CreateTrace();
 
-                if (targetPosition != null && ProjectileMovements[index] is BombMovement)
-                    (ProjectileMovements[index] as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
+            LaunchShotVfx(index);
 
-                ProjectileMovements[index].Launch();
-                Debug.Log($"index: {index}");
-                Debug.Log("Launched");
-                ProjectileObjects[index].GetComponent<ProjectileTrace>().CreateTrace();
+            yield return LaunchProjectileCooldown;
+            SetPosition(index, transform);
+            // ProjectileObjects[index].SetActive(_showProjectiles);
 
-                LaunchShotVfx();
-
-                yield return LaunchProjectileCooldown;
-
-                SetNextProjectileReady(index);
-                CanShoot = true;
-            }
+            CanShoot = true;
         }
     }
 }
