@@ -15,11 +15,11 @@ MonoBehaviour:
   WeaponTypeId: 2
   ProjectileTraceTypeId: 1
   MovementLifeTime: 2
-  Damage: 20
+  Damage: 1
   RotationSpeed: 7
   Cooldown: 3
   AimRange: 5
-  BlastRange: 3
+  BlastRange: 1
   ProjectileSpeed: 5
   MuzzleVfxLifeTime: 1
   MuzzleVfx: {fileID: 169982, guid: 03b5266e6b05a334a996d475667697e3, type: 3}

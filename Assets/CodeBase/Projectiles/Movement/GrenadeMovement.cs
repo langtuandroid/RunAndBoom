@@ -28,8 +28,8 @@ namespace CodeBase.Projectiles.Movement
 
         public override void Stop()
         {
+            SetInactive();
             _rigidBody.isKinematic = true;
-            gameObject.SetActive(false);
         }
     }
 }

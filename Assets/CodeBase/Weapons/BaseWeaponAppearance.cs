@@ -14,11 +14,13 @@ namespace CodeBase.Weapons
         [SerializeField] protected Transform[] _projectilesRespawns;
         [SerializeField] protected Transform[] _muzzlesRespawns;
         [SerializeField] protected bool _showProjectiles;
+
         private GameObject _vfxShot;
         private float _muzzleVfxLifetime;
         protected int CurrentProjectileIndex = 0;
         private GameObject _muzzleVfx;
         private ProjectileTraceStaticData _projectileTraceStaticData;
+        protected bool CanShoot = true;
 
         protected List<GameObject> ProjectileObjects { get; private set; }
         protected List<ProjectileMovement> ProjectileMovements { get; private set; }
@@ -42,7 +44,7 @@ namespace CodeBase.Weapons
             MovementLifeTime = lifeTime;
             Damage = damage;
 
-            ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length);
+            ProjectileObjects = new List<GameObject>(_projectilesRespawns.Length * 3);
             ProjectileMovements = new List<ProjectileMovement>(_projectilesRespawns.Length);
             ProjectileTraces = new List<ProjectileTrace>(_projectilesRespawns.Length);
             _projectileTraceStaticData = projectileTraceStaticData;
@@ -60,12 +62,11 @@ namespace CodeBase.Weapons
                 projectile.SetActive(_showProjectiles);
         }
 
-        protected void SetPosition(int index)
+        protected void SetPosition(int index, Transform transform)
         {
             ProjectileObjects[index].transform.SetParent(transform);
             ProjectileObjects[index].transform.position = _projectilesRespawns[index].position;
             ProjectileObjects[index].transform.rotation = _projectilesRespawns[index].rotation;
-            ProjectileObjects[index].SetActive(_showProjectiles);
         }
 
         protected void LaunchShotVfx()

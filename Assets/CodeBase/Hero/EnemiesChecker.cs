@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.Logic;
+using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Elements.Enemy;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class EnemiesCheckerPresenter : IPresenter
+    public class EnemiesChecker : MonoBehaviour
     {
-        private EnemiesCheckerView _view;
-        private readonly Transform _transform;
+        [SerializeField] private LayerMask _enemyLayerMask;
+        [SerializeField] private LayerMask _visibleObstaclesLayerMask;
+        [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
+
         private int _enemiesHitsCount = 10;
         private float _sphereDistance = 0f;
         private float _distanceToEnemy = 0f;
@@ -21,21 +26,32 @@ namespace CodeBase.Hero
         private EnemyHealth _targetEnemy = null;
         private string _enemyId = null;
         private bool _enemyNotFound = false;
-        private int _enemyLayerMask;
-        private int _visibleObstaclesLayerMask;
 
-        public EnemiesCheckerPresenter(EnemiesCheckerView view, Transform transform, int enemyLayerMask, int visibleObstaclesLayerMask)
+        public event Action<GameObject> FoundClosestEnemy;
+        public event Action EnemyNotFound;
+
+        private void Awake() =>
+            _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
+
+        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            ProjectileTraceStaticData projectileTraceStaticData) =>
+            _aimRange = heroWeaponStaticData.AimRange;
+
+        private void FixedUpdate()
         {
-            _view = view;
-            _transform = transform;
-            _enemyLayerMask = enemyLayerMask;
-            _visibleObstaclesLayerMask = visibleObstaclesLayerMask;
+            UpFixedTime();
+
+            if (IsCheckEnemiesTimerReached())
+                CheckEnemiesAround();
         }
 
-        public void SetWeaponAimRange(float aimRange) =>
-            _aimRange = aimRange;
+        private void UpFixedTime() =>
+            _checkEnemiesTimer += Time.fixedDeltaTime;
 
-        public void CheckEnemiesAround()
+        private bool IsCheckEnemiesTimerReached() =>
+            _checkEnemiesTimer >= _checkEnemiesDelay;
+
+        private void CheckEnemiesAround()
         {
             _checkEnemiesTimer = 0f;
             _enemies.Clear();
@@ -49,8 +65,15 @@ namespace CodeBase.Hero
         }
 
         private int GetEnemiesHits(RaycastHit[] enemiesHits) =>
-            Physics.SphereCastNonAlloc(_transform.position, _aimRange, _transform.forward, enemiesHits, _sphereDistance, _enemyLayerMask,
+            Physics.SphereCastNonAlloc(transform.position, _aimRange, transform.forward, enemiesHits, _sphereDistance, _enemyLayerMask,
                 QueryTriggerInteraction.UseGlobal);
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Debug.DrawLine(transform.position, transform.position + Vector3.forward * _distanceToEnemy);
+            Gizmos.DrawWireSphere(transform.position + Vector3.forward * _sphereDistance, _aimRange);
+        }
 
         private void CheckEnemiesHits(int enemiesHitsCount, RaycastHit[] enemiesHits)
         {
@@ -101,7 +124,7 @@ namespace CodeBase.Hero
                 _enemyNotFound = true;
                 _targetEnemyId = null;
                 _targetEnemy = null;
-                _view.CallEnemyNotFound();
+                EnemyNotFound?.Invoke();
             }
         }
 
@@ -112,7 +135,7 @@ namespace CodeBase.Hero
 
             foreach (EnemyHealth enemy in visibleEnemies)
             {
-                _distanceToEnemy = Vector3.Distance(enemy.transform.position, _transform.position);
+                _distanceToEnemy = Vector3.Distance(enemy.transform.position, transform.position);
 
                 if (_distanceToEnemy < minDistance)
                 {
@@ -126,15 +149,15 @@ namespace CodeBase.Hero
 
         private void CheckEnemyVisibility(GameObject enemy)
         {
-            Vector3 direction = (enemy.transform.position - _transform.position).normalized;
-            RaycastHit[] raycastHits = Physics.RaycastAll(_transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
+            Vector3 direction = (enemy.transform.position - transform.position).normalized;
+            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
             if (raycastHits.Length == 0)
             {
                 TurnOffAnotherTargets(_enemies);
                 TurnOnTarget();
-                _view.CallFoundClosestEnemy(enemy);
+                FoundClosestEnemy?.Invoke(enemy);
             }
             else
             {

@@ -5,11 +5,10 @@ namespace CodeBase.Projectiles.Movement
     public class BulletMovement : ProjectileMovement
     {
         private float _speed;
-        private bool _move = false;
 
         private void Update()
         {
-            if (_move)
+            if (IsMove)
                 transform.position += transform.forward * _speed * Time.deltaTime;
         }
 
@@ -22,13 +21,13 @@ namespace CodeBase.Projectiles.Movement
         public override void Launch()
         {
             StartCoroutine(LaunchTime());
-            _move = true;
+            IsMove = true;
         }
 
         public override void Stop()
         {
-            _move = false;
-            gameObject.SetActive(false);
+            SetInactive();
+            IsMove = false;
         }
     }
 }

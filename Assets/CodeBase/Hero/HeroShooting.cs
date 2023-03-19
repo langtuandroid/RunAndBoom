@@ -4,16 +4,13 @@ using CodeBase.StaticData.ProjectileTraces;
 using CodeBase.StaticData.Weapons;
 using CodeBase.Weapons;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Hero
 {
     public class HeroShooting : MonoBehaviour
     {
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
-
-        [FormerlySerializedAs("_enemiesChecker")] [SerializeField]
-        private EnemiesCheckerView enemiesCheckerView;
+        [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
@@ -27,8 +24,8 @@ namespace CodeBase.Hero
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
 
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
-            enemiesCheckerView.FoundClosestEnemy += EnemySpotted;
-            enemiesCheckerView.EnemyNotFound += EnemyNotSpotted;
+            _enemiesChecker.FoundClosestEnemy += EnemySpotted;
+            _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
         }
 
         private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
@@ -57,8 +54,8 @@ namespace CodeBase.Hero
 
         private void OnDisable()
         {
-            enemiesCheckerView.FoundClosestEnemy -= EnemySpotted;
-            enemiesCheckerView.EnemyNotFound -= EnemyNotSpotted;
+            _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
+            _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
         }
 
         private void EnemySpotted(GameObject enemy)

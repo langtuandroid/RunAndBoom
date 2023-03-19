@@ -7,7 +7,7 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
-        [SerializeField] private EnemiesCheckerView enemiesCheckerView;
+        [SerializeField] private EnemiesChecker _enemiesChecker;
         [SerializeField] private HeroLookAt _heroLookAt;
 
         private const float RotationSpeed = 0.02f;
@@ -26,8 +26,8 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            enemiesCheckerView.FoundClosestEnemy += RotateTo;
-            enemiesCheckerView.EnemyNotFound += RotateToForward;
+            _enemiesChecker.FoundClosestEnemy += RotateTo;
+            _enemiesChecker.EnemyNotFound += RotateToForward;
             _heroLookAt.LookedAtEnemy += StopRotatingToEnemy;
         }
 

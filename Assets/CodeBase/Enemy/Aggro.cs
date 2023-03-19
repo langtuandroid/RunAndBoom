@@ -21,8 +21,11 @@ namespace CodeBase.Enemy
             _triggerObserver.TriggerEnter += TriggerEnter;
             _triggerObserver.TriggerExit += TriggerExit;
 
-            _follow.Stop();
-            _follow.enabled = false;
+            if (_follow != null)
+            {
+                _follow.Stop();
+                _follow.enabled = false;
+            }
         }
 
         public void Construct(float cooldown) =>
@@ -66,16 +69,22 @@ namespace CodeBase.Enemy
 
         private void SwitchFollowOn()
         {
-            _hasAggroTarget = true;
-            _follow.Move();
-            _follow.enabled = true;
+            if (_follow != null)
+            {
+                _hasAggroTarget = true;
+                _follow.Move();
+                _follow.enabled = true;
+            }
         }
 
         private void SwitchFollowOff()
         {
-            _follow.enabled = false;
-            _follow.Stop();
-            _hasAggroTarget = false;
+            if (_follow != null)
+            {
+                _follow.enabled = false;
+                _follow.Stop();
+                _hasAggroTarget = false;
+            }
         }
     }
 }

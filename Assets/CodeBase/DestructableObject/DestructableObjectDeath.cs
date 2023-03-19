@@ -10,6 +10,8 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _solid;
         [SerializeField] private GameObject _broken;
 
+        private const float DestroyColliderTimer = 0.1f;
+
         private float _deathDelay = 50f;
         private bool _isBroken = false;
         private List<Rigidbody> _parts;
@@ -26,6 +28,7 @@ namespace CodeBase.DestructableObject
 
         public void Die()
         {
+            Destroy(GetComponentInChildren<BoxCollider>(), DestroyColliderTimer);
             _solid.SetActive(false);
             _broken.SetActive(true);
 

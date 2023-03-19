@@ -1,16 +1,13 @@
 ﻿using System;
 using CodeBase.Enemy;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Hero
 {
     public class HeroLookAt : MonoBehaviour
     {
         [SerializeField] private HeroRotating _heroRotating;
-
-        [FormerlySerializedAs("_enemiesChecker")] [SerializeField]
-        private EnemiesCheckerView enemiesCheckerView;
+        [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private GameObject _enemy;
         private EnemyDeath _death;
@@ -23,7 +20,7 @@ namespace CodeBase.Hero
         {
             _heroRotating.EndedRotatingToEnemy += LookAt;
             _heroRotating.StartedRotating += NotLookAtTarget;
-            enemiesCheckerView.EnemyNotFound += NotLookAtTarget;
+            _enemiesChecker.EnemyNotFound += NotLookAtTarget;
         }
 
         private void Update()

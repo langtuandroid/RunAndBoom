@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Hero;
+using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTraces;
@@ -51,7 +52,7 @@ namespace CodeBase.Weapons
                 CreateProjectileBlast(projectileObject);
             }
 
-            SetPosition(CurrentProjectileIndex);
+            SetPosition(CurrentProjectileIndex, transform);
             SetInitialVisibility();
         }
 
@@ -102,31 +103,65 @@ namespace CodeBase.Weapons
 
         public void ShootTo(Vector3 enemyPosition)
         {
-            for (int i = 0; i < _projectilesRespawns.Length; i++)
-                StartCoroutine(CoroutineShootTo(enemyPosition));
+            if (CanShoot)
+            {
+                for (int i = 0; i < _projectilesRespawns.Length; i++)
+                    StartCoroutine(CoroutineShootTo(enemyPosition));
 
-            for (int i = 0; i < _muzzlesRespawns.Length; i++)
-                LaunchShotVfx();
+                for (int i = 0; i < _muzzlesRespawns.Length; i++)
+                    LaunchShotVfx();
+            }
         }
 
         private IEnumerator CoroutineShootTo(Vector3 targetPosition)
         {
-            int index = CurrentProjectileIndex;
-            ChangeProjectileIndex();
-            ProjectileObjects[index].transform.SetParent(null);
-            ProjectileObjects[index].SetActive(true);
+            int index = -1;
 
-            (ProjectileMovements[index] as BombMovement)?.SetTargetPosition(targetPosition);
+            bool found = GetIndexNotActiveProjectile(ref index);
 
-            ProjectileMovements[index].Launch();
-            Debug.Log("Launched");
-            Debug.Log($"index {index}");
-            ProjectileTraces[index].CreateTrace();
+            if (found)
+            {
+                CanShoot = false;
+                SetPosition(index, null);
+                ProjectileObjects[index].SetActive(true);
 
-            LaunchShotVfx();
+                (ProjectileMovements[index] as BombMovement)?.SetTargetPosition(targetPosition);
 
-            yield return LaunchProjectileCooldown;
-            SetPosition(index);
+                ProjectileMovements[index].Launch();
+                Debug.Log($"index: {index}");
+                Debug.Log("Launched");
+                ProjectileObjects[index].GetComponent<ProjectileTrace>().CreateTrace();
+
+                LaunchShotVfx();
+
+                yield return LaunchProjectileCooldown;
+
+                SetNextProjectileReady(index);
+                CanShoot = true;
+            }
+        }
+
+        private void SetNextProjectileReady(int index)
+        {
+            if (GetIndexNotActiveProjectile(ref index))
+            {
+                SetPosition(index, transform);
+                ProjectileObjects[index].SetActive(_showProjectiles);
+            }
+        }
+
+        private bool GetIndexNotActiveProjectile(ref int index)
+        {
+            for (int i = 0; i < ProjectileObjects.Count; i++)
+            {
+                if (ProjectileObjects[i].GetComponent<ProjectileMovement>().IsMove == false)
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

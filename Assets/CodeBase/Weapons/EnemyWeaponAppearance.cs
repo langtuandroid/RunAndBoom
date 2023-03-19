@@ -26,7 +26,7 @@ namespace CodeBase.Weapons
                 CreateProjectileTrace(projectileObject);
             }
 
-            SetPosition(CurrentProjectileIndex);
+            SetPosition(CurrentProjectileIndex, transform);
             SetInitialVisibility();
         }
 
@@ -39,29 +39,34 @@ namespace CodeBase.Weapons
 
         public void Shoot()
         {
-            for (int i = 0; i < _projectilesRespawns.Length; i++)
-                StartCoroutine(CoroutineShootTo());
+            if (CanShoot)
+            {
+                for (int i = 0; i < _projectilesRespawns.Length; i++)
+                    StartCoroutine(CoroutineShootTo());
 
-            for (int i = 0; i < _muzzlesRespawns.Length; i++)
-                LaunchShotVfx();
+                for (int i = 0; i < _muzzlesRespawns.Length; i++)
+                    LaunchShotVfx();
+            }
         }
 
         private IEnumerator CoroutineShootTo()
         {
             int index = CurrentProjectileIndex;
             ChangeProjectileIndex();
+            CanShoot = false;
             ProjectileObjects[index].transform.SetParent(null);
             ProjectileObjects[index].SetActive(true);
 
             ProjectileMovements[index].Launch();
-            Debug.Log("Launched");
-            Debug.Log($"index {index}");
+            Debug.Log("Enemy launched");
+            Debug.Log($"Enemy index {index}");
 
             ProjectileTraces[index]?.CreateTrace();
 
             yield return LaunchProjectileCooldown;
             ProjectileObjects[index].SetActive(false);
-            SetPosition(index);
+            SetPosition(index, transform);
+            CanShoot = true;
         }
     }
 }

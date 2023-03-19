@@ -45,9 +45,9 @@ namespace CodeBase.Projectiles.Movement
 
         public override void Stop()
         {
+            SetInactive();
             _rotate = false;
             _rigidBody.isKinematic = true;
-            gameObject.SetActive(false);
         }
     }
 }

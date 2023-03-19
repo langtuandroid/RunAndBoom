@@ -25,16 +25,22 @@ namespace CodeBase.Enemy
 
         private void TriggerEnter(Collider obj)
         {
-            _attack.EnableAttack();
-            _follow.Stop();
-            _follow.enabled = false;
+            if (_follow != null)
+            {
+                _attack.EnableAttack();
+                _follow.Stop();
+                _follow.enabled = false;
+            }
         }
 
         private void TriggerExit(Collider obj)
         {
-            _attack.DisableAttack();
-            _follow.Move();
-            _follow.enabled = true;
+            if (_follow != null)
+            {
+                _attack.DisableAttack();
+                _follow.Move();
+                _follow.enabled = true;
+            }
         }
     }
 }

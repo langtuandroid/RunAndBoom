@@ -6,12 +6,12 @@ using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements.Enemy;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
     [RequireComponent(typeof(EnemyAnimator))]
     [RequireComponent(typeof(EnemyHealth))]
-    [RequireComponent(typeof(AgentMoveToHero))]
     [RequireComponent(typeof(Attack))]
     public class EnemyDeath : MonoBehaviour, IDeath
     {
@@ -65,10 +65,13 @@ namespace CodeBase.Enemy
             Died?.Invoke();
 
             _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
-            GetComponent<Aggro>().enabled = false;
-            GetComponent<StopMovingOnAttack>().enabled = false;
-            GetComponent<CheckAttackRange>().enabled = false;
-            _agentMoveToHero.Stop();
+            Destroy(GetComponent<Aggro>());
+            Destroy(GetComponent<AnimateAlongAgent>());
+            Destroy(GetComponent<CheckAttackRange>());
+            Destroy(GetComponent<StopMovingOnAttack>());
+            Destroy(GetComponent<AgentMoveToHero>());
+            Destroy(GetComponent<NavMeshAgent>(), 1);
+            // _agentMoveToHero.Stop();
             _targetMovement.Hide();
             _enemyAnimator.PlayDeath();
 

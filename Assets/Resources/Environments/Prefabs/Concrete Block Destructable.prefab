@@ -14,6 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1301160838631109564, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
         type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301160838631109564, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -126,6 +131,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Concrete Block Destructable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276193562229367596, guid: 86b9f38c123720a429014702c9957411,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4276193562229367596, guid: 86b9f38c123720a429014702c9957411,
         type: 3}

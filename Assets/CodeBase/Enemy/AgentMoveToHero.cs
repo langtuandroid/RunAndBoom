@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,27 +28,34 @@ namespace CodeBase.Enemy
 
         private void SetDestinationForAgent()
         {
-            if (_heroTransform)
+            if (_heroTransform && _agent != null)
             {
-                Debug.Log($"speed {_agent.speed}");
-
-                if (_move)
-                    _agent.destination = _heroTransform.position;
-                else
-                    _agent.speed = 0f;
+                if (_move && _agent.enabled)
+                {
+                    try
+                    {
+                        _agent.destination = _heroTransform.position;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        Debug.Log($"SetDestinationForAgent error: {e}");
+                        throw;
+                    }
+                }
             }
         }
 
         public override void Move()
         {
-            _agent.enabled = true;
             _move = true;
+            _agent.enabled = true;
         }
 
         public override void Stop()
         {
-            _agent.enabled = false;
             _move = false;
+            _agent.enabled = false;
         }
     }
 }

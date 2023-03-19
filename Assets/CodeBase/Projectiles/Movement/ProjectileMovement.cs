@@ -5,6 +5,8 @@ namespace CodeBase.Projectiles.Movement
 {
     public abstract class ProjectileMovement : MonoBehaviour
     {
+        public bool IsMove { get; protected set; }
+
         protected Transform Parent;
 
         private float _movementTimeLimit = 3f;
@@ -14,14 +16,23 @@ namespace CodeBase.Projectiles.Movement
         {
             Parent = parent;
             _movementTimeLimit = lifeTime;
+            IsMove = false;
         }
 
         public abstract void Launch();
         public abstract void Stop();
 
+        protected void SetInactive()
+        {
+            IsMove = false;
+            gameObject.SetActive(false);
+            gameObject.transform.SetParent(Parent);
+        }
+
         protected IEnumerator LaunchTime()
         {
             _launchCounter = _movementTimeLimit;
+            IsMove = true;
 
             while (_launchCounter > 0f)
             {
@@ -30,7 +41,9 @@ namespace CodeBase.Projectiles.Movement
             }
 
             if (_launchCounter <= 0f)
+            {
                 Stop();
+            }
         }
     }
 }

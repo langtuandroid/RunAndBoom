@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Enemy.Attacks
@@ -32,7 +31,7 @@ namespace CodeBase.Enemy.Attacks
             if (Hit(out Collider hit))
             {
                 PhysicsDebug.DrawDebug(StartPoint(), _cleavage, DrawingHitTime);
-                hit.transform.parent.gameObject.GetComponent<IHealth>().TakeDamage(_damage);
+                // hit.transform.gameObject.GetComponent<IHealth>().TakeDamage(_damage);
                 Debug.Log($"{gameObject.name} hit Hero with {_damage} damage");
             }
         }

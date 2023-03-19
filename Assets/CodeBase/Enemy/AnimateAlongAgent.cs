@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(EnemyAnimator))]
     public class AnimateAlongAgent : MonoBehaviour
     {
@@ -20,7 +19,12 @@ namespace CodeBase.Enemy
                 _animator.StopMoving();
         }
 
-        private bool ShouldMove() =>
-            _agent.velocity.magnitude > MinimalVelocity && _agent.remainingDistance > _agent.radius;
+        private bool ShouldMove()
+        {
+            if (_agent != null)
+                return _agent.velocity.magnitude > MinimalVelocity && _agent.remainingDistance > _agent.radius;
+            else
+                return false;
+        }
     }
 }
