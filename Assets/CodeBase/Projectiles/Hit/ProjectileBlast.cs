@@ -24,14 +24,13 @@ namespace CodeBase.Projectiles.Hit
 
             if (IsTargetTag(targetTag))
             {
-
                 if (_blastVfxPrefab != null)
                 {
                     ShowBlast();
                     StartCoroutine(DestroyBlast());
                     _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
                 }
-                
+
                 Trace.DestroyTrace();
                 Movement.Stop();
             }

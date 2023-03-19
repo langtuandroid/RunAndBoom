@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6337939419923400049}
   - component: {fileID: 7089599302767958054}
-  - component: {fileID: 5527097590347584361}
   m_Layer: 0
   m_Name: BaseBullet
   m_TagString: Untagged
@@ -79,18 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tracePosition: {fileID: 6845473786046702743}
---- !u!114 &5527097590347584361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337939419923400050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8964dd4c304b4c6f85c5e59b16602afc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6337939420664514641
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Trace: {fileID: 7089599302767958054}
-  Movement: {fileID: 5527097590347584361}
+  Movement: {fileID: 0}
   Tags:
   - Hero
 --- !u!54 &8006432907002796431

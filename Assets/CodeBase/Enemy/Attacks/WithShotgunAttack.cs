@@ -13,7 +13,7 @@ namespace CodeBase.Enemy.Attacks
 
         protected override void OnAttack()
         {
-            _enemyWeaponAppearance.Shoot();
+            _enemyWeaponAppearance.Shoot(null);
             Debug.Log($"{gameObject.name} shoot Hero");
         }
     }

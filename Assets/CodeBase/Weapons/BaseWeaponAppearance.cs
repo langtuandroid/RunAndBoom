@@ -122,6 +122,30 @@ namespace CodeBase.Weapons
                 CurrentProjectileIndex = 0;
         }
 
+        protected void SetNextProjectileReady(int index)
+        {
+            if (GetIndexNotActiveProjectile(ref index))
+            {
+                SetPosition(index, transform);
+                ProjectileObjects[index].SetActive(_showProjectiles);
+            }
+        }
+
+        protected bool GetIndexNotActiveProjectile(ref int index)
+        {
+            for (int i = 0; i < ProjectileObjects.Count; i++)
+            {
+                if (ProjectileObjects[i].GetComponent<ProjectileMovement>().IsMove == false)
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         protected abstract void CreateProjectiles();
 
         protected abstract void CreateProjectileMovement(GameObject projectileObject);

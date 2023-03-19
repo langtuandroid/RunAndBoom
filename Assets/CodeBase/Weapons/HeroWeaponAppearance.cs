@@ -113,7 +113,7 @@ namespace CodeBase.Weapons
             }
         }
 
-        private IEnumerator CoroutineShootTo(Vector3 targetPosition)
+        private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
             int index = -1;
 
@@ -125,7 +125,8 @@ namespace CodeBase.Weapons
                 SetPosition(index, null);
                 ProjectileObjects[index].SetActive(true);
 
-                (ProjectileMovements[index] as BombMovement)?.SetTargetPosition(targetPosition);
+                if (targetPosition != null && ProjectileMovements[index] is BombMovement)
+                    (ProjectileMovements[index] as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
 
                 ProjectileMovements[index].Launch();
                 Debug.Log($"index: {index}");
@@ -139,29 +140,6 @@ namespace CodeBase.Weapons
                 SetNextProjectileReady(index);
                 CanShoot = true;
             }
-        }
-
-        private void SetNextProjectileReady(int index)
-        {
-            if (GetIndexNotActiveProjectile(ref index))
-            {
-                SetPosition(index, transform);
-                ProjectileObjects[index].SetActive(_showProjectiles);
-            }
-        }
-
-        private bool GetIndexNotActiveProjectile(ref int index)
-        {
-            for (int i = 0; i < ProjectileObjects.Count; i++)
-            {
-                if (ProjectileObjects[i].GetComponent<ProjectileMovement>().IsMove == false)
-                {
-                    index = i;
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

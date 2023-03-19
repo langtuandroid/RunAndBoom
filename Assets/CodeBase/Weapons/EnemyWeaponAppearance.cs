@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using CodeBase.Projectiles;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTraces;
 using CodeBase.StaticData.Weapons;
@@ -37,36 +38,45 @@ namespace CodeBase.Weapons
             ProjectileMovements.Add(projectileMovement);
         }
 
-        public void Shoot()
+        public void Shoot(Vector3? targetPosition)
         {
             if (CanShoot)
             {
                 for (int i = 0; i < _projectilesRespawns.Length; i++)
-                    StartCoroutine(CoroutineShootTo());
+                    StartCoroutine(CoroutineShootTo(targetPosition));
 
                 for (int i = 0; i < _muzzlesRespawns.Length; i++)
                     LaunchShotVfx();
             }
         }
 
-        private IEnumerator CoroutineShootTo()
+        private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            int index = CurrentProjectileIndex;
-            ChangeProjectileIndex();
-            CanShoot = false;
-            ProjectileObjects[index].transform.SetParent(null);
-            ProjectileObjects[index].SetActive(true);
+            int index = -1;
 
-            ProjectileMovements[index].Launch();
-            Debug.Log("Enemy launched");
-            Debug.Log($"Enemy index {index}");
+            bool found = GetIndexNotActiveProjectile(ref index);
 
-            ProjectileTraces[index]?.CreateTrace();
+            if (found)
+            {
+                CanShoot = false;
+                SetPosition(index, null);
+                ProjectileObjects[index].SetActive(true);
 
-            yield return LaunchProjectileCooldown;
-            ProjectileObjects[index].SetActive(false);
-            SetPosition(index, transform);
-            CanShoot = true;
+                if (targetPosition != null && ProjectileMovements[index] is BulletMovement)
+                    (ProjectileMovements[index] as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
+
+                ProjectileMovements[index].Launch();
+                Debug.Log($"index: {index}");
+                Debug.Log("Launched");
+                ProjectileObjects[index].GetComponent<ProjectileTrace>().CreateTrace();
+
+                LaunchShotVfx();
+
+                yield return LaunchProjectileCooldown;
+
+                SetNextProjectileReady(index);
+                CanShoot = true;
+            }
         }
     }
 }
