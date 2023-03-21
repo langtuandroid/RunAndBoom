@@ -18,6 +18,13 @@ namespace CodeBase.Hero
         private float _currentAttackCooldown = 0f;
         private float _weaponCooldown = 0f;
         private Vector3 _enemyPosition;
+        private bool _canShoot = true;
+
+        public void TurnOn() =>
+            _canShoot = true;
+
+        public void TurnOff() =>
+            _canShoot = false;
 
         private void Awake()
         {
@@ -39,8 +46,9 @@ namespace CodeBase.Hero
         {
             UpdateCooldown();
 
-            if (Input.GetMouseButton(0))
-                TryShoot();
+            if (_canShoot)
+                if (Input.GetMouseButton(0))
+                    TryShoot();
         }
 
         private void UpdateCooldown()

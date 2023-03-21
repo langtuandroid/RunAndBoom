@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Hero;
-using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTraces;

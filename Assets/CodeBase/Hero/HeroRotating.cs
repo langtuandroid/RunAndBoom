@@ -20,6 +20,7 @@ namespace CodeBase.Hero
         private bool _toEnemy;
         private Quaternion _targetRotation;
         private Coroutine _rotatingCoroutine;
+        private bool _canRotating = true;
 
         public event Action<GameObject> EndedRotatingToEnemy;
         public event Action StartedRotating;
@@ -30,6 +31,9 @@ namespace CodeBase.Hero
             _enemiesChecker.EnemyNotFound += RotateToForward;
             _heroLookAt.LookedAtEnemy += StopRotatingToEnemy;
         }
+
+        public void TurnOff() =>
+            StopRotatingToEnemy();
 
         private void RotateTo(GameObject enemy)
         {

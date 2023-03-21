@@ -1,17 +1,35 @@
-﻿using UnityEngine;
+﻿using CodeBase.Hero;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows
 {
     public class WindowBase : MonoBehaviour
     {
-        private void Awake() =>
+        private GameObject _hero;
+
+        protected void Construct(GameObject hero)
+        {
+            _hero = hero;
             Hide();
+        }
 
-        public void Hide() =>
+        public void Hide()
+        {
             gameObject.SetActive(false);
+            _hero.GetComponent<HeroShooting>().TurnOn();
+            _hero.GetComponent<EnemiesChecker>().TurnOn();
+            _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
+        }
 
-        public void Show() =>
+        public void Show()
+        {
             gameObject.SetActive(true);
+            _hero.GetComponent<HeroShooting>().TurnOff();
+            _hero.GetComponent<EnemiesChecker>().TurnOff();
+            _hero.GetComponent<HeroRotating>().TurnOff();
+            _hero.GetComponent<HeroLookAt>().TurnOff();
+            _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
+        }
 
         // [SerializeField] private Button _closeButton;
         //

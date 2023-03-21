@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
-using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.StaticData;
 using CodeBase.UI.Elements.ShopPanel;
-using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Settings;
 using UnityEngine;
@@ -13,17 +10,10 @@ namespace CodeBase.UI.Services.Windows
 {
     public class WindowService : IWindowService
     {
-        private readonly IStaticDataService _staticData;
-        private readonly IPlayerProgressService _progressService;
-        private readonly IUIFactory _uiFactory;
-
         protected Dictionary<WindowId, GameObject> _windows;
 
-        public WindowService(IStaticDataService staticData, IPlayerProgressService progressService, IUIFactory uiFactory)
+        public WindowService()
         {
-            _staticData = staticData;
-            _progressService = progressService;
-            _uiFactory = uiFactory;
             _windows = new Dictionary<WindowId, GameObject>(DataExtensions.GetValues<WindowId>().Count());
         }
 

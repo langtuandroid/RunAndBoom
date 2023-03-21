@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skipButton: {fileID: 8701783380240409709}
   _refreshButton: {fileID: 6324506760347914915}
-  _shop: {fileID: 8300922620346195981}
+  _shopWindow: {fileID: 6415520431241114458}
   _generator: {fileID: 0}
 --- !u!1 &8131069098579629595
 GameObject:
@@ -1271,7 +1271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22906a7c41ea4e5f8f89166fadd2dd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shop: {fileID: 8300922620346195981}
 --- !u!1 &8856698544688082760
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,6 +23,12 @@ namespace CodeBase.Hero
             _enemiesChecker.EnemyNotFound += NotLookAtTarget;
         }
 
+        public void TurnOff()
+        {
+            if (_lookAtCoroutine != null)
+                StopCoroutine(_lookAtCoroutine);
+        }
+
         private void Update()
         {
             if (_enemy)

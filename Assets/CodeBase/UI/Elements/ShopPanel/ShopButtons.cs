@@ -7,7 +7,7 @@ namespace CodeBase.UI.Elements.ShopPanel
     {
         [SerializeField] private Button _skipButton;
         [SerializeField] private Button _refreshButton;
-        [SerializeField] private GameObject _shop;
+        [SerializeField] private ShopWindow _shopWindow;
         [SerializeField] private ShopItemsGenerator _generator;
 
         private void Awake()
@@ -19,7 +19,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void CloseShop()
         {
-            _shop.SetActive(false);
+            _shopWindow.Hide();
             Time.timeScale = 1;
         }
     }

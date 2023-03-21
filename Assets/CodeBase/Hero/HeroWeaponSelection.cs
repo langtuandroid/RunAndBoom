@@ -11,31 +11,41 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroWeaponSelection : MonoBehaviour, IProgressSaver
+    public class HeroWeaponSelection : MonoBehaviour, IProgressReader
     {
         [SerializeField] private GameObject[] _weapons;
 
         private IStaticDataService _staticDataService;
         private PlayerProgress _progress;
+        private bool _canSelect = true;
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
         private void Awake() =>
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
 
+        public void TurnOn() =>
+            _canSelect = true;
+
+        public void TurnOff() =>
+            _canSelect = false;
+
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                SelectWeapon1();
+            if (_canSelect)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                    SelectWeapon1();
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                SelectWeapon2();
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                    SelectWeapon2();
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-                SelectWeapon3();
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                    SelectWeapon3();
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-                SelectWeapon4();
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                    SelectWeapon4();
+            }
         }
 
         private void SelectWeapon1() =>
@@ -54,11 +64,6 @@ namespace CodeBase.Hero
         {
             _progress = progress;
             FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            // progress.WeaponsData.SetAvailableWeapons(_availableWeapons);
         }
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)

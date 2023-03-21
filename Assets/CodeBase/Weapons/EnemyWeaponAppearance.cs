@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using CodeBase.Projectiles;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.ProjectileTraces;
 using CodeBase.StaticData.Weapons;

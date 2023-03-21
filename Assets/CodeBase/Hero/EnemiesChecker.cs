@@ -26,6 +26,7 @@ namespace CodeBase.Hero
         private EnemyHealth _targetEnemy = null;
         private string _enemyId = null;
         private bool _enemyNotFound = false;
+        private bool _run = true;
 
         public event Action<GameObject> FoundClosestEnemy;
         public event Action EnemyNotFound;
@@ -41,9 +42,15 @@ namespace CodeBase.Hero
         {
             UpFixedTime();
 
-            if (IsCheckEnemiesTimerReached())
+            if (IsCheckEnemiesTimerReached() && _run)
                 CheckEnemiesAround();
         }
+
+        public void TurnOff() =>
+            _run = false;
+
+        public void TurnOn() =>
+            _run = true;
 
         private void UpFixedTime() =>
             _checkEnemiesTimer += Time.fixedDeltaTime;

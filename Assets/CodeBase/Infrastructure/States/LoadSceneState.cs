@@ -8,8 +8,10 @@ using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
+using CodeBase.UI.Elements.ShopPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -135,7 +137,9 @@ namespace CodeBase.Infrastructure.States
         private async Task InitWindows(GameObject hero)
         {
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
+            shopWindow.GetComponent<ShopWindow>().Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
+            deathWindow.GetComponent<DeathWindow>().Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);

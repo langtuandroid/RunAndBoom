@@ -31,9 +31,11 @@ namespace CodeBase.Infrastructure.States
             RegisterServices();
         }
 
-        public void Enter() => _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
+        public void Enter() =>
+            _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
 
-        private void EnterLoadLevel() => _stateMachine.Enter<LoadPlayerProgressState>();
+        private void EnterLoadLevel() =>
+            _stateMachine.Enter<LoadPlayerProgressState>();
 
         private void RegisterServices()
         {
@@ -51,11 +53,7 @@ namespace CodeBase.Infrastructure.States
                     _services.Single<IRegistratorService>())
             );
 
-            _services.RegisterSingle<IWindowService>(new WindowService(
-                _services.Single<IStaticDataService>(),
-                _services.Single<IPlayerProgressService>(),
-                _services.Single<IUIFactory>())
-            );
+            _services.RegisterSingle<IWindowService>(new WindowService());
 
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
