@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wooden Crate Cracked
       objectReference: {fileID: 0}
+    - target: {fileID: 1168907351885854, guid: 8eed6cb0ec4e52c4f932dd02573fa634, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4752768954203096, guid: 8eed6cb0ec4e52c4f932dd02573fa634, type: 3}
       propertyPath: m_RootOrder
       value: 1
