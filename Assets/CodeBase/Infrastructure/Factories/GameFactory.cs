@@ -41,16 +41,12 @@ namespace CodeBase.Infrastructure.Factories
             ProgressWriters = registratorService.ProgressWriters;
         }
 
-        public async Task WarmUp()
-        {
+        public async Task WarmUp() =>
             _assets.Initialize();
-            // await _assets.Load<GameObject>(AssetAddresses.Spawner);
-        }
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
-            _registratorService.RegisterProgressWatchers(_heroGameObject);
             return _heroGameObject;
         }
 

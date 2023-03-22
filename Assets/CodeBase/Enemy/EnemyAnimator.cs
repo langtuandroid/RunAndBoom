@@ -16,7 +16,7 @@ namespace CodeBase.Enemy
         private readonly int _deathStateHash = Animator.StringToHash("Death");
 
         private Animator _animator;
-        
+
         public AnimatorState State { get; private set; }
 
         public event Action<AnimatorState> StateEntered;

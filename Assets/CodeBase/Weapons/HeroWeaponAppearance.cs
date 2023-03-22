@@ -19,10 +19,11 @@ namespace CodeBase.Weapons
 
         public void Construct(HeroWeaponSelection heroWeaponSelection)
         {
-            _heroWeaponSelection = heroWeaponSelection;
-            _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
             _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
+            _heroWeaponSelection = heroWeaponSelection;
             CanShoot = true;
+
+            _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
 
         private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
@@ -30,7 +31,6 @@ namespace CodeBase.Weapons
         {
             base.Construct(weaponStaticData.MuzzleVfx, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileSpeed,
                 weaponStaticData.MovementLifeTime, weaponStaticData.Damage, projectileTraceStaticData);
-
             _weaponTypeId = weaponStaticData.WeaponTypeId;
             _blastRange = weaponStaticData.BlastRange;
             _blastVfxPrefab = weaponStaticData.blastVfxPrefab;

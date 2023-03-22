@@ -129,9 +129,11 @@ namespace CodeBase.Infrastructure.States
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
+            HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
             heroHealth.Construct();
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
+            hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroShooting, heroWeaponSelection);
         }
 
         private async Task InitWindows(GameObject hero)

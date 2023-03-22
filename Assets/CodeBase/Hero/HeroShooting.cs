@@ -1,3 +1,4 @@
+using System;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.ProjectileTraces;
@@ -19,6 +20,9 @@ namespace CodeBase.Hero
         private float _weaponCooldown = 0f;
         private Vector3 _enemyPosition;
         private bool _canShoot = true;
+
+        public Action<float> OnStartReloading;
+        public Action OnStopReloading;
 
         public void TurnOn() =>
             _canShoot = true;
@@ -54,7 +58,14 @@ namespace CodeBase.Hero
         private void UpdateCooldown()
         {
             if (!CooldownUp())
+            {
+                OnStartReloading?.Invoke(_currentAttackCooldown / _weaponCooldown);
                 _currentAttackCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                OnStopReloading?.Invoke();
+            }
         }
 
         private void EnemyNotSpotted() =>

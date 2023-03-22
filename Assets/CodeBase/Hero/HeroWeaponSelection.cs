@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
 using CodeBase.Services;
@@ -15,14 +16,31 @@ namespace CodeBase.Hero
     {
         [SerializeField] private GameObject[] _weapons;
 
+        private Dictionary<HeroWeaponTypeId, GameObject> _weaponsDictionary;
         private IStaticDataService _staticDataService;
         private PlayerProgress _progress;
-        private bool _canSelect = true;
+        private bool _canSelect;
+        private int _currentWeapon;
+        private List<HeroWeaponTypeId> _heroWeaponTypeIds;
 
         public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
 
-        private void Awake() =>
+        private void Awake()
+        {
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _heroWeaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
+
+            InitializeWeaponsDictionary();
+        }
+
+        private void InitializeWeaponsDictionary()
+        {
+            _weaponsDictionary = new Dictionary<HeroWeaponTypeId, GameObject>(_weapons.Length);
+            _weaponsDictionary.Add(HeroWeaponTypeId.GrenadeLauncher, _weapons[0]);
+            _weaponsDictionary.Add(HeroWeaponTypeId.RPG, _weapons[1]);
+            _weaponsDictionary.Add(HeroWeaponTypeId.RocketLauncher, _weapons[2]);
+            _weaponsDictionary.Add(HeroWeaponTypeId.Mortar, _weapons[3]);
+        }
 
         public void TurnOn() =>
             _canSelect = true;
@@ -35,35 +53,30 @@ namespace CodeBase.Hero
             if (_canSelect)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                    SelectWeapon1();
+                    SelectWeapon(HeroWeaponTypeId.GrenadeLauncher);
 
                 if (Input.GetKeyDown(KeyCode.Alpha2))
-                    SelectWeapon2();
+                    SelectWeapon(HeroWeaponTypeId.RPG);
 
                 if (Input.GetKeyDown(KeyCode.Alpha3))
-                    SelectWeapon3();
+                    SelectWeapon(HeroWeaponTypeId.RocketLauncher);
 
                 if (Input.GetKeyDown(KeyCode.Alpha4))
-                    SelectWeapon4();
+                    SelectWeapon(HeroWeaponTypeId.Mortar);
             }
         }
 
-        private void SelectWeapon1() =>
-            FindWeaponContainer(HeroWeaponTypeId.GrenadeLauncher);
-
-        private void SelectWeapon2() =>
-            FindWeaponContainer(HeroWeaponTypeId.RPG);
-
-        private void SelectWeapon3() =>
-            FindWeaponContainer(HeroWeaponTypeId.RocketLauncher);
-
-        private void SelectWeapon4() =>
-            FindWeaponContainer(HeroWeaponTypeId.Mortar);
+        private void SelectWeapon(HeroWeaponTypeId heroWeaponTypeId)
+        {
+            if (_currentWeapon != _heroWeaponTypeIds.IndexOf(heroWeaponTypeId))
+                FindWeaponContainer(heroWeaponTypeId);
+        }
 
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
             FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
+            _canSelect = true;
         }
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
@@ -71,27 +84,28 @@ namespace CodeBase.Hero
             if (!_progress.WeaponsData.WeaponDatas.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
                 return;
 
-            foreach (GameObject weapon in _weapons)
+            foreach (var keyValue in _weaponsDictionary)
             {
-                if (weapon.name == heroWeaponTypeId.ToString())
+                if (keyValue.Key == heroWeaponTypeId)
                 {
-                    weapon.GetComponent<HeroWeaponAppearance>().Construct(this);
-                    weapon.SetActive(true);
-                    WeaponChosen(weapon, heroWeaponTypeId);
+                    keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(this);
+                    keyValue.Value.SetActive(true);
+                    WeaponChosen(heroWeaponTypeId);
                 }
                 else
                 {
-                    weapon.SetActive(false);
+                    keyValue.Value.SetActive(false);
                 }
             }
         }
 
-        private void WeaponChosen(GameObject currentWeapon, HeroWeaponTypeId heroWeaponTypeId)
+        private void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
         {
             _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
+            _currentWeapon = _heroWeaponTypeIds.IndexOf(heroWeaponTypeId);
             HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
             ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(heroWeaponStaticData.ProjectileTraceTypeId);
-            WeaponSelected?.Invoke(currentWeapon, heroWeaponStaticData, projectileTraceStaticData);
+            WeaponSelected?.Invoke(_weaponsDictionary[heroWeaponTypeId], heroWeaponStaticData, projectileTraceStaticData);
         }
     }
 }
