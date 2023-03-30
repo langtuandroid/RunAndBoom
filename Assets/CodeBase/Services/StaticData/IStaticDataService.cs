@@ -1,4 +1,6 @@
-﻿using CodeBase.StaticData.Enemies;
+﻿using CodeBase.Services.Pool;
+using CodeBase.StaticData.Enemies;
+using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
@@ -6,7 +8,8 @@ using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Levels;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
+using CodeBase.StaticData.ShotVfxs;
 using CodeBase.StaticData.Weapons;
 
 namespace CodeBase.Services.StaticData
@@ -17,11 +20,11 @@ namespace CodeBase.Services.StaticData
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
         HeroWeaponStaticData ForHeroWeapon(HeroWeaponTypeId typeId);
         EnemyWeaponStaticData ForEnemyWeapon(EnemyWeaponTypeId typeId);
-        ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId);
-
         LevelStaticData ForLevel(string sceneKey);
-
-        // WindowStaticData ForWindow(WindowId windowId);
+        ProjectileStaticData ForProjectile(ProjectileTypeId typeId);
+        ShotVfxStaticData ForShotVfx(ShotVfxTypeId typeId);
+        TrailStaticData ForTrail(TrailTypeId typeId);
+        BlastStaticData ForBlast(BlastTypeId typeId);
         InventoryUpgradeLevelStaticData ForInventoryUpgradeLevel(LevelTypeId typeId);
         InventoryUpgradeStaticData ForInventoryUpgrade(UpgradeTypeId typeId);
         PerkStaticData ForPerk(PerkTypeId perkTypeId, LevelTypeId levelTypeId);

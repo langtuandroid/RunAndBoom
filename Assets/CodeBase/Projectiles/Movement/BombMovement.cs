@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Movement
@@ -11,13 +12,15 @@ namespace CodeBase.Projectiles.Movement
         private bool _rotate = false;
         private Vector3 _targetPosition;
 
+        public override event Action Stoped;
+
         private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
 
-        public void Construct(float speed, Transform parent, float lifeTime)
+        public void Construct(float speed, float lifeTime)
         {
             _speed = speed * 1f;
-            base.Construct(parent, lifeTime);
+            base.Construct(lifeTime);
         }
 
         public void SetTargetPosition(Vector3 targetPosition) =>
@@ -45,9 +48,10 @@ namespace CodeBase.Projectiles.Movement
 
         public override void Stop()
         {
-            SetInactive();
+            OffMove();
             _rotate = false;
             _rigidBody.isKinematic = true;
+            Stoped?.Invoke();
         }
     }
 }

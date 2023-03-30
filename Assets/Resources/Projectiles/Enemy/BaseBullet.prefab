@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6845473786046702743}
   m_Layer: 0
-  m_Name: TracePosition
+  m_Name: TrailPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648a37074db64434893d0be61a07c781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tracePosition: {fileID: 6845473786046702743}
+  _trailPosition: {fileID: 6845473786046702743}
 --- !u!1 &6337939420664514641
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef71c3f8b8c041938aeb3c926ef1dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Trace: {fileID: 7089599302767958054}
   Movement: {fileID: 0}
   Tags:
   - Hero

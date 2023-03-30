@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   WeaponTypeId: 0
-  ProjectileTraceTypeId: 0
+  ProjectileTypeId: 4
+  ShotVfxTypeId: 4
   MovementLifeTime: 3
   Damage: 1
   Cooldown: 2

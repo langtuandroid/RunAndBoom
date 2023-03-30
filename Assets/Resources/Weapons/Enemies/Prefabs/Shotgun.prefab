@@ -395,6 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4550081321496162630}
   - component: {fileID: 4550081321496162631}
+  - component: {fileID: 627901352718815284}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -430,17 +431,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047dff731a3044ce832041e3830e1e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 4438115321993526891, guid: 1b5d18772d9c1934d9296d7e57855197,
-    type: 3}
-  _projectilesRespawns:
+  ProjectilesRespawns:
   - {fileID: 7574412394897428007}
   - {fileID: 7443627461694353439}
   - {fileID: 5865038906682828859}
   - {fileID: 2544753076483660367}
   - {fileID: 6141398001144370335}
-  _muzzlesRespawns:
+  ShotVfxsRespawns:
   - {fileID: 6557151575156737894}
-  _showProjectiles: 0
+  ShowProjectiles: 0
+  ShotVfxsContainer: {fileID: 627901352718815284}
+--- !u!114 &627901352718815284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550081321496162628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4370381cd894a4aba650dd5d83abd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4847407076698324159
 GameObject:
   m_ObjectHideFlags: 0

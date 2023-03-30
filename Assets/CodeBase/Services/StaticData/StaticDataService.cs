@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Services.Pool;
 using CodeBase.StaticData.Enemies;
+using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
@@ -8,7 +10,8 @@ using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Levels;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
+using CodeBase.StaticData.ShotVfxs;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
 
@@ -30,7 +33,10 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
         private const string StaticDataShopWeaponsPath = "StaticData/Items/Shop/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
-        private const string StaticDataProjectileTracesPath = "StaticData/ProjectileTraces";
+        private const string StaticDataProjectilesPath = "StaticData/Projectiles/Projectiles";
+        private const string StaticDataTrailsPath = "StaticData/Projectiles/Trails";
+        private const string StaticDataShotVfxsPath = "StaticData/Projectiles/ShotVfxs";
+        private const string StaticDataBlastsPath = "StaticData/Projectiles/Blasts";
 
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<EnemyWeaponTypeId, EnemyWeaponStaticData> _enemyWeapons;
@@ -46,8 +52,10 @@ namespace CodeBase.Services.StaticData
         private Dictionary<UpgradeTypeId, ShopUpgradeStaticData> _shopUpgrades;
         private Dictionary<HeroWeaponTypeId, ShopWeaponStaticData> _shopWeapons;
         private Dictionary<string, LevelStaticData> _levels;
-
-        private Dictionary<ProjectileTraceTypeId, ProjectileTraceStaticData> _projectileTraces;
+        private Dictionary<TrailTypeId, TrailStaticData> _trails;
+        private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
+        private Dictionary<ShotVfxTypeId, ShotVfxStaticData> _shotVfxs;
+        private Dictionary<BlastTypeId, BlastStaticData> _blasts;
 
         public void Load()
         {
@@ -62,6 +70,26 @@ namespace CodeBase.Services.StaticData
             _heroWeapons = Resources
                 .LoadAll<HeroWeaponStaticData>(StaticDataHeroWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
+
+            _levels = Resources
+                .LoadAll<LevelStaticData>(StaticDataLevelsPath)
+                .ToDictionary(x => x.LevelKey, x => x);
+
+            _projectiles = Resources
+                .LoadAll<ProjectileStaticData>(StaticDataProjectilesPath)
+                .ToDictionary(x => x.ProjectileTypeId, x => x);
+
+            _trails = Resources
+                .LoadAll<TrailStaticData>(StaticDataTrailsPath)
+                .ToDictionary(x => x.TrailTypeId, x => x);
+
+            _shotVfxs = Resources
+                .LoadAll<ShotVfxStaticData>(StaticDataShotVfxsPath)
+                .ToDictionary(x => x.TypeId, x => x);
+
+            _blasts = Resources
+                .LoadAll<BlastStaticData>(StaticDataBlastsPath)
+                .ToDictionary(x => x.TypeId, x => x);
 
             _inventoryUpgradeLevels = Resources
                 .LoadAll<InventoryUpgradeLevelStaticData>(StaticDataInventoryUpgradeLevelsPath)
@@ -102,14 +130,6 @@ namespace CodeBase.Services.StaticData
             _shopWeapons = Resources
                 .LoadAll<ShopWeaponStaticData>(StaticDataShopWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
-
-            _levels = Resources
-                .LoadAll<LevelStaticData>(StaticDataLevelsPath)
-                .ToDictionary(x => x.LevelKey, x => x);
-
-            _projectileTraces = Resources
-                .LoadAll<ProjectileTraceStaticData>(StaticDataProjectileTracesPath)
-                .ToDictionary(x => x.ProjectileTraceTypeId, x => x);
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -129,6 +149,26 @@ namespace CodeBase.Services.StaticData
 
         public LevelStaticData ForLevel(string sceneKey) =>
             _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
+                ? staticData
+                : null;
+
+        public ShotVfxStaticData ForShotVfx(ShotVfxTypeId typeId) =>
+            _shotVfxs.TryGetValue(typeId, out ShotVfxStaticData staticData)
+                ? staticData
+                : null;
+
+        public ProjectileStaticData ForProjectile(ProjectileTypeId typeId) =>
+            _projectiles.TryGetValue(typeId, out ProjectileStaticData staticData)
+                ? staticData
+                : null;
+
+        public TrailStaticData ForTrail(TrailTypeId typeId) =>
+            _trails.TryGetValue(typeId, out TrailStaticData staticData)
+                ? staticData
+                : null;
+
+        public BlastStaticData ForBlast(BlastTypeId typeId) =>
+            _blasts.TryGetValue(typeId, out BlastStaticData staticData)
                 ? staticData
                 : null;
 
@@ -179,11 +219,6 @@ namespace CodeBase.Services.StaticData
 
         public ShopWeaponStaticData ForShopWeapon(HeroWeaponTypeId typeId) =>
             _shopWeapons.TryGetValue(typeId, out ShopWeaponStaticData staticData)
-                ? staticData
-                : null;
-
-        public ProjectileTraceStaticData ForProjectileTrace(ProjectileTraceTypeId projectileTraceTypeId) =>
-            _projectileTraces.TryGetValue(projectileTraceTypeId, out ProjectileTraceStaticData staticData)
                 ? staticData
                 : null;
     }

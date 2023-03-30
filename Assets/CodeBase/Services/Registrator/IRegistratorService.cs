@@ -9,8 +9,8 @@ namespace CodeBase.Services.Registrator
     {
         List<IProgressReader> ProgressReaders { get; }
         List<IProgressSaver> ProgressWriters { get; }
-        GameObject InstantiateRegistered(GameObject prefab, Vector3 at);
         GameObject InstantiateRegistered(GameObject prefab);
+        GameObject InstantiateRegistered(GameObject prefab, Vector3 at);
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Vector3 at);
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath, Transform parent);
         Task<GameObject> InstantiateRegisteredAsync(string prefabPath);

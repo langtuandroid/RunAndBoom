@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2380273941433491410}
   - component: {fileID: 8985998677904672162}
+  - component: {fileID: 350001938654656824}
   m_Layer: 0
   m_Name: Mortar
   m_TagString: Untagged
@@ -47,13 +48,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 7578668783295295771, guid: 7ab22b4eaba591e488912a6b2405d8ac,
-    type: 3}
-  _projectilesRespawns:
+  ProjectilesRespawns:
   - {fileID: 7500356228395970793}
-  _muzzlesRespawns:
+  ShotVfxsRespawns:
   - {fileID: 2430568816973176998}
-  _showProjectiles: 1
+  ShowProjectiles: 1
+  ShotVfxsContainer: {fileID: 350001938654656824}
+--- !u!114 &350001938654656824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9049238747308586508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4370381cd894a4aba650dd5d83abd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1645907313745701492
 PrefabInstance:
   m_ObjectHideFlags: 0

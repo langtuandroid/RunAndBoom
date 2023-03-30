@@ -1,11 +1,12 @@
-﻿using CodeBase.Projectiles.Movement;
+﻿using System;
+using CodeBase.Projectiles.Movement;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit
 {
     public class BaseProjectileHit : MonoBehaviour
     {
-        [SerializeField] protected ProjectileTrace Trace;
+        [SerializeField] protected ProjectileTrail Trail;
         [SerializeField] protected ProjectileMovement Movement;
         [SerializeField] protected string[] Tags;
 

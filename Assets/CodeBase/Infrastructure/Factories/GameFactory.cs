@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.Pool;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using UnityEngine;
@@ -17,13 +18,15 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
         private GameObject _heroGameObject;
+        private IPoolService _poolService;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
-        public GameFactory(IAssets assets, IPlayerProgressService progressService, IStaticDataService staticData,
+        public GameFactory(IAssets assets, IPoolService poolService, IPlayerProgressService progressService, IStaticDataService staticData,
             IRegistratorService registratorService)
         {
+            _poolService = poolService;
             _assets = assets;
             _progressService = progressService;
             _staticData = staticData;
@@ -41,8 +44,11 @@ namespace CodeBase.Infrastructure.Factories
             ProgressWriters = registratorService.ProgressWriters;
         }
 
-        public async Task WarmUp() =>
+        public async Task WarmUp()
+        {
             _assets.Initialize();
+            _poolService.GenerateObjects();
+        }
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {

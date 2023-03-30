@@ -2095,6 +2095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3509205997966544200}
   - component: {fileID: 2766325045989098034}
+  - component: {fileID: 7009498340783900050}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -2132,13 +2133,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 5107309875823133287, guid: 44f482836b5c3784cbfcb7b6b8660020,
-    type: 3}
-  _projectilesRespawns:
+  ProjectilesRespawns:
   - {fileID: 6256389252596755060}
-  _muzzlesRespawns:
+  ShotVfxsRespawns:
   - {fileID: 6492105103650400855}
-  _showProjectiles: 0
+  ShowProjectiles: 0
+  ShotVfxsContainer: {fileID: 7009498340783900050}
+--- !u!114 &7009498340783900050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9047281119026366967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4370381cd894a4aba650dd5d83abd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1979216041660291868
 PrefabInstance:
   m_ObjectHideFlags: 0

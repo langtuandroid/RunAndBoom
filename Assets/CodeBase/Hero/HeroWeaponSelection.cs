@@ -5,7 +5,7 @@ using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using CodeBase.Weapons;
 using UnityEngine;
@@ -22,14 +22,19 @@ namespace CodeBase.Hero
         private bool _canSelect;
         private int _currentWeapon;
         private List<HeroWeaponTypeId> _heroWeaponTypeIds;
+        private HeroShooting _heroShooting;
 
-        public event Action<GameObject, HeroWeaponStaticData, ProjectileTraceStaticData> WeaponSelected;
+        public event Action<GameObject, HeroWeaponStaticData, TrailStaticData> WeaponSelected;
 
         private void Awake()
         {
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             _heroWeaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
+        }
 
+        public void Construct(HeroShooting heroShooting)
+        {
+            _heroShooting = heroShooting;
             InitializeWeaponsDictionary();
         }
 
@@ -40,6 +45,9 @@ namespace CodeBase.Hero
             _weaponsDictionary.Add(HeroWeaponTypeId.RPG, _weapons[1]);
             _weaponsDictionary.Add(HeroWeaponTypeId.RocketLauncher, _weapons[2]);
             _weaponsDictionary.Add(HeroWeaponTypeId.Mortar, _weapons[3]);
+
+            foreach (var keyValue in _weaponsDictionary)
+                keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(_heroShooting, this);
         }
 
         public void TurnOn() =>
@@ -88,7 +96,6 @@ namespace CodeBase.Hero
             {
                 if (keyValue.Key == heroWeaponTypeId)
                 {
-                    keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(this);
                     keyValue.Value.SetActive(true);
                     WeaponChosen(heroWeaponTypeId);
                 }
@@ -104,8 +111,8 @@ namespace CodeBase.Hero
             _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
             _currentWeapon = _heroWeaponTypeIds.IndexOf(heroWeaponTypeId);
             HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
-            ProjectileTraceStaticData projectileTraceStaticData = _staticDataService.ForProjectileTrace(heroWeaponStaticData.ProjectileTraceTypeId);
-            WeaponSelected?.Invoke(_weaponsDictionary[heroWeaponTypeId], heroWeaponStaticData, projectileTraceStaticData);
+            TrailStaticData trailStaticData = _staticDataService.ForTrail(heroWeaponStaticData.TrailTypeId);
+            WeaponSelected?.Invoke(_weaponsDictionary[heroWeaponTypeId], heroWeaponStaticData, trailStaticData);
         }
     }
 }

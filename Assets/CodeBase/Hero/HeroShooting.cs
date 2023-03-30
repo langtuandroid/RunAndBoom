@@ -1,7 +1,7 @@
 using System;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using CodeBase.Weapons;
 using UnityEngine;
@@ -39,8 +39,7 @@ namespace CodeBase.Hero
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
         }
 
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
-            ProjectileTraceStaticData projectileTraceStaticData)
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
             _weaponCooldown = heroWeaponStaticData.Cooldown;

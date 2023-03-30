@@ -7,6 +7,7 @@ namespace CodeBase.Infrastructure.Factories
 {
     public interface IEnemyFactory : IService
     {
+        void CreateSpawnersRoot();
         Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId);
         Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent);
     }

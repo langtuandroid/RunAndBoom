@@ -1,5 +1,5 @@
 ﻿using CodeBase.Hero;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +23,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             _heroWeaponSelection.WeaponSelected += HighlightWeapon;
         }
 
-        private void HighlightWeapon(GameObject o, HeroWeaponStaticData heroWeaponStaticData, ProjectileTraceStaticData arg3)
+        private void HighlightWeapon(GameObject o, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
         {
             switch (heroWeaponStaticData.WeaponTypeId)
             {

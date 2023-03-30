@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.Logic;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Elements.Enemy;
 using UnityEngine;
@@ -34,8 +34,7 @@ namespace CodeBase.Hero
         private void Awake() =>
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
 
-        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
-            ProjectileTraceStaticData projectileTraceStaticData) =>
+        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData) =>
             _aimRange = heroWeaponStaticData.AimRange;
 
         private void FixedUpdate()

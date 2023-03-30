@@ -6,7 +6,6 @@ using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemies;
-using CodeBase.StaticData.ProjectileTraces;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Elements.Enemy;
 using CodeBase.Weapons;
@@ -21,6 +20,7 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
         private readonly IGameFactory _gameFactory;
+        private Transform _spawnersRoot;
 
         public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService, IGameFactory gameFactory)
         {
@@ -30,11 +30,18 @@ namespace CodeBase.Infrastructure.Factories
             _gameFactory = gameFactory;
         }
 
+        public async void CreateSpawnersRoot()
+        {
+            GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
+            _spawnersRoot = prefab.transform;
+        }
+
         public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
-            SpawnPoint spawner = _registratorService.InstantiateRegistered(prefab, at)
-                .GetComponent<SpawnPoint>();
+            GameObject spawnerObject = _registratorService.InstantiateRegistered(prefab, at);
+            spawnerObject.transform.SetParent(_spawnersRoot);
+            SpawnPoint spawner = spawnerObject.GetComponent<SpawnPoint>();
             spawner.Construct(enemyTypeId);
             spawner.Initialize();
         }
@@ -43,26 +50,21 @@ namespace CodeBase.Infrastructure.Factories
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
-            ProjectileTraceStaticData projectileTraceStaticData = _staticData.ForProjectileTrace(enemyWeaponStaticData.ProjectileTraceTypeId);
 
             GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
             _registratorService.RegisterProgressWatchers(enemy);
-
-            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData, projectileTraceStaticData);
-
-            EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-            health.SetMaxHealth(enemyData.Hp);
-
+            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
-
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.EffectiveDistance);
             enemy.GetComponentInChildren<TargetMovement>().Hide();
-
             ConstructEnemyAttack(typeId, enemyData, enemy);
+
+            EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+            health.SetMaxHealth(enemyData.Hp);
 
             return enemy;
         }

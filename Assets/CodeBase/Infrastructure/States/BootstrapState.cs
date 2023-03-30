@@ -7,6 +7,7 @@ using CodeBase.Services;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.Pool;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -47,6 +48,7 @@ namespace CodeBase.Infrastructure.States
             RegisterPlatformInputService();
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
+            _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IStaticDataService>()));
 
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IAssets>(),
@@ -58,6 +60,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
                     _services.Single<IAssets>(),
+                    _services.Single<IPoolService>(),
                     _services.Single<IPlayerProgressService>(),
                     _services.Single<IStaticDataService>(),
                     _services.Single<IRegistratorService>()

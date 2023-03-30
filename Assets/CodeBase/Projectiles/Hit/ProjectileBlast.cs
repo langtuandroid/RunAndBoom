@@ -9,7 +9,7 @@ namespace CodeBase.Projectiles.Hit
 
         private const float BlastDuration = 2f;
 
-        private GameObject _blastVfxPrefab;
+        private GameObject _prefab;
         private float _sphereRadius;
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
@@ -24,22 +24,22 @@ namespace CodeBase.Projectiles.Hit
 
             if (IsTargetTag(targetTag))
             {
-                if (_blastVfxPrefab != null)
+                if (_prefab != null)
                 {
                     ShowBlast();
                     StartCoroutine(DestroyBlast());
                     _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
                 }
 
-                Trace.DestroyTrace();
+                Trail?.HideTrace();
                 Movement.Stop();
             }
         }
 
-        public void Construct(GameObject blastVfxPrefab, float blastRadius, float damage)
+        public void Construct(GameObject prefab, float radius, float damage)
         {
-            _blastVfxPrefab = blastVfxPrefab;
-            _sphereRadius = blastRadius;
+            _prefab = prefab;
+            _sphereRadius = radius;
             _damage = damage;
         }
 
@@ -48,7 +48,7 @@ namespace CodeBase.Projectiles.Hit
             Debug.Log("Blast!");
             if (_particleSystem == null)
             {
-                _blastVfx = Instantiate(_blastVfxPrefab, transform.position, Quaternion.identity, null);
+                _blastVfx = Instantiate(_prefab, transform.position, Quaternion.identity, null);
                 _particleSystem = _blastVfx.GetComponent<ParticleSystem>();
             }
             else

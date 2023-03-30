@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using CodeBase.Hero;
-using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
 
@@ -11,143 +9,65 @@ namespace CodeBase.Weapons
 {
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
+        private HeroShooting _heroShooting;
         private HeroWeaponSelection _heroWeaponSelection;
-        private List<ProjectileBlast> _blasts;
-        private HeroWeaponTypeId _weaponTypeId;
-        private float _blastRange;
-        private GameObject _blastVfxPrefab;
+        private HeroWeaponTypeId _heroWeaponTypeId;
 
-        public void Construct(HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroShooting heroShooting, HeroWeaponSelection heroWeaponSelection)
         {
-            _blasts = new List<ProjectileBlast>(_projectilesRespawns.Length);
+            _heroShooting = heroShooting;
             _heroWeaponSelection = heroWeaponSelection;
-            CanShoot = true;
 
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
 
-        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
-            ProjectileTraceStaticData projectileTraceStaticData)
+        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData, TrailStaticData trailStaticData)
         {
-            base.Construct(weaponStaticData.MuzzleVfx, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileSpeed,
-                weaponStaticData.MovementLifeTime, weaponStaticData.Damage, projectileTraceStaticData);
-            _weaponTypeId = weaponStaticData.WeaponTypeId;
-            _blastRange = weaponStaticData.BlastRange;
-            _blastVfxPrefab = weaponStaticData.blastVfxPrefab;
+            base.Construct(weaponStaticData.ShotVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
 
-            CreateShotVfx();
-            CreateProjectiles();
+            _heroWeaponTypeId = weaponStaticData.WeaponTypeId;
+
+            _heroShooting.OnStopReloading += ReadyToShoot;
+            // _heroShooting.OnStartReloading += NotReadyToShoot;
+            _heroWeaponSelection.WeaponSelected += ReadyToShoot;
         }
 
-        protected override void CreateProjectiles()
-        {
-            for (int i = 0; i < _projectilesRespawns.Length * ProjectilesRatio; i++)
-            {
-                var projectileObject = CreateProjectileObject(i);
+        private void ReadyToShoot(GameObject arg1, HeroWeaponStaticData arg2, TrailStaticData arg3) =>
+            ReadyToShoot();
 
-                CreateProjectileMovement(projectileObject);
-
-                CreateProjectileTrace(projectileObject);
-
-                CreateProjectileBlast(projectileObject);
-            }
-
-            SetPosition(CurrentProjectileIndex, transform);
-            ResetRespawnIndex();
-            SetInitialVisibility();
-        }
-
-        private void CreateProjectileBlast(GameObject projectileObject)
-        {
-            ProjectileBlast projectileBlast = projectileObject.GetComponentInChildren<ProjectileBlast>();
-            SetBlast(ref projectileBlast);
-            _blasts.Add(projectileBlast);
-        }
-
-        protected override void CreateProjectileMovement(GameObject projectileObject)
-        {
-            ProjectileMovement projectileMovement = projectileObject.GetComponent<ProjectileMovement>();
-            SetMovementType(ref projectileMovement);
-            ProjectileMovements.Add(projectileMovement);
-        }
-
-        private void SetMovementType(ref ProjectileMovement movement)
-        {
-            switch (_weaponTypeId)
-            {
-                case HeroWeaponTypeId.GrenadeLauncher:
-                    SetGrenadeMovement(ref movement);
-                    break;
-
-                case HeroWeaponTypeId.Mortar:
-                    SetBombMovement(ref movement);
-                    break;
-
-                case HeroWeaponTypeId.RPG:
-                    SetShotMovement(ref movement);
-                    break;
-
-                case HeroWeaponTypeId.RocketLauncher:
-                    SetShotMovement(ref movement);
-                    break;
-            }
-        }
-
-        private void SetGrenadeMovement(ref ProjectileMovement movement) =>
-            (movement as GrenadeMovement)?.Construct(ProjectileSpeed, transform, MovementLifeTime);
-
-        private void SetBombMovement(ref ProjectileMovement movement) =>
-            (movement as BombMovement)?.Construct(ProjectileSpeed, transform, MovementLifeTime);
-
-        private void SetBlast(ref ProjectileBlast blast) =>
-            blast.Construct(_blastVfxPrefab, _blastRange, Damage);
+        // private void NotReadyToShoot(float cooldown)
+        // {
+        // for (int i = 0; i < ProjectilesRespawns.Length; i++)
+        // {
+        //     var projectile = SetNewProjectile(ProjectilesRespawns[i]);
+        //
+        //     if (ShowProjectiles)
+        //         projectile.SetActive(true);
+        // }
+        // }
 
         public void ShootTo(Vector3 enemyPosition)
         {
-            if (CanShoot)
+            for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
-                for (int i = 0; i < _projectilesRespawns.Length; i++)
-                {
-                    StartCoroutine(CoroutineShootTo(enemyPosition));
-                    ProjectileObjects[InvisibleIndex(i)].SetActive(false);
-                }
+                StartCoroutine(CoroutineShootTo(enemyPosition));
+                ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
             }
-        }
-
-        private int InvisibleIndex(int index)
-        {
-            int result = index + ProjectileObjects.Count / ProjectilesRatio;
-
-            if (result >= ProjectileObjects.Count)
-                result = index;
-
-            Debug.Log($"result index {result}");
-            return result;
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            int index = CurrentProjectileIndex;
-            ChangeProjectileIndex();
-            ProjectileObjects[index].transform.SetParent(null);
-            ProjectileObjects[index].SetActive(true);
+            if (targetPosition != null && GetMovement() is BombMovement)
+                (GetMovement() as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
 
-            if (targetPosition != null && ProjectileMovements[index] is BombMovement)
-                (ProjectileMovements[index] as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
-
-            ProjectileMovements[index].Launch();
-            CanShoot = false;
-            Debug.Log("Launched");
-            Debug.Log($"index {index}");
-            ProjectileTraces[index].CreateTrace();
-
-            LaunchShotVfx(index);
-
+            Launch();
             yield return LaunchProjectileCooldown;
-            SetPosition(index, transform);
-            // ProjectileObjects[index].SetActive(_showProjectiles);
+        }
 
-            CanShoot = true;
+        protected override GameObject GetProjectile()
+        {
+            GameObject heroProjectile = PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+            return heroProjectile;
         }
     }
 }

@@ -97,6 +97,7 @@ namespace CodeBase.Infrastructure.States
 
             if (levelData.InitializeHeroPosition)
             {
+                // _enemyFactory.CreateSpawnersRoot();
                 await InitGameWorld(levelData);
                 await InitSpawners(levelData);
             }
@@ -128,9 +129,10 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
-            HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
-            HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
             heroHealth.Construct();
+            HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
+            HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
+            heroWeaponSelection.Construct(heroShooting);
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
             hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroShooting, heroWeaponSelection);

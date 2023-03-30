@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CodeBase.Projectiles.Movement
 {
@@ -7,16 +8,18 @@ namespace CodeBase.Projectiles.Movement
         private float _speed;
         private Vector3 _target;
 
+        public override event Action Stoped;
+
         private void Update()
         {
             if (IsMove)
                 transform.position += transform.forward * _speed * Time.deltaTime;
         }
 
-        public void Construct(float speed, Transform parent, float lifeTime)
+        public void Construct(float speed, float lifeTime)
         {
             _speed = speed * 1f;
-            base.Construct(parent, lifeTime);
+            base.Construct(lifeTime);
         }
 
         public void SetTargetPosition(Vector3 target)
@@ -33,8 +36,9 @@ namespace CodeBase.Projectiles.Movement
 
         public override void Stop()
         {
-            SetInactive();
+            OffMove();
             IsMove = false;
+            Stoped?.Invoke();
         }
     }
 }

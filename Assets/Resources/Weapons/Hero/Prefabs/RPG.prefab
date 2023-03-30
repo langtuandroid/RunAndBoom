@@ -225,6 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497455042280132739}
   - component: {fileID: 5092174320619474378}
+  - component: {fileID: 1757543931315973224}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Untagged
@@ -262,13 +263,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 7650083282726657513, guid: 61d238830b59a604b94797a6858e5203,
-    type: 3}
-  _projectilesRespawns:
+  ProjectilesRespawns:
   - {fileID: 863799955004850132}
-  _muzzlesRespawns:
+  ShotVfxsRespawns:
   - {fileID: 6803598322285979206}
-  _showProjectiles: 1
+  ShowProjectiles: 1
+  ShotVfxsContainer: {fileID: 1757543931315973224}
+--- !u!114 &1757543931315973224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4864902182054719697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4370381cd894a4aba650dd5d83abd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7078969577470888347
 GameObject:
   m_ObjectHideFlags: 0

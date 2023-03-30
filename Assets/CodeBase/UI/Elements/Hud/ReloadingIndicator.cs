@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using CodeBase.Hero;
-using CodeBase.StaticData.ProjectileTraces;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +55,7 @@ namespace CodeBase.UI.Elements.Hud
             _progressImage.gameObject.SetActive(false);
         }
 
-        private void Stop([CanBeNull] GameObject o, HeroWeaponStaticData heroWeaponStaticData, [CanBeNull] ProjectileTraceStaticData arg3)
+        private void Stop(GameObject o, HeroWeaponStaticData h, TrailStaticData t)
         {
             if (_rotationCoroutine != null)
                 StopCoroutine(_rotationCoroutine);

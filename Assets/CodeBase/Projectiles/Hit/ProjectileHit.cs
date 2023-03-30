@@ -14,7 +14,7 @@ namespace CodeBase.Projectiles.Hit
 
             if (IsTargetTag(targetTag))
             {
-                Trace.DestroyTrace();
+                Trail.HideTrace();
                 Movement.Stop();
                 HeroHealth heroHealth = other.gameObject.GetComponent<HeroHealth>();
                 heroHealth.TakeDamage(1);
@@ -30,7 +30,7 @@ namespace CodeBase.Projectiles.Hit
 
             if (IsTargetTag(targetTag))
             {
-                Trace.DestroyTrace();
+                Trail.HideTrace();
                 Movement.Stop();
                 HeroHealth heroHealth = collision.gameObject.GetComponent<HeroHealth>();
                 heroHealth.TakeDamage(1);
