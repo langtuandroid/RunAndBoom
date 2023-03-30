@@ -7,11 +7,11 @@ namespace CodeBase.Projectiles
     public class ProjectileTrail : MonoBehaviour
     {
         [SerializeField] private Transform _trailPosition;
+        [SerializeField] private GameObject _trailVfx;
 
         private float _startDelay;
         private float _endDelay;
         private ParticleSystem _particleSystem;
-        private GameObject _trailVfx;
 
         private void OnEnable() =>
             Hide();
@@ -37,13 +37,12 @@ namespace CodeBase.Projectiles
         {
             if (_trailVfx != null)
             {
-                if (_particleSystem == null)
-                {
-                    _particleSystem = _trailVfx.GetComponent<ParticleSystem>();
-                }
+                // if (_particleSystem == null) 
+                //     _particleSystem = _trailVfx.GetComponent<ParticleSystem>();
 
                 yield return new WaitForSeconds(_startDelay);
-                _particleSystem?.Play(true);
+                _trailVfx.SetActive(true);
+                // _particleSystem?.Play(true);
             }
         }
 
@@ -56,7 +55,11 @@ namespace CodeBase.Projectiles
             Hide();
         }
 
-        private void Hide() =>
-            _particleSystem?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        private void Hide()
+        {
+            if (_trailVfx != null)
+                _trailVfx.SetActive(false);
+            // _particleSystem?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 }

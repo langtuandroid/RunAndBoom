@@ -64,10 +64,7 @@ namespace CodeBase.Weapons
             yield return LaunchProjectileCooldown;
         }
 
-        protected override GameObject GetProjectile()
-        {
-            GameObject heroProjectile = PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
-            return heroProjectile;
-        }
+        protected override GameObject GetProjectile() =>
+            PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
     }
 }

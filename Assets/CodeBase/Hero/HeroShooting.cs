@@ -17,9 +17,11 @@ namespace CodeBase.Hero
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
+        private float _initialCooldown = 2f;
         private float _weaponCooldown = 0f;
         private Vector3 _enemyPosition;
         private bool _canShoot = true;
+        private bool _startReloaded;
 
         public Action<float> OnStartReloading;
         public Action OnStopReloading;
@@ -47,11 +49,26 @@ namespace CodeBase.Hero
 
         private void Update()
         {
+            UpdateInitialCooldown();
             UpdateCooldown();
 
             if (_canShoot)
                 if (Input.GetMouseButton(0))
                     TryShoot();
+        }
+
+        private bool InitialCooldownUp() =>
+            _initialCooldown <= 0f;
+
+        private void UpdateInitialCooldown()
+        {
+            if (InitialCooldownUp() && !_startReloaded)
+            {
+                OnStopReloading?.Invoke();
+                _startReloaded = true;
+            }
+
+            _initialCooldown -= Time.deltaTime;
         }
 
         private void UpdateCooldown()
@@ -60,10 +77,9 @@ namespace CodeBase.Hero
             {
                 OnStartReloading?.Invoke(_currentAttackCooldown / _weaponCooldown);
                 _currentAttackCooldown -= Time.deltaTime;
-            }
-            else
-            {
-                OnStopReloading?.Invoke();
+
+                if (CooldownUp())
+                    OnStopReloading?.Invoke();
             }
         }
 

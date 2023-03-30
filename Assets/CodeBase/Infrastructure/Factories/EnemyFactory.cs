@@ -40,10 +40,10 @@ namespace CodeBase.Infrastructure.Factories
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
             GameObject spawnerObject = _registratorService.InstantiateRegistered(prefab, at);
-            spawnerObject.transform.SetParent(_spawnersRoot);
             SpawnPoint spawner = spawnerObject.GetComponent<SpawnPoint>();
             spawner.Construct(enemyTypeId);
             spawner.Initialize();
+            spawnerObject.transform.SetParent(_spawnersRoot);
         }
 
         public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)

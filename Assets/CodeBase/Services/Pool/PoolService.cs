@@ -15,7 +15,7 @@ namespace CodeBase.Services.Pool
 {
     public class PoolService : IPoolService
     {
-        private const int InitialCapacity = 10;
+        private const int InitialCapacity = 5;
         private const int AdditionalCount = 2;
 
         private IAssets _assets;

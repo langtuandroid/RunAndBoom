@@ -53,10 +53,6 @@ namespace CodeBase.Infrastructure.States
             if (_sceneName == Scenes.Level1)
             {
                 _loadingCurtain.Show();
-            }
-
-            if (_sceneName == Scenes.Level1)
-            {
                 _gameFactory.CleanUp();
                 _gameFactory.WarmUp();
             }
@@ -97,7 +93,7 @@ namespace CodeBase.Infrastructure.States
 
             if (levelData.InitializeHeroPosition)
             {
-                // _enemyFactory.CreateSpawnersRoot();
+                _enemyFactory.CreateSpawnersRoot();
                 await InitGameWorld(levelData);
                 await InitSpawners(levelData);
             }

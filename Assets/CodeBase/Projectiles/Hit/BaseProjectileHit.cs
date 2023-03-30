@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Projectiles.Movement;
+﻿using CodeBase.Projectiles.Movement;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit

@@ -19,13 +19,14 @@ namespace CodeBase.Weapons
         [FormerlySerializedAs("MuzzlesRespawns")] [FormerlySerializedAs("_muzzlesRespawns")] [SerializeField]
         protected Transform[] ShotVfxsRespawns;
 
-        [SerializeField] protected bool ShowProjectiles;
+        [FormerlySerializedAs("ShowProjectiles")] [SerializeField]
+        protected bool _showProjectiles;
 
         [SerializeField] protected ShotVfxsContainer ShotVfxsContainer;
 
         protected IPoolService PoolService;
         private bool _initialVisibility;
-        private List<GameObject> _projectiles;
+        [SerializeField] private List<GameObject> _projectiles;
         private ProjectileTypeId? _projectileTypeId;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
@@ -46,8 +47,8 @@ namespace CodeBase.Weapons
                 var projectile = SetNewProjectile(respawn);
                 _projectiles.Add(projectile);
 
-                if (ShowProjectiles)
-                    projectile.SetActive(true);
+                projectile.SetActive(true);
+                // projectile.SetActive(_showProjectiles);
             }
         }
 
@@ -77,7 +78,7 @@ namespace CodeBase.Weapons
         {
             GameObject projectile = GetProjectile();
 
-            projectile.transform.SetParent(transform);
+            projectile.transform.SetParent(respawn);
             projectile.transform.position = respawn.position;
             projectile.transform.rotation = respawn.rotation;
             return projectile;
