@@ -42,13 +42,15 @@ namespace CodeBase.Weapons
 
         protected void ReadyToShoot()
         {
-            foreach (Transform respawn in ProjectilesRespawns)
+            if (gameObject.activeInHierarchy)
             {
-                var projectile = SetNewProjectile(respawn);
-                _projectiles.Add(projectile);
-
-                projectile.SetActive(true);
-                // projectile.SetActive(_showProjectiles);
+                foreach (Transform respawn in ProjectilesRespawns)
+                {
+                    var projectile = SetNewProjectile(respawn);
+                    projectile.SetActive(true);
+                    projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
+                    _projectiles.Add(projectile);
+                }
             }
         }
 
@@ -56,9 +58,9 @@ namespace CodeBase.Weapons
         {
             GameObject projectile = _projectiles.First();
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
-            projectileMovement.gameObject.SetActive(true);
-            projectileMovement.gameObject.transform.SetParent(null);
+            projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
             projectileMovement.Launch();
+            projectile.transform.SetParent(null);
 
             ShowTrail(projectile);
 
@@ -79,7 +81,7 @@ namespace CodeBase.Weapons
             GameObject projectile = GetProjectile();
 
             projectile.transform.SetParent(respawn);
-            projectile.transform.position = respawn.position;
+            projectile.transform.localPosition = Vector3.zero;
             projectile.transform.rotation = respawn.rotation;
             return projectile;
         }
