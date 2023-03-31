@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trailPosition: {fileID: 6845473786046702743}
+  _trailVfx: {fileID: 0}
 --- !u!1 &6337939420664514641
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ GameObject:
   - component: {fileID: 6337939420664514639}
   - component: {fileID: 4860899793450377844}
   - component: {fileID: 8006432907002796431}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HitCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef71c3f8b8c041938aeb3c926ef1dca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trail: {fileID: 0}
   Movement: {fileID: 0}
   Tags:
   - Hero
