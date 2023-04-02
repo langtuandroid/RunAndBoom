@@ -8,10 +8,13 @@ namespace CodeBase.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private ProjectileTypeId _projectileTypeId;
-
         private IPoolService _poolService;
         private ProjectileMovement _projectileMovement;
+
+        public ProjectileTypeId ProjectileTypeId { get; private set; }
+
+        public void Construct(ProjectileTypeId projectileTypeId) =>
+            ProjectileTypeId = projectileTypeId;
 
         private void Awake()
         {
@@ -22,7 +25,7 @@ namespace CodeBase.Projectiles
 
         private void ReturnToRoot()
         {
-            switch (_projectileTypeId)
+            switch (ProjectileTypeId)
             {
                 case ProjectileTypeId.PistolBullet:
                     _poolService.ReturnEnemyProjectile(gameObject);

@@ -23,6 +23,8 @@ namespace CodeBase.Weapons
             {
                 StartCoroutine(CoroutineShootTo(targetPosition));
             }
+
+            Released();
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
@@ -37,7 +39,10 @@ namespace CodeBase.Weapons
             ReadyToShoot();
         }
 
-        protected override GameObject GetProjectile() =>
-            PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
+        protected override GameObject GetProjectile()
+        {
+            // Debug.Log($"enemy weapon type: {_enemyWeaponTypeId}");
+            return PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
+        }
     }
 }

@@ -4,6 +4,7 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Constructor;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
 using CodeBase.Services.PersistentProgress;
@@ -41,14 +42,14 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             RegisterStaticData();
-
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();
             RegisterInputService();
             RegisterPlatformInputService();
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
-            _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IConstructorService>(new ConstructorService(_services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IAssets>(),

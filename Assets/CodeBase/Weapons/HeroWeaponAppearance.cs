@@ -53,6 +53,8 @@ namespace CodeBase.Weapons
                 StartCoroutine(CoroutineShootTo(enemyPosition));
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
             }
+
+            Released();
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
@@ -64,7 +66,10 @@ namespace CodeBase.Weapons
             yield return LaunchProjectileCooldown;
         }
 
-        protected override GameObject GetProjectile() =>
-            PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+        protected override GameObject GetProjectile()
+        {
+            Debug.Log($"hero weapon type: {_heroWeaponTypeId}");
+            return PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+        }
     }
 }

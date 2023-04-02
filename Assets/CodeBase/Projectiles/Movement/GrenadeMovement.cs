@@ -9,23 +9,19 @@ namespace CodeBase.Projectiles.Movement
         private const float LaunchForce = 50f;
 
         private Rigidbody _rigidBody;
-        private float _speed;
 
         public override event Action Stoped;
 
         private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
 
-        public void Construct(float speed, float lifeTime)
-        {
-            _speed = speed * 1f;
-            base.Construct(lifeTime);
-        }
+        // public void Construct(float speed, float lifeTime) => 
+        //     base.Construct(speed * 1f,lifeTime);
 
         public override void Launch()
         {
             _rigidBody.isKinematic = false;
-            _rigidBody.AddForce(transform.forward * _speed * LaunchForce, ForceMode.Force);
+            _rigidBody.AddForce(transform.forward * Speed * LaunchForce, ForceMode.Force);
             StartCoroutine(LaunchTime());
         }
 

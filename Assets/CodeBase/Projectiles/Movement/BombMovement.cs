@@ -8,7 +8,6 @@ namespace CodeBase.Projectiles.Movement
     public class BombMovement : ProjectileMovement
     {
         private Rigidbody _rigidBody;
-        private float _speed;
         private bool _rotate = false;
         private Vector3 _targetPosition;
 
@@ -17,11 +16,8 @@ namespace CodeBase.Projectiles.Movement
         private void Awake() =>
             _rigidBody = GetComponent<Rigidbody>();
 
-        public void Construct(float speed, float lifeTime)
-        {
-            _speed = speed * 1f;
-            base.Construct(lifeTime);
-        }
+        // public void Construct(float speed, float lifeTime) => 
+        //     base.Construct(speed * 1f,lifeTime);
 
         public void SetTargetPosition(Vector3 targetPosition) =>
             _targetPosition = targetPosition;
@@ -34,10 +30,10 @@ namespace CodeBase.Projectiles.Movement
             _rigidBody.isKinematic = false;
             Vector3 aim = _targetPosition - transform.position;
             float lenght = Vector3.Distance(_targetPosition, transform.position);
-            float time = lenght / _speed;
+            float time = lenght / Speed;
             float antiGravity = -Physics.gravity.y * time / 2;
             float deltaY = (_targetPosition.y - transform.position.y) / time;
-            Vector3 bombSpeed = aim.normalized * _speed;
+            Vector3 bombSpeed = aim.normalized * Speed;
             bombSpeed.y = antiGravity + deltaY;
             _rigidBody.velocity = bombSpeed;
             transform.forward = _targetPosition;

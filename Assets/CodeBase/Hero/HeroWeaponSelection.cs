@@ -93,17 +93,9 @@ namespace CodeBase.Hero
                 return;
 
             foreach (var keyValue in _weaponsDictionary)
-            {
-                if (keyValue.Key == heroWeaponTypeId)
-                {
-                    keyValue.Value.SetActive(true);
-                    WeaponChosen(heroWeaponTypeId);
-                }
-                else
-                {
-                    keyValue.Value.SetActive(false);
-                }
-            }
+                keyValue.Value.SetActive(keyValue.Key == heroWeaponTypeId);
+
+            WeaponChosen(heroWeaponTypeId);
         }
 
         private void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)

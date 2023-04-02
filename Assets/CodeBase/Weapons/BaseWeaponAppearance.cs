@@ -30,6 +30,7 @@ namespace CodeBase.Weapons
         private ProjectileTypeId? _projectileTypeId;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
+        protected bool Filled { get; private set; }
 
         protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId, ShotVfxTypeId shotVfxTypeId)
         {
@@ -42,7 +43,10 @@ namespace CodeBase.Weapons
 
         protected void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy)
+            if (gameObject.activeInHierarchy
+                && Filled == false
+                // && _projectiles.Count == 0
+               )
             {
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
@@ -51,6 +55,8 @@ namespace CodeBase.Weapons
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     _projectiles.Add(projectile);
                 }
+
+                Filled = true;
             }
         }
 
@@ -65,6 +71,7 @@ namespace CodeBase.Weapons
             ShowTrail(projectile);
 
             _projectiles.Remove(projectile);
+            Debug.Log($"Count {_projectiles.Count}");
         }
 
         protected ProjectileMovement GetMovement() =>
@@ -78,6 +85,7 @@ namespace CodeBase.Weapons
 
         private GameObject SetNewProjectile(Transform respawn)
         {
+            Debug.Log($"projectile type: {_projectileTypeId}");
             GameObject projectile = GetProjectile();
 
             projectile.transform.SetParent(respawn);
@@ -85,6 +93,9 @@ namespace CodeBase.Weapons
             projectile.transform.rotation = respawn.rotation;
             return projectile;
         }
+
+        protected void Released() =>
+            Filled = false;
 
         protected abstract GameObject GetProjectile();
     }

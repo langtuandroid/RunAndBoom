@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Projectiles;
-using CodeBase.Projectiles.Hit;
-using CodeBase.Projectiles.Movement;
-using CodeBase.Services.StaticData;
+using CodeBase.Services.Constructor;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
@@ -16,10 +13,10 @@ namespace CodeBase.Services.Pool
     public class PoolService : IPoolService
     {
         private const int InitialCapacity = 5;
-        private const int AdditionalCount = 2;
+        private const int AdditionalCount = 5;
 
         private IAssets _assets;
-        private IStaticDataService _staticDataService;
+        private IConstructorService _constructorService;
         private Dictionary<string, List<GameObject>> _heroProjectiles;
         private Dictionary<string, List<GameObject>> _enemyProjectiles;
         private Dictionary<string, List<GameObject>> _shotVfxs;
@@ -27,10 +24,10 @@ namespace CodeBase.Services.Pool
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
 
-        public PoolService(IAssets assets, IStaticDataService staticDataService)
+        public PoolService(IAssets assets, IConstructorService constructorService)
         {
             _assets = assets;
-            _staticDataService = staticDataService;
+            _constructorService = constructorService;
         }
 
         public void GenerateObjects()
@@ -61,9 +58,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.PistolBullet);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                projectile.GetComponent<BulletMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
+                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.PistolBullet);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -73,9 +69,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.Shot);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
-                projectile.GetComponent<ShotMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
+                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.Shot);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -90,13 +85,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.Grenade);
-                BlastStaticData blastStaticData = _staticDataService.ForBlast(BlastTypeId.Grenade);
-                TrailStaticData trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Grenade, _heroProjectilesRoot);
-                projectile.GetComponent<GrenadeMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
-                projectile.GetComponentInChildren<ProjectileBlast>().Construct(blastStaticData.Prefab, blastStaticData.Radius, blastStaticData.Damage);
-                projectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -106,13 +96,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.RpgRocket);
-                BlastStaticData blastStaticData = _staticDataService.ForBlast(BlastTypeId.RpgRocket);
-                TrailStaticData trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
-                projectile.GetComponent<ShotMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
-                projectile.GetComponentInChildren<ProjectileBlast>().Construct(blastStaticData.Prefab, blastStaticData.Radius, blastStaticData.Damage);
-                projectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RpgRocket, BlastTypeId.RpgRocket);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -122,13 +107,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.RocketLauncherRocket);
-                BlastStaticData blastStaticData = _staticDataService.ForBlast(BlastTypeId.RocketLauncherRocket);
-                TrailStaticData trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
-                projectile.GetComponent<ShotMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
-                projectile.GetComponentInChildren<ProjectileBlast>().Construct(blastStaticData.Prefab, blastStaticData.Radius, blastStaticData.Damage);
-                projectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RocketLauncherRocket, BlastTypeId.RocketLauncherRocket);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -138,13 +118,8 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(ProjectileTypeId.Bomb);
-                BlastStaticData blastStaticData = _staticDataService.ForBlast(BlastTypeId.Bomb);
-                TrailStaticData trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
-                projectile.GetComponent<BombMovement>().Construct(projectileStaticData.Speed, projectileStaticData.MovementLifeTime);
-                projectile.GetComponentInChildren<ProjectileBlast>().Construct(blastStaticData.Prefab, blastStaticData.Radius, blastStaticData.Damage);
-                projectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -297,7 +272,9 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < AdditionalCount; i++)
             {
-                GameObject newGameObject = Object.Instantiate((newList[0]), parent);
+                GameObject original = newList[0];
+                GameObject newGameObject = Object.Instantiate(original, parent);
+                _constructorService.ConstructProjectileLike(original, newGameObject);
                 newGameObject.SetActive(false);
                 newList.Add(newGameObject);
             }
