@@ -19,6 +19,8 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadSceneState : IPayloadedState<string>
     {
+        private const string LevelName = "Level_";
+
         private readonly IGameStateMachine _stateMachine;
         private readonly ISceneLoader _sceneLoader;
         private readonly ILoadingCurtain _loadingCurtain;
@@ -29,6 +31,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IUIFactory _uiFactory;
         private readonly IWindowService _windowService;
 
+        private bool _isInitial = true;
         private string _sceneName;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
@@ -50,9 +53,11 @@ namespace CodeBase.Infrastructure.States
         {
             _sceneName = sceneName;
 
-            if (_sceneName == Scenes.Level1)
+            if (_sceneName.Contains(LevelName))
             {
-                _loadingCurtain.Show();
+                if (IsInitialSceneInEditor())
+                    _loadingCurtain.Show();
+
                 _gameFactory.CleanUp();
                 _gameFactory.WarmUp();
             }
@@ -62,9 +67,15 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            if (_sceneName == Scenes.Level1)
-                _loadingCurtain.Hide();
+            if (_sceneName.Contains(LevelName))
+                if (IsInitialSceneInEditor())
+                    _loadingCurtain.Hide();
+
+            _isInitial = false;
         }
+
+        private bool IsInitialSceneInEditor() =>
+            _isInitial && Application.isEditor;
 
         private async void OnLoaded(string name)
         {

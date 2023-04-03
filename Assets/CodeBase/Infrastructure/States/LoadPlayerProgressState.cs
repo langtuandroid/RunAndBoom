@@ -1,12 +1,14 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
     public class LoadPlayerProgressState : IState
     {
         private const string InitialLevel = Scenes.Level1;
+        private const string WebInitialScene = "PlaytestingScene";
 
         private readonly IGameStateMachine _stateMachine;
         private readonly IPlayerProgressService _progressService;
@@ -23,7 +25,11 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            _stateMachine.Enter<LoadSceneState, string>(InitialLevel);
+
+            // if (Application.isEditor)
+                _stateMachine.Enter<LoadSceneState, string>(InitialLevel);
+            // else
+            //     _stateMachine.Enter<LoadSceneState, string>(WebInitialScene);
         }
 
         public void Exit()

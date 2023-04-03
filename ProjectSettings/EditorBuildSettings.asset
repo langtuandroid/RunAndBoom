@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Samples/Web Utility/2.1.0/Playtesting Sample/PlaytestingScene.unity
+    guid: f217115a68ee0f9459dd5bd77192cdae
+  - enabled: 1
     path: Assets/Scenes/Initial.unity
     guid: 76a66002c3ec9ab48b655027c6fbf7bc
   - enabled: 1
     path: Assets/Scenes/Level_1.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: a0e86b990cde77e4ab86339e450b1cae
+  - enabled: 1
+    path: Assets/Scenes/Level_3.unity
+    guid: 157cbe8e15a2d1f499fcfd9ef66f4b63
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c430dff17d2d1a44881760605e918f8c,
       type: 2}
