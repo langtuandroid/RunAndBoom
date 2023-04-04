@@ -9,7 +9,7 @@ namespace CodeBase.Level
 {
     public class LevelSectorTrigger : MonoBehaviour
     {
-        [SerializeField] private string _name;
+        [SerializeField] private int _number;
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
@@ -28,7 +28,7 @@ namespace CodeBase.Level
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
                 Passed?.Invoke();
-                _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
+                _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
                 _windowService.Open(WindowId.Shop);
                 _isPassed = true;
             }
