@@ -3,7 +3,6 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Elements.ShopPanel;
 using CodeBase.UI.Windows;
-using CodeBase.UI.Windows.Settings;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -29,11 +28,17 @@ namespace CodeBase.UI.Services.Windows
                 case WindowId.Shop:
                     ShowWindow<ShopWindow>(WindowId.Shop);
                     break;
+                case WindowId.Death:
+                    ShowWindow<DeathWindow>(WindowId.Death);
+                    break;
             }
         }
 
-        public void AddWindow(WindowId windowId, GameObject window) =>
-            _windows.Add(windowId, window);
+        public void AddWindow(WindowId windowId, GameObject window)
+        {
+            if (!_windows.ContainsKey(windowId))
+                _windows.Add(windowId, window);
+        }
 
         private void ShowWindow<T>(WindowId windowId) where T : WindowBase
         {

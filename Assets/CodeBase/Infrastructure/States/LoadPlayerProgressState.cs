@@ -1,7 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -27,7 +26,7 @@ namespace CodeBase.Infrastructure.States
             LoadProgressOrInitNew();
 
             // if (Application.isEditor)
-                _stateMachine.Enter<LoadSceneState, string>(InitialLevel);
+            _stateMachine.Enter<LoadSceneState, string>(InitialLevel);
             // else
             //     _stateMachine.Enter<LoadSceneState, string>(WebInitialScene);
         }

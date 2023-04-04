@@ -17,18 +17,22 @@ namespace CodeBase.UI.Windows
         {
             gameObject.SetActive(false);
             _hero.GetComponent<HeroShooting>().TurnOn();
+            _hero.GetComponent<HeroMovement>().TurnOn();
             _hero.GetComponent<EnemiesChecker>().TurnOn();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
+            Time.timeScale = 1;
         }
 
         public void Show()
         {
             gameObject.SetActive(true);
             _hero.GetComponent<HeroShooting>().TurnOff();
+            _hero.GetComponent<HeroMovement>().TurnOff();
             _hero.GetComponent<EnemiesChecker>().TurnOff();
             _hero.GetComponent<HeroRotating>().TurnOff();
             _hero.GetComponent<HeroLookAt>().TurnOff();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
+            Time.timeScale = 0;
         }
 
         // [SerializeField] private Button _closeButton;

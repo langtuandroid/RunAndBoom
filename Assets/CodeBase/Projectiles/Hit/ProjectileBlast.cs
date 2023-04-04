@@ -14,6 +14,16 @@ namespace CodeBase.Projectiles.Hit
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
         private float _damage;
+        private CapsuleCollider _hitCollider;
+
+        private void Awake() =>
+            _hitCollider = GetComponent<CapsuleCollider>();
+
+        public void OffCollider() =>
+            _hitCollider.enabled = false;
+
+        public void OnCollider() =>
+            _hitCollider.enabled = transform;
 
         private void OnEnable() =>
             HideBlast();

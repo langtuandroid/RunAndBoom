@@ -17,10 +17,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             // _refreshButton.onClick.AddListener(() => _generator.GenerateItems());
         }
 
-        private void CloseShop()
-        {
+        private void CloseShop() =>
             _shopWindow.Hide();
-            Time.timeScale = 1;
-        }
     }
 }

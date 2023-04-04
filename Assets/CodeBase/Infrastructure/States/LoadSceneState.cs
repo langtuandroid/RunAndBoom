@@ -55,8 +55,8 @@ namespace CodeBase.Infrastructure.States
 
             if (_sceneName.Contains(LevelName))
             {
-                if (IsInitialSceneInEditor())
-                    _loadingCurtain.Show();
+                // if (IsInitialSceneInEditor())
+                _loadingCurtain.Show();
 
                 _gameFactory.CleanUp();
                 _gameFactory.WarmUp();
@@ -68,8 +68,8 @@ namespace CodeBase.Infrastructure.States
         public void Exit()
         {
             if (_sceneName.Contains(LevelName))
-                if (IsInitialSceneInEditor())
-                    _loadingCurtain.Hide();
+                // if (IsInitialSceneInEditor())
+                _loadingCurtain.Hide();
 
             _isInitial = false;
         }
@@ -151,9 +151,12 @@ namespace CodeBase.Infrastructure.States
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
             deathWindow.GetComponent<DeathWindow>().Construct(hero);
+            GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
+            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _sceneName);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
+            _windowService.AddWindow(WindowId.Settings, settingsWindow);
         }
     }
 }

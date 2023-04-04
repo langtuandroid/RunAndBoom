@@ -41,7 +41,9 @@ namespace CodeBase.Hero
         {
             UpFixedTime();
 
-            if (IsCheckEnemiesTimerReached() && _run)
+            if (
+                // IsCheckEnemiesTimerReached() && 
+                _run)
                 CheckEnemiesAround();
         }
 

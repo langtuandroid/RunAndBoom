@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Projectiles;
+using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.Services;
 using CodeBase.Services.Pool;
@@ -43,16 +44,14 @@ namespace CodeBase.Weapons
 
         protected void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy
-                && Filled == false
-                // && _projectiles.Count == 0
-               )
+            if (gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
             {
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
                     var projectile = SetNewProjectile(respawn);
                     projectile.SetActive(true);
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
+                    projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
                     _projectiles.Add(projectile);
                 }
 
@@ -65,6 +64,7 @@ namespace CodeBase.Weapons
             GameObject projectile = _projectiles.First();
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
             projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
+            projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
             projectileMovement.Launch();
             projectile.transform.SetParent(null);
 

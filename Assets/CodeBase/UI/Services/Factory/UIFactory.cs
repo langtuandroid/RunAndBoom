@@ -35,5 +35,8 @@ namespace CodeBase.UI.Services.Factory
 
         public async Task<GameObject> CreateDeathWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.DeathWindow, _uiRoot);
+
+        public async Task<GameObject> CreateSettingsWindow() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.SettingsWindow, _uiRoot);
     }
 }

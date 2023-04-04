@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Error
+namespace CodeBase.UI.Windows
 {
     public class ErrorWindow : WindowBase
     {
