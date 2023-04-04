@@ -1072,6 +1072,7 @@ MonoBehaviour:
   _item1: {fileID: 5795735000073939082}
   _item2: {fileID: 2828351981896525375}
   _item3: {fileID: 6479839889160625983}
+  _shopButtons: {fileID: 6251444111792986998}
 --- !u!114 &6251444111792986998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1087,7 +1088,7 @@ MonoBehaviour:
   _skipButton: {fileID: 8701783380240409709}
   _refreshButton: {fileID: 6324506760347914915}
   _shopWindow: {fileID: 6415520431241114458}
-  _generator: {fileID: 0}
+  _generator: {fileID: 1303541516664814898}
 --- !u!1 &8131069098579629595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1101,7 @@ GameObject:
   - component: {fileID: 7908321153056902621}
   - component: {fileID: 7360174197154873246}
   - component: {fileID: 6324506760347914915}
+  - component: {fileID: 8262998317301932358}
   m_Layer: 5
   m_Name: RefreshButton
   m_TagString: Untagged
@@ -1211,6 +1213,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8262998317301932358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131069098579629595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2264b6739de41c9b0142a0af54c2ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adsIcon: {fileID: 5864775582697659158}
 --- !u!1 &8300922620346195981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,7 +1618,7 @@ PrefabInstance:
     - target: {fileID: 5047749942836408096, guid: a38718b621192f841af04acef077e57d,
         type: 3}
       propertyPath: m_fontSize
-      value: 28.65
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7435014820968010870, guid: a38718b621192f841af04acef077e57d,
         type: 3}
@@ -1645,7 +1660,7 @@ PrefabInstance:
     - target: {fileID: 5155102284089148990, guid: e78663e106935004f8022308f3a9d0eb,
         type: 3}
       propertyPath: m_fontSize
-      value: 35.35
+      value: 19.7
       objectReference: {fileID: 0}
     - target: {fileID: 6326565912065026960, guid: e78663e106935004f8022308f3a9d0eb,
         type: 3}
@@ -1875,7 +1890,7 @@ PrefabInstance:
     - target: {fileID: 3790534805065906415, guid: a993eb0bc0895d44bbd20bdfd3a712e5,
         type: 3}
       propertyPath: m_fontSize
-      value: 34.05
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5606704647444910912, guid: a993eb0bc0895d44bbd20bdfd3a712e5,
         type: 3}
@@ -2014,7 +2029,7 @@ PrefabInstance:
     - target: {fileID: 8085234047664268264, guid: 4f0cbe08f3435ec46b39a75bc2753514,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.2
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8133328390036929977, guid: 4f0cbe08f3435ec46b39a75bc2753514,
         type: 3}
@@ -2249,6 +2264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904995970457268861, guid: 2fb4b8279ebc9844196246245aceeea1,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 30.8
       objectReference: {fileID: 0}
     - target: {fileID: 8957705229429896446, guid: 2fb4b8279ebc9844196246245aceeea1,
         type: 3}

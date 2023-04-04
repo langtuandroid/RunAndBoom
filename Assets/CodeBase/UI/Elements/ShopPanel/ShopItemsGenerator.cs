@@ -18,17 +18,19 @@ namespace CodeBase.UI.Elements.ShopPanel
 {
     public class ShopItemsGenerator : MonoBehaviour
     {
-        [SerializeField] private GameObject _item1;
-        [SerializeField] private GameObject _item2;
-        [SerializeField] private GameObject _item3;
+        [SerializeField] private GameObject _shopItem1;
+        [SerializeField] private GameObject _shopItem2;
+        [SerializeField] private GameObject _shopItem3;
+        [SerializeField] private GameObject[] _shopItems;
+        [SerializeField] private ShopButtons _shopButtons;
 
         private IPlayerProgressService _progressService;
         private IStaticDataService _staticDataService;
-        private HashSet<AmmoViewModel> _ammo;
-        private HashSet<PerkViewModel> _perks;
-        private HashSet<WeaponViewModel> _weapons;
-        private HashSet<ItemViewModel> _items;
-        private HashSet<UpgradeViewModel> _upgrades;
+        private Dictionary<AmmoItem, AmmoViewModel> _ammo;
+        private Dictionary<PerkTypeId, PerkViewModel> _perks;
+        private Dictionary<HeroWeaponTypeId, WeaponViewModel> _weapons;
+        private Dictionary<ItemTypeId, ItemViewModel> _items;
+        private Dictionary<WeaponUpgrade, UpgradeViewModel> _upgrades;
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
         {
@@ -67,6 +69,8 @@ namespace CodeBase.UI.Elements.ShopPanel
                             _staticDataService.ForUpgradeLevelsInfo(nextLevelUpgrade.UpgradeTypeId, nextLevelUpgrade.LevelTypeId);
                         ShopUpgradeLevelStaticData shopUpgradeLevelStaticData = _staticDataService.ForShopUpgradeLevel(nextLevelUpgrade.LevelTypeId);
 
+                        WeaponUpgrade weaponUpgrade = new WeaponUpgrade(weaponTypeId, upgradeTypeId, nextLevelUpgrade.LevelTypeId);
+
                         UpgradeViewModel upgradeViewModel = new UpgradeViewModel(mainImage: upgradableWeaponStaticData.MainImage,
                             levelImage: shopUpgradeLevelStaticData.MainImage, additionalImage: shopUpgradeStaticData.MainImage,
                             cost: upgradeLevelInfoStaticData.Cost,
@@ -74,7 +78,7 @@ namespace CodeBase.UI.Elements.ShopPanel
                             enTitle: $"{shopUpgradeStaticData.IEnTitle} {shopUpgradeLevelStaticData.Level} {upgradableWeaponStaticData.IEnTitle}",
                             trTitle: $"{shopUpgradeStaticData.ITrTitle} {shopUpgradeLevelStaticData.Level} {upgradableWeaponStaticData.ITrTitle}");
 
-                        _upgrades.Add(upgradeViewModel);
+                        _upgrades.Add(weaponUpgrade, upgradeViewModel);
                     }
                 }
             }
@@ -93,7 +97,7 @@ namespace CodeBase.UI.Elements.ShopPanel
                     PerkViewModel perkViewModel = new PerkViewModel(mainImage: perkStaticData.MainImage, levelImage: perkStaticData.LevelImage,
                         cost: perkStaticData.Cost, ruTitle: perkStaticData.IRuTitle, enTitle: perkStaticData.IEnTitle, trTitle: perkStaticData.ITrTitle);
 
-                    _perks.Add(perkViewModel);
+                    _perks.Add(perkTypeId, perkViewModel);
                 }
             }
         }
@@ -112,7 +116,7 @@ namespace CodeBase.UI.Elements.ShopPanel
                         count: count, ruTitle: ammoStaticData.IRuTitle, enTitle: ammoStaticData.IEnTitle,
                         trTitle: ammoStaticData.ITrTitle);
 
-                    _ammo.Add(ammoViewModel);
+                    _ammo.Add(ammoItem, ammoViewModel);
                 }
             }
         }
@@ -127,7 +131,7 @@ namespace CodeBase.UI.Elements.ShopPanel
                     WeaponViewModel weaponViewModel = new WeaponViewModel(mainImage: weaponStaticData.MainImage, cost: weaponStaticData.Cost,
                         ruTitle: weaponStaticData.IRuTitle, enTitle: weaponStaticData.IEnTitle, trTitle: weaponStaticData.ITrTitle);
 
-                    _weapons.Add(weaponViewModel);
+                    _weapons.Add(weaponData.WeaponTypeId, weaponViewModel);
                 }
             }
         }
@@ -141,12 +145,19 @@ namespace CodeBase.UI.Elements.ShopPanel
                 ItemViewModel itemViewModel = new ItemViewModel(mainImage: itemStaticData.MainImage, cost: itemStaticData.Cost,
                     ruTitle: itemStaticData.IRuTitle, enTitle: itemStaticData.IEnTitle, trTitle: itemStaticData.ITrTitle);
 
-                _items.Add(itemViewModel);
+                _items.Add(itemTypeId, itemViewModel);
             }
         }
 
         public void GenerateItems()
         {
+            float healthPercentage = _progressService.Progress.HealthState.CurrentHp / _progressService.Progress.HealthState.MaxHp;
+
+            if (healthPercentage <= 0.5f)
+            {
+                _items.TryGetValue(ItemTypeId.HealthRecover, out ItemViewModel value);
+                // _shopItems
+            }
         }
     }
 }

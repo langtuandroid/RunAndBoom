@@ -37,7 +37,7 @@ namespace CodeBase.Infrastructure.States
             _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadPlayerProgressState>();
+            _stateMachine.Enter<LoadPlayerProgressState, string>(Scenes.Level1);
 
         private void RegisterServices()
         {
@@ -52,7 +52,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
-                new UIFactory(_services.Single<IAssets>(),
+                new UIFactory(_services.Single<IPlayerProgressService>(),_services.Single<IAssets>(),
                     _services.Single<IRegistratorService>())
             );
 

@@ -10,12 +10,21 @@ namespace CodeBase.UI.Elements.ShopPanel
         [SerializeField] private ShopWindow _shopWindow;
         [SerializeField] private ShopItemsGenerator _generator;
 
+        private RefreshButton _refresh;
+
         private void Awake()
         {
             _skipButton.onClick.AddListener(CloseShop);
             _refreshButton.onClick.AddListener(CloseShop);
+            _refresh = _refreshButton.GetComponent<RefreshButton>();
             // _refreshButton.onClick.AddListener(() => _generator.GenerateItems());
         }
+
+        public void ShowRefreshButton() => 
+            _refreshButton.gameObject.SetActive(true);
+
+        public void HideRefreshButton() => 
+            _refreshButton.gameObject.SetActive(false);
 
         private void CloseShop() =>
             _shopWindow.Hide();

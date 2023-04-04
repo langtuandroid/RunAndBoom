@@ -37,14 +37,17 @@ namespace CodeBase.Services.Pool
 
         private async void CreateRoots()
         {
-            GameObject root = await _assets.Instantiate(AssetAddresses.EnemyProjectilesRoot);
-            _enemyProjectilesRoot = root.transform;
+            GameObject root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
+            GameObject gameObject = Object.Instantiate(root);
+            _enemyProjectilesRoot = gameObject.transform;
 
-            root = await _assets.Instantiate(AssetAddresses.HeroProjectilesRoot);
-            _heroProjectilesRoot = root.transform;
+            root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
+            gameObject = Object.Instantiate(root);
+            _heroProjectilesRoot = gameObject.transform;
 
-            root = await _assets.Instantiate(AssetAddresses.ShotVfxsRoot);
-            _shotVfxsRoot = root.transform;
+            root = await _assets.Load<GameObject>(AssetAddresses.ShotVfxsRoot);
+            gameObject = Object.Instantiate(root);
+            _shotVfxsRoot = gameObject.transform;
 
             GenerateEnemyProjectiles();
             GenerateHeroProjectiles();

@@ -32,8 +32,11 @@ namespace CodeBase.Infrastructure.Factories
 
         public async void CreateSpawnersRoot()
         {
-            GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
-            _spawnersRoot = prefab.transform;
+            GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.SpawnersRoot);
+            GameObject gameObject = Object.Instantiate(prefab);
+            _spawnersRoot = gameObject.transform;
+            // GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
+            // _spawnersRoot = prefab.transform;
         }
 
         public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
@@ -50,9 +53,8 @@ namespace CodeBase.Infrastructure.Factories
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
-
-            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
-            _registratorService.RegisterProgressWatchers(enemy);
+            GameObject prefab = await _assets.Load<GameObject>(enemyData.PrefabReference);
+            GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;

@@ -21,7 +21,7 @@ namespace CodeBase.Data.Upgrades
             int updatesCount = DataExtensions.GetValues<UpgradeTypeId>().Count();
             UpgradeItemDatas = new HashSet<UpgradeItemData>(_weaponTypeIds.Count() * updatesCount);
 
-            FillTestData();
+            // FillTestData();
         }
 
         private void FillTestData()

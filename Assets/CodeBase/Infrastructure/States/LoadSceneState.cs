@@ -150,7 +150,7 @@ namespace CodeBase.Infrastructure.States
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            deathWindow.GetComponent<DeathWindow>().Construct(hero);
+            deathWindow.GetComponent<DeathWindow>().Construct(hero, _sceneName);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
             settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _sceneName);
 
