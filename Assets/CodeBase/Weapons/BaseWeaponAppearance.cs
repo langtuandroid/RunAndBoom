@@ -25,7 +25,7 @@ namespace CodeBase.Weapons
 
         [SerializeField] protected ShotVfxsContainer ShotVfxsContainer;
 
-        protected IPoolService PoolService;
+        protected IObjectsPoolService ObjectsPoolService;
         private bool _initialVisibility;
         [SerializeField] private List<GameObject> _projectiles;
         private ProjectileTypeId? _projectileTypeId;
@@ -35,7 +35,7 @@ namespace CodeBase.Weapons
 
         protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId, ShotVfxTypeId shotVfxTypeId)
         {
-            PoolService = AllServices.Container.Single<IPoolService>();
+            ObjectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectiles = new List<GameObject>(ProjectilesRespawns.Length);

@@ -42,7 +42,7 @@ namespace CodeBase.Weapons
         protected override GameObject GetProjectile()
         {
             // Debug.Log($"enemy weapon type: {_enemyWeaponTypeId}");
-            return PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
+            return ObjectsPoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -24,6 +25,6 @@ namespace CodeBase.Hero
         }
 
         public void Die() =>
-            _windowService.Open(WindowId.Death);
+            _windowService.Open<DeathWindow>(WindowId.Death);
     }
 }

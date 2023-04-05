@@ -69,7 +69,7 @@ namespace CodeBase.Weapons
         protected override GameObject GetProjectile()
         {
             Debug.Log($"hero weapon type: {_heroWeaponTypeId}");
-            return PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+            return ObjectsPoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
         }
     }
 }

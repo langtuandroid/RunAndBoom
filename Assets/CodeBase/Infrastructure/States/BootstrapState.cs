@@ -51,7 +51,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
             _services.RegisterSingle<IConstructorService>(new ConstructorService(_services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
+            _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IPlayerProgressService>(), _services.Single<IAssets>(),
@@ -63,7 +63,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
                     _services.Single<IAssets>(),
-                    _services.Single<IPoolService>(),
+                    _services.Single<IObjectsPoolService>(),
                     _services.Single<IPlayerProgressService>(),
                     _services.Single<IStaticDataService>(),
                     _services.Single<IRegistratorService>()

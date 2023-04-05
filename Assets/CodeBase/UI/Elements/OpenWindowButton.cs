@@ -1,5 +1,6 @@
 ﻿using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,6 @@ namespace CodeBase.UI.Elements
         }
 
         private void Open() =>
-            _windowService.Open(_windowId);
+            _windowService.Open<WindowBase>(_windowId);
     }
 }

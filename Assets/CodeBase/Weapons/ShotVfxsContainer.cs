@@ -8,7 +8,7 @@ namespace CodeBase.Weapons
 {
     public class ShotVfxsContainer : MonoBehaviour
     {
-        private IPoolService _poolService;
+        private IObjectsPoolService _objectsPoolService;
         private float _shotVfxLifetime;
         private int _index;
         private Transform _root;
@@ -17,14 +17,14 @@ namespace CodeBase.Weapons
         public void Construct(float shotVfxLifetime, ShotVfxTypeId shotVfxTypeId, Transform root)
         {
             _shotVfxTypeId = shotVfxTypeId;
-            _poolService = AllServices.Container.Single<IPoolService>();
+            _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             _shotVfxLifetime = shotVfxLifetime;
             _root = root;
         }
 
         public void ShowShotVfx(Transform muzzleTransform)
         {
-            GameObject shotVfx = _poolService.GetShotVfx(_shotVfxTypeId);
+            GameObject shotVfx = _objectsPoolService.GetShotVfx(_shotVfxTypeId);
             shotVfx.transform.SetParent(_root);
             SetShotVfx(shotVfx, muzzleTransform);
             StartCoroutine(CoroutineLaunchShotVfx(shotVfx));

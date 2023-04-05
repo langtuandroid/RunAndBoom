@@ -3,6 +3,7 @@ using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +35,7 @@ namespace CodeBase.UI.Elements
             _saveLoadService.SaveProgress();
 
             if (!Checked)
-                _windowService.Open(WindowId.Error);
+                _windowService.Open<ErrorWindow>(WindowId.Error);
             else
                 _stateMachine.Enter<LoadSceneState, string>(Scene);
         }

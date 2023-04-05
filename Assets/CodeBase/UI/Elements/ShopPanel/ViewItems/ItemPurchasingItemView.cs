@@ -8,18 +8,20 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
     public class ItemPurchasingItemView : BasePurchasingItemView
     {
         private ShopItemStaticData _itemStaticData;
+        private ItemTypeId _typeId;
 
         public override event Action ShopItemClicked;
 
-        public void Construct(ShopItemStaticData itemStaticData, IPlayerProgressService progressService)
+        public void Construct(ItemTypeId typeId, IPlayerProgressService progressService)
         {
-            _itemStaticData = itemStaticData;
+            _typeId = typeId;
             base.Construct(progressService);
             FillData();
         }
 
         protected override void FillData()
         {
+            _itemStaticData = StaticDataService.ForShopItem(_typeId);
             MainIcon.sprite = _itemStaticData.MainImage;
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);

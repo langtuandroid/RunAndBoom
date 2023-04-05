@@ -43,6 +43,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = "";
         }
 
+        public void ChangeClickability(bool isClickable) =>
+            Button.interactable = isClickable;
+
         protected bool IsMoneyEnough(int value) =>
             Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
 
