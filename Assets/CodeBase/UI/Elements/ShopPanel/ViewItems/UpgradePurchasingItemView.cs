@@ -1,10 +1,11 @@
 ﻿using System;
 using CodeBase.Data.Upgrades;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ShopUpgradeView : BaseShopView, IShopItem
+    public class UpgradePurchasingItemView : BasePurchasingItemView
     {
         private UpgradeItemData _upgradeItemData;
         private ShopUpgradeStaticData _upgradeStaticData;
@@ -12,15 +13,14 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         private UpgradeLevelInfoStaticData _upgradeLevelInfoStaticData;
         private ShopUpgradeLevelStaticData _shopUpgradeLevelStaticData;
 
-        public event Action ShopItemClicked;
+        public override event Action ShopItemClicked;
 
-        public void Construct(UpgradeItemData upgradeItemData)
+        public void Construct(UpgradeItemData upgradeItemData, IPlayerProgressService playerProgressService)
         {
-            base.Construct();
+            base.Construct(playerProgressService);
             _upgradeItemData = upgradeItemData;
             FillData();
         }
-
 
         protected override void FillData()
         {

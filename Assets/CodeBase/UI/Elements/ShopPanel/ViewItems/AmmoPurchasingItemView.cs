@@ -1,20 +1,21 @@
 ﻿using System;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ShopAmmoView : BaseShopView, IShopItem
+    public class AmmoPurchasingItemView : BasePurchasingItemView
     {
         private AmmoCountType _countType;
         private AmmoItem _ammoItem;
         private ShopAmmoStaticData _shopAmmoStaticData;
 
-        public event Action ShopItemClicked;
+        public override event Action ShopItemClicked;
 
-        public void Construct(AmmoItem ammoItem)
+        public void Construct(AmmoItem ammoItem, IPlayerProgressService playerProgressService)
         {
-            base.Construct();
+            base.Construct(playerProgressService);
             _ammoItem = ammoItem;
             FillData();
         }

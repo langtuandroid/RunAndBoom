@@ -79,7 +79,7 @@ namespace CodeBase.Data.Upgrades
             return upgrade.LevelTypeId == LevelTypeId.Level_3;
         }
 
-        public UpgradeItemData GetNextLevelPerk(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
+        public UpgradeItemData GetNextLevelUpgrade(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
         {
             UpgradeItemData upgrade = UpgradeItemDatas.First(x => x.WeaponTypeId == weaponTypeId && x.UpgradeTypeId == upgradeTypeId);
             LevelTypeId nextLevel = upgrade.GetNextLevel();

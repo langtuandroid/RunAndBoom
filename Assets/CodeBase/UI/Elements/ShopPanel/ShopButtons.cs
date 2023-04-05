@@ -20,10 +20,10 @@ namespace CodeBase.UI.Elements.ShopPanel
             // _refreshButton.onClick.AddListener(() => _generator.GenerateItems());
         }
 
-        public void ShowRefreshButton() => 
+        public void ShowRefreshButton() =>
             _refreshButton.gameObject.SetActive(true);
 
-        public void HideRefreshButton() => 
+        public void HideRefreshButton() =>
             _refreshButton.gameObject.SetActive(false);
 
         private void CloseShop() =>

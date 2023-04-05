@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public abstract class BaseShopView : MonoBehaviour, IProgressReader
+    public abstract class BaseItemView : MonoBehaviour
     {
         public Image MainIcon;
         public Image LevelIcon;
@@ -20,14 +20,14 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         public Button Button;
 
         protected IStaticDataService StaticDataService;
+        protected IPlayerProgressService PlayerProgressService;
         protected PlayerProgress Progress;
 
-        private void Awake() =>
-            StaticDataService = AllServices.Container.Single<IStaticDataService>();
-
-        protected void Construct()
+        protected void Construct(IPlayerProgressService playerProgressService)
         {
+            PlayerProgressService = playerProgressService;
             Button.onClick.AddListener(Clicked);
+            StaticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
         public void LoadProgress(PlayerProgress progress) =>

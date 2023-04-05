@@ -13,7 +13,7 @@ namespace CodeBase.UI.Elements
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) ) 
+            if (Input.GetKeyDown(KeyCode.Escape))
                 _windowService.Open(WindowId.Settings);
         }
     }

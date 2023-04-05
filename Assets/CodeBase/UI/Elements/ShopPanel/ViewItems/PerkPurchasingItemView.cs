@@ -1,19 +1,20 @@
 ﻿using System;
 using CodeBase.Data.Perks;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ShopPerkView : BaseShopView, IShopItem
+    public class PerkPurchasingItemView : BasePurchasingItemView
     {
         private PerkItemData _perkItemData;
         private PerkStaticData _perkStaticData;
 
-        public event Action ShopItemClicked;
+        public override event Action ShopItemClicked;
 
-        public void Construct(PerkItemData perkItemData)
+        public void Construct(PerkItemData perkItemData, IPlayerProgressService playerProgressService)
         {
-            base.Construct();
+            base.Construct(playerProgressService);
             _perkItemData = perkItemData;
             FillData();
         }

@@ -9,6 +9,7 @@ using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
+using CodeBase.Services.Randomizer;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -46,13 +47,14 @@ namespace CodeBase.Infrastructure.States
             RegisterAssetsProvider();
             RegisterInputService();
             RegisterPlatformInputService();
+            _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
             _services.RegisterSingle<IConstructorService>(new ConstructorService(_services.Single<IStaticDataService>()));
             _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
-                new UIFactory(_services.Single<IPlayerProgressService>(),_services.Single<IAssets>(),
+                new UIFactory(_services.Single<IPlayerProgressService>(), _services.Single<IAssets>(),
                     _services.Single<IRegistratorService>())
             );
 

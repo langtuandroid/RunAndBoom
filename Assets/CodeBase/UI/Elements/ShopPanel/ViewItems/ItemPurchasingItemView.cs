@@ -1,27 +1,25 @@
 ﻿using System;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ShopItemView : BaseShopView, IShopItem
+    public class ItemPurchasingItemView : BasePurchasingItemView
     {
         private ShopItemStaticData _itemStaticData;
-        private ItemTypeId _typeId;
 
-        public event Action ShopItemClicked;
+        public override event Action ShopItemClicked;
 
-        public void Construct(ItemTypeId typeId)
+        public void Construct(ShopItemStaticData itemStaticData, IPlayerProgressService progressService)
         {
-            _typeId = typeId;
-            base.Construct();
+            _itemStaticData = itemStaticData;
+            base.Construct(progressService);
             FillData();
         }
 
         protected override void FillData()
         {
-            _itemStaticData = StaticDataService.ForShopItem(_typeId);
-
             MainIcon.sprite = _itemStaticData.MainImage;
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
@@ -37,7 +35,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             {
                 ReduceMoney(_itemStaticData.Cost);
 
-                if (_typeId == ItemTypeId.HealthRecover)
+                if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
                     Progress.HealthState.ChangeCurrentHP(Progress.HealthState.MaxHp);
 
                 ShopItemClicked?.Invoke();

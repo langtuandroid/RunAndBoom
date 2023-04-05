@@ -1,20 +1,21 @@
 ﻿using System;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ShopWeaponView : BaseShopView, IShopItem
+    public class WeaponPurchasingItemView : BasePurchasingItemView
     {
         private HeroWeaponTypeId _weaponTypeId;
         private ShopWeaponStaticData _weaponStaticData;
 
-        public event Action ShopItemClicked;
+        public override event Action ShopItemClicked;
 
-        public void Construct(HeroWeaponTypeId weaponTypeId)
+        public void Construct(HeroWeaponTypeId weaponTypeId, IPlayerProgressService playerProgressService)
         {
-            base.Construct();
+            base.Construct(playerProgressService);
             _weaponTypeId = weaponTypeId;
             FillData();
         }
