@@ -2,6 +2,7 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -21,6 +22,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
+            GetComponent<Image>().color = Constants.ShopItemItem;
             _itemStaticData = StaticDataService.ForShopItem(_typeId);
             MainIcon.sprite = _itemStaticData.MainImage;
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);

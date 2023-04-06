@@ -3,6 +3,7 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -22,6 +23,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
+            GetComponent<Image>().color = Constants.ShopItemWeapon;
             _weaponStaticData = StaticDataService.ForShopWeapon(_weaponTypeId);
 
             MainIcon.sprite = _weaponStaticData.MainImage;

@@ -10,7 +10,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using UnityEngine;
 
-namespace CodeBase.Level
+namespace CodeBase.Logic.Level
 {
     public class LevelSectorTrigger : MonoBehaviour
     {

@@ -33,7 +33,7 @@ namespace CodeBase.UI.Elements.ShopPanel
         // [SerializeField] private GameObject _shopItem1;
         // [SerializeField] private GameObject _shopItem2;
         // [SerializeField] private GameObject _shopItem3;
-        [SerializeField] private Transform[] _shopItems;
+        [SerializeField] private GameObject[] _shopItems;
         [SerializeField] private ShopButtons _shopButtons;
 
         private IPlayerProgressService _progressService;
@@ -287,6 +287,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private IEnumerator CoroutineShowShopItems()
         {
+            SetHighlightingVisibility(false);
             ShowShopItems();
             yield return _delayShopItemsDisplaying;
             ShowShopItems();
@@ -297,11 +298,19 @@ namespace CodeBase.UI.Elements.ShopPanel
             GeneratePerks();
             GenerateUpgrades();
             GenerateWeapons();
+
+            SetHighlightingVisibility(true);
+        }
+
+        private void SetHighlightingVisibility(bool isVisible)
+        {
+            foreach (GameObject shopItem in _shopItems)
+                shopItem.GetComponent<ShopItemHighlighter>().SetVisibility(isVisible);
         }
 
         private void ShowShopItems()
         {
-            foreach (Transform shopItem in _shopItems)
+            foreach (GameObject shopItem in _shopItems)
             {
                 List<string> lists = new List<string>();
                 lists.Add(Ammunition);
@@ -362,75 +371,81 @@ namespace CodeBase.UI.Elements.ShopPanel
             }
         }
 
-        private void CreateItemPurchasingItemView(Transform parent, List<ItemTypeId> list, bool isClickable)
+        private void CreateItemPurchasingItemView(GameObject parent, List<ItemTypeId> list, bool isClickable)
         {
             ItemTypeId itemTypeId = _randomService.NextFrom(list);
-            GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Item.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Item.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
+            // ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
-        private void CreateItemPurchasingItemView(Transform parent, ItemTypeId itemTypeId, bool isClickable)
+        private void CreateItemPurchasingItemView(GameObject parent, ItemTypeId itemTypeId, bool isClickable)
         {
-            GameObject item = _objectsPoolService.GetShopItem(itemTypeId.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(itemTypeId.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
+            // ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
-        private void CreateUpgradePurchasingItemView(Transform parent, List<UpgradeItemData> list, bool isClickable)
+        private void CreateUpgradePurchasingItemView(GameObject parent, List<UpgradeItemData> list, bool isClickable)
         {
             UpgradeItemData upgradeItemData = _randomService.NextFrom(list);
-            GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Upgrade.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            UpgradePurchasingItemView view = item.GetComponent<UpgradePurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Upgrade.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            UpgradePurchasingItemView view = parent.GetComponentInChildren<UpgradePurchasingItemView>();
+            // UpgradePurchasingItemView view = item.GetComponent<UpgradePurchasingItemView>();
             view.Construct(upgradeItemData, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
-        private void CreatePerkPurchasingItemView(Transform parent, List<PerkItemData> list, bool isClickable)
+        private void CreatePerkPurchasingItemView(GameObject parent, List<PerkItemData> list, bool isClickable)
         {
             PerkItemData perkItemData = _randomService.NextFrom(list);
-            GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Perk.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            PerkPurchasingItemView view = item.GetComponent<PerkPurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Perk.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            PerkPurchasingItemView view = parent.GetComponentInChildren<PerkPurchasingItemView>();
+            // PerkPurchasingItemView view = item.GetComponent<PerkPurchasingItemView>();
             view.Construct(perkItemData, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
-        private void CreateAmmoPurchasingItemView(Transform parent, List<AmmoItem> list, bool isClickable)
+        private void CreateAmmoPurchasingItemView(GameObject parent, List<AmmoItem> list, bool isClickable)
         {
             AmmoItem ammoItem = _randomService.NextFrom(list);
-            GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Ammo.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            AmmoPurchasingItemView view = item.GetComponent<AmmoPurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Ammo.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            AmmoPurchasingItemView view = parent.GetComponentInChildren<AmmoPurchasingItemView>();
+            // AmmoPurchasingItemView view = item.GetComponent<AmmoPurchasingItemView>();
             view.Construct(ammoItem, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
-        private void CreateWeaponPurchasingItemView(Transform parent, List<HeroWeaponTypeId> list, bool isClickable)
+        private void CreateWeaponPurchasingItemView(GameObject parent, List<HeroWeaponTypeId> list, bool isClickable)
         {
             HeroWeaponTypeId weaponTypeId = _randomService.NextFrom(list);
-            GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Weapon.ToString());
-            item.transform.SetParent(parent);
-            item.transform.position = parent.transform.position;
-            WeaponPurchasingItemView view = item.GetComponent<WeaponPurchasingItemView>();
+            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Weapon.ToString());
+            // item.transform.SetParent(parent);
+            // item.transform.position = parent.transform.position;
+            WeaponPurchasingItemView view = parent.GetComponentInChildren<WeaponPurchasingItemView>();
+            // WeaponPurchasingItemView view = item.GetComponent<WeaponPurchasingItemView>();
             view.Construct(weaponTypeId, _progressService);
             view.ChangeClickability(isClickable);
-            item.SetActive(true);
+            parent.SetActive(true);
         }
 
         private void GenerateItems()
@@ -444,7 +459,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
             if (healthPercentage <= DangerousHealthLevel && _availableItems.Contains(ItemTypeId.HealthRecover) && _money >= shopItemStaticData.Cost)
             {
-                Transform view = GetRandomShopItem();
+                GameObject view = GetRandomShopItem();
                 CreateItemPurchasingItemView(view, ItemTypeId.HealthRecover, true);
             }
         }
@@ -454,7 +469,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             if (_availableAmmunition.IsEmpty() || _shopItemsNumbers.IsEmpty())
                 return;
 
-            Transform view = GetRandomShopItem();
+            GameObject view = GetRandomShopItem();
             CreateAmmoPurchasingItemView(view, _availableAmmunition, true);
         }
 
@@ -463,7 +478,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             if (_availableUpgrades.IsEmpty() || _shopItemsNumbers.IsEmpty())
                 return;
 
-            Transform view = GetRandomShopItem();
+            GameObject view = GetRandomShopItem();
             CreateUpgradePurchasingItemView(view, _availableUpgrades, true);
         }
 
@@ -472,7 +487,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             if (_availableWeapons.IsEmpty() || _shopItemsNumbers.IsEmpty())
                 return;
 
-            Transform view = GetRandomShopItem();
+            GameObject view = GetRandomShopItem();
             CreateWeaponPurchasingItemView(view, _availableWeapons, true);
         }
 
@@ -481,11 +496,11 @@ namespace CodeBase.UI.Elements.ShopPanel
             if (_availablePerks.IsEmpty() || _shopItemsNumbers.IsEmpty())
                 return;
 
-            Transform view = GetRandomShopItem();
+            GameObject view = GetRandomShopItem();
             CreatePerkPurchasingItemView(view, _availablePerks, true);
         }
 
-        private Transform GetRandomShopItem()
+        private GameObject GetRandomShopItem()
         {
             int i = _randomService.NextNumberFrom(_shopItemsNumbers);
             _shopItemsNumbers.Remove(i);

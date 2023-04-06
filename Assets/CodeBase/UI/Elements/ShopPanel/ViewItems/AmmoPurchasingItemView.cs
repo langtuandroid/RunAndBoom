@@ -2,6 +2,7 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -24,6 +25,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         {
             _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
 
+            GetComponent<Image>().color = Constants.ShopItemAmmo;
             MainIcon.sprite = _shopAmmoStaticData.MainImage;
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);

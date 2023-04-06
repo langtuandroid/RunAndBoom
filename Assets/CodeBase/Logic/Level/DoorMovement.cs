@@ -1,7 +1,7 @@
 ﻿using CodeBase.Data;
 using UnityEngine;
 
-namespace CodeBase.Level
+namespace CodeBase.Logic.Level
 {
     public class DoorMovement : MonoBehaviour
     {

@@ -2,6 +2,7 @@
 using CodeBase.Data.Upgrades;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -24,6 +25,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
+            GetComponent<Image>().color = Constants.ShopItemUpgrade;
             _upgradableWeaponStaticData = StaticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
             _upgradeStaticData = StaticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
             _upgradeLevelInfoStaticData = StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);

@@ -2,6 +2,7 @@
 using CodeBase.Data.Perks;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -21,6 +22,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
+            GetComponent<Image>().color = Constants.ShopItemPerk;
             _perkStaticData = StaticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
             MainIcon.sprite = _perkStaticData.MainImage;
 
