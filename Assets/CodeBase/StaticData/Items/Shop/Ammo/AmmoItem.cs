@@ -2,7 +2,7 @@
 
 namespace CodeBase.StaticData.Items.Shop.Ammo
 {
-    public class AmmoItem
+    public struct AmmoItem
     {
         public HeroWeaponTypeId WeaponTypeId;
         public AmmoCountType CountType;

@@ -17,7 +17,8 @@ namespace CodeBase.Data.Perks
             int count = DataExtensions.GetValues<PerkTypeId>().Count();
             Perks = new List<PerkItemData>(count);
 
-            FillTestData();
+            // FillTestData();
+            FillEmptyData();
         }
 
         private void FillTestData()

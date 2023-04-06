@@ -68,8 +68,11 @@ namespace CodeBase.Projectiles.Hit
             _particleSystem.Play(true);
         }
 
-        private void HideBlast() =>
-            _particleSystem?.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        private void HideBlast()
+        {
+            if (_particleSystem != null)
+                _particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
 
         private IEnumerator DestroyBlast()
         {

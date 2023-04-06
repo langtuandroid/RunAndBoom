@@ -350,13 +350,15 @@ GameObject:
   - component: {fileID: 5094935117243089935}
   - component: {fileID: 8072457785078457417}
   - component: {fileID: 6994417760116602880}
+  - component: {fileID: 4205420096192300654}
+  - component: {fileID: 7646430766160749072}
   m_Layer: 5
   m_Name: ShopAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3778882655711995582
 RectTransform:
   m_ObjectHideFlags: 0
@@ -461,6 +463,44 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4205420096192300654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606704647444910912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainIcon: {fileID: 1911324324141538369}
+  LevelIcon: {fileID: 6028773159567974057}
+  AdditionalIcon: {fileID: 915284458635714182}
+  CostText: {fileID: 3177352628009699981}
+  CountText: {fileID: 497556381592963614}
+  TitleText: {fileID: 3790534805065906415}
+  Button: {fileID: 6994417760116602880}
+--- !u!114 &7646430766160749072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606704647444910912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainIcon: {fileID: 1911324324141538369}
+  LevelIcon: {fileID: 6028773159567974057}
+  AdditionalIcon: {fileID: 915284458635714182}
+  CostText: {fileID: 3177352628009699981}
+  CountText: {fileID: 497556381592963614}
+  TitleText: {fileID: 3790534805065906415}
+  Button: {fileID: 6994417760116602880}
 --- !u!1 &6510367141459331969
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,7 +730,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.6
+  m_fontSize: 19
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

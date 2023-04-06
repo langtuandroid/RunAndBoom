@@ -30,7 +30,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
             MainIcon.sprite = _upgradableWeaponStaticData.MainImage;
-            LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
+
+            if (_shopUpgradeLevelStaticData.MainImage != null)
+                LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
+
             AdditionalIcon.sprite = _upgradeStaticData.MainImage;
             CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
             CostText.color = Constants.ShopItemPerk;

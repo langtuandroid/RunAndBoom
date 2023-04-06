@@ -44,7 +44,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<LevelTypeId, InventoryUpgradeLevelStaticData> _inventoryUpgradeLevels;
         private Dictionary<UpgradeTypeId, InventoryUpgradeStaticData> _inventoryUpgrades;
         private Dictionary<PerkItem, PerkStaticData> _perks;
-        private Dictionary<AmmoItem, ShopAmmoStaticData> _shopAmmo;
+        private Dictionary<AmmoItem, ShopAmmoStaticData> _shopAmmunition;
         private Dictionary<ItemTypeId, ShopItemStaticData> _shopItems;
         private Dictionary<HeroWeaponTypeId, UpgradableWeaponStaticData> _shopUpgradableWeapons;
         private Dictionary<LevelTypeId, ShopUpgradeLevelStaticData> _shopUpgradeLevels;
@@ -103,7 +103,7 @@ namespace CodeBase.Services.StaticData
                 .LoadAll<PerkStaticData>(StaticDataPerksPath)
                 .ToDictionary(x => new PerkItem(x.PerkTypeId, x.ILevelTypeId), x => x);
 
-            _shopAmmo = Resources
+            _shopAmmunition = Resources
                 .LoadAll<ShopAmmoStaticData>(StaticDataShopAmmoPath)
                 .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
 
@@ -188,7 +188,7 @@ namespace CodeBase.Services.StaticData
                 : null;
 
         public ShopAmmoStaticData ForShopAmmo(HeroWeaponTypeId typeId, AmmoCountType countType) =>
-            _shopAmmo.TryGetValue(new AmmoItem(typeId, countType), out ShopAmmoStaticData staticData)
+            _shopAmmunition.TryGetValue(new AmmoItem(typeId, countType), out ShopAmmoStaticData staticData)
                 ? staticData
                 : null;
 

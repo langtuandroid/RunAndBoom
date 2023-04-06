@@ -23,7 +23,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         {
             _perkStaticData = StaticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
             MainIcon.sprite = _perkStaticData.MainImage;
-            LevelIcon.sprite = _perkStaticData.LevelImage;
+
+            if (_perkStaticData.LevelImage != null)
+                LevelIcon.sprite = _perkStaticData.LevelImage;
+
             CostText.text = $"{_perkStaticData.Cost} $";
             CostText.color = Constants.ShopItemPerk;
             TitleText.text = _perkStaticData.IRuTitle;

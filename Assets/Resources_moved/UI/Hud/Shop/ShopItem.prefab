@@ -12,13 +12,15 @@ GameObject:
   - component: {fileID: 151700356486209288}
   - component: {fileID: 3794576534495903566}
   - component: {fileID: 2719896204886926087}
+  - component: {fileID: 1979943921152933139}
+  - component: {fileID: 2495845619326461965}
   m_Layer: 5
   m_Name: ShopItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8133328390036929977
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26,7 +28,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675873090947074119}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -123,6 +125,44 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1979943921152933139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675873090947074119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainIcon: {fileID: 6784753710776715078}
+  LevelIcon: {fileID: 1658639585148421550}
+  AdditionalIcon: {fileID: 5196472860066170241}
+  CostText: {fileID: 7545239891181113738}
+  CountText: {fileID: 4776496427109634329}
+  TitleText: {fileID: 8085234047664268264}
+  Button: {fileID: 2719896204886926087}
+--- !u!114 &2495845619326461965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675873090947074119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainIcon: {fileID: 6784753710776715078}
+  LevelIcon: {fileID: 1658639585148421550}
+  AdditionalIcon: {fileID: 5196472860066170241}
+  CostText: {fileID: 7545239891181113738}
+  CountText: {fileID: 4776496427109634329}
+  TitleText: {fileID: 8085234047664268264}
+  Button: {fileID: 2719896204886926087}
 --- !u!1 &1883209430978777499
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +257,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.65
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

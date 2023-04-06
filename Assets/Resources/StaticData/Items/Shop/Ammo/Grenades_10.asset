@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d1c29dda97c7a44ac499dd04b71e1b, type: 3}
-  m_Name: Grenade launcher
+  m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
+  m_Name: Grenades_10
   m_EditorClassIdentifier: 
+  MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
+  Cost: 10
+  RuTitle: "10 \u0433\u0440\u0430\u043D\u0430\u0442"
+  EnTitle: 
+  TrTitle: 
   WeaponTypeId: 0
-  ProjectileTypeId: 0
-  TrailTypeId: 0
-  ShotVfxTypeId: 0
-  RotationSpeed: 6
-  Cooldown: 1
-  AimRange: 6
-  ShotVfxLifeTime: 1
+  Count: 10
