@@ -8,6 +8,7 @@ namespace CodeBase
         public const float AdditionYToEnemy = 1f;
         public const float AlphaActiveItem = 1f;
         public const float AlphaInactiveItem = 0f;
+		
         public static readonly Color ShopItemCountField = new Color(0.7459788f, 0f, 1f, 1f);
         public static readonly Color ShopItemUpgrade = new Color(1f, 0.7064719f, 0f, 1f);
         public static readonly Color ShopItemAmmo = new Color(0.2321882f, 1f, 0f, 1f);

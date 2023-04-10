@@ -14,7 +14,6 @@ namespace CodeBase.Hero
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
-        private bool _enemySpotted = false;
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
         private float _weaponCooldown = 0f;
@@ -82,7 +81,7 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
-            if (_enemySpotted && CooldownUp() && IsAvailableAmmo())
+            if (CooldownUp() && IsAvailableAmmo())
                 Shoot();
         }
 
