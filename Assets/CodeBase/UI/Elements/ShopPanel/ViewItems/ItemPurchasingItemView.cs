@@ -2,7 +2,6 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
-using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -22,13 +21,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
-            GetComponent<Image>().color = Constants.ShopItemItem;
+            BackgroundIcon.color = Constants.ShopItemItem;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _itemStaticData = StaticDataService.ForShopItem(_typeId);
             MainIcon.sprite = _itemStaticData.MainImage;
+            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             CostText.text = $"{_itemStaticData.Cost} $";
-            CostText.color = Constants.ShopItemPerk;
+            // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             TitleText.text = $"{_itemStaticData.IRuTitle}";
         }
@@ -44,6 +45,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
                 ShopItemClicked?.Invoke();
             }
+
+            ClearData();
         }
     }
 }

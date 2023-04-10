@@ -2,7 +2,7 @@
 using CodeBase.Data.Perks;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
-using UnityEngine.UI;
+using CodeBase.UI.Services;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -22,15 +22,17 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
-            GetComponent<Image>().color = Constants.ShopItemPerk;
+            BackgroundIcon.color = Constants.ShopItemPerk;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _perkStaticData = StaticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
             MainIcon.sprite = _perkStaticData.MainImage;
+            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
 
             if (_perkStaticData.LevelImage != null)
                 LevelIcon.sprite = _perkStaticData.LevelImage;
 
             CostText.text = $"{_perkStaticData.Cost} $";
-            CostText.color = Constants.ShopItemPerk;
+            // CostText.color = Constants.ShopItemPerk;
             TitleText.text = _perkStaticData.IRuTitle;
         }
 
@@ -42,6 +44,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
                 ShopItemClicked?.Invoke();
             }
+
+            ClearData();
         }
     }
 }

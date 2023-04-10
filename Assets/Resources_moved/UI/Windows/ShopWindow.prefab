@@ -380,10 +380,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 18.7
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -949,7 +949,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.05}
   m_AnchorMax: {x: 0.95, y: 0.95}
-  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1509564206414061004
@@ -1046,6 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 3765475344558475695}
   MainIcon: {fileID: 5637330422566825756}
   LevelIcon: {fileID: 3770434904222233141}
   AdditionalIcon: {fileID: 4670230881802427667}
@@ -1065,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 3765475344558475695}
   MainIcon: {fileID: 5637330422566825756}
   LevelIcon: {fileID: 3770434904222233141}
   AdditionalIcon: {fileID: 4670230881802427667}
@@ -1084,6 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 3765475344558475695}
   MainIcon: {fileID: 144940963751206475}
   LevelIcon: {fileID: 6086462573366959423}
   AdditionalIcon: {fileID: 2399247995035847974}
@@ -1103,6 +1106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 3765475344558475695}
   MainIcon: {fileID: 5637330422566825756}
   LevelIcon: {fileID: 3770434904222233141}
   AdditionalIcon: {fileID: 4670230881802427667}
@@ -1122,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 3765475344558475695}
   MainIcon: {fileID: 5637330422566825756}
   LevelIcon: {fileID: 3770434904222233141}
   AdditionalIcon: {fileID: 4670230881802427667}
@@ -1282,7 +1287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2510028885272834046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1395,7 +1400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7064719, b: 0, a: 1}
+  m_Color: {r: 0.8239106, g: 0.054957304, b: 0.8962264, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1468,6 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 4260023971072449613}
   MainIcon: {fileID: 49772130506137608}
   LevelIcon: {fileID: 8108005725646287157}
   AdditionalIcon: {fileID: 6925187209502214012}
@@ -1487,6 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 4260023971072449613}
   MainIcon: {fileID: 49772130506137608}
   LevelIcon: {fileID: 8108005725646287157}
   AdditionalIcon: {fileID: 6925187209502214012}
@@ -1506,6 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 4260023971072449613}
   MainIcon: {fileID: 144940963751206475}
   LevelIcon: {fileID: 6086462573366959423}
   AdditionalIcon: {fileID: 2399247995035847974}
@@ -1525,6 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 4260023971072449613}
   MainIcon: {fileID: 49772130506137608}
   LevelIcon: {fileID: 8108005725646287157}
   AdditionalIcon: {fileID: 6925187209502214012}
@@ -1544,6 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 4260023971072449613}
   MainIcon: {fileID: 49772130506137608}
   LevelIcon: {fileID: 8108005725646287157}
   AdditionalIcon: {fileID: 6925187209502214012}
@@ -2019,6 +2029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 2512148877327502104}
   MainIcon: {fileID: 2904157122537632042}
   LevelIcon: {fileID: 9003262858472944897}
   AdditionalIcon: {fileID: 3638005342066533987}
@@ -2038,6 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 2512148877327502104}
   MainIcon: {fileID: 2904157122537632042}
   LevelIcon: {fileID: 9003262858472944897}
   AdditionalIcon: {fileID: 3638005342066533987}
@@ -2057,6 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 2512148877327502104}
   MainIcon: {fileID: 144940963751206475}
   LevelIcon: {fileID: 6086462573366959423}
   AdditionalIcon: {fileID: 2399247995035847974}
@@ -2076,6 +2089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 2512148877327502104}
   MainIcon: {fileID: 2904157122537632042}
   LevelIcon: {fileID: 9003262858472944897}
   AdditionalIcon: {fileID: 3638005342066533987}
@@ -2095,6 +2109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackgroundIcon: {fileID: 2512148877327502104}
   MainIcon: {fileID: 2904157122537632042}
   LevelIcon: {fileID: 9003262858472944897}
   AdditionalIcon: {fileID: 3638005342066533987}
@@ -2243,10 +2258,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 18.7
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -2550,7 +2565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4083777556584342645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2613,7 +2628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2846525019349296603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3423,10 +3438,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 18.7
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -3562,7 +3577,7 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -3816,7 +3831,6 @@ MonoBehaviour:
   - {fileID: 5795735000073939082}
   - {fileID: 2828351981896525375}
   - {fileID: 6479839889160625983}
-  _shopButtons: {fileID: 0}
 --- !u!114 &3205517245857900068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3832,7 +3846,7 @@ MonoBehaviour:
   _skipButton: {fileID: 8701783380240409709}
   _refreshButton: {fileID: 6324506760347914915}
   _shopWindow: {fileID: 6415520431241114458}
-  _generator: {fileID: 0}
+  _generator: {fileID: 7716486667816911635}
 --- !u!1 &8443599707693099109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3930,7 +3944,7 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -4644,6 +4658,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 675873090947074119, guid: 4f0cbe08f3435ec46b39a75bc2753514,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085234047664268264, guid: 4f0cbe08f3435ec46b39a75bc2753514,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 16.3
       objectReference: {fileID: 0}
     - target: {fileID: 8133328390036929977, guid: 4f0cbe08f3435ec46b39a75bc2753514,
         type: 3}

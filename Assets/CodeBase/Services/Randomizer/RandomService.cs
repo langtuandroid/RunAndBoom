@@ -13,12 +13,10 @@ namespace CodeBase.Services.Randomizer
             int i = Next(0, set.Count);
 
             if (!set.Contains(i))
-            {
-                set.Add(i);
-                return i;
-            }
+                return NextNumberFrom(set);
 
-            return NextNumberFrom(set);
+            set.Remove(i);
+            return i;
         }
 
         public T NextFrom<T>(List<T> from)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
@@ -6,7 +7,6 @@ using CodeBase.Data.Perks;
 using CodeBase.Data.Upgrades;
 using CodeBase.Data.Weapons;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.Pool;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -23,6 +23,9 @@ namespace CodeBase.UI.Elements.ShopPanel
 {
     public class ShopItemsGenerator : MonoBehaviour
     {
+        [SerializeField] private GameObject[] _shopItems;
+        // [SerializeField] private ShopButtons _shopButtons;
+
         private const float DangerousHealthLevel = 0.5f;
         private const string Ammunition = "ammo";
         private const string Weapons = "weapons";
@@ -30,16 +33,9 @@ namespace CodeBase.UI.Elements.ShopPanel
         private const string Upgrades = "upgrades";
         private const string Items = "items";
 
-        // [SerializeField] private GameObject _shopItem1;
-        // [SerializeField] private GameObject _shopItem2;
-        // [SerializeField] private GameObject _shopItem3;
-        [SerializeField] private GameObject[] _shopItems;
-        [SerializeField] private ShopButtons _shopButtons;
-
         private IPlayerProgressService _progressService;
         private IStaticDataService _staticDataService;
         private IRandomService _randomService;
-        private IObjectsPoolService _objectsPoolService;
         private HashSet<int> _shopItemsNumbers;
         private List<AmmoItem> _unavailableAmmunition;
         private List<ItemTypeId> _unavailableItems;
@@ -54,20 +50,20 @@ namespace CodeBase.UI.Elements.ShopPanel
         private int _money;
         private Coroutine _coroutineShopItemsGeneration;
         private WaitForSeconds _delayShopItemsDisplaying = new WaitForSeconds(0.5f);
-        private bool _isFirst = true;
+
+        public event Action GenerationStarted;
+        public event Action GenerationEnded;
 
         private void Update()
         {
-            Debug.Log($"money: {_money}");
+            // Debug.Log($"money: {_money}");
         }
 
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService, IRandomService randomService,
-            IObjectsPoolService objectsPoolService)
+        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService, IRandomService randomService)
         {
             _progressService = progressService;
             _staticDataService = staticDataService;
             _randomService = randomService;
-            _objectsPoolService = objectsPoolService;
 
             InitializeEmptyData();
             _money = _progressService.Progress.CurrentLevelStats.MoneyData.Money;
@@ -75,7 +71,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void InitializeEmptyData()
         {
-            _shopItemsNumbers = new HashSet<int>(_shopItems.Length);
+            _shopItemsNumbers = new HashSet<int>(_shopItems.Length) { 0, 1, 2 };
             _unavailableAmmunition = new List<AmmoItem>();
             _unavailableItems = new List<ItemTypeId>();
             _unavailableUpgrades = new List<UpgradeItemData>();
@@ -88,14 +84,10 @@ namespace CodeBase.UI.Elements.ShopPanel
             _availablePerks = new List<PerkItemData>();
         }
 
-        private void OnEnable()
+        public void GenerateShopItems()
         {
-            if (_isFirst == false)
-                CreateAvailableItems();
-        }
-
-        public void CreateAvailableItems()
-        {
+            GenerationStarted?.Invoke();
+            SetHighlightingVisibility(false);
             InitializeEmptyData();
             CreateNextLevelPerks();
             CreateNextLevelUpgrades();
@@ -104,7 +96,17 @@ namespace CodeBase.UI.Elements.ShopPanel
             CreateItems();
 
             StartCoroutine(CoroutineShowShopItems());
-            _isFirst = false;
+
+            GenerateItems();
+            GenerateAmmo();
+            GeneratePerks();
+            GenerateUpgrades();
+            GenerateWeapons();
+
+            // HideEmpty();
+
+            SetHighlightingVisibility(true);
+            GenerationEnded?.Invoke();
         }
 
         private void CreateNextLevelUpgrades()
@@ -287,19 +289,11 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private IEnumerator CoroutineShowShopItems()
         {
-            SetHighlightingVisibility(false);
-            ShowShopItems();
+            Debug.Log("CoroutineShowShopItems");
+            yield return ShowShopItems();
             yield return _delayShopItemsDisplaying;
-            ShowShopItems();
+            yield return ShowShopItems();
             yield return _delayShopItemsDisplaying;
-
-            GenerateItems();
-            GenerateAmmo();
-            GeneratePerks();
-            GenerateUpgrades();
-            GenerateWeapons();
-
-            SetHighlightingVisibility(true);
         }
 
         private void SetHighlightingVisibility(bool isVisible)
@@ -308,8 +302,17 @@ namespace CodeBase.UI.Elements.ShopPanel
                 shopItem.GetComponent<ShopItemHighlighter>().SetVisibility(isVisible);
         }
 
-        private void ShowShopItems()
+        private IEnumerator ShowShopItems()
         {
+            Debug.Log("ShowShopItems");
+            ShowItems();
+
+            yield return null;
+        }
+
+        private void ShowItems()
+        {
+            Debug.Log("ShowShopItems");
             foreach (GameObject shopItem in _shopItems)
             {
                 List<string> lists = new List<string>();
@@ -374,11 +377,8 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateItemPurchasingItemView(GameObject parent, List<ItemTypeId> list, bool isClickable)
         {
             ItemTypeId itemTypeId = _randomService.NextFrom(list);
-            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Item.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
-            // ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -386,11 +386,8 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void CreateItemPurchasingItemView(GameObject parent, ItemTypeId itemTypeId, bool isClickable)
         {
-            // GameObject item = _objectsPoolService.GetShopItem(itemTypeId.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
-            // ItemPurchasingItemView view = item.GetComponent<ItemPurchasingItemView>();
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -399,11 +396,8 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateUpgradePurchasingItemView(GameObject parent, List<UpgradeItemData> list, bool isClickable)
         {
             UpgradeItemData upgradeItemData = _randomService.NextFrom(list);
-            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Upgrade.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             UpgradePurchasingItemView view = parent.GetComponentInChildren<UpgradePurchasingItemView>();
-            // UpgradePurchasingItemView view = item.GetComponent<UpgradePurchasingItemView>();
             view.Construct(upgradeItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -412,11 +406,8 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreatePerkPurchasingItemView(GameObject parent, List<PerkItemData> list, bool isClickable)
         {
             PerkItemData perkItemData = _randomService.NextFrom(list);
-            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Perk.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             PerkPurchasingItemView view = parent.GetComponentInChildren<PerkPurchasingItemView>();
-            // PerkPurchasingItemView view = item.GetComponent<PerkPurchasingItemView>();
             view.Construct(perkItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -425,11 +416,8 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateAmmoPurchasingItemView(GameObject parent, List<AmmoItem> list, bool isClickable)
         {
             AmmoItem ammoItem = _randomService.NextFrom(list);
-            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Ammo.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             AmmoPurchasingItemView view = parent.GetComponentInChildren<AmmoPurchasingItemView>();
-            // AmmoPurchasingItemView view = item.GetComponent<AmmoPurchasingItemView>();
             view.Construct(ammoItem, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -438,72 +426,87 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateWeaponPurchasingItemView(GameObject parent, List<HeroWeaponTypeId> list, bool isClickable)
         {
             HeroWeaponTypeId weaponTypeId = _randomService.NextFrom(list);
-            // GameObject item = _objectsPoolService.GetShopItem(ShopItemTypeIds.Weapon.ToString());
-            // item.transform.SetParent(parent);
-            // item.transform.position = parent.transform.position;
+            DisableComponentsExcept(parent);
             WeaponPurchasingItemView view = parent.GetComponentInChildren<WeaponPurchasingItemView>();
-            // WeaponPurchasingItemView view = item.GetComponent<WeaponPurchasingItemView>();
             view.Construct(weaponTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
 
+        private void DisableComponentsExcept(GameObject view)
+        {
+            view.GetComponentInChildren<ItemPurchasingItemView>().ClearData();
+            view.GetComponentInChildren<AmmoPurchasingItemView>().ClearData();
+            view.GetComponentInChildren<UpgradePurchasingItemView>().ClearData();
+            view.GetComponentInChildren<PerkPurchasingItemView>().ClearData();
+            view.GetComponentInChildren<WeaponPurchasingItemView>().ClearData();
+        }
+
         private void GenerateItems()
         {
-            if (_availableItems.IsEmpty() || _shopItemsNumbers.IsEmpty())
-                return;
-
-            float healthPercentage = _progressService.Progress.HealthState.CurrentHp / _progressService.Progress.HealthState.MaxHp;
-
-            ShopItemStaticData shopItemStaticData = _staticDataService.ForShopItem(ItemTypeId.HealthRecover);
-
-            if (healthPercentage <= DangerousHealthLevel && _availableItems.Contains(ItemTypeId.HealthRecover) && _money >= shopItemStaticData.Cost)
+            if (_availableItems.Count != 0 || _shopItemsNumbers.Count != 0)
             {
-                GameObject view = GetRandomShopItem();
-                CreateItemPurchasingItemView(view, ItemTypeId.HealthRecover, true);
+                float healthPercentage = _progressService.Progress.HealthState.CurrentHp / _progressService.Progress.HealthState.MaxHp;
+
+                ShopItemStaticData shopItemStaticData = _staticDataService.ForShopItem(ItemTypeId.HealthRecover);
+
+                if (healthPercentage <= DangerousHealthLevel && _availableItems.Contains(ItemTypeId.HealthRecover) && _money >= shopItemStaticData.Cost)
+                {
+                    GameObject view = GetRandomShopItem();
+
+                    if (view != null)
+                        CreateItemPurchasingItemView(view, ItemTypeId.HealthRecover, true);
+                }
             }
         }
 
         private void GenerateAmmo()
         {
-            if (_availableAmmunition.IsEmpty() || _shopItemsNumbers.IsEmpty())
-                return;
+            if (_availableAmmunition.Count != 0 || _shopItemsNumbers.Count != 0)
+            {
+                GameObject view = GetRandomShopItem();
 
-            GameObject view = GetRandomShopItem();
-            CreateAmmoPurchasingItemView(view, _availableAmmunition, true);
+                if (view != null)
+                    CreateAmmoPurchasingItemView(view, _availableAmmunition, true);
+            }
         }
 
         private void GenerateUpgrades()
         {
-            if (_availableUpgrades.IsEmpty() || _shopItemsNumbers.IsEmpty())
-                return;
+            if (_availableUpgrades.Count != 0 || _shopItemsNumbers.Count != 0)
+            {
+                GameObject view = GetRandomShopItem();
 
-            GameObject view = GetRandomShopItem();
-            CreateUpgradePurchasingItemView(view, _availableUpgrades, true);
+                if (view != null)
+                    CreateUpgradePurchasingItemView(view, _availableUpgrades, true);
+            }
         }
 
         private void GenerateWeapons()
         {
-            if (_availableWeapons.IsEmpty() || _shopItemsNumbers.IsEmpty())
-                return;
+            if (_availableWeapons.Count != 0 || _shopItemsNumbers.Count != 0)
+            {
+                GameObject view = GetRandomShopItem();
 
-            GameObject view = GetRandomShopItem();
-            CreateWeaponPurchasingItemView(view, _availableWeapons, true);
+                if (view != null)
+                    CreateWeaponPurchasingItemView(view, _availableWeapons, true);
+            }
         }
 
         private void GeneratePerks()
         {
-            if (_availablePerks.IsEmpty() || _shopItemsNumbers.IsEmpty())
-                return;
+            if (_availablePerks.Count != 0 || _shopItemsNumbers.Count != 0)
+            {
+                GameObject view = GetRandomShopItem();
 
-            GameObject view = GetRandomShopItem();
-            CreatePerkPurchasingItemView(view, _availablePerks, true);
+                if (view != null)
+                    CreatePerkPurchasingItemView(view, _availablePerks, true);
+            }
         }
 
         private GameObject GetRandomShopItem()
         {
             int i = _randomService.NextNumberFrom(_shopItemsNumbers);
-            _shopItemsNumbers.Remove(i);
             return _shopItems[i];
         }
     }

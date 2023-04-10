@@ -3,7 +3,6 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
-using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -23,14 +22,16 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
-            GetComponent<Image>().color = Constants.ShopItemWeapon;
+            BackgroundIcon.color = Constants.ShopItemWeapon;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _weaponStaticData = StaticDataService.ForShopWeapon(_weaponTypeId);
 
             MainIcon.sprite = _weaponStaticData.MainImage;
+            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             CostText.text = $"{_weaponStaticData.Cost} $";
-            CostText.color = Constants.ShopItemPerk;
+            // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             TitleText.text = $"{_weaponStaticData.IRuTitle}";
         }
@@ -43,6 +44,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
                 ShopItemClicked?.Invoke();
             }
+
+            ClearData();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public abstract class BaseItemView : MonoBehaviour
     {
+        public Image BackgroundIcon;
         public Image MainIcon;
         public Image LevelIcon;
         public Image AdditionalIcon;
@@ -23,6 +24,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         protected IPlayerProgressService PlayerProgressService;
         protected PlayerProgress Progress;
 
+        private void Awake() =>
+            BackgroundIcon = GetComponent<Image>();
+
         protected void Construct(IPlayerProgressService playerProgressService)
         {
             PlayerProgressService = playerProgressService;
@@ -30,17 +34,28 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
-        public void LoadProgress(PlayerProgress progress) =>
-            Progress = progress;
-
-        protected void ClearData()
+        public void ClearData()
         {
-            MainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            CostText.text = "";
-            CountText.text = "";
-            TitleText.text = "";
+            if (BackgroundIcon != null)
+                BackgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+
+            if (MainIcon != null)
+                MainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+
+            if (LevelIcon != null)
+                LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+
+            if (AdditionalIcon != null)
+                AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+
+            if (CostText != null)
+                CostText.text = "";
+
+            if (CountText != null)
+                CountText.text = "";
+
+            if (TitleText != null)
+                TitleText.text = "";
         }
 
         public void ChangeClickability(bool isClickable) =>

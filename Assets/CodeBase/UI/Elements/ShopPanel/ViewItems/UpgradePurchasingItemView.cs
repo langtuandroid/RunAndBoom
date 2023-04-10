@@ -2,7 +2,7 @@
 using CodeBase.Data.Upgrades;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
-using UnityEngine.UI;
+using CodeBase.UI.Services;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -25,20 +25,23 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
-            GetComponent<Image>().color = Constants.ShopItemUpgrade;
+            BackgroundIcon.color = Constants.ShopItemUpgrade;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _upgradableWeaponStaticData = StaticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
             _upgradeStaticData = StaticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
             _upgradeLevelInfoStaticData = StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
             _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
             MainIcon.sprite = _upgradableWeaponStaticData.MainImage;
+            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
 
             if (_shopUpgradeLevelStaticData.MainImage != null)
                 LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
 
             AdditionalIcon.sprite = _upgradeStaticData.MainImage;
+            AdditionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
-            CostText.color = Constants.ShopItemPerk;
+            // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             TitleText.text = $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
         }
@@ -51,6 +54,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 Progress.WeaponsData.WeaponUpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId, _upgradeStaticData.UpgradeTypeId);
                 ShopItemClicked?.Invoke();
             }
+
+            ClearData();
         }
     }
 }

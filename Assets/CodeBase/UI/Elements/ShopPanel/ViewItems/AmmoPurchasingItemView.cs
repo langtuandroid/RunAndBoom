@@ -2,7 +2,6 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
-using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
@@ -24,15 +23,17 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         protected override void FillData()
         {
             _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
-
-            GetComponent<Image>().color = Constants.ShopItemAmmo;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.color = Constants.ShopItemAmmo;
             MainIcon.sprite = _shopAmmoStaticData.MainImage;
+            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             CostText.text = $"{_shopAmmoStaticData.Cost} $";
-            CostText.color = Constants.ShopItemPerk;
-            CountText.text = $"{_shopAmmoStaticData.Count}";
-            CountText.color = Constants.ShopItemCountField;
+            // CostText.color = Constants.ShopItemPerk;
+            int ammoCountType = (int)_shopAmmoStaticData.Count;
+            CountText.text = $"{ammoCountType}";
+            // CountText.color = Constants.ShopItemCountField;
             TitleText.text = $"{_shopAmmoStaticData.IRuTitle}";
         }
 
@@ -45,6 +46,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, count);
                 ShopItemClicked?.Invoke();
             }
+
+            ClearData();
         }
     }
 }
