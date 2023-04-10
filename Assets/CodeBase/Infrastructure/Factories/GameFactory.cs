@@ -53,7 +53,7 @@ namespace CodeBase.Infrastructure.Factories
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             // if (_heroGameObject == null)
-                _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             // else
             //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 

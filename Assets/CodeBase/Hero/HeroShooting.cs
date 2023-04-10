@@ -11,7 +11,6 @@ namespace CodeBase.Hero
     public class HeroShooting : MonoBehaviour
     {
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
-        [SerializeField] private EnemiesChecker _enemiesChecker;
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
@@ -37,8 +36,6 @@ namespace CodeBase.Hero
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
 
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
-            _enemiesChecker.FoundClosestEnemy += EnemySpotted;
-            _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
         }
 
         private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
@@ -81,21 +78,6 @@ namespace CodeBase.Hero
                 if (CooldownUp())
                     OnStopReloading?.Invoke();
             }
-        }
-
-        private void EnemyNotSpotted() =>
-            _enemySpotted = false;
-
-        private void OnDisable()
-        {
-            _enemiesChecker.FoundClosestEnemy -= EnemySpotted;
-            _enemiesChecker.EnemyNotFound -= EnemyNotSpotted;
-        }
-
-        private void EnemySpotted(GameObject enemy)
-        {
-            _enemyPosition = enemy.gameObject.transform.position;
-            _enemySpotted = true;
         }
 
         private void TryShoot()
