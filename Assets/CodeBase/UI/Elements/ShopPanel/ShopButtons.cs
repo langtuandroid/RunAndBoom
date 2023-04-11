@@ -17,7 +17,13 @@ namespace CodeBase.UI.Elements.ShopPanel
             // _refreshButton.onClick.AddListener(() => _generator.GenerateItems());
         }
 
-        private void CloseShop() =>
+        private void Start() =>
+            Cursor.lockState = CursorLockMode.Confined;
+
+        private void CloseShop()
+        {
             _shopWindow.Hide();
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }

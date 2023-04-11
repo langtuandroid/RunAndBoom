@@ -21,6 +21,7 @@ namespace CodeBase.UI.Windows
             _hero.GetComponent<HeroRotating>().TurnOn();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
             Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void Show()
@@ -32,6 +33,7 @@ namespace CodeBase.UI.Windows
             _hero.GetComponent<HeroRotating>().TurnOff();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         // [SerializeField] private Button _closeButton;

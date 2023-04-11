@@ -7,6 +7,9 @@ namespace CodeBase.UI.Windows
     {
         [SerializeField] private TextMeshProUGUI _errorText;
 
+        public void Construct(GameObject hero) =>
+            base.Construct(hero);
+
         // protected override void Initialize() =>
         //     _errorText.text = CurrentError;
     }

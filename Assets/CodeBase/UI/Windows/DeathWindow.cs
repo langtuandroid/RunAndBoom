@@ -15,9 +15,7 @@ namespace CodeBase.UI.Windows
         public void Construct(GameObject hero) =>
             base.Construct(hero);
 
-        private void Restart()
-        {
+        private void Restart() =>
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
-        }
     }
 }

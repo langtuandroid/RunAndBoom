@@ -41,6 +41,7 @@ namespace CodeBase.Hero
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
             _weaponCooldown = heroWeaponStaticData.Cooldown;
+            ResetCooldown();
         }
 
         private void Update()
@@ -84,6 +85,9 @@ namespace CodeBase.Hero
             if (CooldownUp() && IsAvailableAmmo())
                 Shoot();
         }
+
+        private void ResetCooldown() =>
+            _currentAttackCooldown = 0;
 
         private bool CooldownUp() =>
             _currentAttackCooldown <= 0;

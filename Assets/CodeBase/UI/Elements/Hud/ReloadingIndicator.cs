@@ -60,9 +60,7 @@ namespace CodeBase.UI.Elements.Hud
             if (_rotationCoroutine != null)
                 StopCoroutine(_rotationCoroutine);
 
-            _reloadingImage.transform.eulerAngles = _startEulerAngles;
-            _reloadingImage.gameObject.SetActive(false);
-            _progressImage.gameObject.SetActive(false);
+            Stop();
         }
 
         private IEnumerator CoroutineRotateImage()
