@@ -17,7 +17,6 @@ namespace CodeBase.Hero
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
         private float _weaponCooldown = 0f;
-        private Vector3 _enemyPosition;
         private bool _canShoot = true;
         private bool _startReloaded;
 
@@ -99,7 +98,7 @@ namespace CodeBase.Hero
         {
             _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
             _currentAttackCooldown = _weaponCooldown;
-            _heroWeaponAppearance.ShootTo(_enemyPosition);
+            _heroWeaponAppearance.ShootTo();
         }
     }
 }
