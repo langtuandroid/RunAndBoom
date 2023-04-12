@@ -33,21 +33,21 @@ namespace CodeBase.UI.Elements.ShopPanel
             CheckCurrentEqualsMaxCount();
         }
 
-        private void DisableRefreshButtonClick() => 
+        private void DisableRefreshButtonClick() =>
             _refreshButton.interactable = false;
 
         private void EnableRefreshButtonClick()
         {
             // if (_watchAdsNumber == _currentRefreshCount)
             //TODO ShowAds screen
-            
+
             _currentRefreshCount++;
             CheckCurrentEqualsWatchAdsNumber();
             CheckCurrentEqualsMaxCount();
             _refreshButton.interactable = true;
         }
 
-        private void GenerateShopItems() => 
+        private void GenerateShopItems() =>
             _generator.GenerateShopItems();
 
         private void CheckCurrentEqualsWatchAdsNumber()

@@ -17,8 +17,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         public Image AdditionalIcon;
         public TextMeshProUGUI CostText;
         public TextMeshProUGUI CountText;
+
         public TextMeshProUGUI TitleText;
-        public Button Button;
+        // protected Button Button;
 
         protected IStaticDataService StaticDataService;
         protected IPlayerProgressService PlayerProgressService;
@@ -30,7 +31,6 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         protected void Construct(IPlayerProgressService playerProgressService)
         {
             PlayerProgressService = playerProgressService;
-            Button.onClick.AddListener(Clicked);
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
@@ -58,8 +58,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 TitleText.text = "";
         }
 
-        public void ChangeClickability(bool isClickable) =>
-            Button.interactable = isClickable;
+        // public void ChangeClickability(bool isClickable) =>
+        //     Button.interactable = isClickable;
 
         protected bool IsMoneyEnough(int value) =>
             Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
@@ -68,6 +68,5 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
 
         protected abstract void FillData();
-        protected abstract void Clicked();
     }
 }

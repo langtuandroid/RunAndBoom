@@ -3,11 +3,15 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class WeaponPurchasingItemView : BasePurchasingItemView
     {
+        [SerializeField] private Button _button;
+
         private HeroWeaponTypeId _weaponTypeId;
         private ShopWeaponStaticData _weaponStaticData;
 
@@ -15,10 +19,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public void Construct(HeroWeaponTypeId weaponTypeId, IPlayerProgressService playerProgressService)
         {
+            // Button = _button;
+            _button.onClick.AddListener(Clicked);
             base.Construct(playerProgressService);
             _weaponTypeId = weaponTypeId;
             FillData();
         }
+
+        public void ChangeClickability(bool isClickable) =>
+            _button.interactable = isClickable;
 
         protected override void FillData()
         {
@@ -36,7 +45,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = $"{_weaponStaticData.IRuTitle}";
         }
 
-        protected override void Clicked()
+        private void Clicked()
         {
             if (IsMoneyEnough(_weaponStaticData.Cost))
             {

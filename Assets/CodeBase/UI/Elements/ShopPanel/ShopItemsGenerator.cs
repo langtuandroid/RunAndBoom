@@ -444,7 +444,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void GenerateItems()
         {
-            if (_availableItems.Count != 0 || _shopItemsNumbers.Count != 0)
+            if (_availableItems.Count != 0 && _shopItemsNumbers.Count != 0)
             {
                 float healthPercentage = _progressService.Progress.HealthState.CurrentHp / _progressService.Progress.HealthState.MaxHp;
 
@@ -462,7 +462,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void GenerateAmmo()
         {
-            if (_availableAmmunition.Count != 0 || _shopItemsNumbers.Count != 0)
+            if (_availableAmmunition.Count != 0 && _shopItemsNumbers.Count != 0)
             {
                 GameObject view = GetRandomShopItem();
 
@@ -473,7 +473,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void GenerateUpgrades()
         {
-            if (_availableUpgrades.Count != 0 || _shopItemsNumbers.Count != 0)
+            if (_availableUpgrades.Count != 0 && _shopItemsNumbers.Count != 0)
             {
                 GameObject view = GetRandomShopItem();
 
@@ -484,7 +484,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void GenerateWeapons()
         {
-            if (_availableWeapons.Count != 0 || _shopItemsNumbers.Count != 0)
+            if (_availableWeapons.Count != 0 && _shopItemsNumbers.Count != 0)
             {
                 GameObject view = GetRandomShopItem();
 
@@ -495,7 +495,7 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void GeneratePerks()
         {
-            if (_availablePerks.Count != 0 || _shopItemsNumbers.Count != 0)
+            if (_availablePerks.Count != 0 && _shopItemsNumbers.Count != 0)
             {
                 GameObject view = GetRandomShopItem();
 

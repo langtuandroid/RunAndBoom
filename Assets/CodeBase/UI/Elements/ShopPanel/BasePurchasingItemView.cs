@@ -8,7 +8,5 @@ namespace CodeBase.UI.Elements.ShopPanel
         public abstract event Action ShopItemClicked;
 
         protected abstract override void FillData();
-
-        protected abstract override void Clicked();
     }
 }

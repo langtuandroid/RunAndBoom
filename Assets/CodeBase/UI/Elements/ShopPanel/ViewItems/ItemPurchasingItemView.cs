@@ -2,11 +2,15 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class ItemPurchasingItemView : BasePurchasingItemView
     {
+        [SerializeField] private Button _button;
+
         private ShopItemStaticData _itemStaticData;
         private ItemTypeId _typeId;
 
@@ -14,10 +18,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public void Construct(ItemTypeId typeId, IPlayerProgressService progressService)
         {
+            // Button = _button;
+            _button.onClick.AddListener(Clicked);
             _typeId = typeId;
             base.Construct(progressService);
             FillData();
         }
+
+        public void ChangeClickability(bool isClickable) =>
+            _button.interactable = isClickable;
 
         protected override void FillData()
         {
@@ -34,7 +43,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = $"{_itemStaticData.IRuTitle}";
         }
 
-        protected override void Clicked()
+        private void Clicked()
         {
             if (IsMoneyEnough(_itemStaticData.Cost))
             {

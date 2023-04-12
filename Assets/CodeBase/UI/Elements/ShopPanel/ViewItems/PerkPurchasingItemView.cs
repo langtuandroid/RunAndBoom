@@ -3,11 +3,15 @@ using CodeBase.Data.Perks;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class PerkPurchasingItemView : BasePurchasingItemView
     {
+        [SerializeField] private Button _button;
+
         private PerkItemData _perkItemData;
         private PerkStaticData _perkStaticData;
 
@@ -15,10 +19,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public void Construct(PerkItemData perkItemData, IPlayerProgressService playerProgressService)
         {
+            // Button = _button;
+            _button.onClick.AddListener(Clicked);
             base.Construct(playerProgressService);
             _perkItemData = perkItemData;
             FillData();
         }
+
+        public void ChangeClickability(bool isClickable) =>
+            _button.interactable = isClickable;
 
         protected override void FillData()
         {
@@ -36,7 +45,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = _perkStaticData.IRuTitle;
         }
 
-        protected override void Clicked()
+        private void Clicked()
         {
             if (IsMoneyEnough(_perkStaticData.Cost))
             {

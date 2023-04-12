@@ -3,11 +3,15 @@ using CodeBase.Data.Upgrades;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.UI.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class UpgradePurchasingItemView : BasePurchasingItemView
     {
+        [SerializeField] private Button _button;
+
         private UpgradeItemData _upgradeItemData;
         private ShopUpgradeStaticData _upgradeStaticData;
         private UpgradableWeaponStaticData _upgradableWeaponStaticData;
@@ -18,10 +22,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public void Construct(UpgradeItemData upgradeItemData, IPlayerProgressService playerProgressService)
         {
+            // Button = _button;
+            _button.onClick.AddListener(Clicked);
             base.Construct(playerProgressService);
             _upgradeItemData = upgradeItemData;
             FillData();
         }
+
+        public void ChangeClickability(bool isClickable) =>
+            _button.interactable = isClickable;
 
         protected override void FillData()
         {
@@ -46,7 +55,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
         }
 
-        protected override void Clicked()
+        private void Clicked()
         {
             if (IsMoneyEnough(_upgradeLevelInfoStaticData.Cost))
             {

@@ -2,11 +2,15 @@
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class AmmoPurchasingItemView : BasePurchasingItemView
     {
+        [SerializeField] private Button _button;
+
         private AmmoCountType _countType;
         private AmmoItem _ammoItem;
         private ShopAmmoStaticData _shopAmmoStaticData;
@@ -15,10 +19,15 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public void Construct(AmmoItem ammoItem, IPlayerProgressService playerProgressService)
         {
+            // Button = _button;
+            _button.onClick.AddListener(Clicked);
             base.Construct(playerProgressService);
             _ammoItem = ammoItem;
             FillData();
         }
+
+        public void ChangeClickability(bool isClickable) =>
+            _button.interactable = isClickable;
 
         protected override void FillData()
         {
@@ -37,7 +46,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             TitleText.text = $"{_shopAmmoStaticData.IRuTitle}";
         }
 
-        protected override void Clicked()
+        private void Clicked()
         {
             if (IsMoneyEnough(_shopAmmoStaticData.Cost))
             {
