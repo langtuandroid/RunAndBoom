@@ -255,8 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cb1633d3ea43ba82480bcec1896519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turn: {x: 0, y: 0}
   _sensitivity: 2
+  _xAxisClamp: 0
 --- !u!114 &5861230066939815679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,12 +792,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mortar
       objectReference: {fileID: 0}
-    - target: {fileID: 9049238747308586508, guid: 12067ccbd226eab4f98e0b4471abed80,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8985998677904672162, guid: 12067ccbd226eab4f98e0b4471abed80, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 12067ccbd226eab4f98e0b4471abed80, type: 3}
 --- !u!4 &2228090800246960519 stripped
 Transform:

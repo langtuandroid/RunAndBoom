@@ -7,6 +7,7 @@ using CodeBase.Services;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,7 +16,7 @@ namespace CodeBase.Weapons
     public abstract class BaseWeaponAppearance : MonoBehaviour
     {
         [FormerlySerializedAs("_projectilesRespawns")] [SerializeField]
-        protected Transform[] ProjectilesRespawns;
+        public Transform[] ProjectilesRespawns;
 
         [FormerlySerializedAs("MuzzlesRespawns")] [FormerlySerializedAs("_muzzlesRespawns")] [SerializeField]
         protected Transform[] ShotVfxsRespawns;
@@ -61,7 +62,7 @@ namespace CodeBase.Weapons
 
         protected void Launch()
         {
-            GameObject projectile = _projectiles.First();
+            GameObject projectile = GetFirstProjectile();
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
             projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
             projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
@@ -74,8 +75,17 @@ namespace CodeBase.Weapons
             Debug.Log($"Count {_projectiles.Count}");
         }
 
-        protected ProjectileMovement GetMovement() =>
-            _projectiles.First().GetComponent<ProjectileMovement>();
+        private GameObject GetFirstProjectile() =>
+            _projectiles.First();
+
+        [CanBeNull]
+        public ProjectileMovement GetMovement()
+        {
+            if (_projectiles.Count != 0)
+                return _projectiles.First().GetComponent<ProjectileMovement>();
+            else
+                return null;
+        }
 
         private void ShowTrail(GameObject projectile)
         {
