@@ -16,7 +16,6 @@ using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Elements.ShopPanel.ViewItems;
-using ModestTree;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements.ShopPanel
@@ -328,46 +327,41 @@ namespace CodeBase.UI.Elements.ShopPanel
                 {
                     case Ammunition:
                     {
-                        if (_unavailableAmmunition.IsEmpty())
-                            return;
+                        if (_unavailableAmmunition.Count != 0)
+                            CreateAmmoPurchasingItemView(shopItem, _unavailableAmmunition, false);
 
-                        CreateAmmoPurchasingItemView(shopItem, _unavailableAmmunition, false);
                         break;
                     }
 
                     case Weapons:
                     {
-                        if (_unavailableWeapons.IsEmpty())
-                            return;
+                        if (_unavailableWeapons.Count != 0)
+                            CreateWeaponPurchasingItemView(shopItem, _unavailableWeapons, false);
 
-                        CreateWeaponPurchasingItemView(shopItem, _unavailableWeapons, false);
                         break;
                     }
 
                     case Perks:
                     {
-                        if (_unavailablePerks.IsEmpty())
-                            return;
+                        if (_unavailablePerks.Count != 0)
+                            CreatePerkPurchasingItemView(shopItem, _unavailablePerks, false);
 
-                        CreatePerkPurchasingItemView(shopItem, _unavailablePerks, false);
                         break;
                     }
 
                     case Upgrades:
                     {
-                        if (_unavailableUpgrades.IsEmpty())
-                            return;
+                        if (_unavailableUpgrades.Count != 0)
+                            CreateUpgradePurchasingItemView(shopItem, _unavailableUpgrades, false);
 
-                        CreateUpgradePurchasingItemView(shopItem, _unavailableUpgrades, false);
                         break;
                     }
 
                     case Items:
                     {
-                        if (_unavailableItems.IsEmpty())
-                            return;
+                        if (_unavailableItems.Count != 0)
+                            CreateItemPurchasingItemView(shopItem, _unavailableItems, false);
 
-                        CreateItemPurchasingItemView(shopItem, _unavailableItems, false);
                         break;
                     }
                 }
