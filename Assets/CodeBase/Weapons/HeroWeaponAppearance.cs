@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using CodeBase.Hero;
-using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;

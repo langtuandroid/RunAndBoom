@@ -12,6 +12,7 @@ namespace CodeBase.Projectiles.Movement
         private Rigidbody _rigidBody;
         private bool _rotate = false;
         private Vector3 _targetPosition;
+        private Vector3 _speed = Vector3.zero;
 
         public override event Action Stoped;
 
@@ -20,6 +21,9 @@ namespace CodeBase.Projectiles.Movement
 
         // public void Construct(float speed, float lifeTime) => 
         //     base.Construct(speed * 1f,lifeTime);
+
+        public void SetSpeed(Vector3 speed) =>
+            _speed = speed;
 
         public void SetTargetPosition(Vector3 targetPosition) =>
             _targetPosition = targetPosition;
@@ -39,13 +43,15 @@ namespace CodeBase.Projectiles.Movement
             // bombSpeed.y = antiGravity + deltaY;
             // _rigidBody.velocity = bombSpeed;
             // transform.forward = _targetPosition;
-            _rigidBody.velocity = transform.forward * Power;
+            // _rigidBody.velocity = transform.forward * Power;
 
-            float lenght = Vector3.Distance(_targetPosition, transform.position);
-            float time = lenght / Speed;
+            // float lenght = Vector3.Distance(_targetPosition, transform.position);
+            // float time = lenght / Speed;
+
+            _rigidBody.AddForce(_speed, ForceMode.VelocityChange);
 
             if (_rotate)
-                transform.DORotate(new Vector3(120, 0, 0), time, RotateMode.Fast)
+                transform.DORotate(new Vector3(120, 0, 0), 2f, RotateMode.Fast)
                     .SetDelay(0.1f);
         }
 
