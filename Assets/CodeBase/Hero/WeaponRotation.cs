@@ -9,11 +9,12 @@ namespace CodeBase.Hero
     {
         [SerializeField] private HeroWeaponSelection _weaponSelection;
         [SerializeField] private GameObject _currentWeapon;
+        [SerializeField] private LayerMask _collidableLayers;
 
         private Camera _mainCamera;
         private float _centralPosition = 0.5f;
         private float _rotateDuration = 0.5f;
-        private float _maxDistance = 1000f;
+        private float _maxDistance = 25f;
 
         public Action<Vector3> GotTarget;
 
@@ -31,18 +32,19 @@ namespace CodeBase.Hero
             if (_currentWeapon != null)
             {
                 Ray ray = _mainCamera.ViewportPointToRay(new Vector3(_centralPosition, _centralPosition, 0));
-                RaycastHit hit;
-                RaycastHit[] results = new RaycastHit[1];
-                int count = Physics.RaycastNonAlloc(ray, results, _maxDistance);
-
-                if (count > 0)
-                {
-                    Vector3 targetPosition = results[0].point;
-                    _currentWeapon.transform.LookAt(targetPosition);
-                    GotTarget?.Invoke(targetPosition);
-                    Debug.DrawLine(transform.position, results[0].point, Color.red);
-                }
+                var targetPosition = MaxDistancePosition(ray);
+                _currentWeapon.transform.LookAt(targetPosition);
+                GotTarget?.Invoke(targetPosition);
+                Debug.DrawLine(transform.position, targetPosition, Color.red);
+                Debug.Log($"WeaponRotation targetPosition {targetPosition}");
             }
+        }
+
+        private Vector3 MaxDistancePosition(Ray ray)
+        {
+            RaycastHit[] results = new RaycastHit[1];
+            int count = Physics.RaycastNonAlloc(ray, results, _maxDistance, _collidableLayers);
+            return count > 0 ? results[0].point : ray.GetPoint(_maxDistance);
         }
     }
 }

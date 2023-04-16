@@ -68,7 +68,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8202281673801585237}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RightPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 8202281673829269637}
   - component: {fileID: 8202281673829269658}
   - component: {fileID: 8202281673829269659}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 8202281674205171772}
   - component: {fileID: 8202281674205171773}
   - component: {fileID: 8202281674205171762}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: LeftJamb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 8202281674440311355}
   - component: {fileID: 8202281674440311352}
   - component: {fileID: 8202281674440311353}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 8202281675007454452}
   - component: {fileID: 8202281675007454453}
   - component: {fileID: 8202281675007454346}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 8202281675131595997}
   - component: {fileID: 8202281675131595986}
   - component: {fileID: 8202281675131595987}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: LeftJamb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8202281675424849967}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MiddlePart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8202281675580171597}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LeftPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 8202281675670058782}
   - component: {fileID: 8202281675670058783}
   - component: {fileID: 8202281675670058780}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,4 +1,6 @@
-﻿using CodeBase.Projectiles.Movement;
+﻿using System;
+using CodeBase.Hero;
+using CodeBase.Projectiles.Movement;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -6,6 +8,7 @@ namespace CodeBase.Weapons
     public class MortarBehavior : HeroWeaponAppearance
     {
         [SerializeField] private DrawProjection _drawProjection;
+        [SerializeField] private WeaponRotation _weaponRotation;
 
         private Camera _mainCamera;
 
@@ -13,6 +16,12 @@ namespace CodeBase.Weapons
         {
             _mainCamera = Camera.main;
         }
+
+        private void Awake() => 
+            _weaponRotation.GotTarget += SetTarget;
+
+        private void SetTarget(Vector3 targetPosition) => 
+            (GetMovement() as BombMovement)?.SetTargetPosition(targetPosition);
 
         private void FixedUpdate()
         {

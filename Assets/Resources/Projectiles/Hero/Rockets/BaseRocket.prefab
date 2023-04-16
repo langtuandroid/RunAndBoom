@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectLayerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 4288
 --- !u!114 &7089599302767958054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trailPosition: {fileID: 6845473786046702743}
+  _trailVfx: {fileID: 0}
 --- !u!1 &6337939420664514641
 GameObject:
   m_ObjectHideFlags: 0

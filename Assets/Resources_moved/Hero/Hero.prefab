@@ -309,6 +309,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponSelection: {fileID: 2265719662692678730}
   _currentWeapon: {fileID: 0}
+  _collidableLayers:
+    serializedVersion: 2
+    m_Bits: 4800
 --- !u!143 &740292060144576828
 CharacterController:
   m_ObjectHideFlags: 0
@@ -818,6 +821,16 @@ PrefabInstance:
       propertyPath: _forceMultiplier
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6434662418643499591, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _lineSegmentCount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408226985236022556, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _weaponRotation
+      value: 
+      objectReference: {fileID: 4242411431543229165}
     - target: {fileID: 9049238747308586508, guid: 12067ccbd226eab4f98e0b4471abed80,
         type: 3}
       propertyPath: m_Name
