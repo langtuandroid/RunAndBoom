@@ -7,48 +7,55 @@ namespace CodeBase.Projectiles.Movement
     [RequireComponent(typeof(Rigidbody))]
     public class BombMovement : ProjectileMovement
     {
-        public float Power = 50f;
+        [HideInInspector] public float Power { get; private set; }
+        [HideInInspector] public Rigidbody Rigidbody { get; private set; }
 
-        private Rigidbody _rigidBody;
         private bool _rotate = false;
         private Vector3 _targetPosition;
         private Vector3 _speed = Vector3.zero;
 
         public override event Action Stoped;
 
-        private void Awake() =>
-            _rigidBody = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            Power = 500f;
+            Rigidbody = GetComponent<Rigidbody>();
+        }
 
         // public void Construct(float speed, float lifeTime) => 
         //     base.Construct(speed * 1f,lifeTime);
 
-        public void SetSpeed(Vector3 speed) =>
+        public void SetSpeed(Vector3 speed)
+        {
             _speed = speed;
+        }
 
-        public void SetTargetPosition(Vector3 targetPosition) =>
+        public void SetTargetPosition(Vector3 targetPosition)
+        {
             _targetPosition = targetPosition;
+        }
 
         public override void Launch()
         {
             StartCoroutine(LaunchTime());
 
             _rotate = true;
-            // _rigidBody.isKinematic = false;
-            // Vector3 aim = _targetPosition - transform.position;
-            // float lenght = Vector3.Distance(_targetPosition, transform.position);
-            // float time = lenght / Speed;
-            // float antiGravity = -Physics.gravity.y * time / 2;
-            // float deltaY = (_targetPosition.y - transform.position.y) / time;
-            // Vector3 bombSpeed = aim.normalized * Speed;
-            // bombSpeed.y = antiGravity + deltaY;
-            // _rigidBody.velocity = bombSpeed;
-            // transform.forward = _targetPosition;
-            // _rigidBody.velocity = transform.forward * Power;
+            Rigidbody.isKinematic = false;
+            Vector3 aim = _targetPosition - transform.position;
+            float lenght = Vector3.Distance(_targetPosition, transform.position);
+            float time = lenght / Speed;
+            float antiGravity = -Physics.gravity.y * time / 2;
+            float deltaY = (_targetPosition.y - transform.position.y) / time;
+            Vector3 bombSpeed = aim.normalized * Speed;
+            bombSpeed.y = antiGravity + deltaY;
+            Rigidbody.velocity = bombSpeed;
+            transform.forward = _targetPosition;
+            // Rigidbody.velocity = transform.forward * Power;
 
             // float lenght = Vector3.Distance(_targetPosition, transform.position);
             // float time = lenght / Speed;
 
-            _rigidBody.AddForce(_speed, ForceMode.VelocityChange);
+            // Rigidbody.AddForce(_speed, ForceMode.VelocityChange);
 
             if (_rotate)
                 transform.DORotate(new Vector3(120, 0, 0), 2f, RotateMode.Fast)

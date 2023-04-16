@@ -802,6 +802,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6434662418643499591, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _bombMovement
+      value: 
+      objectReference: {fileID: 7325421047342436791, guid: 7ab22b4eaba591e488912a6b2405d8ac,
+        type: 3}
+    - target: {fileID: 6434662418643499591, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _weaponRotation
+      value: 
+      objectReference: {fileID: 4242411431543229165}
+    - target: {fileID: 6434662418643499591, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _forceMultiplier
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9049238747308586508, guid: 12067ccbd226eab4f98e0b4471abed80,
         type: 3}
       propertyPath: m_Name

@@ -1,5 +1,4 @@
-﻿using CodeBase.Projectiles;
-using CodeBase.Projectiles.Movement;
+﻿using CodeBase.Projectiles.Movement;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -10,8 +9,16 @@ namespace CodeBase.Weapons
 
         private Camera _mainCamera;
 
-        private void Start() =>
+        private void Start()
+        {
             _mainCamera = Camera.main;
+        }
+
+        private void FixedUpdate()
+        {
+            if (ProjectilesRespawns[0] != null)
+                _drawProjection.UpdateTrajectory(GetMovement() as BombMovement);
+        }
 
         private void Update()
         {
@@ -22,7 +29,8 @@ namespace CodeBase.Weapons
             //     Vector3 mouseInWorld = ray.GetPoint(enter);
             //     BombMovement bombMovement = (GetMovement() as BombMovement);
             //     Vector3 speed = (mouseInWorld - transform.position) * bombMovement.Power;
-            //     _drawProjection.ShowTrajectory(bombMovement.gameObject.transform.position, speed);
+            //     _drawProjection.ShowTrajectory(ProjectilesRespawns[0].position, speed);
+            //     // _drawProjection.ShowTrajectory(bombMovement.gameObject.transform.position, speed);
             //     bombMovement.SetSpeed(speed);
             // }
         }

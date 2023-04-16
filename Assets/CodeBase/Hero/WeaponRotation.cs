@@ -1,6 +1,6 @@
-﻿using CodeBase.StaticData.Projectiles;
+﻿using System;
+using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
-using DG.Tweening;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -14,6 +14,8 @@ namespace CodeBase.Hero
         private float _centralPosition = 0.5f;
         private float _rotateDuration = 0.5f;
         private float _maxDistance = 1000f;
+
+        public Action<Vector3> GotTarget;
 
         private void Start() =>
             _mainCamera = Camera.main;
@@ -35,10 +37,9 @@ namespace CodeBase.Hero
 
                 if (count > 0)
                 {
-                    Debug.Log($"Hit: {results[0].collider.gameObject.name}");
-                    // _currentWeapon.transform.DORotate(results[0].point, _rotateDuration, RotateMode.Fast);
-                    _currentWeapon.transform.LookAt(results[0].point);
-                    Debug.Log($"distance: {results[0].distance}");
+                    Vector3 targetPosition = results[0].point;
+                    _currentWeapon.transform.LookAt(targetPosition);
+                    GotTarget?.Invoke(targetPosition);
                     Debug.DrawLine(transform.position, results[0].point, Color.red);
                 }
             }

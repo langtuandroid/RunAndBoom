@@ -9,7 +9,7 @@ namespace CodeBase.Projectiles.Movement
         private float _movementTimeLimit = 3f;
         private float _launchCounter = 0f;
 
-        protected float Speed { get; private set; }
+        [HideInInspector] public float Speed { get; private set; }
 
         protected bool IsMove { get; set; }
 
