@@ -39,10 +39,8 @@ namespace CodeBase.Projectiles.Movement
                 yield return null;
             }
 
-            if (_launchCounter <= 0f)
-            {
+            if (_launchCounter <= 0f) 
                 Stop();
-            }
         }
     }
 }

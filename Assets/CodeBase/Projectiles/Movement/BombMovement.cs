@@ -50,12 +50,6 @@ namespace CodeBase.Projectiles.Movement
             bombSpeed.y = antiGravity + deltaY;
             Rigidbody.velocity = bombSpeed;
             transform.forward = _targetPosition;
-            
-            // Rigidbody.velocity = transform.forward * Power;
-            // float lenght = Vector3.Distance(_targetPosition, transform.position);
-            // float time = lenght / Speed;
-
-            // Rigidbody.AddForce(_speed, ForceMode.VelocityChange);
 
             // if (_rotate)
             //     transform.DORotate(new Vector3(120, 0, 0), 2f, RotateMode.Fast)
@@ -66,7 +60,7 @@ namespace CodeBase.Projectiles.Movement
         {
             OffMove();
             _rotate = false;
-            // _rigidBody.isKinematic = true;
+            Rigidbody.isKinematic = true;
             Stoped?.Invoke();
         }
     }
