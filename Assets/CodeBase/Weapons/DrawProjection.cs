@@ -12,12 +12,15 @@ namespace CodeBase.Weapons
         [SerializeField] private MortarBehavior _mortarBehavior;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private LayerMask _collidableLayers;
-        [SerializeField] [Range(3, 50)] private int _lineSegmentCount;
-        [SerializeField] private float _timeBetweenPoints = 0.1f;
+        [SerializeField] [Range(3, 100)] private int _lineSegmentCount;
         [SerializeField] private float _forceMultiplier;
 
+        private float _timeBetweenPoints = 0.1f;
         private List<Vector3> _linePoints = new List<Vector3>();
         private Vector3? _target = null;
+        private float _bombMovementSpeed;
+        private RaycastHit[] _results;
+        private float _rigidbodyMass;
 
         private void Awake() =>
             _weaponRotation.GotTarget += SetTarget;
@@ -57,28 +60,39 @@ namespace CodeBase.Weapons
         //     }
         // }
 
-        // ReSharper disable Unity.PerformanceAnalysis
         public void UpdateTrajectory(BombMovement bombMovement)
         {
             if (_mortarBehavior.ProjectilesRespawns[0] == null || _target == null)
                 return;
 
             Vector3 target = (Vector3)_target;
-            float speed = bombMovement.Speed;
-            Vector3 aim = (Vector3)(_target - _mortarBehavior.ProjectilesRespawns[0].position);
-            float lenght = Vector3.Distance(target, transform.position);
-            float time = lenght / speed;
+            Debug.Log($"DrawProjection target {target}");
+
+            if (_bombMovementSpeed == 0f)
+            {
+                _bombMovementSpeed = bombMovement.Speed;
+                _rigidbodyMass = bombMovement.Rigidbody.mass;
+            }
+
+            Vector3 aim = target - _mortarBehavior.ProjectilesRespawns[0].position;
+            float lenght = Vector3.Distance(target, _mortarBehavior.ProjectilesRespawns[0].position);
+            float time = lenght / _bombMovementSpeed;
             float antiGravity = -Physics.gravity.y * time / 2;
             float deltaY = (target.y - transform.position.y) / time;
-            Vector3 bombSpeed = aim.normalized * speed;
-            bombSpeed.y = antiGravity + deltaY;
-            bombMovement.Rigidbody.velocity = bombSpeed;
-            transform.forward = target;
+            Vector3 bombSpeed = aim.normalized * _bombMovementSpeed;
 
-            Vector3 velocity = (_mortarBehavior.ProjectilesRespawns[0].position * _forceMultiplier / bombMovement.Rigidbody.mass) * Time.fixedTime;
+            Vector3 velocity = (bombSpeed / _rigidbodyMass) * Time.fixedDeltaTime;
             float flightDuration = (2 * velocity.y) / Physics.gravity.y;
+
+            if (flightDuration < 0)
+                flightDuration *= -1;
+
             float stepTime = flightDuration / _lineSegmentCount;
             _linePoints.Clear();
+
+            Debug.Log($"DrawProjection aim {aim}");
+            Debug.Log($"DrawProjection lenght {lenght}");
+            Debug.Log($"DrawProjection velocity {velocity}");
 
             for (int i = 0; i < _lineSegmentCount; i++)
             {
@@ -89,7 +103,12 @@ namespace CodeBase.Weapons
                     velocity.y * stepTimePassed - 0.5f * Physics.gravity.y * stepTimePassed * stepTimePassed,
                     velocity.z * stepTimePassed);
 
-                if (Physics.Raycast(_mortarBehavior.ProjectilesRespawns[0].position, -movementVector, out _, movementVector.magnitude))
+                _results = new RaycastHit[1];
+
+                int count = Physics.RaycastNonAlloc(_mortarBehavior.ProjectilesRespawns[0].position, -movementVector, _results, movementVector.magnitude,
+                    _collidableLayers);
+
+                if (count > 0)
                     break;
 
                 _linePoints.Add(-movementVector + _mortarBehavior.ProjectilesRespawns[0].position);
@@ -99,18 +118,29 @@ namespace CodeBase.Weapons
             _lineRenderer.SetPositions(_linePoints.ToArray());
         }
 
-        // public void ShowTrajectory(Vector3 origin, Vector3 speed)
-        // {
-        //     Vector3[] points = new Vector3[100];
-        //     _lineRenderer.positionCount = points.Length;
-        //
-        //     for (int i = 0; i < points.Length; i++)
-        //     {
-        //         float time = i * _timeBetweenPoints;
-        //         points[i] = origin + speed * time + Physics.gravity * time * time / 2f;
-        //     }
-        //
-        //     _lineRenderer.SetPositions(points);
-        // }
+        public void ShowTrajectory(BombMovement bombMovement)
+        {
+            if (_bombMovementSpeed == 0f)
+            {
+                _bombMovementSpeed = bombMovement.Speed;
+                _rigidbodyMass = bombMovement.Rigidbody.mass;
+            }
+
+            Vector3 target = (Vector3)_target;
+            Vector3 speed = (target - _mortarBehavior.ProjectilesRespawns[0].position) * _bombMovementSpeed;
+
+            Vector3[] points = new Vector3[100];
+            _lineRenderer.positionCount = points.Length;
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                float time = i * _timeBetweenPoints;
+                Vector3 position = _mortarBehavior.ProjectilesRespawns[0].position + speed * time + Physics.gravity * time * time / 2f;
+                
+                points[i] = position;
+            }
+
+            _lineRenderer.SetPositions(points);
+        }
     }
 }

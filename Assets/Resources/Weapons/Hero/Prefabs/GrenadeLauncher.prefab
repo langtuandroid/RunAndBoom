@@ -2137,8 +2137,9 @@ MonoBehaviour:
   - {fileID: 6256389252596755060}
   ShotVfxsRespawns:
   - {fileID: 6492105103650400855}
-  ShowProjectiles: 0
+  _showProjectiles: 0
   ShotVfxsContainer: {fileID: 7009498340783900050}
+  _projectiles: []
 --- !u!114 &7009498340783900050
 MonoBehaviour:
   m_ObjectHideFlags: 0

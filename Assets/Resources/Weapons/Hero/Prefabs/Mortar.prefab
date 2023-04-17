@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2380273941433491410}
-  - component: {fileID: 8985998677904672162}
   - component: {fileID: 350001938654656824}
   - component: {fileID: 7408226985236022556}
   m_Layer: 0
@@ -37,25 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8985998677904672162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9049238747308586508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05c07c7fdce49388551423d9f0faea2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilesRespawns:
-  - {fileID: 7500356228395970793}
-  ShotVfxsRespawns:
-  - {fileID: 2430568816973176998}
-  _showProjectiles: 1
-  ShotVfxsContainer: {fileID: 350001938654656824}
-  _projectiles: []
 --- !u!114 &350001938654656824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +68,7 @@ MonoBehaviour:
   ShotVfxsContainer: {fileID: 350001938654656824}
   _projectiles: []
   _drawProjection: {fileID: 6434662418643499591}
+  _weaponRotation: {fileID: 0}
 --- !u!1001 &1645907313745701492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,7 +169,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -210,8 +191,7 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0.0203, y: 0.07, z: -0.283}
-  - {x: 0.0203, y: 0.81, z: 1}
+  - {x: 0.4671903, y: 1.2640889, z: -9.110655}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -233,7 +213,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -279,13 +259,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d148ec2b185c4ac0984a8ec288a48d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponRotation: {fileID: 0}
+  _bombMovement: {fileID: 7325421047342436791, guid: 7ab22b4eaba591e488912a6b2405d8ac,
+    type: 3}
   _mortarBehavior: {fileID: 7408226985236022556}
   _lineRenderer: {fileID: 7098024739592771824}
   _collidableLayers:
     serializedVersion: 2
     m_Bits: 4800
-  _lineSegmentCount: 20
-  _timeBetweenPoints: 0.1
+  _lineSegmentCount: 100
+  _forceMultiplier: 5
 --- !u!4 &7500356228395970793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9133847304936725149, guid: 98d43b0805c0ab743970a57947ec5b37,

@@ -60,8 +60,9 @@ MonoBehaviour:
   - {fileID: 4012674482470070946}
   - {fileID: 7146221901226557625}
   - {fileID: 6882813319641206050}
-  ShowProjectiles: 1
+  _showProjectiles: 1
   ShotVfxsContainer: {fileID: 4401969429632426419}
+  _projectiles: []
 --- !u!114 &4401969429632426419
 MonoBehaviour:
   m_ObjectHideFlags: 0

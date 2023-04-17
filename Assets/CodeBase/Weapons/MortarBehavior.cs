@@ -25,23 +25,14 @@ namespace CodeBase.Weapons
 
         private void FixedUpdate()
         {
-            if (ProjectilesRespawns[0] != null)
-                _drawProjection.UpdateTrajectory(GetMovement() as BombMovement);
+            // if (ProjectilesRespawns[0] != null)
+            //     _drawProjection.UpdateTrajectory(GetMovement() as BombMovement);
         }
 
         private void Update()
         {
-            // if ((BombMovement)GetMovement() != null)
-            // {
-            //     Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            //     new Plane(Vector3.forward, -transform.position).Raycast(ray, out float enter);
-            //     Vector3 mouseInWorld = ray.GetPoint(enter);
-            //     BombMovement bombMovement = (GetMovement() as BombMovement);
-            //     Vector3 speed = (mouseInWorld - transform.position) * bombMovement.Power;
-            //     _drawProjection.ShowTrajectory(ProjectilesRespawns[0].position, speed);
-            //     // _drawProjection.ShowTrajectory(bombMovement.gameObject.transform.position, speed);
-            //     bombMovement.SetSpeed(speed);
-            // }
+            if ((BombMovement)GetMovement() != null) 
+                _drawProjection.ShowTrajectory(GetMovement() as BombMovement);
         }
         // private Vector3? _targetPosition = null;
         //
