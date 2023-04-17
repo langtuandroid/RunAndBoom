@@ -23,7 +23,7 @@ namespace CodeBase.Enemy
         private IPlayerProgressService _progressService;
         private IHealth _health;
         private AgentMoveToHero _agentMoveToHero;
-        private TargetMovement _targetMovement;
+        // private TargetMovement _targetMovement;
         private float _deathDelay = 30f;
         private int _reward;
         private bool _isDead;
@@ -37,7 +37,7 @@ namespace CodeBase.Enemy
 
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
-            _targetMovement = GetComponentInChildren<TargetMovement>();
+            // _targetMovement = GetComponentInChildren<TargetMovement>();
             _health = GetComponent<IHealth>();
             _health.HealthChanged += HealthChanged;
         }
@@ -72,7 +72,7 @@ namespace CodeBase.Enemy
             Destroy(GetComponent<AgentMoveToHero>());
             Destroy(GetComponent<NavMeshAgent>(), 1);
             // _agentMoveToHero.Stop();
-            _targetMovement.Hide();
+            // _targetMovement.Hide();
             _enemyAnimator.PlayDeath();
 
             // _hitBox.SetActive(false);

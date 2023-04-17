@@ -146,7 +146,9 @@ namespace CodeBase.Weapons
             {
                 float time = i * _timeBetweenPoints;
                 Vector3 origin = _mortarBehavior.ProjectilesRespawns[0].position;
-                Vector3 position = origin + speed * time + Physics.gravity * time * time / 0.02f;
+                Vector3 gravity = Physics.gravity * time * time / 0.02f;
+                // gravity = transform.localToWorldMatrix * new Vector3(gravity.x, gravity.y, gravity.z);
+                Vector3 position = (origin + speed * time + gravity);
 
                 Collider[] results = new Collider[1];
 

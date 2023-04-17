@@ -60,7 +60,7 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.EffectiveDistance);
-            enemy.GetComponentInChildren<TargetMovement>().Hide();
+            // enemy.GetComponentInChildren<TargetMovement>().Hide();
             ConstructEnemyAttack(typeId, enemyData, enemy);
 
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
