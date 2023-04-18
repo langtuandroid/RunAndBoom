@@ -94,7 +94,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             CreateWeapons();
             CreateItems();
 
-            StartCoroutine(CoroutineShowShopItems());
+            // StartCoroutine(CoroutineShowShopItems());
 
             GenerateItems();
             GenerateAmmo();
