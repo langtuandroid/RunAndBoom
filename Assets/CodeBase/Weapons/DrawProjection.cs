@@ -28,7 +28,7 @@ namespace CodeBase.Weapons
 
         private void Awake()
         {
-            _weaponRotation.GotTarget += SetTarget;
+            // _weaponRotation.GotTarget += SetTarget;
             _linePoints = new List<Vector3>(_lineSegmentCount);
         }
 
@@ -137,7 +137,7 @@ namespace CodeBase.Weapons
 
             Vector3 target = (Vector3)_target;
             Vector3 speed = (target - _mortarBehavior.ProjectilesRespawns[0].position) * _bombMovementSpeed;
-
+            float lenght = Vector3.Distance(target, transform.position);
             // Vector3[] points = new Vector3[100];
             _linePoints.Clear();
 
@@ -145,10 +145,13 @@ namespace CodeBase.Weapons
                 // for (int i = 0; i < points.Length; i++)
             {
                 float time = i * _timeBetweenPoints;
+                // float time = i * _timeBetweenPoints * lenght / _bombMovementSpeed;
                 Vector3 origin = _mortarBehavior.ProjectilesRespawns[0].position;
                 Vector3 gravity = Physics.gravity * time * time / 0.02f;
+                // float antiGravity = -Physics.gravity.y * time / 2;
+                // float deltaY = (target.y - transform.position.y) / time;
                 // gravity = transform.localToWorldMatrix * new Vector3(gravity.x, gravity.y, gravity.z);
-                Vector3 position = (origin + speed * time + gravity);
+                Vector3 position = origin + speed * time + gravity;
 
                 Collider[] results = new Collider[1];
 

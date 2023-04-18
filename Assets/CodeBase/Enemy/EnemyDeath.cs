@@ -4,7 +4,6 @@ using CodeBase.Enemy.Attacks;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.UI.Elements.Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,7 +21,9 @@ namespace CodeBase.Enemy
 
         private IPlayerProgressService _progressService;
         private IHealth _health;
+
         private AgentMoveToHero _agentMoveToHero;
+
         // private TargetMovement _targetMovement;
         private float _deathDelay = 30f;
         private int _reward;

@@ -37,9 +37,9 @@ namespace CodeBase.Hero
 
         private void FixedUpdate()
         {
-            if (_currentWeapon != null 
+            if (_currentWeapon != null
                 // && _weaponTypeId != HeroWeaponTypeId.Mortar
-                )
+               )
             {
                 Ray ray = _mainCamera.ViewportPointToRay(new Vector3(_centralPosition, _centralPosition, 0));
                 var targetPosition = MaxDistancePosition(ray);

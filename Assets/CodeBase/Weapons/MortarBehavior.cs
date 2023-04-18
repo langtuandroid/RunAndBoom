@@ -8,6 +8,7 @@ namespace CodeBase.Weapons
     {
         [SerializeField] private DrawProjection _drawProjection;
         [SerializeField] private WeaponRotation _weaponRotation;
+        [SerializeField] private DrawTarget _drawTarget;
 
         private Camera _mainCamera;
         private bool _transfered;
@@ -17,12 +18,17 @@ namespace CodeBase.Weapons
             _mainCamera = Camera.main;
         }
 
-        private void Awake() =>
-            _drawProjection.GotTarget += SetTarget;
-        // _weaponRotation.GotTarget += SetTarget;
+        private void Awake()
+        {
+            // _drawProjection.GotTarget += SetTarget;
+            _weaponRotation.GotTarget += SetTarget;
+        }
 
-        private void SetTarget(Vector3 targetPosition) =>
+        private void SetTarget(Vector3 targetPosition)
+        {
+            _drawTarget.Draw(targetPosition);
             (GetMovement() as BombMovement)?.SetTargetPosition(targetPosition);
+        }
 
         private void FixedUpdate()
         {
@@ -32,12 +38,13 @@ namespace CodeBase.Weapons
 
         private void Update()
         {
-            if ((BombMovement)GetMovement() != null || _transfered)
-            {
-                _drawProjection.ShowTrajectory(GetMovement() as BombMovement);
-                _transfered = true;
-            }
+            // if ((BombMovement)GetMovement() != null || _transfered)
+            // {
+            //     _drawProjection.ShowTrajectory(GetMovement() as BombMovement);
+            //     _transfered = true;
+            // }
         }
+
         // private Vector3? _targetPosition = null;
         //
         // public void SetTarget(Vector3 targetPosition) =>

@@ -7,7 +7,6 @@ using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Weapons;
-using CodeBase.UI.Elements.Enemy;
 using CodeBase.Weapons;
 using UnityEngine;
 using UnityEngine.AI;
