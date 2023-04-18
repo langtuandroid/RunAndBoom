@@ -7,19 +7,34 @@ using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.UI.Services;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class UpgradePurchasingItemView : MonoBehaviour
     {
-        [SerializeField] private Image BackgroundIcon;
-        [SerializeField] private Image MainIcon;
-        [SerializeField] private Image LevelIcon;
-        [SerializeField] private Image AdditionalIcon;
-        [SerializeField] private TextMeshProUGUI CostText;
-        [SerializeField] private TextMeshProUGUI CountText;
-        [SerializeField] private TextMeshProUGUI TitleText;
+        [FormerlySerializedAs("BackgroundIcon")] [SerializeField]
+        private Image _backgroundIcon;
+
+        [FormerlySerializedAs("MainIcon")] [SerializeField]
+        private Image _mainIcon;
+
+        [FormerlySerializedAs("LevelIcon")] [SerializeField]
+        private Image _levelIcon;
+
+        [FormerlySerializedAs("AdditionalIcon")] [SerializeField]
+        private Image _additionalIcon;
+
+        [FormerlySerializedAs("CostText")] [SerializeField]
+        private TextMeshProUGUI _costText;
+
+        [FormerlySerializedAs("CountText")] [SerializeField]
+        private TextMeshProUGUI _countText;
+
+        [FormerlySerializedAs("TitleText")] [SerializeField]
+        private TextMeshProUGUI _titleText;
+
         [SerializeField] private Button _button;
 
         private IStaticDataService StaticDataService;
@@ -32,69 +47,85 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public event Action ShopItemClicked;
 
+        private void OnEnable()
+        {
+            _button?.onClick.AddListener(Clicked);
+        }
+
+        private void OnDisable()
+        {
+            _button?.onClick.RemoveListener(Clicked);
+        }
+
         public void Construct(UpgradeItemData upgradeItemData, IPlayerProgressService playerProgressService)
         {
+            _button?.onClick.AddListener(Clicked);
             PlayerProgressService = playerProgressService;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
-            _button.onClick.AddListener(Clicked);
             _upgradeItemData = upgradeItemData;
             FillData();
         }
 
         public void ClearData()
         {
-            if (BackgroundIcon != null)
-                BackgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_backgroundIcon != null)
+                _backgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (MainIcon != null)
-                MainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_mainIcon != null)
+                _mainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (LevelIcon != null)
-                LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_levelIcon != null)
+                _levelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (AdditionalIcon != null)
-                AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_additionalIcon != null)
+                _additionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (CostText != null)
-                CostText.text = "";
+            if (_costText != null)
+                _costText.text = "";
 
-            if (CountText != null)
-                CountText.text = "";
+            if (_countText != null)
+                _countText.text = "";
 
-            if (TitleText != null)
-                TitleText.text = "";
+            if (_titleText != null)
+                _titleText.text = "";
         }
 
-        private bool IsMoneyEnough(int value) =>
-            PlayerProgressService.Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
+        private bool IsMoneyEnough(int value)
+        {
+            return PlayerProgressService.Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
+        }
 
-        private void ReduceMoney(int value) =>
+        private void ReduceMoney(int value)
+        {
             PlayerProgressService.Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
+        }
 
-        public void ChangeClickability(bool isClickable) =>
+        public void ChangeClickability(bool isClickable)
+        {
             _button.interactable = isClickable;
+        }
 
         private void FillData()
         {
-            BackgroundIcon.color = Constants.ShopItemUpgrade;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            _backgroundIcon.color = Constants.ShopItemUpgrade;
+            _backgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _upgradableWeaponStaticData = StaticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
             _upgradeStaticData = StaticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
             _upgradeLevelInfoStaticData = StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
             _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
-            MainIcon.sprite = _upgradableWeaponStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            _mainIcon.sprite = _upgradableWeaponStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
 
             if (_shopUpgradeLevelStaticData.MainImage != null)
-                LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
+                _levelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
 
-            AdditionalIcon.sprite = _upgradeStaticData.MainImage;
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
+            _additionalIcon.sprite = _upgradeStaticData.MainImage;
+            _additionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            _costText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
             // CostText.color = Constants.ShopItemPerk;
-            CountText.text = "";
-            TitleText.text = $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
+            _countText.text = "";
+            _titleText.text = $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
         }
 
         private void Clicked()

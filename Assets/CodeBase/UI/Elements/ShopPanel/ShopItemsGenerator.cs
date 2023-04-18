@@ -373,6 +373,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             ItemTypeId itemTypeId = _randomService.NextFrom(list);
             DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
+            view.enabled = true;
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -382,6 +383,7 @@ namespace CodeBase.UI.Elements.ShopPanel
         {
             DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
+            view.enabled = true;
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -392,6 +394,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             UpgradeItemData upgradeItemData = _randomService.NextFrom(list);
             DisableComponentsExcept(parent);
             UpgradePurchasingItemView view = parent.GetComponentInChildren<UpgradePurchasingItemView>();
+            view.enabled = true;
             view.Construct(upgradeItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -402,6 +405,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             PerkItemData perkItemData = _randomService.NextFrom(list);
             DisableComponentsExcept(parent);
             PerkPurchasingItemView view = parent.GetComponentInChildren<PerkPurchasingItemView>();
+            view.enabled = true;
             view.Construct(perkItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -412,6 +416,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             AmmoItem ammoItem = _randomService.NextFrom(list);
             DisableComponentsExcept(parent);
             AmmoPurchasingItemView view = parent.GetComponentInChildren<AmmoPurchasingItemView>();
+            view.enabled = true;
             view.Construct(ammoItem, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -422,6 +427,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             HeroWeaponTypeId weaponTypeId = _randomService.NextFrom(list);
             DisableComponentsExcept(parent);
             WeaponPurchasingItemView view = parent.GetComponentInChildren<WeaponPurchasingItemView>();
+            view.enabled = true;
             view.Construct(weaponTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -429,11 +435,21 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void DisableComponentsExcept(GameObject view)
         {
-            view.GetComponentInChildren<ItemPurchasingItemView>().ClearData();
-            view.GetComponentInChildren<AmmoPurchasingItemView>().ClearData();
-            view.GetComponentInChildren<UpgradePurchasingItemView>().ClearData();
-            view.GetComponentInChildren<PerkPurchasingItemView>().ClearData();
-            view.GetComponentInChildren<WeaponPurchasingItemView>().ClearData();
+            ItemPurchasingItemView itemPurchasingItemView = view.GetComponentInChildren<ItemPurchasingItemView>();
+            itemPurchasingItemView.ClearData();
+            itemPurchasingItemView.enabled = false;
+            AmmoPurchasingItemView ammoPurchasingItemView = view.GetComponentInChildren<AmmoPurchasingItemView>();
+            ammoPurchasingItemView.ClearData();
+            ammoPurchasingItemView.enabled = false;
+            UpgradePurchasingItemView upgradePurchasingItemView = view.GetComponentInChildren<UpgradePurchasingItemView>();
+            upgradePurchasingItemView.ClearData();
+            upgradePurchasingItemView.enabled = false;
+            PerkPurchasingItemView perkPurchasingItemView = view.GetComponentInChildren<PerkPurchasingItemView>();
+            perkPurchasingItemView.ClearData();
+            perkPurchasingItemView.enabled = false;
+            WeaponPurchasingItemView weaponPurchasingItemView = view.GetComponentInChildren<WeaponPurchasingItemView>();
+            weaponPurchasingItemView.ClearData();
+            weaponPurchasingItemView.enabled = false;
         }
 
         private void GenerateItems()

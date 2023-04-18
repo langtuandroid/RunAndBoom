@@ -6,19 +6,34 @@ using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
     public class AmmoPurchasingItemView : MonoBehaviour
     {
-        [SerializeField] private Image BackgroundIcon;
-        [SerializeField] private Image MainIcon;
-        [SerializeField] private Image LevelIcon;
-        [SerializeField] private Image AdditionalIcon;
-        [SerializeField] private TextMeshProUGUI CostText;
-        [SerializeField] private TextMeshProUGUI CountText;
-        [SerializeField] private TextMeshProUGUI TitleText;
+        [FormerlySerializedAs("BackgroundIcon")] [SerializeField]
+        private Image _backgroundIcon;
+
+        [FormerlySerializedAs("MainIcon")] [SerializeField]
+        private Image _mainIcon;
+
+        [FormerlySerializedAs("LevelIcon")] [SerializeField]
+        private Image _levelIcon;
+
+        [FormerlySerializedAs("AdditionalIcon")] [SerializeField]
+        private Image _additionalIcon;
+
+        [FormerlySerializedAs("CostText")] [SerializeField]
+        private TextMeshProUGUI _costText;
+
+        [FormerlySerializedAs("CountText")] [SerializeField]
+        private TextMeshProUGUI _countText;
+
+        [FormerlySerializedAs("TitleText")] [SerializeField]
+        private TextMeshProUGUI _titleText;
+
         [SerializeField] private Button _button;
 
         private IStaticDataService StaticDataService;
@@ -29,40 +44,43 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         public event Action ShopItemClicked;
 
-        private void Awake() =>
-            BackgroundIcon = GetComponent<Image>();
+        private void OnEnable() =>
+            _button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            _button?.onClick.RemoveListener(Clicked);
 
         public void Construct(AmmoItem ammoItem, IPlayerProgressService playerProgressService)
         {
+            _button?.onClick.AddListener(Clicked);
             PlayerProgressService = playerProgressService;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
-            _button.onClick.AddListener(Clicked);
             _ammoItem = ammoItem;
             FillData();
         }
 
         public void ClearData()
         {
-            if (BackgroundIcon != null)
-                BackgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_backgroundIcon != null)
+                _backgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (MainIcon != null)
-                MainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_mainIcon != null)
+                _mainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (LevelIcon != null)
-                LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_levelIcon != null)
+                _levelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (AdditionalIcon != null)
-                AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            if (_additionalIcon != null)
+                _additionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
 
-            if (CostText != null)
-                CostText.text = "";
+            if (_costText != null)
+                _costText.text = "";
 
-            if (CountText != null)
-                CountText.text = "";
+            if (_countText != null)
+                _countText.text = "";
 
-            if (TitleText != null)
-                TitleText.text = "";
+            if (_titleText != null)
+                _titleText.text = "";
         }
 
         // public void ChangeClickability(bool isClickable) =>
@@ -80,18 +98,18 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         private void FillData()
         {
             _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            BackgroundIcon.color = Constants.ShopItemAmmo;
-            MainIcon.sprite = _shopAmmoStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            CostText.text = $"{_shopAmmoStaticData.Cost} $";
+            _backgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            _backgroundIcon.color = Constants.ShopItemAmmo;
+            _mainIcon.sprite = _shopAmmoStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            _levelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            _additionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            _costText.text = $"{_shopAmmoStaticData.Cost} $";
             // CostText.color = Constants.ShopItemPerk;
             int ammoCountType = (int)_shopAmmoStaticData.Count;
-            CountText.text = $"{ammoCountType}";
+            _countText.text = $"{ammoCountType}";
             // CountText.color = Constants.ShopItemCountField;
-            TitleText.text = $"{_shopAmmoStaticData.IRuTitle}";
+            _titleText.text = $"{_shopAmmoStaticData.IRuTitle}";
         }
 
         private void Clicked()

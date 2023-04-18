@@ -529,7 +529,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 656867504999475614}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0}
   m_AnchorMax: {x: 0.95, y: 0.3}
@@ -1203,9 +1203,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4791494191845344946}
   - {fileID: 7337225303118875053}
   - {fileID: 3901037164317511411}
-  - {fileID: 4791494191845344946}
   m_Father: {fileID: 4083777556584342645}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1264,13 +1264,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 3765475344558475695}
-  MainIcon: {fileID: 5637330422566825756}
-  LevelIcon: {fileID: 3770434904222233141}
-  AdditionalIcon: {fileID: 4670230881802427667}
-  CostText: {fileID: 7353190989973548698}
-  CountText: {fileID: 7822428355602783635}
-  TitleText: {fileID: 5574620769432260291}
+  _backgroundIcon: {fileID: 3765475344558475695}
+  _mainIcon: {fileID: 5637330422566825756}
+  _levelIcon: {fileID: 3770434904222233141}
+  _additionalIcon: {fileID: 4670230881802427667}
+  _costText: {fileID: 7353190989973548698}
+  _countText: {fileID: 7822428355602783635}
+  _titleText: {fileID: 5574620769432260291}
   _button: {fileID: 2723108100195582462}
 --- !u!114 &1869769683874431497
 MonoBehaviour:
@@ -1284,13 +1284,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 3765475344558475695}
-  MainIcon: {fileID: 5637330422566825756}
-  LevelIcon: {fileID: 3770434904222233141}
-  AdditionalIcon: {fileID: 4670230881802427667}
-  CostText: {fileID: 7353190989973548698}
-  CountText: {fileID: 7822428355602783635}
-  TitleText: {fileID: 5574620769432260291}
+  _backgroundIcon: {fileID: 3765475344558475695}
+  _mainIcon: {fileID: 5637330422566825756}
+  _levelIcon: {fileID: 3770434904222233141}
+  _additionalIcon: {fileID: 4670230881802427667}
+  _costText: {fileID: 7353190989973548698}
+  _countText: {fileID: 7822428355602783635}
+  _titleText: {fileID: 5574620769432260291}
   _button: {fileID: 2723108100195582462}
 --- !u!114 &4259646711702979615
 MonoBehaviour:
@@ -1304,13 +1304,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 3765475344558475695}
-  MainIcon: {fileID: 144940963751206475}
-  LevelIcon: {fileID: 6086462573366959423}
-  AdditionalIcon: {fileID: 2399247995035847974}
-  CostText: {fileID: 6688513942518527923}
-  CountText: {fileID: 6051600340772981730}
-  TitleText: {fileID: 8210686992203118330}
+  _backgroundIcon: {fileID: 3765475344558475695}
+  _mainIcon: {fileID: 144940963751206475}
+  _levelIcon: {fileID: 6086462573366959423}
+  _additionalIcon: {fileID: 2399247995035847974}
+  _costText: {fileID: 6688513942518527923}
+  _countText: {fileID: 6051600340772981730}
+  _titleText: {fileID: 8210686992203118330}
   _button: {fileID: 2723108100195582462}
 --- !u!114 &1172721812283748685
 MonoBehaviour:
@@ -1324,13 +1324,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 3765475344558475695}
-  MainIcon: {fileID: 5637330422566825756}
-  LevelIcon: {fileID: 3770434904222233141}
-  AdditionalIcon: {fileID: 4670230881802427667}
-  CostText: {fileID: 7353190989973548698}
-  CountText: {fileID: 7822428355602783635}
-  TitleText: {fileID: 5574620769432260291}
+  _backgroundIcon: {fileID: 3765475344558475695}
+  _mainIcon: {fileID: 5637330422566825756}
+  _levelIcon: {fileID: 3770434904222233141}
+  _additionalIcon: {fileID: 4670230881802427667}
+  _costText: {fileID: 7353190989973548698}
+  _countText: {fileID: 7822428355602783635}
+  _titleText: {fileID: 5574620769432260291}
   _button: {fileID: 2723108100195582462}
 --- !u!114 &3511319821328210866
 MonoBehaviour:
@@ -1344,13 +1344,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 3765475344558475695}
-  MainIcon: {fileID: 5637330422566825756}
-  LevelIcon: {fileID: 3770434904222233141}
-  AdditionalIcon: {fileID: 4670230881802427667}
-  CostText: {fileID: 7353190989973548698}
-  CountText: {fileID: 7822428355602783635}
-  TitleText: {fileID: 5574620769432260291}
+  _backgroundIcon: {fileID: 3765475344558475695}
+  _mainIcon: {fileID: 5637330422566825756}
+  _levelIcon: {fileID: 3770434904222233141}
+  _additionalIcon: {fileID: 4670230881802427667}
+  _costText: {fileID: 7353190989973548698}
+  _countText: {fileID: 7822428355602783635}
+  _titleText: {fileID: 5574620769432260291}
   _button: {fileID: 2723108100195582462}
 --- !u!1 &2635554218414785293
 GameObject:
@@ -1383,7 +1383,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2950792417542507864}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0}
   m_AnchorMax: {x: 0.95, y: 0.3}
@@ -1586,9 +1586,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3918317250302468534}
   - {fileID: 6645320538943020940}
   - {fileID: 4722249032246033599}
-  - {fileID: 3918317250302468534}
   m_Father: {fileID: 2510028885272834046}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1647,13 +1647,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 4260023971072449613}
-  MainIcon: {fileID: 49772130506137608}
-  LevelIcon: {fileID: 8108005725646287157}
-  AdditionalIcon: {fileID: 6925187209502214012}
-  CostText: {fileID: 1935621634796517348}
-  CountText: {fileID: 6575972358105097817}
-  TitleText: {fileID: 3933935019697186406}
+  _backgroundIcon: {fileID: 4260023971072449613}
+  _mainIcon: {fileID: 49772130506137608}
+  _levelIcon: {fileID: 8108005725646287157}
+  _additionalIcon: {fileID: 6925187209502214012}
+  _costText: {fileID: 1935621634796517348}
+  _countText: {fileID: 6575972358105097817}
+  _titleText: {fileID: 3933935019697186406}
   _button: {fileID: 3527592603275484337}
 --- !u!114 &7366177446694264515
 MonoBehaviour:
@@ -1667,13 +1667,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 4260023971072449613}
-  MainIcon: {fileID: 49772130506137608}
-  LevelIcon: {fileID: 8108005725646287157}
-  AdditionalIcon: {fileID: 6925187209502214012}
-  CostText: {fileID: 1935621634796517348}
-  CountText: {fileID: 6575972358105097817}
-  TitleText: {fileID: 3933935019697186406}
+  _backgroundIcon: {fileID: 4260023971072449613}
+  _mainIcon: {fileID: 49772130506137608}
+  _levelIcon: {fileID: 8108005725646287157}
+  _additionalIcon: {fileID: 6925187209502214012}
+  _costText: {fileID: 1935621634796517348}
+  _countText: {fileID: 6575972358105097817}
+  _titleText: {fileID: 3933935019697186406}
   _button: {fileID: 3527592603275484337}
 --- !u!114 &7118718619912955990
 MonoBehaviour:
@@ -1687,13 +1687,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 4260023971072449613}
-  MainIcon: {fileID: 144940963751206475}
-  LevelIcon: {fileID: 6086462573366959423}
-  AdditionalIcon: {fileID: 2399247995035847974}
-  CostText: {fileID: 6688513942518527923}
-  CountText: {fileID: 6051600340772981730}
-  TitleText: {fileID: 8210686992203118330}
+  _backgroundIcon: {fileID: 4260023971072449613}
+  _mainIcon: {fileID: 144940963751206475}
+  _levelIcon: {fileID: 6086462573366959423}
+  _additionalIcon: {fileID: 2399247995035847974}
+  _costText: {fileID: 6688513942518527923}
+  _countText: {fileID: 6051600340772981730}
+  _titleText: {fileID: 8210686992203118330}
   _button: {fileID: 3527592603275484337}
 --- !u!114 &7643884526747013501
 MonoBehaviour:
@@ -1707,13 +1707,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 4260023971072449613}
-  MainIcon: {fileID: 49772130506137608}
-  LevelIcon: {fileID: 8108005725646287157}
-  AdditionalIcon: {fileID: 6925187209502214012}
-  CostText: {fileID: 1935621634796517348}
-  CountText: {fileID: 6575972358105097817}
-  TitleText: {fileID: 3933935019697186406}
+  _backgroundIcon: {fileID: 4260023971072449613}
+  _mainIcon: {fileID: 49772130506137608}
+  _levelIcon: {fileID: 8108005725646287157}
+  _additionalIcon: {fileID: 6925187209502214012}
+  _costText: {fileID: 1935621634796517348}
+  _countText: {fileID: 6575972358105097817}
+  _titleText: {fileID: 3933935019697186406}
   _button: {fileID: 3527592603275484337}
 --- !u!114 &6090139434075577106
 MonoBehaviour:
@@ -1727,13 +1727,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 4260023971072449613}
-  MainIcon: {fileID: 49772130506137608}
-  LevelIcon: {fileID: 8108005725646287157}
-  AdditionalIcon: {fileID: 6925187209502214012}
-  CostText: {fileID: 1935621634796517348}
-  CountText: {fileID: 6575972358105097817}
-  TitleText: {fileID: 3933935019697186406}
+  _backgroundIcon: {fileID: 4260023971072449613}
+  _mainIcon: {fileID: 49772130506137608}
+  _levelIcon: {fileID: 8108005725646287157}
+  _additionalIcon: {fileID: 6925187209502214012}
+  _costText: {fileID: 1935621634796517348}
+  _countText: {fileID: 6575972358105097817}
+  _titleText: {fileID: 3933935019697186406}
   _button: {fileID: 3527592603275484337}
 --- !u!1 &3212741986838497862
 GameObject:
@@ -1842,7 +1842,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2950792417542507864}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1870,7 +1870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1936,7 +1936,7 @@ RectTransform:
   - {fileID: 3287717178965343541}
   - {fileID: 2035615574190036384}
   m_Father: {fileID: 2950792417542507864}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.3}
   m_AnchorMax: {x: 0.9, y: 1}
@@ -1986,7 +1986,7 @@ RectTransform:
   - {fileID: 413396518988198992}
   - {fileID: 743591187801798352}
   m_Father: {fileID: 656867504999475614}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.3}
   m_AnchorMax: {x: 0.9, y: 1}
@@ -2184,7 +2184,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2834302737597912008}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2212,7 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2383,13 +2383,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2132084251459339680}
-  MainIcon: {fileID: 4681807414947652292}
-  LevelIcon: {fileID: 519871967145924412}
-  AdditionalIcon: {fileID: 9194227246097611103}
-  CostText: {fileID: 8998450560060875762}
-  CountText: {fileID: 8649310731385031304}
-  TitleText: {fileID: 8106620856890050009}
+  _backgroundIcon: {fileID: 2132084251459339680}
+  _mainIcon: {fileID: 4681807414947652292}
+  _levelIcon: {fileID: 519871967145924412}
+  _additionalIcon: {fileID: 9194227246097611103}
+  _costText: {fileID: 8998450560060875762}
+  _countText: {fileID: 8649310731385031304}
+  _titleText: {fileID: 8106620856890050009}
   _button: {fileID: 130585702552298376}
 --- !u!114 &7933741460091544122
 MonoBehaviour:
@@ -2403,13 +2403,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2132084251459339680}
-  MainIcon: {fileID: 4681807414947652292}
-  LevelIcon: {fileID: 519871967145924412}
-  AdditionalIcon: {fileID: 9194227246097611103}
-  CostText: {fileID: 8998450560060875762}
-  CountText: {fileID: 8649310731385031304}
-  TitleText: {fileID: 8106620856890050009}
+  _backgroundIcon: {fileID: 2132084251459339680}
+  _mainIcon: {fileID: 4681807414947652292}
+  _levelIcon: {fileID: 519871967145924412}
+  _additionalIcon: {fileID: 9194227246097611103}
+  _costText: {fileID: 8998450560060875762}
+  _countText: {fileID: 8649310731385031304}
+  _titleText: {fileID: 8106620856890050009}
   _button: {fileID: 130585702552298376}
 --- !u!114 &7054396333478943721
 MonoBehaviour:
@@ -2423,13 +2423,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2132084251459339680}
-  MainIcon: {fileID: 144940963751206475}
-  LevelIcon: {fileID: 6086462573366959423}
-  AdditionalIcon: {fileID: 2399247995035847974}
-  CostText: {fileID: 6688513942518527923}
-  CountText: {fileID: 6051600340772981730}
-  TitleText: {fileID: 8210686992203118330}
+  _backgroundIcon: {fileID: 2132084251459339680}
+  _mainIcon: {fileID: 144940963751206475}
+  _levelIcon: {fileID: 6086462573366959423}
+  _additionalIcon: {fileID: 2399247995035847974}
+  _costText: {fileID: 6688513942518527923}
+  _countText: {fileID: 6051600340772981730}
+  _titleText: {fileID: 8210686992203118330}
   _button: {fileID: 130585702552298376}
 --- !u!114 &6128341219664191287
 MonoBehaviour:
@@ -2443,13 +2443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2132084251459339680}
-  MainIcon: {fileID: 4681807414947652292}
-  LevelIcon: {fileID: 519871967145924412}
-  AdditionalIcon: {fileID: 9194227246097611103}
-  CostText: {fileID: 8998450560060875762}
-  CountText: {fileID: 8649310731385031304}
-  TitleText: {fileID: 8106620856890050009}
+  _backgroundIcon: {fileID: 2132084251459339680}
+  _mainIcon: {fileID: 4681807414947652292}
+  _levelIcon: {fileID: 519871967145924412}
+  _additionalIcon: {fileID: 9194227246097611103}
+  _costText: {fileID: 8998450560060875762}
+  _countText: {fileID: 8649310731385031304}
+  _titleText: {fileID: 8106620856890050009}
   _button: {fileID: 130585702552298376}
 --- !u!114 &7440755134189276045
 MonoBehaviour:
@@ -2463,13 +2463,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2132084251459339680}
-  MainIcon: {fileID: 4681807414947652292}
-  LevelIcon: {fileID: 519871967145924412}
-  AdditionalIcon: {fileID: 9194227246097611103}
-  CostText: {fileID: 8998450560060875762}
-  CountText: {fileID: 8649310731385031304}
-  TitleText: {fileID: 8106620856890050009}
+  _backgroundIcon: {fileID: 2132084251459339680}
+  _mainIcon: {fileID: 4681807414947652292}
+  _levelIcon: {fileID: 519871967145924412}
+  _additionalIcon: {fileID: 9194227246097611103}
+  _costText: {fileID: 8998450560060875762}
+  _countText: {fileID: 8649310731385031304}
+  _titleText: {fileID: 8106620856890050009}
   _button: {fileID: 130585702552298376}
 --- !u!1 &5107387046227380702
 GameObject:
@@ -2642,9 +2642,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8113522545248487750}
   - {fileID: 4976410825346660572}
   - {fileID: 5614626143008631158}
-  - {fileID: 8113522545248487750}
   m_Father: {fileID: 2846525019349296603}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2703,13 +2703,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb9188620d74260bc60342fb79833e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2512148877327502104}
-  MainIcon: {fileID: 2904157122537632042}
-  LevelIcon: {fileID: 9003262858472944897}
-  AdditionalIcon: {fileID: 3638005342066533987}
-  CostText: {fileID: 4672088366396860574}
-  CountText: {fileID: 8718928957434859689}
-  TitleText: {fileID: 2441387602213436741}
+  _backgroundIcon: {fileID: 2512148877327502104}
+  _mainIcon: {fileID: 2904157122537632042}
+  _levelIcon: {fileID: 9003262858472944897}
+  _additionalIcon: {fileID: 3638005342066533987}
+  _costText: {fileID: 4672088366396860574}
+  _countText: {fileID: 8718928957434859689}
+  _titleText: {fileID: 2441387602213436741}
   _button: {fileID: 8350629273731952855}
 --- !u!114 &9189573136580564338
 MonoBehaviour:
@@ -2723,13 +2723,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc1ba5cba0443f78244721675ed5d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2512148877327502104}
-  MainIcon: {fileID: 2904157122537632042}
-  LevelIcon: {fileID: 9003262858472944897}
-  AdditionalIcon: {fileID: 3638005342066533987}
-  CostText: {fileID: 4672088366396860574}
-  CountText: {fileID: 8718928957434859689}
-  TitleText: {fileID: 2441387602213436741}
+  _backgroundIcon: {fileID: 2512148877327502104}
+  _mainIcon: {fileID: 2904157122537632042}
+  _levelIcon: {fileID: 9003262858472944897}
+  _additionalIcon: {fileID: 3638005342066533987}
+  _costText: {fileID: 4672088366396860574}
+  _countText: {fileID: 8718928957434859689}
+  _titleText: {fileID: 2441387602213436741}
   _button: {fileID: 8350629273731952855}
 --- !u!114 &8148661114676718165
 MonoBehaviour:
@@ -2743,13 +2743,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeeb3746d484d39a7e42851da2f5cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2512148877327502104}
-  MainIcon: {fileID: 144940963751206475}
-  LevelIcon: {fileID: 6086462573366959423}
-  AdditionalIcon: {fileID: 2399247995035847974}
-  CostText: {fileID: 6688513942518527923}
-  CountText: {fileID: 6051600340772981730}
-  TitleText: {fileID: 8210686992203118330}
+  _backgroundIcon: {fileID: 2512148877327502104}
+  _mainIcon: {fileID: 144940963751206475}
+  _levelIcon: {fileID: 6086462573366959423}
+  _additionalIcon: {fileID: 2399247995035847974}
+  _costText: {fileID: 6688513942518527923}
+  _countText: {fileID: 6051600340772981730}
+  _titleText: {fileID: 8210686992203118330}
   _button: {fileID: 8350629273731952855}
 --- !u!114 &9187210089107205310
 MonoBehaviour:
@@ -2763,13 +2763,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5524681a6a42ba872360370bab6c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2512148877327502104}
-  MainIcon: {fileID: 2904157122537632042}
-  LevelIcon: {fileID: 9003262858472944897}
-  AdditionalIcon: {fileID: 3638005342066533987}
-  CostText: {fileID: 4672088366396860574}
-  CountText: {fileID: 8718928957434859689}
-  TitleText: {fileID: 2441387602213436741}
+  _backgroundIcon: {fileID: 2512148877327502104}
+  _mainIcon: {fileID: 2904157122537632042}
+  _levelIcon: {fileID: 9003262858472944897}
+  _additionalIcon: {fileID: 3638005342066533987}
+  _costText: {fileID: 4672088366396860574}
+  _countText: {fileID: 8718928957434859689}
+  _titleText: {fileID: 2441387602213436741}
   _button: {fileID: 8350629273731952855}
 --- !u!114 &3545573556626716332
 MonoBehaviour:
@@ -2783,13 +2783,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3632c07f864cba9677b00f380376b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackgroundIcon: {fileID: 2512148877327502104}
-  MainIcon: {fileID: 2904157122537632042}
-  LevelIcon: {fileID: 9003262858472944897}
-  AdditionalIcon: {fileID: 3638005342066533987}
-  CostText: {fileID: 4672088366396860574}
-  CountText: {fileID: 8718928957434859689}
-  TitleText: {fileID: 2441387602213436741}
+  _backgroundIcon: {fileID: 2512148877327502104}
+  _mainIcon: {fileID: 2904157122537632042}
+  _levelIcon: {fileID: 9003262858472944897}
+  _additionalIcon: {fileID: 3638005342066533987}
+  _costText: {fileID: 4672088366396860574}
+  _countText: {fileID: 8718928957434859689}
+  _titleText: {fileID: 2441387602213436741}
   _button: {fileID: 8350629273731952855}
 --- !u!1 &5267228933113452101
 GameObject:
@@ -3085,7 +3085,7 @@ RectTransform:
   - {fileID: 951810986748942007}
   - {fileID: 2975259906885433264}
   m_Father: {fileID: 2834302737597912008}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.3}
   m_AnchorMax: {x: 0.9, y: 1}
@@ -3839,7 +3839,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 656867504999475614}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3867,7 +3867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3929,7 +3929,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2834302737597912008}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0}
   m_AnchorMax: {x: 0.95, y: 0.3}
