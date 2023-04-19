@@ -34,7 +34,6 @@ namespace CodeBase.UI.Windows
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;
         }
-
         // [SerializeField] private Button _closeButton;
         //
         // protected IPlayerProgressService ProgressService;

@@ -71,6 +71,10 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void InitializeEmptyData()
         {
             _shopItemsNumbers = new HashSet<int>(_shopItems.Length) { 0, 1, 2 };
+
+            foreach (GameObject shopItem in _shopItems)
+                shopItem.SetActive(false);
+
             _unavailableAmmunition = new List<AmmoItem>();
             _unavailableItems = new List<ItemTypeId>();
             _unavailableUpgrades = new List<UpgradeItemData>();
@@ -371,9 +375,11 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateItemPurchasingItemView(GameObject parent, List<ItemTypeId> list, bool isClickable)
         {
             ItemTypeId itemTypeId = _randomService.NextFrom(list);
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -381,9 +387,11 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void CreateItemPurchasingItemView(GameObject parent, ItemTypeId itemTypeId, bool isClickable)
         {
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             ItemPurchasingItemView view = parent.GetComponentInChildren<ItemPurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(itemTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -392,9 +400,11 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateUpgradePurchasingItemView(GameObject parent, List<UpgradeItemData> list, bool isClickable)
         {
             UpgradeItemData upgradeItemData = _randomService.NextFrom(list);
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             UpgradePurchasingItemView view = parent.GetComponentInChildren<UpgradePurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(upgradeItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -403,9 +413,11 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreatePerkPurchasingItemView(GameObject parent, List<PerkItemData> list, bool isClickable)
         {
             PerkItemData perkItemData = _randomService.NextFrom(list);
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             PerkPurchasingItemView view = parent.GetComponentInChildren<PerkPurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(perkItemData, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -414,9 +426,11 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateAmmoPurchasingItemView(GameObject parent, List<AmmoItem> list, bool isClickable)
         {
             AmmoItem ammoItem = _randomService.NextFrom(list);
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             AmmoPurchasingItemView view = parent.GetComponentInChildren<AmmoPurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(ammoItem, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
@@ -425,9 +439,11 @@ namespace CodeBase.UI.Elements.ShopPanel
         private void CreateWeaponPurchasingItemView(GameObject parent, List<HeroWeaponTypeId> list, bool isClickable)
         {
             HeroWeaponTypeId weaponTypeId = _randomService.NextFrom(list);
-            DisableComponentsExcept(parent);
+            // DisableComponentsExcept(parent);
             WeaponPurchasingItemView view = parent.GetComponentInChildren<WeaponPurchasingItemView>();
-            view.enabled = true;
+            parent.SetActive(true);
+            parent.GetComponent<ShopCell>().Show(view);
+            // view.enabled = true;
             view.Construct(weaponTypeId, _progressService);
             view.ChangeClickability(isClickable);
             parent.SetActive(true);
