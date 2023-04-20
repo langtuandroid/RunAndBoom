@@ -1,4 +1,5 @@
-﻿using CodeBase.Logic;
+﻿using System;
+using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
@@ -10,6 +11,8 @@ namespace CodeBase.Hero
     {
         private IWindowService _windowService;
         private IHealth _health;
+
+        public event Action Died;
 
         private void Awake()
         {
@@ -24,7 +27,10 @@ namespace CodeBase.Hero
                 Die();
         }
 
-        public void Die() =>
+        public void Die()
+        {
+            Died?.Invoke();
             _windowService.Open<DeathWindow>(WindowId.Death);
+        }
     }
 }

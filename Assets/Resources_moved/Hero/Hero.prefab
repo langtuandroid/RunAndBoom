@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 4565476155018466935}
   - component: {fileID: 2889076384633895999}
   - component: {fileID: 5429242650814555242}
+  - component: {fileID: 7210792306528179440}
   - component: {fileID: 740292060144576828}
   - component: {fileID: 6805826884214988716}
   m_Layer: 8
@@ -350,6 +351,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   _heroWeaponSelection: {fileID: 2265719662692678730}
+--- !u!114 &7210792306528179440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469050827539787869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd6c59ee2d241cfa379910058ce32e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &740292060144576828
 CharacterController:
   m_ObjectHideFlags: 0
@@ -621,6 +634,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4801597985691953261}
     m_Modifications:
+    - target: {fileID: 2766325045989098034, guid: 683fffe87b611004fa545d1671de946e,
+        type: 3}
+      propertyPath: _death
+      value: 
+      objectReference: {fileID: 7210792306528179440}
     - target: {fileID: 3509205997966544200, guid: 683fffe87b611004fa545d1671de946e,
         type: 3}
       propertyPath: m_RootOrder
@@ -767,6 +785,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RPG
       objectReference: {fileID: 0}
+    - target: {fileID: 5092174320619474378, guid: 0da09c108bf565445aa659b717b5c9a9,
+        type: 3}
+      propertyPath: _death
+      value: 
+      objectReference: {fileID: 7210792306528179440}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0da09c108bf565445aa659b717b5c9a9, type: 3}
 --- !u!4 &4025681848964290844 stripped
@@ -843,6 +866,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8985998677904672162, guid: 12067ccbd226eab4f98e0b4471abed80,
+        type: 3}
+      propertyPath: _death
+      value: 
+      objectReference: {fileID: 7210792306528179440}
     - target: {fileID: 9049238747308586508, guid: 12067ccbd226eab4f98e0b4471abed80,
         type: 3}
       propertyPath: m_Name
@@ -874,6 +902,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4801597985691953261}
     m_Modifications:
+    - target: {fileID: 1219143798298873059, guid: a1e6095d81bcf0c419555c52abf71f1b,
+        type: 3}
+      propertyPath: _death
+      value: 
+      objectReference: {fileID: 7210792306528179440}
     - target: {fileID: 8762105987277903360, guid: a1e6095d81bcf0c419555c52abf71f1b,
         type: 3}
       propertyPath: m_RootOrder

@@ -28,10 +28,15 @@ namespace CodeBase.Weapons
         protected IObjectsPoolService ObjectsPoolService;
         private bool _initialVisibility;
         [SerializeField] private List<GameObject> _projectiles;
+
         private ProjectileTypeId? _projectileTypeId;
+        private bool _shoot;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
         protected bool Filled { get; private set; }
+
+        protected void NotShoot() =>
+            _shoot = false;
 
         protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId, ShotVfxTypeId shotVfxTypeId)
         {
@@ -40,11 +45,12 @@ namespace CodeBase.Weapons
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
             _projectileTypeId = projectileTypeId;
+            _shoot = true;
         }
 
         protected void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
+            if (_shoot && gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
             {
                 foreach (Transform respawn in ProjectilesRespawns)
                 {

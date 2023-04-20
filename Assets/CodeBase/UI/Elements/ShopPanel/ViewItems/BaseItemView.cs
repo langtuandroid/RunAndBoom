@@ -1,5 +1,4 @@
-﻿using CodeBase.Data;
-using CodeBase.Services;
+﻿using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services;
@@ -21,12 +20,12 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         public TextMeshProUGUI TitleText;
         // protected Button Button;
 
+        private ShopItemHighlighter _shopItemHighlighter;
         protected IStaticDataService StaticDataService;
         protected IPlayerProgressService PlayerProgressService;
-        protected PlayerProgress Progress;
 
         private void Awake() =>
-            BackgroundIcon = GetComponent<Image>();
+            _shopItemHighlighter = transform.parent.GetComponent<ShopItemHighlighter>();
 
         protected void Construct(IPlayerProgressService playerProgressService)
         {
@@ -34,7 +33,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
-        public void ClearData()
+        protected void ClearData()
         {
             if (BackgroundIcon != null)
                 BackgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
@@ -57,17 +56,16 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (TitleText != null)
                 TitleText.text = "";
 
+            _shopItemHighlighter.enabled = false;
+            // _shopItemHighlighter.SetVisibility(false);
             gameObject.SetActive(false);
         }
 
-        // public void ChangeClickability(bool isClickable) =>
-        //     Button.interactable = isClickable;
-
         protected bool IsMoneyEnough(int value) =>
-            Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
+            PlayerProgressService.Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
 
         protected void ReduceMoney(int value) =>
-            Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
+            PlayerProgressService.Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
 
         protected abstract void FillData();
     }

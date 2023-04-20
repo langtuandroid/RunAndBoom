@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -7,15 +6,13 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class AmmoPurchasingItemView : BasePurchasingItemView
+    public class AmmoPurchasingItemView : BaseItemView
     {
         [SerializeField] private Button _button;
 
         private AmmoCountType _countType;
         private AmmoItem _ammoItem;
         private ShopAmmoStaticData _shopAmmoStaticData;
-
-        public override event Action ShopItemClicked;
 
         // private void OnEnable() =>
         //     _button?.onClick.AddListener(Clicked);
@@ -37,6 +34,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         protected override void FillData()
         {
             _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
+
             BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             BackgroundIcon.color = Constants.ShopItemAmmo;
             MainIcon.sprite = _shopAmmoStaticData.MainImage;
@@ -56,12 +54,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (IsMoneyEnough(_shopAmmoStaticData.Cost))
             {
                 ReduceMoney(_shopAmmoStaticData.Cost);
-                int.TryParse(_shopAmmoStaticData.Count.ToString(), out int count);
-                Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, count);
-                ShopItemClicked?.Invoke();
+                int value = _shopAmmoStaticData.Count.GetHashCode();
+                PlayerProgressService.Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
+                ClearData();
             }
-
-            ClearData();
         }
     }
 }

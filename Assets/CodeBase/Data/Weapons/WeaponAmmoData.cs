@@ -50,7 +50,9 @@ namespace CodeBase.Data.Weapons
 
         public void AddAmmo(HeroWeaponTypeId typeId, int ammo)
         {
-            Ammo[typeId] += ammo;
+            int current = Ammo[typeId];
+            int result = current + ammo;
+            Ammo[typeId] = result;
             AmmoChanged(typeId);
         }
 
@@ -68,16 +70,16 @@ namespace CodeBase.Data.Weapons
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    GrenadeLauncherAmmoChanged?.Invoke(Ammo[_currentHeroWeaponTypeId]);
+                    GrenadeLauncherAmmoChanged?.Invoke(Ammo[typeId]);
                     break;
                 case HeroWeaponTypeId.RPG:
-                    RpgAmmoChanged?.Invoke(Ammo[_currentHeroWeaponTypeId]);
+                    RpgAmmoChanged?.Invoke(Ammo[typeId]);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    RocketLauncherAmmoChanged?.Invoke(Ammo[_currentHeroWeaponTypeId]);
+                    RocketLauncherAmmoChanged?.Invoke(Ammo[typeId]);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    MortarAmmoChanged?.Invoke(Ammo[_currentHeroWeaponTypeId]);
+                    MortarAmmoChanged?.Invoke(Ammo[typeId]);
                     break;
             }
         }

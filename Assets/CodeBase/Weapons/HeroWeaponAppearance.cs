@@ -9,9 +9,17 @@ namespace CodeBase.Weapons
 {
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
+        [SerializeField] private HeroDeath _death;
+
         private HeroShooting _heroShooting;
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
+
+        private void OnEnable() =>
+            _death.Died += NotShoot;
+
+        private void OnDisable() =>
+            _death.Died -= NotShoot;
 
         public void Construct(HeroShooting heroShooting, HeroWeaponSelection heroWeaponSelection)
         {

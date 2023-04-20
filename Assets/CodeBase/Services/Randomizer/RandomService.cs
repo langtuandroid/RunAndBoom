@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CodeBase.Services.Randomizer
@@ -10,7 +11,7 @@ namespace CodeBase.Services.Randomizer
 
         public int NextNumberFrom(HashSet<int> set)
         {
-            int i = Next(0, set.Count);
+            int i = Next(set.Min(), set.Count);
 
             if (!set.Contains(i))
                 return NextNumberFrom(set);

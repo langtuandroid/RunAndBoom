@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
@@ -8,14 +7,12 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class WeaponPurchasingItemView : BasePurchasingItemView
+    public class WeaponPurchasingItemView : BaseItemView
     {
         [SerializeField] private Button _button;
 
         private HeroWeaponTypeId _weaponTypeId;
         private ShopWeaponStaticData _weaponStaticData;
-
-        public override event Action ShopItemClicked;
 
         // private void OnEnable() =>
         //     _button?.onClick.AddListener(Clicked);
@@ -36,10 +33,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
-            BackgroundIcon.color = Constants.ShopItemWeapon;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             _weaponStaticData = StaticDataService.ForShopWeapon(_weaponTypeId);
 
+            BackgroundIcon.color = Constants.ShopItemWeapon;
+            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             MainIcon.sprite = _weaponStaticData.MainImage;
             MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
@@ -55,11 +52,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (IsMoneyEnough(_weaponStaticData.Cost))
             {
                 ReduceMoney(_weaponStaticData.Cost);
-                Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
-                ShopItemClicked?.Invoke();
+                PlayerProgressService.Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
+                ClearData();
             }
-
-            ClearData();
         }
     }
 }

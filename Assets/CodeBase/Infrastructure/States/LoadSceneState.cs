@@ -136,7 +136,6 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
-            heroHealth.Construct();
             HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroShooting);

@@ -70,7 +70,7 @@ namespace CodeBase.Data.Perks
 
             perkItemData.Up();
 
-            if (perkItemData.LevelTypeId == LevelTypeId.None)
+            if (perkItemData.LevelTypeId == LevelTypeId.Level_1)
                 NewPerkAdded?.Invoke(perkItemData);
         }
 

@@ -14,19 +14,36 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private void Update()
         {
-            if (_isVisible)
-                _activeBackground.ChangeImageAlpha(_mouseOver ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
-            else
-                _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            // if (_isVisible)
+            _activeBackground.ChangeImageAlpha(_mouseOver ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
+            // else
+            //     _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
         }
 
-        public void SetVisibility(bool isVisible) =>
+        private void OnEnable()
+        {
+            // SetVisibility(true);
+        }
+
+        private void OnDisable()
+        {
+            // SetVisibility(false);
+            _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
+        }
+
+        private void SetVisibility(bool isVisible)
+        {
             _isVisible = isVisible;
+        }
 
-        public void OnPointerEnter(PointerEventData eventData) =>
+        public void OnPointerEnter(PointerEventData eventData)
+        {
             _mouseOver = true;
+        }
 
-        public void OnPointerExit(PointerEventData eventData) =>
+        public void OnPointerExit(PointerEventData eventData)
+        {
             _mouseOver = false;
+        }
     }
 }

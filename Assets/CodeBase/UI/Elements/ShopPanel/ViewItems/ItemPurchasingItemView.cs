@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -7,14 +6,12 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 {
-    public class ItemPurchasingItemView : BasePurchasingItemView
+    public class ItemPurchasingItemView : BaseItemView
     {
         [SerializeField] private Button _button;
 
         private ShopItemStaticData _itemStaticData;
         private ItemTypeId _typeId;
-
-        public override event Action ShopItemClicked;
 
         // private void OnEnable() =>
         //     _button?.onClick.AddListener(Clicked);
@@ -35,9 +32,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         protected override void FillData()
         {
+            _itemStaticData = StaticDataService.ForShopItem(_typeId);
+
             BackgroundIcon.color = Constants.ShopItemItem;
             BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            _itemStaticData = StaticDataService.ForShopItem(_typeId);
             MainIcon.sprite = _itemStaticData.MainImage;
             MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
@@ -55,12 +53,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 ReduceMoney(_itemStaticData.Cost);
 
                 if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
-                    Progress.HealthState.ChangeCurrentHP(Progress.HealthState.MaxHp);
-
-                ShopItemClicked?.Invoke();
+                    PlayerProgressService.Progress.HealthState.ChangeCurrentHP(PlayerProgressService.Progress.HealthState.MaxHp);
+                ClearData();
             }
-
-            ClearData();
         }
     }
 }

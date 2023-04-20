@@ -12,9 +12,7 @@ namespace CodeBase.Hero
         public float Max { get; private set; }
 
         public event Action HealthChanged;
-
-        public void Construct() =>
-            HealthChanged?.Invoke();
+        public event Action HealthReady;
 
         public void TakeDamage(float damage)
         {
@@ -26,6 +24,7 @@ namespace CodeBase.Hero
         {
             Max = progress.HealthState.MaxHp;
             Current = progress.HealthState.CurrentHp;
+            HealthChanged?.Invoke();
         }
 
         public void UpdateProgress(PlayerProgress progress)
