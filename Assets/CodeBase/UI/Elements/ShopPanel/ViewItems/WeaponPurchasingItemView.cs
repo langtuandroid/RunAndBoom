@@ -1,4 +1,4 @@
-﻿using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
@@ -20,10 +20,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(HeroWeaponTypeId weaponTypeId, IPlayerProgressService playerProgressService)
+        public void Construct(HeroWeaponTypeId weaponTypeId, PlayerProgress progress)
         {
             // _button?.onClick.AddListener(Clicked);
-            base.Construct(playerProgressService);
+            base.Construct(progress);
             _weaponTypeId = weaponTypeId;
             FillData();
         }
@@ -52,7 +52,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (IsMoneyEnough(_weaponStaticData.Cost))
             {
                 ReduceMoney(_weaponStaticData.Cost);
-                PlayerProgressService.Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
+                Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
                 ClearData();
             }
         }

@@ -40,7 +40,8 @@ namespace CodeBase.Logic.Level
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
                 WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
-                ShopItemsGenerator shopItemsGenerator = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
+                ShopItemsGenerator shopItemsGenerator =
+                    (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
                 shopItemsGenerator?.Construct(_progressService, _staticDataService, _randomService);
                 shopItemsGenerator?.GenerateShopItems();
                 ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();

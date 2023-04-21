@@ -4,7 +4,7 @@
     {
         Running,
         Armor,
-        MaxHealth,
+        UpMaxHealth,
         Vampire,
         Regeneration,
     }

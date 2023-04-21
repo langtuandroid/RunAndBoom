@@ -108,7 +108,8 @@ namespace CodeBase.Services.Pool
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RpgRocket, BlastTypeId.RpgRocket);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RpgRocket,
+                    BlastTypeId.RpgRocket);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -118,8 +119,10 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RocketLauncherRocket, BlastTypeId.RocketLauncherRocket);
+                GameObject projectile =
+                    await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RocketLauncherRocket,
+                    BlastTypeId.RocketLauncherRocket);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -337,7 +340,8 @@ namespace CodeBase.Services.Pool
             return gameObject;
         }
 
-        private GameObject ExtendList(string name, List<GameObject> list, Dictionary<string, List<GameObject>> dictionary, Transform parent)
+        private GameObject ExtendList(string name, List<GameObject> list,
+            Dictionary<string, List<GameObject>> dictionary, Transform parent)
         {
             List<GameObject> newList = new List<GameObject>(list.Count + AdditionalCount);
             newList.AddRange(list);

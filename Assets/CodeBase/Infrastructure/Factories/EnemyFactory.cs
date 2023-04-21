@@ -22,7 +22,8 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IGameFactory _gameFactory;
         private Transform _spawnersRoot;
 
-        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService, IGameFactory gameFactory)
+        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService,
+            IGameFactory gameFactory)
         {
             _assets = assets;
             _staticData = staticData;
@@ -78,14 +79,18 @@ namespace CodeBase.Infrastructure.Factories
             switch (typeId)
             {
                 case EnemyTypeId.WithBat:
-                    (attack as WithBatAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown,
-                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+                    (attack as WithBatAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown,
+                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance,
+                        damage: enemyData.Damage);
                     break;
                 case EnemyTypeId.WithPistol:
-                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown);
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
                     break;
                 case EnemyTypeId.WithShotgun:
-                    (attack as WithShotgunAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown);
+                    (attack as WithShotgunAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
                     break;
             }
         }

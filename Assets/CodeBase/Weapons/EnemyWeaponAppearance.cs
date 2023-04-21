@@ -20,7 +20,8 @@ namespace CodeBase.Weapons
 
         public void Construct(EnemyWeaponStaticData weaponStaticData)
         {
-            base.Construct(weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
+            base.Construct(weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown,
+                weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
 
             _enemyWeaponTypeId = weaponStaticData.WeaponTypeId;
             // ReadyToShoot();
@@ -28,12 +29,15 @@ namespace CodeBase.Weapons
 
         public void Shoot(Vector3? targetPosition)
         {
-            ReadyToShoot();
+            if (CanShoot)
+            {
+                ReadyToShoot();
 
-            for (int i = 0; i < ProjectilesRespawns.Length; i++)
-                StartCoroutine(CoroutineShootTo(targetPosition));
+                for (int i = 0; i < ProjectilesRespawns.Length; i++)
+                    StartCoroutine(CoroutineShootTo(targetPosition));
 
-            Released();
+                Released();
+            }
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)

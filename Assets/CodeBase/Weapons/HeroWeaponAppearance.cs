@@ -29,9 +29,11 @@ namespace CodeBase.Weapons
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
 
-        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData, TrailStaticData trailStaticData)
+        private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
+            TrailStaticData trailStaticData)
         {
-            base.Construct(weaponStaticData.ShotVfxLifeTime, weaponStaticData.Cooldown, weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
+            base.Construct(weaponStaticData.ShotVfxLifeTime, weaponStaticData.Cooldown,
+                weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
 
             _heroWeaponTypeId = weaponStaticData.WeaponTypeId;
 

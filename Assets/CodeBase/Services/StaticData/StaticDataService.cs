@@ -27,9 +27,15 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataPerksPath = "StaticData/Items/Perks";
         private const string StaticDataShopAmmoPath = "StaticData/Items/Shop/Ammo";
         private const string StaticDataShopItemsPath = "StaticData/Items/Shop/Items";
-        private const string StaticDataShopUpgradesUpgradableWeaponsPath = "StaticData/Items/Shop/Upgrades/UpgradableWeapons";
+
+        private const string StaticDataShopUpgradesUpgradableWeaponsPath =
+            "StaticData/Items/Shop/Upgrades/UpgradableWeapons";
+
         private const string StaticDataShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
-        private const string StaticDataShopUpgradesUpgradeLevelsInfoPath = "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
+
+        private const string StaticDataShopUpgradesUpgradeLevelsInfoPath =
+            "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
+
         private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
         private const string StaticDataShopWeaponsPath = "StaticData/Items/Shop/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
@@ -208,7 +214,8 @@ namespace CodeBase.Services.StaticData
                 : null;
 
         public UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId) =>
-            _shopUpgradeLevelsInfo.TryGetValue(new ShopUpgradeLevelInfoData(upgradeTypeId, levelTypeId), out UpgradeLevelInfoStaticData staticData)
+            _shopUpgradeLevelsInfo.TryGetValue(new ShopUpgradeLevelInfoData(upgradeTypeId, levelTypeId),
+                out UpgradeLevelInfoStaticData staticData)
                 ? staticData
                 : null;
 

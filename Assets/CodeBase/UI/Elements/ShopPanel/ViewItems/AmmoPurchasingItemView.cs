@@ -1,4 +1,4 @@
-﻿using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -20,10 +20,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(AmmoItem ammoItem, IPlayerProgressService playerProgressService)
+        public void Construct(AmmoItem ammoItem, PlayerProgress progress)
         {
             // _button?.onClick.AddListener(Clicked);
-            base.Construct(playerProgressService);
+            base.Construct(progress);
             _ammoItem = ammoItem;
             FillData();
         }
@@ -55,7 +55,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             {
                 ReduceMoney(_shopAmmoStaticData.Cost);
                 int value = _shopAmmoStaticData.Count.GetHashCode();
-                PlayerProgressService.Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
+                Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
                 ClearData();
             }
         }

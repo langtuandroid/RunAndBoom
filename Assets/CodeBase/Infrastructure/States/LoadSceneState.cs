@@ -27,15 +27,17 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IEnemyFactory _enemyFactory;
         private readonly IPlayerProgressService _progressService;
-        private readonly IStaticDataService _staticData;
+        private readonly IStaticDataService _staticDataService;
         private readonly IUIFactory _uiFactory;
         private readonly IWindowService _windowService;
 
         private bool _isInitial = true;
         private string _sceneName;
 
-        public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
-            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory,
+        public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
+            ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
+            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticDataService,
+            IUIFactory uiFactory,
             IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
@@ -44,7 +46,7 @@ namespace CodeBase.Infrastructure.States
             _gameFactory = gameFactory;
             _enemyFactory = enemyFactory;
             _progressService = progressService;
-            _staticData = staticData;
+            _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
         }
@@ -114,7 +116,7 @@ namespace CodeBase.Infrastructure.States
             await _uiFactory.CreateUIRoot();
 
         private LevelStaticData LevelStaticData() =>
-            _staticData.ForLevel(SceneManager.GetActiveScene().name);
+            _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
 
         private async Task InitGameWorld(LevelStaticData levelData)
         {
@@ -136,6 +138,8 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
+            heroHealth.Construct(_staticDataService);
+            hero.GetComponent<HeroMovement>().Construct(_progressService, _staticDataService);
             HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroShooting);

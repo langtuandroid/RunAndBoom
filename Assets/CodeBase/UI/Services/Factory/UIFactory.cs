@@ -14,7 +14,8 @@ namespace CodeBase.UI.Services.Factory
         private Transform _uiRoot;
         private IPlayerProgressService _playerProgressService;
 
-        public UIFactory(IPlayerProgressService playerProgressService, IAssets assets, IRegistratorService registratorService)
+        public UIFactory(IPlayerProgressService playerProgressService, IAssets assets,
+            IRegistratorService registratorService)
         {
             _playerProgressService = playerProgressService;
             _assets = assets;

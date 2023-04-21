@@ -1,5 +1,5 @@
-﻿using CodeBase.Data.Upgrades;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
+using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -23,10 +23,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(UpgradeItemData upgradeItemData, IPlayerProgressService playerProgressService)
+        public void Construct(UpgradeItemData upgradeItemData, PlayerProgress progress)
         {
             // _button?.onClick.AddListener(Clicked);
-            base.Construct(playerProgressService);
+            base.Construct(progress);
             _upgradeItemData = upgradeItemData;
             FillData();
         }
@@ -38,7 +38,8 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         {
             _upgradableWeaponStaticData = StaticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
             _upgradeStaticData = StaticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
-            _upgradeLevelInfoStaticData = StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
+            _upgradeLevelInfoStaticData =
+                StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
             _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
             BackgroundIcon.color = Constants.ShopItemUpgrade;
@@ -49,14 +50,17 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (_shopUpgradeLevelStaticData.MainImage != null)
                 LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
 
-            LevelIcon.ChangeImageAlpha(_shopUpgradeLevelStaticData.MainImage != null ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
+            LevelIcon.ChangeImageAlpha(_shopUpgradeLevelStaticData.MainImage != null
+                ? Constants.AlphaActiveItem
+                : Constants.AlphaInactiveItem);
 
             AdditionalIcon.sprite = _upgradeStaticData.MainImage;
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
-            TitleText.text = $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
+            TitleText.text =
+                $"{_upgradeStaticData.IRuTitle} {_shopUpgradeLevelStaticData.Level} {_upgradableWeaponStaticData.IRuTitle}";
         }
 
         public void Clicked()
@@ -64,7 +68,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (IsMoneyEnough(_upgradeLevelInfoStaticData.Cost))
             {
                 ReduceMoney(_upgradeLevelInfoStaticData.Cost);
-                PlayerProgressService.Progress.WeaponsData.WeaponUpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
+                Progress.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
                     _upgradeStaticData.UpgradeTypeId);
                 ClearData();
             }

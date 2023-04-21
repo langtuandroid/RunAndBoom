@@ -17,7 +17,9 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
         [SerializeField] private UpgradeView perkView;
         [SerializeField] private HeroWeaponTypeId _weaponTypeId;
 
-        private IEnumerable<UpgradeTypeId> _upgradeTypeIds = Enum.GetValues(typeof(UpgradeTypeId)).Cast<UpgradeTypeId>();
+        private IEnumerable<UpgradeTypeId>
+            _upgradeTypeIds = Enum.GetValues(typeof(UpgradeTypeId)).Cast<UpgradeTypeId>();
+
         private Dictionary<UpgradeTypeId, UpgradeView> _activeUpgrades;
         private PlayerProgress _progress;
 
@@ -29,13 +31,16 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
-            _progress.WeaponsData.WeaponUpgradesData.NewUpgradeAdded += AddNewUpgrade;
+            _progress.WeaponsData.UpgradesData.NewUpgradeAdded += AddNewUpgrade;
 
             ConstructUpgrades();
         }
 
         private void AddNewUpgrade(HeroWeaponTypeId heroWeaponTypeId, UpgradeItemData upgrade)
         {
+            if (heroWeaponTypeId != _weaponTypeId)
+                return;
+
             UpgradeView value = Instantiate(perkView, _container);
             value.Construct(upgrade);
             _activeUpgrades.Add(upgrade.UpgradeTypeId, value);
@@ -43,7 +48,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
 
         private void ConstructUpgrades()
         {
-            foreach (UpgradeItemData upgrade in _progress.WeaponsData.WeaponUpgradesData.UpgradeItemDatas)
+            foreach (UpgradeItemData upgrade in _progress.WeaponsData.UpgradesData.UpgradeItemDatas)
             {
                 if (upgrade.WeaponTypeId == _weaponTypeId)
                     if (upgrade.LevelTypeId != LevelTypeId.None)

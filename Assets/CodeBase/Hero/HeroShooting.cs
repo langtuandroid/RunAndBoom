@@ -41,7 +41,8 @@ namespace CodeBase.Hero
             _enemiesChecker.EnemyNotFound += EnemyNotSpotted;
         }
 
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
             _weaponCooldown = heroWeaponStaticData.Cooldown;

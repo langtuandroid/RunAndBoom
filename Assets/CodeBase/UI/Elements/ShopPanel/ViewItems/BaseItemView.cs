@@ -1,5 +1,5 @@
-﻿using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
+using CodeBase.Services;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services;
 using TMPro;
@@ -21,15 +21,17 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // protected Button Button;
 
         private ShopItemHighlighter _shopItemHighlighter;
+
         protected IStaticDataService StaticDataService;
-        protected IPlayerProgressService PlayerProgressService;
+
+        protected PlayerProgress Progress;
 
         private void Awake() =>
             _shopItemHighlighter = transform.parent.GetComponent<ShopItemHighlighter>();
 
-        protected void Construct(IPlayerProgressService playerProgressService)
+        protected void Construct(PlayerProgress progress)
         {
-            PlayerProgressService = playerProgressService;
+            Progress = progress;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
         }
 
@@ -62,10 +64,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         }
 
         protected bool IsMoneyEnough(int value) =>
-            PlayerProgressService.Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
+            Progress.CurrentLevelStats.MoneyData.IsMoneyEnough(value);
 
         protected void ReduceMoney(int value) =>
-            PlayerProgressService.Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
+            Progress.CurrentLevelStats.MoneyData.ReduceMoney(value);
 
         protected abstract void FillData();
     }

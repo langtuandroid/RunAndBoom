@@ -34,7 +34,8 @@ namespace CodeBase.Hero
         private void Awake() =>
             _heroWeaponSelection.WeaponSelected += SetWeaponAimRange;
 
-        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData) =>
+        private void SetWeaponAimRange(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData) =>
             _aimRange = heroWeaponStaticData.AimRange;
 
         private void FixedUpdate()
@@ -73,7 +74,8 @@ namespace CodeBase.Hero
         }
 
         private int GetEnemiesHits(RaycastHit[] enemiesHits) =>
-            Physics.SphereCastNonAlloc(transform.position, _aimRange, transform.forward, enemiesHits, _sphereDistance, _enemyLayerMask,
+            Physics.SphereCastNonAlloc(transform.position, _aimRange, transform.forward, enemiesHits, _sphereDistance,
+                _enemyLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
         private void OnDrawGizmosSelected()
@@ -158,7 +160,8 @@ namespace CodeBase.Hero
         private void CheckEnemyVisibility(GameObject enemy)
         {
             Vector3 direction = (enemy.transform.position - transform.position).normalized;
-            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy, _visibleObstaclesLayerMask,
+            RaycastHit[] raycastHits = Physics.RaycastAll(transform.position, direction, _distanceToEnemy,
+                _visibleObstaclesLayerMask,
                 QueryTriggerInteraction.UseGlobal);
 
             if (raycastHits.Length == 0)

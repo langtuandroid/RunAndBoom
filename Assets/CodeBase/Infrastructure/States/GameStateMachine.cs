@@ -21,10 +21,12 @@ namespace CodeBase.Infrastructure.States
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadSceneState)] =
-                    new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(), services.Single<IEnemyFactory>(),
+                    new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
+                        services.Single<IEnemyFactory>(),
                         services.Single<IPlayerProgressService>(), services.Single<IStaticDataService>(),
                         services.Single<IUIFactory>(), services.Single<IWindowService>()),
-                [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this, services.Single<IPlayerProgressService>(),
+                [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
+                    services.Single<IPlayerProgressService>(),
                     services.Single<ISaveLoadService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };

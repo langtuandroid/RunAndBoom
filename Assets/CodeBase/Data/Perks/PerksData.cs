@@ -38,7 +38,7 @@ namespace CodeBase.Data.Perks
             PerkItemData vampire = new PerkItemData(PerkTypeId.Vampire);
             Perks.Add(vampire);
 
-            PerkItemData maxHealth = new PerkItemData(PerkTypeId.MaxHealth);
+            PerkItemData maxHealth = new PerkItemData(PerkTypeId.UpMaxHealth);
             maxHealth.Up();
             Perks.Add(maxHealth);
         }
@@ -49,7 +49,7 @@ namespace CodeBase.Data.Perks
             PerkItemData regeneration = new PerkItemData(PerkTypeId.Regeneration);
             PerkItemData running = new PerkItemData(PerkTypeId.Running);
             PerkItemData vampire = new PerkItemData(PerkTypeId.Vampire);
-            PerkItemData maxHealth = new PerkItemData(PerkTypeId.MaxHealth);
+            PerkItemData maxHealth = new PerkItemData(PerkTypeId.UpMaxHealth);
 
             Perks.Add(armor);
             Perks.Add(regeneration);
@@ -74,15 +74,9 @@ namespace CodeBase.Data.Perks
                 NewPerkAdded?.Invoke(perkItemData);
         }
 
-        public bool IsLastLevel(PerkTypeId typeId)
-        {
-            var perk = Perks.First(x => x.PerkTypeId == typeId);
-            return perk.LevelTypeId == LevelTypeId.Level_3;
-        }
-
         public PerkItemData GetNextLevelPerk(PerkTypeId typeId)
         {
-            PerkItemData perk = new PerkItemData(Perks.First(x => x.PerkTypeId == typeId).PerkTypeId);
+            PerkItemData perk = Perks.First(x => x.PerkTypeId == typeId);
             LevelTypeId nextLevel = perk.GetNextLevel();
             return new PerkItemData(perk.PerkTypeId, nextLevel);
         }

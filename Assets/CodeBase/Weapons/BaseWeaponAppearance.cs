@@ -30,27 +30,28 @@ namespace CodeBase.Weapons
         [SerializeField] private List<GameObject> _projectiles;
 
         private ProjectileTypeId? _projectileTypeId;
-        private bool _shoot;
+        protected bool CanShoot;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
         protected bool Filled { get; private set; }
 
         protected void NotShoot() =>
-            _shoot = false;
+            CanShoot = false;
 
-        protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId, ShotVfxTypeId shotVfxTypeId)
+        protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
+            ShotVfxTypeId shotVfxTypeId)
         {
             ObjectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
             _projectileTypeId = projectileTypeId;
-            _shoot = true;
+            CanShoot = true;
         }
 
         protected void ReadyToShoot()
         {
-            if (_shoot && gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
+            if (CanShoot && gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
             {
                 foreach (Transform respawn in ProjectilesRespawns)
                 {

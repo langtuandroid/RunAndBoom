@@ -50,8 +50,10 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
-            _services.RegisterSingle<IConstructorService>(new ConstructorService(_services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
+            _services.RegisterSingle<IConstructorService>(
+                new ConstructorService(_services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(),
+                _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IPlayerProgressService>(), _services.Single<IAssets>(),
@@ -162,7 +164,8 @@ namespace CodeBase.Infrastructure.States
 
             if (keyboardMouseInputType != null && touchScreenInputType != null)
             {
-                DesktopPlatformInputService desktopInputTypeService = new DesktopPlatformInputService(keyboardMouseInputType);
+                DesktopPlatformInputService desktopInputTypeService =
+                    new DesktopPlatformInputService(keyboardMouseInputType);
                 MobilePlatformInputService mobileInputTypeService =
                     new MobilePlatformInputService(touchScreenInputType);
                 _services.RegisterSingle<IPlatformInputService>(new EditorPlatformInputService(desktopInputTypeService,
@@ -187,7 +190,8 @@ namespace CodeBase.Infrastructure.States
             }
 
             if (keyboardMouseInputType != null)
-                _services.RegisterSingle<IPlatformInputService>(new DesktopPlatformInputService(keyboardMouseInputType));
+                _services.RegisterSingle<IPlatformInputService>(
+                    new DesktopPlatformInputService(keyboardMouseInputType));
             else
                 InputServicesException("Input services for DesktopInput are not created");
         }

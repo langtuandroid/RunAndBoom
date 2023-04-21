@@ -1,5 +1,5 @@
-﻿using CodeBase.Data.Perks;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
+using CodeBase.Data.Perks;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -20,10 +20,10 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(PerkItemData perkItemData, IPlayerProgressService playerProgressService)
+        public void Construct(PerkItemData perkItemData, PlayerProgress progress)
         {
             // _button?.onClick.AddListener(Clicked);
-            base.Construct(playerProgressService);
+            base.Construct(progress);
             _perkItemData = perkItemData;
             FillData();
         }
@@ -44,7 +44,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (_perkStaticData.ILevel != null)
                 LevelIcon.sprite = _perkStaticData.ILevel;
 
-            LevelIcon.ChangeImageAlpha(_perkStaticData.ILevel != null ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
+            LevelIcon.ChangeImageAlpha(_perkStaticData.ILevel != null
+                ? Constants.AlphaActiveItem
+                : Constants.AlphaInactiveItem);
 
             CostText.text = $"{_perkStaticData.Cost} $";
             CountText.text = "";
@@ -57,7 +59,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
             if (IsMoneyEnough(_perkStaticData.Cost))
             {
                 ReduceMoney(_perkStaticData.Cost);
-                PlayerProgressService.Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
+                Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
                 ClearData();
             }
         }

@@ -29,25 +29,6 @@ namespace CodeBase.UI.Elements.Hud.PerksPanel
             _playerProgressService.Progress.PerksData.NewPerkAdded += AddNewPerk;
         }
 
-        private void Start()
-        {
-        }
-
-        // public void LoadProgress(PlayerProgress progress)
-        // {
-        //     _progress = progress;
-        //     _progress.PerksData.NewPerkAdded += AddNewPerk;
-        //
-        //     ConstructPerks();
-        // }
-
-        private void AddNewPerk(PerkItemData perkItemData)
-        {
-            PerkView value = Instantiate(perkView, _container);
-            value.Construct(perkItemData);
-            _activePerks.Add(perkItemData.PerkTypeId, value);
-        }
-
         private void ConstructPerks()
         {
             foreach (PerkItemData perkData in _playerProgressService.Progress.PerksData.Perks)
@@ -55,6 +36,13 @@ namespace CodeBase.UI.Elements.Hud.PerksPanel
                 if (perkData.LevelTypeId != LevelTypeId.None)
                     AddNewPerk(perkData);
             }
+        }
+
+        private void AddNewPerk(PerkItemData perkItemData)
+        {
+            PerkView value = Instantiate(perkView, _container);
+            value.Construct(perkItemData);
+            _activePerks.Add(perkItemData.PerkTypeId, value);
         }
     }
 }

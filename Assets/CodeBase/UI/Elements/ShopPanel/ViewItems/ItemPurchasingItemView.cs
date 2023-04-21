@@ -1,4 +1,4 @@
-﻿using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Data;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -19,11 +19,11 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(ItemTypeId typeId, IPlayerProgressService progressService)
+        public void Construct(ItemTypeId typeId, PlayerProgress progress)
         {
             // _button?.onClick.AddListener(Clicked);
             _typeId = typeId;
-            base.Construct(progressService);
+            base.Construct(progress);
             FillData();
         }
 
@@ -53,7 +53,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 ReduceMoney(_itemStaticData.Cost);
 
                 if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
-                    PlayerProgressService.Progress.HealthState.ChangeCurrentHP(PlayerProgressService.Progress.HealthState.MaxHp);
+                    Progress.HealthState.ChangeCurrentHP(Progress.HealthState.BaseMaxHp);
                 ClearData();
             }
         }

@@ -23,7 +23,8 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             _heroWeaponSelection.WeaponSelected += HighlightWeapon;
         }
 
-        private void HighlightWeapon(GameObject o, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
+        private void HighlightWeapon(GameObject o, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
         {
             switch (heroWeaponStaticData.WeaponTypeId)
             {

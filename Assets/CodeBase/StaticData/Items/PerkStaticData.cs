@@ -9,6 +9,7 @@ namespace CodeBase.StaticData.Items
         public PerkTypeId PerkTypeId;
         public LevelTypeId LevelTypeId;
         public Sprite LevelImage;
+        [Range(0f, 2f)] public float Value;
 
         public LevelTypeId ILevelTypeId => LevelTypeId;
         public Sprite ILevel => LevelImage;

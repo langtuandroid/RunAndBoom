@@ -23,7 +23,8 @@ namespace CodeBase.Infrastructure.Factories
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
-        public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService, IPlayerProgressService progressService, IStaticDataService staticData,
+        public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService,
+            IPlayerProgressService progressService, IStaticDataService staticData,
             IRegistratorService registratorService)
         {
             _objectsPoolService = objectsPoolService;
@@ -53,7 +54,8 @@ namespace CodeBase.Infrastructure.Factories
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             // if (_heroGameObject == null)
-            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+            _heroGameObject =
+                await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             // else
             //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 

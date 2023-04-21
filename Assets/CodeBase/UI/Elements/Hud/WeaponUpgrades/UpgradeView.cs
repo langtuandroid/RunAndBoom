@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items.Inventory;
+using CodeBase.StaticData.Weapons;
 
 namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
 {
@@ -8,6 +9,19 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
         private UpgradeItemData _upgradeItemData;
         private InventoryUpgradeStaticData _upgradeStaticData;
         private InventoryUpgradeLevelStaticData _levelStaticData;
+        private HeroWeaponTypeId _weaponTypeId;
+
+        private void OnEnable()
+        {
+            if (ItemData != null)
+                ItemData.LevelChanged += ChangeLevel;
+        }
+
+        private void OnDisable()
+        {
+            if (ItemData != null)
+                ItemData.LevelChanged -= ChangeLevel;
+        }
 
         public void Construct(UpgradeItemData upgradeItemData)
         {

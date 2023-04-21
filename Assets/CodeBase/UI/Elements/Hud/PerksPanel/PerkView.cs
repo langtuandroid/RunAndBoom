@@ -8,6 +8,18 @@ namespace CodeBase.UI.Elements.Hud.PerksPanel
         private PerkItemData _perkItemData;
         private PerkStaticData _perkStaticData;
 
+        private void OnEnable()
+        {
+            if (ItemData != null)
+                ItemData.LevelChanged += ChangeLevel;
+        }
+
+        private void OnDisable()
+        {
+            if (ItemData != null)
+                ItemData.LevelChanged -= ChangeLevel;
+        }
+
         public void Construct(PerkItemData perkItemData)
         {
             base.Construct(perkItemData);
