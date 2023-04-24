@@ -8,7 +8,6 @@ namespace CodeBase.Weapons
 {
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
-        [SerializeField] private HeroDeath _death;
         private const float MaxDistance = 15f;
 
         private HeroReloading _heroReloading;
@@ -16,12 +15,6 @@ namespace CodeBase.Weapons
         private HeroWeaponTypeId _heroWeaponTypeId;
         private Transform _heroTransform;
         private RaycastHit[] results = new RaycastHit[1];
-
-        private void OnEnable() =>
-            _death.Died += NotShoot;
-
-        private void OnDisable() =>
-            _death.Died -= NotShoot;
 
         public void Construct(HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
@@ -63,7 +56,10 @@ namespace CodeBase.Weapons
             yield return LaunchProjectileCooldown;
         }
 
-        protected override GameObject GetProjectile() =>
-            ObjectsPoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+        protected override GameObject GetProjectile()
+        {
+            Debug.Log($"hero weapon type: {_heroWeaponTypeId}");
+            return PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+        }
     }
 }
