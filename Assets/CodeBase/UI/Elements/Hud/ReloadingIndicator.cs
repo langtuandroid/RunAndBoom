@@ -17,20 +17,20 @@ namespace CodeBase.UI.Elements.Hud
         private Slider _slider;
         private HeroWeaponSelection _heroWeaponSelection;
         private Coroutine _rotationCoroutine;
-        private HeroShooting _heroShooting;
+        private HeroReloading _heroReloading;
         private Vector3 _startEulerAngles;
 
         private void Awake() =>
             _slider = GetComponent<Slider>();
 
-        public void Construct(HeroShooting heroShooting, HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
             _startEulerAngles = _reloadingImage.transform.eulerAngles;
-            _heroShooting = heroShooting;
+            _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
 
-            _heroShooting.OnStartReloading += Reload;
-            _heroShooting.OnStopReloading += Stop;
+            _heroReloading.OnStartReloading += Reload;
+            _heroReloading.OnStopReloading += Stop;
             _heroWeaponSelection.WeaponSelected += Stop;
         }
 

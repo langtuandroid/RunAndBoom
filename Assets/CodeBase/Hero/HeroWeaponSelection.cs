@@ -22,7 +22,7 @@ namespace CodeBase.Hero
         private bool _canSelect;
         private int _currentWeapon;
         private List<HeroWeaponTypeId> _heroWeaponTypeIds;
-        private HeroShooting _heroShooting;
+        private HeroReloading _heroReloading;
 
         public event Action<GameObject, HeroWeaponStaticData, TrailStaticData> WeaponSelected;
 
@@ -32,9 +32,9 @@ namespace CodeBase.Hero
             _heroWeaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
         }
 
-        public void Construct(HeroShooting heroShooting)
+        public void Construct(HeroReloading heroReloading)
         {
-            _heroShooting = heroShooting;
+            _heroReloading = heroReloading;
             InitializeWeaponsDictionary();
         }
 
@@ -47,7 +47,7 @@ namespace CodeBase.Hero
             _weaponsDictionary.Add(HeroWeaponTypeId.Mortar, _weapons[3]);
 
             foreach (var keyValue in _weaponsDictionary)
-                keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(_heroShooting, this);
+                keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(_heroReloading, this);
         }
 
         public void TurnOn() =>

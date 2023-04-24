@@ -18,8 +18,13 @@ namespace CodeBase.Hero
         {
             _windowService = AllServices.Container.Single<IWindowService>();
             _health = GetComponent<IHealth>();
-            _health.HealthChanged += HealthChanged;
         }
+
+        private void OnEnable() =>
+            _health.HealthChanged += HealthChanged;
+
+        private void OnDisable() =>
+            _health.HealthChanged -= HealthChanged;
 
         private void HealthChanged()
         {

@@ -97,7 +97,8 @@ namespace CodeBase.Services.Pool
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Grenade, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade,
+                    HeroWeaponTypeId.GrenadeLauncher);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -109,7 +110,7 @@ namespace CodeBase.Services.Pool
             {
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
                 _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RpgRocket,
-                    BlastTypeId.RpgRocket);
+                    BlastTypeId.RpgRocket, HeroWeaponTypeId.RPG);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -122,7 +123,7 @@ namespace CodeBase.Services.Pool
                 GameObject projectile =
                     await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
                 _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RocketLauncherRocket,
-                    BlastTypeId.RocketLauncherRocket);
+                    BlastTypeId.RocketLauncherRocket, HeroWeaponTypeId.RocketLauncher);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
@@ -133,7 +134,8 @@ namespace CodeBase.Services.Pool
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb);
+                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb,
+                    HeroWeaponTypeId.Mortar);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }

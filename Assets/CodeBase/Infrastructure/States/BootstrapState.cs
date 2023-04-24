@@ -51,7 +51,8 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
             _services.RegisterSingle<IConstructorService>(
-                new ConstructorService(_services.Single<IStaticDataService>()));
+                new ConstructorService(_services.Single<IPlayerProgressService>(),
+                    _services.Single<IStaticDataService>()));
             _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(),
                 _services.Single<IConstructorService>()));
 

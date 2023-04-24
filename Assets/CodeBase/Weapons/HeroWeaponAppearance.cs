@@ -11,7 +11,7 @@ namespace CodeBase.Weapons
     {
         [SerializeField] private HeroDeath _death;
 
-        private HeroShooting _heroShooting;
+        private HeroReloading _heroReloading;
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
 
@@ -21,9 +21,9 @@ namespace CodeBase.Weapons
         private void OnDisable() =>
             _death.Died -= NotShoot;
 
-        public void Construct(HeroShooting heroShooting, HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
-            _heroShooting = heroShooting;
+            _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
 
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
@@ -37,7 +37,7 @@ namespace CodeBase.Weapons
 
             _heroWeaponTypeId = weaponStaticData.WeaponTypeId;
 
-            _heroShooting.OnStopReloading += ReadyToShoot;
+            _heroReloading.OnStopReloading += ReadyToShoot;
             // _heroShooting.OnStartReloading += NotReadyToShoot;
             _heroWeaponSelection.WeaponSelected += ReadyToShoot;
         }
@@ -69,8 +69,10 @@ namespace CodeBase.Weapons
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            if (targetPosition != null && GetMovement() is BombMovement)
-                (GetMovement() as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
+            ProjectileMovement projectileMovement = GetMovement();
+
+            if (targetPosition != null && projectileMovement is BombMovement)
+                (projectileMovement as BombMovement)?.SetTargetPosition((Vector3)targetPosition);
 
             Launch();
             yield return LaunchProjectileCooldown;

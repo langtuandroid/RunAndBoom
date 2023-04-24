@@ -140,12 +140,14 @@ namespace CodeBase.Infrastructure.States
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             heroHealth.Construct(_staticDataService);
             hero.GetComponent<HeroMovement>().Construct(_progressService, _staticDataService);
-            HeroShooting heroShooting = hero.GetComponent<HeroShooting>();
+            hero.GetComponent<HeroRotating>().Construct(_progressService, _staticDataService);
+            hero.GetComponent<HeroReloading>().Construct(_progressService, _staticDataService);
+            HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
-            heroWeaponSelection.Construct(heroShooting);
+            heroWeaponSelection.Construct(heroReloading);
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
-            hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroShooting, heroWeaponSelection);
+            hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
         }
 
         private async Task InitWindows(GameObject hero)

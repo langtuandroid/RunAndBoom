@@ -29,7 +29,7 @@ namespace CodeBase.Data.Upgrades
         {
             foreach (HeroWeaponTypeId typeId in _weaponTypeIds)
             {
-                UpgradeItemData aiming = new UpgradeItemData(typeId, UpgradeTypeId.Aiming);
+                UpgradeItemData aiming = new UpgradeItemData(typeId, UpgradeTypeId.Rotation);
 
                 UpgradeItemData reloading = new UpgradeItemData(typeId, UpgradeTypeId.Reloading);
                 reloading.Up();
@@ -54,7 +54,7 @@ namespace CodeBase.Data.Upgrades
         {
             foreach (HeroWeaponTypeId typeId in _weaponTypeIds)
             {
-                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Aiming));
+                UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Rotation));
                 UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Reloading));
                 UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.Speed));
                 UpgradeItemDatas.Add(new UpgradeItemData(typeId, UpgradeTypeId.BlastSize));

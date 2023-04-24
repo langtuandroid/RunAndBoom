@@ -16,15 +16,10 @@ namespace CodeBase.Hero
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _enemySpotted = false;
-        private float _currentAttackCooldown = 0f;
-        private float _initialCooldown = 2f;
-        private float _weaponCooldown = 0f;
         private Vector3 _enemyPosition;
         private bool _canShoot = true;
-        private bool _startReloaded;
 
-        public Action<float> OnStartReloading;
-        public Action OnStopReloading;
+        public event Action Shot;
 
         public void TurnOn() =>
             _canShoot = true;
@@ -45,43 +40,12 @@ namespace CodeBase.Hero
             TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
-            _weaponCooldown = heroWeaponStaticData.Cooldown;
         }
 
         private void Update()
         {
-            UpdateInitialCooldown();
-            UpdateCooldown();
-
-            if (_canShoot)
-                if (Input.GetMouseButton(0))
-                    TryShoot();
-        }
-
-        private bool InitialCooldownUp() =>
-            _initialCooldown <= 0f;
-
-        private void UpdateInitialCooldown()
-        {
-            if (InitialCooldownUp() && !_startReloaded)
-            {
-                OnStopReloading?.Invoke();
-                _startReloaded = true;
-            }
-
-            _initialCooldown -= Time.deltaTime;
-        }
-
-        private void UpdateCooldown()
-        {
-            if (!CooldownUp())
-            {
-                OnStartReloading?.Invoke(_currentAttackCooldown / _weaponCooldown);
-                _currentAttackCooldown -= Time.deltaTime;
-
-                if (CooldownUp())
-                    OnStopReloading?.Invoke();
-            }
+            if (Input.GetMouseButton(0))
+                TryShoot();
         }
 
         private void EnemyNotSpotted() =>
@@ -101,12 +65,9 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
-            if (_enemySpotted && CooldownUp() && IsAvailableAmmo())
+            if (_enemySpotted && _canShoot && IsAvailableAmmo())
                 Shoot();
         }
-
-        private bool CooldownUp() =>
-            _currentAttackCooldown <= 0;
 
         private bool IsAvailableAmmo() =>
             _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
@@ -114,8 +75,8 @@ namespace CodeBase.Hero
         private void Shoot()
         {
             _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
-            _currentAttackCooldown = _weaponCooldown;
             _heroWeaponAppearance.ShootTo(_enemyPosition);
+            Shot?.Invoke();
         }
     }
 }

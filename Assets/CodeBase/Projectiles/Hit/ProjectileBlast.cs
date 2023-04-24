@@ -1,4 +1,12 @@
 ﻿using System.Collections;
+using System.Linq;
+using CodeBase.Data;
+using CodeBase.Data.Upgrades;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.StaticData;
+using CodeBase.StaticData.Items;
+using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
+using CodeBase.StaticData.Weapons;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit
@@ -7,14 +15,21 @@ namespace CodeBase.Projectiles.Hit
     {
         [SerializeField] private DestroyWithBlast _destroyWithBlast;
 
+        private const float BaseRatio = 1f;
         private const float BlastDuration = 2f;
 
+        private IStaticDataService _staticDataService;
+        private PlayerProgress _progress;
+        private float _baseBlastRadius;
+        private UpgradeItemData _blastItemData;
+        private float _blastRadiusRatio = BaseRatio;
         private GameObject _prefab;
         private float _sphereRadius;
         private ParticleSystem _particleSystem;
         private GameObject _blastVfx;
         private float _damage;
         private CapsuleCollider _hitCollider;
+        private HeroWeaponTypeId? _weaponTypeId;
 
         private void Awake() =>
             _hitCollider = GetComponent<CapsuleCollider>();
@@ -25,8 +40,19 @@ namespace CodeBase.Projectiles.Hit
         public void OnCollider() =>
             _hitCollider.enabled = transform;
 
-        private void OnEnable() =>
+        private void OnEnable()
+        {
             HideBlast();
+
+            if (_blastItemData != null)
+                _blastItemData.LevelChanged += ChangeBlastSize;
+        }
+
+        private void OnDisable()
+        {
+            if (_blastItemData != null)
+                _blastItemData.LevelChanged -= ChangeBlastSize;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -46,11 +72,44 @@ namespace CodeBase.Projectiles.Hit
             }
         }
 
-        public void Construct(GameObject prefab, float radius, float damage)
+        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
+            GameObject prefab, float radius, float damage,
+            HeroWeaponTypeId? heroWeaponTypeId = null)
         {
+            _progress = progressService.Progress;
+            _staticDataService = staticDataService;
+
+            if (heroWeaponTypeId != null)
+            {
+                _weaponTypeId = heroWeaponTypeId;
+                SetBlastSize();
+            }
+
             _prefab = prefab;
             _sphereRadius = radius;
             _damage = damage;
+        }
+
+        private void SetBlastSize()
+        {
+            _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+                x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
+            _blastItemData.LevelChanged += ChangeBlastSize;
+            ChangeBlastSize();
+        }
+
+        private void ChangeBlastSize()
+        {
+            _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+                x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
+
+            if (_blastItemData.LevelTypeId == LevelTypeId.None)
+                _blastRadiusRatio = BaseRatio;
+            else
+                _blastRadiusRatio = _staticDataService
+                    .ForUpgradeLevelsInfo(_blastItemData.UpgradeTypeId, _blastItemData.LevelTypeId).Value;
+
+            _sphereRadius = _baseBlastRadius * _blastRadiusRatio;
         }
 
         private void ShowBlast()

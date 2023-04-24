@@ -42,8 +42,10 @@ namespace CodeBase.Weapons
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)
         {
-            if (targetPosition != null && GetMovement() is BulletMovement)
-                (GetMovement() as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
+            ProjectileMovement projectileMovement = GetMovement();
+
+            if (targetPosition != null && projectileMovement is BulletMovement)
+                (projectileMovement as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
 
             Launch();
             ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);

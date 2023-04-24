@@ -11,27 +11,57 @@ namespace CodeBase.Hero
 {
     public class HeroHealth : MonoBehaviour, IHealth, IHeal, IProgressSaver
     {
-        private const int BaseDamageRatio = 1;
+        private const float BaseRatio = 1f;
+        private const float ZeroValue = 0f;
 
         private IStaticDataService _staticDataService;
+        private PlayerProgress _progress;
         private PerkItemData _regenerationItemData;
+        private PerkItemData _vampirismItemData;
+        private PerkItemData _upMaxHealthItemData;
+        private PerkItemData _armorItemData;
         private float _regenerationValue;
         private float _regenerationCurrentTime = 1f;
         private float _regenerationDelay = 1f;
-        private PerkItemData _vampirismItemData;
         private float _vampirismValue;
-        private float _baseMaxHp;
         private float _maxHealthRatio = 1.0f;
         private float _armorRatio = 0.0f;
-        private PerkItemData _upMaxHealthItemData;
-        private PerkItemData _armorItemData;
-        private PlayerProgress _progress;
 
         public float Current { get; private set; }
         public float Max { get; private set; }
 
         public event Action HealthChanged;
         public event Action<float> EnemyKilled;
+
+        private void OnEnable()
+        {
+            if (_regenerationItemData != null)
+                _regenerationItemData.LevelChanged += ChangeRegeneration;
+
+            if (_vampirismItemData != null)
+                _vampirismItemData.LevelChanged += ChangeVampirism;
+
+            if (_upMaxHealthItemData != null)
+                _upMaxHealthItemData.LevelChanged += ChangeMaxHealth;
+
+            if (_armorItemData != null)
+                _armorItemData.LevelChanged += ChangeArmor;
+        }
+
+        private void OnDisable()
+        {
+            if (_regenerationItemData != null)
+                _regenerationItemData.LevelChanged -= ChangeRegeneration;
+
+            if (_vampirismItemData != null)
+                _vampirismItemData.LevelChanged -= ChangeVampirism;
+
+            if (_upMaxHealthItemData != null)
+                _upMaxHealthItemData.LevelChanged -= ChangeMaxHealth;
+
+            if (_armorItemData != null)
+                _armorItemData.LevelChanged -= ChangeArmor;
+        }
 
         private void Update()
         {
@@ -60,34 +90,35 @@ namespace CodeBase.Hero
         private bool IsDelaySpent() =>
             _regenerationCurrentTime <= 0f;
 
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
-
-        public void TakeDamage(float damage)
-        {
-            float result = (BaseDamageRatio - _armorRatio) * damage;
-            Current -= result;
-            HealthChanged?.Invoke();
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
-            _baseMaxHp = progress.HealthState.BaseMaxHp;
-            Current = progress.HealthState.CurrentHp;
             SetupUpMaxHealth();
             SetupRegeneration();
             SetupVampirism();
             SetupArmor();
-            Debug.Log($"LoadProgress progress {_progress.GetHashCode()}");
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            _progress.HealthState.ChangeCurrentHP(Current);
+            _progress.HealthState.ChangeMaxHP(Max);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            float result = (BaseRatio - _armorRatio) * damage;
+            Current -= result;
+            HealthChanged?.Invoke();
         }
 
         private void SetupVampirism()
         {
             _vampirismItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
-            _vampirismItemData.LevelChanged += IncreaseVampirismItemData;
+            _vampirismItemData.LevelChanged += ChangeVampirism;
             EnemyKilled += Vampire;
         }
 
@@ -101,88 +132,87 @@ namespace CodeBase.Hero
         {
             _regenerationItemData =
                 _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
-            _regenerationItemData.LevelChanged += IncreaseRegenerationItemData;
-            IncreaseRegenerationItemData();
+            _regenerationItemData.LevelChanged += ChangeRegeneration;
+            ChangeRegeneration();
             _regenerationCurrentTime = _regenerationDelay;
         }
 
-        private void IncreaseRegenerationItemData()
+        private void ChangeRegeneration()
         {
-            if (_regenerationItemData.LevelTypeId != LevelTypeId.None)
-            {
-                _regenerationItemData =
-                    _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
+            _regenerationItemData =
+                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
+
+            if (_regenerationItemData.LevelTypeId == LevelTypeId.None)
+                _regenerationValue = ZeroValue;
+            else
                 _regenerationValue = _staticDataService
                     .ForPerk(PerkTypeId.Regeneration, _regenerationItemData.LevelTypeId)
                     .Value;
-            }
         }
 
-        private void IncreaseVampirismItemData()
+        private void ChangeVampirism()
         {
-            if (_vampirismItemData.LevelTypeId != LevelTypeId.None)
-            {
-                _vampirismItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
+            _vampirismItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
+
+            if (_vampirismItemData.LevelTypeId == LevelTypeId.None)
+                _vampirismValue = ZeroValue;
+            else
                 _vampirismValue = _staticDataService.ForPerk(PerkTypeId.Vampire, _vampirismItemData.LevelTypeId).Value;
-            }
+        }
+
+        private void SetupUpMaxHealth()
+        {
+            _upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+            _upMaxHealthItemData.LevelChanged += ChangeMaxHealth;
+            ChangeMaxHealth();
+        }
+
+        private void ChangeMaxHealth()
+        {
+            _upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+
+            if (_upMaxHealthItemData.LevelTypeId == LevelTypeId.None)
+                _maxHealthRatio = BaseRatio;
+            else
+                _maxHealthRatio = _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId)
+                    .Value;
+
+            Max = Constants.InitialMaxHP * _maxHealthRatio;
+            Current = _progress.HealthState.CurrentHp;
+            HealthChanged?.Invoke();
+        }
+
+        private void SetupArmor()
+        {
+            _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
+            _armorItemData.LevelChanged += ChangeArmor;
+            ChangeArmor();
+        }
+
+        private void ChangeArmor()
+        {
+            _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
+
+            if (_armorItemData.LevelTypeId == LevelTypeId.None)
+                _armorRatio = BaseRatio;
+            else
+                _armorRatio = _staticDataService.ForPerk(PerkTypeId.Armor, _armorItemData.LevelTypeId).Value;
+        }
+
+        public void UpMaxHp(float value)
+        {
+        }
+
+        public void Heal()
+        {
+            // Current = Max;
+            // HealthChanged?.Invoke();
         }
 
         private void ChangeCurrent(float value)
         {
             float next = Current + value;
             Current = next > Max ? Max : next;
-            HealthChanged?.Invoke();
-        }
-
-        private void SetupUpMaxHealth()
-        {
-            _upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
-            _upMaxHealthItemData.LevelChanged += MaxChanged;
-            MaxChanged();
-        }
-
-        private void MaxChanged()
-        {
-            if (_upMaxHealthItemData.LevelTypeId != LevelTypeId.None)
-            {
-                _upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
-                _maxHealthRatio = _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId)
-                    .Value;
-                UpMaxHp(_baseMaxHp * _maxHealthRatio);
-            }
-        }
-
-        private void SetupArmor()
-        {
-            _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
-            _armorItemData.LevelChanged += ArmorChanged;
-            ArmorChanged();
-        }
-
-        private void ArmorChanged()
-        {
-            if (_armorItemData.LevelTypeId != LevelTypeId.None)
-            {
-                _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
-                _armorRatio = _staticDataService.ForPerk(PerkTypeId.Armor, _armorItemData.LevelTypeId).Value;
-            }
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            progress.HealthState.ChangeCurrentHP(Current);
-            progress.HealthState.ChangeMaxHP(Max);
-        }
-
-        public void UpMaxHp(float value)
-        {
-            Max = value;
-            HealthChanged?.Invoke();
-        }
-
-        public void Heal()
-        {
-            Current = Max;
             HealthChanged?.Invoke();
         }
     }

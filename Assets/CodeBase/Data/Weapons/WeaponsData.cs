@@ -16,6 +16,8 @@ namespace CodeBase.Data.Weapons
         public UpgradesData UpgradesData { get; private set; }
         public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
 
+        public event Action CurrentWeaponChanged;
+
         public WeaponsData()
         {
             WeaponDatas = new List<WeaponData>(_typeIds.Count);
@@ -37,6 +39,7 @@ namespace CodeBase.Data.Weapons
         {
             CurrentHeroWeaponTypeId = typeId;
             WeaponsAmmoData.SetCurrentWeapon(typeId);
+            CurrentWeaponChanged?.Invoke();
         }
 
         public void SetAvailableWeapon(HeroWeaponTypeId typeId) =>

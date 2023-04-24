@@ -1,3 +1,4 @@
+using CodeBase.Data;
 using CodeBase.Data.Perks;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -8,13 +9,15 @@ namespace CodeBase.Hero
 {
     public class HeroMovement : MonoBehaviour
     {
-        private IPlayerProgressService _progressService;
+        private const float BaseRatio = 1f;
+
         private IStaticDataService _staticDataService;
         private float _baseMovementSpeed = 5f;
-        private float _speedRatio = 1;
-        private Vector3 _movement = Vector3.zero;
+        private float _movementRatio = 1f;
+        private float _movementSpeed;
         private bool _canMove;
-        private PerkItemData _running;
+        private PerkItemData _runningItemData;
+        private PlayerProgress _progress;
 
         private void Update()
         {
@@ -24,28 +27,46 @@ namespace CodeBase.Hero
                 float verticalInput = Input.GetAxis("Vertical");
 
                 transform.Translate(
-                    new Vector3(horizontalInput, 0, verticalInput) * _baseMovementSpeed * _speedRatio * Time.deltaTime);
+                    new Vector3(horizontalInput, 0, verticalInput) * _movementSpeed *
+                    Time.deltaTime);
             }
+        }
+
+        private void OnEnable()
+        {
+            if (_runningItemData != null)
+                _runningItemData.LevelChanged += ChangeSpeed;
+        }
+
+        private void OnDisable()
+        {
+            if (_runningItemData != null)
+                _runningItemData.LevelChanged -= ChangeSpeed;
         }
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
         {
-            _progressService = progressService;
+            _progress = progressService.Progress;
             _staticDataService = staticDataService;
-            _progressService.Progress.PerksData.IsAvailable(PerkTypeId.Running);
-            _running = _progressService.Progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Running);
-            _running.LevelChanged += IncreaseSpeed;
-            IncreaseSpeed();
+            SetSpeed();
         }
 
-        private void IncreaseSpeed()
+        private void SetSpeed()
         {
-            if (_running.LevelTypeId != LevelTypeId.None)
-                _speedRatio = _staticDataService.ForPerk(PerkTypeId.Running, _running.LevelTypeId).Value;
+            _runningItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Running);
+            _runningItemData.LevelChanged += ChangeSpeed;
+            ChangeSpeed();
         }
 
-        private void MoveTo(Vector2 direction) =>
-            _movement = new Vector3(direction.x, 0, direction.y);
+        private void ChangeSpeed()
+        {
+            if (_runningItemData.LevelTypeId == LevelTypeId.None)
+                _movementRatio = BaseRatio;
+            else
+                _movementRatio = _staticDataService.ForPerk(PerkTypeId.Running, _runningItemData.LevelTypeId).Value;
+
+            _movementSpeed = _baseMovementSpeed * _movementRatio;
+        }
 
         public void TurnOn() =>
             _canMove = true;

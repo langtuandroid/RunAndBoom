@@ -58,9 +58,6 @@ namespace CodeBase.Data.Perks
             Perks.Add(maxHealth);
         }
 
-        public bool IsAvailable(PerkTypeId typeId) =>
-            Perks.Exists(x => x.PerkTypeId == typeId && x.LevelTypeId != LevelTypeId.None);
-
         public void LevelUp(PerkTypeId typeId)
         {
             PerkItemData perkItemData = Perks.First(x => x.PerkTypeId == typeId);
