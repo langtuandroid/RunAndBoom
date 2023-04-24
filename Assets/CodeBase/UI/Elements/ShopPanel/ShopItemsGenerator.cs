@@ -66,9 +66,6 @@ namespace CodeBase.UI.Elements.ShopPanel
 
             InitializeEmptyData();
             _money = _progress.CurrentLevelStats.MoneyData.Money;
-            // _money = _progressService.Progress.CurrentLevelStats.MoneyData.Money;
-
-            Debug.Log($"Construct progress {_progress.GetHashCode()}");
         }
 
         private void InitializeEmptyData()
@@ -301,7 +298,6 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private IEnumerator CoroutineShowShopItems()
         {
-            Debug.Log("CoroutineShowShopItems");
             yield return ShowShopItems();
             yield return _delayShopItemsDisplaying;
             yield return ShowShopItems();
@@ -316,15 +312,12 @@ namespace CodeBase.UI.Elements.ShopPanel
 
         private IEnumerator ShowShopItems()
         {
-            Debug.Log("ShowShopItems");
             ShowItems();
-
             yield return null;
         }
 
         private void ShowItems()
         {
-            Debug.Log("ShowShopItems");
             foreach (GameObject shopItem in _shopItems)
             {
                 List<string> lists = new List<string>();

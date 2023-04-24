@@ -17,6 +17,7 @@ namespace CodeBase.Hero
         private float _maxDistance = 25f;
 
         public Action<Vector3> GotTarget;
+        private HeroWeaponStaticData _weaponStaticData;
 
         private void Start() =>
             _mainCamera = Camera.main;
@@ -25,8 +26,11 @@ namespace CodeBase.Hero
             _weaponSelection.WeaponSelected += WeaponChosen;
 
         private void WeaponChosen(GameObject selectedWeapon, HeroWeaponStaticData weaponStaticData,
-            TrailStaticData arg3) =>
+            TrailStaticData arg3)
+        {
             _currentWeapon = selectedWeapon;
+            _weaponStaticData = weaponStaticData;
+        }
 
         private void FixedUpdate()
         {
@@ -41,8 +45,10 @@ namespace CodeBase.Hero
         private void WeaponLookAt(Vector3 targetPosition)
         {
             _currentWeapon.transform.LookAt(targetPosition);
-            GotTarget?.Invoke(targetPosition);
             Debug.DrawLine(transform.position, targetPosition, Color.red);
+
+            if (_weaponStaticData.WeaponTypeId == HeroWeaponTypeId.Mortar)
+                GotTarget?.Invoke(targetPosition);
         }
 
         private Vector3 MaxDistancePosition(Ray ray)

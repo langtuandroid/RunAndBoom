@@ -1,6 +1,7 @@
 ﻿using CodeBase.Hero;
 using CodeBase.Projectiles.Movement;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Weapons
 {
@@ -14,8 +15,8 @@ namespace CodeBase.Weapons
 
         private void SetTarget(Vector3 targetPosition)
         {
+            TargetPosition = targetPosition;
             _drawTarget.Draw(targetPosition);
-            (GetMovement() as BombMovement)?.SetTargetPosition(targetPosition);
         }
     }
 }

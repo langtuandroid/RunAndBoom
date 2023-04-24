@@ -7,7 +7,6 @@ using CodeBase.Services;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,9 +29,9 @@ namespace CodeBase.Weapons
         private bool _initialVisibility;
         [SerializeField] private List<GameObject> _projectiles;
         private ProjectileTypeId? _projectileTypeId;
+        private bool _filled;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
-        protected bool Filled { get; private set; }
 
         protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
             ShotVfxTypeId shotVfxTypeId)
@@ -46,8 +45,9 @@ namespace CodeBase.Weapons
 
         protected void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy && (Filled == false || _projectiles.Count == 0))
+            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0))
             {
+                Debug.Log("ReadyToShoot");
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
                     var projectile = SetNewProjectile(respawn);
@@ -55,9 +55,11 @@ namespace CodeBase.Weapons
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
                     _projectiles.Add(projectile);
+                    Debug.Log("ReadyToShoot added");
                 }
 
-                Filled = true;
+                _filled = true;
+                Debug.Log($"ReadyToShoot projectiles count {_projectiles.Count}");
             }
         }
 
@@ -73,19 +75,22 @@ namespace CodeBase.Weapons
             ShowTrail(projectile);
 
             _projectiles.Remove(projectile);
-            Debug.Log($"Count {_projectiles.Count}");
+            Debug.Log($"Launch count {_projectiles.Count}");
         }
 
-        private GameObject GetFirstProjectile() =>
-            _projectiles.First();
-
-        [CanBeNull]
-        public ProjectileMovement GetMovement()
+        private GameObject GetFirstProjectile()
         {
-            if (_projectiles.Count != 0)
-                return _projectiles.First().GetComponent<ProjectileMovement>();
-            else
-                return null;
+            Debug.Log($"GetFirstProjectile projectiles count: {_projectiles.Count}");
+            GameObject firstProjectile = _projectiles.First();
+            Debug.Log($"GetFirstProjectile not null {firstProjectile != null}");
+            return firstProjectile;
+        }
+
+        protected ProjectileMovement GetMovement()
+        {
+            Debug.Log($"GetMovement projectiles count: {_projectiles.Count}");
+            GameObject first = _projectiles.First();
+            return first.GetComponent<ProjectileMovement>();
         }
 
         private void ShowTrail(GameObject projectile)
@@ -96,7 +101,6 @@ namespace CodeBase.Weapons
 
         private GameObject SetNewProjectile(Transform respawn)
         {
-            Debug.Log($"projectile type: {_projectileTypeId}");
             GameObject projectile = GetProjectile();
 
             projectile.transform.SetParent(respawn);
@@ -106,7 +110,7 @@ namespace CodeBase.Weapons
         }
 
         protected void Released() =>
-            Filled = false;
+            _filled = false;
 
         protected abstract GameObject GetProjectile();
     }

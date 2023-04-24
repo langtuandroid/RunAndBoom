@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Hero;
+using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
@@ -8,19 +9,16 @@ namespace CodeBase.Weapons
 {
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
-        private const float MaxDistance = 15f;
+        [HideInInspector] protected Vector3 TargetPosition;
 
         private HeroReloading _heroReloading;
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
-        private Transform _heroTransform;
-        private RaycastHit[] results = new RaycastHit[1];
 
         public void Construct(HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
             _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
-            _heroTransform = heroReloading.gameObject.transform;
 
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
@@ -52,14 +50,14 @@ namespace CodeBase.Weapons
 
         private IEnumerator CoroutineShootTo()
         {
+            if (_heroWeaponTypeId == HeroWeaponTypeId.Mortar)
+                (GetMovement() as BombMovement)?.SetTargetPosition(TargetPosition);
+
             Launch();
             yield return LaunchProjectileCooldown;
         }
 
-        protected override GameObject GetProjectile()
-        {
-            Debug.Log($"hero weapon type: {_heroWeaponTypeId}");
-            return PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
-        }
+        protected override GameObject GetProjectile() =>
+            PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
     }
 }

@@ -95,7 +95,7 @@ namespace CodeBase.Hero
             _weaponTypeId = heroWeaponStaticData.WeaponTypeId;
             _baseCooldown = heroWeaponStaticData.Cooldown;
             _currentAttackCooldown = 0f;
-            OnStopReloading?.Invoke();
+            // OnStopReloading?.Invoke();
 
             if (_progress != null)
                 SetCooldown();
