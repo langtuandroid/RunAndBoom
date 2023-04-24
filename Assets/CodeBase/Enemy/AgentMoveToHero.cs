@@ -39,6 +39,7 @@ namespace CodeBase.Enemy
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
+                        Debug.Log($"SetDestinationForAgent error: {e}");
                         throw;
                     }
                 }
