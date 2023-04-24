@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroReloading : MonoBehaviour
+    public class HeroReloading : MonoBehaviour, IProgressReader
     {
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
         [SerializeField] private HeroShooting _heroShooting;
@@ -54,9 +54,8 @@ namespace CodeBase.Hero
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
-            _progress = progressService.Progress;
-
-            SetCooldown();
+            // _progress = progressService.Progress;
+            // SetCooldown();
         }
 
         private void SetCooldown()
@@ -128,6 +127,12 @@ namespace CodeBase.Hero
             }
 
             _initialCooldown -= Time.deltaTime;
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            SetCooldown();
         }
     }
 }

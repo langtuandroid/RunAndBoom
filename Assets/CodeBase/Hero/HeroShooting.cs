@@ -16,7 +16,7 @@ namespace CodeBase.Hero
         private HeroWeaponAppearance _heroWeaponAppearance;
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
-        private bool _canShoot = true;
+        private bool _canShoot = false;
         private bool _startReloaded;
 
         public event Action Shot;
@@ -37,6 +37,7 @@ namespace CodeBase.Hero
             TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+            TurnOn();
         }
 
         private void Update()

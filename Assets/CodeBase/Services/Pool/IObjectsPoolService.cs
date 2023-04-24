@@ -9,10 +9,8 @@ namespace CodeBase.Services.Pool
         GameObject GetEnemyProjectile(string name);
         GameObject GetHeroProjectile(string name);
         GameObject GetShotVfx(ShotVfxTypeId typeId);
-        GameObject GetShopItem(string name);
         void ReturnEnemyProjectile(GameObject gameObject);
         void ReturnHeroProjectile(GameObject gameObject);
         void ReturnShotVfx(GameObject gameObject);
-        void ReturnShopItem(GameObject gameObject);
     }
 }

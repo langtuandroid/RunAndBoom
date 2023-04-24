@@ -1,7 +1,3 @@
-using CodeBase.Data;
-using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.StaticData;
-using CodeBase.StaticData.Weapons;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -14,9 +10,6 @@ namespace CodeBase.Hero
 
         private bool _canRotate = true;
         private const float BaseRatio = 1f;
-        private IStaticDataService _staticDataService;
-        private PlayerProgress _progress;
-        private HeroWeaponTypeId _weaponTypeId;
 
         private void Start() =>
             Cursor.lockState = CursorLockMode.Locked;
@@ -25,12 +18,6 @@ namespace CodeBase.Hero
         {
             if (_canRotate)
                 Rotate();
-        }
-
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
-        {
-            _progress = progressService.Progress;
-            _staticDataService = staticDataService;
         }
 
         private void Rotate()

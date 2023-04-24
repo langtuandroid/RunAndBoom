@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroMovement : MonoBehaviour
+    public class HeroMovement : MonoBehaviour, IProgressReader
     {
         private const float BaseRatio = 1f;
 
@@ -46,9 +46,9 @@ namespace CodeBase.Hero
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
         {
-            _progress = progressService.Progress;
             _staticDataService = staticDataService;
-            SetSpeed();
+            // _progress = progressService.Progress;
+            // SetSpeed();
         }
 
         private void SetSpeed()
@@ -73,5 +73,11 @@ namespace CodeBase.Hero
 
         public void TurnOff() =>
             _canMove = false;
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            SetSpeed();
+        }
     }
 }

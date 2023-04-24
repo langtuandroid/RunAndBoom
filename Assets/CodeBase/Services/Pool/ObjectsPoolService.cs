@@ -6,7 +6,6 @@ using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
 using CodeBase.StaticData.Weapons;
-using CodeBase.UI.Elements.ShopPanel;
 using UnityEngine;
 
 namespace CodeBase.Services.Pool
@@ -25,7 +24,6 @@ namespace CodeBase.Services.Pool
         private Transform _enemyProjectilesRoot;
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
-        private Transform _shopItemsRoot;
 
         public ObjectsPoolService(IAssets assets, IConstructorService constructorService)
         {
@@ -40,26 +38,21 @@ namespace CodeBase.Services.Pool
 
         private async void CreateRoots()
         {
-            GameObject root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
+            GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
             GameObject gameObject = Object.Instantiate(root);
-            _enemyProjectilesRoot = gameObject.transform;
-
-            root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
-            gameObject = Object.Instantiate(root);
             _heroProjectilesRoot = gameObject.transform;
+
+            root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
+            gameObject = Object.Instantiate(root);
+            _enemyProjectilesRoot = gameObject.transform;
 
             root = await _assets.Load<GameObject>(AssetAddresses.ShotVfxsRoot);
             gameObject = Object.Instantiate(root);
             _shotVfxsRoot = gameObject.transform;
 
-            root = await _assets.Load<GameObject>(AssetAddresses.ShopItemsRoot);
-            gameObject = Object.Instantiate(root);
-            _shopItemsRoot = gameObject.transform;
-
-            GenerateEnemyProjectiles();
             GenerateHeroProjectiles();
+            GenerateEnemyProjectiles();
             GenerateShotVfxs();
-            GenerateShopItems();
         }
 
         private async void GenerateEnemyProjectiles()
@@ -208,61 +201,6 @@ namespace CodeBase.Services.Pool
             _shotVfxs.Add(ShotVfxTypeId.Shot.ToString(), gameObjects);
         }
 
-        public async void GenerateShopItems()
-        {
-            _shopItems = new Dictionary<string, List<GameObject>>();
-            List<GameObject> gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject item = await _assets.Instantiate(AssetAddresses.ShopItem, _shopItemsRoot);
-                item.SetActive(false);
-                gameObjects.Add(item);
-            }
-
-            _shopItems.Add(ShopItemTypeIds.Item.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject item = await _assets.Instantiate(AssetAddresses.ShopAmmo, _shopItemsRoot);
-                item.SetActive(false);
-                gameObjects.Add(item);
-            }
-
-            _shopItems.Add(ShopItemTypeIds.Ammo.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject item = await _assets.Instantiate(AssetAddresses.ShopUpgrade, _shopItemsRoot);
-                item.SetActive(false);
-                gameObjects.Add(item);
-            }
-
-            _shopItems.Add(ShopItemTypeIds.Upgrade.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject item = await _assets.Instantiate(AssetAddresses.ShopPerk, _shopItemsRoot);
-                item.SetActive(false);
-                gameObjects.Add(item);
-            }
-
-            _shopItems.Add(ShopItemTypeIds.Perk.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject item = await _assets.Instantiate(AssetAddresses.ShopWeapon, _shopItemsRoot);
-                item.SetActive(false);
-                gameObjects.Add(item);
-            }
-
-            _shopItems.Add(ShopItemTypeIds.Weapon.ToString(), gameObjects);
-        }
-
         public GameObject GetEnemyProjectile(string name) =>
             GetGameObject(name, _enemyProjectiles, _enemyProjectilesRoot);
 
@@ -298,9 +236,6 @@ namespace CodeBase.Services.Pool
             return gameObject;
         }
 
-        public GameObject GetShopItem(string name) =>
-            GetGameObject(name, _shopItems, _shopItemsRoot);
-
         public void ReturnEnemyProjectile(GameObject gameObject) =>
             ReturnGameObject(gameObject, _enemyProjectilesRoot);
 
@@ -309,9 +244,6 @@ namespace CodeBase.Services.Pool
 
         public void ReturnShotVfx(GameObject gameObject) =>
             ReturnGameObject(gameObject, _shotVfxsRoot);
-
-        public void ReturnShopItem(GameObject gameObject) =>
-            ReturnGameObject(gameObject, _shopItemsRoot);
 
         private void ReturnGameObject(GameObject gameObject, Transform parent)
         {

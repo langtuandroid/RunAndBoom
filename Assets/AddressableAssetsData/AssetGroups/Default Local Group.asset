@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 85d7f74f538056e40a3a366af1474a0c
   m_SerializeEntries:
-  - m_GUID: c8e71b1462e04ff4e97983073942dc05
-    m_Address: Hero
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 7111efd0fe461dc4a989f30c48c92001
     m_Address: SpawnPoint
     m_ReadOnly: 0
@@ -139,6 +135,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 2fb4b8279ebc9844196246245aceeea1
     m_Address: ShopWeapon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c8e71b1462e04ff4e97983073942dc05
+    m_Address: Hero
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -40,16 +40,11 @@ namespace CodeBase.Weapons
             _heroWeaponTypeId = weaponStaticData.WeaponTypeId;
 
             _heroReloading.OnStopReloading += ReadyToShoot;
-            // _heroShooting.OnStartReloading += NotReadyToShoot;
             _heroWeaponSelection.WeaponSelected += ReadyToShoot;
         }
 
         private void ReadyToShoot(GameObject arg1, HeroWeaponStaticData arg2, TrailStaticData arg3) =>
             ReadyToShoot();
-
-        private void ShowTrajectory()
-        {
-        }
 
         public void ShootTo()
         {
@@ -62,16 +57,13 @@ namespace CodeBase.Weapons
             Released();
         }
 
-        protected virtual IEnumerator CoroutineShootTo()
+        private IEnumerator CoroutineShootTo()
         {
             Launch();
             yield return LaunchProjectileCooldown;
         }
 
-        protected override GameObject GetProjectile()
-        {
-            Debug.Log($"hero weapon type: {_heroWeaponTypeId}");
-            return ObjectsPoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
-        }
+        protected override GameObject GetProjectile() =>
+            ObjectsPoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
     }
 }

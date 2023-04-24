@@ -28,7 +28,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         }
 
         public void ChangeClickability(bool isClickable) =>
-            _button.interactable = isClickable;
+            _button.enabled = isClickable;
 
         protected override void FillData()
         {

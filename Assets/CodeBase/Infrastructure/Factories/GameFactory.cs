@@ -56,7 +56,7 @@ namespace CodeBase.Infrastructure.Factories
             // if (_heroGameObject == null)
             _heroGameObject =
                 await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
-            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+            // await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             // else
             //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 

@@ -34,7 +34,7 @@ namespace CodeBase.UI.Elements.ShopPanel
         }
 
         private void DisableRefreshButtonClick() =>
-            _refreshButton.interactable = false;
+            _refreshButton.enabled = false;
 
         private void EnableRefreshButtonClick()
         {
@@ -44,7 +44,7 @@ namespace CodeBase.UI.Elements.ShopPanel
             _currentRefreshCount++;
             CheckCurrentEqualsWatchAdsNumber();
             CheckCurrentEqualsMaxCount();
-            _refreshButton.interactable = true;
+            _refreshButton.enabled = true;
         }
 
         private void GenerateShopItems() =>

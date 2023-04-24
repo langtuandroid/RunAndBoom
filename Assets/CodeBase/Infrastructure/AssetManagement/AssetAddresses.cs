@@ -13,7 +13,6 @@
         public const string EnemyProjectilesRoot = "EnemyProjectilesRoot";
         public const string HeroProjectilesRoot = "HeroProjectilesRoot";
         public const string ShotVfxsRoot = "ShotVfxsRoot";
-        public const string ShopItemsRoot = "ShopItemsRoot";
         public const string PistolBullet = "PistolBullet";
         public const string Shot = "Shot";
         public const string Bomb = "Bomb";
@@ -25,10 +24,5 @@
         public const string RocketMuzzleFire = "RocketMuzzleFire";
         public const string RocketMuzzleBlue = "RocketMuzzleBlue";
         public const string BombMuzzle = "BombMuzzleBlue";
-        public const string ShopItem = "ShopItem";
-        public const string ShopAmmo = "ShopAmmo";
-        public const string ShopUpgrade = "ShopUpgrade";
-        public const string ShopWeapon = "ShopWeapon";
-        public const string ShopPerk = "ShopPerk";
     }
 }

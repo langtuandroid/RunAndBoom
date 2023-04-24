@@ -32,10 +32,31 @@ namespace CodeBase.Hero
             _heroWeaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
         }
 
-        public void Construct(HeroReloading heroReloading)
+        private void Update()
+        {
+            if (_canSelect)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                    SelectWeapon(HeroWeaponTypeId.GrenadeLauncher);
+
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                    SelectWeapon(HeroWeaponTypeId.RPG);
+
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                    SelectWeapon(HeroWeaponTypeId.RocketLauncher);
+
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                    SelectWeapon(HeroWeaponTypeId.Mortar);
+            }
+        }
+
+        public void Construct(IPlayerProgressService progressService, HeroReloading heroReloading)
         {
             _heroReloading = heroReloading;
             InitializeWeaponsDictionary();
+            // _progress = progressService.Progress;
+            // FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
+            // _canSelect = true;
         }
 
         private void InitializeWeaponsDictionary()
@@ -56,35 +77,10 @@ namespace CodeBase.Hero
         public void TurnOff() =>
             _canSelect = false;
 
-        private void Update()
-        {
-            if (_canSelect)
-            {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    SelectWeapon(HeroWeaponTypeId.GrenadeLauncher);
-
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                    SelectWeapon(HeroWeaponTypeId.RPG);
-
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                    SelectWeapon(HeroWeaponTypeId.RocketLauncher);
-
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                    SelectWeapon(HeroWeaponTypeId.Mortar);
-            }
-        }
-
         private void SelectWeapon(HeroWeaponTypeId heroWeaponTypeId)
         {
             if (_currentWeapon != _heroWeaponTypeIds.IndexOf(heroWeaponTypeId))
                 FindWeaponContainer(heroWeaponTypeId);
-        }
-
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
-            _canSelect = true;
         }
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
@@ -105,6 +101,13 @@ namespace CodeBase.Hero
             HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
             TrailStaticData trailStaticData = _staticDataService.ForTrail(heroWeaponStaticData.TrailTypeId);
             WeaponSelected?.Invoke(_weaponsDictionary[heroWeaponTypeId], heroWeaponStaticData, trailStaticData);
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
+            _canSelect = true;
         }
     }
 }
