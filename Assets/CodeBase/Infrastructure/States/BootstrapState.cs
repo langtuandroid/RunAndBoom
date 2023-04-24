@@ -9,6 +9,7 @@ using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
+using CodeBase.Services.Randomizer;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -37,7 +38,7 @@ namespace CodeBase.Infrastructure.States
             _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadPlayerProgressState>();
+            _stateMachine.Enter<LoadPlayerProgressState, string>(Scenes.Level1);
 
         private void RegisterServices()
         {
@@ -46,13 +47,17 @@ namespace CodeBase.Infrastructure.States
             RegisterAssetsProvider();
             RegisterInputService();
             RegisterPlatformInputService();
+            _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
-            _services.RegisterSingle<IConstructorService>(new ConstructorService(_services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IPoolService>(new PoolService(_services.Single<IAssets>(), _services.Single<IConstructorService>()));
+            _services.RegisterSingle<IConstructorService>(
+                new ConstructorService(_services.Single<IPlayerProgressService>(),
+                    _services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(),
+                _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
-                new UIFactory(_services.Single<IAssets>(),
+                new UIFactory(_services.Single<IPlayerProgressService>(), _services.Single<IAssets>(),
                     _services.Single<IRegistratorService>())
             );
 
@@ -61,7 +66,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
                     _services.Single<IAssets>(),
-                    _services.Single<IPoolService>(),
+                    _services.Single<IObjectsPoolService>(),
                     _services.Single<IPlayerProgressService>(),
                     _services.Single<IStaticDataService>(),
                     _services.Single<IRegistratorService>()
@@ -160,7 +165,8 @@ namespace CodeBase.Infrastructure.States
 
             if (keyboardMouseInputType != null && touchScreenInputType != null)
             {
-                DesktopPlatformInputService desktopInputTypeService = new DesktopPlatformInputService(keyboardMouseInputType);
+                DesktopPlatformInputService desktopInputTypeService =
+                    new DesktopPlatformInputService(keyboardMouseInputType);
                 MobilePlatformInputService mobileInputTypeService =
                     new MobilePlatformInputService(touchScreenInputType);
                 _services.RegisterSingle<IPlatformInputService>(new EditorPlatformInputService(desktopInputTypeService,
@@ -185,7 +191,8 @@ namespace CodeBase.Infrastructure.States
             }
 
             if (keyboardMouseInputType != null)
-                _services.RegisterSingle<IPlatformInputService>(new DesktopPlatformInputService(keyboardMouseInputType));
+                _services.RegisterSingle<IPlatformInputService>(
+                    new DesktopPlatformInputService(keyboardMouseInputType));
             else
                 InputServicesException("Input services for DesktopInput are not created");
         }

@@ -16,13 +16,7 @@ MonoBehaviour:
   ProjectileTypeId: 1
   TrailTypeId: 1
   ShotVfxTypeId: 1
-  MovementLifeTime: 2
-  Damage: 1
   RotationSpeed: 7
-  Cooldown: 3
+  Cooldown: 1
   AimRange: 5
-  BlastRange: 1
-  ProjectileSpeed: 5
   ShotVfxLifeTime: 1
-  MuzzleVfx: {fileID: 169982, guid: 03b5266e6b05a334a996d475667697e3, type: 3}
-  blastVfxPrefab: {fileID: 161422, guid: 2963452af690ade448ed3146173416fa, type: 3}

@@ -27,9 +27,15 @@ namespace CodeBase.Services.StaticData
         private const string StaticDataPerksPath = "StaticData/Items/Perks";
         private const string StaticDataShopAmmoPath = "StaticData/Items/Shop/Ammo";
         private const string StaticDataShopItemsPath = "StaticData/Items/Shop/Items";
-        private const string StaticDataShopUpgradesUpgradableWeaponsPath = "StaticData/Items/Shop/Upgrades/UpgradableWeapons";
+
+        private const string StaticDataShopUpgradesUpgradableWeaponsPath =
+            "StaticData/Items/Shop/Upgrades/UpgradableWeapons";
+
         private const string StaticDataShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
-        private const string StaticDataShopUpgradesUpgradeLevelsInfoPath = "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
+
+        private const string StaticDataShopUpgradesUpgradeLevelsInfoPath =
+            "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
+
         private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
         private const string StaticDataShopWeaponsPath = "StaticData/Items/Shop/Weapons";
         private const string StaticDataLevelsPath = "StaticData/Levels";
@@ -44,7 +50,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<LevelTypeId, InventoryUpgradeLevelStaticData> _inventoryUpgradeLevels;
         private Dictionary<UpgradeTypeId, InventoryUpgradeStaticData> _inventoryUpgrades;
         private Dictionary<PerkItem, PerkStaticData> _perks;
-        private Dictionary<AmmoItem, ShopAmmoStaticData> _shopAmmo;
+        private Dictionary<AmmoItem, ShopAmmoStaticData> _shopAmmunition;
         private Dictionary<ItemTypeId, ShopItemStaticData> _shopItems;
         private Dictionary<HeroWeaponTypeId, UpgradableWeaponStaticData> _shopUpgradableWeapons;
         private Dictionary<LevelTypeId, ShopUpgradeLevelStaticData> _shopUpgradeLevels;
@@ -103,7 +109,7 @@ namespace CodeBase.Services.StaticData
                 .LoadAll<PerkStaticData>(StaticDataPerksPath)
                 .ToDictionary(x => new PerkItem(x.PerkTypeId, x.ILevelTypeId), x => x);
 
-            _shopAmmo = Resources
+            _shopAmmunition = Resources
                 .LoadAll<ShopAmmoStaticData>(StaticDataShopAmmoPath)
                 .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
 
@@ -188,7 +194,7 @@ namespace CodeBase.Services.StaticData
                 : null;
 
         public ShopAmmoStaticData ForShopAmmo(HeroWeaponTypeId typeId, AmmoCountType countType) =>
-            _shopAmmo.TryGetValue(new AmmoItem(typeId, countType), out ShopAmmoStaticData staticData)
+            _shopAmmunition.TryGetValue(new AmmoItem(typeId, countType), out ShopAmmoStaticData staticData)
                 ? staticData
                 : null;
 
@@ -208,7 +214,8 @@ namespace CodeBase.Services.StaticData
                 : null;
 
         public UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId) =>
-            _shopUpgradeLevelsInfo.TryGetValue(new ShopUpgradeLevelInfoData(upgradeTypeId, levelTypeId), out UpgradeLevelInfoStaticData staticData)
+            _shopUpgradeLevelsInfo.TryGetValue(new ShopUpgradeLevelInfoData(upgradeTypeId, levelTypeId),
+                out UpgradeLevelInfoStaticData staticData)
                 ? staticData
                 : null;
 

@@ -40,13 +40,16 @@ namespace CodeBase.Enemy
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
             // _targetMovement = GetComponentInChildren<TargetMovement>();
             _health = GetComponent<IHealth>();
-            _health.HealthChanged += HealthChanged;
         }
 
-        private void Start()
-        {
+        private void OnEnable() =>
+            _health.HealthChanged += HealthChanged;
+
+        private void OnDisable() =>
+            _health.HealthChanged -= HealthChanged;
+
+        private void Start() =>
             _diedBox.SetActive(false);
-        }
 
         private void OnDestroy() =>
             _health.HealthChanged -= HealthChanged;

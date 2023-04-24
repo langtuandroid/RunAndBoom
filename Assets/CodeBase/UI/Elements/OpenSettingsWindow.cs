@@ -1,5 +1,6 @@
 ﻿using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements
@@ -13,8 +14,8 @@ namespace CodeBase.UI.Elements
 
         private void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.Escape) ) 
-            //     _windowService.Open(WindowId.Settings);
+            if (Input.GetKeyDown(KeyCode.Escape))
+                _windowService.Open<SettingsWindow>(WindowId.Settings);
         }
     }
 }

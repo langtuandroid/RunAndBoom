@@ -13,14 +13,16 @@ namespace CodeBase.Data.Weapons
 
         public List<WeaponData> WeaponDatas { get; private set; }
         public WeaponsAmmoData WeaponsAmmoData { get; private set; }
-        public WeaponUpgradesData WeaponUpgradesData { get; private set; }
+        public UpgradesData UpgradesData { get; private set; }
         public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
+
+        public event Action CurrentWeaponChanged;
 
         public WeaponsData()
         {
             WeaponDatas = new List<WeaponData>(_typeIds.Count);
             WeaponsAmmoData = new WeaponsAmmoData();
-            WeaponUpgradesData = new WeaponUpgradesData();
+            UpgradesData = new UpgradesData();
             FillAvailableWeapons();
             CurrentHeroWeaponTypeId = WeaponDatas.First(x => x.IsAvailable).WeaponTypeId;
         }
@@ -37,6 +39,7 @@ namespace CodeBase.Data.Weapons
         {
             CurrentHeroWeaponTypeId = typeId;
             WeaponsAmmoData.SetCurrentWeapon(typeId);
+            CurrentWeaponChanged?.Invoke();
         }
 
         public void SetAvailableWeapon(HeroWeaponTypeId typeId) =>

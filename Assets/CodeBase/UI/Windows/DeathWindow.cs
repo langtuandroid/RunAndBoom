@@ -9,13 +9,19 @@ namespace CodeBase.UI.Windows
     {
         [SerializeField] private Button _restartButton;
 
+        private string _sceneName;
+
         private void Start() =>
             _restartButton.onClick.AddListener(Restart);
 
-        public void Construct(GameObject hero) =>
+        public void Construct(GameObject hero, string sceneName)
+        private void Restart() =>
+            _sceneName = sceneName;
             base.Construct(hero);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+        }
 
         private void Restart() =>
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, string>(_sceneName);
     }
 }

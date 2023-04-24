@@ -1,5 +1,6 @@
 ﻿using CodeBase.StaticData.Weapons;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CodeBase.StaticData.Enemies
 {
@@ -22,5 +23,7 @@ namespace CodeBase.StaticData.Enemies
         [Range(0.5f, 5f)] public float AttackCooldown;
 
         [Range(1, 3)] public int Reward;
+
+        public AssetReferenceGameObject PrefabReference;
     }
 }

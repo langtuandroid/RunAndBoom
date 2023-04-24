@@ -9,6 +9,7 @@ namespace CodeBase.UI.Windows
     {
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _closeButton;
+
         private string _sceneName;
 
         private void Start()
@@ -32,7 +33,7 @@ namespace CodeBase.UI.Windows
         private void Restart()
         {
             Hide();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, string>(_sceneName);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, string>(_sceneName);
         }
     }
 }

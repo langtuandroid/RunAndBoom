@@ -21,7 +21,8 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IGameFactory _gameFactory;
         private Transform _spawnersRoot;
 
-        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService, IGameFactory gameFactory)
+        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService,
+            IGameFactory gameFactory)
         {
             _assets = assets;
             _staticData = staticData;
@@ -31,8 +32,11 @@ namespace CodeBase.Infrastructure.Factories
 
         public async void CreateSpawnersRoot()
         {
-            GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
-            _spawnersRoot = prefab.transform;
+            GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.SpawnersRoot);
+            GameObject gameObject = Object.Instantiate(prefab);
+            _spawnersRoot = gameObject.transform;
+            // GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
+            // _spawnersRoot = prefab.transform;
         }
 
         public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
@@ -49,9 +53,8 @@ namespace CodeBase.Infrastructure.Factories
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
-
-            GameObject enemy = await _registratorService.InstantiateRegisteredAsync(typeId.ToString(), parent);
-            _registratorService.RegisterProgressWatchers(enemy);
+            GameObject prefab = await _assets.Load<GameObject>(enemyData.PrefabReference);
+            GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
@@ -75,14 +78,18 @@ namespace CodeBase.Infrastructure.Factories
             switch (typeId)
             {
                 case EnemyTypeId.WithBat:
-                    (attack as WithBatAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown,
-                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance, damage: enemyData.Damage);
+                    (attack as WithBatAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown,
+                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance,
+                        damage: enemyData.Damage);
                     break;
                 case EnemyTypeId.WithPistol:
-                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown);
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
                     break;
                 case EnemyTypeId.WithShotgun:
-                    (attack as WithShotgunAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform, attackCooldown: enemyData.AttackCooldown);
+                    (attack as WithShotgunAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
                     break;
             }
         }

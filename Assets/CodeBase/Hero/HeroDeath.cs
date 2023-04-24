@@ -1,6 +1,8 @@
-﻿using CodeBase.Logic;
+﻿using System;
+using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -10,12 +12,19 @@ namespace CodeBase.Hero
         private IWindowService _windowService;
         private IHealth _health;
 
+        public event Action Died;
+
         private void Awake()
         {
             _windowService = AllServices.Container.Single<IWindowService>();
             _health = GetComponent<IHealth>();
-            _health.HealthChanged += HealthChanged;
         }
+
+        private void OnEnable() =>
+            _health.HealthChanged += HealthChanged;
+
+        private void OnDisable() =>
+            _health.HealthChanged -= HealthChanged;
 
         private void HealthChanged()
         {
@@ -23,7 +32,10 @@ namespace CodeBase.Hero
                 Die();
         }
 
-        public void Die() =>
-            _windowService.Open(WindowId.Death);
+        public void Die()
+        {
+            Died?.Invoke();
+            _windowService.Open<DeathWindow>(WindowId.Death);
+        }
     }
 }

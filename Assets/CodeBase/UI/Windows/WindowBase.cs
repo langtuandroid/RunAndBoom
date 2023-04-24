@@ -35,7 +35,6 @@ namespace CodeBase.UI.Windows
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.Confined;
         }
-
         // [SerializeField] private Button _closeButton;
         //
         // protected IPlayerProgressService ProgressService;

@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: Grenade launcher
   m_EditorClassIdentifier: 
   WeaponTypeId: 0
-  ProjectileTraceTypeId: 0
-  MovementLifeTime: 3
-  Damage: 1
+  ProjectileTypeId: 0
+  TrailTypeId: 0
+  ShotVfxTypeId: 0
   RotationSpeed: 6
-  Cooldown: 2
+  Cooldown: 1
   AimRange: 6
-  BlastRange: 1
-  ProjectileSpeed: 15
-  MuzzleVfxLifeTime: 1
-  MuzzleVfx: {fileID: 1509306094841910, guid: 009f9e61721d7e649ab0936e1987d943, type: 3}
-  blastVfxPrefab: {fileID: 180702, guid: f21797a0db2754848a9bbc535e1a8666, type: 3}
+  ShotVfxLifeTime: 1

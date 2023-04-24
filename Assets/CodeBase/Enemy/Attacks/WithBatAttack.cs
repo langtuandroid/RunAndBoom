@@ -19,7 +19,8 @@ namespace CodeBase.Enemy.Attacks
         private void Awake() =>
             _layerMask = 1 << LayerMask.NameToLayer(Constants.HeroTag);
 
-        public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance, int damage)
+        public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance,
+            int damage)
         {
             base.Construct(heroTransform, attackCooldown);
             _cleavage = cleavage;

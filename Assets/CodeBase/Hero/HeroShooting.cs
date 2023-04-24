@@ -20,6 +20,7 @@ namespace CodeBase.Hero
         private bool _canShoot = true;
         private bool _startReloaded;
 
+        public event Action Shot;
         public Action<float> OnStartReloading;
         public Action OnStopReloading;
 
@@ -53,43 +54,11 @@ namespace CodeBase.Hero
                     TryShoot();
         }
 
-        private bool InitialCooldownUp() =>
-            _initialCooldown <= 0f;
-
-        private void UpdateInitialCooldown()
-        {
-            if (InitialCooldownUp() && !_startReloaded)
-            {
-                OnStopReloading?.Invoke();
-                _startReloaded = true;
-            }
-
-            _initialCooldown -= Time.deltaTime;
-        }
-
-        private void UpdateCooldown()
-        {
-            if (!CooldownUp())
-            {
-                OnStartReloading?.Invoke(_currentAttackCooldown / _weaponCooldown);
-                _currentAttackCooldown -= Time.deltaTime;
-
-                if (CooldownUp())
-                    OnStopReloading?.Invoke();
-            }
-        }
-
         private void TryShoot()
         {
-            if (CooldownUp() && IsAvailableAmmo())
+            if (_enemySpotted && _canShoot && IsAvailableAmmo())
                 Shoot();
         }
-
-        private void ResetCooldown() =>
-            _currentAttackCooldown = 0;
-
-        private bool CooldownUp() =>
-            _currentAttackCooldown <= 0;
 
         private bool IsAvailableAmmo() =>
             _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
@@ -97,8 +66,8 @@ namespace CodeBase.Hero
         private void Shoot()
         {
             _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
-            _currentAttackCooldown = _weaponCooldown;
             _heroWeaponAppearance.ShootTo();
+            Shot?.Invoke();
         }
     }
 }

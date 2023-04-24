@@ -16,22 +16,26 @@ namespace CodeBase.UI.Services.Windows
             _windows = new Dictionary<WindowId, GameObject>(DataExtensions.GetValues<WindowId>().Count());
         }
 
-        public void Open(WindowId windowId)
+        public WindowBase? Open<TWindowBase>(WindowId windowId)
         {
+            WindowBase? window = null;
+
             switch (windowId)
             {
                 case WindowId.Unknown:
                     break;
                 case WindowId.Settings:
-                    ShowWindow<SettingsWindow>(WindowId.Settings);
+                    window = ShowWindow<SettingsWindow>(WindowId.Settings);
                     break;
                 case WindowId.Shop:
-                    ShowWindow<ShopWindow>(WindowId.Shop);
+                    window = ShowWindow<ShopWindow>(WindowId.Shop);
                     break;
                 case WindowId.Death:
-                    ShowWindow<DeathWindow>(WindowId.Death);
+                    window = ShowWindow<DeathWindow>(WindowId.Death);
                     break;
             }
+
+            return window;
         }
 
         public void AddWindow(WindowId windowId, GameObject window)
@@ -40,11 +44,12 @@ namespace CodeBase.UI.Services.Windows
                 _windows.Add(windowId, window);
         }
 
-        private void ShowWindow<T>(WindowId windowId) where T : WindowBase
+        private T ShowWindow<T>(WindowId windowId) where T : WindowBase
         {
             _windows.TryGetValue(windowId, out GameObject windowGameObject);
             T window = windowGameObject.GetComponent<T>();
             window?.Show();
+            return window;
         }
     }
 }

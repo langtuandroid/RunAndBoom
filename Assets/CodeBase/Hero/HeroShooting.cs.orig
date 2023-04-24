@@ -1,0 +1,93 @@
+using System;
+using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.StaticData.Projectiles;
+using CodeBase.StaticData.Weapons;
+using CodeBase.Weapons;
+using UnityEngine;
+
+namespace CodeBase.Hero
+{
+    public class HeroShooting : MonoBehaviour
+    {
+        [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
+
+        private IPlayerProgressService _progressService;
+        private HeroWeaponAppearance _heroWeaponAppearance;
+<<<<<<< HEAD
+        private float _currentAttackCooldown = 0f;
+        private float _initialCooldown = 2f;
+        private float _weaponCooldown = 0f;
+=======
+        private bool _enemySpotted = false;
+        private Vector3 _enemyPosition;
+>>>>>>> feature/shop_generator_items
+        private bool _canShoot = true;
+
+        public event Action Shot;
+
+        public void TurnOn() =>
+            _canShoot = true;
+
+        public void TurnOff() =>
+            _canShoot = false;
+
+        private void Awake()
+        {
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+
+            _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
+        }
+
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
+        {
+            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+<<<<<<< HEAD
+            _weaponCooldown = heroWeaponStaticData.Cooldown;
+            ResetCooldown();
+=======
+>>>>>>> feature/shop_generator_items
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButton(0))
+                TryShoot();
+        }
+
+        private void TryShoot()
+        {
+<<<<<<< HEAD
+            if (CooldownUp() && IsAvailableAmmo())
+                Shoot();
+        }
+
+        private void ResetCooldown() =>
+            _currentAttackCooldown = 0;
+
+        private bool CooldownUp() =>
+            _currentAttackCooldown <= 0;
+
+=======
+            if (_enemySpotted && _canShoot && IsAvailableAmmo())
+                Shoot();
+        }
+
+>>>>>>> feature/shop_generator_items
+        private bool IsAvailableAmmo() =>
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
+
+        private void Shoot()
+        {
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
+<<<<<<< HEAD
+            _currentAttackCooldown = _weaponCooldown;
+            _heroWeaponAppearance.ShootTo();
+=======
+            _heroWeaponAppearance.ShootTo(_enemyPosition);
+            Shot?.Invoke();
+>>>>>>> feature/shop_generator_items
+        }
+    }
+}

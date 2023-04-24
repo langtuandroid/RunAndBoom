@@ -42,7 +42,8 @@ namespace CodeBase.Projectiles.Hit
         }
 
         private int GetObjectsHits(RaycastHit[] hits, float sphereRadius) =>
-            Physics.SphereCastNonAlloc(transform.position, sphereRadius, transform.forward, hits, _sphereDistance, _objectLayerMask,
+            Physics.SphereCastNonAlloc(transform.position, sphereRadius, transform.forward, hits, _sphereDistance,
+                _objectLayerMask,
                 QueryTriggerInteraction.UseGlobal);
     }
 }

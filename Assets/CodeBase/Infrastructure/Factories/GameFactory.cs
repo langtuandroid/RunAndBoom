@@ -18,15 +18,17 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
         private GameObject _heroGameObject;
+        private IObjectsPoolService _objectsPoolService;
         private IPoolService _poolService;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
-        public GameFactory(IAssets assets, IPoolService poolService, IPlayerProgressService progressService, IStaticDataService staticData,
+        public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService,
+            IPlayerProgressService progressService, IStaticDataService staticData,
             IRegistratorService registratorService)
         {
-            _poolService = poolService;
+            _objectsPoolService = objectsPoolService;
             _assets = assets;
             _progressService = progressService;
             _staticData = staticData;
@@ -47,13 +49,14 @@ namespace CodeBase.Infrastructure.Factories
         public async Task WarmUp()
         {
             _assets.Initialize();
-            _poolService.GenerateObjects();
+            _objectsPoolService.GenerateObjects();
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             // if (_heroGameObject == null)
             _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+                await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             // else
             //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 

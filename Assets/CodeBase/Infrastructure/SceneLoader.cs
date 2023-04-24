@@ -22,7 +22,7 @@ namespace CodeBase.Infrastructure
         {
             // if (SceneManager.GetActiveScene().name == nextScene)
             // {
-            //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //     // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             //     onLoaded?.Invoke(nextScene);
             //     yield break;
             // }

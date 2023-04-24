@@ -15,7 +15,8 @@ namespace CodeBase.Services.Input.Platforms
         public override event Action ChoseWeapon3;
         public override event Action ChoseWeapon4;
 
-        public EditorPlatformInputService(IPlatformInputService platformInputService1, IPlatformInputService platformInputService2)
+        public EditorPlatformInputService(IPlatformInputService platformInputService1,
+            IPlatformInputService platformInputService2)
         {
             _platformInputService1 = platformInputService1;
             _platformInputService2 = platformInputService2;
