@@ -16,13 +16,10 @@ namespace CodeBase.Hero
         private HeroWeaponAppearance _heroWeaponAppearance;
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
-        private float _weaponCooldown = 0f;
         private bool _canShoot = true;
         private bool _startReloaded;
 
         public event Action Shot;
-        public Action<float> OnStartReloading;
-        public Action OnStopReloading;
 
         public void TurnOn() =>
             _canShoot = true;
@@ -33,22 +30,17 @@ namespace CodeBase.Hero
         private void Awake()
         {
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
-
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
         }
 
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData trailStaticData)
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
-            _weaponCooldown = heroWeaponStaticData.Cooldown;
-            ResetCooldown();
         }
 
         private void Update()
         {
-            UpdateInitialCooldown();
-            UpdateCooldown();
-
             if (_canShoot)
                 if (Input.GetMouseButton(0))
                     TryShoot();
@@ -56,7 +48,7 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
-            if (_enemySpotted && _canShoot && IsAvailableAmmo())
+            if (_canShoot && IsAvailableAmmo())
                 Shoot();
         }
 

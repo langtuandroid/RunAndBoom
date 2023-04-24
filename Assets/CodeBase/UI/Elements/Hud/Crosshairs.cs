@@ -13,15 +13,15 @@ namespace CodeBase.UI.Elements.Hud
 
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
-        private HeroShooting _heroShooting;
+        private HeroReloading _heroReloading;
 
-        public void Construct(HeroShooting heroShooting, HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroReloading heroShooting, HeroWeaponSelection heroWeaponSelection)
         {
-            _heroShooting = heroShooting;
+            _heroReloading = heroShooting;
             _heroWeaponSelection = heroWeaponSelection;
 
-            _heroShooting.OnStartReloading += Hide;
-            _heroShooting.OnStopReloading += Show;
+            _heroReloading.OnStartReloading += Hide;
+            _heroReloading.OnStopReloading += Show;
             _heroWeaponSelection.WeaponSelected += ChangeCrosshair;
         }
 

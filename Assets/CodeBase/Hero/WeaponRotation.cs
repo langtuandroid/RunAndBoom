@@ -24,7 +24,8 @@ namespace CodeBase.Hero
         private void Awake() =>
             _weaponSelection.WeaponSelected += WeaponChosen;
 
-        private void WeaponChosen(GameObject selectedWeapon, HeroWeaponStaticData weaponStaticData, TrailStaticData arg3) =>
+        private void WeaponChosen(GameObject selectedWeapon, HeroWeaponStaticData weaponStaticData,
+            TrailStaticData arg3) =>
             _currentWeapon = selectedWeapon;
 
         private void FixedUpdate()

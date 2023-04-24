@@ -2,6 +2,7 @@ using System;
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.UI.Elements.ShopPanel;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace CodeBase.Level
                 // Time.timeScale = 0;
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
-                _windowService.Open(WindowId.Shop);
+                _windowService.Open<ShopWindow>(WindowId.Shop);
                 _isPassed = true;
             }
         }

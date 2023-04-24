@@ -19,7 +19,6 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IRegistratorService _registratorService;
         private GameObject _heroGameObject;
         private IObjectsPoolService _objectsPoolService;
-        private IPoolService _poolService;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
@@ -55,8 +54,9 @@ namespace CodeBase.Infrastructure.Factories
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             // if (_heroGameObject == null)
-            _heroGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+            _heroGameObject =
                 await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
             // else
             //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 

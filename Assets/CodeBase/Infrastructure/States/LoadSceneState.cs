@@ -148,7 +148,7 @@ namespace CodeBase.Infrastructure.States
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
             hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
-            hud.GetComponentInChildren<Crosshairs>().Construct(heroShooting, heroWeaponSelection);
+            hud.GetComponentInChildren<Crosshairs>().Construct(heroReloading, heroWeaponSelection);
         }
 
         private async Task InitWindows(GameObject hero)
