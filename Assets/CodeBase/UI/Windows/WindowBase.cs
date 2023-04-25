@@ -19,6 +19,7 @@ namespace CodeBase.UI.Windows
             _hero.GetComponent<HeroShooting>().TurnOn();
             _hero.GetComponent<HeroMovement>().TurnOn();
             _hero.GetComponent<HeroRotating>().TurnOn();
+            _hero.GetComponent<HeroReloading>().TurnOn();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
@@ -28,8 +29,8 @@ namespace CodeBase.UI.Windows
         {
             gameObject.SetActive(true);
             _hero.GetComponent<HeroShooting>().TurnOff();
+            _hero.GetComponent<HeroReloading>().TurnOff();
             _hero.GetComponent<HeroMovement>().TurnOff();
-            _hero.GetComponent<HeroRotating>().TurnOff();
             _hero.GetComponent<HeroRotating>().TurnOff();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;

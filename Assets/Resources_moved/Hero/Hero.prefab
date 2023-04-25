@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroWeaponSelection: {fileID: 2265719662692678730}
+  _heroReloading: {fileID: 4231181311596665289}
 --- !u!114 &4231181311596665289
 MonoBehaviour:
   m_ObjectHideFlags: 0

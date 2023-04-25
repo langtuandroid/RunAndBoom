@@ -30,6 +30,7 @@ namespace CodeBase.Weapons
         [SerializeField] private List<GameObject> _projectiles;
         private ProjectileTypeId? _projectileTypeId;
         private bool _filled;
+        private GameObject _firstProjectile;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
 
@@ -73,24 +74,34 @@ namespace CodeBase.Weapons
             projectile.transform.SetParent(null);
 
             ShowTrail(projectile);
+        }
 
-            _projectiles.Remove(projectile);
-            Debug.Log($"Launch count {_projectiles.Count}");
+        protected void Launch(Vector3 targetPosition)
+        {
+            GameObject projectile = GetFirstProjectile();
+            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
+            (projectileMovement as BombMovement)?.SetTargetPosition(targetPosition);
+            projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
+            projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
+            projectileMovement.Launch();
+            projectile.transform.SetParent(null);
+
+            ShowTrail(projectile);
         }
 
         private GameObject GetFirstProjectile()
         {
+            _firstProjectile = _projectiles.First();
             Debug.Log($"GetFirstProjectile projectiles count: {_projectiles.Count}");
-            GameObject firstProjectile = _projectiles.First();
-            Debug.Log($"GetFirstProjectile not null {firstProjectile != null}");
-            return firstProjectile;
+            Debug.Log($"GetFirstProjectile not null {_firstProjectile != null}");
+            return _firstProjectile;
         }
 
         protected ProjectileMovement GetMovement()
         {
             Debug.Log($"GetMovement projectiles count: {_projectiles.Count}");
-            GameObject first = _projectiles.First();
-            return first.GetComponent<ProjectileMovement>();
+            _firstProjectile = _projectiles.First();
+            return _firstProjectile.GetComponent<ProjectileMovement>();
         }
 
         private void ShowTrail(GameObject projectile)
@@ -109,8 +120,13 @@ namespace CodeBase.Weapons
             return projectile;
         }
 
-        protected void Released() =>
+        protected void Release()
+        {
+            _projectiles.Remove(_firstProjectile);
+            Debug.Log($"Release count {_projectiles.Count}");
+            _firstProjectile = null;
             _filled = false;
+        }
 
         protected abstract GameObject GetProjectile();
     }

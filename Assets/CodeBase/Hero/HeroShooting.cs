@@ -11,6 +11,7 @@ namespace CodeBase.Hero
     public class HeroShooting : MonoBehaviour
     {
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
+        [SerializeField] private HeroReloading _heroReloading;
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
@@ -31,6 +32,7 @@ namespace CodeBase.Hero
         {
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
+            _heroReloading.OnStopReloading += TurnOn;
         }
 
         private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
@@ -49,6 +51,7 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
+            Debug.Log("TryShoot");
             if (_canShoot && IsAvailableAmmo())
                 Shoot();
         }
@@ -58,9 +61,10 @@ namespace CodeBase.Hero
 
         private void Shoot()
         {
+            Shot?.Invoke();
+            TurnOff();
             _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
             _heroWeaponAppearance.ShootTo();
-            Shot?.Invoke();
         }
     }
 }

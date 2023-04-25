@@ -32,6 +32,7 @@ namespace CodeBase.Hero
         public Action<float> OnStartReloading;
         public Action OnStopReloading;
         private PlayerProgress _progress;
+        private bool _canReload;
 
         private void Awake()
         {
@@ -50,6 +51,21 @@ namespace CodeBase.Hero
             if (_reloadingItemData != null)
                 _reloadingItemData.LevelChanged -= ChangeCooldown;
         }
+
+        private void Update()
+        {
+            if (_canReload)
+            {
+                UpdateInitialCooldown();
+                UpdateCooldown();
+            }
+        }
+
+        public void TurnOn() =>
+            _canReload = true;
+
+        public void TurnOff() =>
+            _canReload = false;
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
         {
@@ -82,12 +98,6 @@ namespace CodeBase.Hero
 
         private void StartCooldown() =>
             _currentAttackCooldown = _baseCooldown;
-
-        private void Update()
-        {
-            UpdateInitialCooldown();
-            UpdateCooldown();
-        }
 
         private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
             TrailStaticData trailStaticData)

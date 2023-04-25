@@ -21,11 +21,9 @@ namespace CodeBase.Weapons
         public void Shoot(Vector3? targetPosition)
         {
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
-            {
                 StartCoroutine(CoroutineShootTo(targetPosition));
-            }
 
-            Released();
+            Release();
         }
 
         private IEnumerator CoroutineShootTo(Vector3? targetPosition)

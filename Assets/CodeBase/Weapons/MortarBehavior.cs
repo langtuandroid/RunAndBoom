@@ -1,7 +1,6 @@
-﻿using CodeBase.Hero;
-using CodeBase.Projectiles.Movement;
+﻿using System.Collections;
+using CodeBase.Hero;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Weapons
 {
@@ -17,6 +16,13 @@ namespace CodeBase.Weapons
         {
             TargetPosition = targetPosition;
             _drawTarget.Draw(targetPosition);
+        }
+
+        protected override IEnumerator CoroutineShootTo()
+        {
+            Debug.Log("MortarBehavior CoroutineShootTo");
+            Launch(TargetPosition);
+            yield return LaunchProjectileCooldown;
         }
     }
 }

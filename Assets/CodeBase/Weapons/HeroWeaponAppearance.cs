@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using CodeBase.Hero;
-using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
@@ -39,19 +38,20 @@ namespace CodeBase.Weapons
 
         public void ShootTo()
         {
+            Debug.Log("ShootTo");
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
                 StartCoroutine(CoroutineShootTo());
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
             }
 
-            Released();
+            Release();
         }
 
-        private IEnumerator CoroutineShootTo()
+        protected virtual IEnumerator CoroutineShootTo()
         {
-            if (_heroWeaponTypeId == HeroWeaponTypeId.Mortar)
-                (GetMovement() as BombMovement)?.SetTargetPosition(TargetPosition);
+            Debug.Log("CoroutineShootTo");
+            Debug.Log($"Launch {_heroWeaponTypeId}");
 
             Launch();
             yield return LaunchProjectileCooldown;
