@@ -7,7 +7,7 @@ namespace CodeBase.Weapons
     public class MortarBehavior : HeroWeaponAppearance
     {
         [SerializeField] private WeaponRotation _weaponRotation;
-        [SerializeField] private DrawTarget _drawTarget;
+        // [SerializeField] private DrawTarget _drawTarget;
 
         private void Awake() =>
             _weaponRotation.GotTarget += SetTarget;
@@ -15,7 +15,7 @@ namespace CodeBase.Weapons
         private void SetTarget(Vector3 targetPosition)
         {
             TargetPosition = targetPosition;
-            _drawTarget.Draw(targetPosition);
+            // _drawTarget.Draw(targetPosition);
         }
 
         protected override IEnumerator CoroutineShootTo()

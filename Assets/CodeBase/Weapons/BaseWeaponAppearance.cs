@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Logic;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
@@ -31,26 +32,55 @@ namespace CodeBase.Weapons
         private ProjectileTypeId? _projectileTypeId;
         private bool _filled;
         private GameObject _firstProjectile;
+        private IDeath _death;
+        private bool _enabled = true;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
 
-        protected void Construct(float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
+        private void OnEnable() =>
+            Enable();
+
+        private void OnDisable() =>
+            Disable();
+
+        protected void Construct(IDeath death, float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
             ShotVfxTypeId shotVfxTypeId)
         {
+            _death = death;
             PoolService = AllServices.Container.Single<IObjectsPoolService>();
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
             _projectileTypeId = projectileTypeId;
+            Enable();
+
+            _death.Died += Disable;
+        }
+
+        private void Disable()
+        {
+            _enabled = false;
+
+            if (_death != null)
+                _death.Died -= Disable;
+        }
+
+        private void Enable()
+        {
+            _enabled = true;
+
+            if (_death != null)
+                _death.Died += Disable;
         }
 
         protected void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0))
+            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && _enabled)
             {
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
                     var projectile = SetNewProjectile(respawn);
+                    projectile.SetActive(true);
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
                     _projectiles.Add(projectile);

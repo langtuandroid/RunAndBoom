@@ -12,6 +12,7 @@ namespace CodeBase.Hero
     public class HeroHealth : MonoBehaviour, IHealth, IHeal, IProgressSaver
     {
         private const float BaseRatio = 1f;
+        private const float BaseArmorRatio = 0f;
         private const float ZeroValue = 0f;
 
         private IStaticDataService _staticDataService;
@@ -112,6 +113,7 @@ namespace CodeBase.Hero
         {
             float result = (BaseRatio - _armorRatio) * damage;
             Current -= result;
+            _progress.HealthState.ChangeCurrentHP(Current);
             HealthChanged?.Invoke();
         }
 
@@ -194,7 +196,7 @@ namespace CodeBase.Hero
             _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
 
             if (_armorItemData.LevelTypeId == LevelTypeId.None)
-                _armorRatio = BaseRatio;
+                _armorRatio = BaseArmorRatio;
             else
                 _armorRatio = _staticDataService.ForPerk(PerkTypeId.Armor, _armorItemData.LevelTypeId).Value;
         }
@@ -213,6 +215,7 @@ namespace CodeBase.Hero
         {
             float next = Current + value;
             Current = next > Max ? Max : next;
+            _progress.HealthState.ChangeCurrentHP(Current);
             HealthChanged?.Invoke();
         }
     }

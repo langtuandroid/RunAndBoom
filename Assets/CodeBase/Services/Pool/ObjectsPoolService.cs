@@ -262,12 +262,7 @@ namespace CodeBase.Services.Pool
 
             if (list != null)
             {
-                Debug.Log("GetGameObject");
-                Debug.Log($"list count: {list.Count}");
-                Debug.Log($"list active true: {list.All(x => x.activeInHierarchy)}");
-                Debug.Log($"list active false: {list.All(x => x.activeInHierarchy == false)}");
                 gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
-                Debug.Log($"gameObject: {gameObject}");
 
                 if (gameObject != null)
                 {

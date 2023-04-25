@@ -55,7 +55,8 @@ namespace CodeBase.Infrastructure.Factories
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
             GameObject prefab = await _assets.Load<GameObject>(enemyData.PrefabReference);
             GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
-            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(enemyWeaponStaticData);
+            EnemyDeath death = enemy.GetComponent<EnemyDeath>();
+            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform);

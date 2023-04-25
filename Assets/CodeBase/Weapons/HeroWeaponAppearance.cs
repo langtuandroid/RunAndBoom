@@ -13,9 +13,11 @@ namespace CodeBase.Weapons
         private HeroReloading _heroReloading;
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
+        private HeroDeath _death;
 
-        public void Construct(HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
+        public void Construct(HeroDeath death, HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
+            _death = death;
             _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
 
@@ -25,7 +27,7 @@ namespace CodeBase.Weapons
         private void InitializeSelectedWeapon(GameObject weaponPrefab, HeroWeaponStaticData weaponStaticData,
             TrailStaticData trailStaticData)
         {
-            base.Construct(weaponStaticData.ShotVfxLifeTime, weaponStaticData.Cooldown,
+            base.Construct(_death, weaponStaticData.ShotVfxLifeTime, weaponStaticData.Cooldown,
                 weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
             _heroWeaponTypeId = weaponStaticData.WeaponTypeId;
 

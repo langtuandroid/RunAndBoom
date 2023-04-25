@@ -23,6 +23,7 @@ namespace CodeBase.Hero
         private int _currentWeapon;
         private List<HeroWeaponTypeId> _heroWeaponTypeIds;
         private HeroReloading _heroReloading;
+        private HeroDeath _death;
 
         public event Action<GameObject, HeroWeaponStaticData, TrailStaticData> WeaponSelected;
 
@@ -50,13 +51,11 @@ namespace CodeBase.Hero
             }
         }
 
-        public void Construct(IPlayerProgressService progressService, HeroReloading heroReloading)
+        public void Construct(HeroDeath death, HeroReloading heroReloading)
         {
+            _death = death;
             _heroReloading = heroReloading;
             InitializeWeaponsDictionary();
-            // _progress = progressService.Progress;
-            // FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
-            // _canSelect = true;
         }
 
         private void InitializeWeaponsDictionary()
@@ -68,7 +67,7 @@ namespace CodeBase.Hero
             _weaponsDictionary.Add(HeroWeaponTypeId.Mortar, _weapons[3]);
 
             foreach (var keyValue in _weaponsDictionary)
-                keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(_heroReloading, this);
+                keyValue.Value.GetComponent<HeroWeaponAppearance>().Construct(_death, _heroReloading, this);
         }
 
         public void TurnOn() =>

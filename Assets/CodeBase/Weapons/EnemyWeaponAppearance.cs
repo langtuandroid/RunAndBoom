@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using CodeBase.Enemy;
 using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
@@ -9,19 +10,21 @@ namespace CodeBase.Weapons
     {
         private EnemyWeaponTypeId _enemyWeaponTypeId;
 
-        public void Construct(EnemyWeaponStaticData weaponStaticData)
+        public void Construct(EnemyDeath death, EnemyWeaponStaticData weaponStaticData)
         {
-            base.Construct(weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown,
+            base.Construct(death, weaponStaticData.MuzzleVfxLifeTime, weaponStaticData.Cooldown,
                 weaponStaticData.ProjectileTypeId, weaponStaticData.ShotVfxTypeId);
 
             _enemyWeaponTypeId = weaponStaticData.WeaponTypeId;
-            ReadyToShoot();
         }
 
         public void Shoot(Vector3? targetPosition)
         {
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
+            {
+                ReadyToShoot();
                 StartCoroutine(CoroutineShootTo(targetPosition));
+            }
 
             ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
             Release();
@@ -38,7 +41,7 @@ namespace CodeBase.Weapons
             ReadyToShoot();
         }
 
-        protected override GameObject GetProjectile() => 
+        protected override GameObject GetProjectile() =>
             PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
     }
 }

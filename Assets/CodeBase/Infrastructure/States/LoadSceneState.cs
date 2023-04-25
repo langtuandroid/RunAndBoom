@@ -142,8 +142,9 @@ namespace CodeBase.Infrastructure.States
             hero.GetComponent<HeroMovement>().Construct(_progressService, _staticDataService);
             hero.GetComponent<HeroReloading>().Construct(_progressService, _staticDataService);
             HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
+            HeroDeath heroDeath = hero.GetComponent<HeroDeath>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
-            heroWeaponSelection.Construct(_progressService, heroReloading);
+            heroWeaponSelection.Construct(heroDeath, heroReloading);
             hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
             hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
             hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);

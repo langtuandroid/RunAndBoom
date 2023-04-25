@@ -18,14 +18,13 @@ namespace CodeBase.Enemy
         [SerializeField] private GameObject _diedBox;
 
         private const float UpForce = 100f;
+        private const float DestroyDelay = 30f;
 
         private IPlayerProgressService _progressService;
         private IHealth _health;
-
         private AgentMoveToHero _agentMoveToHero;
 
         // private TargetMovement _targetMovement;
-        private float _deathDelay = 30f;
         private int _reward;
         private bool _isDead;
         private EnemyAnimator _enemyAnimator;
@@ -65,31 +64,31 @@ namespace CodeBase.Enemy
 
         public void Die()
         {
-            _isDead = true;
             Died?.Invoke();
+            _isDead = true;
 
             _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
+            _enemyAnimator.PlayDeath();
+            _agentMoveToHero.Stop();
+            GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
+            StartCoroutine(CoroutineDestroyTimer());
+            Destroy(GetComponent<RotateToHero>());
             Destroy(GetComponent<Aggro>());
             Destroy(GetComponent<AnimateAlongAgent>());
             Destroy(GetComponent<CheckAttackRange>());
             Destroy(GetComponent<StopMovingOnAttack>());
-            Destroy(GetComponent<AgentMoveToHero>());
             Destroy(GetComponent<NavMeshAgent>(), 1);
-            // _agentMoveToHero.Stop();
+            Destroy(GetComponent<AgentMoveToHero>());
             // _targetMovement.Hide();
-            _enemyAnimator.PlayDeath();
-
             // _hitBox.SetActive(false);
             // _diedBox.SetActive(true);
-            GetComponent<Rigidbody>().AddForce(Vector3.up * UpForce, ForceMode.Force);
-            StartCoroutine(CoroutineDestroyTimer());
             // _diedBox.enabled = true;
             // _hitBox.enabled = false;
         }
 
         private IEnumerator CoroutineDestroyTimer()
         {
-            yield return new WaitForSeconds(_deathDelay);
+            yield return new WaitForSeconds(DestroyDelay);
             Destroy(gameObject);
         }
     }

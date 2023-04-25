@@ -10,6 +10,7 @@ namespace CodeBase.UI.Elements.Hud
         [SerializeField] private GameObject _grenadeLauncher;
         [SerializeField] private GameObject _rpg;
         [SerializeField] private GameObject _rocketLauncher;
+        [SerializeField] private GameObject _mortar;
 
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
@@ -36,6 +37,7 @@ namespace CodeBase.UI.Elements.Hud
             _grenadeLauncher.SetActive(false);
             _rpg.SetActive(false);
             _rocketLauncher.SetActive(false);
+            _mortar.SetActive(false);
         }
 
         private void Show()
@@ -46,21 +48,25 @@ namespace CodeBase.UI.Elements.Hud
                     _grenadeLauncher.SetActive(true);
                     _rpg.SetActive(false);
                     _rocketLauncher.SetActive(false);
+                    _mortar.SetActive(false);
                     break;
 
                 case HeroWeaponTypeId.RPG:
                     _rpg.SetActive(true);
                     _grenadeLauncher.SetActive(false);
                     _rocketLauncher.SetActive(false);
+                    _mortar.SetActive(false);
                     break;
 
                 case HeroWeaponTypeId.RocketLauncher:
                     _rocketLauncher.SetActive(true);
                     _grenadeLauncher.SetActive(false);
                     _rpg.SetActive(false);
+                    _mortar.SetActive(false);
                     break;
 
                 case HeroWeaponTypeId.Mortar:
+                    _mortar.SetActive(true);
                     _rocketLauncher.SetActive(false);
                     _grenadeLauncher.SetActive(false);
                     _rpg.SetActive(false);
