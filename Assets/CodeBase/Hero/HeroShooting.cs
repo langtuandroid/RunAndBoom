@@ -51,7 +51,6 @@ namespace CodeBase.Hero
 
         private void TryShoot()
         {
-            Debug.Log("TryShoot");
             if (_canShoot && IsAvailableAmmo())
                 Shoot();
         }

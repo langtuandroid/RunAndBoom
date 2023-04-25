@@ -20,7 +20,6 @@ namespace CodeBase.Weapons
 
         protected override IEnumerator CoroutineShootTo()
         {
-            Debug.Log("MortarBehavior CoroutineShootTo");
             Launch(TargetPosition);
             yield return LaunchProjectileCooldown;
         }

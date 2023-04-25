@@ -38,21 +38,16 @@ namespace CodeBase.Weapons
 
         public void ShootTo()
         {
-            Debug.Log("ShootTo");
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
                 StartCoroutine(CoroutineShootTo());
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
+                Release();
             }
-
-            Release();
         }
 
         protected virtual IEnumerator CoroutineShootTo()
         {
-            Debug.Log("CoroutineShootTo");
-            Debug.Log($"Launch {_heroWeaponTypeId}");
-
             Launch();
             yield return LaunchProjectileCooldown;
         }

@@ -48,7 +48,6 @@ namespace CodeBase.Weapons
         {
             if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0))
             {
-                Debug.Log("ReadyToShoot");
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
                     var projectile = SetNewProjectile(respawn);
@@ -56,11 +55,9 @@ namespace CodeBase.Weapons
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
                     _projectiles.Add(projectile);
-                    Debug.Log("ReadyToShoot added");
                 }
 
                 _filled = true;
-                Debug.Log($"ReadyToShoot projectiles count {_projectiles.Count}");
             }
         }
 
@@ -92,14 +89,11 @@ namespace CodeBase.Weapons
         private GameObject GetFirstProjectile()
         {
             _firstProjectile = _projectiles.First();
-            Debug.Log($"GetFirstProjectile projectiles count: {_projectiles.Count}");
-            Debug.Log($"GetFirstProjectile not null {_firstProjectile != null}");
             return _firstProjectile;
         }
 
         protected ProjectileMovement GetMovement()
         {
-            Debug.Log($"GetMovement projectiles count: {_projectiles.Count}");
             _firstProjectile = _projectiles.First();
             return _firstProjectile.GetComponent<ProjectileMovement>();
         }
@@ -123,9 +117,10 @@ namespace CodeBase.Weapons
         protected void Release()
         {
             _projectiles.Remove(_firstProjectile);
-            Debug.Log($"Release count {_projectiles.Count}");
             _firstProjectile = null;
-            _filled = false;
+
+            if (_projectiles.Count == 0)
+                _filled = false;
         }
 
         protected abstract GameObject GetProjectile();
