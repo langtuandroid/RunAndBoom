@@ -86,7 +86,7 @@ namespace CodeBase.Projectiles.Movement
         public abstract void Launch();
         public abstract void Stop();
 
-        protected void OffMove() =>
+        protected void OffMove() => 
             IsMove = false;
 
         protected IEnumerator LaunchTime()

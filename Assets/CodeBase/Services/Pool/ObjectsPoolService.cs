@@ -20,7 +20,6 @@ namespace CodeBase.Services.Pool
         private Dictionary<string, List<GameObject>> _heroProjectiles;
         private Dictionary<string, List<GameObject>> _enemyProjectiles;
         private Dictionary<string, List<GameObject>> _shotVfxs;
-        private Dictionary<string, List<GameObject>> _shopItems;
         private Transform _enemyProjectilesRoot;
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
@@ -202,10 +201,10 @@ namespace CodeBase.Services.Pool
         }
 
         public GameObject GetEnemyProjectile(string name) =>
-            GetGameObject(name, _enemyProjectiles, _enemyProjectilesRoot);
+            GetGameObject(Pools.EnemyProjectiles, name, _enemyProjectiles, _enemyProjectilesRoot);
 
         public GameObject GetHeroProjectile(string name) =>
-            GetGameObject(name, _heroProjectiles, _heroProjectilesRoot);
+            GetGameObject(Pools.HeroProjectiles, name, _heroProjectiles, _heroProjectilesRoot);
 
         public GameObject GetShotVfx(ShotVfxTypeId typeId)
         {
@@ -214,22 +213,26 @@ namespace CodeBase.Services.Pool
             switch (typeId)
             {
                 case ShotVfxTypeId.Grenade:
-                    gameObject = GetGameObject(ShotVfxTypeId.Grenade.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Grenade.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.RocketLauncherRocket:
-                    gameObject = GetGameObject(ShotVfxTypeId.RocketLauncherRocket.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RocketLauncherRocket.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.RpgRocket:
-                    gameObject = GetGameObject(ShotVfxTypeId.RpgRocket.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RpgRocket.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Bomb:
-                    gameObject = GetGameObject(ShotVfxTypeId.Bomb.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bomb.ToString(), _shotVfxs, _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Bullet:
-                    gameObject = GetGameObject(ShotVfxTypeId.Bullet.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bullet.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Shot:
-                    gameObject = GetGameObject(ShotVfxTypeId.Shot.ToString(), _shotVfxs, _shotVfxsRoot);
+                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Shot.ToString(), _shotVfxs, _shotVfxsRoot);
                     break;
             }
 
@@ -251,14 +254,20 @@ namespace CodeBase.Services.Pool
             gameObject.transform.SetParent(parent);
         }
 
-        private GameObject GetGameObject(string name, Dictionary<string, List<GameObject>> dictionary, Transform parent)
+        private GameObject GetGameObject(Pools pool, string name, Dictionary<string, List<GameObject>> dictionary,
+            Transform parent)
         {
             dictionary.TryGetValue(name, out List<GameObject> list);
             GameObject gameObject = null;
 
             if (list != null)
             {
+                Debug.Log("GetGameObject");
+                Debug.Log($"list count: {list.Count}");
+                Debug.Log($"list active true: {list.All(x => x.activeInHierarchy)}");
+                Debug.Log($"list active false: {list.All(x => x.activeInHierarchy == false)}");
                 gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
+                Debug.Log($"gameObject: {gameObject}");
 
                 if (gameObject != null)
                 {
@@ -266,7 +275,7 @@ namespace CodeBase.Services.Pool
                 }
                 else
                 {
-                    gameObject = ExtendList(name, list, dictionary, parent);
+                    gameObject = ExtendList(pool, name, list, dictionary, parent);
                     return gameObject;
                 }
             }
@@ -274,7 +283,7 @@ namespace CodeBase.Services.Pool
             return gameObject;
         }
 
-        private GameObject ExtendList(string name, List<GameObject> list,
+        private GameObject ExtendList(Pools pool, string name, List<GameObject> list,
             Dictionary<string, List<GameObject>> dictionary, Transform parent)
         {
             List<GameObject> newList = new List<GameObject>(list.Count + AdditionalCount);
@@ -284,7 +293,10 @@ namespace CodeBase.Services.Pool
             {
                 GameObject original = newList[0];
                 GameObject newGameObject = Object.Instantiate(original, parent);
-                _constructorService.ConstructProjectileLike(original, newGameObject);
+
+                if (pool != Pools.ShotVfxs)
+                    _constructorService.ConstructProjectileLike(original, newGameObject);
+
                 newGameObject.SetActive(false);
                 newList.Add(newGameObject);
             }
@@ -296,7 +308,14 @@ namespace CodeBase.Services.Pool
             if (gameObject != null)
                 return gameObject;
             else
-                return ExtendList(name, list1, dictionary, parent);
+                return ExtendList(pool, name, list1, dictionary, parent);
         }
+    }
+
+    enum Pools
+    {
+        EnemyProjectiles,
+        HeroProjectiles,
+        ShotVfxs,
     }
 }

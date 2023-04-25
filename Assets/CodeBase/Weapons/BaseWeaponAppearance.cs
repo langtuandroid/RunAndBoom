@@ -51,7 +51,6 @@ namespace CodeBase.Weapons
                 foreach (Transform respawn in ProjectilesRespawns)
                 {
                     var projectile = SetNewProjectile(respawn);
-                    projectile.SetActive(true);
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
                     _projectiles.Add(projectile);
@@ -65,12 +64,7 @@ namespace CodeBase.Weapons
         {
             GameObject projectile = GetFirstProjectile();
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
-            projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
-            projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
-            projectileMovement.Launch();
-            projectile.transform.SetParent(null);
-
-            ShowTrail(projectile);
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
         }
 
         protected void Launch(Vector3 targetPosition)
@@ -78,11 +72,16 @@ namespace CodeBase.Weapons
             GameObject projectile = GetFirstProjectile();
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
             (projectileMovement as BombMovement)?.SetTargetPosition(targetPosition);
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
+        }
+
+        private void TuneProjectileBeforeLaunch(GameObject projectile, ProjectileMovement projectileMovement)
+        {
             projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
             projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
+            projectile.SetActive(true);
             projectileMovement.Launch();
             projectile.transform.SetParent(null);
-
             ShowTrail(projectile);
         }
 

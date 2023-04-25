@@ -23,6 +23,7 @@ namespace CodeBase.Weapons
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
                 StartCoroutine(CoroutineShootTo(targetPosition));
 
+            ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
             Release();
         }
 
@@ -32,13 +33,12 @@ namespace CodeBase.Weapons
                 (GetMovement() as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
 
             Launch();
-            ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
             yield return LaunchProjectileCooldown;
 
             ReadyToShoot();
         }
 
-        protected override GameObject GetProjectile() =>
+        protected override GameObject GetProjectile() => 
             PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
     }
 }
