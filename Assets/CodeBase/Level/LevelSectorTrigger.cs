@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -16,8 +15,6 @@ namespace CodeBase.Level
         private IPlayerProgressService _progressService;
         private bool _isPassed = false;
 
-        public event Action Passed;
-
         private void Awake()
         {
             _windowService = AllServices.Container.Single<IWindowService>();
@@ -28,8 +25,7 @@ namespace CodeBase.Level
         {
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                // Time.timeScale = 0;
-                Passed?.Invoke();
+                Time.timeScale = 0;
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);
                 _windowService.Open<ShopWindow>(WindowId.Shop);
                 _isPassed = true;
