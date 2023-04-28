@@ -178,8 +178,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: b078ced2e1bbc4f48b5d6cce095777e5,
         type: 3}
+      propertyPath: m_Height
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514639, guid: b078ced2e1bbc4f48b5d6cce095777e5,
+        type: 3}
       propertyPath: m_Center.z
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514640, guid: b078ced2e1bbc4f48b5d6cce095777e5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514640, guid: b078ced2e1bbc4f48b5d6cce095777e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.015
       objectReference: {fileID: 0}
     - target: {fileID: 6845473786046702743, guid: b078ced2e1bbc4f48b5d6cce095777e5,
         type: 3}
@@ -206,18 +221,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1230658175761549077}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8448965877708200526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5107309875823133287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd7453df02f43ee880c38ebd9fd0832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2621526662899593731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,4 +233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5df19f49314299a0ccd8f519b7d681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileTypeId: 0
+--- !u!114 &8448965877708200526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107309875823133287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd7453df02f43ee880c38ebd9fd0832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

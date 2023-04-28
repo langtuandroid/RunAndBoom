@@ -173,7 +173,7 @@ PrefabInstance:
     - target: {fileID: 6337939420664514639, guid: b078ced2e1bbc4f48b5d6cce095777e5,
         type: 3}
       propertyPath: m_Height
-      value: 0.06
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: b078ced2e1bbc4f48b5d6cce095777e5,
         type: 3}
@@ -184,6 +184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514640, guid: b078ced2e1bbc4f48b5d6cce095777e5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 6845473786046702743, guid: b078ced2e1bbc4f48b5d6cce095777e5,
         type: 3}
@@ -229,4 +234,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5df19f49314299a0ccd8f519b7d681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileTypeId: 3

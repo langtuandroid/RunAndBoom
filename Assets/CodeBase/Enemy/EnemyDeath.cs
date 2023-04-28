@@ -14,8 +14,9 @@ namespace CodeBase.Enemy
     [RequireComponent(typeof(Attack))]
     public class EnemyDeath : MonoBehaviour, IDeath
     {
-        [SerializeField] private GameObject _hitBox;
         [SerializeField] private GameObject _diedBox;
+
+        private Rigidbody _rigidbody;
 
         private const float UpForce = 100f;
         private const float DestroyDelay = 30f;
@@ -39,6 +40,7 @@ namespace CodeBase.Enemy
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
             // _targetMovement = GetComponentInChildren<TargetMovement>();
             _health = GetComponent<IHealth>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void OnEnable() =>
@@ -66,6 +68,7 @@ namespace CodeBase.Enemy
         {
             Died?.Invoke();
             _isDead = true;
+            // _rigidbody.isKinematic = false;
 
             _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
             _enemyAnimator.PlayDeath();

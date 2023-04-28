@@ -56,19 +56,39 @@ namespace CodeBase.Projectiles.Hit
 
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log("OnTriggerEnter");
             string targetTag = other.gameObject.tag;
 
             if (IsTargetTag(targetTag))
             {
+                Debug.Log("Targeted tag");
                 if (_prefab != null)
                 {
                     ShowBlast();
-                    StartCoroutine(DestroyBlast());
+                    Trail?.HideTrace();
                     _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                    StartCoroutine(DestroyBlast());
+                    Movement.Stop();
                 }
+            }
+        }
 
-                Trail?.HideTrace();
-                Movement.Stop();
+        private void OnCollisionEnter(Collision other)
+        {
+            Debug.Log("OnCollisionEnter");
+            string targetTag = other.gameObject.tag;
+
+            if (IsTargetTag(targetTag))
+            {
+                Debug.Log("Targeted tag");
+                if (_prefab != null)
+                {
+                    ShowBlast();
+                    Trail?.HideTrace();
+                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                    StartCoroutine(DestroyBlast());
+                    Movement.Stop();
+                }
             }
         }
 

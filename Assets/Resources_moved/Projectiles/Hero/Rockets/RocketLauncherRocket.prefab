@@ -143,8 +143,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: d19b11a31f792cd4c8aada8b50d1a233,
         type: 3}
+      propertyPath: m_Height
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514639, guid: d19b11a31f792cd4c8aada8b50d1a233,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514639, guid: d19b11a31f792cd4c8aada8b50d1a233,
+        type: 3}
       propertyPath: m_Center.z
-      value: 0.35
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337939420664514640, guid: d19b11a31f792cd4c8aada8b50d1a233,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6591293771587382832, guid: d19b11a31f792cd4c8aada8b50d1a233,
         type: 3}
@@ -206,4 +221,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5df19f49314299a0ccd8f519b7d681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileTypeId: 1

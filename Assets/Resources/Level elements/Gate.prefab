@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8202281673829269659}
   m_Layer: 12
   m_Name: RightWall
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 8202281674205171762}
   m_Layer: 12
   m_Name: LeftJamb
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 8202281674440311353}
   m_Layer: 12
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 8202281675007454346}
   m_Layer: 12
   m_Name: Step
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 8202281675131595987}
   m_Layer: 12
   m_Name: LeftJamb
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 8202281675670058780}
   m_Layer: 12
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 2147483647
