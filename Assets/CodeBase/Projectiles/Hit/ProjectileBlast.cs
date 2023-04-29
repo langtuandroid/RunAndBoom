@@ -71,19 +71,20 @@ namespace CodeBase.Projectiles.Hit
                     bool isRaycast = Physics.SphereCast(other.transform.position, SphereCastRadius,
                         other.transform.forward, out RaycastHit hit);
 
-                    if (isRaycast)
-                    {
-                        Vector3 hitSum = hit.point + hit.normal;
-                        // var direction = Vector3.Reflect(transform.forward, closestPoint);
-                        // Vector3 direction = other.gameObject.transform.position - transform.position;
-                        // float angle = Vector3.Angle(transform.forward, direction);
-                        // other.ClosestPointOnBounds(transform.position);
-                        ShowBlast(hitSum);
-                        Trail?.HideTrace();
-                        _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-                        StartCoroutine(DestroyBlast());
-                        Movement.Stop();
-                    }
+                    // if (isRaycast)
+                    // {
+                    //     Vector3 hitSum = hit.point + hit.normal;
+                    // var direction = Vector3.Reflect(transform.forward, closestPoint);
+                    // Vector3 direction = other.gameObject.transform.position - transform.position;
+                    // float angle = Vector3.Angle(transform.forward, direction);
+                    // other.ClosestPointOnBounds(transform.position);
+                    ShowBlast();
+                    // ShowBlast(hitSum);
+                    Trail?.HideTrace();
+                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                    StartCoroutine(DestroyBlast());
+                    Movement.Stop();
+                    // }
                 }
             }
         }
