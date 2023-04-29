@@ -17,6 +17,7 @@ namespace CodeBase.Projectiles.Hit
 
         private const float BaseRatio = 1f;
         private const float BlastDuration = 2f;
+        private const float SphereCastRadius = 1f;
 
         private IStaticDataService _staticDataService;
         private PlayerProgress _progress;
@@ -64,33 +65,48 @@ namespace CodeBase.Projectiles.Hit
                 Debug.Log("Targeted tag");
                 if (_prefab != null)
                 {
-                    ShowBlast();
-                    Trail?.HideTrace();
-                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-                    StartCoroutine(DestroyBlast());
-                    Movement.Stop();
+                    // Vector3 closestPointNormalized = other.ClosestPoint(transform.position).normalized;
+                    // bool isRaycast = Physics.Raycast(other.transform.position, other.transform.forward,
+                    //     out RaycastHit hit);
+                    bool isRaycast = Physics.SphereCast(other.transform.position, SphereCastRadius,
+                        other.transform.forward, out RaycastHit hit);
+
+                    if (isRaycast)
+                    {
+                        Vector3 hitSum = hit.point + hit.normal;
+                        // var direction = Vector3.Reflect(transform.forward, closestPoint);
+                        // Vector3 direction = other.gameObject.transform.position - transform.position;
+                        // float angle = Vector3.Angle(transform.forward, direction);
+                        // other.ClosestPointOnBounds(transform.position);
+                        ShowBlast(hitSum);
+                        Trail?.HideTrace();
+                        _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                        StartCoroutine(DestroyBlast());
+                        Movement.Stop();
+                    }
                 }
             }
         }
 
-        private void OnCollisionEnter(Collision other)
-        {
-            Debug.Log("OnCollisionEnter");
-            string targetTag = other.gameObject.tag;
-
-            if (IsTargetTag(targetTag))
-            {
-                Debug.Log("Targeted tag");
-                if (_prefab != null)
-                {
-                    ShowBlast();
-                    Trail?.HideTrace();
-                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-                    StartCoroutine(DestroyBlast());
-                    Movement.Stop();
-                }
-            }
-        }
+        // private void OnCollisionEnter(Collision other)
+        // {
+        //     Debug.Log("OnCollisionEnter");
+        //     string targetTag = other.gameObject.tag;
+        //
+        //     if (IsTargetTag(targetTag))
+        //     {
+        //         Debug.Log("Targeted tag");
+        //         if (_prefab != null)
+        //         {
+        //             Vector3 closestPoint = other.ClosestPoint(transform.position).normalized;
+        //             ShowBlast(closestPoint);
+        //             Trail?.HideTrace();
+        //             _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+        //             StartCoroutine(DestroyBlast());
+        //             Movement.Stop();
+        //         }
+        //     }
+        // }
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
             GameObject prefab, float radius, float damage,
@@ -130,6 +146,23 @@ namespace CodeBase.Projectiles.Hit
                     .ForUpgradeLevelsInfo(_blastItemData.UpgradeTypeId, _blastItemData.LevelTypeId).Value;
 
             _sphereRadius = _baseBlastRadius * _blastRadiusRatio;
+        }
+
+        private void ShowBlast(Vector3 direction)
+        {
+            if (_particleSystem == null)
+            {
+                _blastVfx = Instantiate(_prefab, transform.position, Quaternion.identity, null);
+                _particleSystem = _blastVfx.GetComponent<ParticleSystem>();
+            }
+            else
+            {
+                _blastVfx.transform.position = transform.position;
+                Debug.Log($"direction {direction}");
+                _blastVfx.transform.rotation.SetLookRotation(direction);
+            }
+
+            _particleSystem.Play(true);
         }
 
         private void ShowBlast()
