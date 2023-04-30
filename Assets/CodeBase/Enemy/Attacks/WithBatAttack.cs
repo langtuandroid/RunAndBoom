@@ -9,7 +9,6 @@ namespace CodeBase.Enemy.Attacks
         private const float YLevitation = 0.5f;
         private const int DrawingHitTime = 1;
 
-        private float _cleavage;
         private float _effectiveDistance;
         private int _damage;
 
@@ -19,11 +18,10 @@ namespace CodeBase.Enemy.Attacks
         private void Awake() =>
             _layerMask = 1 << LayerMask.NameToLayer(Constants.HeroTag);
 
-        public void Construct(Transform heroTransform, float attackCooldown, float cleavage, float effectiveDistance,
+        public void Construct(Transform heroTransform, float attackCooldown, float effectiveDistance,
             int damage)
         {
             base.Construct(heroTransform, attackCooldown);
-            _cleavage = cleavage;
             _effectiveDistance = effectiveDistance;
             _damage = damage;
         }
@@ -32,7 +30,7 @@ namespace CodeBase.Enemy.Attacks
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), _cleavage, DrawingHitTime);
+                PhysicsDebug.DrawDebug(StartPoint(), _effectiveDistance, DrawingHitTime);
                 hit.transform.gameObject.GetComponent<IHealth>().TakeDamage(_damage);
                 Debug.Log($"{gameObject.name} hit Hero with {_damage} damage");
             }
@@ -40,7 +38,7 @@ namespace CodeBase.Enemy.Attacks
 
         private bool Hit(out Collider hit)
         {
-            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _cleavage, _hits, _layerMask);
+            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _effectiveDistance, _hits, _layerMask);
             hit = _hits.FirstOrDefault();
             return hitsCount > 0;
         }

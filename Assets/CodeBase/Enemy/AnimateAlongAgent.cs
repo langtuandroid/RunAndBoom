@@ -22,7 +22,10 @@ namespace CodeBase.Enemy
         private bool ShouldMove()
         {
             if (_agent != null)
+            {
+                Debug.Log($"_agent.velocity.magnitude {_agent.velocity.magnitude}");
                 return _agent.velocity.magnitude > MinimalVelocity && _agent.remainingDistance > _agent.radius;
+            }
             else
                 return false;
         }

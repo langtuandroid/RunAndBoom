@@ -16,9 +16,8 @@ MonoBehaviour:
   EnemyWeaponTypeId: 0
   Hp: 1
   Damage: 2
-  MoveSpeed: 2
-  EffectiveDistance: 2
-  Cleavage: 1
+  MoveSpeed: 1.5
+  AttackDistance: 4
   AttackCooldown: 1
   Reward: 2
   PrefabReference:

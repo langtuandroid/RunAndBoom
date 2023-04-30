@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CodeBase.Logic;
+﻿using CodeBase.Logic;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
@@ -28,12 +26,9 @@ namespace CodeBase.Weapons
 
         protected IObjectsPoolService PoolService;
         private bool _initialVisibility;
-        [SerializeField] private List<GameObject> _projectiles;
         private ProjectileTypeId? _projectileTypeId;
-        private bool _filled;
-        private GameObject _firstProjectile;
         private IDeath _death;
-        private bool _enabled = true;
+        protected bool Enabled = true;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
 
@@ -50,7 +45,6 @@ namespace CodeBase.Weapons
             PoolService = AllServices.Container.Single<IObjectsPoolService>();
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
-            _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
             _projectileTypeId = projectileTypeId;
             Enable();
 
@@ -59,7 +53,7 @@ namespace CodeBase.Weapons
 
         private void Disable()
         {
-            _enabled = false;
+            Enabled = false;
 
             if (_death != null)
                 _death.Died -= Disable;
@@ -67,73 +61,13 @@ namespace CodeBase.Weapons
 
         private void Enable()
         {
-            _enabled = true;
+            Enabled = true;
 
             if (_death != null)
                 _death.Died += Disable;
         }
 
-        protected void ReadyToShoot()
-        {
-            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && _enabled)
-            {
-                foreach (Transform respawn in ProjectilesRespawns)
-                {
-                    var projectile = SetNewProjectile(respawn);
-                    projectile.SetActive(true);
-                    projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
-                    projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
-                    _projectiles.Add(projectile);
-                }
-
-                _filled = true;
-            }
-        }
-
-        protected void Launch()
-        {
-            GameObject projectile = GetFirstProjectile();
-            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
-            TuneProjectileBeforeLaunch(projectile, projectileMovement);
-        }
-
-        protected void Launch(Vector3 targetPosition)
-        {
-            GameObject projectile = GetFirstProjectile();
-            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
-            (projectileMovement as BombMovement)?.SetTargetPosition(targetPosition);
-            TuneProjectileBeforeLaunch(projectile, projectileMovement);
-        }
-
-        private void TuneProjectileBeforeLaunch(GameObject projectile, ProjectileMovement projectileMovement)
-        {
-            projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
-            projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
-            projectile.SetActive(true);
-            projectileMovement.Launch();
-            projectile.transform.SetParent(null);
-            ShowTrail(projectile);
-        }
-
-        private GameObject GetFirstProjectile()
-        {
-            _firstProjectile = _projectiles.First();
-            return _firstProjectile;
-        }
-
-        protected ProjectileMovement GetMovement()
-        {
-            _firstProjectile = _projectiles.First();
-            return _firstProjectile.GetComponent<ProjectileMovement>();
-        }
-
-        private void ShowTrail(GameObject projectile)
-        {
-            if (_projectileTypeId != null)
-                projectile.GetComponent<ProjectileTrail>().ShowTrail();
-        }
-
-        private GameObject SetNewProjectile(Transform respawn)
+        protected GameObject SetNewProjectile(Transform respawn)
         {
             GameObject projectile = GetProjectile();
 
@@ -143,15 +77,26 @@ namespace CodeBase.Weapons
             return projectile;
         }
 
-        protected void Release()
+        protected void TuneProjectileBeforeLaunch(GameObject projectile, ProjectileMovement projectileMovement)
         {
-            _projectiles.Remove(_firstProjectile);
-            _firstProjectile = null;
+            projectile.GetComponentInChildren<MeshRenderer>().enabled = true;
+            projectile.GetComponentInChildren<ProjectileBlast>()?.OnCollider();
+            projectile.SetActive(true);
+            projectileMovement.Launch();
+            projectile.transform.SetParent(null);
+            ShowTrail(projectile);
+        }
 
-            if (_projectiles.Count == 0)
-                _filled = false;
+        private void ShowTrail(GameObject projectile)
+        {
+            if (_projectileTypeId != null)
+                projectile.GetComponent<ProjectileTrail>().ShowTrail();
         }
 
         protected abstract GameObject GetProjectile();
+
+        protected abstract void Launch();
+
+        protected abstract void Launch(Vector3 targetPosition);
     }
 }

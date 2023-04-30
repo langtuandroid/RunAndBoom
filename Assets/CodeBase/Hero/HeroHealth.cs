@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroHealth : MonoBehaviour, IHealth, IHeal, IProgressSaver
+    public class HeroHealth : MonoBehaviour, IHealth, IProgressSaver
     {
         private const float BaseRatio = 1f;
         private const float BaseArmorRatio = 0f;
@@ -69,6 +69,9 @@ namespace CodeBase.Hero
             TryRegenerate();
         }
 
+        public void ChangeHealth() =>
+            HealthChanged?.Invoke();
+
         private void TryRegenerate()
         {
             if (NeedRegenerate())
@@ -76,6 +79,7 @@ namespace CodeBase.Hero
                 if (!IsDelaySpent())
                 {
                     ChangeCurrent(_regenerationValue);
+                    Debug.Log($"regenerationCurrentTime {_regenerationCurrentTime}");
                     _regenerationCurrentTime -= Time.deltaTime;
                 }
                 else

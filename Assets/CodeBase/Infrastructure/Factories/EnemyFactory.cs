@@ -62,7 +62,7 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
-            enemy.GetComponent<CheckAttackRange>().Construct(enemyData.EffectiveDistance);
+            enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);
             // enemy.GetComponentInChildren<TargetMovement>().Hide();
             ConstructEnemyAttack(typeId, enemyData, enemy);
 
@@ -80,8 +80,7 @@ namespace CodeBase.Infrastructure.Factories
             {
                 case EnemyTypeId.WithBat:
                     (attack as WithBatAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
-                        attackCooldown: enemyData.AttackCooldown,
-                        cleavage: enemyData.Cleavage, effectiveDistance: enemyData.EffectiveDistance,
+                        attackCooldown: enemyData.AttackCooldown, effectiveDistance: enemyData.AttackDistance,
                         damage: enemyData.Damage);
                     break;
                 case EnemyTypeId.WithPistol:

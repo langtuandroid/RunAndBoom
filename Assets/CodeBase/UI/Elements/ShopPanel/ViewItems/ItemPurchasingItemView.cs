@@ -1,4 +1,5 @@
 ﻿using CodeBase.Data;
+using CodeBase.Hero;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
 
         private ShopItemStaticData _itemStaticData;
         private ItemTypeId _typeId;
+        private HeroHealth _health;
 
         // private void OnEnable() =>
         //     _button?.onClick.AddListener(Clicked);
@@ -19,8 +21,9 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
         // private void OnDisable() =>
         //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(ItemTypeId typeId, PlayerProgress progress)
+        public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health)
         {
+            _health = health;
             // _button?.onClick.AddListener(Clicked);
             _typeId = typeId;
             base.Construct(progress);
@@ -53,7 +56,11 @@ namespace CodeBase.UI.Elements.ShopPanel.ViewItems
                 ReduceMoney(_itemStaticData.Cost);
 
                 if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
+                {
                     Progress.HealthState.ChangeCurrentHP(Progress.HealthState.BaseMaxHp);
+                    _health.ChangeHealth();
+                }
+
                 ClearData();
             }
         }

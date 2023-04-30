@@ -4,5 +4,8 @@ namespace CodeBase.StaticData.Weapons
     {
         Pistol,
         Shotgun,
+        SMG,
+        MG,
+        SniperRifle,
     }
 }

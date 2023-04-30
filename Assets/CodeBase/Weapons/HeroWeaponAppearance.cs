@@ -1,5 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Hero;
+using CodeBase.Projectiles.Hit;
+using CodeBase.Projectiles.Movement;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
@@ -8,18 +12,22 @@ namespace CodeBase.Weapons
 {
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
+        [SerializeField] private List<GameObject> _projectiles;
         [HideInInspector] protected Vector3 TargetPosition;
 
         private HeroReloading _heroReloading;
         private HeroWeaponSelection _heroWeaponSelection;
         private HeroWeaponTypeId _heroWeaponTypeId;
         private HeroDeath _death;
+        private GameObject _firstProjectile;
+        private bool _filled;
 
         public void Construct(HeroDeath death, HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
             _death = death;
             _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
+            _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
 
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
@@ -37,6 +45,24 @@ namespace CodeBase.Weapons
 
         private void ReadyToShoot(GameObject arg1, HeroWeaponStaticData arg2, TrailStaticData arg3) =>
             ReadyToShoot();
+
+        private void ReadyToShoot()
+        {
+            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && Enabled)
+            {
+                foreach (Transform respawn in ProjectilesRespawns)
+                {
+                    var projectile = SetNewProjectile(respawn);
+                    projectile.SetActive(true);
+                    projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
+                    projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
+                    _projectiles.Add(projectile);
+                }
+
+                Debug.Log($"projectiles count {_projectiles.Count}");
+                _filled = true;
+            }
+        }
 
         public void ShootTo()
         {
@@ -56,5 +82,35 @@ namespace CodeBase.Weapons
 
         protected override GameObject GetProjectile() =>
             PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+
+        protected override void Launch()
+        {
+            GameObject projectile = GetFirstProjectile();
+            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
+        }
+
+        protected override void Launch(Vector3 targetPosition)
+        {
+            GameObject projectile = GetFirstProjectile();
+            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
+            (projectileMovement as BombMovement)?.SetTargetPosition(targetPosition);
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
+        }
+
+        private GameObject GetFirstProjectile()
+        {
+            _firstProjectile = _projectiles.First();
+            return _firstProjectile;
+        }
+
+        private void Release()
+        {
+            _projectiles.Remove(_firstProjectile);
+            _firstProjectile = null;
+
+            if (_projectiles.Count == 0)
+                _filled = false;
+        }
     }
 }

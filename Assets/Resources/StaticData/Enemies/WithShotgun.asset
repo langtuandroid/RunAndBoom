@@ -17,8 +17,7 @@ MonoBehaviour:
   Hp: 1
   Damage: 1
   MoveSpeed: 1
-  EffectiveDistance: 2
-  Cleavage: 1
+  AttackDistance: 3
   AttackCooldown: 1
   Reward: 3
   PrefabReference:

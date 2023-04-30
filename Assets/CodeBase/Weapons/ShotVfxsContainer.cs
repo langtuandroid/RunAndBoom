@@ -40,7 +40,7 @@ namespace CodeBase.Weapons
         {
             shotVfx.SetActive(true);
             yield return new WaitForSeconds(_shotVfxLifetime);
-            shotVfx.SetActive(false);
+            _objectsPoolService.ReturnShotVfx(shotVfx);
         }
     }
 }

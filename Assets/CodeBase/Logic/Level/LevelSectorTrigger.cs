@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Data;
+using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
@@ -42,7 +43,8 @@ namespace CodeBase.Logic.Level
                 WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
                 ShopItemsGenerator shopItemsGenerator =
                     (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
-                shopItemsGenerator?.Construct(_progressService, _staticDataService, _randomService);
+                shopItemsGenerator?.Construct(_progressService, _staticDataService, _randomService,
+                    other.gameObject.GetComponent<HeroHealth>());
                 shopItemsGenerator?.GenerateShopItems();
                 ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();
                 shopButtons?.Construct(_refreshCount, _watchAdsNumber);

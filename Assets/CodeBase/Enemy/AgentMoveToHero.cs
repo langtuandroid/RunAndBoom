@@ -23,6 +23,7 @@ namespace CodeBase.Enemy
         public void Construct(Transform heroTransform)
         {
             _heroTransform = heroTransform;
+            _agent.destination = transform.position;
             _agent.enabled = false;
         }
 
@@ -34,6 +35,12 @@ namespace CodeBase.Enemy
                 {
                     try
                     {
+                        // Vector3 heading = _heroTransform.position - transform.position;
+                        // float distance = heading.magnitude;
+                        // Vector3 direction = heading / distance;
+                        //
+                        // Vector3 heroTransformPosition = _heroTransform.position - (direction * 1.5f);
+                        // _agent.destination = heroTransformPosition;
                         _agent.destination = _heroTransform.position;
                     }
                     catch (Exception e)
@@ -43,19 +50,23 @@ namespace CodeBase.Enemy
                         throw;
                     }
                 }
+                else
+                {
+                    _agent.destination = transform.position;
+                }
             }
         }
 
         public override void Move()
         {
             _move = true;
-            _agent.enabled = true;
+            // _agent.enabled = true;
         }
 
         public override void Stop()
         {
             _move = false;
-            _agent.enabled = false;
+            // _agent.enabled = false;
         }
     }
 }

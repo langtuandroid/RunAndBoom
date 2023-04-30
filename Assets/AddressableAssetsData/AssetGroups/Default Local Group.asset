@@ -141,6 +141,18 @@ MonoBehaviour:
     m_Address: Hero
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5669ba518e81037419f92e7d039e4b45
+    m_Address: WithMG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 57e20c99c1e93a745a428f6a158d23a3
+    m_Address: WithSMG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 044089875f72b2a408a6c7c45a63f9a7
+    m_Address: WithSniperRifle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9cc2a55e604bc944590d8a935a0bb2a9, type: 2}
   m_SchemaSet:

@@ -9,6 +9,7 @@ namespace CodeBase.Weapons
     public class EnemyWeaponAppearance : BaseWeaponAppearance
     {
         private EnemyWeaponTypeId _enemyWeaponTypeId;
+        private Transform _currentProjectileRespawn;
 
         public void Construct(EnemyDeath death, EnemyWeaponStaticData weaponStaticData)
         {
@@ -18,27 +19,52 @@ namespace CodeBase.Weapons
             _enemyWeaponTypeId = weaponStaticData.WeaponTypeId;
         }
 
-        public void Shoot(Vector3? targetPosition)
+        public void Shoot(Vector3 targetPosition)
         {
-            for (int i = 0; i < ProjectilesRespawns.Length; i++)
+            foreach (var t in ProjectilesRespawns)
             {
-                ReadyToShoot();
+                _currentProjectileRespawn = t;
                 StartCoroutine(CoroutineShootTo(targetPosition));
             }
 
             ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
-            Release();
         }
 
-        private IEnumerator CoroutineShootTo(Vector3? targetPosition)
+        public void Shoot()
         {
-            if (targetPosition != null && GetMovement() is BulletMovement)
-                (GetMovement() as BulletMovement)?.SetTargetPosition((Vector3)targetPosition);
+            foreach (var respawn in ProjectilesRespawns)
+            {
+                _currentProjectileRespawn = respawn;
+                StartCoroutine(CoroutineShootTo());
+            }
 
+            ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
+        }
+
+        private IEnumerator CoroutineShootTo(Vector3 targetPosition)
+        {
+            Launch(targetPosition);
+            yield return LaunchProjectileCooldown;
+        }
+
+        private IEnumerator CoroutineShootTo()
+        {
             Launch();
             yield return LaunchProjectileCooldown;
+        }
 
-            ReadyToShoot();
+        protected override void Launch()
+        {
+            GameObject projectile = SetNewProjectile(_currentProjectileRespawn);
+            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
+        }
+
+        protected override void Launch(Vector3 targetPosition)
+        {
+            GameObject projectile = SetNewProjectile(_currentProjectileRespawn);
+            ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
+            TuneProjectileBeforeLaunch(projectile, projectileMovement);
         }
 
         protected override GameObject GetProjectile() =>

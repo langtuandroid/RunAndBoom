@@ -6,6 +6,7 @@ using CodeBase.Data;
 using CodeBase.Data.Perks;
 using CodeBase.Data.Upgrades;
 using CodeBase.Data.Weapons;
+using CodeBase.Hero;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
@@ -48,6 +49,7 @@ namespace CodeBase.UI.Elements.ShopPanel
         private Coroutine _coroutineShopItemsGeneration;
         private WaitForSeconds _delayShopItemsDisplaying = new WaitForSeconds(0.5f);
         private PlayerProgress _progress;
+        private HeroHealth _health;
 
         public event Action GenerationStarted;
         public event Action GenerationEnded;
@@ -58,8 +60,9 @@ namespace CodeBase.UI.Elements.ShopPanel
         }
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
-            IRandomService randomService)
+            IRandomService randomService, HeroHealth health)
         {
+            _health = health;
             _progress = progressService.Progress;
             _staticDataService = staticDataService;
             _randomService = randomService;
@@ -394,7 +397,7 @@ namespace CodeBase.UI.Elements.ShopPanel
         {
             ItemPurchasingItemView view =
                 parent.GetComponent<ShopCell>().GetView(typeof(ItemPurchasingItemView)) as ItemPurchasingItemView;
-            view?.Construct(itemTypeId, _progress);
+            view?.Construct(itemTypeId, _progress, _health);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
