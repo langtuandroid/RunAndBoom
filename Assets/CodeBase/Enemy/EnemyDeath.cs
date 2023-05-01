@@ -79,7 +79,6 @@ namespace CodeBase.Enemy
             Destroy(GetComponent<Aggro>());
             Destroy(GetComponent<AnimateAlongAgent>());
             Destroy(GetComponent<CheckAttackRange>());
-            Destroy(GetComponent<StopMovingOnAttack>());
             Destroy(GetComponent<NavMeshAgent>(), 1);
             Destroy(GetComponent<AgentMoveToHero>());
             // _targetMovement.Hide();

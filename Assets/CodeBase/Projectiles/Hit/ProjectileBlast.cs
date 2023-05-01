@@ -57,12 +57,10 @@ namespace CodeBase.Projectiles.Hit
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnTriggerEnter");
             string targetTag = other.gameObject.tag;
 
             if (IsTargetTag(targetTag))
             {
-                Debug.Log("Targeted tag");
                 if (_prefab != null)
                 {
                     // Vector3 closestPointNormalized = other.ClosestPoint(transform.position).normalized;
@@ -88,26 +86,6 @@ namespace CodeBase.Projectiles.Hit
                 }
             }
         }
-
-        // private void OnCollisionEnter(Collision other)
-        // {
-        //     Debug.Log("OnCollisionEnter");
-        //     string targetTag = other.gameObject.tag;
-        //
-        //     if (IsTargetTag(targetTag))
-        //     {
-        //         Debug.Log("Targeted tag");
-        //         if (_prefab != null)
-        //         {
-        //             Vector3 closestPoint = other.ClosestPoint(transform.position).normalized;
-        //             ShowBlast(closestPoint);
-        //             Trail?.HideTrace();
-        //             _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-        //             StartCoroutine(DestroyBlast());
-        //             Movement.Stop();
-        //         }
-        //     }
-        // }
 
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
             GameObject prefab, float radius, float damage,
@@ -159,7 +137,6 @@ namespace CodeBase.Projectiles.Hit
             else
             {
                 _blastVfx.transform.position = transform.position;
-                Debug.Log($"direction {direction}");
                 _blastVfx.transform.rotation.SetLookRotation(direction);
             }
 

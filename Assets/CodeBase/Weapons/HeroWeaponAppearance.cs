@@ -59,7 +59,6 @@ namespace CodeBase.Weapons
                     _projectiles.Add(projectile);
                 }
 
-                Debug.Log($"projectiles count {_projectiles.Count}");
                 _filled = true;
             }
         }

@@ -25,10 +25,7 @@ namespace CodeBase.Enemy
             if (_agent != null)
             {
                 bool shouldMove = _agent.velocity.magnitude > MinimalVelocity &&
-                                  _agent.remainingDistance > _agent.radius &&
-                                  _agentMoveToHero.IsMove;
-                // Debug.Log($"_agent.velocity.magnitude: {_agent.velocity.magnitude}");
-                Debug.Log($"shouldMove: {shouldMove}");
+                                  _agent.remainingDistance > _agent.radius && _agentMoveToHero.IsMove;
                 return shouldMove;
             }
             else

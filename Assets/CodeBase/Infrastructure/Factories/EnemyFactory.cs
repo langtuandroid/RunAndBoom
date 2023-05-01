@@ -9,7 +9,6 @@ using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Weapons;
 using CodeBase.Weapons;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace CodeBase.Infrastructure.Factories
 {
@@ -58,9 +57,8 @@ namespace CodeBase.Infrastructure.Factories
             EnemyDeath death = enemy.GetComponent<EnemyDeath>();
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
-            enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
-            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform);
-            // enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.AttackDistance);
+            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.AttackDistance,
+                enemyData.MoveSpeed);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);

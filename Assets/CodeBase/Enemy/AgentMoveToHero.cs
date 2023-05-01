@@ -8,26 +8,32 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private NavMeshAgent _agent;
 
-        private Transform _heroTransform;
+        private const float ZeroSpeed = 0f;
 
-        public bool IsMove { get; private set; }
+        private Transform _heroTransform;
+        private float _attackDistance;
+        private float _speed;
+
+        public bool IsMove => _agent.enabled;
 
         // private void OnEnable() =>
         //     _agent.enabled = true;
-
+        //
         // private void OnDisable() =>
         //     _agent.enabled = false;
 
         private void Update() =>
             SetDestinationForAgent();
 
-        public void Construct(Transform heroTransform)
-        // public void Construct(Transform heroTransform, float attackDistance)
+        // public void Construct(Transform heroTransform)
+        public void Construct(Transform heroTransform, float attackDistance, float speed)
         {
+            _speed = speed;
+            _attackDistance = attackDistance;
             _heroTransform = heroTransform;
             _agent.destination = transform.position;
-            IsMove = false;
-            _agent.enabled = false;
+            // IsMove = false;
+            Stop();
         }
 
         private void SetDestinationForAgent()
@@ -44,18 +50,23 @@ namespace CodeBase.Enemy
                         float distance = heading.magnitude;
                         Vector3 direction = heading / distance;
 
-                        Vector3 heroTransformPosition = _heroTransform.position - (direction * 2f);
+                        Vector3 heroTransformPosition = _heroTransform.position - (direction * _attackDistance);
+                        _agent.destination = heroTransformPosition;
 
-                        if (distance > 1.5f)
+                        Debug.Log($"distance: {distance}");
+                        Debug.Log($"attackDistance: {_attackDistance}");
+
+                        if (distance > _attackDistance)
                         {
-                            Debug.Log($"distance: {distance}");
-                            _agent.enabled = true;
                             _agent.destination = heroTransformPosition;
+                            // _agent.enabled = true;
+                            // Move();
                         }
                         else
                         {
-                            IsMove = false;
-                            _agent.enabled = false;
+                            // IsMove = false;
+                            // _agent.enabled = false;
+                            Stop();
                         }
                         // _agent.destination = _heroTransform.position;
                     }
@@ -75,14 +86,18 @@ namespace CodeBase.Enemy
 
         public override void Move()
         {
-            IsMove = true;
-            // _agent.enabled = true;
+            // IsMove = true;
+            _agent.enabled = true;
+            _agent.isStopped = false;
+            _agent.speed = _speed;
         }
 
         public override void Stop()
         {
-            IsMove = false;
-            // _agent.enabled = false;
+            // IsMove = false;
+            _agent.enabled = false;
+            // _agent.isStopped = true;
+            // _agent.speed = ZeroSpeed;
         }
     }
 }

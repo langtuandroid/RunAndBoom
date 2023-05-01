@@ -24,7 +24,7 @@ namespace CodeBase.Enemy
             if (_follow != null)
             {
                 _follow.Stop();
-                _follow.enabled = false;
+                // _follow.enabled = false;
             }
         }
 
@@ -71,9 +71,10 @@ namespace CodeBase.Enemy
         {
             if (_follow != null)
             {
+                Debug.Log("SwitchFollowOn");
                 _hasAggroTarget = true;
                 _follow.Move();
-                _follow.enabled = true;
+                // _follow.enabled = true;
             }
         }
 
@@ -81,7 +82,7 @@ namespace CodeBase.Enemy
         {
             if (_follow != null)
             {
-                _follow.enabled = false;
+                // _follow.enabled = false;
                 _follow.Stop();
                 _hasAggroTarget = false;
             }

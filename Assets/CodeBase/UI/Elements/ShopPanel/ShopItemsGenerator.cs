@@ -54,11 +54,6 @@ namespace CodeBase.UI.Elements.ShopPanel
         public event Action GenerationStarted;
         public event Action GenerationEnded;
 
-        private void Update()
-        {
-            // Debug.Log($"money: {_money}");
-        }
-
         public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
             IRandomService randomService, HeroHealth health)
         {

@@ -262,8 +262,6 @@ namespace CodeBase.Services.Pool
 
             if (list != null)
             {
-                Debug.Log($"list: {list}");
-                Debug.Log($"FirstOrDefault: {list.FirstOrDefault(it => it.activeInHierarchy == false)}");
                 gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
 
                 if (gameObject != null)
