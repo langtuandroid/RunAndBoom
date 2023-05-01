@@ -8,6 +8,7 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private EnemyAnimator _animator;
+        [SerializeField] private AgentMoveToHero _agentMoveToHero;
 
         private const float MinimalVelocity = 0.1f;
 
@@ -24,10 +25,13 @@ namespace CodeBase.Enemy
             if (_agent != null)
             {
                 Debug.Log($"_agent.velocity.magnitude {_agent.velocity.magnitude}");
-                return _agent.velocity.magnitude > MinimalVelocity && _agent.remainingDistance > _agent.radius;
+                return _agent.velocity.magnitude > MinimalVelocity && _agent.remainingDistance > _agent.radius &&
+                       _agentMoveToHero.IsMove;
             }
             else
+            {
                 return false;
+            }
         }
     }
 }

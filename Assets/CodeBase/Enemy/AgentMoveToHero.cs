@@ -9,7 +9,8 @@ namespace CodeBase.Enemy
         [SerializeField] private NavMeshAgent _agent;
 
         private Transform _heroTransform;
-        private bool _move;
+
+        public bool IsMove { get; private set; }
 
         private void OnEnable() =>
             _agent.enabled = true;
@@ -31,17 +32,29 @@ namespace CodeBase.Enemy
         {
             if (_heroTransform && _agent != null)
             {
-                if (_move && _agent.enabled)
+                if (IsMove
+                    // && _agent.enabled
+                   )
                 {
                     try
                     {
-                        // Vector3 heading = _heroTransform.position - transform.position;
-                        // float distance = heading.magnitude;
-                        // Vector3 direction = heading / distance;
-                        //
-                        // Vector3 heroTransformPosition = _heroTransform.position - (direction * 1.5f);
-                        // _agent.destination = heroTransformPosition;
-                        _agent.destination = _heroTransform.position;
+                        Vector3 heading = _heroTransform.position - transform.position;
+                        float distance = heading.magnitude;
+                        Vector3 direction = heading / distance;
+
+                        Vector3 heroTransformPosition = _heroTransform.position - (direction * 1.5f);
+
+                        if (distance > 1.5f)
+                        {
+                            _agent.enabled = true;
+                            _agent.destination = heroTransformPosition;
+                        }
+                        else
+                        {
+                            IsMove = false;
+                            _agent.enabled = false;
+                        }
+                        // _agent.destination = _heroTransform.position;
                     }
                     catch (Exception e)
                     {
@@ -52,21 +65,21 @@ namespace CodeBase.Enemy
                 }
                 else
                 {
-                    _agent.destination = transform.position;
+                    // _agent.destination = transform.position;
                 }
             }
         }
 
         public override void Move()
         {
-            _move = true;
-            // _agent.enabled = true;
+            IsMove = true;
+            _agent.enabled = true;
         }
 
         public override void Stop()
         {
-            _move = false;
-            // _agent.enabled = false;
+            IsMove = false;
+            _agent.enabled = false;
         }
     }
 }
