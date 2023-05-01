@@ -12,19 +12,21 @@ namespace CodeBase.Enemy
 
         public bool IsMove { get; private set; }
 
-        private void OnEnable() =>
-            _agent.enabled = true;
+        // private void OnEnable() =>
+        //     _agent.enabled = true;
 
-        private void OnDisable() =>
-            _agent.enabled = false;
+        // private void OnDisable() =>
+        //     _agent.enabled = false;
 
         private void Update() =>
             SetDestinationForAgent();
 
         public void Construct(Transform heroTransform)
+        // public void Construct(Transform heroTransform, float attackDistance)
         {
             _heroTransform = heroTransform;
             _agent.destination = transform.position;
+            IsMove = false;
             _agent.enabled = false;
         }
 
@@ -42,10 +44,11 @@ namespace CodeBase.Enemy
                         float distance = heading.magnitude;
                         Vector3 direction = heading / distance;
 
-                        Vector3 heroTransformPosition = _heroTransform.position - (direction * 1.5f);
+                        Vector3 heroTransformPosition = _heroTransform.position - (direction * 2f);
 
                         if (distance > 1.5f)
                         {
+                            Debug.Log($"distance: {distance}");
                             _agent.enabled = true;
                             _agent.destination = heroTransformPosition;
                         }
@@ -73,13 +76,13 @@ namespace CodeBase.Enemy
         public override void Move()
         {
             IsMove = true;
-            _agent.enabled = true;
+            // _agent.enabled = true;
         }
 
         public override void Stop()
         {
             IsMove = false;
-            _agent.enabled = false;
+            // _agent.enabled = false;
         }
     }
 }

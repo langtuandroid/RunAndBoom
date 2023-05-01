@@ -60,6 +60,7 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.MoveSpeed;
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform);
+            // enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.AttackDistance);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.AttackCooldown);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);
