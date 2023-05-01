@@ -35,10 +35,10 @@ namespace CodeBase.Infrastructure.States
         }
 
         public void Enter() =>
-            _sceneLoader.Load(name: Scenes.Initial, onLoaded: EnterLoadLevel);
+            _sceneLoader.Load(name: Scene.Initial, onLoaded: EnterLoadLevel);
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadPlayerProgressState, string>(Scenes.Level1);
+            _stateMachine.Enter<LoadPlayerProgressState, string>(Scene.Level1);
 
         private void RegisterServices()
         {

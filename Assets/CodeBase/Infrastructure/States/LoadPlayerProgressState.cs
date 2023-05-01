@@ -6,7 +6,7 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadPlayerProgressState : IPayloadedState<string>
     {
-        private const string InitialLevel = Scenes.Level1;
+        private const string InitialLevel = Scene.Level1;
         private const string WebInitialScene = "PlaytestingScene";
 
         private readonly IGameStateMachine _stateMachine;

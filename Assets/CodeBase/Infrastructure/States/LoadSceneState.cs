@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services.PersistentProgress;
@@ -14,6 +13,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scene = CodeBase.Data.Scene;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -85,7 +85,7 @@ namespace CodeBase.Infrastructure.States
 
             switch (name)
             {
-                case Scenes.Level1:
+                case Scene.Level1:
                     await InitGameWorld();
                     break;
             }
