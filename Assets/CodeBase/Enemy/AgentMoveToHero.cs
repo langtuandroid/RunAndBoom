@@ -54,11 +54,13 @@ namespace CodeBase.Enemy
         {
             _move = true;
             _agent.enabled = true;
+            _agent.speed = _speed;
         }
 
         public override void Stop()
         {
             _move = false;
+            _agent.speed = 0f;
             _agent.enabled = false;
         }
     }
