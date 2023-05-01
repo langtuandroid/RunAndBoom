@@ -29,7 +29,7 @@ namespace CodeBase.Enemy
             {
                 _attack.EnableAttack();
                 _follow.Stop();
-                // _follow.enabled = false;
+                _follow.enabled = false;
             }
         }
 
@@ -39,7 +39,7 @@ namespace CodeBase.Enemy
             {
                 _attack.DisableAttack();
                 _follow.Move();
-                // _follow.enabled = true;
+                _follow.enabled = true;
             }
         }
     }
