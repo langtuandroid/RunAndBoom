@@ -7,6 +7,7 @@ using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ namespace CodeBase.Logic.Level
                     (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
                 shopItemsGenerator?.Construct(_progressService, _staticDataService, _randomService,
                     other.gameObject.GetComponent<HeroHealth>());
-                shopItemsGenerator?.GenerateShopItems();
+                shopItemsGenerator?.Generate();
                 ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();
                 shopButtons?.Construct(_refreshCount, _watchAdsNumber);
                 _isPassed = true;

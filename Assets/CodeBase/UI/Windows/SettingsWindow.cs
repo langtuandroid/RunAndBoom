@@ -1,5 +1,6 @@
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.UI.Windows.Common;
 using UnityEngine;
 using UnityEngine.UI;
 

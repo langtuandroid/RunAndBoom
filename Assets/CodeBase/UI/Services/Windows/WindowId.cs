@@ -3,9 +3,10 @@
     public enum WindowId
     {
         Unknown = 0,
-        Settings = 1,
-        Shop = 2,
-        Death = 3,
-        Error = 4
+        Error = 1,
+        Death = 2,
+        Settings = 3,
+        Shop = 4,
+        Finish = 5,
     }
 }

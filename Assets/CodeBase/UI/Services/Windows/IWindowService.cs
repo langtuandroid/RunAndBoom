@@ -1,5 +1,5 @@
 ﻿using CodeBase.Services;
-using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Common;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows

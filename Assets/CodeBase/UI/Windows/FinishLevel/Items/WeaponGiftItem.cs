@@ -1,0 +1,18 @@
+﻿using CodeBase.UI.Windows.Common;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace CodeBase.UI.Windows.FinishLevel
+{
+    public class WeaponGiftItem : WeaponItemBase
+    {
+        [SerializeField] private Image PriceCrossing;
+        [SerializeField] private Image Free;
+
+        protected override void Clicked()
+        {
+            Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
+            ClearData();
+        }
+    }
+}

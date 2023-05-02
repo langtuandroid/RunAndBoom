@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using CodeBase.UI.Windows.Common;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Shop
@@ -9,10 +11,8 @@ namespace CodeBase.UI.Windows.Shop
         [SerializeField] private Button _refreshButton;
         [SerializeField] private Button _refreshWithAdsButton;
         [SerializeField] private ShopWindow _shopWindow;
-        [SerializeField] private ShopItemsGenerator _generator;
+        [SerializeField] private ItemsGeneratorBase _generator;
 
-        private RefreshButton _refresh;
-        private RefreshWithAdsButton _refreshWithAds;
         private int _currentRefreshCount = 0;
         private int _maxRefreshCount;
         private int _watchAdsNumber;
@@ -20,67 +20,82 @@ namespace CodeBase.UI.Windows.Shop
         private void Awake()
         {
             _skipButton.onClick.AddListener(CloseShop);
-            _refreshButton.onClick.AddListener(CloseShop);
-            _refreshWithAdsButton.onClick.AddListener(CloseShop);
-            _refresh = _refreshButton.GetComponent<RefreshButton>();
-            _refreshWithAds = _refreshButton.GetComponent<RefreshWithAdsButton>();
             _refreshButton.onClick.AddListener(GenerateShopItems);
-            _generator.GenerationStarted += DisableRefreshButtonClick;
-            _generator.GenerationEnded += EnableRefreshButtonClick;
+            _refreshWithAdsButton.onClick.AddListener(ShowAdsAndGenerate);
+            _generator.GenerationStarted += DisableRefreshButtons;
+            _generator.GenerationEnded += CheckRefreshButtons;
         }
 
         public void Construct(int maxRefreshCount, int watchAdsNumber)
         {
             _maxRefreshCount = maxRefreshCount;
             _watchAdsNumber = watchAdsNumber;
-            CheckCurrentEqualsWatchAdsNumber();
-            CheckCurrentEqualsMaxCount();
+            CheckCounts();
         }
 
-        private void DisableRefreshButtonClick() =>
-            _refreshButton.enabled = false;
-
-        private void EnableRefreshButtonClick()
+        private void DisableRefreshButtons()
         {
-            // if (_watchAdsNumber == _currentRefreshCount)
-            //TODO ShowAds screen
+            _refreshButton.enabled = false;
+            _refreshWithAdsButton.enabled = false;
+        }
+
+        private void CheckRefreshButtons()
+        {
+            _refreshButton.enabled = true;
+            _refreshWithAdsButton.enabled = true;
 
             _currentRefreshCount++;
-            CheckCurrentEqualsWatchAdsNumber();
-            CheckCurrentEqualsMaxCount();
-            _refreshButton.enabled = true;
+            CheckCounts();
         }
 
-        private void GenerateShopItems() =>
-            _generator.GenerateShopItems();
+        private void CheckCounts()
+        {
+            if (NeedShowRefreshButtons())
+            {
+                CheckCurrentEqualsWatchAdsNumber();
+            }
+            else
+            {
+                HideRefreshButton();
+                HideRefreshWithAdsButton();
+            }
+        }
+
+        private bool NeedShowRefreshButtons()
+        {
+            if (_maxRefreshCount == Decimal.Zero || _maxRefreshCount == _currentRefreshCount)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         private void CheckCurrentEqualsWatchAdsNumber()
         {
             if (_watchAdsNumber == _currentRefreshCount)
-                EnableWatchAdsIcon();
-            else
-                DisableWatchAdsIcon();
-        }
-
-        private void CheckCurrentEqualsMaxCount()
-        {
-            if (_maxRefreshCount > _currentRefreshCount)
-                ShowRefreshButton();
-            else
+            {
+                ShowRefreshWithAdsButton();
                 HideRefreshButton();
+            }
+            else
+            {
+                ShowRefreshButton();
+                HideRefreshWithAdsButton();
+            }
         }
-
-        private void DisableWatchAdsIcon() =>
-            _refreshWithAds.HideAdsIcon();
-
-        private void EnableWatchAdsIcon() =>
-            _refreshWithAds.ShowAdsIcon();
 
         private void ShowRefreshButton() =>
             _refreshButton.gameObject.SetActive(true);
 
         private void HideRefreshButton() =>
             _refreshButton.gameObject.SetActive(false);
+
+        private void ShowRefreshWithAdsButton() =>
+            _refreshWithAdsButton.gameObject.SetActive(true);
+
+        private void HideRefreshWithAdsButton() =>
+            _refreshWithAdsButton.gameObject.SetActive(false);
 
         private void Start() =>
             Cursor.lockState = CursorLockMode.Confined;
@@ -90,5 +105,14 @@ namespace CodeBase.UI.Windows.Shop
             _shopWindow.Hide();
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        private void ShowAdsAndGenerate()
+        {
+            //TODO ShowAds screen
+            GenerateShopItems();
+        }
+
+        private void GenerateShopItems() =>
+            _generator.Generate();
     }
 }

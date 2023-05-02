@@ -2,6 +2,7 @@
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Items;
+using CodeBase.StaticData.Items.Gifts;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
@@ -35,5 +36,6 @@ namespace CodeBase.Services.StaticData
         UpgradeLevelInfoStaticData ForUpgradeLevelsInfo(UpgradeTypeId upgradeTypeId, LevelTypeId levelTypeId);
         ShopUpgradeStaticData ForShopUpgrade(UpgradeTypeId typeId);
         ShopWeaponStaticData ForShopWeapon(HeroWeaponTypeId typeId);
+        MoneyStaticData ForMoney(MoneyTypeId typeId);
     }
 }

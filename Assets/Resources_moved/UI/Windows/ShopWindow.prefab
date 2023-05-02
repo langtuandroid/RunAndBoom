@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 815614294558866303}
   - component: {fileID: 4229920848199292983}
   - component: {fileID: 3891343605374477144}
-  - component: {fileID: 8562808067225598940}
   - component: {fileID: 8523049745121412773}
   m_Layer: 5
   m_Name: RefreshWIthAdsButton
@@ -155,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5515600007579665564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -260,18 +259,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8562808067225598940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548963177831786933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2264b6739de41c9b0142a0af54c2ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8523049745121412773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,8 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 5
+    m_Right: 5
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
@@ -590,11 +577,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de513f8f6ed4a6896ca4b219d9594b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoPurchasingItem: {fileID: 3436234186189803482}
-  _itemPurchasingItem: {fileID: 828506651470095072}
-  _upgradePurchasingItem: {fileID: 677803924462820407}
-  _perkPurchasingItem: {fileID: 4623815959680462355}
-  _weaponPurchasingItem: {fileID: 2132414625067473517}
+  ammoItemItem: {fileID: 3436234186189803482}
+  itemShopItemItemShopItem: {fileID: 828506651470095072}
+  upgradeShopItemShopItem: {fileID: 677803924462820407}
+  perkShopItemShopItem: {fileID: 4623815959680462355}
+  weaponShopItemShopItem: {fileID: 2132414625067473517}
 --- !u!1 &3949717808672337066
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,10 +615,10 @@ RectTransform:
   m_Father: {fileID: 5515600007579665564}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 134.515, y: -22.0125}
-  m_SizeDelta: {x: 140, y: 34.47}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 140, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5492681237868699370
 CanvasRenderer:
@@ -1057,11 +1044,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de513f8f6ed4a6896ca4b219d9594b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoPurchasingItem: {fileID: 2615386842370817569}
-  _itemPurchasingItem: {fileID: 8383579011137206168}
-  _upgradePurchasingItem: {fileID: 1116463005664064607}
-  _perkPurchasingItem: {fileID: 421724581182558809}
-  _weaponPurchasingItem: {fileID: 5684838731595419114}
+  ammoItemItem: {fileID: 2615386842370817569}
+  itemShopItemItemShopItem: {fileID: 8383579011137206168}
+  upgradeShopItemShopItem: {fileID: 1116463005664064607}
+  perkShopItemShopItem: {fileID: 421724581182558809}
+  weaponShopItemShopItem: {fileID: 5684838731595419114}
 --- !u!1 &6042926996679660010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,10 +1082,10 @@ RectTransform:
   m_Father: {fileID: 5515600007579665564}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -22.0125}
-  m_SizeDelta: {x: 50, y: 44.025}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5835886947588627830
 CanvasRenderer:
@@ -1217,11 +1204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de513f8f6ed4a6896ca4b219d9594b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ammoPurchasingItem: {fileID: 4824994885072201137}
-  _itemPurchasingItem: {fileID: 2201424130914944180}
-  _upgradePurchasingItem: {fileID: 4113744401502984999}
-  _perkPurchasingItem: {fileID: 2945297210767535551}
-  _weaponPurchasingItem: {fileID: 7370407450415637714}
+  ammoItemItem: {fileID: 4824994885072201137}
+  itemShopItemItemShopItem: {fileID: 2201424130914944180}
+  upgradeShopItemShopItem: {fileID: 4113744401502984999}
+  perkShopItemShopItem: {fileID: 2945297210767535551}
+  weaponShopItemShopItem: {fileID: 7370407450415637714}
 --- !u!1 &6598897493139508093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1378,6 @@ GameObject:
   - component: {fileID: 7908321153056902621}
   - component: {fileID: 7360174197154873246}
   - component: {fileID: 6324506760347914915}
-  - component: {fileID: 8262998317301932358}
   m_Layer: 5
   m_Name: RefreshButton
   m_TagString: Untagged
@@ -1502,18 +1488,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8262998317301932358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8131069098579629595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2264b6739de41c9b0142a0af54c2ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8300922620346195981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,7 +1580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skipButton: {fileID: 8701783380240409709}
   _refreshButton: {fileID: 6324506760347914915}
-  _refreshWithAdsButton: {fileID: 0}
+  _refreshWithAdsButton: {fileID: 3891343605374477144}
   _shopWindow: {fileID: 6415520431241114458}
   _generator: {fileID: 7716486667816911635}
 --- !u!1 &8856698544688082760
@@ -1833,21 +1807,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkItem
       objectReference: {fileID: 0}
-    - target: {fileID: 1365667421130249614, guid: 54f6d74128a710345bed78654a99c6a5,
-        type: 3}
-      propertyPath: _shopItemHighlighter
-      value: 
-      objectReference: {fileID: 2162064031656620425}
-    - target: {fileID: 4009866637276154767, guid: 54f6d74128a710345bed78654a99c6a5,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6163910141594195881, guid: 54f6d74128a710345bed78654a99c6a5,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 15.55
-      objectReference: {fileID: 0}
     - target: {fileID: 9073636285794438587, guid: 54f6d74128a710345bed78654a99c6a5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1980,16 +1939,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4083777556584342645}
     m_Modifications:
-    - target: {fileID: 96591523179253963, guid: e28179ad0b8d80942964b3604499af7b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 310867298207266282, guid: e28179ad0b8d80942964b3604499af7b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 15.55
-      objectReference: {fileID: 0}
     - target: {fileID: 2526276099028047387, guid: e28179ad0b8d80942964b3604499af7b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2095,11 +2044,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5993640993275933763, guid: e28179ad0b8d80942964b3604499af7b,
-        type: 3}
-      propertyPath: _shopItemHighlighter
-      value: 
-      objectReference: {fileID: 2162064031656620425}
     - target: {fileID: 7263110176680814234, guid: e28179ad0b8d80942964b3604499af7b,
         type: 3}
       propertyPath: m_Name
@@ -2394,21 +2338,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5405754668545006116, guid: c24b9577eccd9ee4da0c6a1af77d4d7c,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6360017409931275247, guid: c24b9577eccd9ee4da0c6a1af77d4d7c,
-        type: 3}
-      propertyPath: _shopItemHighlighter
-      value: 
-      objectReference: {fileID: 2162064031656620425}
-    - target: {fileID: 7671664730099333035, guid: c24b9577eccd9ee4da0c6a1af77d4d7c,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 15.55
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c24b9577eccd9ee4da0c6a1af77d4d7c, type: 3}
 --- !u!224 &2557553182049192262 stripped
@@ -2436,11 +2365,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4083777556584342645}
     m_Modifications:
-    - target: {fileID: 822298528860118547, guid: 72bc87993bdac564698d7bfe556d6b3c,
-        type: 3}
-      propertyPath: _shopItemHighlighter
-      value: 
-      objectReference: {fileID: 2162064031656620425}
     - target: {fileID: 5651937782036223144, guid: 72bc87993bdac564698d7bfe556d6b3c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2545,16 +2469,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6036797822677683849, guid: 72bc87993bdac564698d7bfe556d6b3c,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7121073218082685411, guid: 72bc87993bdac564698d7bfe556d6b3c,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 15.55
       objectReference: {fileID: 0}
     - target: {fileID: 8434094381669037796, guid: 72bc87993bdac564698d7bfe556d6b3c,
         type: 3}
@@ -4279,11 +4193,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4083777556584342645}
     m_Modifications:
-    - target: {fileID: 670864946384701269, guid: 9e9fef108ea141e4fbba40be4961e478,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 15.55
-      objectReference: {fileID: 0}
     - target: {fileID: 2936278008971242563, guid: 9e9fef108ea141e4fbba40be4961e478,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4389,16 +4298,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4415275912073296241, guid: 9e9fef108ea141e4fbba40be4961e478,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 18.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6029320729562037822, guid: 9e9fef108ea141e4fbba40be4961e478,
-        type: 3}
-      propertyPath: _shopItemHighlighter
-      value: 
-      objectReference: {fileID: 2162064031656620425}
     - target: {fileID: 9136328231019459594, guid: 9e9fef108ea141e4fbba40be4961e478,
         type: 3}
       propertyPath: m_Name

@@ -4,6 +4,7 @@ using CodeBase.Services.Pool;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Items;
+using CodeBase.StaticData.Items.Gifts;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
@@ -19,30 +20,31 @@ namespace CodeBase.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        private const string StaticDataEnemiesPath = "StaticData/Enemies";
-        private const string StaticDataEnemyWeaponsPath = "StaticData/EnemyWeapons";
-        private const string StaticDataHeroWeaponsPath = "StaticData/HeroWeapons";
-        private const string StaticDataInventoryUpgradeLevelsPath = "StaticData/Items/Inventory/UpgradeLevels";
-        private const string StaticDataInventoryUpgradesPath = "StaticData/Items/Inventory/Upgrades";
-        private const string StaticDataPerksPath = "StaticData/Items/Perks";
-        private const string StaticDataShopAmmoPath = "StaticData/Items/Shop/Ammo";
-        private const string StaticDataShopItemsPath = "StaticData/Items/Shop/Items";
+        private const string EnemiesPath = "StaticData/Enemies";
+        private const string EnemyWeaponsPath = "StaticData/EnemyWeapons";
+        private const string HeroWeaponsPath = "StaticData/HeroWeapons";
+        private const string InventoryUpgradeLevelsPath = "StaticData/Items/Inventory/UpgradeLevels";
+        private const string InventoryUpgradesPath = "StaticData/Items/Inventory/Upgrades";
+        private const string PerksPath = "StaticData/Items/Perks";
+        private const string ShopAmmoPath = "StaticData/Items/Shop/Ammo";
+        private const string ShopItemsPath = "StaticData/Items/Shop/Items";
 
-        private const string StaticDataShopUpgradesUpgradableWeaponsPath =
+        private const string ShopUpgradesUpgradableWeaponsPath =
             "StaticData/Items/Shop/Upgrades/UpgradableWeapons";
 
-        private const string StaticDataShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
+        private const string ShopUpgradesUpgradeLevelsPath = "StaticData/Items/Shop/Upgrades/UpgradeLevels";
 
-        private const string StaticDataShopUpgradesUpgradeLevelsInfoPath =
+        private const string ShopUpgradesUpgradeLevelsInfoPath =
             "StaticData/Items/Shop/Upgrades/UpgradeLevelsInfo";
 
-        private const string StaticDataShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
-        private const string StaticDataShopWeaponsPath = "StaticData/Items/Shop/Weapons";
-        private const string StaticDataLevelsPath = "StaticData/Levels";
-        private const string StaticDataProjectilesPath = "StaticData/Projectiles/Projectiles";
-        private const string StaticDataTrailsPath = "StaticData/Projectiles/Trails";
-        private const string StaticDataShotVfxsPath = "StaticData/Projectiles/ShotVfxs";
-        private const string StaticDataBlastsPath = "StaticData/Projectiles/Blasts";
+        private const string ShopUpgradesPath = "StaticData/Items/Shop/Upgrades/Upgrades";
+        private const string ShopWeaponsPath = "StaticData/Items/Shop/Weapons";
+        private const string MoneyPath = "StaticData/Items/Money";
+        private const string LevelsPath = "StaticData/Levels";
+        private const string ProjectilesPath = "StaticData/Projectiles/Projectiles";
+        private const string TrailsPath = "StaticData/Projectiles/Trails";
+        private const string ShotVfxsPath = "StaticData/Projectiles/ShotVfxs";
+        private const string BlastsPath = "StaticData/Projectiles/Blasts";
 
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<EnemyWeaponTypeId, EnemyWeaponStaticData> _enemyWeapons;
@@ -62,80 +64,85 @@ namespace CodeBase.Services.StaticData
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
         private Dictionary<ShotVfxTypeId, ShotVfxStaticData> _shotVfxs;
         private Dictionary<BlastTypeId, BlastStaticData> _blasts;
+        private Dictionary<MoneyTypeId, MoneyStaticData> _money;
 
         public void Load()
         {
             _enemies = Resources
-                .LoadAll<EnemyStaticData>(StaticDataEnemiesPath)
+                .LoadAll<EnemyStaticData>(EnemiesPath)
                 .ToDictionary(x => x.EnemyTypeId, x => x);
 
             _enemyWeapons = Resources
-                .LoadAll<EnemyWeaponStaticData>(StaticDataEnemyWeaponsPath)
+                .LoadAll<EnemyWeaponStaticData>(EnemyWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _heroWeapons = Resources
-                .LoadAll<HeroWeaponStaticData>(StaticDataHeroWeaponsPath)
+                .LoadAll<HeroWeaponStaticData>(HeroWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _levels = Resources
-                .LoadAll<LevelStaticData>(StaticDataLevelsPath)
+                .LoadAll<LevelStaticData>(LevelsPath)
                 .ToDictionary(x => x.LevelKey, x => x);
 
             _projectiles = Resources
-                .LoadAll<ProjectileStaticData>(StaticDataProjectilesPath)
+                .LoadAll<ProjectileStaticData>(ProjectilesPath)
                 .ToDictionary(x => x.ProjectileTypeId, x => x);
 
             _trails = Resources
-                .LoadAll<TrailStaticData>(StaticDataTrailsPath)
+                .LoadAll<TrailStaticData>(TrailsPath)
                 .ToDictionary(x => x.TrailTypeId, x => x);
 
             _shotVfxs = Resources
-                .LoadAll<ShotVfxStaticData>(StaticDataShotVfxsPath)
+                .LoadAll<ShotVfxStaticData>(ShotVfxsPath)
                 .ToDictionary(x => x.TypeId, x => x);
 
             _blasts = Resources
-                .LoadAll<BlastStaticData>(StaticDataBlastsPath)
+                .LoadAll<BlastStaticData>(BlastsPath)
                 .ToDictionary(x => x.TypeId, x => x);
 
             _inventoryUpgradeLevels = Resources
-                .LoadAll<InventoryUpgradeLevelStaticData>(StaticDataInventoryUpgradeLevelsPath)
+                .LoadAll<InventoryUpgradeLevelStaticData>(InventoryUpgradeLevelsPath)
                 .ToDictionary(x => x.LevelTypeId, x => x);
 
             _inventoryUpgrades = Resources
-                .LoadAll<InventoryUpgradeStaticData>(StaticDataInventoryUpgradesPath)
+                .LoadAll<InventoryUpgradeStaticData>(InventoryUpgradesPath)
                 .ToDictionary(x => x.UpgradeTypeId, x => x);
 
             _perks = Resources
-                .LoadAll<PerkStaticData>(StaticDataPerksPath)
+                .LoadAll<PerkStaticData>(PerksPath)
                 .ToDictionary(x => new PerkItem(x.PerkTypeId, x.ILevelTypeId), x => x);
 
             _shopAmmunition = Resources
-                .LoadAll<ShopAmmoStaticData>(StaticDataShopAmmoPath)
+                .LoadAll<ShopAmmoStaticData>(ShopAmmoPath)
                 .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
 
             _shopItems = Resources
-                .LoadAll<ShopItemStaticData>(StaticDataShopItemsPath)
+                .LoadAll<ShopItemStaticData>(ShopItemsPath)
                 .ToDictionary(x => x.TypeId, x => x);
 
             _shopUpgradableWeapons = Resources
-                .LoadAll<UpgradableWeaponStaticData>(StaticDataShopUpgradesUpgradableWeaponsPath)
+                .LoadAll<UpgradableWeaponStaticData>(ShopUpgradesUpgradableWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
 
             _shopUpgradeLevels = Resources
-                .LoadAll<ShopUpgradeLevelStaticData>(StaticDataShopUpgradesUpgradeLevelsPath)
+                .LoadAll<ShopUpgradeLevelStaticData>(ShopUpgradesUpgradeLevelsPath)
                 .ToDictionary(x => x.LevelTypeId, x => x);
 
             _shopUpgradeLevelsInfo = Resources
-                .LoadAll<UpgradeLevelInfoStaticData>(StaticDataShopUpgradesUpgradeLevelsInfoPath)
+                .LoadAll<UpgradeLevelInfoStaticData>(ShopUpgradesUpgradeLevelsInfoPath)
                 .ToDictionary(x => new ShopUpgradeLevelInfoData(x.UpgradeTypeId, x.LevelTypeId), x => x);
 
             _shopUpgrades = Resources
-                .LoadAll<ShopUpgradeStaticData>(StaticDataShopUpgradesPath)
+                .LoadAll<ShopUpgradeStaticData>(ShopUpgradesPath)
                 .ToDictionary(x => x.UpgradeTypeId, x => x);
 
             _shopWeapons = Resources
-                .LoadAll<ShopWeaponStaticData>(StaticDataShopWeaponsPath)
+                .LoadAll<ShopWeaponStaticData>(ShopWeaponsPath)
                 .ToDictionary(x => x.WeaponTypeId, x => x);
+
+            _money = Resources
+                .LoadAll<MoneyStaticData>(MoneyPath)
+                .ToDictionary(x => x.TypeId, x => x);
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -226,6 +233,11 @@ namespace CodeBase.Services.StaticData
 
         public ShopWeaponStaticData ForShopWeapon(HeroWeaponTypeId typeId) =>
             _shopWeapons.TryGetValue(typeId, out ShopWeaponStaticData staticData)
+                ? staticData
+                : null;
+
+        public MoneyStaticData ForMoney(MoneyTypeId typeId) =>
+            _money.TryGetValue(typeId, out MoneyStaticData staticData)
                 ? staticData
                 : null;
     }

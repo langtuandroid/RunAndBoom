@@ -1,6 +1,6 @@
 ﻿using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
