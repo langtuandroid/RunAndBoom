@@ -5,9 +5,9 @@ using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
-using CodeBase.UI.Elements.ShopPanel;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
 namespace CodeBase.Logic.Level

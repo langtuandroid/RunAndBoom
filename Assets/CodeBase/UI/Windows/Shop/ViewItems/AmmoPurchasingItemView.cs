@@ -4,7 +4,7 @@ using CodeBase.UI.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.ShopPanel.ViewItems
+namespace CodeBase.UI.Windows.Shop.ViewItems
 {
     public class AmmoPurchasingItemView : BaseItemView
     {

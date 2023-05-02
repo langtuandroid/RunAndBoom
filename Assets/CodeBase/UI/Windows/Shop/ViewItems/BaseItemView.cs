@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.ShopPanel.ViewItems
+namespace CodeBase.UI.Windows.Shop.ViewItems
 {
     public abstract class BaseItemView : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.UI.Elements.ShopPanel;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
 namespace CodeBase.Level

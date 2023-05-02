@@ -16,10 +16,10 @@ using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
-using CodeBase.UI.Elements.ShopPanel.ViewItems;
+using CodeBase.UI.Windows.Shop.ViewItems;
 using UnityEngine;
 
-namespace CodeBase.UI.Elements.ShopPanel
+namespace CodeBase.UI.Windows.Shop
 {
     public class ShopItemsGenerator : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -12,13 +13,14 @@ namespace CodeBase.UI.Elements
     public abstract class SceneOpenButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        [SerializeField] private Scene _scene;
 
         private IGameStateMachine _stateMachine;
         protected IPlayerProgressService ProgressService;
         private IWindowService _windowService;
         private ISaveLoadService _saveLoadService;
 
-        protected abstract string Scene { get; }
+        // protected abstract string Scene { get; }
         protected abstract bool Checked { get; }
 
         private void Awake()
@@ -37,7 +39,7 @@ namespace CodeBase.UI.Elements
             if (!Checked)
                 _windowService.Open<ErrorWindow>(WindowId.Error);
             else
-                _stateMachine.Enter<LoadSceneState, string>(Scene);
+                _stateMachine.Enter<LoadSceneState, string>(_scene.ToString());
         }
     }
 }

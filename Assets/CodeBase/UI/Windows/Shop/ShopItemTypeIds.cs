@@ -1,4 +1,4 @@
-﻿namespace CodeBase.UI.Elements.ShopPanel
+﻿namespace CodeBase.UI.Windows.Shop
 {
     public enum ShopItemTypeIds
     {

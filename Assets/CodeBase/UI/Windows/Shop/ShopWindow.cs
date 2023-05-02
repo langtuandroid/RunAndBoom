@@ -1,7 +1,6 @@
-﻿using CodeBase.UI.Windows;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CodeBase.UI.Elements.ShopPanel
+namespace CodeBase.UI.Windows.Shop
 {
     public class ShopWindow : WindowBase
     {
