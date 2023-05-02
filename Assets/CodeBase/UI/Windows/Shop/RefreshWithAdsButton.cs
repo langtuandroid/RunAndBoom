@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.ShopPanel
+namespace CodeBase.UI.Windows.Shop
 {
-    public class RefreshButton : MonoBehaviour
+    public class RefreshWithAdsButton : MonoBehaviour
     {
         [SerializeField] private Image _adsIcon;
 

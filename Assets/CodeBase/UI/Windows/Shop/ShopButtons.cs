@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements.ShopPanel
+namespace CodeBase.UI.Windows.Shop
 {
     public class ShopButtons : MonoBehaviour
     {
         [SerializeField] private Button _skipButton;
         [SerializeField] private Button _refreshButton;
+        [SerializeField] private Button _refreshWithAdsButton;
         [SerializeField] private ShopWindow _shopWindow;
         [SerializeField] private ShopItemsGenerator _generator;
 
         private RefreshButton _refresh;
+        private RefreshWithAdsButton _refreshWithAds;
         private int _currentRefreshCount = 0;
         private int _maxRefreshCount;
         private int _watchAdsNumber;
@@ -19,7 +21,9 @@ namespace CodeBase.UI.Elements.ShopPanel
         {
             _skipButton.onClick.AddListener(CloseShop);
             _refreshButton.onClick.AddListener(CloseShop);
+            _refreshWithAdsButton.onClick.AddListener(CloseShop);
             _refresh = _refreshButton.GetComponent<RefreshButton>();
+            _refreshWithAds = _refreshButton.GetComponent<RefreshWithAdsButton>();
             _refreshButton.onClick.AddListener(GenerateShopItems);
             _generator.GenerationStarted += DisableRefreshButtonClick;
             _generator.GenerationEnded += EnableRefreshButtonClick;
@@ -67,10 +71,10 @@ namespace CodeBase.UI.Elements.ShopPanel
         }
 
         private void DisableWatchAdsIcon() =>
-            _refresh.HideAdsIcon();
+            _refreshWithAds.HideAdsIcon();
 
         private void EnableWatchAdsIcon() =>
-            _refresh.ShowAdsIcon();
+            _refreshWithAds.ShowAdsIcon();
 
         private void ShowRefreshButton() =>
             _refreshButton.gameObject.SetActive(true);
