@@ -8,8 +8,8 @@ namespace CodeBase.StaticData.Items.Shop.WeaponsUpgrades
     {
         public HeroWeaponTypeId WeaponTypeId;
 
-       public string RuTitle;
-       public string EnTitle;
-       public string TrTitle;
+        public string RuTitle;
+        public string EnTitle;
+        public string TrTitle;
     }
 }

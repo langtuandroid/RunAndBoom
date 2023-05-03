@@ -10,15 +10,15 @@ namespace CodeBase.UI.Windows.Common
         protected HeroWeaponTypeId _weaponTypeId;
         protected ShopWeaponStaticData _weaponStaticData;
 
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
 
         public void Construct(HeroWeaponTypeId weaponTypeId, PlayerProgress progress)
         {
-            // _button?.onClick.AddListener(Clicked);
+            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _weaponTypeId = weaponTypeId;
             FillData();

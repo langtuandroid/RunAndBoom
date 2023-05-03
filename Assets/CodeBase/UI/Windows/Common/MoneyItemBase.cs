@@ -9,15 +9,15 @@ namespace CodeBase.UI.Windows.Common
         private MoneyTypeId _moneyTypeId;
         protected MoneyStaticData _moneyStaticData;
 
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
 
         public void Construct(MoneyTypeId moneyTypeId, PlayerProgress progress)
         {
-            // _button?.onClick.AddListener(Clicked);
+            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _moneyTypeId = moneyTypeId;
             FillData();

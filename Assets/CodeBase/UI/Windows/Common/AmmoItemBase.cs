@@ -1,25 +1,24 @@
 ﻿using CodeBase.Data;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
-using CodeBase.UI.Windows.Common;
 
-namespace CodeBase.UI.Windows.Shop.ViewItems
+namespace CodeBase.UI.Windows.Common
 {
-    public abstract class AmmoItemBase : ShopItemBase
+    public abstract class AmmoItemBase : ItemBase
     {
         private AmmoCountType _countType;
-        protected StaticData.Items.Shop.Ammo.AmmoItem _ammoItem;
+        protected AmmoItem _ammoItem;
         protected ShopAmmoStaticData _shopAmmoStaticData;
-        
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(StaticData.Items.Shop.Ammo.AmmoItem ammoItem, PlayerProgress progress)
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
+
+        public void Construct(AmmoItem ammoItem, PlayerProgress progress)
         {
-            // _button?.onClick.AddListener(Clicked);
+            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _ammoItem = ammoItem;
             FillData();
@@ -40,7 +39,7 @@ namespace CodeBase.UI.Windows.Shop.ViewItems
             int ammoCountType = (int)_shopAmmoStaticData.Count;
             CountText.text = $"{ammoCountType}";
             // CountText.color = Constants.ShopItemCountField;
-            TitleText.text = $"{_shopAmmoStaticData.IRuTitle}";
+            TitleText.text = $"{_shopAmmoStaticData.RuTitle}";
         }
     }
 }

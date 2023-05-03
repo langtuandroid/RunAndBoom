@@ -3,7 +3,6 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.FinishLevel;
 using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
@@ -52,7 +51,7 @@ namespace CodeBase.UI.Services.Windows
         private T ShowWindow<T>(WindowId windowId) where T : WindowBase
         {
             _windows.TryGetValue(windowId, out GameObject windowGameObject);
-            T window = windowGameObject.GetComponent<T>();
+            T window = windowGameObject?.GetComponent<T>();
             window?.Show();
             return window;
         }

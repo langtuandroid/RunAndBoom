@@ -9,12 +9,15 @@ namespace CodeBase
         public const float AlphaActiveItem = 1f;
         public const float AlphaInactiveItem = 0f;
 
-        public static readonly Color ShopItemCountField = new Color(0.7459788f, 0f, 1f, 1f);
+        // public static readonly Color ShopItemCountField = new Color(0.7459788f, 0f, 1f, 1f);
         public static readonly Color ShopItemUpgrade = new Color(1f, 0.7064719f, 0f, 1f);
         public static readonly Color ShopItemAmmo = new Color(0.2321882f, 1f, 0f, 1f);
         public static readonly Color ShopItemWeapon = new Color(0.8896403f, 1f, 0f, 1f);
+
         public static readonly Color ShopItemPerk = new Color(0f, 0.7270764f, 0.9433962f, 1f);
-        public static readonly Color ShopItemItem = new Color(0.9f, 0.1f, 0.2f, 1f);
+
+        // public static readonly Color ShopItemItem = new Color(0.9f, 0.1f, 0.2f, 1f);
+        public static readonly Color ShopItemItem = new Color(0.7459788f, 0f, 1f, 1f);
 
         public const string HeroTag = "Hero";
     }

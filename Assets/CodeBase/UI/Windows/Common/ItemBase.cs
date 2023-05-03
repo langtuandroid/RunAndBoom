@@ -2,7 +2,7 @@
 using CodeBase.Services;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services;
-using CodeBase.UI.Windows.FinishLevel;
+using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Shop;
 using TMPro;
 using UnityEngine;

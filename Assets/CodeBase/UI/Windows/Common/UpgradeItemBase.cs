@@ -13,15 +13,15 @@ namespace CodeBase.UI.Windows.Common
         protected UpgradeLevelInfoStaticData _upgradeLevelInfoStaticData;
         private ShopUpgradeLevelStaticData _shopUpgradeLevelStaticData;
 
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
 
         public void Construct(UpgradeItemData upgradeItemData, PlayerProgress progress)
         {
-            // _button?.onClick.AddListener(Clicked);
+            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _upgradeItemData = upgradeItemData;
             FillData();

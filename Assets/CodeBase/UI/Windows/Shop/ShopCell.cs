@@ -1,96 +1,75 @@
 ﻿using System;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.Shop.Items;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.UI.Windows.Shop
 {
     public class ShopCell : MonoBehaviour
     {
-        [FormerlySerializedAs("ammoShopItemShopItem")]
-        [FormerlySerializedAs("ammoPurchasingShopItem")]
-        [FormerlySerializedAs("_ammoPurchasingItem")]
-        [SerializeField]
-        private AmmoShopItem ammoItemItem;
+        [SerializeField] private AmmoItemBase _ammoItemBase;
+        [SerializeField] private ItemItemBase _itemItemBase;
+        [SerializeField] private PerkItemBase _perkItemBase;
+        [SerializeField] private UpgradeItemBase _upgradeItemBase;
+        [SerializeField] private WeaponItemBase _weaponItemBase;
 
-        [FormerlySerializedAs("shopShopItemPurchasingShopShopItem")]
-        [FormerlySerializedAs("shopItemPurchasingShopItem")]
-        [FormerlySerializedAs("_itemPurchasingItem")]
-        [SerializeField]
-        private ItemShopItem itemShopItemItemShopItem;
-
-        [FormerlySerializedAs("upgradePurchasingShopItem")]
-        [FormerlySerializedAs("_upgradePurchasingItem")]
-        [SerializeField]
-        private UpgradeShopItem upgradeShopItemShopItem;
-
-        [FormerlySerializedAs("perkPurchasingShopItem")] [FormerlySerializedAs("_perkPurchasingItem")] [SerializeField]
-        private PerkShopItem perkShopItemShopItem;
-
-        [FormerlySerializedAs("weaponPurchasingShopItem")]
-        [FormerlySerializedAs("_weaponPurchasingItem")]
-        [SerializeField]
-        private WeaponShopItem weaponShopItemShopItem;
-
-        Type _ammoType = typeof(AmmoShopItem);
-        Type _itemType = typeof(ItemShopItem);
-        Type _upgradeType = typeof(UpgradeShopItem);
-        Type _perkType = typeof(PerkShopItem);
-        Type _weaponType = typeof(WeaponShopItem);
+        Type _ammoType = typeof(AmmoItemBase);
+        Type _itemType = typeof(ItemItemBase);
+        Type _perkType = typeof(PerkItemBase);
+        Type _upgradeType = typeof(UpgradeItemBase);
+        Type _weaponType = typeof(WeaponItemBase);
 
         public ItemBase GetView(Type type) // where T : BaseItemView
         {
             if (type == _ammoType)
             {
-                ammoItemItem.gameObject.SetActive(true);
-                itemShopItemItemShopItem.gameObject.SetActive(false);
-                upgradeShopItemShopItem.gameObject.SetActive(false);
-                perkShopItemShopItem.gameObject.SetActive(false);
-                weaponShopItemShopItem.gameObject.SetActive(false);
-                return ammoItemItem;
+                _ammoItemBase.gameObject.SetActive(true);
+                _itemItemBase.gameObject.SetActive(false);
+                _upgradeItemBase.gameObject.SetActive(false);
+                _perkItemBase.gameObject.SetActive(false);
+                _weaponItemBase.gameObject.SetActive(false);
+                return _ammoItemBase;
             }
 
             if (type == _itemType)
             {
-                itemShopItemItemShopItem.gameObject.SetActive(true);
-                ammoItemItem.gameObject.SetActive(false);
-                upgradeShopItemShopItem.gameObject.SetActive(false);
-                perkShopItemShopItem.gameObject.SetActive(false);
-                weaponShopItemShopItem.gameObject.SetActive(false);
-                return itemShopItemItemShopItem;
+                _itemItemBase.gameObject.SetActive(true);
+                _ammoItemBase.gameObject.SetActive(false);
+                _upgradeItemBase.gameObject.SetActive(false);
+                _perkItemBase.gameObject.SetActive(false);
+                _weaponItemBase.gameObject.SetActive(false);
+                return _itemItemBase;
             }
 
             if (type == _upgradeType)
             {
-                upgradeShopItemShopItem.gameObject.SetActive(true);
-                ammoItemItem.gameObject.SetActive(false);
-                itemShopItemItemShopItem.gameObject.SetActive(false);
-                perkShopItemShopItem.gameObject.SetActive(false);
-                weaponShopItemShopItem.gameObject.SetActive(false);
-                return upgradeShopItemShopItem;
+                _upgradeItemBase.gameObject.SetActive(true);
+                _ammoItemBase.gameObject.SetActive(false);
+                _itemItemBase.gameObject.SetActive(false);
+                _perkItemBase.gameObject.SetActive(false);
+                _weaponItemBase.gameObject.SetActive(false);
+                return _upgradeItemBase;
             }
 
             if (type == _perkType)
             {
-                perkShopItemShopItem.gameObject.SetActive(true);
-                ammoItemItem.gameObject.SetActive(false);
-                itemShopItemItemShopItem.gameObject.SetActive(false);
-                upgradeShopItemShopItem.gameObject.SetActive(false);
-                weaponShopItemShopItem.gameObject.SetActive(false);
-                return perkShopItemShopItem;
+                _perkItemBase.gameObject.SetActive(true);
+                _ammoItemBase.gameObject.SetActive(false);
+                _itemItemBase.gameObject.SetActive(false);
+                _upgradeItemBase.gameObject.SetActive(false);
+                _weaponItemBase.gameObject.SetActive(false);
+                return _perkItemBase;
             }
 
             if (type == _weaponType)
             {
-                weaponShopItemShopItem.gameObject.SetActive(true);
-                ammoItemItem.gameObject.SetActive(false);
-                itemShopItemItemShopItem.gameObject.SetActive(false);
-                upgradeShopItemShopItem.gameObject.SetActive(false);
-                perkShopItemShopItem.gameObject.SetActive(false);
-                return weaponShopItemShopItem;
+                _weaponItemBase.gameObject.SetActive(true);
+                _ammoItemBase.gameObject.SetActive(false);
+                _itemItemBase.gameObject.SetActive(false);
+                _upgradeItemBase.gameObject.SetActive(false);
+                _perkItemBase.gameObject.SetActive(false);
+                return _weaponItemBase;
             }
-            else return weaponShopItemShopItem;
+            else return _weaponItemBase;
 
 
             // switch (type)

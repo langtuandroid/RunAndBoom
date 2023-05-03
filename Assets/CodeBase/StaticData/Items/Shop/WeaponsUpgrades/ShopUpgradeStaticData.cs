@@ -6,8 +6,8 @@ namespace CodeBase.StaticData.Items.Shop.WeaponsUpgrades
     public class ShopUpgradeStaticData : BaseItemStaticData
     {
         public UpgradeTypeId UpgradeTypeId;
-       public string RuTitle;
-       public string EnTitle;
-       public string TrTitle;
+        public string RuTitle;
+        public string EnTitle;
+        public string TrTitle;
     }
 }

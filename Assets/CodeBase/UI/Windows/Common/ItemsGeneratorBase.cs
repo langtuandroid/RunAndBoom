@@ -17,7 +17,7 @@ using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
-using CodeBase.UI.Windows.FinishLevel.Items;
+using CodeBase.UI.Windows.Finish.Items;
 using CodeBase.UI.Windows.Shop;
 using CodeBase.UI.Windows.Shop.Items;
 using UnityEngine;
@@ -404,7 +404,8 @@ namespace CodeBase.UI.Windows.Common
 
         private void CreateItemItem(GameObject parent, ItemTypeId itemTypeId, bool isClickable)
         {
-            ItemShopItem view = parent.GetComponent<ShopCell>().GetView(typeof(ItemShopItem)) as ItemShopItem;
+            ItemShopItem view =
+                parent.GetComponent<ShopCell>().GetView(typeof(ItemShopItem)) as ItemShopItem;
             view?.Construct(itemTypeId, _progress, _health);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);

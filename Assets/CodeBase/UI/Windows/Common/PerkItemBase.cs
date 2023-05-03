@@ -10,15 +10,15 @@ namespace CodeBase.UI.Windows.Common
         private PerkItemData _perkItemData;
         protected PerkStaticData _perkStaticData;
 
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
 
         public void Construct(PerkItemData perkItemData, PlayerProgress progress)
         {
-            // _button?.onClick.AddListener(Clicked);
+            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _perkItemData = perkItemData;
             FillData();

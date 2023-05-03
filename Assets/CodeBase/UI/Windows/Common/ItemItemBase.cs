@@ -11,16 +11,16 @@ namespace CodeBase.UI.Windows.Common
         private ItemTypeId _typeId;
         protected HeroHealth _health;
 
-        // private void OnEnable() =>
-        //     _button?.onClick.AddListener(Clicked);
-        //
-        // private void OnDisable() =>
-        //     _button?.onClick.RemoveListener(Clicked);
+        private void OnEnable() =>
+            Button?.onClick.AddListener(Clicked);
+
+        private void OnDisable() =>
+            Button?.onClick.RemoveListener(Clicked);
 
         public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health)
         {
+            Button?.onClick.AddListener(Clicked);
             _health = health;
-            // _button?.onClick.AddListener(Clicked);
             _typeId = typeId;
             base.Construct(progress);
             FillData();

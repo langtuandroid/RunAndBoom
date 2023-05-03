@@ -1,9 +1,7 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows.FinishLevel;
-using CodeBase.UI.Windows.Shop;
+using CodeBase.UI.Windows;
 using UnityEngine;
 
 namespace CodeBase.Level
@@ -23,7 +21,9 @@ namespace CodeBase.Level
         {
             if (other.CompareByTag(Constants.HeroTag))
             {
-                Pickup();
+                if (pickupEffect != null)
+                    Pickup();
+
                 Time.timeScale = 0;
                 _windowService.Open<FinishWindow>(WindowId.Finish);
             }
