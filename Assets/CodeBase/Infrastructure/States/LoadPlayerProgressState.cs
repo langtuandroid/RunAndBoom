@@ -4,9 +4,9 @@ using CodeBase.Services.SaveLoad;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadPlayerProgressState : IPayloadedState<string>
+    public class LoadPlayerProgressState : IPayloadedState<Scene>
     {
-        private const string InitialLevel = Scene.Level1;
+        private const Scene InitialLevel = Scene.Level_1;
         private const string WebInitialScene = "PlaytestingScene";
 
         private readonly IGameStateMachine _stateMachine;
@@ -27,10 +27,10 @@ namespace CodeBase.Infrastructure.States
         //     _stateMachine.Enter<LoadSceneState, string>(InitialLevel);
         // }
 
-        public void Enter(string sceneName)
+        public void Enter(Scene scene)
         {
             LoadProgressOrInitNew();
-            _stateMachine.Enter<LoadSceneState, string>(sceneName);
+            _stateMachine.Enter<LoadSceneState, Scene>(scene);
         }
 
         public void Exit()

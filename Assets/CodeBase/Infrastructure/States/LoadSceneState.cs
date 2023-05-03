@@ -16,7 +16,7 @@ using Scene = CodeBase.Data.Scene;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadSceneState : IPayloadedState<string>
+    public class LoadSceneState : IPayloadedState<Scene>
     {
         private const string LevelName = "Level_";
 
@@ -31,7 +31,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IWindowService _windowService;
 
         private bool _isInitial = true;
-        private string _sceneName;
+        private Scene _scene;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
@@ -50,11 +50,11 @@ namespace CodeBase.Infrastructure.States
             _windowService = windowService;
         }
 
-        public void Enter(string sceneName)
+        public void Enter(Scene scene)
         {
-            _sceneName = sceneName;
+            _scene = scene;
 
-            if (_sceneName.Contains(LevelName))
+            if (_scene.ToString().Contains(LevelName))
             {
                 // if (IsInitialSceneInEditor())
                 _loadingCurtain.Show();
@@ -63,12 +63,12 @@ namespace CodeBase.Infrastructure.States
                 _gameFactory.WarmUp();
             }
 
-            _sceneLoader.Load(_sceneName, OnLoaded);
+            _sceneLoader.Load(_scene, OnLoaded);
         }
 
         public void Exit()
         {
-            if (_sceneName.Contains(LevelName))
+            if (_scene.ToString().Contains(LevelName))
                 // if (IsInitialSceneInEditor())
                 _loadingCurtain.Hide();
 
@@ -78,13 +78,13 @@ namespace CodeBase.Infrastructure.States
         private bool IsInitialSceneInEditor() =>
             _isInitial && Application.isEditor;
 
-        private async void OnLoaded(string name)
+        private async void OnLoaded(Scene scene)
         {
             await InitUIRoot();
 
-            switch (name)
+            switch (scene)
             {
-                case Scene.Level1:
+                case Scene.Level_1:
                     await InitGameWorld();
                     break;
             }
@@ -155,9 +155,9 @@ namespace CodeBase.Infrastructure.States
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            deathWindow.GetComponent<DeathWindow>().Construct(hero, _sceneName);
+            deathWindow.GetComponent<DeathWindow>().Construct(hero, _scene);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
-            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _sceneName);
+            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _scene);
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
             finishWindow.GetComponent<FinishWindow>().Construct(hero);
 

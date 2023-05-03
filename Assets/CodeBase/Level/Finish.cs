@@ -6,6 +6,7 @@ using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Finish;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Level
 {
@@ -13,6 +14,7 @@ namespace CodeBase.Level
     {
         [SerializeField] private GameObject pickupEffect;
         [SerializeField] private int _maxPrice;
+        [SerializeField] private Scene _scene;
 
         private IWindowService _windowService;
 
@@ -35,7 +37,7 @@ namespace CodeBase.Level
                 giftsGenerator?.Construct(_maxPrice, other.gameObject.GetComponent<HeroHealth>());
                 giftsGenerator?.Generate();
                 FinishButtons finishButtons = (finishWindow as FinishWindow)?.gameObject.GetComponent<FinishButtons>();
-                finishButtons?.Construct();
+                finishButtons?.Construct(_scene);
             }
         }
 

@@ -1,8 +1,11 @@
-namespace CodeBase.Data
+﻿namespace CodeBase.Data
 {
-    public struct Scene
+    public enum Scene
     {
-        public const string Initial = "Initial";
-        public const string Level1 = "Level_1";
+        Initial = 0,
+        Level_1 = 1,
+        Level_2 = 2,
+        Level_3 = 3,
+        Level_4 = 4,
     }
 }

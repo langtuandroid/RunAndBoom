@@ -39,7 +39,7 @@ namespace CodeBase.UI.Elements
             if (!Checked)
                 _windowService.Open<ErrorWindow>(WindowId.Error);
             else
-                _stateMachine.Enter<LoadSceneState, string>(_scene.ToString());
+                _stateMachine.Enter<LoadSceneState, Scene>(_scene);
         }
     }
 }

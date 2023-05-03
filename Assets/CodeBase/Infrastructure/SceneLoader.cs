@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scene = CodeBase.Data.Scene;
 
 namespace CodeBase.Infrastructure
 {
@@ -12,13 +13,13 @@ namespace CodeBase.Infrastructure
         public SceneLoader(ICoroutineRunner coroutineRunner) =>
             _coroutineRunner = coroutineRunner;
 
-        public void Load(string name, Action<string> onLoaded = null) =>
-            _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+        public void Load(Scene scene, Action<Scene> onLoaded = null) =>
+            _coroutineRunner.StartCoroutine(LoadScene(scene, onLoaded));
 
-        public void Load(string name, Action onLoaded = null) =>
-            _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
+        public void Load(Scene scene, Action onLoaded = null) =>
+            _coroutineRunner.StartCoroutine(LoadScene(scene, onLoaded));
 
-        private IEnumerator LoadScene(string nextScene, Action<string> onLoaded = null)
+        private IEnumerator LoadScene(Scene nextScene, Action<Scene> onLoaded = null)
         {
             // if (SceneManager.GetActiveScene().name == nextScene)
             // {
@@ -27,7 +28,7 @@ namespace CodeBase.Infrastructure
             //     yield break;
             // }
 
-            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene.ToString());
 
             while (!waitNextScene.isDone)
                 yield return null;
@@ -35,15 +36,15 @@ namespace CodeBase.Infrastructure
             onLoaded?.Invoke(nextScene);
         }
 
-        private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
+        private IEnumerator LoadScene(Scene nextScene, Action onLoaded = null)
         {
-            if (SceneManager.GetActiveScene().name == nextScene)
+            if (SceneManager.GetActiveScene().name == nextScene.ToString())
             {
                 onLoaded?.Invoke();
                 yield break;
             }
 
-            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+            AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene.ToString());
 
             while (!waitNextScene.isDone)
                 yield return null;

@@ -1,3 +1,4 @@
+using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.UI.Windows.Common;
@@ -11,7 +12,7 @@ namespace CodeBase.UI.Windows
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _closeButton;
 
-        private string _sceneName;
+        private Scene _scene;
 
         private void Start()
         {
@@ -25,16 +26,16 @@ namespace CodeBase.UI.Windows
                 Hide();
         }
 
-        public void Construct(GameObject hero, string sceneName)
+        public void Construct(GameObject hero, Scene scene)
         {
-            _sceneName = sceneName;
+            _scene = scene;
             base.Construct(hero);
         }
 
         private void Restart()
         {
             Hide();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, string>(_sceneName);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
         }
     }
 }

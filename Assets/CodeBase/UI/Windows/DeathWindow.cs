@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using CodeBase.Data;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
@@ -10,15 +11,15 @@ namespace CodeBase.UI.Windows
     {
         [SerializeField] private Button _restartButton;
 
-        private string _sceneName;
+        private Scene _scene;
 
         private void Start() =>
             _restartButton.onClick.AddListener(Restart);
 
-        public void Construct(GameObject hero, string sceneName)
+        public void Construct(GameObject hero, Scene scene)
         {
             base.Construct(hero);
-            _sceneName = sceneName;
+            _scene = scene;
         }
 
         // private void Restart() =>
@@ -26,6 +27,6 @@ namespace CodeBase.UI.Windows
 
 
         private void Restart() =>
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, string>(_sceneName);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
     }
 }

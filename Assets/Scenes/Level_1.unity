@@ -16429,31 +16429,16 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1692159434}
-    - target: {fileID: 1065395891138182294, guid: 865dd4276a900734d8b9c9235612d564,
-        type: 3}
-      propertyPath: m_VersionIndex
-      value: 4303
-      objectReference: {fileID: 0}
     - target: {fileID: 1823091049541763374, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
       propertyPath: m_Name
       value: AcrossingBorder
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823091049541763374, guid: 865dd4276a900734d8b9c9235612d564,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3415877587944404349, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1692159434}
-    - target: {fileID: 6989349634352191010, guid: 865dd4276a900734d8b9c9235612d564,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 8343475555202227542, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
       propertyPath: m_RootOrder
@@ -16467,12 +16452,12 @@ PrefabInstance:
     - target: {fileID: 8343475555202227542, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.107
+      value: 2.064
       objectReference: {fileID: 0}
     - target: {fileID: 8343475555202227542, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.88
+      value: 71.94093
       objectReference: {fileID: 0}
     - target: {fileID: 8343475555202227542, guid: 865dd4276a900734d8b9c9235612d564,
         type: 3}
@@ -16683,7 +16668,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-103892
+  m_Name: pb_Mesh-19186
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17911,6 +17896,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922247334887890555, guid: 40d62017936bd404e91fbdab99b8dd14,
+        type: 3}
+      propertyPath: _scene
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922247334887890555, guid: 40d62017936bd404e91fbdab99b8dd14,
+        type: 3}
+      propertyPath: _maxPrice
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40d62017936bd404e91fbdab99b8dd14, type: 3}
@@ -21489,3 +21484,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupEffect: {fileID: 0}
   _maxPrice: 25
+  _scene: 2

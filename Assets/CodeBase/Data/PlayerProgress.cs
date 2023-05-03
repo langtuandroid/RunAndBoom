@@ -15,13 +15,13 @@ namespace CodeBase.Data
         public LevelStats CurrentLevelStats { get; private set; }
         public List<LevelStats> LevelStats { get; private set; }
 
-        public PlayerProgress(string initialLevel)
+        public PlayerProgress(Scene initialLevel)
         {
             HealthState = new HealthState();
-            WorldData = new WorldData(initialLevel);
+            WorldData = new WorldData(initialLevel.ToString());
             WeaponsData = new WeaponsData();
             PerksData = new PerksData();
-            CurrentLevelStats = new LevelStats(initialLevel);
+            CurrentLevelStats = new LevelStats(initialLevel.ToString());
         }
 
         public void AddNewLevelStats(LevelStats levelStats) =>

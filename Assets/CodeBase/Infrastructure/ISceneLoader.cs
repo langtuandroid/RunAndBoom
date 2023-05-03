@@ -1,9 +1,10 @@
 using System;
+using CodeBase.Data;
 
 namespace CodeBase.Infrastructure
 {
     public interface ISceneLoader
     {
-        void Load(string name, Action<string> onLoaded = null);
+        void Load(Scene scene, Action<Scene> onLoaded = null);
     }
 }
