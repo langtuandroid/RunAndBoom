@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
@@ -49,9 +48,8 @@ namespace CodeBase.UI.Windows.Common
         private List<UpgradeItemData> _availableUpgrades;
         private List<HeroWeaponTypeId> _availableWeapons;
         private List<PerkItemData> _availablePerks;
-        private List<MoneyTypeId> _availableMoney;
+        private List<MoneyTypeId> _moneyTypeIds;
         private Coroutine _coroutineShopItemsGeneration;
-        private WaitForSeconds _delayShopItemsDisplaying = new WaitForSeconds(0.5f);
         private PlayerProgress _progress;
         private HeroHealth _health;
         private int _money;
@@ -68,6 +66,17 @@ namespace CodeBase.UI.Windows.Common
             _randomService = randomService;
 
             _money = _progress.CurrentLevelStats.MoneyData.Money;
+        }
+
+        public void Generate()
+        {
+            GenerationStarted?.Invoke();
+            SetHighlightingVisibility(false);
+            InitializeEmptyData();
+            CreateAllItems();
+            GenerateAllItems();
+            SetHighlightingVisibility(true);
+            GenerationEnded?.Invoke();
         }
 
         private void InitializeEmptyData()
@@ -87,25 +96,7 @@ namespace CodeBase.UI.Windows.Common
             _availableUpgrades = new List<UpgradeItemData>();
             _availableWeapons = new List<HeroWeaponTypeId>();
             _availablePerks = new List<PerkItemData>();
-            _availableMoney = new List<MoneyTypeId>();
-        }
-
-        public void Generate()
-        {
-            GenerationStarted?.Invoke();
-            SetHighlightingVisibility(false);
-            InitializeEmptyData();
-
-            CreateAllItems();
-
-            // StartCoroutine(CoroutineShowShopItems());
-
-            GenerateAllItems();
-
-            // HideEmpty();
-
-            SetHighlightingVisibility(true);
-            GenerationEnded?.Invoke();
+            _moneyTypeIds = new List<MoneyTypeId>();
         }
 
         protected abstract void GenerateAllItems();
@@ -134,8 +125,8 @@ namespace CodeBase.UI.Windows.Common
 
                             if (_money >= upgradeLevelInfoStaticData.Cost)
                                 _availableUpgrades.Add(nextLevelUpgrade);
-
-                            _unavailableUpgrades.Add(nextLevelUpgrade);
+                            else
+                                _unavailableUpgrades.Add(nextLevelUpgrade);
                         }
                     }
                 }
@@ -155,8 +146,8 @@ namespace CodeBase.UI.Windows.Common
 
                     if (_money >= perkStaticData.Cost)
                         _availablePerks.Add(new PerkItemData(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId));
-
-                    _unavailablePerks.Add(new PerkItemData(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId));
+                    else
+                        _unavailablePerks.Add(new PerkItemData(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId));
                 }
             }
         }
@@ -266,8 +257,8 @@ namespace CodeBase.UI.Windows.Common
 
                 if (_money >= weaponStaticData.Cost)
                     _availableWeapons.Add(weaponData.WeaponTypeId);
-
-                _unavailableWeapons.Add(weaponData.WeaponTypeId);
+                else
+                    _unavailableWeapons.Add(weaponData.WeaponTypeId);
             }
         }
 
@@ -279,15 +270,15 @@ namespace CodeBase.UI.Windows.Common
 
                 if (_money >= itemStaticData.Cost)
                     _availableItems.Add(itemTypeId);
-
-                _unavailableItems.Add(itemTypeId);
+                else
+                    _unavailableItems.Add(itemTypeId);
             }
         }
 
         protected void CreateMoney()
         {
             foreach (MoneyTypeId moneyTypeId in DataExtensions.GetValues<MoneyTypeId>())
-                _availableMoney.Add(moneyTypeId);
+                _moneyTypeIds.Add(moneyTypeId);
         }
 
         private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCount)
@@ -297,16 +288,8 @@ namespace CodeBase.UI.Windows.Common
 
             if (_money >= shopAmmoStaticData.Cost)
                 _availableAmmunition.Add(ammoItem);
-
-            _unavailableAmmunition.Add(ammoItem);
-        }
-
-        private IEnumerator CoroutineShowShopItems()
-        {
-            yield return ShowShopItems();
-            yield return _delayShopItemsDisplaying;
-            yield return ShowShopItems();
-            yield return _delayShopItemsDisplaying;
+            else
+                _unavailableAmmunition.Add(ammoItem);
         }
 
         private void SetHighlightingVisibility(bool isVisible)
@@ -315,13 +298,7 @@ namespace CodeBase.UI.Windows.Common
                 shopItem.GetComponent<ShopItemHighlighter>().enabled = isVisible;
         }
 
-        private IEnumerator ShowShopItems()
-        {
-            ShowItems();
-            yield return null;
-        }
-
-        private void ShowItems()
+        private void ShowTemporaryItems()
         {
             foreach (GameObject shopItem in _shopItems)
             {
@@ -379,7 +356,7 @@ namespace CodeBase.UI.Windows.Common
 
                     case Money:
                     {
-                        CreateMoneyItem(shopItem, _availableMoney, false);
+                        CreateMoneyItem(shopItem, _moneyTypeIds, false);
                         break;
                     }
                 }

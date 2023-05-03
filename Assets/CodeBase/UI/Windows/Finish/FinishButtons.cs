@@ -1,34 +1,29 @@
-﻿using CodeBase.UI.Windows.Common;
+﻿using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.UI.Windows.Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Finish
 {
-    public class FinishLevelButtons : MonoBehaviour
+    public class FinishButtons : MonoBehaviour
     {
         [SerializeField] private Button _skipButton;
-
-        [FormerlySerializedAs("_shopWindow")] [SerializeField]
-        private FinishWindow finishWindow;
-
+        [SerializeField] private FinishWindow _finishWindow;
         [SerializeField] private ItemsGeneratorBase _generator;
-
-        private int _currentRefreshCount = 0;
-        private int _maxRefreshCount;
-        private int _watchAdsNumber;
+        
+        private IPlayerProgressService _playerProgressService;
 
         private void Awake()
         {
+            _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
             _skipButton.onClick.AddListener(CloseShop);
             _generator.GenerationStarted += DisableRefreshButtons;
             _generator.GenerationEnded += CheckRefreshButtons;
         }
 
-        public void Construct(int maxRefreshCount, int watchAdsNumber)
+        public void Construct()
         {
-            _maxRefreshCount = maxRefreshCount;
-            _watchAdsNumber = watchAdsNumber;
             GenerateItems();
         }
 
@@ -39,14 +34,13 @@ namespace CodeBase.UI.Windows.Finish
         private void CheckRefreshButtons()
         {
         }
-
-
+        
         private void Start() =>
             Cursor.lockState = CursorLockMode.Confined;
 
         private void CloseShop()
         {
-            finishWindow.Hide();
+            _finishWindow.Hide();
             Cursor.lockState = CursorLockMode.Locked;
         }
 

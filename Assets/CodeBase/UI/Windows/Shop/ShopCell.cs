@@ -1,5 +1,7 @@
 ﻿using System;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.Finish.Items;
+using CodeBase.UI.Windows.Shop.Items;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Shop
@@ -11,63 +13,86 @@ namespace CodeBase.UI.Windows.Shop
         [SerializeField] private PerkItemBase _perkItemBase;
         [SerializeField] private UpgradeItemBase _upgradeItemBase;
         [SerializeField] private WeaponItemBase _weaponItemBase;
+        [SerializeField] private MoneyItemBase _moneyItemBase;
 
-        Type _ammoType = typeof(AmmoItemBase);
-        Type _itemType = typeof(ItemItemBase);
-        Type _perkType = typeof(PerkItemBase);
-        Type _upgradeType = typeof(UpgradeItemBase);
-        Type _weaponType = typeof(WeaponItemBase);
+        Type _ammoShopType = typeof(AmmoShopItem);
+        Type _itemShopType = typeof(ItemShopItem);
+        Type _perkShopType = typeof(PerkShopItem);
+        Type _upgradeShopType = typeof(UpgradeShopItem);
+        Type _weaponShopType = typeof(WeaponShopItem);
+        Type _ammoGiftType = typeof(AmmoGiftItem);
+        Type _itemGiftType = typeof(ItemGiftItem);
+        Type _perkGiftType = typeof(PerkGiftItem);
+        Type _upgradeGiftType = typeof(UpgradeGiftItem);
+        Type _weaponGiftType = typeof(WeaponGiftItem);
+        Type _moneyGiftType = typeof(MoneyGiftItem);
 
-        public ItemBase GetView(Type type) // where T : BaseItemView
+        public ItemBase GetView(Type type)
         {
-            if (type == _ammoType)
+            if (type == _ammoShopType || type == _ammoGiftType)
             {
                 _ammoItemBase.gameObject.SetActive(true);
                 _itemItemBase.gameObject.SetActive(false);
                 _upgradeItemBase.gameObject.SetActive(false);
                 _perkItemBase.gameObject.SetActive(false);
                 _weaponItemBase.gameObject.SetActive(false);
+                _moneyItemBase?.gameObject.SetActive(false);
                 return _ammoItemBase;
             }
 
-            if (type == _itemType)
+            if (type == _itemShopType || type == _itemGiftType)
             {
                 _itemItemBase.gameObject.SetActive(true);
                 _ammoItemBase.gameObject.SetActive(false);
                 _upgradeItemBase.gameObject.SetActive(false);
                 _perkItemBase.gameObject.SetActive(false);
                 _weaponItemBase.gameObject.SetActive(false);
+                _moneyItemBase?.gameObject.SetActive(false);
                 return _itemItemBase;
             }
 
-            if (type == _upgradeType)
+            if (type == _upgradeShopType || type == _upgradeGiftType)
             {
                 _upgradeItemBase.gameObject.SetActive(true);
                 _ammoItemBase.gameObject.SetActive(false);
                 _itemItemBase.gameObject.SetActive(false);
                 _perkItemBase.gameObject.SetActive(false);
                 _weaponItemBase.gameObject.SetActive(false);
+                _moneyItemBase?.gameObject.SetActive(false);
                 return _upgradeItemBase;
             }
 
-            if (type == _perkType)
+            if (type == _perkShopType || type == _perkGiftType)
             {
                 _perkItemBase.gameObject.SetActive(true);
                 _ammoItemBase.gameObject.SetActive(false);
                 _itemItemBase.gameObject.SetActive(false);
                 _upgradeItemBase.gameObject.SetActive(false);
                 _weaponItemBase.gameObject.SetActive(false);
+                _moneyItemBase?.gameObject.SetActive(false);
                 return _perkItemBase;
             }
 
-            if (type == _weaponType)
+            if (type == _weaponShopType || type == _weaponGiftType)
             {
                 _weaponItemBase.gameObject.SetActive(true);
                 _ammoItemBase.gameObject.SetActive(false);
                 _itemItemBase.gameObject.SetActive(false);
                 _upgradeItemBase.gameObject.SetActive(false);
                 _perkItemBase.gameObject.SetActive(false);
+                _moneyItemBase?.gameObject.SetActive(false);
                 return _weaponItemBase;
+            }
+
+            if (type == _moneyGiftType)
+            {
+                _moneyItemBase.gameObject.SetActive(true);
+                _weaponItemBase.gameObject.SetActive(false);
+                _ammoItemBase.gameObject.SetActive(false);
+                _itemItemBase.gameObject.SetActive(false);
+                _upgradeItemBase.gameObject.SetActive(false);
+                _perkItemBase.gameObject.SetActive(false);
+                return _moneyItemBase;
             }
             else return _weaponItemBase;
 
