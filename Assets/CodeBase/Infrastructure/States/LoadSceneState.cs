@@ -10,7 +10,6 @@ using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
-using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -159,10 +158,13 @@ namespace CodeBase.Infrastructure.States
             deathWindow.GetComponent<DeathWindow>().Construct(hero, _sceneName);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
             settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _sceneName);
+            GameObject finishWindow = await _uiFactory.CreateFinishWindow();
+            finishWindow.GetComponent<FinishWindow>().Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
+            _windowService.AddWindow(WindowId.Finish, finishWindow);
         }
     }
 }

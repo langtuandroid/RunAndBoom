@@ -12,5 +12,6 @@ namespace CodeBase.UI.Services.Factory
         Task<GameObject> CreateShopWindow();
         Task<GameObject> CreateDeathWindow();
         Task<GameObject> CreateSettingsWindow();
+        Task<GameObject> CreateFinishWindow();
     }
 }

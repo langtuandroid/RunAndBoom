@@ -1,7 +1,10 @@
 ﻿using CodeBase.Data;
+using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.Finish;
 using UnityEngine;
 
 namespace CodeBase.Level
@@ -9,6 +12,7 @@ namespace CodeBase.Level
     public class Finish : MonoBehaviour
     {
         [SerializeField] private GameObject pickupEffect;
+        [SerializeField] private int _maxPrice;
 
         private IWindowService _windowService;
 
@@ -25,7 +29,13 @@ namespace CodeBase.Level
                     Pickup();
 
                 Time.timeScale = 0;
-                _windowService.Open<FinishWindow>(WindowId.Finish);
+                WindowBase finishWindow = _windowService.Open<FinishWindow>(WindowId.Finish);
+                GiftsGenerator giftsGenerator =
+                    (finishWindow as FinishWindow)?.gameObject.GetComponent<GiftsGenerator>();
+                giftsGenerator?.Construct(_maxPrice, other.gameObject.GetComponent<HeroHealth>());
+                giftsGenerator?.Generate();
+                FinishButtons finishButtons = (finishWindow as FinishWindow)?.gameObject.GetComponent<FinishButtons>();
+                finishButtons?.Construct();
             }
         }
 

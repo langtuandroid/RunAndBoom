@@ -95,53 +95,6 @@ namespace CodeBase.UI.Windows.Shop
                 return _moneyItemBase;
             }
             else return _weaponItemBase;
-
-
-            // switch (type)
-            // {
-            //     case ammotype:
-            //         _ammoPurchasingItem.gameObject.SetActive(true);
-            //         _itemPurchasingItem.gameObject.SetActive(false);
-            //         _upgradePurchasingItem.gameObject.SetActive(false);
-            //         _perkPurchasingItem.gameObject.SetActive(false);
-            //         _weaponPurchasingItem.gameObject.SetActive(false);
-            //         return _ammoPurchasingItem;
-            //
-            //     case ItemPurchasingItemView:
-            //         _itemPurchasingItem.gameObject.SetActive(true);
-            //         _ammoPurchasingItem.gameObject.SetActive(false);
-            //         _upgradePurchasingItem.gameObject.SetActive(false);
-            //         _perkPurchasingItem.gameObject.SetActive(false);
-            //         _weaponPurchasingItem.gameObject.SetActive(false);
-            //         return _itemPurchasingItem;
-            //
-            //     case UpgradePurchasingItemView:
-            //         _upgradePurchasingItem.gameObject.SetActive(true);
-            //         _ammoPurchasingItem.gameObject.SetActive(false);
-            //         _itemPurchasingItem.gameObject.SetActive(false);
-            //         _perkPurchasingItem.gameObject.SetActive(false);
-            //         _weaponPurchasingItem.gameObject.SetActive(false);
-            //         return _upgradePurchasingItem;
-            //
-            //     case PerkPurchasingItemView:
-            //         _perkPurchasingItem.gameObject.SetActive(true);
-            //         _ammoPurchasingItem.gameObject.SetActive(false);
-            //         _itemPurchasingItem.gameObject.SetActive(false);
-            //         _upgradePurchasingItem.gameObject.SetActive(false);
-            //         _weaponPurchasingItem.gameObject.SetActive(false);
-            //         return _perkPurchasingItem;
-            //
-            //     case WeaponPurchasingItemView:
-            //         _weaponPurchasingItem.gameObject.SetActive(true);
-            //         _ammoPurchasingItem.gameObject.SetActive(false);
-            //         _itemPurchasingItem.gameObject.SetActive(false);
-            //         _upgradePurchasingItem.gameObject.SetActive(false);
-            //         _perkPurchasingItem.gameObject.SetActive(false);
-            //         return _weaponPurchasingItem;
-            //
-            //     default:
-            //         return _weaponPurchasingItem;
-            // }
         }
     }
 }

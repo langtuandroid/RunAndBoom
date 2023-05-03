@@ -3,8 +3,6 @@ using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.Randomizer;
-using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
@@ -21,8 +19,6 @@ namespace CodeBase.Logic.Level
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
-        private IStaticDataService _staticDataService;
-        private IRandomService _randomService;
         private bool _isPassed = false;
 
         public event Action Passed;
@@ -31,8 +27,6 @@ namespace CodeBase.Logic.Level
         {
             _windowService = AllServices.Container.Single<IWindowService>();
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
-            _staticDataService = AllServices.Container.Single<IStaticDataService>();
-            _randomService = AllServices.Container.Single<IRandomService>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -44,8 +38,7 @@ namespace CodeBase.Logic.Level
                 WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
                 ShopItemsGenerator shopItemsGenerator =
                     (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
-                shopItemsGenerator?.Construct(_progressService, _staticDataService, _randomService,
-                    other.gameObject.GetComponent<HeroHealth>());
+                shopItemsGenerator?.Construct(other.gameObject.GetComponent<HeroHealth>());
                 shopItemsGenerator?.Generate();
                 ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();
                 shopButtons?.Construct(_refreshCount, _watchAdsNumber);

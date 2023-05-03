@@ -188,8 +188,8 @@ MonoBehaviour:
   MainIcon: {fileID: 3363670927717869118}
   LevelIcon: {fileID: 6050420232913649398}
   AdditionalIcon: {fileID: 2804624336477124442}
-  CostText: {fileID: 2703399852334832210}
-  CountText: {fileID: 2563532931487320684}
+  CostText: {fileID: 0}
+  CountText: {fileID: 4381598747925814039}
   TitleText: {fileID: 1432624373449693467}
   Button: {fileID: 2264946780070944371}
 --- !u!114 &1432624373449693467 stripped
@@ -216,30 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2563532931487320684 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2849730071659125876, guid: 32b30f5ad48002944bf271f1130f2483,
-    type: 3}
-  m_PrefabInstance: {fileID: 297019840523982360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2703399852334832210 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2421632780764843082, guid: 32b30f5ad48002944bf271f1130f2483,
-    type: 3}
-  m_PrefabInstance: {fileID: 297019840523982360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2804624336477124442 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2518425893874868546, guid: 32b30f5ad48002944bf271f1130f2483,
@@ -262,6 +238,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4381598747925814039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4094239491492334863, guid: 32b30f5ad48002944bf271f1130f2483,
+    type: 3}
+  m_PrefabInstance: {fileID: 297019840523982360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6050420232913649398 stripped

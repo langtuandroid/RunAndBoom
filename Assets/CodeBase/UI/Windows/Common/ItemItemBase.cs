@@ -9,7 +9,7 @@ namespace CodeBase.UI.Windows.Common
     {
         protected ShopItemStaticData _itemStaticData;
         private ItemTypeId _typeId;
-        protected HeroHealth _health;
+        protected HeroHealth Health;
 
         private void OnEnable() =>
             Button?.onClick.AddListener(Clicked);
@@ -20,7 +20,7 @@ namespace CodeBase.UI.Windows.Common
         public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health)
         {
             Button?.onClick.AddListener(Clicked);
-            _health = health;
+            Health = health;
             _typeId = typeId;
             base.Construct(progress);
             FillData();

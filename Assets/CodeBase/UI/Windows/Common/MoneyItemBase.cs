@@ -15,7 +15,7 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(MoneyTypeId moneyTypeId, PlayerProgress progress)
+        protected void Construct(MoneyTypeId moneyTypeId, PlayerProgress progress)
         {
             Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
@@ -33,7 +33,10 @@ namespace CodeBase.UI.Windows.Common
             MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            CostText.text = "";
+
+            if (CostText != null)
+                CostText.text = "";
+
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             // CountText.color = Constants.ShopItemCountField;

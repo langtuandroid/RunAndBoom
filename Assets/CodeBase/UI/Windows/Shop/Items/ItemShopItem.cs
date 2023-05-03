@@ -14,7 +14,7 @@ namespace CodeBase.UI.Windows.Shop.Items
                 if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
                 {
                     Progress.HealthState.ChangeCurrentHP(Progress.HealthState.BaseMaxHp);
-                    _health.ChangeHealth();
+                    Health.ChangeHealth();
                 }
 
                 ClearData();

@@ -11,7 +11,7 @@ namespace CodeBase.UI.Windows.Finish
         [SerializeField] private Button _skipButton;
         [SerializeField] private FinishWindow _finishWindow;
         [SerializeField] private ItemsGeneratorBase _generator;
-        
+
         private IPlayerProgressService _playerProgressService;
 
         private void Awake()
@@ -34,7 +34,7 @@ namespace CodeBase.UI.Windows.Finish
         private void CheckRefreshButtons()
         {
         }
-        
+
         private void Start() =>
             Cursor.lockState = CursorLockMode.Confined;
 

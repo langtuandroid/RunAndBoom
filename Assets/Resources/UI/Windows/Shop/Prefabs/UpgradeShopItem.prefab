@@ -143,6 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4810877585606692755 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2937225459659487383, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7638304334492825348}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5288272929105066563 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2549896552090586439, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
@@ -165,8 +177,8 @@ MonoBehaviour:
   MainIcon: {fileID: 7202640000782266977}
   LevelIcon: {fileID: 2210611203832326825}
   AdditionalIcon: {fileID: 7761607548132238085}
-  CostText: {fileID: 6437855646145126745}
-  CountText: {fileID: 7983120267358150195}
+  CostText: {fileID: 4810877585606692755}
+  CountText: {fileID: 8184257480275119944}
   TitleText: {fileID: 6826179740748139844}
   Button: {fileID: 5923490324344261164}
 --- !u!114 &5923490324344261164 stripped
@@ -179,18 +191,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6437855646145126745 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3699547438281676381, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7638304334492825348}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6826179740748139844 stripped
@@ -229,9 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7983120267358150195 stripped
+--- !u!114 &8184257480275119944 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 344816487210412343, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+  m_CorrespondingSourceObject: {fileID: 1987467882885593164, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
     type: 3}
   m_PrefabInstance: {fileID: 7638304334492825348}
   m_PrefabAsset: {fileID: 0}

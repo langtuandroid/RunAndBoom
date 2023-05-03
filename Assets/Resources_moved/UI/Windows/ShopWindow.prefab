@@ -580,6 +580,7 @@ MonoBehaviour:
   _perkItemBase: {fileID: 3206066545235881649}
   _upgradeItemBase: {fileID: 2403182297850439811}
   _weaponItemBase: {fileID: 6255222197429549146}
+  _moneyItemBase: {fileID: 0}
 --- !u!1 &3949717808672337066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,6 +1046,7 @@ MonoBehaviour:
   _perkItemBase: {fileID: 4386673170271463565}
   _upgradeItemBase: {fileID: 7509006877741763303}
   _weaponItemBase: {fileID: 86387795693786931}
+  _moneyItemBase: {fileID: 0}
 --- !u!1 &6042926996679660010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,6 +1206,7 @@ MonoBehaviour:
   _perkItemBase: {fileID: 3426806292523441433}
   _upgradeItemBase: {fileID: 8631155371885789419}
   _weaponItemBase: {fileID: 6412858797154872236}
+  _moneyItemBase: {fileID: 0}
 --- !u!1 &6598897493139508093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16695366e81460ea0f24c09a1c89882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shopItems:
+  GameObjectItems:
   - {fileID: 5795735000073939082}
   - {fileID: 2828351981896525375}
   - {fileID: 6479839889160625983}
@@ -1797,6 +1800,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2846525019349296603}
     m_Modifications:
+    - target: {fileID: 5562384763907861058, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5666160335386311941, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1921,6 +1929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AmmoShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 9108097059866405529, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3aa2ca8c77da0948b672ed8372b6792, type: 3}
@@ -2059,6 +2072,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 7794631649317678461, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
@@ -2096,6 +2114,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2510028885272834046}
     m_Modifications:
+    - target: {fileID: 5562384763907861058, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5666160335386311941, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2221,6 +2244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 9108097059866405529, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3aa2ca8c77da0948b672ed8372b6792, type: 3}
 --- !u!114 &2245399203781364202 stripped
@@ -2248,6 +2276,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4083777556584342645}
     m_Modifications:
+    - target: {fileID: 4810877585606692755, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5288272929105066563, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_Name
@@ -2395,6 +2428,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4083777556584342645}
     m_Modifications:
+    - target: {fileID: 5562384763907861058, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 5666160335386311941, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2520,6 +2558,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 9108097059866405529, guid: c3aa2ca8c77da0948b672ed8372b6792,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3aa2ca8c77da0948b672ed8372b6792, type: 3}
 --- !u!114 &4212188477406191571 stripped
@@ -2547,6 +2590,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2846525019349296603}
     m_Modifications:
+    - target: {fileID: 4810877585606692755, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5288272929105066563, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_Name
@@ -2804,6 +2852,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 7794631649317678461, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
@@ -2845,6 +2898,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ItemShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644348346398934742, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -2992,6 +3050,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ItemShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644348346398934742, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -3245,6 +3308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 7794631649317678461, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
@@ -3286,6 +3354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ItemShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5644348346398934742, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -3439,6 +3512,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6710843264969024690, guid: 257ed421f068d4643a10119422f0aa5e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7919013343280182062, guid: 257ed421f068d4643a10119422f0aa5e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3571,6 +3649,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2510028885272834046}
     m_Modifications:
+    - target: {fileID: 4810877585606692755, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5288272929105066563, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_Name
@@ -3728,6 +3811,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6710843264969024690, guid: 257ed421f068d4643a10119422f0aa5e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7919013343280182062, guid: 257ed421f068d4643a10119422f0aa5e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3869,6 +3957,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PerkShopItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710843264969024690, guid: 257ed421f068d4643a10119422f0aa5e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 7919013343280182062, guid: 257ed421f068d4643a10119422f0aa5e,
         type: 3}

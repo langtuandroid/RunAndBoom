@@ -49,7 +49,10 @@ namespace CodeBase.UI.Windows.Common
 
             AdditionalIcon.sprite = _upgradeStaticData.MainImage;
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
+
+            if (CostText != null)
+                CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
+
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             TitleText.text =

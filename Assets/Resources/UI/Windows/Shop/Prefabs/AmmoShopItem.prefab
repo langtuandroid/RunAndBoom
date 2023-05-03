@@ -138,6 +138,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1987467882885593164, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_text
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1987467882885593164, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 70.9
+      objectReference: {fileID: 0}
     - target: {fileID: 2549896552090586439, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_Name
@@ -194,9 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5939227828368096057 stripped
+--- !u!114 &5562384763907861058 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 344816487210412343, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+  m_CorrespondingSourceObject: {fileID: 1987467882885593164, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
     type: 3}
   m_PrefabInstance: {fileID: 6243511884543250958}
   m_PrefabAsset: {fileID: 0}
@@ -242,18 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7345940753834378323 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3699547438281676381, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 6243511884543250958}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7967336926399491878 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4050075555696327976, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
@@ -288,7 +286,19 @@ MonoBehaviour:
   MainIcon: {fileID: 6868331668713854827}
   LevelIcon: {fileID: 2452340312149364643}
   AdditionalIcon: {fileID: 6274386576345499151}
-  CostText: {fileID: 7345940753834378323}
-  CountText: {fileID: 5939227828368096057}
+  CostText: {fileID: 9108097059866405529}
+  CountText: {fileID: 5562384763907861058}
   TitleText: {fileID: 7070277472010823758}
   Button: {fileID: 7967336926399491878}
+--- !u!114 &9108097059866405529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2937225459659487383, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6243511884543250958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -41,7 +41,9 @@ namespace CodeBase.UI.Windows.Common
                 ? Constants.AlphaActiveItem
                 : Constants.AlphaInactiveItem);
 
-            CostText.text = $"{_perkStaticData.Cost} $";
+            if (CostText != null)
+                CostText.text = $"{_perkStaticData.Cost} $";
+
             CountText.text = "";
             // CostText.color = Constants.ShopItemPerk;
             TitleText.text = _perkStaticData.RuTitle;

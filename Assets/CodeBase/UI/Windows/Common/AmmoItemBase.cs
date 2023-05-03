@@ -34,7 +34,10 @@ namespace CodeBase.UI.Windows.Common
             MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
             LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
             AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            CostText.text = $"{_shopAmmoStaticData.Cost} $";
+
+            if (CostText != null)
+                CostText.text = $"{_shopAmmoStaticData.Cost} $";
+
             // CostText.color = Constants.ShopItemPerk;
             int ammoCountType = (int)_shopAmmoStaticData.Count;
             CountText.text = $"{ammoCountType}";

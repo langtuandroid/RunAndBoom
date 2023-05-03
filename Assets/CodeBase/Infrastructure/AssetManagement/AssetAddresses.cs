@@ -9,6 +9,7 @@
         public const string ShopWindow = "ShopWindow";
         public const string DeathWindow = "DeathWindow";
         public const string SettingsWindow = "SettingsWindow";
+        public const string FinishWindow = "FinishWindow";
         public const string SpawnersRoot = "SpawnersRoot";
         public const string EnemyProjectilesRoot = "EnemyProjectilesRoot";
         public const string HeroProjectilesRoot = "HeroProjectilesRoot";

@@ -78,13 +78,13 @@ namespace CodeBase.Hero
             {
                 if (!IsDelaySpent())
                 {
-                    ChangeCurrent(_regenerationValue);
                     Debug.Log($"regenerationCurrentTime {_regenerationCurrentTime}");
                     _regenerationCurrentTime -= Time.deltaTime;
                 }
                 else
                 {
                     _regenerationCurrentTime = _regenerationDelay;
+                    ChangeCurrent(_regenerationValue);
                 }
             }
         }
