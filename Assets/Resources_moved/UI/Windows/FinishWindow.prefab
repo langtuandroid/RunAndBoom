@@ -1320,7 +1320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a574b7e7e584b16b1620d0de7e358ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skipButton: {fileID: 8701783380240409709}
+  _addCoinsButton: {fileID: 8701783380240409709}
+  _toNextLevelButton: {fileID: 3891343605374477144}
   _finishWindow: {fileID: 3619922302248021576}
   _generator: {fileID: 827771888206957789}
 --- !u!1 &8856698544688082760
