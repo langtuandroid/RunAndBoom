@@ -1,9 +1,8 @@
 ﻿using System;
-using UnityEngine;
 
 namespace CodeBase.Data
 {
-    [SerializeField]
+    [Serializable]
     public class LevelNameData
     {
         private const string InitialSector = "1";

@@ -50,14 +50,12 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
-            _services.RegisterSingle<IConstructorService>(
-                new ConstructorService(_services.Single<IPlayerProgressService>(),
-                    _services.Single<IStaticDataService>()));
+            _services.RegisterSingle<IConstructorService>(new ConstructorService());
             _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(),
                 _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
-                new UIFactory(_services.Single<IPlayerProgressService>(), _services.Single<IAssets>(),
+                new UIFactory(_services.Single<IAssets>(),
                     _services.Single<IRegistratorService>())
             );
 
@@ -67,8 +65,6 @@ namespace CodeBase.Infrastructure.States
                 new GameFactory(
                     _services.Single<IAssets>(),
                     _services.Single<IObjectsPoolService>(),
-                    _services.Single<IPlayerProgressService>(),
-                    _services.Single<IStaticDataService>(),
                     _services.Single<IRegistratorService>()
                 ));
 
@@ -81,7 +77,7 @@ namespace CodeBase.Infrastructure.States
                 ));
 
             _services.RegisterSingle<ISaveLoadService>(
-                new SaveLoadService(_services.Single<IPlayerProgressService>(), _services.Single<IGameFactory>()));
+                new SaveLoadService(_services.Single<IGameFactory>()));
         }
 
         private void RegisterStaticData()

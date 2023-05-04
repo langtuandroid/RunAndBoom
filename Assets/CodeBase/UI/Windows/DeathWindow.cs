@@ -27,6 +27,7 @@ namespace CodeBase.UI.Windows
 
 
         private void Restart() =>
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, Scene>(_scene);
+        // AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
 using CodeBase.Services.Registrator;
@@ -24,13 +25,12 @@ namespace CodeBase.Infrastructure.Factories
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
         public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService,
-            IPlayerProgressService progressService, IStaticDataService staticData,
             IRegistratorService registratorService)
         {
             _objectsPoolService = objectsPoolService;
             _assets = assets;
-            _progressService = progressService;
-            _staticData = staticData;
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+            _staticData = AllServices.Container.Single<IStaticDataService>();
             _registratorService = registratorService;
 
             SetProgressReadersWriters(registratorService);

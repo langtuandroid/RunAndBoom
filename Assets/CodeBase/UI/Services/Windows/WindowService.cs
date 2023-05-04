@@ -9,7 +9,7 @@ namespace CodeBase.UI.Services.Windows
 {
     public class WindowService : IWindowService
     {
-        protected Dictionary<WindowId, GameObject> _windows;
+        private Dictionary<WindowId, GameObject> _windows;
 
         public WindowService()
         {

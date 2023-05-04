@@ -37,8 +37,11 @@ namespace CodeBase.Infrastructure.States
         {
         }
 
-        private void LoadProgressOrInitNew() =>
-            _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
+        private void LoadProgressOrInitNew()
+        {
+            PlayerProgress progressServiceProgress = _saveLoadService.LoadProgress();
+            _progressService.Progress = progressServiceProgress ?? NewProgress();
+        }
 
         private PlayerProgress NewProgress() =>
             new PlayerProgress(InitialLevel);

@@ -2,6 +2,7 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
@@ -32,12 +33,12 @@ namespace CodeBase.Infrastructure.States
 
         private bool _isInitial = true;
         private Scene _scene;
+        private ISaveLoadService _saveLoadService;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
-            ILoadingCurtain loadingCurtain, IGameFactory gameFactory,
-            IEnemyFactory enemyFactory, IPlayerProgressService progressService, IStaticDataService staticDataService,
-            IUIFactory uiFactory,
-            IWindowService windowService)
+            ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
+            IPlayerProgressService progressService, IStaticDataService staticDataService,
+            IUIFactory uiFactory, IWindowService windowService, ISaveLoadService saveLoadService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -48,6 +49,7 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
+            _saveLoadService = saveLoadService;
         }
 
         public void Enter(Scene scene)
@@ -72,6 +74,7 @@ namespace CodeBase.Infrastructure.States
                 // if (IsInitialSceneInEditor())
                 _loadingCurtain.Hide();
 
+            _saveLoadService.SaveProgress();
             _isInitial = false;
         }
 
@@ -85,6 +88,15 @@ namespace CodeBase.Infrastructure.States
             switch (scene)
             {
                 case Scene.Level_1:
+                    await InitGameWorld();
+                    break;
+                case Scene.Level_2:
+                    await InitGameWorld();
+                    break;
+                case Scene.Level_3:
+                    await InitGameWorld();
+                    break;
+                case Scene.Level_4:
                     await InitGameWorld();
                     break;
             }

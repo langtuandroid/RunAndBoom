@@ -1,5 +1,6 @@
 ﻿using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.StaticData.Weapons;
 using TMPro;
 using UnityEngine;
 
@@ -23,6 +24,10 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             _progressService.Progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
             _progressService.Progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;
             _progressService.Progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RPG);
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RocketLauncher);
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 
         private void OnEnable()

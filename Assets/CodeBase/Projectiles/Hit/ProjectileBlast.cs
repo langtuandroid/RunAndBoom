@@ -2,6 +2,7 @@
 using System.Linq;
 using CodeBase.Data;
 using CodeBase.Data.Upgrades;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -31,6 +32,7 @@ namespace CodeBase.Projectiles.Hit
         private float _damage;
         private CapsuleCollider _hitCollider;
         private HeroWeaponTypeId? _weaponTypeId;
+        private IPlayerProgressService _playerProgressService;
 
         private void Awake() =>
             _hitCollider = GetComponent<CapsuleCollider>();
@@ -87,12 +89,11 @@ namespace CodeBase.Projectiles.Hit
             }
         }
 
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
-            GameObject prefab, float radius, float damage,
-            HeroWeaponTypeId? heroWeaponTypeId = null)
+        public void Construct(GameObject prefab, float radius, float damage, HeroWeaponTypeId? heroWeaponTypeId = null)
         {
-            _progress = progressService.Progress;
-            _staticDataService = staticDataService;
+            _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            _progress = _playerProgressService.Progress;
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
 
             if (heroWeaponTypeId != null)
             {

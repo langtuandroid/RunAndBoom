@@ -6,7 +6,6 @@ using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Finish;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Level
 {

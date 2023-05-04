@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -19,12 +18,15 @@ namespace CodeBase.UI.Windows.Finish
 
         private ISaveLoadService _saveLoadService;
         private IGameStateMachine _gameStateMachine;
+        private IPlayerProgressService _playerProgressService;
         private Scene _scene;
 
         private void Awake()
         {
             _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
             _gameStateMachine = AllServices.Container.Single<IGameStateMachine>();
+            _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
             _generator.GenerationStarted += DisableRefreshButtons;
             _generator.GenerationEnded += CheckRefreshButtons;
@@ -59,8 +61,9 @@ namespace CodeBase.UI.Windows.Finish
 
         private void ToNextLevel()
         {
-            _saveLoadService.SaveProgress();
-            _gameStateMachine.Enter<LoadPlayerProgressState, Scene>(_scene);
+            _gameStateMachine.Enter<LoadSceneState, Scene>(_scene);
+            _playerProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_scene.ToString());
+            // _gameStateMachine.Enter<LoadPlayerProgressState, Scene>(_scene);
             CloseWindow();
         }
 
@@ -73,6 +76,9 @@ namespace CodeBase.UI.Windows.Finish
         private void ShowAds()
         {
             //TODO ShowAds screen
+            
+            // _playerProgressService.Progress.;
+            CloseWindow();
         }
 
         private void GenerateItems() =>

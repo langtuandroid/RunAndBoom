@@ -12,9 +12,9 @@ namespace CodeBase.Services.SaveLoad
 
         private const string ProgressKey = "Progress";
 
-        public SaveLoadService(IPlayerProgressService progressService, IGameFactory gameFactory)
+        public SaveLoadService(IGameFactory gameFactory)
         {
-            _progressService = progressService;
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
             _gameFactory = gameFactory;
         }
 

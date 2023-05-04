@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using CodeBase.Data;
 using CodeBase.Data.Upgrades;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -43,14 +44,13 @@ namespace CodeBase.Projectiles.Movement
                 _speedItemData.LevelChanged -= ChangeSpeed;
         }
 
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService,
-            ProjectileTypeId projectileTypeId, HeroWeaponTypeId? heroWeaponTypeId = null)
+        public void Construct(ProjectileTypeId projectileTypeId, HeroWeaponTypeId? heroWeaponTypeId = null)
         {
             if (heroWeaponTypeId != null)
                 _weaponTypeId = heroWeaponTypeId;
 
-            _staticDataService = staticDataService;
-            _progress = progressService.Progress;
+            _progress = AllServices.Container.Single<IPlayerProgressService>().Progress;
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
             ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
             Speed = projectileStaticData.Speed;
             _baseSpeed = projectileStaticData.Speed;

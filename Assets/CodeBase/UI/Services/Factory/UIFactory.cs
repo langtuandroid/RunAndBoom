@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Registrator;
 using UnityEngine;
 
@@ -12,12 +11,9 @@ namespace CodeBase.UI.Services.Factory
         private IRegistratorService _registratorService;
 
         private Transform _uiRoot;
-        private IPlayerProgressService _playerProgressService;
 
-        public UIFactory(IPlayerProgressService playerProgressService, IAssets assets,
-            IRegistratorService registratorService)
+        public UIFactory(IAssets assets, IRegistratorService registratorService)
         {
-            _playerProgressService = playerProgressService;
             _assets = assets;
             _registratorService = registratorService;
         }

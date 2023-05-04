@@ -65,7 +65,7 @@ namespace CodeBase.Data.Weapons
             AmmoChanged(_currentHeroWeaponTypeId);
         }
 
-        private void AmmoChanged(HeroWeaponTypeId typeId)
+        public void AmmoChanged(HeroWeaponTypeId typeId)
         {
             switch (typeId)
             {
