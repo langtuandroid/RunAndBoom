@@ -39,6 +39,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2244674872416163740}
     m_Modifications:
+    - target: {fileID: 289002785815627913, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 2569520954548249277, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979299918680550152, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6794889842106207124, guid: 2d8c671d07b170d42b8ab91c00efad04,
         type: 3}
       propertyPath: m_RootOrder
@@ -98,6 +113,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794889842106207125, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794889842106207125, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794889842106207125, guid: 2d8c671d07b170d42b8ab91c00efad04,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8c671d07b170d42b8ab91c00efad04, type: 3}

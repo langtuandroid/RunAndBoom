@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8766375897480094309}
   - component: {fileID: 9075420705415521494}
   - component: {fileID: 6752476978079293031}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: road_intersection_T.003
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 1707660745227825174}
   m_Layer: 9
   m_Name: road_intersection_T.004
-  m_TagString: Floor
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -228,7 +228,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6160610209568039858, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}
 --- !u!1 &7423118838398182854
@@ -242,10 +242,10 @@ GameObject:
   - component: {fileID: 3181496597654968335}
   - component: {fileID: 2955169816857767940}
   - component: {fileID: 5970918202381808233}
-  - component: {fileID: 1089822180221859518}
-  m_Layer: 12
+  - component: {fileID: 5449718834987438912}
+  m_Layer: 9
   m_Name: road_intersection_T.002
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -315,8 +315,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1089822180221859518
-BoxCollider:
+--- !u!64 &5449718834987438912
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -325,9 +325,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
-  m_Center: {x: 0.0064299926, y: -0.000017201994, z: -0.0063817576}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6931849476756799425, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}
 --- !u!1 &8813559515194320681
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,10 +340,10 @@ GameObject:
   - component: {fileID: 4832884342406985165}
   - component: {fileID: 5342939655759010820}
   - component: {fileID: 4882470456558374227}
-  - component: {fileID: 9160974375486441488}
-  m_Layer: 12
+  - component: {fileID: 8677697810578839928}
+  m_Layer: 9
   m_Name: road_intersection_T.001
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -412,8 +413,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9160974375486441488
-BoxCollider:
+--- !u!64 &8677697810578839928
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -422,6 +423,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.47989514, y: 0.030000217, z: 0.48097196}
-  m_Center: {x: -0.23975141, y: 0.0000000055879354, z: 0.0077365935}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4659614108391139054, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}

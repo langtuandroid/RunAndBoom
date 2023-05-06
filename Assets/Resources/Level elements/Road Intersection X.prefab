@@ -110,8 +110,8 @@ GameObject:
   - component: {fileID: 3313098440379509983}
   - component: {fileID: 3310532835124886673}
   - component: {fileID: 8774976378750971862}
-  - component: {fileID: 3823187677631075872}
-  m_Layer: 12
+  - component: {fileID: 4332414025777843221}
+  m_Layer: 9
   m_Name: road_intersection_X.001
   m_TagString: Barrier
   m_Icon: {fileID: 0}
@@ -183,8 +183,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3823187677631075872
-BoxCollider:
+--- !u!64 &4332414025777843221
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,9 +193,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4798951, y: 0.030000217, z: 0.48097196}
-  m_Center: {x: 0.008987255, y: 0.0000000041909516, z: 0.0077365786}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3702202533308316455, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
 --- !u!1 &1938943805846507804
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,8 +244,8 @@ GameObject:
   - component: {fileID: 7653512597388374313}
   - component: {fileID: 3189835445888537028}
   - component: {fileID: 2694644345029641817}
-  - component: {fileID: 7971644600305706133}
-  m_Layer: 12
+  - component: {fileID: 7545418968035292636}
+  m_Layer: 9
   m_Name: road_intersection_X.004
   m_TagString: Barrier
   m_Icon: {fileID: 0}
@@ -316,8 +317,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7971644600305706133
-BoxCollider:
+--- !u!64 &7545418968035292636
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -326,9 +327,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4798951, y: 0.030000217, z: 0.48097196}
-  m_Center: {x: 0.008986376, y: 0.0000000055879354, z: 0.0077365264}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5021690961858019349, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
 --- !u!1 &2385565164439584083
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,8 +342,8 @@ GameObject:
   - component: {fileID: 575487015002847519}
   - component: {fileID: 4345703188642744717}
   - component: {fileID: 787069564606762606}
-  - component: {fileID: 2231463573481815396}
-  m_Layer: 12
+  - component: {fileID: 3905339300333430119}
+  m_Layer: 9
   m_Name: road_intersection_X.003
   m_TagString: Barrier
   m_Icon: {fileID: 0}
@@ -413,8 +415,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2231463573481815396
-BoxCollider:
+--- !u!64 &3905339300333430119
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -423,9 +425,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
-  m_Center: {x: 0.0064309463, y: -0.000017201994, z: -0.0063817576}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3435302426326503471, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
 --- !u!1 &4427450198079177816
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,8 +440,8 @@ GameObject:
   - component: {fileID: 2594427667200949555}
   - component: {fileID: 3241866369340371172}
   - component: {fileID: 638791222491673151}
-  - component: {fileID: 6071979820541975228}
-  m_Layer: 12
+  - component: {fileID: 4803711413497975699}
+  m_Layer: 9
   m_Name: road_intersection_X.002
   m_TagString: Barrier
   m_Icon: {fileID: 0}
@@ -510,8 +513,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6071979820541975228
-BoxCollider:
+--- !u!64 &4803711413497975699
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -520,6 +523,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
-  m_Center: {x: 0.0064299926, y: -0.000017200131, z: -0.0063817576}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6067718641165082644, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
