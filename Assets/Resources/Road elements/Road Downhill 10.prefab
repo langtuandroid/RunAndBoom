@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8477140252856761438
+--- !u!1 &3089855370304842796
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8477140252856761439}
+  - component: {fileID: 3089855370304842797}
   m_Layer: 0
-  m_Name: Road Rising 5
-  m_TagString: Floor
+  m_Name: Road Downhill 10
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8477140252856761439
+--- !u!4 &3089855370304842797
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8477140252856761438}
-  m_LocalRotation: {x: -0.043619405, y: 0, z: 0, w: 0.9990483}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 3089855370304842796}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: -0.52107805, y: 0.0011802127, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5602737657030724460}
+  - {fileID: 3994384869017147576}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -5, y: 0, z: 0}
---- !u!1001 &1408677227555700984
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+--- !u!1001 &7575806293232898860
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8477140252856761439}
+    m_TransformParent: {fileID: 3089855370304842797}
     m_Modifications:
     - target: {fileID: 6794889842106207124, guid: 2d8c671d07b170d42b8ab91c00efad04,
         type: 3}
@@ -101,9 +101,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8c671d07b170d42b8ab91c00efad04, type: 3}
---- !u!4 &5602737657030724460 stripped
+--- !u!4 &3994384869017147576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6794889842106207124, guid: 2d8c671d07b170d42b8ab91c00efad04,
     type: 3}
-  m_PrefabInstance: {fileID: 1408677227555700984}
+  m_PrefabInstance: {fileID: 7575806293232898860}
   m_PrefabAsset: {fileID: 0}

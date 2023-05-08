@@ -132,6 +132,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2536454135885736794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8265018135567745433}
+  - component: {fileID: 7600853061874258200}
+  m_Layer: 9
+  m_Name: BoxCollider (1)
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &8265018135567745433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536454135885736794}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.76, y: 0, z: 0}
+  m_LocalScale: {x: 0.999577, y: 1, z: 1.0010331}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4799735322324873780}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &7600853061874258200
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536454135885736794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.05, y: 0.02, z: 0.48}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &4589287686858666843
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +188,6 @@ GameObject:
   - component: {fileID: 4799735322324873780}
   - component: {fileID: 1044322211505558743}
   - component: {fileID: 6382097754545272853}
-  - component: {fileID: 1707660745227825174}
   m_Layer: 9
   m_Name: road_intersection_T.004
   m_TagString: Ground
@@ -162,7 +206,9 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4509826550938884181}
+  - {fileID: 8265018135567745433}
   m_Father: {fileID: 2016039507466986049}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -217,20 +263,51 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1707660745227825174
-MeshCollider:
+--- !u!1 &7046563957716965939
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4589287686858666843}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4509826550938884181}
+  - component: {fileID: 3263458188985499062}
+  m_Layer: 9
+  m_Name: BoxCollider
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &4509826550938884181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046563957716965939}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.999577, y: 1, z: 1.0010331}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4799735322324873780}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &3263458188985499062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046563957716965939}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6160610209568039858, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.02, z: 1.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &7423118838398182854
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +319,7 @@ GameObject:
   - component: {fileID: 3181496597654968335}
   - component: {fileID: 2955169816857767940}
   - component: {fileID: 5970918202381808233}
-  - component: {fileID: 5449718834987438912}
+  - component: {fileID: 7704210870872554733}
   m_Layer: 9
   m_Name: road_intersection_T.002
   m_TagString: Ground
@@ -315,8 +392,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5449718834987438912
-MeshCollider:
+--- !u!65 &7704210870872554733
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -325,10 +402,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6931849476756799425, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
+  m_Center: {x: 0.0064299926, y: -0.000017201994, z: -0.0063817576}
 --- !u!1 &8813559515194320681
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +416,7 @@ GameObject:
   - component: {fileID: 4832884342406985165}
   - component: {fileID: 5342939655759010820}
   - component: {fileID: 4882470456558374227}
-  - component: {fileID: 8677697810578839928}
+  - component: {fileID: 4829625247813528503}
   m_Layer: 9
   m_Name: road_intersection_T.001
   m_TagString: Ground
@@ -413,8 +489,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8677697810578839928
-MeshCollider:
+--- !u!65 &4829625247813528503
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -423,7 +499,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4659614108391139054, guid: 7bacbcdcaa02c5e4fbb4bf5cfa9dc181, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.47989514, y: 0.030000217, z: 0.48097196}
+  m_Center: {x: -0.23975141, y: 0.0000000055879354, z: 0.0077365935}

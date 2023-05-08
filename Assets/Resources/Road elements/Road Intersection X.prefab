@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3846342891996486204}
   - component: {fileID: 7081842358946725532}
   - component: {fileID: 5813640521006400498}
-  - component: {fileID: 7256629293420480586}
   m_Layer: 9
   m_Name: road_intersection_X.005
   m_TagString: Floor
@@ -30,7 +29,10 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 0.99957716, y: 1, z: 1.0010334}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8510654015588026599}
+  - {fileID: 5040707514599187456}
+  - {fileID: 2157870255008816179}
   m_Father: {fileID: 1270951547179404198}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,20 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7256629293420480586
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480826975709513724}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4116091958604292295, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
 --- !u!1 &1513781628710943579
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,10 +98,10 @@ GameObject:
   - component: {fileID: 3313098440379509983}
   - component: {fileID: 3310532835124886673}
   - component: {fileID: 8774976378750971862}
-  - component: {fileID: 4332414025777843221}
+  - component: {fileID: 6249513144498560501}
   m_Layer: 9
   m_Name: road_intersection_X.001
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -183,8 +171,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4332414025777843221
-MeshCollider:
+--- !u!65 &6249513144498560501
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,10 +181,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3702202533308316455, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.4798951, y: 0.030000217, z: 0.48097196}
+  m_Center: {x: 0.008987255, y: 0.0000000041909516, z: 0.0077365786}
 --- !u!1 &1938943805846507804
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938943805846507804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.8726006, y: 0, z: -91.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -244,10 +231,10 @@ GameObject:
   - component: {fileID: 7653512597388374313}
   - component: {fileID: 3189835445888537028}
   - component: {fileID: 2694644345029641817}
-  - component: {fileID: 7545418968035292636}
+  - component: {fileID: 955586246168822814}
   m_Layer: 9
   m_Name: road_intersection_X.004
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -317,8 +304,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7545418968035292636
-MeshCollider:
+--- !u!65 &955586246168822814
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -327,10 +314,54 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5021690961858019349, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.4798951, y: 0.030000217, z: 0.48097196}
+  m_Center: {x: 0.008986376, y: 0.0000000055879354, z: 0.0077365264}
+--- !u!1 &2277275173667972262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2157870255008816179}
+  - component: {fileID: 3382808064531356143}
+  m_Layer: 9
+  m_Name: BoxCollider (2)
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &2157870255008816179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277275173667972262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3846342891996486204}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3382808064531356143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277275173667972262}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.05, y: 0.02, z: 0.48}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &2385565164439584083
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,10 +373,10 @@ GameObject:
   - component: {fileID: 575487015002847519}
   - component: {fileID: 4345703188642744717}
   - component: {fileID: 787069564606762606}
-  - component: {fileID: 3905339300333430119}
+  - component: {fileID: 5224669727236221631}
   m_Layer: 9
   m_Name: road_intersection_X.003
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -415,8 +446,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3905339300333430119
-MeshCollider:
+--- !u!65 &5224669727236221631
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -425,10 +456,54 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3435302426326503471, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
+  m_Center: {x: 0.0064309463, y: -0.000017201994, z: -0.0063817576}
+--- !u!1 &2430916331809793765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5040707514599187456}
+  - component: {fileID: 6584472549477546914}
+  m_Layer: 9
+  m_Name: BoxCollider (1)
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &5040707514599187456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430916331809793765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3846342891996486204}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6584472549477546914
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430916331809793765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.05, y: 0.02, z: 0.48}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &4427450198079177816
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,10 +515,10 @@ GameObject:
   - component: {fileID: 2594427667200949555}
   - component: {fileID: 3241866369340371172}
   - component: {fileID: 638791222491673151}
-  - component: {fileID: 4803711413497975699}
+  - component: {fileID: 6743296651829491991}
   m_Layer: 9
   m_Name: road_intersection_X.002
-  m_TagString: Barrier
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -513,8 +588,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4803711413497975699
-MeshCollider:
+--- !u!65 &6743296651829491991
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -523,7 +598,51 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6067718641165082644, guid: a1f5f810b2ab43145ae4566b158cd3d9, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.48106915, y: 0.03003461, z: 0.48085374}
+  m_Center: {x: 0.0064299926, y: -0.000017200131, z: -0.0063817576}
+--- !u!1 &6325784078137510675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8510654015588026599}
+  - component: {fileID: 5128317062039193367}
+  m_Layer: 9
+  m_Name: BoxCollider
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &8510654015588026599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325784078137510675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3846342891996486204}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5128317062039193367
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6325784078137510675}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.02, z: 1.05}
+  m_Center: {x: 0, y: 0.02, z: 0}
