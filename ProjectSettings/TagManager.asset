@@ -11,6 +11,7 @@ TagManager:
   - InitialPoint
   - EnemySpawn
   - Ground
+  - Destructable
   layers:
   - Default
   - TransparentFX
@@ -19,12 +20,12 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - SmallBarrier
+  - Obstacle
   - Hero
   - Ground
   - Trigger
   - Died
-  - BigBarrier
+  - Wall
   - EnemyProjectile
   - HeroProjectile
   - 

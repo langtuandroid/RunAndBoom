@@ -9,6 +9,9 @@ namespace CodeBase.Projectiles.Hit
     {
         [SerializeField] private LayerMask _objectLayerMask;
 
+        private const string EnemyTag = "Enemy";
+        private const string DestructableTag = "Destructable";
+
         private int _objectsHitsCount = 16;
         private float _sphereDistance = 0f;
         private List<EnemyHealth> _enemies = new List<EnemyHealth>();
@@ -23,13 +26,22 @@ namespace CodeBase.Projectiles.Hit
 
             for (int i = 0; i < objectsHitsCount; i++)
             {
-                health = objectsHits[i].transform.gameObject.GetComponent<IHealth>();
+                string objectTag = objectsHits[i].transform.gameObject.tag;
 
-                if (health != null)
+                if (objectTag == EnemyTag)
                 {
+                    health = objectsHits[i].transform.gameObject.GetComponent<IHealth>();
+
                     health.TakeDamage(damage);
+
+                    death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
+
+                    if (death == null)
+                        death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
+
+                    death?.Die();
                 }
-                else
+                else if (objectTag == DestructableTag)
                 {
                     death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
 
