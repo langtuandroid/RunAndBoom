@@ -31,13 +31,14 @@ namespace CodeBase.DestructableObject
 
         public void Die()
         {
-            Destroy(GetComponentInChildren<BoxCollider>(), DestroyColliderTimer);
             _solid.SetActive(false);
             _broken.SetActive(true);
+            Destroy(_solid.GetComponentInChildren<BoxCollider>());
+            Destroy(_broken.GetComponentInChildren<BoxCollider>(), DestroyColliderTimer);
 
             if (_isBroken == false)
                 foreach (Rigidbody part in _parts)
-                    part.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+                    part.AddForce(part.gameObject.transform.forward * 5f, ForceMode.Impulse);
 
             _isBroken = true;
 

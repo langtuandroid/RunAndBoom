@@ -6,12 +6,12 @@ TagManager:
   tags:
   - Enemy
   - Hero
-  - Environments
-  - Barrier
   - InitialPoint
   - EnemySpawn
   - Ground
   - Destructable
+  - Obstacle
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -35,7 +35,7 @@ PrefabInstance:
     - target: {fileID: 5551853406172531576, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Destructable
       objectReference: {fileID: 0}
     - target: {fileID: 5551853406172531576, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
         type: 3}
@@ -45,7 +45,7 @@ PrefabInstance:
     - target: {fileID: 5763948219449028338, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5763948219449028338, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
         type: 3}
@@ -99,6 +99,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b415847b7d8b1f4f90e9c576bc2699e, type: 3}
+--- !u!1 &781446931182266638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5551853406172531576, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5175872466895299190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6520962731898594965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781446931182266638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000001, y: 0.02, z: 0.0061500063}
+  m_Center: {x: 0, y: 0.01, z: 0}
+--- !u!54 &8799334065867838915
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781446931182266638}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6186470852327199178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1301160838631109564, guid: 5b415847b7d8b1f4f90e9c576bc2699e,
@@ -310,7 +345,7 @@ PrefabInstance:
     - target: {fileID: 8041248854996128909, guid: e0bb34c178a6d0847b4f076745d1b8d1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8041248854996128909, guid: e0bb34c178a6d0847b4f076745d1b8d1,
         type: 3}

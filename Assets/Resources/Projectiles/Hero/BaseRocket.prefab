@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4316458129401254552}
   - component: {fileID: 8976935804904259732}
   - component: {fileID: 7089599302767958054}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BaseRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,8 +175,8 @@ MonoBehaviour:
   Movement: {fileID: 0}
   Tags:
   - Enemy
-  - Environments
-  - Ground
-  - Barrier
+  - Obstacle
   - Destructable
+  - Wall
+  - Ground
   _destroyWithBlast: {fileID: 8976935804904259732}

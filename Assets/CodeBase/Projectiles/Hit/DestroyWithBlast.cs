@@ -21,8 +21,6 @@ namespace CodeBase.Projectiles.Hit
             _enemies.Clear();
             RaycastHit[] objectsHits = new RaycastHit[_objectsHitsCount];
             int objectsHitsCount = GetObjectsHits(objectsHits, sphereRadius);
-            IDeath death = null;
-            IHealth health = null;
 
             for (int i = 0; i < objectsHitsCount; i++)
             {
@@ -30,32 +28,23 @@ namespace CodeBase.Projectiles.Hit
 
                 if (objectTag == EnemyTag)
                 {
-                    health = objectsHits[i].transform.gameObject.GetComponent<IHealth>();
-
-                    health.TakeDamage(damage);
-
-                    death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
-
-                    if (death == null)
-                        death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
-
-                    death?.Die();
+                    objectsHits[i].transform.gameObject.GetComponent<IHealth>().TakeDamage(damage);
+                    objectsHits[i].transform.gameObject.GetComponent<IDeath>()?.Die();
                 }
                 else if (objectTag == DestructableTag)
                 {
-                    death = objectsHits[i].transform.gameObject.GetComponent<IDeath>();
-
-                    if (death == null)
-                        death = objectsHits[i].transform.parent.gameObject.GetComponent<IDeath>();
-
-                    death?.Die();
+                    // objectsHits[i].transform.gameObject
+                    objectsHits[i].transform.parent.gameObject.transform.parent.gameObject
+                        .GetComponent<IDeath>()?.Die();
                 }
             }
         }
 
-        private int GetObjectsHits(RaycastHit[] hits, float sphereRadius) =>
-            Physics.SphereCastNonAlloc(transform.position, sphereRadius, transform.forward, hits, _sphereDistance,
-                _objectLayerMask,
-                QueryTriggerInteraction.UseGlobal);
+        private int GetObjectsHits(RaycastHit[] hits, float sphereRadius)
+        {
+            PhysicsDebug.DrawDebug(transform.position, sphereRadius, 10f);
+            return Physics.SphereCastNonAlloc(transform.position, sphereRadius, transform.forward, hits,
+                _sphereDistance, _objectLayerMask, QueryTriggerInteraction.Ignore);
+        }
     }
 }

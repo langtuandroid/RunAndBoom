@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6337939419923400048}
   - component: {fileID: 8976935804904259732}
   - component: {fileID: 6181332064804091446}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BaseGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,8 +175,8 @@ MonoBehaviour:
   Movement: {fileID: 0}
   Tags:
   - Enemy
-  - Environments
-  - Ground
-  - Barrier
+  - Obstacle
   - Destructable
+  - Wall
+  - Ground
   _destroyWithBlast: {fileID: 8976935804904259732}

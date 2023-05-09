@@ -1845,6 +1845,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2222021578413735808, guid: f3dcb60c3c2885d488b4d3288cc50933,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2604969150810982036, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_RootOrder
@@ -1955,7 +1960,8 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2680576690207760363, guid: f3dcb60c3c2885d488b4d3288cc50933, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f3dcb60c3c2885d488b4d3288cc50933, type: 3}
 --- !u!1 &1365334318919700424 stripped
 GameObject:
@@ -2001,8 +2007,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 7609512935413722872}
-  _speed: 10
-  _height: 5
 --- !u!114 &5352553839011821291 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8979059092158463926, guid: f3dcb60c3c2885d488b4d3288cc50933,
