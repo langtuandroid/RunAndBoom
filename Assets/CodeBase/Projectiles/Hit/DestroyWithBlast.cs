@@ -9,7 +9,6 @@ namespace CodeBase.Projectiles.Hit
     {
         [SerializeField] private LayerMask _objectLayerMask;
 
-        private const string EnemyTag = "Enemy";
         private const string DestructableTag = "Destructable";
 
         private int _objectsHitsCount = 16;
@@ -26,17 +25,11 @@ namespace CodeBase.Projectiles.Hit
             {
                 string objectTag = objectsHits[i].transform.gameObject.tag;
 
-                if (objectTag == EnemyTag)
-                {
-                    objectsHits[i].transform.gameObject.GetComponent<IHealth>().TakeDamage(damage);
-                    objectsHits[i].transform.gameObject.GetComponent<IDeath>()?.Die();
-                }
-                else if (objectTag == DestructableTag)
-                {
-                    // objectsHits[i].transform.gameObject
+                if (objectTag == DestructableTag)
                     objectsHits[i].transform.parent.gameObject.transform.parent.gameObject
                         .GetComponent<IDeath>()?.Die();
-                }
+                else
+                    objectsHits[i].transform.gameObject.GetComponent<IHealth>()?.TakeDamage(damage);
             }
         }
 
