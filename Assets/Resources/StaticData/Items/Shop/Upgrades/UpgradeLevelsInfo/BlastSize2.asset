@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d702a103c849229f01606d349908f9, type: 3}
   m_Name: BlastSize2
   m_EditorClassIdentifier: 
-  Cost: 20
-  AdditionalValue: 30
-  UpgradeTypeId: 3
+  Cost: 15
+  Value: 1.6
+  UpgradeTypeId: 2
   LevelTypeId: 2

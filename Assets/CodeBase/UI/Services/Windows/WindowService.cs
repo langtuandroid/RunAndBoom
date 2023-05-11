@@ -41,7 +41,7 @@ namespace CodeBase.UI.Services.Windows
             return window;
         }
 
-        public void AddWindow(WindowId windowId, GameObject window) => 
+        public void AddWindow(WindowId windowId, GameObject window) =>
             _windows[windowId] = window;
 
         private T ShowWindow<T>(WindowId windowId) where T : WindowBase

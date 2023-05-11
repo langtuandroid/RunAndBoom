@@ -1,16 +1,16 @@
-using UnityEngine;
+using System;
+using CodeBase.Data;
 
 namespace CodeBase.StaticData
 {
+    [Serializable]
     public class LevelTransferStaticData
     {
-        public string TransferTo;
-        public Vector3 Position;
+        public Scene TransferTo;
 
-        public LevelTransferStaticData(string transferTo, Vector3 position)
+        public LevelTransferStaticData(Scene transferTo)
         {
             TransferTo = transferTo;
-            Position = position;
         }
     }
 }

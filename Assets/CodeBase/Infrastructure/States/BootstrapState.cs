@@ -55,25 +55,21 @@ namespace CodeBase.Infrastructure.States
                 _services.Single<IConstructorService>()));
 
             _services.RegisterSingle<IUIFactory>(
-                new UIFactory(_services.Single<IAssets>(),
-                    _services.Single<IRegistratorService>())
+                new UIFactory(_services.Single<IAssets>(), _services.Single<IRegistratorService>())
             );
 
             _services.RegisterSingle<IWindowService>(new WindowService());
 
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
-                    _services.Single<IAssets>(),
-                    _services.Single<IObjectsPoolService>(),
-                    _services.Single<IRegistratorService>()
+                    _services.Single<IAssets>(), _services.Single<IObjectsPoolService>(),
+                    _services.Single<IRegistratorService>(), _services.Single<IGameStateMachine>()
                 ));
 
             _services.RegisterSingle<IEnemyFactory>(
                 new EnemyFactory(
-                    _services.Single<IAssets>(),
-                    _services.Single<IStaticDataService>(),
-                    _services.Single<IRegistratorService>(),
-                    _services.Single<IGameFactory>()
+                    _services.Single<IAssets>(), _services.Single<IStaticDataService>(),
+                    _services.Single<IRegistratorService>(), _services.Single<IGameFactory>()
                 ));
 
             _services.RegisterSingle<ISaveLoadService>(

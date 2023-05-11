@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
-  m_Name: Rockets_01
+  m_Name: Grenades_min
   m_EditorClassIdentifier: 
-  MainImage: {fileID: 21300000, guid: 69d14815318f6d04a8e0d2c272458aee, type: 3}
-  Cost: 5
-  RuTitle: "1 \u0440\u0430\u043A\u0435\u0442\u0430"
+  MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
+  Cost: 1
+  RuTitle: "1 \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
   EnTitle: 
   TrTitle: 
-  WeaponTypeId: 2
+  WeaponTypeId: 0
   Count: 1

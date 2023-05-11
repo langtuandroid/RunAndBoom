@@ -13,7 +13,8 @@ namespace CodeBase.Level
     {
         [SerializeField] private GameObject pickupEffect;
         [SerializeField] private int _maxPrice;
-        [SerializeField] private Scene _scene;
+
+        private Scene _scene;
 
         private IWindowService _windowService;
 
@@ -39,6 +40,9 @@ namespace CodeBase.Level
                 finishButtons?.Construct(_scene);
             }
         }
+
+        public void Construct(Scene scene) =>
+            _scene = scene;
 
         private void Pickup()
         {

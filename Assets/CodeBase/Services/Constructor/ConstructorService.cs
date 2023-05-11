@@ -52,6 +52,12 @@ namespace CodeBase.Services.Constructor
                         .Construct(projectileTypeId);
                     break;
 
+                case ProjectileTypeId.SniperBullet:
+                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<ProjectileMovement>()
+                        .Construct(projectileTypeId);
+                    break;
+
                 case ProjectileTypeId.Shot:
                     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()

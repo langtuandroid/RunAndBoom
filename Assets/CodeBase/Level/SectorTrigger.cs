@@ -23,7 +23,10 @@ namespace CodeBase.Level
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
+            if (_isPassed)
+                return;
+
+            if (other.CompareByTag(Constants.HeroTag))
             {
                 Time.timeScale = 0;
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_name);

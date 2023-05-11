@@ -44,11 +44,8 @@ namespace CodeBase.Projectiles.Movement
                 _speedItemData.LevelChanged -= ChangeSpeed;
         }
 
-        public void Construct(ProjectileTypeId projectileTypeId, HeroWeaponTypeId? heroWeaponTypeId = null)
+        public void Construct(ProjectileTypeId projectileTypeId)
         {
-            if (heroWeaponTypeId != null)
-                _weaponTypeId = heroWeaponTypeId;
-
             _progress = AllServices.Container.Single<IPlayerProgressService>().Progress;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
@@ -59,6 +56,12 @@ namespace CodeBase.Projectiles.Movement
 
             if (_weaponTypeId != null)
                 SetSpeed();
+        }
+
+        public void Construct(ProjectileTypeId projectileTypeId, HeroWeaponTypeId heroWeaponTypeId)
+        {
+            _weaponTypeId = heroWeaponTypeId;
+            Construct(projectileTypeId);
         }
 
         private void SetSpeed()

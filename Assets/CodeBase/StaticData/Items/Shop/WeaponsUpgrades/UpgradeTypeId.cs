@@ -3,7 +3,6 @@
     public enum UpgradeTypeId
     {
         Reloading,
-        Rotation,
         Speed,
         BlastSize,
     }

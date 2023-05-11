@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
-  m_Name: RpgRockets_01
+  m_Name: Grenades_max
   m_EditorClassIdentifier: 
-  MainImage: {fileID: 21300000, guid: 8aa33e99c7e0651458c789b8d048af0a, type: 3}
-  Cost: 3
-  RuTitle: "1 \u0440\u0430\u043A\u0435\u0442\u0430 \u0420\u041F\u0413"
+  MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
+  Cost: 10
+  RuTitle: "10 \u0433\u0440\u0430\u043D\u0430\u0442"
   EnTitle: 
   TrTitle: 
-  WeaponTypeId: 1
-  Count: 1
+  WeaponTypeId: 0
+  AmmoCountType: 2
+  Count: 10

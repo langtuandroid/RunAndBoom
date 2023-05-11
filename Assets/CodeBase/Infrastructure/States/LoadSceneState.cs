@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
+using CodeBase.Level;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -20,6 +21,7 @@ namespace CodeBase.Infrastructure.States
     public class LoadSceneState : IPayloadedState<Scene>
     {
         private const string LevelName = "Level_";
+        private const string FinishPointTag = "FinishPoint";
 
         private readonly IGameStateMachine _stateMachine;
         private readonly ISceneLoader _sceneLoader;
@@ -134,6 +136,7 @@ namespace CodeBase.Infrastructure.States
             GameObject hero = await InitHero(levelData);
             await InitHud(hero);
             await InitWindows(hero);
+            await InitLevelTransfer(levelData);
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
@@ -144,6 +147,12 @@ namespace CodeBase.Infrastructure.States
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
             await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
+
+        private async Task InitLevelTransfer(LevelStaticData levelData)
+        {
+            GameObject findWithTag = GameObject.FindWithTag(FinishPointTag);
+            findWithTag.GetComponent<Finish>().Construct(levelData.LevelTransfer.TransferTo);
+        }
 
         private async Task InitHud(GameObject hero)
         {

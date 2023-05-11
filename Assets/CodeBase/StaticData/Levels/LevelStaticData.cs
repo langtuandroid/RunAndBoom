@@ -10,7 +10,14 @@ namespace CodeBase.StaticData.Levels
         public bool InitializeHeroPosition;
         public Vector3 InitialHeroPosition;
 
-        // public LevelTransferStaticData LevelTransfer;
+        public LevelTransferStaticData LevelTransfer;
         public List<EnemySpawnerData> EnemySpawners;
+
+        public List<EnemySpawnerData> EnemyWithBatSpawners;
+        public List<EnemySpawnerData> EnemyWithPistolSpawners;
+        public List<EnemySpawnerData> EnemyWithShotgunSpawners;
+        public List<EnemySpawnerData> EnemyWithSMGSpawners;
+        public List<EnemySpawnerData> EnemyWithSRSpawners;
+        public List<EnemySpawnerData> EnemyWithMGSpawners;
     }
 }

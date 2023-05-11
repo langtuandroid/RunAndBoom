@@ -9,6 +9,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6450515641149796550, guid: 04f2e7568a47cda46b8b43fd4a0d1038,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 6450515641149796550, guid: 04f2e7568a47cda46b8b43fd4a0d1038,
+        type: 3}
       propertyPath: m_Name
       value: WithSniperRifle
       objectReference: {fileID: 0}

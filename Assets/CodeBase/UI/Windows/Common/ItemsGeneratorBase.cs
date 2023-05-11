@@ -148,15 +148,15 @@ namespace CodeBase.UI.Windows.Common
                         switch (grenades)
                         {
                             case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Ten);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
                                 break;
 
                             case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Five);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
                                 break;
 
                             case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.One);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
                                 break;
                         }
 
@@ -169,15 +169,15 @@ namespace CodeBase.UI.Windows.Common
                         switch (rpgRockets)
                         {
                             case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Ten);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
                                 break;
 
                             case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Five);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
                                 break;
 
                             case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.One);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
                                 break;
                         }
 
@@ -190,15 +190,15 @@ namespace CodeBase.UI.Windows.Common
                         switch (rocketLauncherRockets)
                         {
                             case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Ten);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
                                 break;
 
                             case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Five);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
                                 break;
 
                             case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.One);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
                                 break;
                         }
 
@@ -210,15 +210,15 @@ namespace CodeBase.UI.Windows.Common
                         switch (bombs)
                         {
                             case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Five);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
                                 break;
 
                             case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.One);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
                                 break;
 
                             case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.One);
+                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
                                 break;
                         }
 
@@ -262,10 +262,10 @@ namespace CodeBase.UI.Windows.Common
                 _moneyTypeIds.Add(moneyTypeId);
         }
 
-        private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCount)
+        private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCountType)
         {
-            ShopAmmoStaticData shopAmmoStaticData = _staticDataService.ForShopAmmo(typeId, ammoCount);
-            AmmoItem ammoItem = new AmmoItem(typeId, ammoCount);
+            ShopAmmoStaticData shopAmmoStaticData = _staticDataService.ForShopAmmo(typeId, ammoCountType);
+            AmmoItem ammoItem = new AmmoItem(typeId, ammoCountType, shopAmmoStaticData.Count);
 
             if (Money >= shopAmmoStaticData.Cost)
                 _availableAmmunition.Add(ammoItem);

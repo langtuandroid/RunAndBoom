@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
@@ -18,20 +19,22 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IPlayerProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
-        private GameObject _heroGameObject;
         private IObjectsPoolService _objectsPoolService;
+        private IGameStateMachine _gameStateMachine;
+        private GameObject _heroGameObject;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
 
         public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService,
-            IRegistratorService registratorService)
+            IRegistratorService registratorService, IGameStateMachine gameStateMachine)
         {
             _objectsPoolService = objectsPoolService;
             _assets = assets;
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
             _staticData = AllServices.Container.Single<IStaticDataService>();
             _registratorService = registratorService;
+            _gameStateMachine = gameStateMachine;
 
             SetProgressReadersWriters(registratorService);
         }
@@ -53,12 +56,8 @@ namespace CodeBase.Infrastructure.Factories
 
         public async Task<GameObject> CreateHero(Vector3 at)
         {
-            // if (_heroGameObject == null)
             _heroGameObject =
                 await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
-            // await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
-            // else
-            //     _heroGameObject.transform.position = _heroGameObject.transform.position.AddY(Yaddition);
 
             return _heroGameObject;
         }

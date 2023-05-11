@@ -72,6 +72,17 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
+                GameObject projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.SniperBullet);
+                projectile.SetActive(false);
+                gameObjects.Add(projectile);
+            }
+
+            _enemyProjectiles.Add(EnemyWeaponTypeId.SniperRifle.ToString(), gameObjects);
+            gameObjects = new List<GameObject>(InitialCapacity);
+
+            for (int i = 0; i < gameObjects.Capacity; i++)
+            {
                 GameObject projectile = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
                 _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.Shot);
                 projectile.SetActive(false);

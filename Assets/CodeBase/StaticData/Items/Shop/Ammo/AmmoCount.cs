@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace CodeBase.StaticData.Items.Shop.Ammo
 {
-    [CreateAssetMenu(fileName = "AmmoData", menuName = "StaticData/Items/Shop/Ammo")]
-    public class ShopAmmoStaticData : BaseShopStaticData
+    [CreateAssetMenu(fileName = "AmmoCount", menuName = "StaticData/Items/Shop/AmmoCount")]
+    public class AmmoCount : ScriptableObject
     {
         public HeroWeaponTypeId WeaponTypeId;
         public AmmoCountType AmmoCountType;

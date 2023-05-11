@@ -39,8 +39,7 @@ namespace CodeBase.UI.Windows.Common
                 CostText.text = $"{_shopAmmoStaticData.Cost} $";
 
             // CostText.color = Constants.ShopItemPerk;
-            int ammoCountType = (int)_shopAmmoStaticData.Count;
-            CountText.text = $"{ammoCountType}";
+            CountText.text = $"{_shopAmmoStaticData.Count}";
             // CountText.color = Constants.ShopItemCountField;
             TitleText.text = $"{_shopAmmoStaticData.RuTitle}";
         }

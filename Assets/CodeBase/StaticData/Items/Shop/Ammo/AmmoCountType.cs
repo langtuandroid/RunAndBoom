@@ -2,8 +2,8 @@
 {
     public enum AmmoCountType
     {
-        One = 1,
-        Five = 5,
-        Ten = 10,
+        Min,
+        Medium,
+        Max,
     }
 }

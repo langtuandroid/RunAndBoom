@@ -114,7 +114,7 @@ namespace CodeBase.Services.StaticData
 
             _shopAmmunition = Resources
                 .LoadAll<ShopAmmoStaticData>(ShopAmmoPath)
-                .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.Count), x => x);
+                .ToDictionary(x => new AmmoItem(x.WeaponTypeId, x.AmmoCountType), x => x);
 
             _shopItems = Resources
                 .LoadAll<ShopItemStaticData>(ShopItemsPath)

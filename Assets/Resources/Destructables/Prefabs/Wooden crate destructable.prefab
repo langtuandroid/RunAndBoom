@@ -7,15 +7,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8601741647008486231}
     m_Modifications:
+    - target: {fileID: 1230214670826895986, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800148808910185797, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4278465701014946999, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4803005501253920420, guid: b184ae7ed8548ca4a90713b93afe8205,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate separated
       objectReference: {fileID: 0}
+    - target: {fileID: 4803005501253920420, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018505889436673594, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262550569281853458, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5326743109689474078, guid: b184ae7ed8548ca4a90713b93afe8205,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5326743109689474078, guid: b184ae7ed8548ca4a90713b93afe8205,
         type: 3}
@@ -67,6 +97,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8627661776603165880, guid: b184ae7ed8548ca4a90713b93afe8205,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b184ae7ed8548ca4a90713b93afe8205, type: 3}
 --- !u!1 &8637832907691939645 stripped
@@ -95,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 5271896479266743702, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8511159150082835198, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
@@ -110,12 +145,12 @@ PrefabInstance:
     - target: {fileID: 8511159150082835198, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9031518853098674244, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9031518853098674244, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}

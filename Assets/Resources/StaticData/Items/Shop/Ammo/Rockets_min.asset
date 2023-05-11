@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
-  m_Name: RpgRockets_10
+  m_Name: Rockets_min
   m_EditorClassIdentifier: 
-  MainImage: {fileID: 21300000, guid: 8aa33e99c7e0651458c789b8d048af0a, type: 3}
-  Cost: 30
-  RuTitle: "10 \u0440\u0430\u043A\u0435\u0442 \u0420\u041F\u0413"
+  MainImage: {fileID: 21300000, guid: 69d14815318f6d04a8e0d2c272458aee, type: 3}
+  Cost: 6
+  RuTitle: "3 \u0440\u0430\u043A\u0435\u0442\u044B"
   EnTitle: 
   TrTitle: 
-  WeaponTypeId: 1
-  Count: 10
+  WeaponTypeId: 2
+  AmmoCountType: 0
+  Count: 3
