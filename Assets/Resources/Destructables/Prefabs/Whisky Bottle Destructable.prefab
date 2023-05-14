@@ -139,9 +139,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Whisky Bottle Cracked
       objectReference: {fileID: 0}
+    - target: {fileID: 1874755923645608, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4780547785073262, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4780547785073262, guid: 1e0cbb338ba036c41a3141429647079b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014294075672, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000014294075672, guid: db0179e489f656f458d81cc5bb588f18, type: 3}
       propertyPath: m_LocalPosition.x
