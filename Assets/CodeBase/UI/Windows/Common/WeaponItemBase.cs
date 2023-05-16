@@ -18,7 +18,6 @@ namespace CodeBase.UI.Windows.Common
 
         public void Construct(HeroWeaponTypeId weaponTypeId, PlayerProgress progress)
         {
-            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _weaponTypeId = weaponTypeId;
             FillData();

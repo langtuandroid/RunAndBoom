@@ -26,6 +26,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             GenerationStarted?.Invoke();
             SetHighlightingVisibility(false);
+            GetMoney();
             InitializeEmptyData();
             CreateAllItems();
             GenerateAllItems();

@@ -18,7 +18,6 @@ namespace CodeBase.UI.Windows.Common
 
         public void Construct(AmmoItem ammoItem, PlayerProgress progress)
         {
-            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _ammoItem = ammoItem;
             FillData();

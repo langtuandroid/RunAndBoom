@@ -21,7 +21,6 @@ namespace CodeBase.UI.Windows.Common
 
         public void Construct(UpgradeItemData upgradeItemData, PlayerProgress progress)
         {
-            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _upgradeItemData = upgradeItemData;
             FillData();

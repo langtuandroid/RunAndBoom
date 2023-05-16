@@ -31,6 +31,7 @@ namespace CodeBase.UI.Windows.Finish
         {
             GenerationStarted?.Invoke();
             SetHighlightingVisibility(false);
+            GetMoney();
             InitializeEmptyData();
             CreateAllItems();
             GenerateAllItems();

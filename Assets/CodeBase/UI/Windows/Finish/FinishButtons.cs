@@ -76,9 +76,6 @@ namespace CodeBase.UI.Windows.Finish
         private void ShowAds()
         {
             //TODO ShowAds screen
-
-            // _playerProgressService.Progress.;
-            CloseWindow();
         }
 
         private void GenerateItems() =>

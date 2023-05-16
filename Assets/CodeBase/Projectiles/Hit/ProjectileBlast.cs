@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit
 {
-    public class ProjectileBlast : BaseProjectileHit
+    public class ProjectileBlast : BaseProjectileHit, IProgressReader
     {
         [SerializeField] private DestroyWithBlast _destroyWithBlast;
 
@@ -31,8 +31,7 @@ namespace CodeBase.Projectiles.Hit
         private GameObject _blastVfx;
         private float _damage;
         private CapsuleCollider _hitCollider;
-        private HeroWeaponTypeId? _weaponTypeId;
-        private IPlayerProgressService _playerProgressService;
+        private HeroWeaponTypeId? _heroWeaponTypeId;
 
         private void Awake() =>
             _hitCollider = GetComponent<CapsuleCollider>();
@@ -91,15 +90,8 @@ namespace CodeBase.Projectiles.Hit
 
         public void Construct(GameObject prefab, float radius, float damage, HeroWeaponTypeId? heroWeaponTypeId = null)
         {
-            _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
-            _progress = _playerProgressService.Progress;
+            _heroWeaponTypeId = heroWeaponTypeId;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
-
-            if (heroWeaponTypeId != null)
-            {
-                _weaponTypeId = heroWeaponTypeId;
-                SetBlastSize();
-            }
 
             _prefab = prefab;
             _sphereRadius = radius;
@@ -109,7 +101,7 @@ namespace CodeBase.Projectiles.Hit
         private void SetBlastSize()
         {
             _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
-                x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
+                x.WeaponTypeId == _heroWeaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
             _blastItemData.LevelChanged += ChangeBlastSize;
             ChangeBlastSize();
         }
@@ -117,7 +109,7 @@ namespace CodeBase.Projectiles.Hit
         private void ChangeBlastSize()
         {
             _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
-                x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
+                x.WeaponTypeId == _heroWeaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
 
             if (_blastItemData.LevelTypeId == LevelTypeId.None)
                 _blastRadiusRatio = BaseRatio;
@@ -169,6 +161,14 @@ namespace CodeBase.Projectiles.Hit
         {
             yield return new WaitForSeconds(BlastDuration);
             HideBlast();
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+
+            if (_heroWeaponTypeId != null) 
+                SetBlastSize();
         }
     }
 }

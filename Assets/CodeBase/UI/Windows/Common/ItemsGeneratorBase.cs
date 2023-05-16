@@ -61,6 +61,9 @@ namespace CodeBase.UI.Windows.Common
 
         public abstract void Generate();
 
+        protected void GetMoney() =>
+            Money = Progress.CurrentLevelStats.MoneyData.Money;
+
         protected void InitializeEmptyData()
         {
             _shopItemsNumbers = new HashSet<int>(GameObjectItems.Length) { 0, 1, 2 };
@@ -140,91 +143,123 @@ namespace CodeBase.UI.Windows.Common
 
             foreach (WeaponData weaponData in availableWeapons)
             {
-                switch (weaponData.WeaponTypeId)
-                {
-                    case HeroWeaponTypeId.GrenadeLauncher:
-                        Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
-                            out int grenades);
+                // switch (weaponData.WeaponTypeId)
+                // {
+                //     case HeroWeaponTypeId.GrenadeLauncher:
+                //         Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
+                //             out int grenades);
 
-                        switch (grenades)
-                        {
-                            case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
-                                break;
+                CheckAmmoCount(weaponData);
 
-                            case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
-                                break;
+                // switch (grenades)
+                // {
+                //     case <= 3:
+                //         AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
+                //         break;
+                //
+                //     case <= 8:
+                //         AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
+                //         break;
+                //
+                //     case > 8:
+                //         AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
+                //         break;
+                // }
+                //
+                // break;
 
-                            case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
-                                break;
-                        }
+                //     case HeroWeaponTypeId.RPG:
+                //         Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
+                //             out int rpgRockets);
+                //
+                //         switch (rpgRockets)
+                //         {
+                //             case <= 3:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
+                //                 break;
+                //
+                //             case <= 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
+                //                 break;
+                //
+                //             case > 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
+                //                 break;
+                //         }
+                //
+                //         break;
+                //
+                //     case HeroWeaponTypeId.RocketLauncher:
+                //         Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
+                //             out int rocketLauncherRockets);
+                //
+                //         switch (rocketLauncherRockets)
+                //         {
+                //             case <= 3:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
+                //                 break;
+                //
+                //             case <= 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
+                //                 break;
+                //
+                //             case > 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
+                //                 break;
+                //         }
+                //
+                //         break;
+                //
+                //     case HeroWeaponTypeId.Mortar:
+                //         Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId, out int bombs);
+                //
+                //         switch (bombs)
+                //         {
+                //             case <= 3:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
+                //                 break;
+                //
+                //             case <= 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
+                //                 break;
+                //
+                //             case > 8:
+                //                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
+                //                 break;
+                //         }
+                //
+                //         break;
+                // }
+            }
+        }
 
-                        break;
+        private void CheckAmmoCount(WeaponData weaponData)
+        {
+            ShopAmmoStaticData maxShopAmmoStaticData =
+                _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
 
-                    case HeroWeaponTypeId.RPG:
-                        Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
-                            out int rpgRockets);
+            if (Money >= maxShopAmmoStaticData.Count)
+            {
+                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max, maxShopAmmoStaticData);
+                return;
+            }
 
-                        switch (rpgRockets)
-                        {
-                            case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
-                                break;
+            ShopAmmoStaticData medShopAmmoStaticData =
+                _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
 
-                            case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
-                                break;
+            if (Money >= medShopAmmoStaticData.Count)
+            {
+                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium, medShopAmmoStaticData);
+                return;
+            }
 
-                            case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
-                                break;
-                        }
+            ShopAmmoStaticData minShopAmmoStaticData =
+                _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
 
-                        break;
-
-                    case HeroWeaponTypeId.RocketLauncher:
-                        Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId,
-                            out int rocketLauncherRockets);
-
-                        switch (rocketLauncherRockets)
-                        {
-                            case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
-                                break;
-
-                            case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
-                                break;
-
-                            case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
-                                break;
-                        }
-
-                        break;
-
-                    case HeroWeaponTypeId.Mortar:
-                        Progress.WeaponsData.WeaponsAmmoData.Ammo.TryGetValue(weaponData.WeaponTypeId, out int bombs);
-
-                        switch (bombs)
-                        {
-                            case <= 3:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
-                                break;
-
-                            case <= 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
-                                break;
-
-                            case > 8:
-                                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
-                                break;
-                        }
-
-                        break;
-                }
+            if (Money >= minShopAmmoStaticData.Count)
+            {
+                AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min, minShopAmmoStaticData);
+                return;
             }
         }
 
@@ -263,9 +298,9 @@ namespace CodeBase.UI.Windows.Common
                 _moneyTypeIds.Add(moneyTypeId);
         }
 
-        private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCountType)
+        private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCountType,
+            ShopAmmoStaticData shopAmmoStaticData)
         {
-            ShopAmmoStaticData shopAmmoStaticData = _staticDataService.ForShopAmmo(typeId, ammoCountType);
             AmmoItem ammoItem = new AmmoItem(typeId, ammoCountType, shopAmmoStaticData.Count);
 
             if (Money >= shopAmmoStaticData.Cost)
@@ -375,10 +410,7 @@ namespace CodeBase.UI.Windows.Common
             return GameObjectItems[i];
         }
 
-        public void LoadProgress(PlayerProgress progress)
-        {
+        public void LoadProgress(PlayerProgress progress) =>
             Progress = progress;
-            Money = Progress.CurrentLevelStats.MoneyData.Money;
-        }
     }
 }

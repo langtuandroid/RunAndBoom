@@ -17,7 +17,6 @@ namespace CodeBase.UI.Windows.Common
 
         protected void Construct(MoneyTypeId moneyTypeId, PlayerProgress progress)
         {
-            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _moneyTypeId = moneyTypeId;
             FillData();

@@ -18,7 +18,6 @@ namespace CodeBase.UI.Windows.Common
 
         public void Construct(PerkItemData perkItemData, PlayerProgress progress)
         {
-            Button?.onClick.AddListener(Clicked);
             base.Construct(progress);
             _perkItemData = perkItemData;
             FillData();
