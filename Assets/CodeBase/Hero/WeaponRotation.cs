@@ -10,6 +10,7 @@ namespace CodeBase.Hero
         [SerializeField] private HeroWeaponSelection _weaponSelection;
         [SerializeField] private LayerMask _collidableLayers;
 
+        private HeroWeaponStaticData _weaponStaticData;
         private GameObject _currentWeapon;
         private Camera _mainCamera;
         private float _centralPosition = 0.5f;
@@ -17,7 +18,6 @@ namespace CodeBase.Hero
         private float _maxDistance = 25f;
 
         public Action<Vector3> GotTarget;
-        private HeroWeaponStaticData _weaponStaticData;
 
         private void Start() =>
             _mainCamera = Camera.main;

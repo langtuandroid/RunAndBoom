@@ -3,7 +3,6 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Level;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
@@ -12,6 +11,8 @@ using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -35,12 +36,11 @@ namespace CodeBase.Infrastructure.States
 
         private bool _isInitial = true;
         private Scene _scene;
-        private ISaveLoadService _saveLoadService;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
             IPlayerProgressService progressService, IStaticDataService staticDataService,
-            IUIFactory uiFactory, IWindowService windowService, ISaveLoadService saveLoadService)
+            IUIFactory uiFactory, IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -51,7 +51,6 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
-            _saveLoadService = saveLoadService;
         }
 
         public void Enter(Scene scene)
@@ -76,7 +75,7 @@ namespace CodeBase.Infrastructure.States
                 // if (IsInitialSceneInEditor())
                 _loadingCurtain.Hide();
 
-            _saveLoadService.SaveProgress();
+            // _saveLoadService.SaveProgress();
             _isInitial = false;
         }
 
@@ -159,8 +158,8 @@ namespace CodeBase.Infrastructure.States
             GameObject hud = await _uiFactory.CreateHud();
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             heroHealth.Construct(_staticDataService);
-            hero.GetComponent<HeroMovement>().Construct(_progressService, _staticDataService);
-            hero.GetComponent<HeroReloading>().Construct(_progressService, _staticDataService);
+            hero.GetComponent<HeroMovement>().Construct(_staticDataService);
+            hero.GetComponent<HeroReloading>().Construct(_staticDataService);
             HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
             HeroDeath heroDeath = hero.GetComponent<HeroDeath>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
@@ -175,12 +174,16 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
+            HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
+            shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(heroHealth);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
             deathWindow.GetComponent<DeathWindow>().Construct(hero, _scene);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
             settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _scene);
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
-            finishWindow.GetComponent<FinishWindow>().Construct(hero);
+            finishWindow.GetComponent<GiftsGenerator>()?.Construct(heroHealth);
+            FinishWindow finish = finishWindow.GetComponent<FinishWindow>();
+            finish?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);

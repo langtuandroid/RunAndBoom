@@ -1,6 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +13,15 @@ namespace CodeBase.UI.Windows
     {
         [SerializeField] private Button _restartButton;
 
+        private IPlayerProgressService _progressService;
+        private ISaveLoadService _saveLoadService;
         private Scene _scene;
+
+        private void Awake()
+        {
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+        }
 
         private void Start() =>
             _restartButton.onClick.AddListener(Restart);
@@ -22,12 +32,14 @@ namespace CodeBase.UI.Windows
             _scene = scene;
         }
 
-        // private void Restart() =>
-        //     AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+        private void Restart()
+        {
+            Hide();
+            // _progressService.ClearProgress();
+            // _saveLoadService.SaveProgress();
 
-
-        private void Restart() =>
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, Scene>(_scene);
-        // AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
+            // AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, Scene>(_scene);
+        }
     }
 }

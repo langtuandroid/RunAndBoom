@@ -24,7 +24,7 @@ namespace CodeBase.Infrastructure.States
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
                         services.Single<IEnemyFactory>(), services.Single<IPlayerProgressService>(),
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
-                        services.Single<IWindowService>(), services.Single<ISaveLoadService>()),
+                        services.Single<IWindowService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
                     services.Single<IPlayerProgressService>(),
                     services.Single<ISaveLoadService>()),

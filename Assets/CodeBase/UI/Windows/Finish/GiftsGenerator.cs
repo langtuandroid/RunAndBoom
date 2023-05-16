@@ -19,11 +19,13 @@ namespace CodeBase.UI.Windows.Finish
         public override event Action GenerationStarted;
         public override event Action GenerationEnded;
 
-        public void Construct(int maxPrice, HeroHealth health)
+        public void Construct(HeroHealth health)
         {
-            Money = maxPrice;
             base.Construct(health);
         }
+
+        public void SetMaxPrice(int maxPrice) =>
+            Money = maxPrice;
 
         public override void Generate()
         {

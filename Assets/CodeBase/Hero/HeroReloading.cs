@@ -20,6 +20,7 @@ namespace CodeBase.Hero
         private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
+        private PlayerProgress _progress;
         private HeroWeaponTypeId _weaponTypeId;
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
@@ -28,11 +29,10 @@ namespace CodeBase.Hero
         private float _reloadingRatio = 0f;
         private bool _startReloaded;
         private UpgradeItemData _reloadingItemData;
+        private bool _canReload;
 
         public Action<float> OnStartReloading;
         public Action OnStopReloading;
-        private PlayerProgress _progress;
-        private bool _canReload;
 
         private void Awake()
         {
@@ -61,18 +61,16 @@ namespace CodeBase.Hero
             }
         }
 
+        public void Construct(IStaticDataService staticDataService)
+        {
+            _staticDataService = staticDataService;
+        }
+
         public void TurnOn() =>
             _canReload = true;
 
         public void TurnOff() =>
             _canReload = false;
-
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
-        {
-            _staticDataService = staticDataService;
-            // _progress = progressService.Progress;
-            // SetCooldown();
-        }
 
         private void SetCooldown()
         {

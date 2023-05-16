@@ -19,6 +19,7 @@ namespace CodeBase.UI.Windows.Common
 
         public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health)
         {
+            // Hero = hero;
             Button?.onClick.AddListener(Clicked);
             Health = health;
             _typeId = typeId;

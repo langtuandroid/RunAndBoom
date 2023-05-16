@@ -1,5 +1,4 @@
 ﻿using CodeBase.Data;
-using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
@@ -34,7 +33,7 @@ namespace CodeBase.Level
                 WindowBase finishWindow = _windowService.Open<FinishWindow>(WindowId.Finish);
                 GiftsGenerator giftsGenerator =
                     (finishWindow as FinishWindow)?.gameObject.GetComponent<GiftsGenerator>();
-                giftsGenerator?.Construct(_maxPrice, other.gameObject.GetComponent<HeroHealth>());
+                giftsGenerator?.SetMaxPrice(_maxPrice);
                 giftsGenerator?.Generate();
                 FinishButtons finishButtons = (finishWindow as FinishWindow)?.gameObject.GetComponent<FinishButtons>();
                 finishButtons?.Construct(_scene);

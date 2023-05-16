@@ -16,12 +16,12 @@ namespace CodeBase.Data.Weapons
         public UpgradesData UpgradesData { get; private set; }
         public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
 
-        public event Action CurrentWeaponChanged;
+        public event Action<HeroWeaponTypeId> SetAvailable;
 
         public WeaponsData()
         {
             WeaponDatas = new List<WeaponData>(_typeIds.Count);
-            WeaponsAmmoData = new WeaponsAmmoData();
+            WeaponsAmmoData = new WeaponsAmmoData(WeaponDatas);
             UpgradesData = new UpgradesData();
             FillAvailableWeapons();
             CurrentHeroWeaponTypeId = WeaponDatas.First(x => x.IsAvailable).WeaponTypeId;
@@ -30,19 +30,44 @@ namespace CodeBase.Data.Weapons
         private void FillAvailableWeapons()
         {
             WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RPG, true));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, true));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.Mortar, true));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RPG, false));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, false));
+            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.Mortar, false));
+
+            SetAvailableWeapons();
+        }
+
+        private void SetAvailableWeapons()
+        {
+            foreach (WeaponData weaponData in WeaponDatas)
+                if (weaponData.IsAvailable)
+                    SetAvailable?.Invoke(weaponData.WeaponTypeId);
         }
 
         public void SetCurrentWeapon(HeroWeaponTypeId typeId)
         {
             CurrentHeroWeaponTypeId = typeId;
             WeaponsAmmoData.SetCurrentWeapon(typeId);
-            CurrentWeaponChanged?.Invoke();
         }
 
-        public void SetAvailableWeapon(HeroWeaponTypeId typeId) =>
+        public void SetAvailableWeapon(HeroWeaponTypeId typeId)
+        {
             WeaponDatas.First(x => x.WeaponTypeId == typeId).SetWeaponAvailable();
+
+            switch (typeId)
+            {
+                case HeroWeaponTypeId.RPG:
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, 5);
+                    break;
+                case HeroWeaponTypeId.RocketLauncher:
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RocketLauncher, 9);
+                    break;
+                case HeroWeaponTypeId.Mortar:
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.Mortar, 3);
+                    break;
+            }
+
+            SetAvailable?.Invoke(typeId);
+        }
     }
 }

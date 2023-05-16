@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeBase.StaticData.Weapons;
 
 namespace CodeBase.Data.Weapons
@@ -8,6 +9,7 @@ namespace CodeBase.Data.Weapons
     public class WeaponsAmmoData : ItemData
     {
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
+        private List<WeaponData> _weaponDatas;
 
         public Dictionary<HeroWeaponTypeId, int> Ammo { get; private set; }
         public Dictionary<HeroWeaponTypeId, int> Barrels { get; private set; }
@@ -17,8 +19,9 @@ namespace CodeBase.Data.Weapons
         public event Action<int> RocketLauncherAmmoChanged;
         public event Action<int> MortarAmmoChanged;
 
-        public WeaponsAmmoData()
+        public WeaponsAmmoData(List<WeaponData> weaponDatas)
         {
+            _weaponDatas = weaponDatas;
             FillAmmo();
             FillWeaponsBarrels();
         }
@@ -40,11 +43,11 @@ namespace CodeBase.Data.Weapons
             Ammo = new Dictionary<HeroWeaponTypeId, int>();
             Ammo[HeroWeaponTypeId.GrenadeLauncher] = 10;
             AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
-            Ammo[HeroWeaponTypeId.RPG] = 10;
+            Ammo[HeroWeaponTypeId.RPG] = 0;
             AmmoChanged(HeroWeaponTypeId.RPG);
-            Ammo[HeroWeaponTypeId.RocketLauncher] = 10;
+            Ammo[HeroWeaponTypeId.RocketLauncher] = 0;
             AmmoChanged(HeroWeaponTypeId.RocketLauncher);
-            Ammo[HeroWeaponTypeId.Mortar] = 10;
+            Ammo[HeroWeaponTypeId.Mortar] = 0;
             AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 
@@ -63,6 +66,12 @@ namespace CodeBase.Data.Weapons
         {
             Ammo[_currentHeroWeaponTypeId] -= Barrels[_currentHeroWeaponTypeId];
             AmmoChanged(_currentHeroWeaponTypeId);
+        }
+
+        public void TryChangeAmmo(HeroWeaponTypeId typeId)
+        {
+            if (_weaponDatas.First(x => x.WeaponTypeId == typeId).IsAvailable)
+                AmmoChanged(typeId);
         }
 
         public void AmmoChanged(HeroWeaponTypeId typeId)

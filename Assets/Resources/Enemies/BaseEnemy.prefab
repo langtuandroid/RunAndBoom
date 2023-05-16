@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerObserver: {fileID: 9107164485434776977}
   _follow: {fileID: 2784321666038494259}
+  _rotateToHero: {fileID: 3011881117668741496}
 --- !u!114 &7110066953073642459
 MonoBehaviour:
   m_ObjectHideFlags: 0

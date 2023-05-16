@@ -20,7 +20,6 @@ namespace CodeBase.UI.Windows.Shop
         public new void Construct(HeroHealth health)
         {
             base.Construct(health);
-            Money = Progress.CurrentLevelStats.MoneyData.Money;
         }
 
         public override void Generate()

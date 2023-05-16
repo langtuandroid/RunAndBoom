@@ -1,6 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
+using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
 using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Shop;
@@ -10,7 +12,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Common
 {
-    public abstract class ItemBase : MonoBehaviour
+    public abstract class ItemBase : MonoBehaviour, IProgressReader
     {
         [SerializeField] protected Image BackgroundIcon;
         [SerializeField] protected Image MainIcon;
@@ -26,6 +28,9 @@ namespace CodeBase.UI.Windows.Common
         protected PlayerProgress Progress;
         protected ShopItemBalance ShopItemBalance;
         protected GiftsItemBalance GiftsItemBalance;
+        private PlayerProgress _progress;
+        private const float BaseRatio = 1.0f;
+        protected float MaxHealthRatio = 1.0f;
 
         private void Awake() =>
             _shopItemHighlighter = transform.parent.GetComponent<ShopItemHighlighter>();
@@ -36,6 +41,19 @@ namespace CodeBase.UI.Windows.Common
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             ShopItemBalance = new ShopItemBalance();
             GiftsItemBalance = new GiftsItemBalance();
+
+            SetMaxHealth();
+        }
+
+        private void SetMaxHealth()
+        {
+            var upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+
+            if (upMaxHealthItemData.LevelTypeId == LevelTypeId.None)
+                MaxHealthRatio = BaseRatio;
+            else
+                MaxHealthRatio =
+                    StaticDataService.ForPerk(PerkTypeId.UpMaxHealth, upMaxHealthItemData.LevelTypeId).Value;
         }
 
         protected void ClearData()
@@ -71,5 +89,10 @@ namespace CodeBase.UI.Windows.Common
 
         protected abstract void FillData();
         protected abstract void Clicked();
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+        }
     }
 }

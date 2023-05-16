@@ -4,8 +4,10 @@ namespace CodeBase.Services.PersistentProgress
 {
     public interface IPlayerProgressService : IService
     {
-        PlayerProgress Progress { get; set; }
+        public PlayerProgress Progress { get; }
 
         string CurrentError { get; set; }
+        void ClearProgress();
+        void SetProgress(PlayerProgress progress);
     }
 }

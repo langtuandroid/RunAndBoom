@@ -1,6 +1,7 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,11 @@ namespace CodeBase.UI.Windows
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _closeButton;
 
+        private ISaveLoadService _saveLoadService;
         private Scene _scene;
+
+        private void Awake() =>
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
 
         private void Start()
         {
@@ -35,6 +40,7 @@ namespace CodeBase.UI.Windows
         private void Restart()
         {
             Hide();
+            // _saveLoadService.SaveProgress();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
         }
     }

@@ -6,18 +6,18 @@ namespace CodeBase.Data
     public class HealthState
     {
         public float CurrentHp { get; private set; }
-        public float BaseMaxHp { get; private set; }
+        public float MaxHp { get; private set; }
 
         public HealthState()
         {
-            BaseMaxHp = Constants.InitialMaxHP;
-            CurrentHp = BaseMaxHp;
+            MaxHp = Constants.InitialMaxHP;
+            CurrentHp = MaxHp;
         }
 
         public void ChangeCurrentHP(float value) =>
             CurrentHp = value;
 
         public void ChangeMaxHP(float value) =>
-            BaseMaxHp = value;
+            MaxHp = value;
     }
 }

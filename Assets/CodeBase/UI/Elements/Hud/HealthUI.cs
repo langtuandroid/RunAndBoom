@@ -11,14 +11,6 @@ namespace CodeBase.UI.Elements.Hud
         private IHealth _health;
         private PlayerProgress _progress;
 
-        private void Awake()
-        {
-            IHealth health = GetComponent<IHealth>();
-
-            if (health != null)
-                Construct(health);
-        }
-
         public void Construct(IHealth health)
         {
             _health = health;

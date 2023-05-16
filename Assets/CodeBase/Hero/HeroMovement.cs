@@ -44,11 +44,9 @@ namespace CodeBase.Hero
                 _runningItemData.LevelChanged -= ChangeSpeed;
         }
 
-        public void Construct(IPlayerProgressService progressService, IStaticDataService staticDataService)
+        public void Construct(IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
-            // _progress = progressService.Progress;
-            // SetSpeed();
         }
 
         private void SetSpeed()

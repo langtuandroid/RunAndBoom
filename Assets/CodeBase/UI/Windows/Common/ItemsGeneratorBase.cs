@@ -22,7 +22,7 @@ using UnityEngine;
 
 namespace CodeBase.UI.Windows.Common
 {
-    public abstract class ItemsGeneratorBase : MonoBehaviour
+    public abstract class ItemsGeneratorBase : MonoBehaviour, IProgressReader
     {
         [SerializeField] protected GameObject[] GameObjectItems;
 
@@ -42,18 +42,19 @@ namespace CodeBase.UI.Windows.Common
         private List<HeroWeaponTypeId> _availableWeapons;
         private List<PerkItemData> _availablePerks;
         private List<MoneyTypeId> _moneyTypeIds;
+
         private Coroutine _coroutineShopItemsGeneration;
-        protected PlayerProgress Progress;
+
         protected HeroHealth Health;
         protected int Money;
+        protected PlayerProgress Progress;
 
         public virtual event Action GenerationStarted;
         public virtual event Action GenerationEnded;
 
-        public void Construct(HeroHealth health)
+        protected void Construct(HeroHealth health)
         {
             Health = health;
-            Progress = AllServices.Container.Single<IPlayerProgressService>().Progress;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             RandomService = AllServices.Container.Single<IRandomService>();
         }
@@ -298,7 +299,7 @@ namespace CodeBase.UI.Windows.Common
         {
             if (_availableItems.Count != 0 && _shopItemsNumbers.Count != 0)
             {
-                float healthPercentage = Progress.HealthState.CurrentHp / Progress.HealthState.BaseMaxHp;
+                float healthPercentage = Progress.HealthState.CurrentHp / Progress.HealthState.MaxHp;
 
                 ShopItemStaticData shopItemStaticData = _staticDataService.ForShopItem(ItemTypeId.HealthRecover);
 
@@ -372,6 +373,12 @@ namespace CodeBase.UI.Windows.Common
         {
             int i = RandomService.NextNumberFrom(_shopItemsNumbers);
             return GameObjectItems[i];
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            Progress = progress;
+            Money = Progress.CurrentLevelStats.MoneyData.Money;
         }
     }
 }

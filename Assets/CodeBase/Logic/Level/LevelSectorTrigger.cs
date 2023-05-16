@@ -1,6 +1,5 @@
 using System;
 using CodeBase.Data;
-using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
@@ -36,10 +35,7 @@ namespace CodeBase.Logic.Level
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
                 WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
-                ShopItemsGenerator shopItemsGenerator =
-                    (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>();
-                shopItemsGenerator?.Construct(other.gameObject.GetComponent<HeroHealth>());
-                shopItemsGenerator?.Generate();
+                (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
                 ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();
                 shopButtons?.Construct(_refreshCount, _watchAdsNumber);
                 _isPassed = true;

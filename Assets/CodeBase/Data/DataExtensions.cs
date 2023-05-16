@@ -24,5 +24,8 @@ namespace CodeBase.Data
 
         public static IEnumerable<T> GetValues<T>() =>
             Enum.GetValues(typeof(T)).Cast<T>();
+
+        public static float SqrMagnitudeTo(this Vector3 from, Vector3 to) =>
+            Vector3.SqrMagnitude(to - from);
     }
 }

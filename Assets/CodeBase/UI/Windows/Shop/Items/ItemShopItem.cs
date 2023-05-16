@@ -12,10 +12,7 @@ namespace CodeBase.UI.Windows.Shop.Items
                 ShopItemBalance.ReduceMoney(_itemStaticData.Cost);
 
                 if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
-                {
-                    Progress.HealthState.ChangeCurrentHP(Progress.HealthState.BaseMaxHp);
-                    Health.ChangeHealth();
-                }
+                    Health.Recover();
 
                 ClearData();
             }

@@ -22,7 +22,6 @@ namespace CodeBase.Enemy
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
-
         private void Awake() =>
             _animator = GetComponent<Animator>();
 

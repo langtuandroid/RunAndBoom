@@ -7,6 +7,7 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private TriggerObserver _triggerObserver;
         [SerializeField] private Follow _follow;
+        [SerializeField] private RotateToHero _rotateToHero;
 
         private float _cooldown;
 
@@ -25,6 +26,7 @@ namespace CodeBase.Enemy
             {
                 _follow.Stop();
                 _follow.enabled = false;
+                _rotateToHero.enabled = false;
             }
         }
 
@@ -73,6 +75,7 @@ namespace CodeBase.Enemy
             {
                 _hasAggroTarget = true;
                 _follow.Move();
+                _rotateToHero.enabled = true;
                 // _follow.enabled = true;
             }
         }
@@ -84,6 +87,7 @@ namespace CodeBase.Enemy
                 // _follow.enabled = false;
                 _follow.Stop();
                 _hasAggroTarget = false;
+                _rotateToHero.enabled = false;
             }
         }
     }

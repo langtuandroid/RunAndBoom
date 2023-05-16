@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8883585000983770789}
   - component: {fileID: 5233570828460013185}
-  - component: {fileID: 7254467059139094895}
-  - component: {fileID: 4777280953288869295}
   - component: {fileID: 952476126145913574}
   - component: {fileID: 3169218441720579863}
+  - component: {fileID: 7254467059139094895}
+  - component: {fileID: 4777280953288869295}
+  - component: {fileID: 6051632791307309468}
   m_Layer: 5
   m_Name: WeaponsPanel
   m_TagString: Untagged
@@ -53,40 +54,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3543746120258307583}
   m_CullTransparentMesh: 0
---- !u!114 &7254467059139094895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3543746120258307583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580cacc92d394d93afcf5d8d4d276cdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grenadeLaucher: {fileID: 3704888283857657649}
-  _rpg: {fileID: 6799655552324106590}
-  _rocketLaucher: {fileID: 8168825840912417403}
-  _mortar: {fileID: 1656665810382891370}
-  _selected: {fileID: 21300000, guid: 426772e16cae9a84abe0e6c97276ec33, type: 3}
-  _unselected: {fileID: 21300000, guid: c8ccb67550c7256428c712e48ce3beba, type: 3}
---- !u!114 &4777280953288869295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3543746120258307583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2092125bc5134932a67a5e81b8f3ac62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _grenadeLaucher: {fileID: 8438578572435268401}
-  _rpg: {fileID: 1741917177476793694}
-  _rocketLaucher: {fileID: 3975778044755345019}
-  _mortar: {fileID: 5804042631562761578}
 --- !u!223 &952476126145913574
 Canvas:
   m_ObjectHideFlags: 0
@@ -124,7 +91,57 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32759
+--- !u!114 &7254467059139094895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543746120258307583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580cacc92d394d93afcf5d8d4d276cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grenadeLaucher: {fileID: 3704888283857657649}
+  _rpg: {fileID: 6799655552324106590}
+  _rocketLaucher: {fileID: 8168825840912417403}
+  _mortar: {fileID: 1656665810382891370}
+  _selected: {fileID: 21300000, guid: 426772e16cae9a84abe0e6c97276ec33, type: 3}
+  _unselected: {fileID: 21300000, guid: c8ccb67550c7256428c712e48ce3beba, type: 3}
+--- !u!114 &4777280953288869295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543746120258307583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2092125bc5134932a67a5e81b8f3ac62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grenadeLaucher: {fileID: 8438578572435268401}
+  _rpg: {fileID: 1741917177476793694}
+  _rocketLaucher: {fileID: 3975778044755345019}
+  _mortar: {fileID: 5804042631562761578}
+--- !u!114 &6051632791307309468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543746120258307583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351cfff153b14aacbe9110d94471b993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grenadeLaucher: {fileID: 3704888283857657649}
+  _rpg: {fileID: 6799655552324106590}
+  _rocketLaucher: {fileID: 8168825840912417403}
+  _mortar: {fileID: 1656665810382891370}
 --- !u!1001 &1305297399001577602
 PrefabInstance:
   m_ObjectHideFlags: 0

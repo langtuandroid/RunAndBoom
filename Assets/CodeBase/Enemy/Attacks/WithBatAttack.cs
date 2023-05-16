@@ -11,7 +11,6 @@ namespace CodeBase.Enemy.Attacks
 
         private float _effectiveDistance;
         private int _damage;
-
         private int _layerMask;
         private readonly Collider[] _hits = new Collider[1];
 
