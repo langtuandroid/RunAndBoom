@@ -9,12 +9,16 @@ using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Projectiles.Hit
 {
     public class ProjectileBlast : BaseProjectileHit, IProgressReader
     {
         [SerializeField] private DestroyWithBlast _destroyWithBlast;
+
+        [FormerlySerializedAs("_ignoreMask")] [SerializeField]
+        private LayerMask _layerMask;
 
         private const float BaseRatio = 1f;
         private const float BlastDuration = 2f;
@@ -64,26 +68,17 @@ namespace CodeBase.Projectiles.Hit
             {
                 if (_prefab != null)
                 {
-                    // Vector3 closestPointNormalized = other.ClosestPoint(transform.position).normalized;
-                    // bool isRaycast = Physics.Raycast(other.transform.position, other.transform.forward,
-                    //     out RaycastHit hit);
-                    bool isRaycast = Physics.SphereCast(other.transform.position, SphereCastRadius,
-                        other.transform.forward, out RaycastHit hit);
+                    RaycastHit hit;
 
-                    // if (isRaycast)
-                    // {
-                    //     Vector3 hitSum = hit.point + hit.normal;
-                    // var direction = Vector3.Reflect(transform.forward, closestPoint);
-                    // Vector3 direction = other.gameObject.transform.position - transform.position;
-                    // float angle = Vector3.Angle(transform.forward, direction);
-                    // other.ClosestPointOnBounds(transform.position);
-                    ShowBlast();
-                    // ShowBlast(hitSum);
-                    Trail?.HideTrace();
-                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-                    StartCoroutine(DestroyBlast());
-                    Movement.Stop();
-                    // }
+                    if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, _layerMask))
+                    {
+                        ShowBlast(hit.point, hit.normal);
+                        // ShowBlast();
+                        Trail?.HideTrace();
+                        _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                        StartCoroutine(DestroyBlast());
+                        Movement.Stop();
+                    }
                 }
             }
         }
@@ -120,19 +115,19 @@ namespace CodeBase.Projectiles.Hit
             _sphereRadius = _baseBlastRadius * _blastRadiusRatio;
         }
 
-        private void ShowBlast(Vector3 direction)
+        private void ShowBlast(Vector3 point, Vector3 normal)
         {
             if (_particleSystem == null)
             {
-                _blastVfx = Instantiate(_prefab, transform.position, Quaternion.identity, null);
+                _blastVfx = Instantiate(_prefab, point + normal, Quaternion.identity, null);
                 _particleSystem = _blastVfx.GetComponent<ParticleSystem>();
             }
             else
             {
                 _blastVfx.transform.position = transform.position;
-                _blastVfx.transform.rotation.SetLookRotation(direction);
             }
 
+            _blastVfx.transform.LookAt(point + normal);
             _particleSystem.Play(true);
         }
 

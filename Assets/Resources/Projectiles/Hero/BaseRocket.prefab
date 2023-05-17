@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 6337939420664514640}
   - component: {fileID: 6337939420664514639}
   - component: {fileID: 6591293771587382832}
+  - component: {fileID: 5984909211728785929}
   m_Layer: 14
   m_Name: HitCapsule
   m_TagString: Untagged
@@ -180,3 +181,18 @@ MonoBehaviour:
   - Wall
   - Ground
   _destroyWithBlast: {fileID: 8976935804904259732}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 4800
+--- !u!114 &5984909211728785929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337939420664514641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fb661b8cd84a11921dcf8678491a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
