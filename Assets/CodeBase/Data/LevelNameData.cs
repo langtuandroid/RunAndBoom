@@ -27,6 +27,7 @@ namespace CodeBase.Data
         {
             Level = level;
             LevelChanged?.Invoke();
+            ChangeSector("1");
         }
 
         public void ChangeSector(string section)

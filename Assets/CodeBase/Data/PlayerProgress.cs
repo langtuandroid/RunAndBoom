@@ -13,7 +13,7 @@ namespace CodeBase.Data
         public WeaponsData WeaponsData { get; private set; }
         public PerksData PerksData { get; private set; }
         public LevelStats CurrentLevelStats { get; private set; }
-        public List<LevelStats> LevelStats { get; private set; }
+        public Dictionary<Scene, LevelStats> LevelStats { get; private set; }
 
         public PlayerProgress(Scene initialLevel)
         {
@@ -21,11 +21,15 @@ namespace CodeBase.Data
             WorldData = new WorldData(initialLevel.ToString());
             WeaponsData = new WeaponsData();
             PerksData = new PerksData();
-            CurrentLevelStats = new LevelStats(initialLevel.ToString());
+            CurrentLevelStats = new LevelStats(initialLevel);
+            LevelStats = new Dictionary<Scene, LevelStats>();
         }
 
-        public void AddNewLevelStats(LevelStats levelStats) =>
-            LevelStats.Add(levelStats);
+        public void StartNewLevel(Scene scene)
+        {
+            LevelStats[CurrentLevelStats.Scene] = CurrentLevelStats;
+            CurrentLevelStats = new LevelStats(scene);
+        }
 
         public void SetWeaponData(WeaponsData weaponsData) =>
             WeaponsData = weaponsData;

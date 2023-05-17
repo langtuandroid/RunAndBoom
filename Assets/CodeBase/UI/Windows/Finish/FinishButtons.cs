@@ -61,9 +61,10 @@ namespace CodeBase.UI.Windows.Finish
 
         private void ToNextLevel()
         {
-            _gameStateMachine.Enter<LoadSceneState, Scene>(_scene);
             _saveLoadService.SaveProgress();
+            _playerProgressService.Progress.StartNewLevel(_scene);
             _playerProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_scene.ToString());
+            _gameStateMachine.Enter<LoadSceneState, Scene>(_scene);
             CloseWindow();
         }
 

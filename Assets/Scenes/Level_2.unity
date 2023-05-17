@@ -23735,6 +23735,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1104271777}
     m_Modifications:
+    - target: {fileID: 1574043874683545139, guid: d52d232d7eabc334094263301a0b12c2,
+        type: 3}
+      propertyPath: _refreshCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8102477093276810255, guid: d52d232d7eabc334094263301a0b12c2,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -23825,29 +23830,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1574043874683545139, guid: d52d232d7eabc334094263301a0b12c2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d52d232d7eabc334094263301a0b12c2, type: 3}
---- !u!1 &8202281675107929270 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8102477093276810255, guid: d52d232d7eabc334094263301a0b12c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 8202281675107929269}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8202281675107929271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8202281675107929270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e983e7e4de77347aa726b43efd6b44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 0}
-  _maxPrice: 25
 --- !u!1 &8215808500079146765
 GameObject:
   m_ObjectHideFlags: 0

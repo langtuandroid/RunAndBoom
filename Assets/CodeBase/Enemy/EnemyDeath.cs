@@ -81,6 +81,7 @@ namespace CodeBase.Enemy
             Destroy(GetComponent<CheckAttackRange>());
             Destroy(GetComponent<NavMeshAgent>(), 1);
             Destroy(GetComponent<AgentMoveToHero>());
+            Destroy(GetComponent<BoxCollider>());
             // _targetMovement.Hide();
             // _hitBox.SetActive(false);
             // _diedBox.SetActive(true);

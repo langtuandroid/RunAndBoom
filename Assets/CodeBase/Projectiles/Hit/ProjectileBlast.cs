@@ -167,7 +167,7 @@ namespace CodeBase.Projectiles.Hit
         {
             _progress = progress;
 
-            if (_heroWeaponTypeId != null) 
+            if (_heroWeaponTypeId != null)
                 SetBlastSize();
         }
     }
