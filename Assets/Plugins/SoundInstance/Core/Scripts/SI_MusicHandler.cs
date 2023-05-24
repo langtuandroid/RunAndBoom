@@ -6,10 +6,10 @@ namespace Plugins.SoundInstance.Core.Scripts
 {
     public class SI_MusicHandler : MonoBehaviour
     {
-        bool isAllowed = false;
+        private bool _isAllowed;
         private float _fade = 1f;
-
-        MusicsStore Storage;
+        private MusicsStore _storage;
+        private bool _needStop;
 
         public AudioSource audioSource
         {
@@ -30,25 +30,31 @@ namespace Plugins.SoundInstance.Core.Scripts
             Setup();
         }
 
-        void Start()
+        private void Update()
         {
+            if (_isAllowed && !audioSource.isPlaying)
+            {
+                if (!_needStop)
+                    StartMusic(GetRandomMusic().name, _fade);
+                else
+                    StopMusic(_fade, true);
+            }
         }
 
-        void Update()
+        public void StopRandomMusic(bool fading)
         {
-            if (isAllowed && !audioSource.isPlaying)
-            {
-                StartMusic(GetRandomMusic().name, _fade);
-            }
+            _isAllowed = false;
+            StopMusic(_fade, fading);
         }
 
         private void Setup()
         {
-            Storage = (MusicsStore)UnityEngine.Resources.Load("SIMusicStore");
+            _storage = (MusicsStore)UnityEngine.Resources.Load("SIMusicStore");
             gameObject.name = "[SoundInstanceMusicLive]";
             Static.SoundInstance.SetMusicHandler(this);
             DontDestroyOnLoad(this);
-            isAllowed = true;
+            _isAllowed = true;
+            _needStop = false;
         }
 
         public void SetStartFade(float fade) =>
@@ -63,21 +69,21 @@ namespace Plugins.SoundInstance.Core.Scripts
                 return;
             }
 
-            AudioClip audioClip = Storage.GetMusic(name).Song;
+            AudioClip audioClip = _storage.GetMusic(name).Song;
             audioSource.clip = audioClip;
             StartCoroutine(Play(1 / fadeSpeed));
 
             foreach (GameObject go in FindObjectsOfType<GameObject>())
             {
-                Static.SoundInstance.CurrentMusic = Storage.GetMusic(name);
-                go.SendMessage("OnMusicStarted", Storage.GetMusic(name), SendMessageOptions.DontRequireReceiver);
+                Static.SoundInstance.CurrentMusic = _storage.GetMusic(name);
+                go.SendMessage("OnMusicStarted", _storage.GetMusic(name), SendMessageOptions.DontRequireReceiver);
             }
         }
 
-        public void StopMusic(float fadeSpeed)
+        public void StopMusic(float fadeSpeed, bool fading)
         {
             StopAllCoroutines();
-            StartCoroutine(Stop(fadeSpeed));
+            StartCoroutine(Stop(fadeSpeed, fading));
         }
 
         public void PauseMusic(float fadeSpeed)
@@ -131,33 +137,37 @@ namespace Plugins.SoundInstance.Core.Scripts
                 go.SendMessage("OnMusicStopped", SendMessageOptions.DontRequireReceiver);
             }
 
-            AudioClip audioClip = Storage.GetMusic(name).Song;
+            AudioClip audioClip = _storage.GetMusic(name).Song;
             audioSource.clip = audioClip;
 
-            Static.SoundInstance.CurrentMusic = Storage.GetMusic(name);
+            Static.SoundInstance.CurrentMusic = _storage.GetMusic(name);
             foreach (GameObject go in FindObjectsOfType<GameObject>())
             {
-                go.SendMessage("OnMusicStarted", Storage.GetMusic(name), SendMessageOptions.DontRequireReceiver);
+                go.SendMessage("OnMusicStarted", _storage.GetMusic(name), SendMessageOptions.DontRequireReceiver);
             }
 
             StartCoroutine(Play(1 / fadeSpeed));
             yield break;
         }
 
-        private IEnumerator Stop(float fadeSpeed)
+        private IEnumerator Stop(float fadeSpeed, bool fading)
         {
-            float duration = 1 / fadeSpeed;
-            float currentTime = 0;
-            float start = audioSource.volume;
-
-            while (currentTime < duration)
+            if (fading)
             {
-                currentTime += Time.deltaTime;
-                audioSource.volume = Mathf.Lerp(start, 0, currentTime / duration);
-                yield return null;
+                float duration = 1 / fadeSpeed;
+                float currentTime = 0;
+                float start = audioSource.volume;
+
+                while (currentTime < duration)
+                {
+                    currentTime += Time.deltaTime;
+                    audioSource.volume = Mathf.Lerp(start, 0, currentTime / duration);
+                    yield return null;
+                }
             }
 
             audioSource.Stop();
+            _needStop = false;
 
             foreach (GameObject go in FindObjectsOfType<GameObject>())
             {
@@ -217,24 +227,30 @@ namespace Plugins.SoundInstance.Core.Scripts
         {
             if (Static.SoundInstance.CurrentMusic == null)
             {
-                return Storage.GetMusicByIndex(0);
+                return _storage.GetMusicByIndex(0);
             }
 
-            if (!(Storage.GetMusicByIndex(
-                      Storage.GetMusicIndex(Static.SoundInstance.CurrentMusic) +
+            if (!(_storage.GetMusicByIndex(
+                      _storage.GetMusicIndex(Static.SoundInstance.CurrentMusic) +
                       1) ==
                   null))
             {
-                return Storage.GetMusicByIndex(
-                    Storage.GetMusicIndex(Static.SoundInstance.CurrentMusic) + 1);
+                return _storage.GetMusicByIndex(
+                    _storage.GetMusicIndex(Static.SoundInstance.CurrentMusic) + 1);
             }
             else
             {
-                return Storage.GetMusicByIndex(0);
+                return _storage.GetMusicByIndex(0);
             }
         }
 
-        public Music GetRandomMusic() =>
-            Storage.GetRandomMusic();
+        private Music GetRandomMusic()
+        {
+            _needStop = false;
+            return _storage.GetRandomMusic();
+        }
+
+        public void StartRandomMusic() =>
+            _isAllowed = true;
     }
 }

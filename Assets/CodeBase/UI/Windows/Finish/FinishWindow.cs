@@ -66,6 +66,7 @@ namespace CodeBase.UI.Windows.Finish
 
         private void ToNextLevel()
         {
+            WindowService.HideAll();
             _saveLoadService.SaveProgress();
             _playerProgressService.Progress.StartNewLevel(_scene);
             _playerProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_scene.ToString());
@@ -92,6 +93,7 @@ namespace CodeBase.UI.Windows.Finish
             SoundInstance.InstantiateOnTransform(
                 audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.VictoryMusic), transform: transform,
                 Volume, AudioSource);
+            SoundInstance.StopRandomMusic(false);
         }
     }
 }

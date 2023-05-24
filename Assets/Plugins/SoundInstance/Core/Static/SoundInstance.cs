@@ -37,7 +37,8 @@ namespace Plugins.SoundInstance.Core.Static
         /// <param name="randomization">Use this to add some randomness when you use the same clip multiples times</param>
         /// <param name="audioSource">The AudioSource template if you want to make it by yourself. (Volume and is3D will be overwritten)</param>
         public static void InstantiateOnTransform(AudioClip audioClip, Transform transform, float volume = -1,
-            bool is3D = true, Randomization randomization = Randomization.NoRandomization, AudioSource audioSource = null)
+            bool is3D = true, Randomization randomization = Randomization.NoRandomization,
+            AudioSource audioSource = null)
         {
             if (audioSource)
             {
@@ -90,25 +91,25 @@ namespace Plugins.SoundInstance.Core.Static
                     case Randomization.Low:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.1f, 0.1f));
+                                                                (Random.Range(-0.1f, 0.1f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.05f, 0.15f));
+                                                               (Random.Range(-0.05f, 0.15f));
                     }
                         break;
                     case Randomization.Medium:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.25f, 0.25f));
+                                                                (Random.Range(-0.25f, 0.25f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.15f, 0.35f));
+                                                               (Random.Range(-0.15f, 0.35f));
                     }
                         break;
                     case Randomization.High:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.3f, 0.3f));
+                                                                (Random.Range(-0.3f, 0.3f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.3f, 0.65f));
+                                                               (Random.Range(-0.3f, 0.65f));
                     }
                         break;
                 }
@@ -182,25 +183,25 @@ namespace Plugins.SoundInstance.Core.Static
                     case Randomization.Low:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.1f, 0.1f));
+                                                                (Random.Range(-0.1f, 0.1f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.05f, 0.15f));
+                                                               (Random.Range(-0.05f, 0.15f));
                     }
                         break;
                     case Randomization.Medium:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.25f, 0.25f));
+                                                                (Random.Range(-0.25f, 0.25f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.15f, 0.35f));
+                                                               (Random.Range(-0.15f, 0.35f));
                     }
                         break;
                     case Randomization.High:
                     {
                         go.GetComponent<AudioSource>().volume = go.GetComponent<AudioSource>().volume +
-                                                                (UnityEngine.Random.Range(-0.3f, 0.3f));
+                                                                (Random.Range(-0.3f, 0.3f));
                         go.GetComponent<AudioSource>().pitch = go.GetComponent<AudioSource>().pitch +
-                                                               (UnityEngine.Random.Range(-0.3f, 0.65f));
+                                                               (Random.Range(-0.3f, 0.65f));
                     }
                         break;
                 }
@@ -214,7 +215,7 @@ namespace Plugins.SoundInstance.Core.Static
 
         public static AudioClip GetClipFromLibrary(string name)
         {
-            MusicsStore Storage = (MusicsStore) UnityEngine.Resources.Load("SIMusicStore");
+            MusicsStore Storage = (MusicsStore)UnityEngine.Resources.Load("SIMusicStore");
             return Storage.GetSoundEffect(name).Sound;
         }
 
@@ -245,9 +246,9 @@ namespace Plugins.SoundInstance.Core.Static
         /// Stop the current song with a fading effect
         /// </summary>
         /// <param name="fadeSpeed">The fading speed between songs, 100 should be instant stop</param>
-        public static void StopMusic(float fadeSpeed = 1)
+        public static void StopMusic(float fadeSpeed = 1f, bool fading = true)
         {
-            _MusicHandler.StopMusic(fadeSpeed);
+            _MusicHandler.StopMusic(fadeSpeed, fading);
         }
 
         /// <summary>
@@ -267,6 +268,12 @@ namespace Plugins.SoundInstance.Core.Static
         {
             _MusicHandler.ResumeMusic(fadeSpeed);
         }
+
+        // public static void PlayRandomMusic() =>
+        //     _MusicHandler.PlayRandomMusic();
+
+        public static void StopRandomMusic(bool fading = true) =>
+            _MusicHandler.StopRandomMusic(fading);
 
         /// <summary>
         /// Get next song ordered as in the Game Musics window. (You should make your own system if you have a huge game to separate musics into categories).
@@ -296,5 +303,8 @@ namespace Plugins.SoundInstance.Core.Static
 
         public static void SetStartFade(float fade) =>
             _MusicHandler.SetStartFade(fade);
+
+        public static void StartRandomMusic() =>
+            _MusicHandler.StartRandomMusic();
     }
 }

@@ -37,12 +37,9 @@ namespace CodeBase.UI.Windows
 
         private void Restart()
         {
-            Hide();
-            // _progressService.ClearProgress();
-            // _saveLoadService.SaveProgress();
-
+            WindowService.HideAll();
+            SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
-            // AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, Scene>(_scene);
         }
 
         protected override void PlayOpenSound()

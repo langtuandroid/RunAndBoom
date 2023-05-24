@@ -4,6 +4,7 @@ using CodeBase.Services;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,8 @@ namespace CodeBase.UI.Windows.Settings
 
         private void Restart()
         {
-            Hide();
+            WindowService.HideAll();
+            SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
         }
     }

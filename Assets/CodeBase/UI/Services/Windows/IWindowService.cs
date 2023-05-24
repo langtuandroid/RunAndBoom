@@ -9,5 +9,6 @@ namespace CodeBase.UI.Services.Windows
         WindowBase? Open<TWindowBase>(WindowId windowId);
         void AddWindow(WindowId windowId, GameObject window);
         bool IsAnotherActive(WindowId windowId);
+        void HideAll();
     }
 }

@@ -16,7 +16,7 @@ namespace CodeBase.UI.Windows.Common
         private GameObject _hero;
         private PlayerProgress _progress;
         protected float Volume;
-        private IWindowService _windowService;
+        protected IWindowService WindowService;
         private WindowId _windowId;
 
         private void Awake()
@@ -26,7 +26,7 @@ namespace CodeBase.UI.Windows.Common
 
         protected void Construct(GameObject hero, WindowId windowId)
         {
-            _windowService = AllServices.Container.Single<IWindowService>();
+            WindowService = AllServices.Container.Single<IWindowService>();
             _hero = hero;
             _windowId = windowId;
             Hide();
@@ -37,7 +37,7 @@ namespace CodeBase.UI.Windows.Common
             gameObject.SetActive(false);
             PlayCloseSound();
 
-            if (!_windowService.IsAnotherActive(_windowId))
+            if (!WindowService.IsAnotherActive(_windowId))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 _hero.GetComponent<HeroShooting>().TurnOn();

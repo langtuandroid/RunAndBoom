@@ -1,4 +1,5 @@
 using System.Collections;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
@@ -20,8 +21,12 @@ namespace CodeBase.Infrastructure
             _curtain.alpha = MaximumAlpha;
         }
 
-        public void Hide() =>
+        public void Hide()
+        {
+            SoundInstance.SetStartFade(1f);
+            SoundInstance.StartRandomMusic();
             StartCoroutine(FadeOut());
+        }
 
         private IEnumerator FadeOut()
         {

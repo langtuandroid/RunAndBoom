@@ -44,6 +44,17 @@ namespace CodeBase.UI.Services.Windows
             return window;
         }
 
+        public void HideAll()
+        {
+            foreach (var vk in _windows)
+            {
+                if (vk.Value.activeInHierarchy)
+                    vk.Value.SetActive(false);
+            }
+
+            _windows.Clear();
+        }
+
         public void AddWindow(WindowId windowId, GameObject window) =>
             _windows[windowId] = window;
 
