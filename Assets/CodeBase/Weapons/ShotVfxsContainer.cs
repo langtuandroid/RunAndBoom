@@ -27,6 +27,8 @@ namespace CodeBase.Weapons
             GameObject shotVfx = _objectsPoolService.GetShotVfx(_shotVfxTypeId);
             shotVfx.transform.SetParent(_root);
             SetShotVfx(shotVfx, muzzleTransform);
+            // shotVfx.GetComponent<AudioSource>().Play();
+
             StartCoroutine(CoroutineLaunchShotVfx(shotVfx));
         }
 

@@ -1,8 +1,10 @@
-﻿using CodeBase.Logic;
+﻿using CodeBase.Data;
+using CodeBase.Logic;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
@@ -11,7 +13,8 @@ using UnityEngine.Serialization;
 
 namespace CodeBase.Weapons
 {
-    public abstract class BaseWeaponAppearance : MonoBehaviour
+    [RequireComponent(typeof(AudioSource))]
+    public abstract class BaseWeaponAppearance : MonoBehaviour, IProgressReader
     {
         [FormerlySerializedAs("_projectilesRespawns")] [SerializeField]
         public Transform[] ProjectilesRespawns;
@@ -24,19 +27,29 @@ namespace CodeBase.Weapons
 
         [SerializeField] protected ShotVfxsContainer ShotVfxsContainer;
 
+        protected AudioSource AudioSource;
         protected IObjectsPoolService PoolService;
         private bool _initialVisibility;
         private ProjectileTypeId? _projectileTypeId;
         private IDeath _death;
         protected bool Enabled = true;
+        private PlayerProgress _progress;
+        protected float Volume = 1f;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
 
-        private void OnEnable() =>
-            Enable();
+        private void Awake() =>
+            AudioSource = GetComponent<AudioSource>();
 
-        private void OnDisable() =>
+        private void OnEnable()
+        {
+            Enable();
+        }
+
+        private void OnDisable()
+        {
             Disable();
+        }
 
         protected void Construct(IDeath death, float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
             ShotVfxTypeId shotVfxTypeId)
@@ -93,10 +106,27 @@ namespace CodeBase.Weapons
                 projectile.GetComponent<ProjectileTrail>().ShowTrail();
         }
 
+        protected abstract void PlayShootSound();
+
         protected abstract GameObject GetProjectile();
 
         protected abstract void Launch();
 
         protected abstract void Launch(Vector3 targetPosition);
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void VolumeChanged() =>
+            Volume = _progress.SettingsData.SoundVolume;
+
+        private void SwitchChanged() =>
+            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
     }
 }

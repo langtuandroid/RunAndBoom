@@ -163,7 +163,7 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RocketMuzzleFire, _shotVfxsRoot);
+                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _shotVfxsRoot);
                 shotVfx.SetActive(false);
                 gameObjects.Add(shotVfx);
             }
@@ -173,7 +173,7 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RocketMuzzleBlue, _shotVfxsRoot);
+                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _shotVfxsRoot);
                 shotVfx.SetActive(false);
                 gameObjects.Add(shotVfx);
             }
@@ -203,7 +203,7 @@ namespace CodeBase.Services.Pool
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RocketMuzzleFire, _shotVfxsRoot);
+                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _shotVfxsRoot);
                 shotVfx.SetActive(false);
                 gameObjects.Add(shotVfx);
             }

@@ -3,26 +3,26 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.Data.Upgrades;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Projectiles.Hit
 {
+    [RequireComponent(typeof(AudioSource))]
     public class ProjectileBlast : BaseProjectileHit, IProgressReader
     {
         [SerializeField] private DestroyWithBlast _destroyWithBlast;
-
-        [FormerlySerializedAs("_ignoreMask")] [SerializeField]
-        private LayerMask _layerMask;
+        [SerializeField] private LayerMask _layerMask;
 
         private const float BaseRatio = 1f;
         private const float BlastDuration = 2f;
-        private const float SphereCastRadius = 1f;
+        private const float SphereCastRadius = 0.2f;
 
         private IStaticDataService _staticDataService;
         private PlayerProgress _progress;
@@ -36,15 +36,24 @@ namespace CodeBase.Projectiles.Hit
         private float _damage;
         private CapsuleCollider _hitCollider;
         private HeroWeaponTypeId? _heroWeaponTypeId;
+        private AudioSource _audioSource;
+        private float _volume = 1f;
 
-        private void Awake() =>
+        private void Awake()
+        {
             _hitCollider = GetComponent<CapsuleCollider>();
+            _audioSource = GetComponent<AudioSource>();
+        }
 
-        public void OffCollider() =>
+        public void OffCollider()
+        {
             _hitCollider.enabled = false;
+        }
 
-        public void OnCollider() =>
+        public void OnCollider()
+        {
             _hitCollider.enabled = transform;
+        }
 
         private void OnEnable()
         {
@@ -68,18 +77,50 @@ namespace CodeBase.Projectiles.Hit
             {
                 if (_prefab != null)
                 {
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, _layerMask))
-                    {
-                        ShowBlast(hit.point, hit.normal);
-                        // ShowBlast();
-                        Trail?.HideTrace();
-                        _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
-                        StartCoroutine(DestroyBlast());
-                        Movement.Stop();
-                    }
+                    // RaycastHit hit;
+                    // int count = Physics.SphereCastNonAlloc(other.transform.position, SphereCastRadius,
+                    //     other.transform.forward, out RaycastHit hit);
+                    // if (Physics.SphereCast(other.transform.position, SphereCastRadius,
+                    //         other.transform.forward, out RaycastHit hit))
+                    // if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, _layerMask))
+                    // if (count > 0)
+                    // {
+                    // ShowBlast(hit.point, hit.normal);
+                    ShowBlast();
+                    PlaySound();
+                    Trail?.HideTrace();
+                    _destroyWithBlast.HitAllAround(_sphereRadius, _damage);
+                    StartCoroutine(DestroyBlast());
+                    Movement.Stop();
+                    // }
                 }
+            }
+        }
+
+        private void PlaySound()
+        {
+            switch (_heroWeaponTypeId)
+            {
+                case HeroWeaponTypeId.GrenadeLauncher:
+                    SoundInstance.InstantiateOnPos(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastGrenadeLauncher),
+                        position: transform.position, _volume * 2, _audioSource);
+                    break;
+                case HeroWeaponTypeId.RPG:
+                    SoundInstance.InstantiateOnPos(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
+                        position: transform.position, _volume * 2, _audioSource);
+                    break;
+                case HeroWeaponTypeId.RocketLauncher:
+                    SoundInstance.InstantiateOnPos(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
+                        position: transform.position, _volume * 2, _audioSource);
+                    break;
+                case HeroWeaponTypeId.Mortar:
+                    SoundInstance.InstantiateOnPos(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastMortar),
+                        position: transform.position, _volume * 2, _audioSource);
+                    break;
             }
         }
 
@@ -161,9 +202,19 @@ namespace CodeBase.Projectiles.Hit
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
+            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
 
             if (_heroWeaponTypeId != null)
                 SetBlastSize();
         }
+
+        private void VolumeChanged() =>
+            _volume = _progress.SettingsData.SoundVolume;
+
+        private void SwitchChanged() =>
+            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
     }
 }

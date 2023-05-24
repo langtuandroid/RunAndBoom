@@ -41,7 +41,8 @@ namespace CodeBase.Data.Weapons
         private void FillAmmo()
         {
             Ammo = new Dictionary<HeroWeaponTypeId, int>();
-            Ammo[HeroWeaponTypeId.GrenadeLauncher] = 10;
+            Ammo[HeroWeaponTypeId.GrenadeLauncher] = 100;
+            // Ammo[HeroWeaponTypeId.GrenadeLauncher] = 10;
             AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
             Ammo[HeroWeaponTypeId.RPG] = 0;
             AmmoChanged(HeroWeaponTypeId.RPG);

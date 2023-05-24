@@ -40,7 +40,6 @@ namespace CodeBase.UI.Windows
         private void Restart()
         {
             Hide();
-            // _saveLoadService.SaveProgress();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
         }
     }

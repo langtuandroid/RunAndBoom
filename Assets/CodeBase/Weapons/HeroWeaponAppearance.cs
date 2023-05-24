@@ -4,8 +4,10 @@ using System.Linq;
 using CodeBase.Hero;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -48,6 +50,11 @@ namespace CodeBase.Weapons
 
         private void ReadyToShoot()
         {
+            Debug.Log($"gameObject.activeInHierarchy: {gameObject.activeInHierarchy}");
+            Debug.Log($"_filled == false: {_filled}");
+            Debug.Log($"_projectiles.Count == 0: {_projectiles.Count}");
+            Debug.Log($"Enabled: {Enabled}");
+
             if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && Enabled)
             {
                 foreach (Transform respawn in ProjectilesRespawns)
@@ -70,6 +77,7 @@ namespace CodeBase.Weapons
                 StartCoroutine(CoroutineShootTo());
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
                 Release();
+                PlayShootSound();
             }
         }
 
@@ -77,6 +85,34 @@ namespace CodeBase.Weapons
         {
             Launch();
             yield return LaunchProjectileCooldown;
+        }
+
+        protected override void PlayShootSound()
+        {
+            switch (_heroWeaponTypeId)
+            {
+                case HeroWeaponTypeId.GrenadeLauncher:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotGl), transform: transform,
+                        Volume, AudioSource);
+                    break;
+                case HeroWeaponTypeId.RPG:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRpg), transform: transform,
+                        Volume, AudioSource);
+                    break;
+                case HeroWeaponTypeId.RocketLauncher:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRl), transform: transform,
+                        Volume, AudioSource);
+                    break;
+                case HeroWeaponTypeId.Mortar:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotMortar),
+                        transform: transform,
+                        Volume, AudioSource);
+                    break;
+            }
         }
 
         protected override GameObject GetProjectile() =>

@@ -1,11 +1,23 @@
-﻿using CodeBase.Hero;
+﻿using CodeBase.Data;
+using CodeBase.Hero;
+using CodeBase.Services.Audio;
+using CodeBase.Services.PersistentProgress;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Common
 {
-    public class WindowBase : MonoBehaviour
+    [RequireComponent(typeof(AudioSource))]
+    public class WindowBase : MonoBehaviour, IProgressReader
     {
+        private AudioSource _audioSource;
+
         private GameObject _hero;
+        private PlayerProgress _progress;
+        private float _volume;
+
+        private void Awake() =>
+            _audioSource = GetComponent<AudioSource>();
 
         protected void Construct(GameObject hero)
         {
@@ -23,6 +35,9 @@ namespace CodeBase.UI.Windows.Common
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: transform,
+                _volume, _audioSource);
         }
 
         public void Show()
@@ -35,45 +50,24 @@ namespace CodeBase.UI.Windows.Common
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.Confined;
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: transform,
+                _volume, _audioSource);
         }
-        // [SerializeField] private Button _closeButton;
-        //
-        // protected IPlayerProgressService ProgressService;
-        // protected PlayerProgress Progress => ProgressService.Progress;
-        // protected string CurrentError => ProgressService.CurrentError;
-        //
-        // public void Construct(IPlayerProgressService progressService) =>
-        //     ProgressService = progressService;
-        //
-        // private void Awake()
-        // {
-        //     OnAwake();
-        // }
-        //
-        // private void Start()
-        // {
-        //     Initialize();
-        //     SubscribeUpdates();
-        // }
-        //
-        // private void OnDestroy()
-        // {
-        //     CleanUp();
-        // }
-        //
-        // protected virtual void OnAwake() =>
-        //     _closeButton.onClick.AddListener(() => Destroy(gameObject));
-        //
-        // protected virtual void Initialize()
-        // {
-        // }
-        //
-        // protected virtual void SubscribeUpdates()
-        // {
-        // }
-        //
-        // protected virtual void CleanUp()
-        // {
-        // }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _progress = progress;
+            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void VolumeChanged() =>
+            _volume = _progress.SettingsData.SoundVolume;
+
+        private void SwitchChanged() =>
+            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
     }
 }

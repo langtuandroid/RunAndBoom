@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f22e8e237c73545abdcb556466b02f, type: 3}
+  m_Name: SIMusicStore
+  m_EditorClassIdentifier: 
+  musics:
+  - name: 1
+    Song: {fileID: 8300000, guid: acdffe408772c764083d4841e17df775, type: 3}
+  - name: 2
+    Song: {fileID: 8300000, guid: 08e747649a446814b887c7a602361149, type: 3}
+  - name: 3
+    Song: {fileID: 8300000, guid: eeab901a76a8576479b987458e87e6f8, type: 3}
+  soundEffects:
+  - name: Blast grenade launcher
+    Sound: {fileID: 8300000, guid: 4b7b4f769c196b247a8d520c3f311a18, type: 3}
+  - name: Blast rocket launcher and RPG
+    Sound: {fileID: 8300000, guid: 6f4aaa46147bfec438206e3dad546f70, type: 3}
+  - name: Blast mortar
+    Sound: {fileID: 8300000, guid: 09f5ab9c40bf528469d46553328e6ae5, type: 3}
+  - name: Destruction wooden box
+    Sound: {fileID: 8300000, guid: c028a2d325da63d4ba5ab68b659436f1, type: 3}
+  - name: Destruction concrete
+    Sound: {fileID: 8300000, guid: f80f059406bb9194c922fb16ab994741, type: 3}
+  - name: Door opening
+    Sound: {fileID: 8300000, guid: e07d13ee09181ce44995528a961552f8, type: 3}
+  - name: Door closing
+    Sound: {fileID: 8300000, guid: 56b77e7f13aa14446aec6d0b332564c0, type: 3}
+  - name: Full recovery
+    Sound: {fileID: 8300000, guid: d21fa6b653511344eb5e698aa09e1f99, type: 3}
+  - name: GL shot
+    Sound: {fileID: 8300000, guid: 7a026c83729b5cf4b97689c7d239cf15, type: 3}
+  - name: MG shot
+    Sound: {fileID: 8300000, guid: a8c20363eea5652489e0efc459a80231, type: 3}
+  - name: Mortar shot
+    Sound: {fileID: 8300000, guid: c7a8e00bd318c814291a52b772807748, type: 3}
+  - name: Pistol shot
+    Sound: {fileID: 8300000, guid: 8706685ad47e6f843b1adce195959890, type: 3}
+  - name: RL shot
+    Sound: {fileID: 8300000, guid: 7c735c5353e8a2347ab7c216f32e7e99, type: 3}
+  - name: RPG shot
+    Sound: {fileID: 8300000, guid: a4bea529ef79a6a46adb0ceda42c55a3, type: 3}
+  - name: Shotgun shot
+    Sound: {fileID: 8300000, guid: dc3b50adcb12beb468a3494a8d466567, type: 3}
+  - name: SMG shot
+    Sound: {fileID: 8300000, guid: 11f0a599f5efabf4485353f6c70e509e, type: 3}
+  - name: SR shot
+    Sound: {fileID: 8300000, guid: 2664f1460823d1041b76498ca6c30ba5, type: 3}
+  - name: Button deny
+    Sound: {fileID: 8300000, guid: 395a9e3492b788f4e9c0c518ce36ae95, type: 3}
+  - name: Button success
+    Sound: {fileID: 8300000, guid: dc4f9d4c8731b5c43a5dcf0e1fc9a654, type: 3}
+  - name: Checkbox click
+    Sound: {fileID: 8300000, guid: 58611ec52ec3677449db030ac92da45a, type: 3}
+  - name: Menu close
+    Sound: {fileID: 8300000, guid: cf6dd33d488b6b44ea5fd9c19ccd31c6, type: 3}
+  - name: Menu open
+    Sound: {fileID: 8300000, guid: 0888b9f2d5b4e9a4182ef2932fae4e4b, type: 3}
+  - name: Ammo gotten
+    Sound: {fileID: 8300000, guid: ba010d2d277a42946a76d6ca53b84cbe, type: 3}
+  - name: Item gotten
+    Sound: {fileID: 8300000, guid: a712d36eabba322448ce419182ac9360, type: 3}
+  - name: One money gotten
+    Sound: {fileID: 8300000, guid: a2ce68b013ca544dda2d0414391e6422, type: 3}
+  - name: Few money gotten
+    Sound: {fileID: 8300000, guid: a9b97b7da60f04ede915031f7ffbd233, type: 3}
+  - name: Pouring money gotten
+    Sound: {fileID: 8300000, guid: c421b08c9950d40329de057f0b67a6cd, type: 3}
+  - name: Weapon gotten
+    Sound: {fileID: 8300000, guid: fa8bd21d089c0b2408c038f8673d7a8f, type: 3}
+  - name: Game won
+    Sound: {fileID: 8300000, guid: 872ed2115d21cfc4cb849f5778e60610, type: 3}
+  - name: Dead
+    Sound: {fileID: 8300000, guid: a80bee52926f36640a60b2c89fa44ecf, type: 3}
+  - name: Victory music
+    Sound: {fileID: 8300000, guid: 65931c87bed982b4a89ff5921a5ead35, type: 3}

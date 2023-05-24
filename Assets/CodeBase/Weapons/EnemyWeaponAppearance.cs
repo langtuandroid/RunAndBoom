@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using CodeBase.Enemy;
 using CodeBase.Projectiles.Movement;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Weapons;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -28,6 +30,7 @@ namespace CodeBase.Weapons
             }
 
             ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
+            PlayShootSound();
         }
 
         public void Shoot()
@@ -69,5 +72,37 @@ namespace CodeBase.Weapons
 
         protected override GameObject GetProjectile() =>
             PoolService.GetEnemyProjectile(_enemyWeaponTypeId.ToString());
+
+        protected override void PlayShootSound()
+        {
+            switch (_enemyWeaponTypeId)
+            {
+                case EnemyWeaponTypeId.Pistol:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotPistol),
+                        transform: transform, Volume, AudioSource);
+                    break;
+                case EnemyWeaponTypeId.Shotgun:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotShotgun),
+                        transform: transform, Volume, AudioSource);
+                    break;
+                case EnemyWeaponTypeId.SniperRifle:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotSr), transform: transform,
+                        Volume, AudioSource);
+                    break;
+                case EnemyWeaponTypeId.SMG:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotSmg), transform: transform,
+                        Volume, AudioSource);
+                    break;
+                case EnemyWeaponTypeId.MG:
+                    SoundInstance.InstantiateOnTransform(
+                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotMg), transform: transform,
+                        Volume, AudioSource);
+                    break;
+            }
+        }
     }
 }

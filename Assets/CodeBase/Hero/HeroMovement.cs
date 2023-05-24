@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Data.Perks;
 using CodeBase.Services.PersistentProgress;
@@ -18,6 +19,7 @@ namespace CodeBase.Hero
         private bool _canMove;
         private PerkItemData _runningItemData;
         private PlayerProgress _progress;
+        private List<PerkItemData> _perks;
 
         private void Update()
         {
@@ -51,7 +53,7 @@ namespace CodeBase.Hero
 
         private void SetSpeed()
         {
-            _runningItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Running);
+            _runningItemData = _perks.Find(x => x.PerkTypeId == PerkTypeId.Running);
             _runningItemData.LevelChanged += ChangeSpeed;
             ChangeSpeed();
         }
@@ -75,6 +77,7 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
+            _perks = _progress.PerksData.Perks;
             SetSpeed();
         }
     }

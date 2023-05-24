@@ -11,7 +11,7 @@ namespace CodeBase.Enemy.Attacks
         private void Awake() =>
             _enemyWeaponAppearance = GetComponentInChildren<EnemyWeaponAppearance>();
 
-        public void Construct(Transform heroTransform, float attackCooldown)
+        public new void Construct(Transform heroTransform, float attackCooldown)
         {
             base.Construct(heroTransform, attackCooldown);
             _hero = heroTransform;

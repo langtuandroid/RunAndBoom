@@ -4,6 +4,7 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
@@ -32,6 +33,7 @@ namespace CodeBase.Infrastructure.States
             _services = services;
 
             RegisterServices();
+            SetTargetFrameRate();
         }
 
         public void Enter() =>
@@ -47,6 +49,7 @@ namespace CodeBase.Infrastructure.States
             RegisterAssetsProvider();
             RegisterInputService();
             RegisterPlatformInputService();
+            RegisterAudioService();
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
@@ -74,6 +77,13 @@ namespace CodeBase.Infrastructure.States
 
             _services.RegisterSingle<ISaveLoadService>(
                 new SaveLoadService(_services.Single<IGameFactory>()));
+        }
+
+        private void RegisterAudioService()
+        {
+            IAudioService audioService = new AudioService(1f, 1f);
+            audioService.Initialize();
+            _services.RegisterSingle(audioService);
         }
 
         private void RegisterStaticData()
@@ -209,5 +219,11 @@ namespace CodeBase.Infrastructure.States
 
         private void InputServicesException(string message) =>
             throw new Exception(message);
+
+        private void SetTargetFrameRate()
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
+        }
     }
 }

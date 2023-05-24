@@ -1,5 +1,7 @@
 ﻿using System;
+using CodeBase.Services.Audio;
 using CodeBase.UI.Windows.Common;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,7 @@ namespace CodeBase.UI.Windows.Shop
 {
     public class ShopButtons : MonoBehaviour
     {
+        // [SerializeField] private AudioSource _audioGenerate;
         [SerializeField] private Button _skipButton;
         [SerializeField] private Button _refreshButton;
         [SerializeField] private Button _refreshWithAdsButton;
@@ -16,6 +19,7 @@ namespace CodeBase.UI.Windows.Shop
         private int _currentRefreshCount = 0;
         private int _maxRefreshCount;
         private int _watchAdsNumber;
+        private float _currentVolume = 1f;
 
         private void Awake()
         {
@@ -85,17 +89,25 @@ namespace CodeBase.UI.Windows.Shop
             }
         }
 
-        private void ShowRefreshButton() =>
+        private void ShowRefreshButton()
+        {
             _refreshButton.gameObject.SetActive(true);
+        }
 
-        private void HideRefreshButton() =>
+        private void HideRefreshButton()
+        {
             _refreshButton.gameObject.SetActive(false);
+        }
 
-        private void ShowRefreshWithAdsButton() =>
+        private void ShowRefreshWithAdsButton()
+        {
             _refreshWithAdsButton.gameObject.SetActive(true);
+        }
 
-        private void HideRefreshWithAdsButton() =>
+        private void HideRefreshWithAdsButton()
+        {
             _refreshWithAdsButton.gameObject.SetActive(false);
+        }
 
         private void Start() =>
             Cursor.lockState = CursorLockMode.Confined;
@@ -112,7 +124,13 @@ namespace CodeBase.UI.Windows.Shop
             GenerateShopItems();
         }
 
-        private void GenerateShopItems() =>
+        private void GenerateShopItems()
+        {
+            // _audioGenerate.Play();
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: transform,
+                _currentVolume);
             _generator.Generate();
+        }
     }
 }

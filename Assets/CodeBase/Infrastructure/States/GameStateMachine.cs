@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.Randomizer;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
@@ -24,7 +25,7 @@ namespace CodeBase.Infrastructure.States
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
                         services.Single<IEnemyFactory>(), services.Single<IPlayerProgressService>(),
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
-                        services.Single<IWindowService>()),
+                        services.Single<IWindowService>(), services.Single<IRandomService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
                     services.Single<IPlayerProgressService>(),
                     services.Single<ISaveLoadService>()),
