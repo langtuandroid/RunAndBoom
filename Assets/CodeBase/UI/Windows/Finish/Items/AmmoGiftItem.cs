@@ -3,15 +3,19 @@ using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows.Finish.Items
 {
     public class AmmoGiftItem : AmmoItemBase
     {
         private GiftsGenerator _generator;
+        private Transform _heroTransform;
 
-        public void Construct(AmmoItem ammoItem, PlayerProgress progress, GiftsGenerator generator)
+        public void Construct(Transform heroTransform, AmmoItem ammoItem, PlayerProgress progress,
+            GiftsGenerator generator)
         {
+            _heroTransform = heroTransform;
             _generator = generator;
             base.Construct(ammoItem, progress);
         }
@@ -24,7 +28,7 @@ namespace CodeBase.UI.Windows.Finish.Items
             _generator.Clicked();
             SoundInstance.InstantiateOnTransform(
                 audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),
-                transform: transform, Volume, AudioSource);
+                transform: _heroTransform, Volume, AudioSource);
         }
     }
 }

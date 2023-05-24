@@ -1,12 +1,23 @@
-﻿using CodeBase.Services.Audio;
+﻿using CodeBase.Data;
+using CodeBase.Hero;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows.Shop.Items
 {
     public class ItemShopItem : ItemItemBase
     {
+        private Transform _heroTransform;
+
+        public void Construct(Transform heroTransform, ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
+        {
+            _heroTransform = heroTransform;
+            base.Construct(typeId, health, progress);
+        }
+
         protected override void Clicked()
         {
             if (ShopItemBalance.IsMoneyEnough(_itemStaticData.Cost))
@@ -18,7 +29,7 @@ namespace CodeBase.UI.Windows.Shop.Items
                     Health.Recover();
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.FullRecovery),
-                        transform: transform, Volume, AudioSource);
+                        transform: _heroTransform, Volume, AudioSource);
                 }
 
                 ClearData();
@@ -27,7 +38,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             {
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.NotEnoughMoney),
-                    transform: transform, Volume, AudioSource);
+                    transform: _heroTransform, Volume, AudioSource);
             }
         }
     }

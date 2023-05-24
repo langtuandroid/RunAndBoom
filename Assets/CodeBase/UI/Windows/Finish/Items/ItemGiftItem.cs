@@ -4,19 +4,21 @@ using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows.Finish.Items
 {
     public class ItemGiftItem : ItemItemBase
     {
         private GiftsGenerator _generator;
+        private Transform _heroTransform;
 
-        // public void Construct(ItemTypeId typeId, PlayerProgress progress, GameObject hero, GiftsGenerator generator)
-        public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health, GiftsGenerator generator)
+        public void Construct(Transform heroTransform, ItemTypeId typeId, PlayerProgress progress, HeroHealth health,
+            GiftsGenerator generator)
         {
+            _heroTransform = heroTransform;
             _generator = generator;
-            // base.Construct(typeId, progress, hero);
-            base.Construct(typeId, progress, health);
+            base.Construct(typeId, health, progress);
         }
 
         protected override void Clicked()
@@ -26,7 +28,7 @@ namespace CodeBase.UI.Windows.Finish.Items
                 Health.Recover();
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.FullRecovery),
-                    transform: transform, Volume, AudioSource);
+                    transform: _heroTransform, Volume, AudioSource);
             }
 
             ClearData();

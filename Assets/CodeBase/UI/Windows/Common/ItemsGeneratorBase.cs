@@ -48,13 +48,15 @@ namespace CodeBase.UI.Windows.Common
         protected HeroHealth Health;
         protected int Money;
         protected PlayerProgress Progress;
+        protected GameObject Hero;
 
         public virtual event Action GenerationStarted;
         public virtual event Action GenerationEnded;
 
-        protected void Construct(HeroHealth health)
+        protected void Construct(GameObject hero)
         {
-            Health = health;
+            Hero = hero;
+            Health = hero.GetComponent<HeroHealth>();
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             RandomService = AllServices.Container.Single<IRandomService>();
         }
@@ -315,18 +317,23 @@ namespace CodeBase.UI.Windows.Common
                 shopItem.GetComponent<ShopItemHighlighter>().enabled = isVisible;
         }
 
-        protected abstract void CreateAmmoItem(GameObject parent, List<AmmoItem> list,
+        protected abstract void CreateAmmoItem(GameObject hero, GameObject parent, List<AmmoItem> list,
             bool isClickable);
 
-        protected abstract void CreateItemItem(GameObject parent, ItemTypeId itemTypeId, bool isClickable);
+        protected abstract void CreateItemItem(GameObject hero, GameObject parent, ItemTypeId itemTypeId,
+            bool isClickable);
 
-        protected abstract void CreateUpgradeItem(GameObject parent, List<UpgradeItemData> list, bool isClickable);
+        protected abstract void CreateUpgradeItem(GameObject hero, GameObject parent, List<UpgradeItemData> list,
+            bool isClickable);
 
-        protected abstract void CreatePerkItem(GameObject parent, List<PerkItemData> list, bool isClickable);
+        protected abstract void CreatePerkItem(GameObject hero, GameObject parent, List<PerkItemData> list,
+            bool isClickable);
 
-        protected abstract void CreateWeaponItem(GameObject parent, List<HeroWeaponTypeId> list, bool isClickable);
+        protected abstract void CreateWeaponItem(GameObject hero, GameObject parent, List<HeroWeaponTypeId> list,
+            bool isClickable);
 
-        protected virtual void CreateMoneyItem(GameObject parent, List<MoneyTypeId> list, bool isClickable)
+        protected virtual void CreateMoneyItem(GameObject hero, GameObject parent, List<MoneyTypeId> list,
+            bool isClickable)
         {
         }
 
@@ -344,7 +351,7 @@ namespace CodeBase.UI.Windows.Common
                     GameObject view = GetRandomShopItem();
 
                     if (view != null)
-                        CreateItemItem(view, ItemTypeId.HealthRecover, true);
+                        CreateItemItem(Hero, view, ItemTypeId.HealthRecover, true);
                 }
             }
         }
@@ -356,7 +363,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateAmmoItem(view, _availableAmmunition, true);
+                    CreateAmmoItem(Hero, view, _availableAmmunition, true);
             }
         }
 
@@ -367,7 +374,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateUpgradeItem(view, _availableUpgrades, true);
+                    CreateUpgradeItem(Hero, view, _availableUpgrades, true);
             }
         }
 
@@ -378,7 +385,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateWeaponItem(view, _availableWeapons, true);
+                    CreateWeaponItem(Hero, view, _availableWeapons, true);
             }
         }
 
@@ -389,7 +396,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreatePerkItem(view, _availablePerks, true);
+                    CreatePerkItem(Hero, view, _availablePerks, true);
             }
         }
 
@@ -400,7 +407,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreatePerkItem(view, _availablePerks, true);
+                    CreatePerkItem(Hero, view, _availablePerks, true);
             }
         }
 

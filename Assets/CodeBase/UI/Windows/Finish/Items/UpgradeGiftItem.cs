@@ -4,15 +4,19 @@ using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows.Finish.Items
 {
     public class UpgradeGiftItem : UpgradeItemBase
     {
         private GiftsGenerator _generator;
+        private Transform _heroTransform;
 
-        public void Construct(UpgradeItemData upgradeItemData, PlayerProgress progress, GiftsGenerator generator)
+        public void Construct(Transform heroTransform, UpgradeItemData upgradeItemData, PlayerProgress progress,
+            GiftsGenerator generator)
         {
+            _heroTransform = heroTransform;
             _generator = generator;
             base.Construct(upgradeItemData, progress);
         }
@@ -29,17 +33,17 @@ namespace CodeBase.UI.Windows.Finish.Items
                 case LevelTypeId.None:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_1),
-                        transform: transform, Volume, AudioSource);
+                        transform: _heroTransform, Volume, AudioSource);
                     break;
                 case LevelTypeId.Level_1:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_2),
-                        transform: transform, Volume, AudioSource);
+                        transform: _heroTransform, Volume, AudioSource);
                     break;
                 case LevelTypeId.Level_2:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_3),
-                        transform: transform, Volume, AudioSource);
+                        transform: _heroTransform, Volume, AudioSource);
                     break;
             }
         }

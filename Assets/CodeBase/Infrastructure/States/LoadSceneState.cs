@@ -176,13 +176,13 @@ namespace CodeBase.Infrastructure.States
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
-            shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(heroHealth);
+            shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
             deathWindow.GetComponent<DeathWindow>().Construct(hero, _scene);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
             settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _scene);
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
-            finishWindow.GetComponent<GiftsGenerator>()?.Construct(heroHealth);
+            finishWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
             FinishWindow finish = finishWindow.GetComponent<FinishWindow>();
             finish?.Construct(hero);
 

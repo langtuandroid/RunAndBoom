@@ -17,10 +17,8 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(ItemTypeId typeId, PlayerProgress progress, HeroHealth health)
+        public void Construct(ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
         {
-            // Hero = hero;
-            // Button?.onClick.AddListener(Clicked);
             Health = health;
             _typeId = typeId;
             base.Construct(progress);
