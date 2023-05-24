@@ -31,9 +31,15 @@ namespace CodeBase.UI.Windows.Common
         private PlayerProgress _progress;
         private const float BaseRatio = 1.0f;
         protected float MaxHealthRatio = 1.0f;
+        protected float Volume;
+        protected AudioSource AudioSource;
 
-        private void Awake() =>
-            _shopItemHighlighter = transform.parent.GetComponent<ShopItemHighlighter>();
+        private void Awake()
+        {
+            var parent = transform.parent;
+            _shopItemHighlighter = parent.GetComponent<ShopItemHighlighter>();
+            AudioSource = parent.GetComponent<AudioSource>();
+        }
 
         protected void Construct(PlayerProgress progress)
         {
@@ -84,8 +90,10 @@ namespace CodeBase.UI.Windows.Common
             gameObject.SetActive(false);
         }
 
-        public void ChangeClickability(bool isClickable) =>
+        public void ChangeClickability(bool isClickable)
+        {
             Button.enabled = isClickable;
+        }
 
         protected abstract void FillData();
         protected abstract void Clicked();
@@ -93,6 +101,20 @@ namespace CodeBase.UI.Windows.Common
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
+            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void VolumeChanged()
+        {
+            Volume = _progress.SettingsData.SoundVolume;
+        }
+
+        private void SwitchChanged()
+        {
+            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
         }
     }
 }

@@ -3,7 +3,6 @@ using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Shop;
 using UnityEngine;
@@ -36,8 +35,7 @@ namespace CodeBase.Logic.Level
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
                 WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
                 (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
-                ShopButtons shopButtons = (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopButtons>();
-                shopButtons?.Construct(_refreshCount, _watchAdsNumber);
+                (shopWindow as ShopWindow)?.AddCounts(_refreshCount, _watchAdsNumber);
                 _isPassed = true;
             }
         }

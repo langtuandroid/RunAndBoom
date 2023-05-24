@@ -1,6 +1,8 @@
 ﻿using CodeBase.Data;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Common;
+using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.UI.Windows.Finish.Items
 {
@@ -19,6 +21,9 @@ namespace CodeBase.UI.Windows.Finish.Items
             Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
             ClearData();
             _generator.Clicked();
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.WeaponGotten),
+                transform: transform, Volume, AudioSource);
         }
     }
 }

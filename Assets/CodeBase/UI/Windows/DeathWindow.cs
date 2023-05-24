@@ -1,9 +1,12 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
+using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +31,7 @@ namespace CodeBase.UI.Windows
 
         public void Construct(GameObject hero, Scene scene)
         {
-            base.Construct(hero);
+            base.Construct(hero, WindowId.Death);
             _scene = scene;
         }
 
@@ -40,6 +43,13 @@ namespace CodeBase.UI.Windows
 
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
             // AllServices.Container.Single<IGameStateMachine>().Enter<LoadSceneState, Scene>(_scene);
+        }
+
+        protected override void PlayOpenSound()
+        {
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Death), transform: transform,
+                Volume, AudioSource);
         }
     }
 }

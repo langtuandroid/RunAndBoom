@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic.Level;
-using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
@@ -15,8 +12,8 @@ using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -40,13 +37,11 @@ namespace CodeBase.Infrastructure.States
 
         private bool _isInitial = true;
         private Scene _scene;
-        private string[] _musics = { AudioClipAddresses.Music1, AudioClipAddresses.Music2, AudioClipAddresses.Music3 };
-        private IRandomService _randomService;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
             IPlayerProgressService progressService, IStaticDataService staticDataService,
-            IUIFactory uiFactory, IWindowService windowService, IRandomService randomService)
+            IUIFactory uiFactory, IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -57,7 +52,6 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
-            _randomService = randomService;
         }
 
         public void Enter(Scene scene)
@@ -129,9 +123,6 @@ namespace CodeBase.Infrastructure.States
                 await InitGameWorld(levelData);
                 await InitSpawners(levelData);
             }
-
-            // string music = _randomService.NextFrom(_musics.ToList());
-            // SoundInstance.StartMusic(music);
         }
 
         private async Task InitUIRoot() =>

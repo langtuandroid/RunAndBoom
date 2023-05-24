@@ -1,7 +1,9 @@
 ﻿using CodeBase.Data;
 using CodeBase.Hero;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
+using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.UI.Windows.Finish.Items
 {
@@ -20,8 +22,12 @@ namespace CodeBase.UI.Windows.Finish.Items
         protected override void Clicked()
         {
             if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
-                // Hero.GetComponent<HeroHealth>().Recover();
+            {
                 Health.Recover();
+                SoundInstance.InstantiateOnTransform(
+                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.FullRecovery),
+                    transform: transform, Volume, AudioSource);
+            }
 
             ClearData();
             _generator.Clicked();

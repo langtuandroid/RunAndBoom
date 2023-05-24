@@ -1498,7 +1498,6 @@ GameObject:
   - component: {fileID: 4312290130093773526}
   - component: {fileID: 6415520431241114458}
   - component: {fileID: 7716486667816911635}
-  - component: {fileID: 3205517245857900068}
   - component: {fileID: 5404336401222612378}
   m_Layer: 5
   m_Name: ShopWindow
@@ -1549,7 +1548,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22906a7c41ea4e5f8f89166fadd2dd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 5404336401222612378}
+  _skipButton: {fileID: 8701783380240409709}
+  _refreshButton: {fileID: 6324506760347914915}
+  _refreshWithAdsButton: {fileID: 3891343605374477144}
+  _shopWindow: {fileID: 6415520431241114458}
+  _generator: {fileID: 7716486667816911635}
 --- !u!114 &7716486667816911635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,23 +1569,6 @@ MonoBehaviour:
   - {fileID: 5795735000073939082}
   - {fileID: 2828351981896525375}
   - {fileID: 6479839889160625983}
---- !u!114 &3205517245857900068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300922620346195981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa54f60840348bfa513a9262b79d55f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _skipButton: {fileID: 8701783380240409709}
-  _refreshButton: {fileID: 6324506760347914915}
-  _refreshWithAdsButton: {fileID: 3891343605374477144}
-  _shopWindow: {fileID: 6415520431241114458}
-  _generator: {fileID: 7716486667816911635}
 --- !u!82 &5404336401222612378
 AudioSource:
   m_ObjectHideFlags: 0

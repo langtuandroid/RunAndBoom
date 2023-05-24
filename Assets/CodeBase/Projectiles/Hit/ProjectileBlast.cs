@@ -104,22 +104,22 @@ namespace CodeBase.Projectiles.Hit
                 case HeroWeaponTypeId.GrenadeLauncher:
                     SoundInstance.InstantiateOnPos(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastGrenadeLauncher),
-                        position: transform.position, _volume * 2, _audioSource);
+                        position: transform.position, _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.RPG:
                     SoundInstance.InstantiateOnPos(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
-                        position: transform.position, _volume * 2, _audioSource);
+                        position: transform.position, _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
                     SoundInstance.InstantiateOnPos(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
-                        position: transform.position, _volume * 2, _audioSource);
+                        position: transform.position, _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.Mortar:
                     SoundInstance.InstantiateOnPos(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastMortar),
-                        position: transform.position, _volume * 2, _audioSource);
+                        position: transform.position, _volume, _audioSource);
                     break;
             }
         }

@@ -18,11 +18,17 @@ namespace CodeBase.UI.Windows.Settings
             Progress.SettingsData.MusicSwitchChanged += SwitchChanged;
         }
 
-        protected override void VolumeChanged() =>
+        protected override void VolumeChanged()
+        {
+            IsSwitched = false;
             ChangeVolume(Progress.SettingsData.MusicVolume);
+        }
 
-        protected override void SwitchChanged() =>
+        protected override void SwitchChanged()
+        {
+            IsSwitched = true;
             ChangeVolume(Progress.SettingsData.MusicOn ? Progress.SettingsData.MusicVolume : Constants.Zero);
+        }
 
         protected override void ChangeVolume(float value)
         {
@@ -36,7 +42,6 @@ namespace CodeBase.UI.Windows.Settings
             else if (Volume != Constants.Zero && PreviousVolume == Constants.Zero)
                 SoundInstance.ResumeMusic();
 
-            IsSwitched = true;
             Slider.value = Volume;
         }
     }

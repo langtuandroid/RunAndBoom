@@ -1242,7 +1242,6 @@ GameObject:
   - component: {fileID: 4312290130093773526}
   - component: {fileID: 3619922302248021576}
   - component: {fileID: 827771888206957789}
-  - component: {fileID: 5884715674693694057}
   - component: {fileID: 4157012399419071983}
   m_Layer: 5
   m_Name: FinishWindow
@@ -1293,7 +1292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353a27984ede4721bc546fea18ade730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 4157012399419071983}
+  _addCoinsButton: {fileID: 8701783380240409709}
+  _toNextLevelButton: {fileID: 3891343605374477144}
+  _finishWindow: {fileID: 3619922302248021576}
+  _generator: {fileID: 827771888206957789}
 --- !u!114 &827771888206957789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,22 +1312,6 @@ MonoBehaviour:
   - {fileID: 5795735000073939082}
   - {fileID: 2828351981896525375}
   - {fileID: 6479839889160625983}
---- !u!114 &5884715674693694057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300922620346195981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a574b7e7e584b16b1620d0de7e358ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _addCoinsButton: {fileID: 8701783380240409709}
-  _toNextLevelButton: {fileID: 3891343605374477144}
-  _finishWindow: {fileID: 3619922302248021576}
-  _generator: {fileID: 827771888206957789}
 --- !u!82 &4157012399419071983
 AudioSource:
   m_ObjectHideFlags: 0

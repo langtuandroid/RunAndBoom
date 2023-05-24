@@ -1,7 +1,9 @@
 ﻿using CodeBase.Data;
 using CodeBase.Hero;
+using CodeBase.Services;
 using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
@@ -10,34 +12,41 @@ namespace CodeBase.UI.Windows.Common
     [RequireComponent(typeof(AudioSource))]
     public class WindowBase : MonoBehaviour, IProgressReader
     {
-        private AudioSource _audioSource;
-
+        protected AudioSource AudioSource;
         private GameObject _hero;
         private PlayerProgress _progress;
-        private float _volume;
+        protected float Volume;
+        private IWindowService _windowService;
+        private WindowId _windowId;
 
-        private void Awake() =>
-            _audioSource = GetComponent<AudioSource>();
-
-        protected void Construct(GameObject hero)
+        private void Awake()
         {
+            AudioSource = GetComponent<AudioSource>();
+        }
+
+        protected void Construct(GameObject hero, WindowId windowId)
+        {
+            _windowService = AllServices.Container.Single<IWindowService>();
             _hero = hero;
+            _windowId = windowId;
             Hide();
         }
 
-        public void Hide()
+        protected void Hide()
         {
             gameObject.SetActive(false);
-            _hero.GetComponent<HeroShooting>().TurnOn();
-            _hero.GetComponent<HeroMovement>().TurnOn();
-            _hero.GetComponent<HeroRotating>().TurnOn();
-            _hero.GetComponent<HeroReloading>().TurnOn();
-            _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
-            Time.timeScale = 1;
-            Cursor.lockState = CursorLockMode.Locked;
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: transform,
-                _volume, _audioSource);
+            PlayCloseSound();
+
+            if (!_windowService.IsAnotherActive(_windowId))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                _hero.GetComponent<HeroShooting>().TurnOn();
+                _hero.GetComponent<HeroMovement>().TurnOn();
+                _hero.GetComponent<HeroRotating>().TurnOn();
+                _hero.GetComponent<HeroReloading>().TurnOn();
+                _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
+                Time.timeScale = 1;
+            }
         }
 
         public void Show()
@@ -50,9 +59,21 @@ namespace CodeBase.UI.Windows.Common
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.Confined;
+            PlayOpenSound();
+        }
+
+        protected virtual void PlayCloseSound()
+        {
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: transform,
+                Volume, AudioSource);
+        }
+
+        protected virtual void PlayOpenSound()
+        {
             SoundInstance.InstantiateOnTransform(
                 audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: transform,
-                _volume, _audioSource);
+                Volume, AudioSource);
         }
 
         public void LoadProgress(PlayerProgress progress)
@@ -65,9 +86,9 @@ namespace CodeBase.UI.Windows.Common
         }
 
         private void VolumeChanged() =>
-            _volume = _progress.SettingsData.SoundVolume;
+            Volume = _progress.SettingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
     }
 }

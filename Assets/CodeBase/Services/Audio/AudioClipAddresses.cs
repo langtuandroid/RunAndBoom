@@ -29,6 +29,7 @@
         public const string CheckboxClick = "Checkbox click";
         public const string MenuClose = "Menu close";
         public const string MenuOpen = "Menu open";
+        public const string Generate = "Generation";
 
         public const string AmmoGotten = "Ammo gotten";
         public const string ItemGotten = "Item gotten";
@@ -36,12 +37,13 @@
         public const string FewMoneyGotten = "Few money gotten";
         public const string PouringMoneyGotten = "Pouring money gotten";
         public const string WeaponGotten = "Weapon gotten";
-        public const string GameWon = "Game won";
-        public const string Dead = "Dead";
-        public const string VictoryMusic = "Victory music";
+        public const string UpgradeLevel_1 = "Upgrade level 1";
+        public const string UpgradeLevel_2 = "Upgrade level 2";
+        public const string UpgradeLevel_3 = "Upgrade level 3";
+        public const string NotEnoughMoney = "Not enough money";
 
-        public const string Music1 = "1";
-        public const string Music2 = "2";
-        public const string Music3 = "3";
+        public const string GameWon = "Game won";
+        public const string Death = "Dead";
+        public const string VictoryMusic = "Victory music";
     }
 }

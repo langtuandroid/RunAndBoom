@@ -3,6 +3,9 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Settings;
+using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -50,6 +53,17 @@ namespace CodeBase.UI.Services.Windows
             T window = windowGameObject?.GetComponent<T>();
             window?.Show();
             return window;
+        }
+
+        public bool IsAnotherActive(WindowId windowId)
+        {
+            foreach (var vk in _windows)
+            {
+                if (vk.Key != windowId && vk.Value.activeInHierarchy)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

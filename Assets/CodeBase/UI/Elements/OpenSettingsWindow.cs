@@ -1,6 +1,6 @@
 ﻿using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
+using CodeBase.UI.Windows.Settings;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements

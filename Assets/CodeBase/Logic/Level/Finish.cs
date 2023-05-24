@@ -1,7 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Finish;
 using UnityEngine;
@@ -35,8 +34,7 @@ namespace CodeBase.Logic.Level
                     (finishWindow as FinishWindow)?.gameObject.GetComponent<GiftsGenerator>();
                 giftsGenerator?.SetMaxPrice(_maxPrice);
                 giftsGenerator?.Generate();
-                FinishButtons finishButtons = (finishWindow as FinishWindow)?.gameObject.GetComponent<FinishButtons>();
-                finishButtons?.Construct(_scene);
+                (finishWindow as FinishWindow)?.AddScene(_scene);
             }
         }
 
