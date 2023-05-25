@@ -21,74 +21,74 @@ MonoBehaviour:
     Song: {fileID: 8300000, guid: 4b93a7f1e946859448cfd9246ea7e5d5, type: 3}
   soundEffects:
   - name: Blast grenade launcher
-    Sound: {fileID: 8300000, guid: 4b7b4f769c196b247a8d520c3f311a18, type: 3}
+    Sound: {fileID: 8300000, guid: 95a6945acff70694b9e06eb77d01de7b, type: 3}
   - name: Blast rocket launcher and RPG
-    Sound: {fileID: 8300000, guid: 6f4aaa46147bfec438206e3dad546f70, type: 3}
+    Sound: {fileID: 8300000, guid: 52ad363da8b64c845b3534647b3d7bce, type: 3}
   - name: Blast mortar
-    Sound: {fileID: 8300000, guid: 09f5ab9c40bf528469d46553328e6ae5, type: 3}
+    Sound: {fileID: 8300000, guid: d8e66c6b86f9c0447b09b1b07ab97154, type: 3}
   - name: Destruction wooden box
-    Sound: {fileID: 8300000, guid: c028a2d325da63d4ba5ab68b659436f1, type: 3}
+    Sound: {fileID: 8300000, guid: 3f8c1879c7e0cb54982355092526cf02, type: 3}
   - name: Destruction concrete
-    Sound: {fileID: 8300000, guid: f80f059406bb9194c922fb16ab994741, type: 3}
+    Sound: {fileID: 8300000, guid: 0e4eb694edaa8a5478961cfce7f255ee, type: 3}
   - name: Door opening
-    Sound: {fileID: 8300000, guid: e07d13ee09181ce44995528a961552f8, type: 3}
+    Sound: {fileID: 8300000, guid: efd5264710d89eb43beea662314fedad, type: 3}
   - name: Door closing
-    Sound: {fileID: 8300000, guid: 56b77e7f13aa14446aec6d0b332564c0, type: 3}
+    Sound: {fileID: 8300000, guid: 4a74a5765d7afd643ad1778db9fd52eb, type: 3}
   - name: Full recovery
-    Sound: {fileID: 8300000, guid: d21fa6b653511344eb5e698aa09e1f99, type: 3}
+    Sound: {fileID: 8300000, guid: 6d9d74672ae187443938392b0a3f8d27, type: 3}
   - name: GL shot
-    Sound: {fileID: 8300000, guid: 7a026c83729b5cf4b97689c7d239cf15, type: 3}
+    Sound: {fileID: 8300000, guid: 6615bf6d1484c0a4bbee5e3e265bcdb1, type: 3}
   - name: MG shot
-    Sound: {fileID: 8300000, guid: a8c20363eea5652489e0efc459a80231, type: 3}
+    Sound: {fileID: 8300000, guid: 8a5ddac16d1384f4eae1b13253884eff, type: 3}
   - name: Mortar shot
-    Sound: {fileID: 8300000, guid: c7a8e00bd318c814291a52b772807748, type: 3}
+    Sound: {fileID: 8300000, guid: 8e74190e50d68f542b8c4120573c0d23, type: 3}
   - name: Pistol shot
-    Sound: {fileID: 8300000, guid: 8706685ad47e6f843b1adce195959890, type: 3}
+    Sound: {fileID: 8300000, guid: 59761ccac18acdc4ba219e99e9b80355, type: 3}
   - name: RL shot
-    Sound: {fileID: 8300000, guid: 7c735c5353e8a2347ab7c216f32e7e99, type: 3}
+    Sound: {fileID: 8300000, guid: 01ba4dfb5c2894b44892aa67ad5eb80d, type: 3}
   - name: RPG shot
-    Sound: {fileID: 8300000, guid: a4bea529ef79a6a46adb0ceda42c55a3, type: 3}
+    Sound: {fileID: 8300000, guid: 0a563c5fe088f3a4b910520390b6b56f, type: 3}
   - name: Shotgun shot
-    Sound: {fileID: 8300000, guid: dc3b50adcb12beb468a3494a8d466567, type: 3}
+    Sound: {fileID: 8300000, guid: 6042c732dcb1b4447b883ba202f12fe2, type: 3}
   - name: SMG shot
-    Sound: {fileID: 8300000, guid: 11f0a599f5efabf4485353f6c70e509e, type: 3}
+    Sound: {fileID: 8300000, guid: b235e701c9ae21d428b3f0246845db23, type: 3}
   - name: SR shot
-    Sound: {fileID: 8300000, guid: 2664f1460823d1041b76498ca6c30ba5, type: 3}
+    Sound: {fileID: 8300000, guid: 6114dbdac44a65a4298c74fdac3fa273, type: 3}
   - name: Button deny
-    Sound: {fileID: 8300000, guid: 395a9e3492b788f4e9c0c518ce36ae95, type: 3}
+    Sound: {fileID: 8300000, guid: 002759983bb6c684098d00b7eecdd4c0, type: 3}
   - name: Button success
-    Sound: {fileID: 8300000, guid: dc4f9d4c8731b5c43a5dcf0e1fc9a654, type: 3}
+    Sound: {fileID: 8300000, guid: c26d25b41aa0e6445bcb2b067f0f0975, type: 3}
   - name: Checkbox click
-    Sound: {fileID: 8300000, guid: 58611ec52ec3677449db030ac92da45a, type: 3}
+    Sound: {fileID: 8300000, guid: 00faaef2e7008a94e9688b05ba5bfe01, type: 3}
   - name: Menu close
-    Sound: {fileID: 8300000, guid: cf6dd33d488b6b44ea5fd9c19ccd31c6, type: 3}
+    Sound: {fileID: 8300000, guid: 18cf016a194628542878f87d2f9bf022, type: 3}
   - name: Menu open
-    Sound: {fileID: 8300000, guid: 0888b9f2d5b4e9a4182ef2932fae4e4b, type: 3}
+    Sound: {fileID: 8300000, guid: d147b4ca6364f454ab990f44e73b6bda, type: 3}
   - name: Ammo gotten
-    Sound: {fileID: 8300000, guid: ba010d2d277a42946a76d6ca53b84cbe, type: 3}
+    Sound: {fileID: 8300000, guid: 80ea2dda01eac604e90fb7c79bb701b4, type: 3}
   - name: Item gotten
     Sound: {fileID: 8300000, guid: a712d36eabba322448ce419182ac9360, type: 3}
   - name: One money gotten
-    Sound: {fileID: 8300000, guid: a2ce68b013ca544dda2d0414391e6422, type: 3}
+    Sound: {fileID: 8300000, guid: 16ef5c6496240dc448a4778b2452b16f, type: 3}
   - name: Few money gotten
-    Sound: {fileID: 8300000, guid: a9b97b7da60f04ede915031f7ffbd233, type: 3}
+    Sound: {fileID: 8300000, guid: c0278a5a817932e4ab6d703d079e9b3b, type: 3}
   - name: Pouring money gotten
-    Sound: {fileID: 8300000, guid: c421b08c9950d40329de057f0b67a6cd, type: 3}
+    Sound: {fileID: 8300000, guid: 8184659606bb37340be1848970227fc0, type: 3}
   - name: Weapon gotten
-    Sound: {fileID: 8300000, guid: fa8bd21d089c0b2408c038f8673d7a8f, type: 3}
+    Sound: {fileID: 8300000, guid: f0c37915e6e3e09488d67efeae04d5ba, type: 3}
   - name: Game won
-    Sound: {fileID: 8300000, guid: 872ed2115d21cfc4cb849f5778e60610, type: 3}
+    Sound: {fileID: 8300000, guid: 0488ef4204e5039418ae56945867190e, type: 3}
   - name: Dead
-    Sound: {fileID: 8300000, guid: a80bee52926f36640a60b2c89fa44ecf, type: 3}
+    Sound: {fileID: 8300000, guid: 2451c134a73b8da4694f2a9c0dc5af4d, type: 3}
   - name: Victory music
     Sound: {fileID: 8300000, guid: ad137b42514774d4c80fa5525ddd33f1, type: 3}
   - name: Not enough money
     Sound: {fileID: 8300000, guid: b7a2f6541728b8844a3546923e395eda, type: 3}
   - name: Upgrade level 1
-    Sound: {fileID: 8300000, guid: a918ee02a7e2f214b9fe2fe385500f37, type: 3}
+    Sound: {fileID: 8300000, guid: 6ac74440328e87a44b7a17fb568c8c0e, type: 3}
   - name: Upgrade level 2
-    Sound: {fileID: 8300000, guid: 805f7056343cc18499bb651617ae117b, type: 3}
+    Sound: {fileID: 8300000, guid: ab8930f69d05d104eb593a8ea0eaac60, type: 3}
   - name: Upgrade level 3
-    Sound: {fileID: 8300000, guid: 9dd9bf29a16f30a47910b369f48a15c1, type: 3}
+    Sound: {fileID: 8300000, guid: 3a3013cba7e0107429fe71a141cabce8, type: 3}
   - name: Generation
-    Sound: {fileID: 8300000, guid: d9c583162d7354f6ab434ce480c6e5fd, type: 3}
+    Sound: {fileID: 8300000, guid: 506fcd43096f5344dbc442c0c308d968, type: 3}
