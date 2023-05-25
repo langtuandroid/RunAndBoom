@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musics:
   - name: 1
-    Song: {fileID: 8300000, guid: acdffe408772c764083d4841e17df775, type: 3}
+    Song: {fileID: 8300000, guid: e0929504889562b46b2b57f8fb262bb2, type: 3}
   - name: 2
-    Song: {fileID: 8300000, guid: 08e747649a446814b887c7a602361149, type: 3}
+    Song: {fileID: 8300000, guid: 195105aca86219f4591764ed281f255e, type: 3}
   - name: 3
-    Song: {fileID: 8300000, guid: eeab901a76a8576479b987458e87e6f8, type: 3}
+    Song: {fileID: 8300000, guid: 4b93a7f1e946859448cfd9246ea7e5d5, type: 3}
   soundEffects:
   - name: Blast grenade launcher
     Sound: {fileID: 8300000, guid: 4b7b4f769c196b247a8d520c3f311a18, type: 3}
@@ -81,7 +81,7 @@ MonoBehaviour:
   - name: Dead
     Sound: {fileID: 8300000, guid: a80bee52926f36640a60b2c89fa44ecf, type: 3}
   - name: Victory music
-    Sound: {fileID: 8300000, guid: 65931c87bed982b4a89ff5921a5ead35, type: 3}
+    Sound: {fileID: 8300000, guid: ad137b42514774d4c80fa5525ddd33f1, type: 3}
   - name: Not enough money
     Sound: {fileID: 8300000, guid: b7a2f6541728b8844a3546923e395eda, type: 3}
   - name: Upgrade level 1
