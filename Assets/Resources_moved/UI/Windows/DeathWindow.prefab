@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 5574487809345986679}
   - component: {fileID: 4312290130093773526}
   - component: {fileID: 6501143168001869842}
+  - component: {fileID: 6503235472273453021}
   - component: {fileID: -7704477485872531326}
   m_Layer: 5
   m_Name: DeathWindow
@@ -472,7 +473,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2af28673e14383be89e0b71cbeadec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: -7704477485872531326}
+  _restartButton: {fileID: 8701783380240409709}
+--- !u!114 &6503235472273453021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300922620346195981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2f9978cd6c4444ba7eb9c629c56f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title: {fileID: 8946289374112158562}
   _restartButton: {fileID: 8701783380240409709}
 --- !u!82 &-7704477485872531326
 AudioSource:

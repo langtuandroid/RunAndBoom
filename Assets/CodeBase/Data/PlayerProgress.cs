@@ -18,9 +18,9 @@ namespace CodeBase.Data
 
         public Dictionary<Scene, LevelStats> LevelStats { get; private set; }
 
-        public PlayerProgress(Scene initialLevel)
+        public PlayerProgress(Scene initialLevel, Language language)
         {
-            SettingsData = new SettingsData();
+            SettingsData = new SettingsData(language);
             HealthState = new HealthState();
             WorldData = new WorldData(initialLevel.ToString());
             WeaponsData = new WeaponsData();

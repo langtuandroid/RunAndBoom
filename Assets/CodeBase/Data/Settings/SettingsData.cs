@@ -18,15 +18,14 @@ namespace CodeBase.Data.Settings
         public event Action SoundVolumeChanged;
         public event Action MusicSwitchChanged;
         public event Action SoundSwitchChanged;
-        public event Action LanguageChanged;
 
-        public SettingsData()
+        public SettingsData(Language language)
         {
             MusicVolume = DefaultMusicVolume;
             SoundVolume = DefaultSoundVolume;
             MusicOn = true;
             SoundOn = true;
-            Language = Language.EN;
+            SetLanguage(language);
         }
 
         public void SetMusicVolume(float volume)
@@ -71,7 +70,7 @@ namespace CodeBase.Data.Settings
                 return;
 
             Language = language;
-            LanguageChanged?.Invoke();
+            // LanguageChanged?.Invoke();
         }
     }
 }

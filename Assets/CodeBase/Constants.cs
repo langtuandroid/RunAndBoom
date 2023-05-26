@@ -21,5 +21,6 @@ namespace CodeBase
         public static readonly Color ShopItemItem = new Color(0.7459788f, 0f, 1f, 1f);
 
         public const string HeroTag = "Hero";
+        public const string Level = "Level_";
     }
 }

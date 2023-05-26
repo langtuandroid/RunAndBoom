@@ -3,6 +3,7 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;

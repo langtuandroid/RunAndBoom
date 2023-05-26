@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure
 {
-    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner, IProgressReader
+    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
         public LoadingCurtain CurtainPrefab;
         private Game _game;
@@ -18,21 +18,5 @@ namespace CodeBase.Infrastructure
 
             DontDestroyOnLoad(this);
         }
-
-        private Language GetLanguage()
-        {
-            switch (Application.systemLanguage)
-            {
-                case SystemLanguage.Russian:
-                    return Language.RU;
-                case SystemLanguage.Turkish:
-                    return Language.TR;
-                default:
-                    return Language.EN;
-            }
-        }
-
-        public void LoadProgress(PlayerProgress progress) =>
-            progress.SettingsData.SetLanguage(GetLanguage());
     }
 }

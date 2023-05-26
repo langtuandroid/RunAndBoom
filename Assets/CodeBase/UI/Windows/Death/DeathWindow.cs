@@ -10,7 +10,7 @@ using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows
+namespace CodeBase.UI.Windows.Death
 {
     public class DeathWindow : WindowBase
     {

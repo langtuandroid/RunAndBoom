@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -15,19 +17,19 @@ namespace CodeBase.Infrastructure.States
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services,
+            Language language)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, language),
                 [typeof(LoadSceneState)] =
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
                         services.Single<IEnemyFactory>(), services.Single<IPlayerProgressService>(),
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
                         services.Single<IWindowService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
-                    services.Single<IPlayerProgressService>(),
-                    services.Single<ISaveLoadService>()),
+                    services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(), services.Single<ILocalizationService>(), language),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

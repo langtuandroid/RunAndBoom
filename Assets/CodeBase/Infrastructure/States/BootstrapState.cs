@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeBase.Data;
+using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
-using CodeBase.Services.Audio;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
+using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
 using CodeBase.Services.Randomizer;
@@ -25,12 +26,15 @@ namespace CodeBase.Infrastructure.States
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private AllServices _services;
+        private Language _language;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services,
+            Language language)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _services = services;
+            _language = language;
 
             RegisterServices();
             SetTargetFrameRate();
@@ -44,6 +48,7 @@ namespace CodeBase.Infrastructure.States
 
         private void RegisterServices()
         {
+            _services.RegisterSingle<ILocalizationService>((new LocalizationService(_language)));
             RegisterStaticData();
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();

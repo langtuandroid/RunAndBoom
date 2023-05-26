@@ -45,7 +45,7 @@ namespace CodeBase.UI.Windows.Common
 
             CountText.text = "";
             // CostText.color = Constants.ShopItemPerk;
-            TitleText.text = _perkStaticData.RuTitle;
+            TitleText.text = $"{_perkStaticData.RuTitle} {_perkStaticData.Level}";
         }
     }
 }

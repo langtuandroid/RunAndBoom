@@ -6,6 +6,17 @@ namespace CodeBase.StaticData.Items.Shop.WeaponsUpgrades
     public class ShopUpgradeLevelStaticData : BaseItemStaticData
     {
         public LevelTypeId LevelTypeId;
-        public string Level => LevelTypeId.ToString();
+
+        [HideInInspector]
+        public string Level
+        {
+            get
+            {
+                if (LevelTypeId != LevelTypeId.None)
+                    return LevelTypeId.ToString().Replace(Constants.Level, "");
+                else
+                    return "";
+            }
+        }
     }
 }

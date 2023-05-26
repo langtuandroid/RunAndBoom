@@ -13,5 +13,17 @@ namespace CodeBase.StaticData.Items
 
         public LevelTypeId ILevelTypeId => LevelTypeId;
         public Sprite ILevel => LevelImage;
+
+        [HideInInspector]
+        public string Level
+        {
+            get
+            {
+                if (LevelTypeId != LevelTypeId.None)
+                    return LevelTypeId.ToString().Replace(Constants.Level, "");
+                else
+                    return "";
+            }
+        }
     }
 }

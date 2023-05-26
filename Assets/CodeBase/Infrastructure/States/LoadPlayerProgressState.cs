@@ -1,4 +1,6 @@
 ﻿using CodeBase.Data;
+using CodeBase.Data.Settings;
+using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 
@@ -11,13 +13,17 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameStateMachine _stateMachine;
         private readonly IPlayerProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
+        private Language _language;
+        private ILocalizationService _localizationService;
 
         public LoadPlayerProgressState(IGameStateMachine stateMachine, IPlayerProgressService progressService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, ILocalizationService localizationService, Language language)
         {
             _stateMachine = stateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
+            _localizationService = localizationService;
+            _language = language;
         }
 
         public void Enter(Scene scene)
@@ -34,9 +40,12 @@ namespace CodeBase.Infrastructure.States
         {
             PlayerProgress progressServiceProgress = _saveLoadService.LoadProgress();
             _progressService.SetProgress(progressServiceProgress ?? NewProgress());
+            
+            if (progressServiceProgress != null)
+                _localizationService.ChangeLanguage(_language);
         }
 
         private PlayerProgress NewProgress() =>
-            new PlayerProgress(InitialLevel);
+            new PlayerProgress(InitialLevel, _language);
     }
 }
