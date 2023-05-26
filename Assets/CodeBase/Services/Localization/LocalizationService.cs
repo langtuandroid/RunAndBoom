@@ -9,7 +9,7 @@ namespace CodeBase.Services.Localization
 
         public event Action LanguageChanged;
 
-        public LocalizationService(Language language) => 
+        public LocalizationService(Language language) =>
             ChangeLanguage(language);
 
         public void ChangeLanguage(Language language)

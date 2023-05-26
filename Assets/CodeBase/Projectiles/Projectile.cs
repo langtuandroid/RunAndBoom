@@ -30,7 +30,7 @@ namespace CodeBase.Projectiles
                 case ProjectileTypeId.PistolBullet:
                     _objectsPoolService.ReturnEnemyProjectile(gameObject);
                     break;
-                case ProjectileTypeId.SniperBullet:
+                case ProjectileTypeId.RifleBullet:
                     _objectsPoolService.ReturnEnemyProjectile(gameObject);
                     break;
                 case ProjectileTypeId.Shot:

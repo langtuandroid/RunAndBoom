@@ -45,10 +45,10 @@ namespace CodeBase.UI.Windows.Shop
         protected override void GenerateAllItems()
         {
             GenerateItems();
+            GenerateWeapons();
             GenerateAmmo();
             GeneratePerks();
             GenerateUpgrades();
-            GenerateWeapons();
         }
 
         protected override void CreateAmmoItem(GameObject hero, GameObject parent, List<AmmoItem> list,

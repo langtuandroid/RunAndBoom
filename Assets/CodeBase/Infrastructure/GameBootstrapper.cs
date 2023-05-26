@@ -1,7 +1,4 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Settings;
-using CodeBase.Infrastructure.States;
-using CodeBase.Services.PersistentProgress;
+﻿using CodeBase.Infrastructure.States;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure

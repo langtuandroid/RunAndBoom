@@ -40,7 +40,7 @@ namespace CodeBase.Infrastructure.States
         {
             PlayerProgress progressServiceProgress = _saveLoadService.LoadProgress();
             _progressService.SetProgress(progressServiceProgress ?? NewProgress());
-            
+
             if (progressServiceProgress != null)
                 _localizationService.ChangeLanguage(_language);
         }

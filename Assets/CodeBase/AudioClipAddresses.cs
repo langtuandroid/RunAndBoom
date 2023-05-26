@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Services.Audio
+﻿namespace CodeBase
 {
     public static class AudioClipAddresses
     {

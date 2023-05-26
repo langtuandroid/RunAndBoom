@@ -15,12 +15,6 @@ MonoBehaviour:
   WeaponTypeId: 0
   ProjectileTypeId: 4
   ShotVfxTypeId: 4
-  MovementLifeTime: 3
-  Damage: 1
+  MovementLifeTime: 5
   Cooldown: 2
-  ProjectileSpeed: 1
-  MuzzleVfxLifeTime: 0.5
-  MuzzleVfx: {fileID: 152484, guid: 7e257b8211d08b344aa2b46c61fd79e9, type: 3}
-  ProjectilePrefab: {fileID: 8881750742817861074, guid: dd1a26888535a1e4ba4f5462766c702a,
-    type: 3}
-  ProjectileTracePrefab: {fileID: 0}
+  MuzzleVfxLifeTime: 1

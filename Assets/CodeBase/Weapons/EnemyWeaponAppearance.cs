@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Enemy;
 using CodeBase.Projectiles.Movement;
-using CodeBase.Services.Audio;
 using CodeBase.StaticData.Weapons;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;

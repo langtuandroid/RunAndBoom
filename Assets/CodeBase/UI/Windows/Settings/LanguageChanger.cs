@@ -1,9 +1,7 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
-using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services;
 using UnityEngine;
 using UnityEngine.UI;

@@ -7,7 +7,7 @@
         RpgRocket,
         Bomb,
         PistolBullet,
-        SniperBullet,
+        RifleBullet,
         Shot,
     }
 }

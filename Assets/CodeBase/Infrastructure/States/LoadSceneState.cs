@@ -10,7 +10,6 @@ using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Settings;

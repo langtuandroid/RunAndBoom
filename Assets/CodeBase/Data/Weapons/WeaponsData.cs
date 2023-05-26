@@ -57,7 +57,7 @@ namespace CodeBase.Data.Weapons
             switch (typeId)
             {
                 case HeroWeaponTypeId.RPG:
-                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, 5);
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, 6);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
                     WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RocketLauncher, 9);

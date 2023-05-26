@@ -1,6 +1,5 @@
 ﻿using CodeBase.Data;
 using CodeBase.Data.Perks;
-using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;

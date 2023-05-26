@@ -54,8 +54,8 @@ namespace CodeBase.UI.Windows.Finish
             GenerateAmmo();
             GeneratePerks();
             GenerateUpgrades();
-            GenerateWeapons();
             GenerateMoney();
+            // GenerateWeapons();
         }
 
         protected override void CreateAmmoItem(GameObject hero, GameObject parent, List<AmmoItem> list,

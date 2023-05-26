@@ -3,7 +3,6 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.Data.Upgrades;
 using CodeBase.Services;
-using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;

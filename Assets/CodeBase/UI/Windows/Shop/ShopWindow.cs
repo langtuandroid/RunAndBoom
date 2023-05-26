@@ -1,5 +1,4 @@
 ﻿using System;
-using CodeBase.Services.Audio;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;

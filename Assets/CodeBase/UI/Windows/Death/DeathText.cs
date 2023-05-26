@@ -1,8 +1,6 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
-using CodeBase.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -16,7 +16,7 @@ namespace CodeBase.StaticData.Enemies
 
         [Range(0, 10)] public float MoveSpeed;
 
-        [Range(0.5f, 15f)] public float AttackDistance;
+        [Range(0.5f, 50f)] public float AttackDistance;
 
         [Range(0.5f, 5f)] public float AttackCooldown;
 

@@ -2,8 +2,8 @@
 {
     public static class LocalizationConstants
     {
-        public static string SettingsTitleRu = "Settings";
-        public static string SettingsTitleEn = "Настройки";
+        public static string SettingsTitleRu = "Настройки";
+        public static string SettingsTitleEn = "Settings";
         public static string SettingsTitleTr = "Ayarlar";
 
         public static string CloseRu = "Закрыть";

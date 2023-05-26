@@ -1,6 +1,5 @@
 ﻿using CodeBase.Data;
 using CodeBase.Hero;
-using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;

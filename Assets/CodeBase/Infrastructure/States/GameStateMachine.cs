@@ -29,7 +29,8 @@ namespace CodeBase.Infrastructure.States
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
                         services.Single<IWindowService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
-                    services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(), services.Single<ILocalizationService>(), language),
+                    services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(),
+                    services.Single<ILocalizationService>(), language),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a42c72b8ce4a33a7243a1acc4c925d, type: 3}
-  m_Name: RpgRockets_med
+  m_Name: RpgGrenades_max
   m_EditorClassIdentifier: 
   MainImage: {fileID: 21300000, guid: 8aa33e99c7e0651458c789b8d048af0a, type: 3}
   Cost: 15
-  RuTitle: "5 \u0440\u0430\u043A\u0435\u0442 \u0420\u041F\u0413"
-  EnTitle: 
-  TrTitle: 
+  RuTitle: "10 \u0433\u0440\u0430\u043D\u0430\u0442 \u0420\u041F\u0413"
+  EnTitle: 10 RPG grenades
+  TrTitle: "10 RPG el bombas\u0131"
   WeaponTypeId: 1
-  AmmoCountType: 1
-  Count: 5
+  AmmoCountType: 2
+  Count: 10

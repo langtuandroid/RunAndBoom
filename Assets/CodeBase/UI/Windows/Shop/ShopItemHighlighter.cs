@@ -12,38 +12,16 @@ namespace CodeBase.UI.Windows.Shop
         private bool _mouseOver;
         private bool _isVisible = true;
 
-        private void Update()
-        {
-            // if (_isVisible)
+        private void Update() =>
             _activeBackground.ChangeImageAlpha(_mouseOver ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
-            // else
-            //     _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
-        }
 
-        private void OnEnable()
-        {
-            // SetVisibility(true);
-        }
-
-        private void OnDisable()
-        {
-            // SetVisibility(false);
+        private void OnDisable() =>
             _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
-        }
 
-        private void SetVisibility(bool isVisible)
-        {
-            _isVisible = isVisible;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
+        public void OnPointerEnter(PointerEventData eventData) =>
             _mouseOver = true;
-        }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
+        public void OnPointerExit(PointerEventData eventData) =>
             _mouseOver = false;
-        }
     }
 }

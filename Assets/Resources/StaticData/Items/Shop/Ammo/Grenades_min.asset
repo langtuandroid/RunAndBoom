@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
   Cost: 1
-  RuTitle: "1 \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
-  EnTitle: 
-  TrTitle: 
+  RuTitle: "2 \u0433\u0440\u0430\u043D\u0430\u0442\u0430"
+  EnTitle: 2 grenades
+  TrTitle: "2 el bombas\u0131"
   WeaponTypeId: 0
-  Count: 1
+  AmmoCountType: 0
+  Count: 2

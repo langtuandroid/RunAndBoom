@@ -1,7 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Services;
-using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;

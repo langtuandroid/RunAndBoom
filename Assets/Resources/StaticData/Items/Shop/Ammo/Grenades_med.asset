@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Grenades_med
   m_EditorClassIdentifier: 
   MainImage: {fileID: 21300000, guid: f6db6819bbdb82b44a4716da86d68816, type: 3}
-  Cost: 5
-  RuTitle: "5 \u0433\u0440\u0430\u043D\u0430\u0442"
-  EnTitle: 
-  TrTitle: 
+  Cost: 3
+  RuTitle: "6 \u0433\u0440\u0430\u043D\u0430\u0442"
+  EnTitle: 6 grenades
+  TrTitle: "6 el bombas\u0131"
   WeaponTypeId: 0
   AmmoCountType: 1
-  Count: 5
+  Count: 6

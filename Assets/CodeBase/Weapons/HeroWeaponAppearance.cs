@@ -4,7 +4,6 @@ using System.Linq;
 using CodeBase.Hero;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
-using CodeBase.Services.Audio;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
 using Plugins.SoundInstance.Core.Static;

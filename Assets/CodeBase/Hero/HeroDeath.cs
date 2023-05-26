@@ -2,7 +2,6 @@
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
-using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Death;
 using UnityEngine;
 

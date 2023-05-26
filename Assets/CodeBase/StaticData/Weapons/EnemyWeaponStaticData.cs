@@ -14,8 +14,8 @@ namespace CodeBase.StaticData.Weapons
         [FormerlySerializedAs("shotVfxTypeId")] [FormerlySerializedAs("MuzzleVfxTypeId")]
         public ShotVfxTypeId ShotVfxTypeId;
 
-        [Range(1f, 3f)] public float MovementLifeTime;
-        [Range(1, 5)] public int Cooldown;
-        [Range(0.5f, 5f)] public float MuzzleVfxLifeTime;
+        [Range(1f, 10f)] public float MovementLifeTime;
+        [Range(0f, 5f)] public float Cooldown;
+        [Range(0.0f, 5f)] public float MuzzleVfxLifeTime;
     }
 }

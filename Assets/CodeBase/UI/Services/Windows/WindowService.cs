@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
-using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.Finish;

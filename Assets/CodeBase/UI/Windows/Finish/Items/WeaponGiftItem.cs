@@ -1,5 +1,4 @@
 ﻿using CodeBase.Data;
-using CodeBase.Services.Audio;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
