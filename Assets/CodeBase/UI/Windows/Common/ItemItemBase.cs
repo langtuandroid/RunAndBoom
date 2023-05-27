@@ -17,7 +17,7 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
+        protected void Construct(ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
         {
             Health = health;
             _typeId = typeId;
@@ -41,7 +41,8 @@ namespace CodeBase.UI.Windows.Common
 
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
-            TitleText.text = $"{_itemStaticData.RuTitle}";
+            TitleText.text =
+                $"{LocalizationService.GetText(russian: _itemStaticData.RuTitle, turkish: _itemStaticData.TrTitle, english: _itemStaticData.EnTitle)}";
         }
     }
 }

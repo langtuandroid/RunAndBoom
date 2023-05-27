@@ -15,10 +15,10 @@ MonoBehaviour:
   EnemyTypeId: 3
   EnemyWeaponTypeId: 2
   Hp: 1
-  Damage: 2
+  Damage: 1
   MoveSpeed: 1.5
   AttackDistance: 6
-  AttackCooldown: 1
+  AttackCooldown: 0.5
   Reward: 3
   PrefabReference:
     m_AssetGUID: 57e20c99c1e93a745a428f6a158d23a3

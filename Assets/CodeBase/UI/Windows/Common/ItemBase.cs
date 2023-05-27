@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services;
+using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -25,6 +26,7 @@ namespace CodeBase.UI.Windows.Common
 
         private ShopItemHighlighter _shopItemHighlighter;
         protected IStaticDataService StaticDataService;
+        protected ILocalizationService LocalizationService;
         protected PlayerProgress Progress;
         protected ShopItemBalance ShopItemBalance;
         protected GiftsItemBalance GiftsItemBalance;
@@ -45,6 +47,7 @@ namespace CodeBase.UI.Windows.Common
         {
             Progress = progress;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
+            LocalizationService = AllServices.Container.Single<ILocalizationService>();
             ShopItemBalance = new ShopItemBalance();
             GiftsItemBalance = new GiftsItemBalance();
 

@@ -39,7 +39,8 @@ namespace CodeBase.UI.Windows.Common
 
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
-            TitleText.text = $"{_weaponStaticData.RuTitle}";
+            TitleText.text =
+                $"{LocalizationService.GetText(russian: _weaponStaticData.RuTitle, turkish: _weaponStaticData.TrTitle, english: _weaponStaticData.EnTitle)}";
         }
     }
 }

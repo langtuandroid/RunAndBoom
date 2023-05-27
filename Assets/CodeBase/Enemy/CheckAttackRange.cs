@@ -10,12 +10,13 @@ namespace CodeBase.Enemy
 
         private Attack _attack;
 
-        private void Awake() => _attack = GetComponent<Attack>();
+        private void Awake() => 
+            _attack = GetComponent<Attack>();
 
         private void Start()
         {
             _triggerObserver.TriggerEnter += TriggerEnter;
-            _triggerObserver.TriggerExit += TriggerExit;
+            // _triggerObserver.TriggerExit += TriggerExit;
 
             _attack.DisableAttack();
         }
@@ -33,14 +34,14 @@ namespace CodeBase.Enemy
             }
         }
 
-        private void TriggerExit(Collider obj)
-        {
-            if (_follow != null)
-            {
-                _attack.DisableAttack();
-                _follow.Move();
-                _follow.enabled = true;
-            }
-        }
+        // private void TriggerExit(Collider obj)
+        // {
+        //     if (_follow != null)
+        //     {
+        //         _attack.DisableAttack();
+        //         _follow.Move();
+        //         _follow.enabled = true;
+        //     }
+        // }
     }
 }

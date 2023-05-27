@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyTypeId: 4
   EnemyWeaponTypeId: 3
-  Hp: 1
+  Hp: 2
   Damage: 2
   MoveSpeed: 1.5
-  AttackDistance: 10
-  AttackCooldown: 1
+  AttackDistance: 50
+  AttackCooldown: 0.5
   Reward: 2
   PrefabReference:
     m_AssetGUID: 5669ba518e81037419f92e7d039e4b45

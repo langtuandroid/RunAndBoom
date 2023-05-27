@@ -15,9 +15,9 @@ MonoBehaviour:
   EnemyTypeId: 5
   EnemyWeaponTypeId: 4
   Hp: 1
-  Damage: 5
+  Damage: 4
   MoveSpeed: 1.5
-  AttackDistance: 15
+  AttackDistance: 50
   AttackCooldown: 5
   Reward: 2
   PrefabReference:

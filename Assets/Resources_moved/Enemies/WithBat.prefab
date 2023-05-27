@@ -1085,7 +1085,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1365334318919700425}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2209198129083750022
 SkinnedMeshRenderer:
@@ -1282,7 +1282,7 @@ Transform:
   m_Children:
   - {fileID: 2260706075549812142}
   m_Father: {fileID: 1365334318919700425}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2255126929834539558
 GameObject:
@@ -1848,7 +1848,7 @@ PrefabInstance:
     - target: {fileID: 2222021578413735808, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2604969150810982036, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
@@ -1913,7 +1913,7 @@ PrefabInstance:
     - target: {fileID: 2784321666038494259, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4022132266649269147, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
@@ -1988,25 +1988,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3950802496979159389}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1838122429755316095 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3410987899940052514, guid: f3dcb60c3c2885d488b4d3288cc50933,
-    type: 3}
-  m_PrefabInstance: {fileID: 3950802496979159389}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &259754604910341587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838122429755316095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f185c980ec3448f499906fd5d014f699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 7609512935413722872}
 --- !u!114 &5352553839011821291 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8979059092158463926, guid: f3dcb60c3c2885d488b4d3288cc50933,
@@ -2017,17 +1998,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7459c660c1ff46d7a889f6a307476a2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7609512935413722872 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6867560909820684197, guid: f3dcb60c3c2885d488b4d3288cc50933,
-    type: 3}
-  m_PrefabInstance: {fileID: 3950802496979159389}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838122429755316095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

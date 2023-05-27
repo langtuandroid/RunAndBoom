@@ -16,7 +16,7 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(AmmoItem ammoItem, PlayerProgress progress)
+        protected void Construct(AmmoItem ammoItem, PlayerProgress progress)
         {
             base.Construct(progress);
             _ammoItem = ammoItem;
@@ -40,7 +40,8 @@ namespace CodeBase.UI.Windows.Common
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = $"{_shopAmmoStaticData.Count}";
             // CountText.color = Constants.ShopItemCountField;
-            TitleText.text = $"{_shopAmmoStaticData.RuTitle}";
+            TitleText.text =
+                $"{LocalizationService.GetText(russian: _shopAmmoStaticData.RuTitle, turkish: _shopAmmoStaticData.TrTitle, english: _shopAmmoStaticData.EnTitle)}";
         }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -9,18 +8,19 @@ namespace CodeBase.Enemy
         [SerializeField] private Follow _follow;
         [SerializeField] private RotateToHero _rotateToHero;
 
-        private float _cooldown;
+        // private float _cooldown;
 
         private bool _hasAggroTarget;
-        private WaitForSeconds _switchFollowOffAfterCooldown;
+
+        // private WaitForSeconds _switchFollowOffAfterCooldown;
         private Coroutine _aggroCoroutine;
 
         private void Start()
         {
-            _switchFollowOffAfterCooldown = new WaitForSeconds(_cooldown);
+            // _switchFollowOffAfterCooldown = new WaitForSeconds(_cooldown);
 
             _triggerObserver.TriggerEnter += TriggerEnter;
-            _triggerObserver.TriggerExit += TriggerExit;
+            // _triggerObserver.TriggerExit += TriggerExit;
 
             if (_follow != null)
             {
@@ -30,13 +30,13 @@ namespace CodeBase.Enemy
             }
         }
 
-        public void Construct(float cooldown) =>
-            _cooldown = cooldown;
+        // public void Construct(float cooldown) =>
+        //     _cooldown = cooldown;
 
         private void OnDestroy()
         {
             _triggerObserver.TriggerEnter -= TriggerEnter;
-            _triggerObserver.TriggerExit -= TriggerExit;
+            // _triggerObserver.TriggerExit -= TriggerExit;
         }
 
         private void TriggerEnter(Collider obj)
@@ -48,12 +48,12 @@ namespace CodeBase.Enemy
             SwitchFollowOn();
         }
 
-        private void TriggerExit(Collider obj)
-        {
-            if (!_hasAggroTarget) return;
-
-            _aggroCoroutine = StartCoroutine(SwitchFollowOffAfterCooldown());
-        }
+        // private void TriggerExit(Collider obj)
+        // {
+        //     if (!_hasAggroTarget) return;
+        //
+        //     _aggroCoroutine = StartCoroutine(SwitchFollowOffAfterCooldown());
+        // }
 
         private void StopAggroCoroutine()
         {
@@ -62,12 +62,12 @@ namespace CodeBase.Enemy
             StopCoroutine(_aggroCoroutine);
         }
 
-        private IEnumerator SwitchFollowOffAfterCooldown()
-        {
-            yield return _switchFollowOffAfterCooldown;
-
-            SwitchFollowOff();
-        }
+        // private IEnumerator SwitchFollowOffAfterCooldown()
+        // {
+        //     yield return _switchFollowOffAfterCooldown;
+        //
+        //     SwitchFollowOff();
+        // }
 
         private void SwitchFollowOn()
         {
@@ -80,15 +80,15 @@ namespace CodeBase.Enemy
             }
         }
 
-        private void SwitchFollowOff()
-        {
-            if (_follow != null)
-            {
-                // _follow.enabled = false;
-                _follow.Stop();
-                _hasAggroTarget = false;
-                _rotateToHero.enabled = false;
-            }
-        }
+        // private void SwitchFollowOff()
+        // {
+        //     if (_follow != null)
+        //     {
+        //         // _follow.enabled = false;
+        //         _follow.Stop();
+        //         _hasAggroTarget = false;
+        //         _rotateToHero.enabled = false;
+        //     }
+        // }
     }
 }
