@@ -161,7 +161,7 @@ Transform:
   - {fileID: 2249408505085642235}
   - {fileID: 3506613287595182043}
   - {fileID: 8027270677975631171}
-  - {fileID: 2222021578413735808}
+  - {fileID: 7282656571530433564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc607ffb5b941248cca5654579569e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _diedBox: {fileID: 6265935053691021421}
+  _diedBox: {fileID: 6644373206372179618}
 --- !u!114 &3011881117668741496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1.7, z: 0.6}
   m_Center: {x: 0, y: 0.85, z: 0}
---- !u!1 &6265935053691021421
+--- !u!1 &6644373206372179618
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,22 +425,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2222021578413735808}
-  - component: {fileID: 3316021388838953679}
-  m_Layer: 11
-  m_Name: DiedBox
-  m_TagString: Untagged
+  - component: {fileID: 7282656571530433564}
+  - component: {fileID: 9189682587486684162}
+  m_Layer: 6
+  m_Name: DeadBox
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2222021578413735808
+--- !u!4 &7282656571530433564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6265935053691021421}
+  m_GameObject: {fileID: 6644373206372179618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -449,16 +449,16 @@ Transform:
   m_Father: {fileID: 2604969150810982036}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3316021388838953679
+--- !u!65 &9189682587486684162
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6265935053691021421}
+  m_GameObject: {fileID: 6644373206372179618}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.7, z: 0.6}
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Size: {x: 0.8, y: 0.1, z: 0.6}
+  m_Center: {x: 0, y: 0.05, z: 0}
