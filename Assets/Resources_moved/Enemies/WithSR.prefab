@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3008643511957468129}
     m_Modifications:
+    - target: {fileID: 3465853854931976860, guid: ed34d3d192045064aa52bb05226ead02,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465853854931976860, guid: ed34d3d192045064aa52bb05226ead02,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3465853854931976860, guid: ed34d3d192045064aa52bb05226ead02,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.58
+      objectReference: {fileID: 0}
     - target: {fileID: 9057230057492548560, guid: ed34d3d192045064aa52bb05226ead02,
         type: 3}
       propertyPath: m_Name
@@ -15,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 9060056873852880956, guid: ed34d3d192045064aa52bb05226ead02,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9060056873852880956, guid: ed34d3d192045064aa52bb05226ead02,
         type: 3}
@@ -149,7 +164,7 @@ PrefabInstance:
     - target: {fileID: 2604969150810982037, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}
       propertyPath: m_Name
-      value: WithSniperRifle
+      value: WithSR
       objectReference: {fileID: 0}
     - target: {fileID: 4022132266649269147, guid: f3dcb60c3c2885d488b4d3288cc50933,
         type: 3}

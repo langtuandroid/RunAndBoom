@@ -1,5 +1,4 @@
 using System;
-using CodeBase.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,7 +34,7 @@ namespace CodeBase.Enemy
         {
             if (_heroTransform && _agent != null)
             {
-                if (_move && _agent.enabled && IsHeroNotReached())
+                if (_move && _agent.enabled)
                 {
                     try
                     {
@@ -55,17 +54,12 @@ namespace CodeBase.Enemy
         {
             _move = true;
             _agent.enabled = true;
-            _agent.speed = _speed;
         }
 
         public override void Stop()
         {
             _move = false;
-            _agent.speed = 0f;
             _agent.enabled = false;
         }
-
-        private bool IsHeroNotReached() =>
-            _agent.transform.position.SqrMagnitudeTo(_heroTransform.position) >= _attackDistance;
     }
 }

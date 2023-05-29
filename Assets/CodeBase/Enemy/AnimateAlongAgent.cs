@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(EnemyAnimator))]
     public class AnimateAlongAgent : MonoBehaviour
     {

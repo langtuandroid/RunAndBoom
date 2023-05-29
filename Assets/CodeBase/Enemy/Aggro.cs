@@ -76,7 +76,7 @@ namespace CodeBase.Enemy
                 _hasAggroTarget = true;
                 _follow.Move();
                 _rotateToHero.enabled = true;
-                // _follow.enabled = true;
+                _follow.enabled = true;
             }
         }
 
