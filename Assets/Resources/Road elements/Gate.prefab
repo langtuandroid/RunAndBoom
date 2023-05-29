@@ -305,7 +305,7 @@ GameObject:
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8202281674440311358
 Transform:
@@ -399,7 +399,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8202281674798666539
 Transform:
@@ -677,8 +677,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _door: {fileID: 8202281674440311359}
   _trigger: {fileID: 1574043874683545139}
-  _audioOpenDoor: {fileID: 893376430031789071}
-  _audioCloseDoor: {fileID: 3778492261870748785}
 --- !u!82 &893376430031789071
 AudioSource:
   m_ObjectHideFlags: 0
