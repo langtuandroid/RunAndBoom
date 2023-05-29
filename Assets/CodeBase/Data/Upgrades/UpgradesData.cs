@@ -12,14 +12,14 @@ namespace CodeBase.Data.Upgrades
     {
         IEnumerable<HeroWeaponTypeId> _weaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>();
 
-        public HashSet<UpgradeItemData> UpgradeItemDatas { get; private set; }
+        public List<UpgradeItemData> UpgradeItemDatas { get; private set; }
 
         public event Action<HeroWeaponTypeId, UpgradeItemData> NewUpgradeAdded;
 
         public UpgradesData()
         {
             int updatesCount = DataExtensions.GetValues<UpgradeTypeId>().Count();
-            UpgradeItemDatas = new HashSet<UpgradeItemData>(_weaponTypeIds.Count() * updatesCount);
+            UpgradeItemDatas = new List<UpgradeItemData>(_weaponTypeIds.Count() * updatesCount);
 
             // FillTestData();
             FillEmptyData();

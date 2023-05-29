@@ -117,10 +117,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8601741647008486231}
     m_Modifications:
+    - target: {fileID: 5271896479266743702, guid: e8eab230ffd6aca4396ed682164fb40c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8511159150082835198, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511159150082835198, guid: e8eab230ffd6aca4396ed682164fb40c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9031518853098674244, guid: e8eab230ffd6aca4396ed682164fb40c,
         type: 3}
@@ -240,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 4276193562229367596, guid: 86b9f38c123720a429014702c9957411,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4276193562229367597, guid: 86b9f38c123720a429014702c9957411,
         type: 3}

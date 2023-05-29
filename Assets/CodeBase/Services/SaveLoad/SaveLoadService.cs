@@ -26,7 +26,10 @@ namespace CodeBase.Services.SaveLoad
             PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
         }
 
-        public PlayerProgress LoadProgress() =>
-            PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<PlayerProgress>();
+        public PlayerProgress LoadProgress()
+        {
+            string s = PlayerPrefs.GetString(ProgressKey);
+            return s?.ToDeserialized<PlayerProgress>();
+        }
     }
 }

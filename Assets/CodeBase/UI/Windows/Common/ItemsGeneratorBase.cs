@@ -92,7 +92,7 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateNextLevelUpgrades()
         {
             WeaponData[] availableWeapons = Progress.WeaponsData.WeaponDatas.Where(data => data.IsAvailable).ToArray();
-            HashSet<UpgradeItemData> upgradeItemDatas = Progress.WeaponsData.UpgradesData.UpgradeItemDatas;
+            List<UpgradeItemData> upgradeItemDatas = Progress.WeaponsData.UpgradesData.UpgradeItemDatas;
 
             foreach (WeaponData weaponData in availableWeapons)
             {

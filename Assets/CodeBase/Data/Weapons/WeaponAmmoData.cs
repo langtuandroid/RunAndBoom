@@ -11,8 +11,8 @@ namespace CodeBase.Data.Weapons
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
         private List<WeaponData> _weaponDatas;
 
-        public Dictionary<HeroWeaponTypeId, int> Ammo { get; private set; }
-        public Dictionary<HeroWeaponTypeId, int> Barrels { get; private set; }
+        public AmunitionDataDictionary Amunition { get; private set; }
+        public BarrelDataDictionary Barrels { get; private set; }
 
         public event Action<int> GrenadeLauncherAmmoChanged;
         public event Action<int> RpgAmmoChanged;
@@ -31,41 +31,41 @@ namespace CodeBase.Data.Weapons
 
         private void FillWeaponsBarrels()
         {
-            Barrels = new Dictionary<HeroWeaponTypeId, int>();
-            Barrels[HeroWeaponTypeId.GrenadeLauncher] = 1;
-            Barrels[HeroWeaponTypeId.RPG] = 1;
-            Barrels[HeroWeaponTypeId.RocketLauncher] = 3;
-            Barrels[HeroWeaponTypeId.Mortar] = 1;
+            Barrels = new BarrelDataDictionary();
+            Barrels.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 1;
+            Barrels.Dictionary[HeroWeaponTypeId.RPG] = 1;
+            Barrels.Dictionary[HeroWeaponTypeId.RocketLauncher] = 3;
+            Barrels.Dictionary[HeroWeaponTypeId.Mortar] = 1;
         }
 
         private void FillAmmo()
         {
-            Ammo = new Dictionary<HeroWeaponTypeId, int>();
-            Ammo[HeroWeaponTypeId.GrenadeLauncher] = 100;
+            Amunition = new AmunitionDataDictionary();
+            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 100;
             // Ammo[HeroWeaponTypeId.GrenadeLauncher] = 10;
             AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
-            Ammo[HeroWeaponTypeId.RPG] = 0;
+            Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
             AmmoChanged(HeroWeaponTypeId.RPG);
-            Ammo[HeroWeaponTypeId.RocketLauncher] = 0;
+            Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
             AmmoChanged(HeroWeaponTypeId.RocketLauncher);
-            Ammo[HeroWeaponTypeId.Mortar] = 0;
+            Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
             AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 
         public void AddAmmo(HeroWeaponTypeId typeId, int ammo)
         {
-            int current = Ammo[typeId];
+            int current = Amunition.Dictionary[typeId];
             int result = current + ammo;
-            Ammo[typeId] = result;
+            Amunition.Dictionary[typeId] = result;
             AmmoChanged(typeId);
         }
 
         public bool IsAmmoAvailable() =>
-            Barrels[_currentHeroWeaponTypeId] <= Ammo[_currentHeroWeaponTypeId];
+            Barrels.Dictionary[_currentHeroWeaponTypeId] <= Amunition.Dictionary[_currentHeroWeaponTypeId];
 
         public void ReduceAmmo()
         {
-            Ammo[_currentHeroWeaponTypeId] -= Barrels[_currentHeroWeaponTypeId];
+            Amunition.Dictionary[_currentHeroWeaponTypeId] -= Barrels.Dictionary[_currentHeroWeaponTypeId];
             AmmoChanged(_currentHeroWeaponTypeId);
         }
 
@@ -80,16 +80,16 @@ namespace CodeBase.Data.Weapons
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    GrenadeLauncherAmmoChanged?.Invoke(Ammo[typeId]);
+                    GrenadeLauncherAmmoChanged?.Invoke(Amunition.Dictionary[typeId]);
                     break;
                 case HeroWeaponTypeId.RPG:
-                    RpgAmmoChanged?.Invoke(Ammo[typeId]);
+                    RpgAmmoChanged?.Invoke(Amunition.Dictionary[typeId]);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    RocketLauncherAmmoChanged?.Invoke(Ammo[typeId]);
+                    RocketLauncherAmmoChanged?.Invoke(Amunition.Dictionary[typeId]);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    MortarAmmoChanged?.Invoke(Ammo[typeId]);
+                    MortarAmmoChanged?.Invoke(Amunition.Dictionary[typeId]);
                     break;
             }
         }

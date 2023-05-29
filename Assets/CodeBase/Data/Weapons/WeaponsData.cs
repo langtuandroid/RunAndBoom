@@ -9,7 +9,7 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponsData
     {
-        List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
+        private List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
 
         public List<WeaponData> WeaponDatas { get; private set; }
         public WeaponsAmmoData WeaponsAmmoData { get; private set; }

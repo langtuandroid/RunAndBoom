@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CodeBase.Data.Perks;
 using CodeBase.Data.Settings;
 using CodeBase.Data.Weapons;
@@ -16,7 +15,7 @@ namespace CodeBase.Data
         public PerksData PerksData { get; private set; }
         public LevelStats CurrentLevelStats { get; private set; }
 
-        public Dictionary<Scene, LevelStats> LevelStats { get; private set; }
+        public SceneDataDictionary LevelStats { get; private set; }
 
         public PlayerProgress(Scene initialLevel, Language language)
         {
@@ -26,12 +25,12 @@ namespace CodeBase.Data
             WeaponsData = new WeaponsData();
             PerksData = new PerksData();
             CurrentLevelStats = new LevelStats(initialLevel);
-            LevelStats = new Dictionary<Scene, LevelStats>();
+            LevelStats = new SceneDataDictionary();
         }
 
         public void StartNewLevel(Scene scene)
         {
-            LevelStats[CurrentLevelStats.Scene] = CurrentLevelStats;
+            LevelStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
             CurrentLevelStats = new LevelStats(scene);
         }
 

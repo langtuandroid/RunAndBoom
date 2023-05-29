@@ -38,7 +38,7 @@ namespace CodeBase.DestructableObject
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
 
-            StartCoroutine(StartFallTimer());
+            // StartCoroutine(StartFallTimer());
         }
 
         public void Die()

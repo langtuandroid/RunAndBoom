@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 30
   m_IsActive: 1
 --- !u!4 &5763948219449028338
 Transform:
@@ -50,7 +50,7 @@ GameObject:
   m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 30
   m_IsActive: 1
 --- !u!4 &6790132955184954196
 Transform:
