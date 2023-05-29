@@ -66,7 +66,7 @@ namespace CodeBase.Infrastructure.Factories
             ConstructEnemyAttack(typeId, enemyData, enemy);
 
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-            health.SetMaxHealth(enemyData.Hp);
+            health.Initial(enemyData.Hp);
 
             return enemy;
         }
