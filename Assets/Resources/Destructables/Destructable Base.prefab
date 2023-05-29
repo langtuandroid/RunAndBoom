@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _solid: {fileID: 0}
   _broken: {fileID: 0}
-  _audioSource: {fileID: 3620034311528126149}
   _typeId: 0
 --- !u!82 &3620034311528126149
 AudioSource:
@@ -60,7 +59,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

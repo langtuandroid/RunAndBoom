@@ -42,7 +42,6 @@ namespace CodeBase.Logic.Level
         {
             _targetY = _maxY;
             _close = true;
-            // AudioUtils.PlaySound(stop: _audioOpenDoor, play: _audioCloseDoor);
         }
 
         private void Update()
@@ -65,7 +64,6 @@ namespace CodeBase.Logic.Level
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
                     _currentVolume, _audioSource);
-                // AudioUtils.PlaySound(stop: _audioCloseDoor, play: _audioOpenDoor);
             }
         }
 
@@ -78,7 +76,6 @@ namespace CodeBase.Logic.Level
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
                     _currentVolume, _audioSource);
-                // AudioUtils.PlaySound(stop: _audioOpenDoor, play: _audioCloseDoor);
             }
         }
 

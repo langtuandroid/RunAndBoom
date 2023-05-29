@@ -4130,55 +4130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1031708627}
     m_Modifications:
-    - target: {fileID: 12526466859632971, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1015599850934547758, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2624071311114669035, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3279573256117146844, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4546593886313049635, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4810855821010355489, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5499056847980902518, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132757423418038179, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate destructable
-      objectReference: {fileID: 0}
-    - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -4233,16 +4188,6 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637832907691939645, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8966770838024481163, guid: 8a405400cc68a7346958767172b62001,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

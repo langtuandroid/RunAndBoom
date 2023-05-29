@@ -17,6 +17,7 @@ namespace CodeBase.DestructableObject
         [SerializeField] private DestructableTypeId _typeId;
 
         private const float DestroyColliderTimer = 0.1f;
+        private const float FallTimer = 1f;
 
         private AudioSource _audioSource;
         private float _deathDelay = 50f;
@@ -36,6 +37,8 @@ namespace CodeBase.DestructableObject
 
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
+
+            StartCoroutine(StartFallTimer());
         }
 
         public void Die()
@@ -70,6 +73,12 @@ namespace CodeBase.DestructableObject
                         transform: transform, _volume, _audioSource);
                     break;
             }
+        }
+
+        private IEnumerator StartFallTimer()
+        {
+            yield return new WaitForSeconds(FallTimer);
+            _solid.GetComponentInChildren<Rigidbody>().isKinematic = true;
         }
 
         private IEnumerator DestroyTimer()
