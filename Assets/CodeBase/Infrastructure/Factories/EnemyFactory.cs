@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Enemy;
 using CodeBase.Enemy.Attacks;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.Registrator;
@@ -56,7 +57,8 @@ namespace CodeBase.Infrastructure.Factories
             GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
             EnemyDeath death = enemy.GetComponent<EnemyDeath>();
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
-            enemy.GetComponent<EnemyDeath>().SetReward(enemyData.Reward);
+            enemy.GetComponent<EnemyDeath>()
+                .Construct(_gameFactory.GetHero().GetComponent<HeroHealth>(), enemyData.Reward);
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.AttackDistance,
                 enemyData.MoveSpeed);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);

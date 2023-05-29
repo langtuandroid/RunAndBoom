@@ -8,11 +8,11 @@ namespace CodeBase.Data.Settings
         private const float DefaultMusicVolume = 0.5f;
         private const float DefaultSoundVolume = 1f;
 
-        public float MusicVolume { get; private set; }
-        public float SoundVolume { get; private set; }
-        public bool MusicOn { get; private set; }
-        public bool SoundOn { get; private set; }
-        public Language Language { get; private set; }
+        public float MusicVolume;
+        public float SoundVolume;
+        public bool MusicOn;
+        public bool SoundOn;
+        public Language Language;
 
         public event Action MusicVolumeChanged;
         public event Action SoundVolumeChanged;

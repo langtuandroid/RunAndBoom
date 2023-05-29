@@ -6,7 +6,7 @@ namespace CodeBase.Data
     [Serializable]
     public class LevelingItemData : ItemData
     {
-        public LevelTypeId LevelTypeId { get; private protected set; }
+        public LevelTypeId LevelTypeId;
 
         public event Action LevelChanged;
 

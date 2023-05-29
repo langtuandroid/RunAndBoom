@@ -8,8 +8,8 @@ namespace CodeBase.Data.Upgrades
     [Serializable]
     public class UpgradeItemData : LevelingItemData
     {
-        public HeroWeaponTypeId WeaponTypeId { get; private set; }
-        public UpgradeTypeId UpgradeTypeId { get; private set; }
+        public HeroWeaponTypeId WeaponTypeId;
+        public UpgradeTypeId UpgradeTypeId;
 
         public UpgradeItemData(HeroWeaponTypeId weaponTypeId, UpgradeTypeId upgradeTypeId)
         {

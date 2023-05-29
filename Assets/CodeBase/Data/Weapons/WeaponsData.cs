@@ -10,11 +10,10 @@ namespace CodeBase.Data.Weapons
     public class WeaponsData
     {
         private List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
-
-        public List<WeaponData> WeaponDatas { get; private set; }
-        public WeaponsAmmoData WeaponsAmmoData { get; private set; }
-        public UpgradesData UpgradesData { get; private set; }
-        public HeroWeaponTypeId CurrentHeroWeaponTypeId { get; private set; }
+        public List<WeaponData> WeaponDatas;
+        public WeaponsAmmoData WeaponsAmmoData;
+        public UpgradesData UpgradesData;
+        public HeroWeaponTypeId CurrentHeroWeaponTypeId;
 
         public event Action<HeroWeaponTypeId> SetAvailable;
 

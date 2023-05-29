@@ -8,14 +8,13 @@ namespace CodeBase.Data
     [Serializable]
     public class PlayerProgress
     {
-        public SettingsData SettingsData { get; private set; }
-        public HealthState HealthState { get; private set; }
-        public WorldData WorldData { get; private set; }
-        public WeaponsData WeaponsData { get; private set; }
-        public PerksData PerksData { get; private set; }
-        public LevelStats CurrentLevelStats { get; private set; }
-
-        public SceneDataDictionary LevelStats { get; private set; }
+        public SettingsData SettingsData;
+        public HealthState HealthState;
+        public WorldData WorldData;
+        public WeaponsData WeaponsData;
+        public PerksData PerksData;
+        public LevelStats CurrentLevelStats;
+        public SceneDataDictionary LevelStats;
 
         public PlayerProgress(Scene initialLevel, Language language)
         {
@@ -33,8 +32,5 @@ namespace CodeBase.Data
             LevelStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
             CurrentLevelStats = new LevelStats(scene);
         }
-
-        public void SetWeaponData(WeaponsData weaponsData) =>
-            WeaponsData = weaponsData;
     }
 }

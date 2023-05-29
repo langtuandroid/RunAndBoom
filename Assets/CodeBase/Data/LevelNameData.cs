@@ -7,8 +7,8 @@ namespace CodeBase.Data
     {
         private const string InitialSector = "1";
 
-        public string Level { get; private set; }
-        public string Sector { get; private set; }
+        public string Level;
+        public string Sector;
 
         public event Action LevelChanged;
         public event Action SectorChanged;

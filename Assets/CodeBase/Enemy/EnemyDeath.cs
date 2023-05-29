@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using CodeBase.Enemy.Attacks;
+using CodeBase.Hero;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
@@ -21,6 +22,7 @@ namespace CodeBase.Enemy
 
         private IPlayerProgressService _progressService;
         private IHealth _health;
+        private HeroHealth _heroHealth;
         private AgentMoveToHero _agentMoveToHero;
 
         private int _reward;
@@ -51,18 +53,22 @@ namespace CodeBase.Enemy
         private void OnDestroy() =>
             _health.HealthChanged -= HealthChanged;
 
+        public void Construct(HeroHealth heroHealth, int reward)
+        {
+            _heroHealth = heroHealth;
+            _reward = reward;
+        }
+
         private void HealthChanged()
         {
             if (!_isDead && _health.Current <= 0)
                 Die();
         }
 
-        public void SetReward(int reward) =>
-            _reward = reward;
-
         public void Die()
         {
             Died?.Invoke();
+            _heroHealth.Vampire(_health.Max);
             _isDead = true;
             _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
             _enemyAnimator.PlayDeath();

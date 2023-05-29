@@ -22,7 +22,8 @@ namespace CodeBase.Data
         public void OnAfterDeserialize()
         {
             for (int i = 0; i < _keys.Length; i++)
-                Dictionary.Add(_keys[i], _values[i]);
+                if (!Dictionary.Keys.Contains(_keys[i]))
+                    Dictionary.Add(_keys[i], _values[i]);
         }
     }
 }

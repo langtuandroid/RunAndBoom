@@ -10,9 +10,8 @@ namespace CodeBase.Data.Upgrades
     [Serializable]
     public class UpgradesData
     {
-        IEnumerable<HeroWeaponTypeId> _weaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>();
-
-        public List<UpgradeItemData> UpgradeItemDatas { get; private set; }
+        private IEnumerable<HeroWeaponTypeId> _weaponTypeIds = DataExtensions.GetValues<HeroWeaponTypeId>();
+        public List<UpgradeItemData> UpgradeItemDatas;
 
         public event Action<HeroWeaponTypeId, UpgradeItemData> NewUpgradeAdded;
 

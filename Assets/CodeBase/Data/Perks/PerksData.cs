@@ -8,7 +8,7 @@ namespace CodeBase.Data.Perks
     [Serializable]
     public class PerksData
     {
-        public List<PerkItemData> Perks { get; private set; }
+        public List<PerkItemData> Perks;
 
         public event Action<PerkItemData> NewPerkAdded;
 

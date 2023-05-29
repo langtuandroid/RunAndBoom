@@ -6,7 +6,7 @@ namespace CodeBase.Data.Perks
     [Serializable]
     public class PerkItemData : LevelingItemData
     {
-        public PerkTypeId PerkTypeId { get; private set; }
+        public PerkTypeId PerkTypeId;
 
         public PerkItemData(PerkTypeId perkTypeId)
         {

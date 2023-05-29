@@ -6,8 +6,8 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponData : ItemData
     {
-        public HeroWeaponTypeId WeaponTypeId { get; private set; }
-        public bool IsAvailable { get; private set; }
+        public HeroWeaponTypeId WeaponTypeId;
+        public bool IsAvailable;
 
         public WeaponData(HeroWeaponTypeId weaponTypeId, bool isAvailable)
         {

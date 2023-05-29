@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapons;
+using UnityEngine.Rendering;
 
 namespace CodeBase.Data.Weapons
 {
@@ -11,8 +12,18 @@ namespace CodeBase.Data.Weapons
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
         private List<WeaponData> _weaponDatas;
 
-        public AmunitionDataDictionary Amunition { get; private set; }
-        public BarrelDataDictionary Barrels { get; private set; }
+        public AmunitionDataDictionary Amunition = new()
+        {
+            Dictionary = new SerializedDictionary<HeroWeaponTypeId, int>()
+            {
+                { HeroWeaponTypeId.GrenadeLauncher, 100 },
+                { HeroWeaponTypeId.RPG, 0 },
+                { HeroWeaponTypeId.RocketLauncher, 0 },
+                { HeroWeaponTypeId.Mortar, 0 },
+            }
+        };
+
+        public BarrelDataDictionary Barrels = new();
 
         public event Action<int> GrenadeLauncherAmmoChanged;
         public event Action<int> RpgAmmoChanged;
@@ -31,7 +42,6 @@ namespace CodeBase.Data.Weapons
 
         private void FillWeaponsBarrels()
         {
-            Barrels = new BarrelDataDictionary();
             Barrels.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 1;
             Barrels.Dictionary[HeroWeaponTypeId.RPG] = 1;
             Barrels.Dictionary[HeroWeaponTypeId.RocketLauncher] = 3;
@@ -40,15 +50,13 @@ namespace CodeBase.Data.Weapons
 
         private void FillAmmo()
         {
-            Amunition = new AmunitionDataDictionary();
-            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 100;
-            // Ammo[HeroWeaponTypeId.GrenadeLauncher] = 10;
+            // Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 100;
             AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
-            Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
+            // Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
             AmmoChanged(HeroWeaponTypeId.RPG);
-            Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
+            // Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
             AmmoChanged(HeroWeaponTypeId.RocketLauncher);
-            Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
+            // Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
             AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 

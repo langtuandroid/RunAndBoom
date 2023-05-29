@@ -16,7 +16,6 @@ namespace CodeBase.Hero
         private const float ZeroValue = 0f;
 
         private IStaticDataService _staticDataService;
-
         private PlayerProgress _progress;
         private PerkItemData _regenerationItemData;
         private PerkItemData _vampirismItemData;
@@ -33,7 +32,6 @@ namespace CodeBase.Hero
         public float Max { get; private set; }
 
         public event Action HealthChanged;
-        public event Action<float> EnemyKilled;
 
         private void OnEnable()
         {
@@ -72,7 +70,7 @@ namespace CodeBase.Hero
 
         public void Recover()
         {
-            _progress.HealthState.ChangeCurrentHP(Max);
+            _progress.HealthState.CurrentHp = Max;
             Current = Max;
             HealthChanged?.Invoke();
         }
@@ -115,15 +113,15 @@ namespace CodeBase.Hero
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            _progress.HealthState.ChangeCurrentHP(Current);
-            _progress.HealthState.ChangeMaxHP(Max);
+            _progress.HealthState.CurrentHp = Current;
+            _progress.HealthState.MaxHp = Max;
         }
 
         public void TakeDamage(float damage)
         {
             float result = (BaseRatio - _armorRatio) * damage;
             Current -= result;
-            _progress.HealthState.ChangeCurrentHP(Current);
+            _progress.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
 
@@ -132,10 +130,9 @@ namespace CodeBase.Hero
             _vampirismItemData =
                 _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
             _vampirismItemData.LevelChanged += ChangeVampirism;
-            EnemyKilled += Vampire;
         }
 
-        private void Vampire(float enemyHealth)
+        public void Vampire(float enemyHealth)
         {
             float value = enemyHealth * _vampirismValue;
             IncreaseCurrent(value);
@@ -195,8 +192,8 @@ namespace CodeBase.Hero
 
             Max = Constants.InitialMaxHP * _maxHealthRatio;
             Current = Max;
-            _progress.HealthState.ChangeMaxHP(Max);
-            _progress.HealthState.ChangeCurrentHP(Current);
+            _progress.HealthState.MaxHp = Max;
+            _progress.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
 
@@ -219,9 +216,12 @@ namespace CodeBase.Hero
 
         private void IncreaseCurrent(float value)
         {
+            if (value <= ZeroValue)
+                return;
+
             float next = Current + value;
             Current = next > Max ? Max : next;
-            _progress.HealthState.ChangeCurrentHP(Current);
+            _progress.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
     }
