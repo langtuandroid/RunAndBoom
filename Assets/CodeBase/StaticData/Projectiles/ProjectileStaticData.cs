@@ -9,7 +9,7 @@ namespace CodeBase.StaticData.Projectiles
         public ProjectileTypeId ProjectileTypeId;
         public TrailTypeId TrailTypeId;
 
-        [Range(1f, 6f)] public float MovementLifeTime;
+        [Range(1f, 10f)] public float MovementLifeTime;
         [Range(1, 30)] public int Speed;
     }
 }

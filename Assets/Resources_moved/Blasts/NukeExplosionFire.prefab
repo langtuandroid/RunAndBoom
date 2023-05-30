@@ -14362,7 +14362,6 @@ GameObject:
   - component: {fileID: 19905236}
   - component: {fileID: 8259704}
   - component: {fileID: 10804334}
-  - component: {fileID: 11424042}
   - component: {fileID: -6461157442500750659}
   m_Layer: 0
   m_Name: NukeExplosionFire
@@ -19271,7 +19270,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130346}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -19326,20 +19325,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11424042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f54e17d705a2894d88787e24190ebfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 0.4
-  killAfterLife: 1
 --- !u!114 &-6461157442500750659
 MonoBehaviour:
   m_ObjectHideFlags: 0

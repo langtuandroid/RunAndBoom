@@ -5,6 +5,11 @@ namespace CodeBase.Projectiles.Hit
 {
     public class ProjectileHit : BaseProjectileHit
     {
+        private float _damage;
+
+        public void Construct(float damage) =>
+            _damage = damage;
+
         private void OnCollisionEnter(Collision collision)
         {
             string targetTag = collision.gameObject.tag;
@@ -15,8 +20,7 @@ namespace CodeBase.Projectiles.Hit
                     Trail.HideTrace();
 
                 Movement.Stop();
-                HeroHealth heroHealth = collision.gameObject.GetComponent<HeroHealth>();
-                heroHealth.TakeDamage(1);
+                collision.gameObject.GetComponent<HeroHealth>()?.TakeDamage(_damage);
             }
         }
     }

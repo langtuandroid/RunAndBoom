@@ -16,11 +16,11 @@ namespace CodeBase.Services.Constructor
         public ConstructorService() =>
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
 
-        public void ConstructEnemyProjectile(GameObject projectile, ProjectileTypeId typeId)
+        public void ConstructEnemyProjectile(GameObject projectile, float damage, ProjectileTypeId typeId)
         {
             projectile.GetComponent<Projectile>().Construct(typeId);
-            projectile.GetComponent<ProjectileMovement>()
-                .Construct(typeId);
+            projectile.GetComponent<ProjectileMovement>().Construct(typeId);
+            projectile.GetComponentInChildren<ProjectileHit>().Construct(damage);
         }
 
         public void ConstructHeroProjectile(GameObject projectile, ProjectileTypeId projectileTypeId,

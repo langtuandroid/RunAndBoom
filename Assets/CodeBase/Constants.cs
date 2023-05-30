@@ -21,6 +21,11 @@ namespace CodeBase
         public static readonly Color ShopItemItem = new Color(0.7459788f, 0f, 1f, 1f);
 
         public const string HeroTag = "Hero";
+        public const string WallTag = "Wall";
+        public const string EnemyTag = "Enemy";
+        public const string ObstacleTag = "Obstacle";
+        public const string DestructableTag = "Destructable";
+        public const string GroundTag = "Ground";
         public const string Level = "Level_";
     }
 }

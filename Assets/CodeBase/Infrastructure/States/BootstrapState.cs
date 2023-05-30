@@ -59,7 +59,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
             _services.RegisterSingle<IConstructorService>(new ConstructorService());
             _services.RegisterSingle<IObjectsPoolService>(new ObjectsPoolService(_services.Single<IAssets>(),
-                _services.Single<IConstructorService>()));
+                _services.Single<IConstructorService>(), _services.Single<IStaticDataService>()));
 
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IAssets>(), _services.Single<IRegistratorService>())

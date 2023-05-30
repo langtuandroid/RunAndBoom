@@ -7,7 +7,7 @@ namespace CodeBase.Services.Constructor
 {
     public interface IConstructorService : IService
     {
-        void ConstructEnemyProjectile(GameObject projectile, ProjectileTypeId typeId);
+        void ConstructEnemyProjectile(GameObject projectile, float damage, ProjectileTypeId typeId);
 
         void ConstructHeroProjectile(GameObject projectile, ProjectileTypeId projectileTypeId, BlastTypeId blastTypeId,
             HeroWeaponTypeId heroWeaponTypeId);

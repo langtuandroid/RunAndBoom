@@ -2,6 +2,8 @@
 using System.Linq;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.Constructor;
+using CodeBase.Services.StaticData;
+using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
@@ -17,6 +19,7 @@ namespace CodeBase.Services.Pool
 
         private IAssets _assets;
         private IConstructorService _constructorService;
+        private IStaticDataService _staticDataService;
         private Dictionary<string, List<GameObject>> _heroProjectiles;
         private Dictionary<string, List<GameObject>> _enemyProjectiles;
         private Dictionary<string, List<GameObject>> _shotVfxs;
@@ -24,8 +27,10 @@ namespace CodeBase.Services.Pool
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
 
-        public ObjectsPoolService(IAssets assets, IConstructorService constructorService)
+        public ObjectsPoolService(IAssets assets, IConstructorService constructorService,
+            IStaticDataService staticDataService)
         {
+            _staticDataService = staticDataService;
             _assets = assets;
             _constructorService = constructorService;
         }
@@ -58,38 +63,76 @@ namespace CodeBase.Services.Pool
         {
             _enemyProjectiles = new Dictionary<string, List<GameObject>>();
             List<GameObject> gameObjects = new List<GameObject>(InitialCapacity);
+            GameObject projectile;
+            EnemyStaticData enemyStaticData;
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.PistolBullet);
+                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithPistol);
+                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
+                    ProjectileTypeId.PistolBullet);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.Pistol.ToString(), gameObjects);
+
             gameObjects = new List<GameObject>(InitialCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.RifleBullet);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
-            }
-
-            _enemyProjectiles.Add(EnemyWeaponTypeId.SniperRifle.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
-                _constructorService.ConstructEnemyProjectile(projectile, ProjectileTypeId.Shot);
+                projectile = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
+                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithShotgun);
+                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
+                    ProjectileTypeId.Shot);
                 projectile.SetActive(false);
                 gameObjects.Add(projectile);
             }
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.Shotgun.ToString(), gameObjects);
+
+            gameObjects = new List<GameObject>(InitialCapacity);
+
+            for (int i = 0; i < gameObjects.Capacity; i++)
+            {
+                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSniperRifle);
+                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
+                    ProjectileTypeId.RifleBullet);
+                projectile.SetActive(false);
+                gameObjects.Add(projectile);
+            }
+
+            _enemyProjectiles.Add(EnemyWeaponTypeId.SniperRifle.ToString(), gameObjects);
+
+            gameObjects = new List<GameObject>(InitialCapacity);
+
+            for (int i = 0; i < gameObjects.Capacity; i++)
+            {
+                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSMG);
+                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
+                    ProjectileTypeId.PistolBullet);
+                projectile.SetActive(false);
+                gameObjects.Add(projectile);
+            }
+
+            _enemyProjectiles.Add(EnemyWeaponTypeId.SMG.ToString(), gameObjects);
+
+            gameObjects = new List<GameObject>(InitialCapacity);
+
+            for (int i = 0; i < gameObjects.Capacity; i++)
+            {
+                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithMG);
+                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
+                    ProjectileTypeId.RifleBullet);
+                projectile.SetActive(false);
+                gameObjects.Add(projectile);
+            }
+
+            _enemyProjectiles.Add(EnemyWeaponTypeId.MG.ToString(), gameObjects);
         }
 
         private async void GenerateHeroProjectiles()
@@ -107,6 +150,7 @@ namespace CodeBase.Services.Pool
             }
 
             _heroProjectiles.Add(HeroWeaponTypeId.GrenadeLauncher.ToString(), gameObjects);
+
             gameObjects = new List<GameObject>(InitialCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
@@ -119,6 +163,7 @@ namespace CodeBase.Services.Pool
             }
 
             _heroProjectiles.Add(HeroWeaponTypeId.RPG.ToString(), gameObjects);
+
             gameObjects = new List<GameObject>(InitialCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)

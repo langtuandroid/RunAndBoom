@@ -7,11 +7,16 @@ namespace CodeBase.Projectiles.Hit
     {
         [SerializeField] protected ProjectileTrail Trail;
         [SerializeField] protected ProjectileMovement Movement;
-        [SerializeField] protected string[] Tags;
+
+        private string[] _tags =
+        {
+            Constants.EnemyTag, Constants.ObstacleTag, Constants.DestructableTag, Constants.WallTag,
+            Constants.GroundTag
+        };
 
         protected bool IsTargetTag(string targetTag)
         {
-            foreach (string tag in Tags)
+            foreach (string tag in _tags)
                 if (targetTag.Equals(tag))
                     return true;
 

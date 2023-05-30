@@ -28796,7 +28796,6 @@ GameObject:
   - component: {fileID: 19894158}
   - component: {fileID: 19946278}
   - component: {fileID: 10886450}
-  - component: {fileID: 11410264}
   - component: {fileID: -8471836411578686083}
   m_Layer: 0
   m_Name: BombExplosion
@@ -33610,7 +33609,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150222}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -33665,20 +33664,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11410264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f54e17d705a2894d88787e24190ebfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 0.4
-  killAfterLife: 1
 --- !u!114 &-8471836411578686083
 MonoBehaviour:
   m_ObjectHideFlags: 0

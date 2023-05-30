@@ -90,6 +90,18 @@ namespace CodeBase.Infrastructure.Factories
                     (attack as WithShotgunAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
                         attackCooldown: enemyData.AttackCooldown);
                     break;
+                case EnemyTypeId.WithSMG:
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
+                    break;
+                case EnemyTypeId.WithSniperRifle:
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
+                    break;
+                case EnemyTypeId.WithMG:
+                    (attack as WithPistolAttack)?.Construct(heroTransform: _gameFactory.GetHero().transform,
+                        attackCooldown: enemyData.AttackCooldown);
+                    break;
             }
         }
     }
