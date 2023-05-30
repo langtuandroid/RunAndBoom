@@ -55,6 +55,9 @@ namespace CodeBase.Enemy
         //     _aggroCoroutine = StartCoroutine(SwitchFollowOffAfterCooldown());
         // }
 
+        public void Construct(float radius) =>
+            _triggerObserver.GetComponent<SphereCollider>().radius = radius;
+
         private void StopAggroCoroutine()
         {
             if (_aggroCoroutine == null) return;

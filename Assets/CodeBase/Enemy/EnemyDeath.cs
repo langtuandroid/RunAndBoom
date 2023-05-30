@@ -70,7 +70,7 @@ namespace CodeBase.Enemy
             Died?.Invoke();
             _heroHealth.Vampire(_health.Max);
             _isDead = true;
-            _progressService.Progress.CurrentLevelStats.MoneyData.AddMoney(_reward);
+            _progressService.Progress.Stats.AllMoney.AddMoney(_reward);
             _enemyAnimator.PlayDeath();
             Destroy(GetComponent<StopMovingOnAttack>());
             _agentMoveToHero.Stop();

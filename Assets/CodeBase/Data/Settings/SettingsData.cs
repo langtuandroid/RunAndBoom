@@ -70,7 +70,6 @@ namespace CodeBase.Data.Settings
                 return;
 
             Language = language;
-            // LanguageChanged?.Invoke();
         }
     }
 }

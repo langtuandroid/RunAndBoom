@@ -14,12 +14,12 @@ namespace CodeBase.UI.Elements.Hud
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _moneyData = progress.CurrentLevelStats.MoneyData;
+            _moneyData = progress.Stats.AllMoney;
             _moneyData.MoneyChanged += SetMoney;
             SetMoney();
         }
 
         private void SetMoney() =>
-            _score.text = $"{_moneyData.Money}";
+            _score.text = $"{_moneyData.AvailableMoney}";
     }
 }

@@ -17,10 +17,10 @@ namespace CodeBase.Data.Weapons
 
         public event Action<HeroWeaponTypeId> SetAvailable;
 
-        public WeaponsData()
+        public WeaponsData(Scene scene)
         {
             WeaponDatas = new List<WeaponData>(_typeIds.Count);
-            WeaponsAmmoData = new WeaponsAmmoData(WeaponDatas);
+            WeaponsAmmoData = new WeaponsAmmoData(WeaponDatas, scene);
             UpgradesData = new UpgradesData();
             FillAvailableWeapons();
             CurrentHeroWeaponTypeId = WeaponDatas.First(x => x.IsAvailable).WeaponTypeId;

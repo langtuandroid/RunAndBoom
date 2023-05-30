@@ -10,8 +10,6 @@ namespace CodeBase.Enemy
 
         private Transform _heroTransform;
         private bool _move;
-        private float _attackDistance;
-        private float _speed;
 
         private void OnEnable() =>
             _agent.enabled = true;
@@ -22,11 +20,10 @@ namespace CodeBase.Enemy
         private void Update() =>
             SetDestinationForAgent();
 
-        public void Construct(Transform heroTransform, float attackDistance, float speed)
+        public void Construct(Transform heroTransform, float speed)
         {
             _heroTransform = heroTransform;
-            _speed = speed;
-            _attackDistance = attackDistance;
+            _agent.speed = speed;
             _agent.enabled = false;
         }
 

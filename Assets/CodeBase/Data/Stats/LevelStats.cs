@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeBase.Data
+namespace CodeBase.Data.Stats
 {
     [Serializable]
     public class LevelStats

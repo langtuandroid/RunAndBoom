@@ -43,7 +43,7 @@ namespace CodeBase.UI.Windows.Settings
         {
             WindowService.HideAll();
             SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
         }
     }
 }

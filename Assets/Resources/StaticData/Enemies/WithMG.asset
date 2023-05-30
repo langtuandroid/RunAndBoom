@@ -17,6 +17,7 @@ MonoBehaviour:
   Hp: 2
   Damage: 2
   MoveSpeed: 1.5
+  FollowDistance: 50
   AttackDistance: 50
   AttackCooldown: 0.5
   Reward: 2

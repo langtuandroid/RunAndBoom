@@ -38,7 +38,7 @@ namespace CodeBase.UI.Windows.Death
         {
             WindowService.HideAll();
             SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, Scene>(_scene);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
         }
 
         protected override void PlayOpenSound()

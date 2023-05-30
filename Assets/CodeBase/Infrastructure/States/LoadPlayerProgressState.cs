@@ -6,7 +6,7 @@ using CodeBase.Services.SaveLoad;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadPlayerProgressState : IPayloadedState<Scene>
+    public class LoadPlayerProgressState : IState
     {
         private const Scene InitialLevel = Scene.Level_1;
 
@@ -15,6 +15,7 @@ namespace CodeBase.Infrastructure.States
         private readonly ISaveLoadService _saveLoadService;
         private Language _language;
         private ILocalizationService _localizationService;
+        private PlayerProgress _progressServiceProgress;
 
         public LoadPlayerProgressState(IGameStateMachine stateMachine, IPlayerProgressService progressService,
             ISaveLoadService saveLoadService, ILocalizationService localizationService, Language language)
@@ -26,10 +27,10 @@ namespace CodeBase.Infrastructure.States
             _language = language;
         }
 
-        public void Enter(Scene scene)
+        public void Enter()
         {
             LoadProgressOrInitNew();
-            _stateMachine.Enter<LoadSceneState, Scene>(scene);
+            _stateMachine.Enter<LoadSceneState, Scene>(_progressService.Progress.Stats.CurrentLevelStats.Scene);
         }
 
         public void Exit()
@@ -38,10 +39,10 @@ namespace CodeBase.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
-            PlayerProgress progressServiceProgress = _saveLoadService.LoadProgress();
-            _progressService.SetProgress(progressServiceProgress ?? NewProgress());
+            _progressServiceProgress = _saveLoadService.LoadProgress();
+            _progressService.SetProgress(_progressServiceProgress ?? NewProgress());
 
-            if (progressServiceProgress != null)
+            if (_progressServiceProgress != null)
                 _localizationService.ChangeLanguage(_language);
         }
 
