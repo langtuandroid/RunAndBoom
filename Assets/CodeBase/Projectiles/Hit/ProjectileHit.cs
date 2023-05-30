@@ -7,12 +7,20 @@ namespace CodeBase.Projectiles.Hit
     {
         private float _damage;
 
+        private void Awake() =>
+            Tags = new[]
+            {
+                Constants.EnemyTag, Constants.HeroTag, Constants.ObstacleTag, Constants.DestructableTag,
+                Constants.WallTag, Constants.GroundTag
+            };
+
         public void Construct(float damage) =>
             _damage = damage;
 
         private void OnCollisionEnter(Collision collision)
         {
             string targetTag = collision.gameObject.tag;
+            Debug.Log($"target tag: {targetTag}");
 
             if (IsTargetTag(targetTag))
             {

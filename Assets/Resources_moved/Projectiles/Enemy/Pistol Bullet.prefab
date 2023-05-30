@@ -229,7 +229,7 @@ PrefabInstance:
     - target: {fileID: 6337939419923400050, guid: 6e6755dd712bfd94c9af4452e444b450,
         type: 3}
       propertyPath: m_Name
-      value: PistolBullet
+      value: Pistol Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: 6e6755dd712bfd94c9af4452e444b450,
         type: 3}
@@ -239,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 6337939420664514639, guid: 6e6755dd712bfd94c9af4452e444b450,
         type: 3}
       propertyPath: m_Radius
-      value: 0.02
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514641, guid: 6e6755dd712bfd94c9af4452e444b450,
         type: 3}
@@ -309,4 +309,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5df19f49314299a0ccd8f519b7d681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileTypeId: 4
