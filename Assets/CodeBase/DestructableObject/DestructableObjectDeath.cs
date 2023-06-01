@@ -16,8 +16,7 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _broken;
         [SerializeField] private DestructableTypeId _typeId;
 
-        private const float DestroyColliderTimer = 0.1f;
-        private const float FallTimer = 1f;
+        private const float DestroyColliderTimer = 10f;
 
         private AudioSource _audioSource;
         private float _deathDelay = 50f;
@@ -37,14 +36,13 @@ namespace CodeBase.DestructableObject
 
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
-
-            // StartCoroutine(StartFallTimer());
         }
 
         public void Die()
         {
             _solid.SetActive(false);
             _broken.SetActive(true);
+            Destroy(GetComponent<BoxCollider>());
             Destroy(_solid.GetComponentInChildren<BoxCollider>());
             Destroy(_broken.GetComponentInChildren<BoxCollider>(), DestroyColliderTimer);
 
@@ -73,12 +71,6 @@ namespace CodeBase.DestructableObject
                         transform: transform, _volume, _audioSource);
                     break;
             }
-        }
-
-        private IEnumerator StartFallTimer()
-        {
-            yield return new WaitForSeconds(FallTimer);
-            _solid.GetComponentInChildren<Rigidbody>().isKinematic = true;
         }
 
         private IEnumerator DestroyTimer()

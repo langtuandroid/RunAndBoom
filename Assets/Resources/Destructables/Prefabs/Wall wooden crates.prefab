@@ -44,10 +44,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 313596267095845215, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552766476635852733, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216068376070523751, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate destructable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -57,12 +77,12 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.055
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.688
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -119,10 +139,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 313596267095845215, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552766476635852733, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216068376070523751, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate destructable (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -132,12 +172,12 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.055
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.055
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -178,6 +218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964681039436447166, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a405400cc68a7346958767172b62001, type: 3}
@@ -194,10 +239,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 313596267095845215, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552766476635852733, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216068376070523751, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate destructable (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -207,12 +272,12 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.055
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -253,6 +318,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964681039436447166, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a405400cc68a7346958767172b62001, type: 3}
@@ -269,10 +339,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 313596267095845215, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552766476635852733, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216068376070523751, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate destructable (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -282,12 +372,12 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.056
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.055
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -328,6 +418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964681039436447166, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a405400cc68a7346958767172b62001, type: 3}
@@ -357,7 +452,7 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -432,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.056
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486231, guid: 8a405400cc68a7346958767172b62001,
         type: 3}

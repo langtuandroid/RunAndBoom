@@ -3,7 +3,12 @@ guid: e42629eba03606440a29c28abbeb63bb
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: holzkiste_0002a.001
+    second: {fileID: 2100000, guid: e8d845035eb705f4c9594153b5601dd6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

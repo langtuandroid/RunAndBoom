@@ -1,27 +1,32 @@
-﻿using CodeBase.UI.Services;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Shop
 {
     public class ShopItemHighlighter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private Image _activeBackground;
+        [SerializeField] private GameObject _outline;
 
-        private bool _mouseOver;
-        private bool _isVisible = true;
+        // private bool _mouseOver;
 
-        private void Update() =>
-            _activeBackground.ChangeImageAlpha(_mouseOver ? Constants.AlphaActiveItem : Constants.AlphaInactiveItem);
+        private void Update()
+        {
+            // _outline.SetActive(_mouseOver);
+        }
 
-        private void OnDisable() =>
-            _activeBackground.ChangeImageAlpha(Constants.AlphaInactiveItem);
+        private void OnDisable() => 
+            _outline.SetActive(false);
 
-        public void OnPointerEnter(PointerEventData eventData) =>
-            _mouseOver = true;
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            // _mouseOver = true;
+            _outline.SetActive(true);
+        }
 
-        public void OnPointerExit(PointerEventData eventData) =>
-            _mouseOver = false;
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            // _mouseOver = false;
+            _outline.SetActive(false);
+        }
     }
 }

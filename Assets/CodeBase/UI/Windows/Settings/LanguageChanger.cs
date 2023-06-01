@@ -2,21 +2,19 @@
 using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
-using CodeBase.UI.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Settings
 {
     public class LanguageChanger : MonoBehaviour
-        // , IProgressSaver
     {
         [SerializeField] private Button _ruButton;
         [SerializeField] private Button _trButton;
         [SerializeField] private Button _enButton;
-        [SerializeField] private Image _ruSelection;
-        [SerializeField] private Image _trSelection;
-        [SerializeField] private Image _enSelection;
+        [SerializeField] private GameObject _ruSelection;
+        [SerializeField] private GameObject _trSelection;
+        [SerializeField] private GameObject _enSelection;
 
         private PlayerProgress _progress;
         private ILocalizationService _localizationService;
@@ -31,52 +29,33 @@ namespace CodeBase.UI.Windows.Settings
             ChangeText();
         }
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            // _progress.SettingsData.LanguageChanged += ChangeText;
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            _progress.SettingsData.SetLanguage(_localizationService.Language);
-        }
-
-        private void RuClicked()
-        {
-            // _ruButton.
+        private void RuClicked() =>
             _localizationService.ChangeLanguage(Language.RU);
-        }
 
-        private void TrClicked()
-        {
+        private void TrClicked() =>
             _localizationService.ChangeLanguage(Language.TR);
-        }
 
-        private void EnClicked()
-        {
+        private void EnClicked() =>
             _localizationService.ChangeLanguage(Language.EN);
-        }
 
         private void ChangeText()
         {
             switch (_localizationService.Language)
-                // switch (_progress.SettingsData.Language)
             {
                 case Language.RU:
-                    _ruSelection.ChangeImageAlpha(Constants.AlphaActiveItem);
-                    _trSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
-                    _enSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                    _ruSelection.SetActive(true);
+                    _trSelection.SetActive(false);
+                    _enSelection.SetActive(false);
                     break;
                 case Language.TR:
-                    _trSelection.ChangeImageAlpha(Constants.AlphaActiveItem);
-                    _ruSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
-                    _enSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                    _trSelection.SetActive(true);
+                    _ruSelection.SetActive(false);
+                    _enSelection.SetActive(false);
                     break;
                 default:
-                    _enSelection.ChangeImageAlpha(Constants.AlphaActiveItem);
-                    _ruSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
-                    _trSelection.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                    _enSelection.SetActive(true);
+                    _ruSelection.SetActive(false);
+                    _trSelection.SetActive(false);
                     break;
             }
         }
