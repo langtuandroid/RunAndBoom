@@ -7,16 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8601741647008486231}
     m_Modifications:
-    - target: {fileID: 997842490528165286, guid: e7dc4659b38ab504a883e0e35b940a54,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 997842490528165286, guid: e7dc4659b38ab504a883e0e35b940a54,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 3668884512804315135, guid: e7dc4659b38ab504a883e0e35b940a54,
         type: 3}
       propertyPath: m_RootOrder
@@ -77,14 +67,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wooden crate solid
       objectReference: {fileID: 0}
-    - target: {fileID: 5382868624753866392, guid: e7dc4659b38ab504a883e0e35b940a54,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2677921183150685134, guid: e7dc4659b38ab504a883e0e35b940a54, type: 3}
-    - {fileID: 5382868624753866392, guid: e7dc4659b38ab504a883e0e35b940a54, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7dc4659b38ab504a883e0e35b940a54, type: 3}
 --- !u!1 &1788582909498628052 stripped
 GameObject:
@@ -99,26 +82,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8601741647008486231}
     m_Modifications:
-    - target: {fileID: 805586977931918596, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008511667582729250, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1647773612705845805, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473173398405934020, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3876214817252342973, guid: 032a20ee49a244842ab3bcc316f7ccc3,
         type: 3}
       propertyPath: m_RootOrder
@@ -174,30 +137,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4001997640773347627, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4503815656941954567, guid: 032a20ee49a244842ab3bcc316f7ccc3,
         type: 3}
       propertyPath: m_Name
       value: Wooden crate separated
-      objectReference: {fileID: 0}
-    - target: {fileID: 4503815656941954567, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4503815656941954567, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991046204562136832, guid: 032a20ee49a244842ab3bcc316f7ccc3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032a20ee49a244842ab3bcc316f7ccc3, type: 3}

@@ -16,7 +16,7 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _broken;
         [SerializeField] private DestructableTypeId _typeId;
 
-        private const float DestroyColliderTimer = 10f;
+        private const float DestroyColliderTimer = 0.1f;
 
         private AudioSource _audioSource;
         private float _deathDelay = 50f;
