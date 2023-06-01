@@ -44,11 +44,13 @@ namespace CodeBase.DestructableObject
             _broken.SetActive(true);
             Destroy(GetComponent<BoxCollider>());
             Destroy(_solid.GetComponentInChildren<BoxCollider>());
-            Destroy(_broken.GetComponentInChildren<BoxCollider>(), DestroyColliderTimer);
 
             if (_isBroken == false)
                 foreach (Rigidbody part in _parts)
                     part.AddForce(part.gameObject.transform.forward * 5f, ForceMode.Impulse);
+            
+            // foreach (var componentsInChild in _broken.GetComponentsInChildren<BoxCollider>()) 
+            //     Destroy(componentsInChild, DestroyColliderTimer);
 
             PlaySound();
             _isBroken = true;
