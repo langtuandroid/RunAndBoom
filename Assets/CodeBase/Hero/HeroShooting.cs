@@ -25,10 +25,10 @@ namespace CodeBase.Hero
 
         public event Action Shot;
 
-        public void TurnOn() => 
+        public void TurnOn() =>
             StartCoroutine(EnableShoot());
 
-        public void TurnOff() => 
+        public void TurnOff() =>
             _canShoot = false;
 
         private IEnumerator EnableShoot()

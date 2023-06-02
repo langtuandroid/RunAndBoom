@@ -6,6 +6,7 @@ using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
+using CodeBase.UI.Windows.Training;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -19,7 +20,7 @@ namespace CodeBase.UI.Services.Windows
             _windows = new Dictionary<WindowId, GameObject>(DataExtensions.GetValues<WindowId>().Count());
         }
 
-        public WindowBase? Open<TWindowBase>(WindowId windowId)
+        public WindowBase? Show<TWindowBase>(WindowId windowId)
         {
             WindowBase? window = null;
 
@@ -38,6 +39,9 @@ namespace CodeBase.UI.Services.Windows
                     break;
                 case WindowId.Finish:
                     window = ShowWindow<FinishWindow>(WindowId.Finish);
+                    break;
+                case WindowId.Training:
+                    window = ShowWindow<TrainingWindow>(WindowId.Training);
                     break;
             }
 
@@ -62,7 +66,7 @@ namespace CodeBase.UI.Services.Windows
         {
             _windows.TryGetValue(windowId, out GameObject windowGameObject);
             T window = windowGameObject?.GetComponent<T>();
-            window?.Show();
+            window?.Show(windowId != WindowId.Training);
             return window;
         }
 

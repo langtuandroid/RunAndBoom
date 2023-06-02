@@ -12,6 +12,7 @@
         public const string DeathWindow = "DeathWindow";
         public const string SettingsWindow = "SettingsWindow";
         public const string FinishWindow = "FinishWindow";
+        public const string TrainingWindow = "TrainingWindow";
 
         // Roots for game objects created by pool
         public const string SpawnersRoot = "SpawnersRoot";

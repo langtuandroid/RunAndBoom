@@ -1,8 +1,9 @@
 ﻿using CodeBase.Services.Localization;
+using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI.Elements.Hud.Learning
+namespace CodeBase.UI.Windows.Training
 {
     public class TrainingText : BaseText
     {

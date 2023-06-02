@@ -33,15 +33,11 @@ namespace CodeBase.UI.Windows.Finish
             _generator.GenerationEnded += CheckRefreshButtons;
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() =>
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() =>
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
-        }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Finish);
@@ -70,10 +66,10 @@ namespace CodeBase.UI.Windows.Finish
             _playerProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_scene.ToString());
             _saveLoadService.SaveProgress();
             _gameStateMachine.Enter<LoadSceneState, Scene>(_scene);
-            CloseWindow();
+            Close();
         }
 
-        private void CloseWindow()
+        private void Close()
         {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;

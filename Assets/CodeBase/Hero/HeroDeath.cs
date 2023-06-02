@@ -35,7 +35,7 @@ namespace CodeBase.Hero
         public void Die()
         {
             Died?.Invoke();
-            _windowService.Open<DeathWindow>(WindowId.Death);
+            _windowService.Show<DeathWindow>(WindowId.Death);
         }
     }
 }

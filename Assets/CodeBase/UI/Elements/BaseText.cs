@@ -20,7 +20,7 @@ namespace CodeBase.UI.Elements
         protected abstract void TrChosen();
         protected abstract void EnChosen();
 
-        private  void ChangeText()
+        private void ChangeText()
         {
             switch (_localizationService.Language)
             {

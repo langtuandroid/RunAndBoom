@@ -73,6 +73,7 @@ namespace CodeBase.Weapons
         {
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
+                Debug.Log("ShootTo");
                 StartCoroutine(CoroutineShootTo());
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
                 Release();
@@ -135,6 +136,8 @@ namespace CodeBase.Weapons
         private GameObject GetFirstProjectile()
         {
             _firstProjectile = _projectiles.First();
+            Debug.Log($"firstProjectile {_firstProjectile}");
+            // _firstProjectile = PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
             return _firstProjectile;
         }
 

@@ -1,7 +1,9 @@
 ﻿using CodeBase.Data;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -9,17 +11,23 @@ using UnityEngine;
 namespace CodeBase.UI.Windows.Common
 {
     [RequireComponent(typeof(AudioSource))]
-    public class WindowBase : MonoBehaviour, IProgressReader
+    public abstract class WindowBase : MonoBehaviour, IProgressReader
     {
+        protected IWindowService WindowService;
+        protected IPlayerProgressService ProgressService;
+        protected ISaveLoadService SaveLoadService;
+        protected IGameStateMachine GameStateMachine;
         protected AudioSource AudioSource;
         private GameObject _hero;
         private PlayerProgress _progress;
         protected float Volume;
-        protected IWindowService WindowService;
         private WindowId _windowId;
 
         private void Awake()
         {
+            ProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
+            GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
             AudioSource = GetComponent<AudioSource>();
         }
 
@@ -31,7 +39,9 @@ namespace CodeBase.UI.Windows.Common
             Hide();
         }
 
-        protected void Hide()
+        protected void Hide(
+            // bool showCursor = false
+        )
         {
             gameObject.SetActive(false);
             PlayCloseSound();
@@ -39,6 +49,7 @@ namespace CodeBase.UI.Windows.Common
             if (!WindowService.IsAnotherActive(_windowId))
             {
                 Cursor.lockState = CursorLockMode.Locked;
+                // ShowCursor(showCursor);
                 _hero.GetComponent<HeroShooting>().TurnOn();
                 _hero.GetComponent<HeroMovement>().TurnOn();
                 _hero.GetComponent<HeroRotating>().TurnOn();
@@ -48,7 +59,7 @@ namespace CodeBase.UI.Windows.Common
             }
         }
 
-        public void Show()
+        public void Show(bool showCursor)
         {
             gameObject.SetActive(true);
             _hero.GetComponent<HeroShooting>().TurnOff();
@@ -57,9 +68,12 @@ namespace CodeBase.UI.Windows.Common
             _hero.GetComponent<HeroRotating>().TurnOff();
             _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.Confined;
+            ShowCursor(showCursor);
             PlayOpenSound();
         }
+
+        private void ShowCursor(bool showCursor) =>
+            Cursor.lockState = showCursor ? CursorLockMode.Confined : CursorLockMode.Locked;
 
         protected virtual void PlayCloseSound()
         {
@@ -89,5 +103,7 @@ namespace CodeBase.UI.Windows.Common
 
         private void SwitchChanged() =>
             Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+
+        // protected abstract void Hide();
     }
 }

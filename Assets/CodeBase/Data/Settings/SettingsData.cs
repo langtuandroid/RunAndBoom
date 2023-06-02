@@ -13,11 +13,13 @@ namespace CodeBase.Data.Settings
         public bool MusicOn;
         public bool SoundOn;
         public Language Language;
+        public bool ShowTraining;
 
         public event Action MusicVolumeChanged;
         public event Action SoundVolumeChanged;
         public event Action MusicSwitchChanged;
         public event Action SoundSwitchChanged;
+        public event Action ShowTrainingSwitchChanged;
 
         public SettingsData(Language language)
         {
@@ -25,6 +27,7 @@ namespace CodeBase.Data.Settings
             SoundVolume = DefaultSoundVolume;
             MusicOn = true;
             SoundOn = true;
+            ShowTraining = true;
             SetLanguage(language);
         }
 
@@ -70,6 +73,12 @@ namespace CodeBase.Data.Settings
                 return;
 
             Language = language;
+        }
+
+        public void ChangeTrainingSwitch()
+        {
+            ShowTraining = !ShowTraining;
+            ShowTrainingSwitchChanged?.Invoke();
         }
     }
 }

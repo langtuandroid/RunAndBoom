@@ -15,7 +15,7 @@ namespace CodeBase.UI.Elements
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                _windowService.Open<SettingsWindow>(WindowId.Settings);
+                _windowService.Show<SettingsWindow>(WindowId.Settings);
         }
     }
 }

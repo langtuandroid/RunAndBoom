@@ -8,5 +8,6 @@
         Settings = 3,
         Shop = 4,
         Finish = 5,
+        Training = 6,
     }
 }

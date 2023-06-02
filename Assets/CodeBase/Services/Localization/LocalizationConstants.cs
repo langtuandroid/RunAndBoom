@@ -6,6 +6,10 @@
         public static string SettingsTitleEn = "Settings";
         public static string SettingsTitleTr = "Ayarlar";
 
+        public static string SettingsLaunchTrainingRu = "Обучение после запуска";
+        public static string SettingsLaunchTrainingEn = "Training after launch";
+        public static string SettingsLaunchTrainingTr = "Lansman sonrası eğitim";
+
         public static string CloseRu = "Закрыть";
         public static string CloseEn = "Close";
         public static string CloseTr = "Kapat";
@@ -42,41 +46,46 @@
         public static string NextLevelEn = "Next level";
         public static string NextLevelTr = "Sonraki seviye";
 
-        public static string LevelRu = "Уровень";
-        public static string LevelEn = "Level";
-        public static string LevelTr = "Seviye";
+        public static string HudLevelRu = "Уровень";
+        public static string HudLevelEn = "Level";
+        public static string HudLevelTr = "Seviye";
 
-        public static string GrenadeLauncherRu = "Гранатомёт";
-        public static string GrenadeLauncherEn = "Grenade launcher";
-        public static string GrenadeLauncherTr = "El bombası fırlatıcı";
+        public static string HudGrenadeLauncherRu = "Гранатомёт";
+        public static string HudGrenadeLauncherEn = "Grenade launcher";
+        public static string HudGrenadeLauncherTr = "El bombası fırlatıcı";
 
-        public static string RpgRu = "РПГ";
-        public static string RpgEn = "RPG";
-        public static string RpgTr = "RPG";
+        public static string HudRpgRu = "РПГ";
+        public static string HudRpgEn = "RPG";
+        public static string HudRpgTr = "RPG";
 
-        public static string RocketLauncherRu = "Ракетница";
-        public static string RocketLauncherEn = "Rocket launcher";
-        public static string RocketLauncherTr = "Roketatar";
+        public static string HudRocketLauncherRu = "Ракетница";
+        public static string HudRocketLauncherEn = "Rocket launcher";
+        public static string HudRocketLauncherTr = "Roketatar";
 
-        public static string MortarRu = "Мортира";
-        public static string MortarEn = "Mortar";
-        public static string MortarTr = "Harç";
+        public static string HudMortarRu = "Мортира";
+        public static string HudMortarEn = "Mortar";
+        public static string HudMortarTr = "Harç";
 
-        public static string TrainingMoneyRu =  "Ваш текущий уровень и секция";
-        public static string TrainingMoneyEn =  "The amount of your money. You can spend it in the shop";
-        public static string TrainingMoneyTr =  "Paranızın miktarı. Dükkanda harcayabilirsiniz";
+        public static string TrainingMoneyRu = "Количество ваших денег. Вы можете потратить их в магазине";
+        public static string TrainingMoneyEn = "The amount of your money. You can spend it in the shop";
+        public static string TrainingMoneyTr = "Paranızın miktarı. Dükkanda harcayabilirsiniz";
 
-        public static string TrainingLevelRu =  "Ваш текущий уровень и секция";
-        public static string TrainingLevelEn =  "Your current level and section";
-        public static string TrainingLevelTr =  "Mevcut seviyeniz ve bölümünüz";
+        public static string TrainingLevelRu = "Ваш текущий уровень и секция";
+        public static string TrainingLevelEn = "Your current level and section";
+        public static string TrainingLevelTr = "Mevcut seviyeniz ve bölümünüz";
 
-        public static string TrainingHealthBarRu =  "Ваша полоса здоровья. Избегайте её обнуления";
-        public static string TrainingHealthBarEn =  "Your health bar. Avoid zeroing it out";
-        public static string TrainingHealthBarTr =  "Sağlık çubuğunuz. Sıfırlamaktan kaçının";
+        public static string TrainingHealthBarRu = "Ваша полоса здоровья. Избегайте её обнуления";
+        public static string TrainingHealthBarEn = "Your health bar. Avoid zeroing it out";
+        public static string TrainingHealthBarTr = "Sağlık çubuğunuz. Sıfırlamaktan kaçının";
 
-        public static string TrainingOpenCloseSettingsRu =  "Нажмите Esc на Клавиатуре, чтобы открыть/закрыть окно настроек";
-        public static string TrainingOpenCloseSettingsEn =  "Press Esc on the Keyboard to open/close the settings window";
-        public static string TrainingOpenCloseSettingsTr =  "Ayarlar penceresini açmak/kapatmak için Klavyede Esc tuşuna basın";
+        public static string TrainingOpenCloseSettingsRu =
+            "Нажмите Esc на Клавиатуре, чтобы открыть/закрыть окно настроек";
+
+        public static string TrainingOpenCloseSettingsEn =
+            "Press Esc on the Keyboard to open/close the settings window";
+
+        public static string TrainingOpenCloseSettingsTr =
+            "Ayarlar penceresini açmak/kapatmak için Klavyede Esc tuşuna basın";
 
         public static string TrainingLeaveTrainingRu = "Нажмите любую клавишу, чтобы покинуть обучение";
         public static string TrainingLeaveTrainingEn = "Press any button to leave the training";

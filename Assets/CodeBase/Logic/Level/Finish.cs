@@ -29,7 +29,7 @@ namespace CodeBase.Logic.Level
                     Pickup();
 
                 Time.timeScale = 0;
-                WindowBase finishWindow = _windowService.Open<FinishWindow>(WindowId.Finish);
+                WindowBase finishWindow = _windowService.Show<FinishWindow>(WindowId.Finish);
                 GiftsGenerator giftsGenerator =
                     (finishWindow as FinishWindow)?.gameObject.GetComponent<GiftsGenerator>();
                 giftsGenerator?.SetMaxPrice(_maxPrice);

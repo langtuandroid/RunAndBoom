@@ -14,6 +14,7 @@ using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.Finish;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
+using CodeBase.UI.Windows.Training;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -34,14 +35,13 @@ namespace CodeBase.Infrastructure.States
         private readonly IStaticDataService _staticDataService;
         private readonly IUIFactory _uiFactory;
         private readonly IWindowService _windowService;
-
-        private bool _isInitial = true;
         private Scene _scene;
+        private bool _isInitial = true;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
-            IPlayerProgressService progressService, IStaticDataService staticDataService,
-            IUIFactory uiFactory, IWindowService windowService)
+            IPlayerProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory,
+            IWindowService windowService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -52,6 +52,7 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
+            _loadingCurtain.FadedOut += TryShowTraining;
         }
 
         public void Enter(Scene scene)
@@ -60,9 +61,7 @@ namespace CodeBase.Infrastructure.States
 
             if (_scene.ToString().Contains(LevelName))
             {
-                // if (IsInitialSceneInEditor())
                 _loadingCurtain.Show();
-
                 _gameFactory.CleanUp();
                 _gameFactory.WarmUp();
             }
@@ -72,16 +71,16 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-            if (_scene.ToString().Contains(LevelName))
-                // if (IsInitialSceneInEditor())
-                _loadingCurtain.Hide();
-
-            // _saveLoadService.SaveProgress();
-            _isInitial = false;
         }
 
-        private bool IsInitialSceneInEditor() =>
-            _isInitial && Application.isEditor;
+        private void TryShowTraining()
+        {
+            if (_isInitial && _progressService.Progress.SettingsData.ShowTraining)
+            {
+                _windowService.Show<TrainingWindow>(WindowId.Training);
+                _isInitial = false;
+            }
+        }
 
         private async void OnLoaded(Scene scene)
         {
@@ -122,6 +121,7 @@ namespace CodeBase.Infrastructure.States
                 _enemyFactory.CreateSpawnersRoot();
                 await InitGameWorld(levelData);
                 await InitSpawners(levelData);
+                _loadingCurtain.Hide();
             }
         }
 
@@ -143,6 +143,8 @@ namespace CodeBase.Infrastructure.States
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
                 await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
+
+            // TryShowTraining();
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
@@ -175,21 +177,22 @@ namespace CodeBase.Infrastructure.States
         {
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
             shopWindow.GetComponent<ShopWindow>().Construct(hero);
-            HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            deathWindow.GetComponent<DeathWindow>().Construct(hero, _scene);
+            deathWindow.GetComponent<DeathWindow>().Construct(hero);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
-            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _scene);
+            settingsWindow.GetComponent<SettingsWindow>().Construct(hero);
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
             finishWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
-            FinishWindow finish = finishWindow.GetComponent<FinishWindow>();
-            finish?.Construct(hero);
+            finishWindow.GetComponent<FinishWindow>()?.Construct(hero);
+            GameObject trainingWindow = await _uiFactory.CreateTrainingWindow();
+            trainingWindow.GetComponent<TrainingWindow>()?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
             _windowService.AddWindow(WindowId.Finish, finishWindow);
+            _windowService.AddWindow(WindowId.Training, trainingWindow);
         }
     }
 }

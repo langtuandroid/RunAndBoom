@@ -33,7 +33,7 @@ namespace CodeBase.Logic.Level
             {
                 Passed?.Invoke();
                 _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
-                WindowBase shopWindow = _windowService.Open<ShopWindow>(WindowId.Shop);
+                WindowBase shopWindow = _windowService.Show<ShopWindow>(WindowId.Shop);
                 (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
                 (shopWindow as ShopWindow)?.AddCounts(_refreshCount, _watchAdsNumber);
                 _isPassed = true;

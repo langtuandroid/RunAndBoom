@@ -1,7 +1,4 @@
-using CodeBase.Data;
 using CodeBase.Infrastructure.States;
-using CodeBase.Services;
-using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -15,35 +12,32 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _closeButton;
 
-        private ISaveLoadService _saveLoadService;
-        private Scene _scene;
-
-        private void Awake() =>
-            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
-
         private void Start()
         {
             _restartButton.onClick.AddListener(Restart);
-            _closeButton.onClick.AddListener(Hide);
+            _closeButton.onClick.AddListener(Close);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                Hide();
+                Close();
         }
 
-        public void Construct(GameObject hero, Scene scene)
+        private void Close()
         {
-            _scene = scene;
-            base.Construct(hero, WindowId.Settings);
+            SaveLoadService.SaveProgress();
+            Hide();
         }
+
+        public void Construct(GameObject hero) =>
+            base.Construct(hero, WindowId.Settings);
 
         private void Restart()
         {
             WindowService.HideAll();
             SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+            GameStateMachine.Enter<LoadPlayerProgressState>();
         }
     }
 }
