@@ -16,8 +16,6 @@ namespace CodeBase.DestructableObject
         [SerializeField] private GameObject _broken;
         [SerializeField] private DestructableTypeId _typeId;
 
-        private const float DestroyColliderTimer = 0.1f;
-
         private AudioSource _audioSource;
         private float _deathDelay = 50f;
         private bool _isBroken = false;
@@ -48,9 +46,6 @@ namespace CodeBase.DestructableObject
             if (_isBroken == false)
                 foreach (Rigidbody part in _parts)
                     part.AddForce(part.gameObject.transform.forward * 5f, ForceMode.Impulse);
-            
-            // foreach (var componentsInChild in _broken.GetComponentsInChildren<BoxCollider>()) 
-            //     Destroy(componentsInChild, DestroyColliderTimer);
 
             PlaySound();
             _isBroken = true;

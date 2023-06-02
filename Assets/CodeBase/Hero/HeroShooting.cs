@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Projectiles;
@@ -13,6 +14,8 @@ namespace CodeBase.Hero
         [SerializeField] private HeroWeaponSelection _heroWeaponSelection;
         [SerializeField] private HeroReloading _heroReloading;
 
+        private const float ShootDelay = 0.1f;
+
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private float _currentAttackCooldown = 0f;
@@ -22,11 +25,17 @@ namespace CodeBase.Hero
 
         public event Action Shot;
 
-        public void TurnOn() =>
-            _canShoot = true;
+        public void TurnOn() => 
+            StartCoroutine(EnableShoot());
 
-        public void TurnOff() =>
+        public void TurnOff() => 
             _canShoot = false;
+
+        private IEnumerator EnableShoot()
+        {
+            yield return new WaitForSeconds(ShootDelay);
+            _canShoot = true;
+        }
 
         private void Awake()
         {

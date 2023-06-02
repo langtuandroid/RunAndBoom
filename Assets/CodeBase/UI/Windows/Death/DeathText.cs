@@ -1,54 +1,24 @@
 ﻿using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
+using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Death
 {
-    public class DeathText : MonoBehaviour
-        //, IProgressReader
+    public class DeathText : BaseText
     {
         [SerializeField] private TextMeshProUGUI _title;
-        [SerializeField] private Button _restartButton;
 
-        // private PlayerProgress _progress;
-        private TextMeshProUGUI _restartButtonText;
-        private ILocalizationService _localizationService;
+        protected override void RuChosen() => 
+            _title.text = LocalizationConstants.DeathTitleRu;
 
-        private void Awake()
-        {
-            _restartButtonText = _restartButton.GetComponentInChildren<TextMeshProUGUI>();
-            _localizationService = AllServices.Container.Single<ILocalizationService>();
-            _localizationService.LanguageChanged += ChangeText;
-            ChangeText();
-        }
+        protected override void TrChosen() => 
+            _title.text = LocalizationConstants.DeathTitleTr;
 
-        // public void LoadProgress(PlayerProgress progress)
-        // {
-        //     _progress = progress;
-        //     _progress.SettingsData.LanguageChanged += ChangeText;
-        // }
-
-        private void ChangeText()
-        {
-            switch (_localizationService.Language)
-                // switch (_progress.SettingsData.Language)
-            {
-                case Language.RU:
-                    _restartButtonText.text = LocalizationConstants.RestartRu;
-                    _title.text = LocalizationConstants.DeathTitleRu;
-                    break;
-                case Language.TR:
-                    _restartButtonText.text = LocalizationConstants.RestartTr;
-                    _title.text = LocalizationConstants.DeathTitleTr;
-                    break;
-                default:
-                    _restartButtonText.text = LocalizationConstants.RestartEn;
-                    _title.text = LocalizationConstants.DeathTitleEn;
-                    break;
-            }
-        }
+        protected override void EnChosen() => 
+            _title.text = LocalizationConstants.DeathTitleEn;
     }
 }

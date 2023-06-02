@@ -45,7 +45,8 @@ namespace CodeBase.UI
             var height = _corners[1].y - _corners[0].y;
             var width = _corners[2].x - _corners[1].x;
             var edgeLengths = new[] { height, width, height, width };
-            var circumference = 2f * Mathf.PI * Mathf.Lerp(clampedCornerRadius, clampedCornerRadius + _outlineWidth, _mappingBias);
+            var circumference = 2f * Mathf.PI *
+                                Mathf.Lerp(clampedCornerRadius, clampedCornerRadius + _outlineWidth, _mappingBias);
             var around = height * 2f + width * 2f + circumference;
             var cornerLength = circumference / 4f;
             var segmentLength = cornerLength / _cornerSegments;

@@ -14,7 +14,7 @@ namespace CodeBase.UI.Windows.Shop
             // _outline.SetActive(_mouseOver);
         }
 
-        private void OnDisable() => 
+        private void OnDisable() =>
             _outline.SetActive(false);
 
         public void OnPointerEnter(PointerEventData eventData)

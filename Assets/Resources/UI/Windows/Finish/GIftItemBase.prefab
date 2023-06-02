@@ -33,8 +33,8 @@ RectTransform:
   m_Father: {fileID: 4270002425602562632}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.3}
-  m_AnchorMax: {x: 0.25, y: 0.5}
+  m_AnchorMin: {x: 0.05, y: 0.25}
+  m_AnchorMax: {x: 0.25, y: 0.55}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -83,6 +83,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2452451597279198664, guid: 8625468bd3da82f478092cff85ba94d7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619373867848877039, guid: 8625468bd3da82f478092cff85ba94d7,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 63.65
+      objectReference: {fileID: 0}
     - target: {fileID: 5651937782036223144, guid: 8625468bd3da82f478092cff85ba94d7,
         type: 3}
       propertyPath: m_Pivot.x

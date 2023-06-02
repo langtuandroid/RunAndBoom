@@ -7,39 +7,39 @@ using UnityEngine;
 
 namespace CodeBase.UI.Elements.Hud
 {
-    public class HudText : MonoBehaviour
+    public class HudText : BaseText
     {
         [SerializeField] private TextMeshProUGUI _levelTitle;
+        [SerializeField] private TextMeshProUGUI _grenadeLauncherText;
+        [SerializeField] private TextMeshProUGUI _rpgText;
+        [SerializeField] private TextMeshProUGUI _rocketLauncherText;
+        [SerializeField] private TextMeshProUGUI _mortarText;
 
-        private PlayerProgress _progress;
-        private TextMeshProUGUI _addCounsButtonText;
-        private TextMeshProUGUI _nextLevelButtonText;
-        private ILocalizationService _localizationService;
-
-        private void Awake()
+        protected override void RuChosen()
         {
-            // _addCounsButtonText = _addCounsButton.GetComponentInChildren<TextMeshProUGUI>();
-            // _nextLevelButtonText = _nextLevelButton.GetComponentInChildren<TextMeshProUGUI>();
-            _localizationService = AllServices.Container.Single<ILocalizationService>();
-            _localizationService.LanguageChanged += ChangeText;
-            ChangeText();
+            _levelTitle.text = LocalizationConstants.LevelRu;
+            _grenadeLauncherText.text = LocalizationConstants.GrenadeLauncherRu;
+            _rpgText.text = LocalizationConstants.RpgRu;
+            _rocketLauncherText.text = LocalizationConstants.RocketLauncherRu;
+            _mortarText.text = LocalizationConstants.MortarRu;
         }
 
-        private void ChangeText()
+        protected override void TrChosen()
         {
-            switch (_localizationService.Language)
-                // switch (_progress.SettingsData.Language)
-            {
-                case Language.RU:
-                    _levelTitle.text = LocalizationConstants.LevelRu;
-                    break;
-                case Language.TR:
-                    _levelTitle.text = LocalizationConstants.LevelTr;
-                    break;
-                default:
-                    _levelTitle.text = LocalizationConstants.LevelEn;
-                    break;
-            }
+            _levelTitle.text = LocalizationConstants.LevelTr;
+            _grenadeLauncherText.text = LocalizationConstants.GrenadeLauncherTr;
+            _rpgText.text = LocalizationConstants.RpgTr;
+            _rocketLauncherText.text = LocalizationConstants.RocketLauncherTr;
+            _mortarText.text = LocalizationConstants.MortarTr;
+        }
+
+        protected override void EnChosen()
+        {
+            _levelTitle.text = LocalizationConstants.LevelEn;
+            _grenadeLauncherText.text = LocalizationConstants.GrenadeLauncherEn;
+            _rpgText.text = LocalizationConstants.RpgEn;
+            _rocketLauncherText.text = LocalizationConstants.RocketLauncherEn;
+            _mortarText.text = LocalizationConstants.MortarEn;
         }
     }
 }

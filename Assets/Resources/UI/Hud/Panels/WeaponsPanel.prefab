@@ -138,9 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351cfff153b14aacbe9110d94471b993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grenadeLaucher: {fileID: 3704888283857657649}
+  _grenadeLauncher: {fileID: 3704888283857657649}
   _rpg: {fileID: 6799655552324106590}
-  _rocketLaucher: {fileID: 8168825840912417403}
+  _rocketLauncher: {fileID: 8168825840912417403}
   _mortar: {fileID: 1656665810382891370}
 --- !u!1001 &1305297399001577602
 PrefabInstance:
@@ -151,8 +151,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
+      propertyPath: m_text
+      value: Grenade launcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
+        type: 3}
       propertyPath: m_fontSize
-      value: 34
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 539434239846386559, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -342,7 +347,7 @@ PrefabInstance:
     - target: {fileID: 7423765695004990387, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7770573087566856318, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -440,12 +445,12 @@ PrefabInstance:
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_text
-      value: 4
+      value: Mortar
       objectReference: {fileID: 0}
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 34
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 539434239846386559, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -731,7 +736,7 @@ PrefabInstance:
     - target: {fileID: 7423765695004990387, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7565970772951832286, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -859,12 +864,12 @@ PrefabInstance:
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_text
-      value: 3
+      value: Rocket launcher
       objectReference: {fileID: 0}
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 34
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 539434239846386559, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -1150,7 +1155,7 @@ PrefabInstance:
     - target: {fileID: 7423765695004990387, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7565970772951832286, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -1278,12 +1283,12 @@ PrefabInstance:
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_text
-      value: 2
+      value: RPG
       objectReference: {fileID: 0}
     - target: {fileID: 537073312600768116, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 34
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 539434239846386559, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
@@ -1569,7 +1574,7 @@ PrefabInstance:
     - target: {fileID: 7423765695004990387, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7565970772951832286, guid: 05fd940af7d722344b4ccf298a30155c,
         type: 3}

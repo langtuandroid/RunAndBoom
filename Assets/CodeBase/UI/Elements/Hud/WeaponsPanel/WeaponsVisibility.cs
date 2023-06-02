@@ -8,18 +8,18 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 {
     public class WeaponsVisibility : MonoBehaviour, IProgressReader
     {
-        [SerializeField] private GameObject _grenadeLaucher;
+        [SerializeField] private GameObject _grenadeLauncher;
         [SerializeField] private GameObject _rpg;
-        [SerializeField] private GameObject _rocketLaucher;
+        [SerializeField] private GameObject _rocketLauncher;
         [SerializeField] private GameObject _mortar;
 
         private PlayerProgress _progress;
 
         private void Awake()
         {
-            _grenadeLaucher.SetActive(false);
+            _grenadeLauncher.SetActive(false);
             _rpg.SetActive(false);
-            _rocketLaucher.SetActive(false);
+            _rocketLauncher.SetActive(false);
             _mortar.SetActive(false);
         }
 
@@ -37,15 +37,19 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    _grenadeLaucher.SetActive(true);
+                    Debug.Log("grenadeLauncher Active");
+                    _grenadeLauncher.SetActive(true);
                     break;
                 case HeroWeaponTypeId.RPG:
+                    Debug.Log("rpg Active");
                     _rpg.SetActive(true);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    _rocketLaucher.SetActive(true);
+                    Debug.Log("rocketLauncher Active");
+                    _rocketLauncher.SetActive(true);
                     break;
                 case HeroWeaponTypeId.Mortar:
+                    Debug.Log("mortar Active");
                     _mortar.SetActive(true);
                     break;
             }
