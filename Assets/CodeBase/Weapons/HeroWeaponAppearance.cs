@@ -136,8 +136,6 @@ namespace CodeBase.Weapons
         private GameObject GetFirstProjectile()
         {
             _firstProjectile = _projectiles.First();
-            Debug.Log($"firstProjectile {_firstProjectile}");
-            // _firstProjectile = PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
             return _firstProjectile;
         }
 

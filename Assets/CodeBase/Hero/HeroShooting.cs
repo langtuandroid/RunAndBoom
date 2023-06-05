@@ -18,10 +18,7 @@ namespace CodeBase.Hero
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
-        private float _currentAttackCooldown = 0f;
-        private float _initialCooldown = 2f;
         private bool _canShoot = false;
-        private bool _startReloaded;
 
         public event Action Shot;
 
@@ -64,8 +61,10 @@ namespace CodeBase.Hero
                 Shoot();
         }
 
-        private bool IsAvailableAmmo() =>
-            _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
+        private bool IsAvailableAmmo()
+        {
+            return _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
+        }
 
         private void Shoot()
         {

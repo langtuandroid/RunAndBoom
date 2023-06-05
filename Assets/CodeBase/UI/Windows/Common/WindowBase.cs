@@ -39,9 +39,7 @@ namespace CodeBase.UI.Windows.Common
             Hide();
         }
 
-        protected void Hide(
-            // bool showCursor = false
-        )
+        protected void Hide()
         {
             gameObject.SetActive(false);
             PlayCloseSound();
@@ -49,7 +47,6 @@ namespace CodeBase.UI.Windows.Common
             if (!WindowService.IsAnotherActive(_windowId))
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                // ShowCursor(showCursor);
                 _hero.GetComponent<HeroShooting>().TurnOn();
                 _hero.GetComponent<HeroMovement>().TurnOn();
                 _hero.GetComponent<HeroRotating>().TurnOn();
@@ -103,7 +100,5 @@ namespace CodeBase.UI.Windows.Common
 
         private void SwitchChanged() =>
             Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
-
-        // protected abstract void Hide();
     }
 }

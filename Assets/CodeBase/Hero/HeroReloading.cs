@@ -33,6 +33,7 @@ namespace CodeBase.Hero
 
         public Action<float> OnStartReloading;
         public Action OnStopReloading;
+        private bool _reloadingStoped;
 
         private void Awake()
         {
@@ -103,7 +104,6 @@ namespace CodeBase.Hero
             _weaponTypeId = heroWeaponStaticData.WeaponTypeId;
             _baseCooldown = heroWeaponStaticData.Cooldown;
             _currentAttackCooldown = 0f;
-            // OnStopReloading?.Invoke();
 
             if (_progress != null)
                 SetCooldown();
@@ -115,9 +115,16 @@ namespace CodeBase.Hero
             {
                 OnStartReloading?.Invoke(_currentAttackCooldown / _cooldown);
                 _currentAttackCooldown -= Time.deltaTime;
+                _reloadingStoped = false;
             }
             else
-                OnStopReloading?.Invoke();
+            {
+                if (_reloadingStoped == false)
+                {
+                    OnStopReloading?.Invoke();
+                    _reloadingStoped = true;
+                }
+            }
         }
 
         private bool CooldownUp() =>
