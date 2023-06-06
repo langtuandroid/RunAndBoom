@@ -26,7 +26,7 @@ namespace CodeBase.UI.Windows.Settings
 
         private void Close()
         {
-            SaveLoadService.SaveProgress();
+            // SaveLoadService.SaveProgress();
             Hide();
         }
 

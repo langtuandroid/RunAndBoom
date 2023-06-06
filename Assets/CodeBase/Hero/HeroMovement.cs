@@ -20,18 +20,43 @@ namespace CodeBase.Hero
         private PerkItemData _runningItemData;
         private PlayerProgress _progress;
         private List<PerkItemData> _perks;
+        private Rigidbody _rigidbody;
+        private Vector3 _playerMovementInput;
+
+        private void Awake() =>
+            _rigidbody = GetComponent<Rigidbody>();
 
         private void Update()
         {
-            if (_canMove)
-            {
-                float horizontalInput = Input.GetAxis("Horizontal");
-                float verticalInput = Input.GetAxis("Vertical");
+            _playerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            Move();
 
-                transform.Translate(
-                    new Vector3(horizontalInput, 0, verticalInput) * _movementSpeed *
-                    Time.deltaTime);
-            }
+            // if (_canMove)
+            // {
+            // float horizontalInput = Input.GetAxis("Horizontal");
+            // float verticalInput = Input.GetAxis("Vertical");
+
+            // transform.Translate(
+            //     new Vector3(horizontalInput, 0, verticalInput) * _movementSpeed *
+            //     Time.deltaTime);
+            // }
+        }
+
+        private void Move()
+        {
+            Vector3 moveVector = transform.TransformDirection(_playerMovementInput) * _movementSpeed;
+            _rigidbody.velocity = new Vector3(moveVector.x, _rigidbody.velocity.y, moveVector.z);
+        }
+
+        private void FixedUpdate()
+        {
+            // if (_canMove)
+            // {
+            //     float horizontalInput = Input.GetAxis("Horizontal");
+            //     float verticalInput = Input.GetAxis("Vertical");
+            //     
+            //     _rigidbody.MovePosition();
+            // }
         }
 
         private void OnEnable()

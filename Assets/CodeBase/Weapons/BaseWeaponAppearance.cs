@@ -83,11 +83,26 @@ namespace CodeBase.Weapons
         protected GameObject SetNewProjectile(Transform respawn)
         {
             GameObject projectile = GetProjectile();
-
             projectile.transform.SetParent(respawn);
             projectile.transform.localPosition = Vector3.zero;
             projectile.transform.rotation = respawn.rotation;
             return projectile;
+        }
+
+        protected GameObject SetNewProjectile(Transform respawn, Vector3 targetPosition)
+        {
+            GameObject projectile = GetProjectile();
+            projectile.transform.SetParent(respawn);
+            projectile.transform.localPosition = Vector3.zero;
+            projectile.transform.rotation = RotationTo(targetPosition, respawn.position);
+            return projectile;
+        }
+
+        private Quaternion RotationTo(Vector3 targetPosition, Vector3 respawnPosition)
+        {
+            Vector3 positionDelta = targetPosition - respawnPosition;
+            Vector3 directionToLook = new Vector3(positionDelta.x, positionDelta.y, positionDelta.z).normalized;
+            return Quaternion.LookRotation(directionToLook);
         }
 
         protected void TuneProjectileBeforeLaunch(GameObject projectile, ProjectileMovement projectileMovement)

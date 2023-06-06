@@ -37,19 +37,15 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    Debug.Log("grenadeLauncher Active");
                     _grenadeLauncher.SetActive(true);
                     break;
                 case HeroWeaponTypeId.RPG:
-                    Debug.Log("rpg Active");
                     _rpg.SetActive(true);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    Debug.Log("rocketLauncher Active");
                     _rocketLauncher.SetActive(true);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    Debug.Log("mortar Active");
                     _mortar.SetActive(true);
                     break;
             }

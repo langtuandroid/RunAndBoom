@@ -64,7 +64,7 @@ namespace CodeBase.Weapons
 
         protected override void Launch(Vector3 targetPosition)
         {
-            GameObject projectile = SetNewProjectile(_currentProjectileRespawn);
+            GameObject projectile = SetNewProjectile(_currentProjectileRespawn, targetPosition);
             ProjectileMovement projectileMovement = projectile.GetComponent<ProjectileMovement>();
             TuneProjectileBeforeLaunch(projectile, projectileMovement);
         }

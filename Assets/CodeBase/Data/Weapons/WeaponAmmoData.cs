@@ -8,11 +8,11 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponsAmmoData : ItemData
     {
+        private const int InitialGlAmmoCount = 27;
+
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
         private List<WeaponData> _weaponDatas;
-
         public AmunitionDataDictionary Amunition = new();
-
         public BarrelDataDictionary Barrels = new();
 
         public event Action<int> GrenadeLauncherAmmoChanged;
@@ -52,7 +52,7 @@ namespace CodeBase.Data.Weapons
 
         private void FillAmmo()
         {
-            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = 100;
+            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialGlAmmoCount;
             Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
             Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
             Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;

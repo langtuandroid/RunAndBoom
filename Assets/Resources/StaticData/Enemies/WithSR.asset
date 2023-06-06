@@ -16,7 +16,8 @@ MonoBehaviour:
   EnemyWeaponTypeId: 4
   Hp: 1
   Damage: 4
-  MoveSpeed: 1.5
+  MoveSpeed: 0
+  IsMovable: 0
   FollowDistance: 50
   AttackDistance: 50
   AttackCooldown: 5

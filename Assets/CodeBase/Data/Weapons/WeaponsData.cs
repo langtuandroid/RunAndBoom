@@ -9,6 +9,10 @@ namespace CodeBase.Data.Weapons
     [Serializable]
     public class WeaponsData
     {
+        private const int InitialRpgAmmoCount = 8;
+        private const int InitialRlAmmoCount = 12;
+        private const int InitialMortarAmmoCount = 6;
+
         private List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
         public List<WeaponData> WeaponDatas;
         public WeaponsAmmoData WeaponsAmmoData;
@@ -56,13 +60,13 @@ namespace CodeBase.Data.Weapons
             switch (typeId)
             {
                 case HeroWeaponTypeId.RPG:
-                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, 6);
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, InitialRpgAmmoCount);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RocketLauncher, 9);
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RocketLauncher, InitialRlAmmoCount);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.Mortar, 3);
+                    WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.Mortar, InitialMortarAmmoCount);
                     break;
             }
 

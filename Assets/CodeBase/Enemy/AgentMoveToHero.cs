@@ -10,6 +10,7 @@ namespace CodeBase.Enemy
 
         private Transform _heroTransform;
         private bool _move;
+        private bool _isMovable;
 
         private void OnEnable() =>
             _agent.enabled = true;
@@ -20,8 +21,9 @@ namespace CodeBase.Enemy
         private void Update() =>
             SetDestinationForAgent();
 
-        public void Construct(Transform heroTransform, float speed)
+        public void Construct(Transform heroTransform, float speed, bool isMovable)
         {
+            _isMovable = isMovable;
             _heroTransform = heroTransform;
             _agent.speed = speed;
             _agent.enabled = false;
@@ -29,7 +31,7 @@ namespace CodeBase.Enemy
 
         private void SetDestinationForAgent()
         {
-            if (_heroTransform && _agent != null)
+            if (_heroTransform && _agent != null && _isMovable)
             {
                 if (_move && _agent.enabled)
                 {

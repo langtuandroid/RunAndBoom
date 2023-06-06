@@ -49,15 +49,11 @@ namespace CodeBase.Projectiles.Hit
             };
         }
 
-        public void OffCollider()
-        {
+        public void OffCollider() =>
             _hitCollider.enabled = false;
-        }
 
-        public void OnCollider()
-        {
+        public void OnCollider() =>
             _hitCollider.enabled = transform;
-        }
 
         private void OnEnable()
         {

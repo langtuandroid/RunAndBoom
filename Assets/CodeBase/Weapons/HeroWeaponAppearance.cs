@@ -49,11 +49,6 @@ namespace CodeBase.Weapons
 
         private void ReadyToShoot()
         {
-            Debug.Log($"gameObject.activeInHierarchy: {gameObject.activeInHierarchy}");
-            Debug.Log($"_filled == false: {_filled}");
-            Debug.Log($"_projectiles.Count == 0: {_projectiles.Count}");
-            Debug.Log($"Enabled: {Enabled}");
-
             if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && Enabled)
             {
                 foreach (Transform respawn in ProjectilesRespawns)
@@ -73,7 +68,6 @@ namespace CodeBase.Weapons
         {
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
-                Debug.Log("ShootTo");
                 StartCoroutine(CoroutineShootTo());
                 ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
                 Release();

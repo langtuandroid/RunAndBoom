@@ -62,7 +62,7 @@ PrefabInstance:
     - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Constraints
-      value: 112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Constraints
-      value: 112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -267,7 +267,7 @@ PrefabInstance:
     - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Constraints
-      value: 112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -372,7 +372,7 @@ PrefabInstance:
     - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Constraints
-      value: 112
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
@@ -459,6 +459,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name
@@ -534,6 +539,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3082338214831332243}
     m_Modifications:
+    - target: {fileID: 6491578740367949008, guid: 8a405400cc68a7346958767172b62001,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8601741647008486230, guid: 8a405400cc68a7346958767172b62001,
         type: 3}
       propertyPath: m_Name

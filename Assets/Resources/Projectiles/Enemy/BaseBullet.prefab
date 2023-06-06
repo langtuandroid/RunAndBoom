@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 6337939420664514640}
   - component: {fileID: 6337939420664514639}
   - component: {fileID: 4860899793450377844}
-  - component: {fileID: 8006432907002796431}
   m_Layer: 13
   m_Name: HitCapsule
   m_TagString: Untagged
@@ -141,21 +140,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Trail: {fileID: 0}
   Movement: {fileID: 0}
-  Tags:
-  - Hero
---- !u!54 &8006432907002796431
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337939420664514641}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

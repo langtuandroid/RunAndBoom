@@ -59,7 +59,8 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>()
                 .Construct(_gameFactory.GetHero().GetComponent<HeroHealth>(), enemyData.Reward);
-            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.MoveSpeed);
+            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.MoveSpeed,
+                enemyData.IsMovable);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.FollowDistance);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);

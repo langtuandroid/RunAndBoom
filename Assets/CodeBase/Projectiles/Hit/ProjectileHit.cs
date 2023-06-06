@@ -20,7 +20,6 @@ namespace CodeBase.Projectiles.Hit
         private void OnCollisionEnter(Collision collision)
         {
             string targetTag = collision.gameObject.tag;
-            Debug.Log($"target tag: {targetTag}");
 
             if (IsTargetTag(targetTag))
             {
