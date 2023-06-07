@@ -1,32 +1,33 @@
 ﻿using CodeBase.Data;
-using CodeBase.Data.Perks;
+using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Finish.Items
+namespace CodeBase.UI.Windows.Gifts.Items
 {
-    public class PerkGiftItem : PerkItemBase
+    public class UpgradeGiftItem : UpgradeItemBase
     {
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, PerkItemData perkItemData, PlayerProgress progress,
+        public void Construct(Transform heroTransform, UpgradeItemData upgradeItemData, PlayerProgress progress,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(perkItemData, progress);
+            base.Construct(upgradeItemData, progress);
         }
 
         protected override void Clicked()
         {
-            Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
+            Progress.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
+                _upgradeStaticData.UpgradeTypeId);
             ClearData();
             _generator.Clicked();
 
-            switch (_perkStaticData.LevelTypeId)
+            switch (_upgradeLevelInfoStaticData.LevelTypeId)
             {
                 case LevelTypeId.None:
                     SoundInstance.InstantiateOnTransform(

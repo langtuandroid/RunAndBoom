@@ -3,7 +3,8 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
-using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
 using CodeBase.UI.Windows.Training;
@@ -37,11 +38,14 @@ namespace CodeBase.UI.Services.Windows
                 case WindowId.Death:
                     window = ShowWindow<DeathWindow>(WindowId.Death);
                     break;
-                case WindowId.Finish:
-                    window = ShowWindow<FinishWindow>(WindowId.Finish);
+                case WindowId.Gifts:
+                    window = ShowWindow<GiftsWindow>(WindowId.Gifts);
                     break;
                 case WindowId.Training:
                     window = ShowWindow<TrainingWindow>(WindowId.Training);
+                    break;
+                case WindowId.Result:
+                    window = ShowWindow<ResultsWindow>(WindowId.Result);
                     break;
             }
 

@@ -16,14 +16,14 @@ namespace CodeBase.Data
         public PerksData PerksData;
         public Stats.Stats Stats;
 
-        public PlayerProgress(Scene initialLevel, Language language)
+        public PlayerProgress(Scene initialLevel, Language language, int targetPlayTime, int totalEnemies)
         {
             SettingsData = new SettingsData(language);
             HealthState = new HealthState();
             Stats = new Stats.Stats();
 
             if (Stats.CurrentLevelStats == null)
-                Stats.CurrentLevelStats = new LevelStats(initialLevel);
+                Stats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, totalEnemies);
 
             WorldData = new WorldData(Stats.CurrentLevelStats.Scene.ToString());
             PerksData = new PerksData();

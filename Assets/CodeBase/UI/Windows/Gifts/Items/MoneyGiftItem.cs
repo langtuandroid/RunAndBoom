@@ -4,7 +4,7 @@ using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Finish.Items
+namespace CodeBase.UI.Windows.Gifts.Items
 {
     public class MoneyGiftItem : MoneyItemBase
     {

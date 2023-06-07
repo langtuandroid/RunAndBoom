@@ -3,6 +3,8 @@ using CodeBase.Data.Settings;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
+using CodeBase.Services.StaticData;
+using CodeBase.StaticData.Levels;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -13,13 +15,16 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameStateMachine _stateMachine;
         private readonly IPlayerProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
-        private Language _language;
-        private ILocalizationService _localizationService;
+        private readonly IStaticDataService _staticDataService;
+        private readonly ILocalizationService _localizationService;
         private PlayerProgress _progressServiceProgress;
+        private Language _language;
 
         public LoadPlayerProgressState(IGameStateMachine stateMachine, IPlayerProgressService progressService,
-            ISaveLoadService saveLoadService, ILocalizationService localizationService, Language language)
+            ISaveLoadService saveLoadService, IStaticDataService staticDataService,
+            ILocalizationService localizationService, Language language)
         {
+            _staticDataService = staticDataService;
             _stateMachine = stateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
@@ -46,7 +51,11 @@ namespace CodeBase.Infrastructure.States
                 _localizationService.ChangeLanguage(_language);
         }
 
-        private PlayerProgress NewProgress() =>
-            new PlayerProgress(InitialLevel, _language);
+        private PlayerProgress NewProgress()
+        {
+            LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel.ToString());
+            return new PlayerProgress(InitialLevel, _language, levelStaticData.TargetPlayTime,
+                levelStaticData.EnemySpawners.Count);
+        }
     }
 }

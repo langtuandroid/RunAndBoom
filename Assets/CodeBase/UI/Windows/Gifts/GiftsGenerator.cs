@@ -7,11 +7,11 @@ using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.Finish.Items;
+using CodeBase.UI.Windows.Gifts.Items;
 using CodeBase.UI.Windows.Shop;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Finish
+namespace CodeBase.UI.Windows.Gifts
 {
     public class GiftsGenerator : ItemsGeneratorBase
     {

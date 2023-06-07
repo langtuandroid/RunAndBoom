@@ -1,32 +1,31 @@
 ﻿using CodeBase.Data;
-using CodeBase.StaticData.Items.Shop.Ammo;
+using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Finish.Items
+namespace CodeBase.UI.Windows.Gifts.Items
 {
-    public class AmmoGiftItem : AmmoItemBase
+    public class WeaponGiftItem : WeaponItemBase
     {
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, AmmoItem ammoItem, PlayerProgress progress,
+        public void Construct(Transform heroTransform, HeroWeaponTypeId weaponTypeId, PlayerProgress progress,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(ammoItem, progress);
+            base.Construct(weaponTypeId, progress);
         }
 
         protected override void Clicked()
         {
-            int value = _shopAmmoStaticData.Count.GetHashCode();
-            Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
+            Progress.WeaponsData.SetAvailableWeapon(_weaponTypeId);
             ClearData();
             _generator.Clicked();
             SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.WeaponGotten),
                 transform: _heroTransform, Volume, AudioSource);
         }
     }

@@ -2,7 +2,7 @@
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 
-namespace CodeBase.UI.Windows.Finish
+namespace CodeBase.UI.Windows.Gifts
 {
     public class GiftsItemBalance
     {

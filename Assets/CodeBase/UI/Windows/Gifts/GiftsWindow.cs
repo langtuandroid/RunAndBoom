@@ -1,32 +1,24 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
-using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.SaveLoad;
+using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows.Finish
+namespace CodeBase.UI.Windows.Gifts
 {
-    public class FinishWindow : WindowBase
+    public class GiftsWindow : WindowBase
     {
         [SerializeField] private Button _addCoinsButton;
         [SerializeField] private Button _toNextLevelButton;
         [SerializeField] private ItemsGeneratorBase _generator;
 
-        private ISaveLoadService _saveLoadService;
-        private IGameStateMachine _gameStateMachine;
-        private IPlayerProgressService _playerProgressService;
-        private Scene _scene;
+        private Scene _nextScene;
 
         private void Awake()
         {
-            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
-            _gameStateMachine = AllServices.Container.Single<IGameStateMachine>();
-            _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
             _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
             _generator.GenerationStarted += DisableRefreshButtons;
@@ -40,11 +32,11 @@ namespace CodeBase.UI.Windows.Finish
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
 
         public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Finish);
+            base.Construct(hero, WindowId.Gifts);
 
-        public void AddScene(Scene scene)
+        public void AddNextScene(Scene nextScene)
         {
-            _scene = scene;
+            _nextScene = nextScene;
             GenerateItems();
         }
 
@@ -61,11 +53,13 @@ namespace CodeBase.UI.Windows.Finish
 
         private void ToNextLevel()
         {
+            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
             WindowService.HideAll();
-            _playerProgressService.Progress.Stats.StartNewLevel(_scene);
-            _playerProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_scene.ToString());
-            _saveLoadService.SaveProgress();
-            _gameStateMachine.Enter<LoadSceneState, Scene>(_scene);
+            ProgressService.Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+                levelStaticData.EnemySpawners.Count);
+            ProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
+            SaveLoadService.SaveProgress();
+            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
             Close();
         }
 

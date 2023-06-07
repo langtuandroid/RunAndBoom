@@ -1,6 +1,6 @@
 ﻿using System;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.Finish.Items;
+using CodeBase.UI.Windows.Gifts.Items;
 using CodeBase.UI.Windows.Shop.Items;
 using UnityEngine;
 

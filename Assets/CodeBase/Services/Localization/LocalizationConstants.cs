@@ -110,5 +110,13 @@
         public static string TrainingWeapon4Ru = "Нажмите 4 на Клавиатуре, чтобы выбрать мортиру";
         public static string TrainingWeapon4En = "Press 4 on the Keyboard to choose mortar";
         public static string TrainingWeapon4Tr = "Harcı seçmek için Klavyede 4 tuşuna basın";
+        
+        public static string ResultsTitleRu = "Итоги";
+        public static string ResultsTitleEn = "Result";
+        public static string ResultsTitleTr = "Sonuçlar";
+        
+        public static string ResultsSecRu = "сек";
+        public static string ResultsSecEn = "sec";
+        public static string ResultsSecTr = "san";
     }
 }

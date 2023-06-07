@@ -30,7 +30,7 @@ namespace CodeBase.Infrastructure.States
                         services.Single<IWindowService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
                     services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(),
-                    services.Single<ILocalizationService>(), language),
+                    services.Single<IStaticDataService>(), services.Single<ILocalizationService>(), language),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }

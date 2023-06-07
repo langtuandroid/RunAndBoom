@@ -30,10 +30,10 @@ namespace CodeBase.Data.Stats
         public void IsMoneyEnough(int value) =>
             AllMoney.IsMoneyEnough(value);
 
-        public void StartNewLevel(Scene scene)
+        public void StartNewLevel(Scene scene, int targetPlayTime, int totalEnemies)
         {
             LevelStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
-            CurrentLevelStats = new LevelStats(scene);
+            CurrentLevelStats = new LevelStats(scene, targetPlayTime, totalEnemies);
         }
     }
 }

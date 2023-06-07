@@ -9,6 +9,7 @@ namespace CodeBase.StaticData.Levels
         public string LevelKey;
         public bool InitializeHeroPosition;
         public Vector3 InitialHeroPosition;
+        public int TargetPlayTime;
 
         public LevelTransferStaticData LevelTransfer;
         public List<EnemySpawnerData> EnemySpawners;

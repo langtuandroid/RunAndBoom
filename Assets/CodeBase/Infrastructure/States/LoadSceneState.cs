@@ -11,7 +11,8 @@ using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Death;
-using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
 using CodeBase.UI.Windows.Training;
@@ -184,15 +185,18 @@ namespace CodeBase.Infrastructure.States
             settingsWindow.GetComponent<SettingsWindow>().Construct(hero);
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
             finishWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
-            finishWindow.GetComponent<FinishWindow>()?.Construct(hero);
+            finishWindow.GetComponent<GiftsWindow>()?.Construct(hero);
             GameObject trainingWindow = await _uiFactory.CreateTrainingWindow();
             trainingWindow.GetComponent<TrainingWindow>()?.Construct(hero);
+            GameObject resultWindow = await _uiFactory.CreateResultWindow();
+            resultWindow.GetComponent<ResultsWindow>()?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
-            _windowService.AddWindow(WindowId.Finish, finishWindow);
+            _windowService.AddWindow(WindowId.Gifts, finishWindow);
             _windowService.AddWindow(WindowId.Training, trainingWindow);
+            _windowService.AddWindow(WindowId.Result, resultWindow);
         }
     }
 }

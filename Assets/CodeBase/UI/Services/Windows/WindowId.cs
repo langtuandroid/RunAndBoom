@@ -7,7 +7,8 @@
         Death = 2,
         Settings = 3,
         Shop = 4,
-        Finish = 5,
+        Gifts = 5,
         Training = 6,
+        Result = 7,
     }
 }

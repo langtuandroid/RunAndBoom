@@ -5,7 +5,7 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
-using CodeBase.UI.Windows.Finish;
+using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Shop;
 using TMPro;
 using UnityEngine;

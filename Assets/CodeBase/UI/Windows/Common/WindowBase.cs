@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
+using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace CodeBase.UI.Windows.Common
         protected IPlayerProgressService ProgressService;
         protected ISaveLoadService SaveLoadService;
         protected IGameStateMachine GameStateMachine;
+        protected IStaticDataService StaticDataService;
         protected AudioSource AudioSource;
         private GameObject _hero;
         private PlayerProgress _progress;
@@ -28,6 +30,7 @@ namespace CodeBase.UI.Windows.Common
             ProgressService = AllServices.Container.Single<IPlayerProgressService>();
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
+            StaticDataService = AllServices.Container.Single<IStaticDataService>();
             AudioSource = GetComponent<AudioSource>();
         }
 

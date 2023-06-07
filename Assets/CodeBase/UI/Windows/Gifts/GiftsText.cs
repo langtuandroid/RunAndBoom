@@ -3,9 +3,9 @@ using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Finish
+namespace CodeBase.UI.Windows.Gifts
 {
-    public class FinishText : BaseText
+    public class GiftsText : BaseText
     {
         [SerializeField] private TextMeshProUGUI _title;
 
