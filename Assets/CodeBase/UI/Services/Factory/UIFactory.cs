@@ -23,8 +23,6 @@ namespace CodeBase.UI.Services.Factory
             GameObject root = await _assets.Load<GameObject>(AssetAddresses.UIRoot);
             GameObject gameObject = Object.Instantiate(root);
             _uiRoot = gameObject.transform;
-            // GameObject root = await _assets.Instantiate(AssetAddresses.UIRoot);
-            // _uiRoot = root.transform;
         }
 
         public Transform GetUIRoot() =>
@@ -48,7 +46,7 @@ namespace CodeBase.UI.Services.Factory
         public async Task<GameObject> CreateTrainingWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.TrainingWindow, _uiRoot);
 
-        public async Task<GameObject> CreateResultWindow()=>
-            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ResultWindow, _uiRoot);
+        public async Task<GameObject> CreateResultsWindow() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ResultsWindow, _uiRoot);
     }
 }

@@ -188,15 +188,15 @@ namespace CodeBase.Infrastructure.States
             finishWindow.GetComponent<GiftsWindow>()?.Construct(hero);
             GameObject trainingWindow = await _uiFactory.CreateTrainingWindow();
             trainingWindow.GetComponent<TrainingWindow>()?.Construct(hero);
-            GameObject resultWindow = await _uiFactory.CreateResultWindow();
-            resultWindow.GetComponent<ResultsWindow>()?.Construct(hero);
+            GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
+            resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
-            _windowService.AddWindow(WindowId.Settings, settingsWindow);
             _windowService.AddWindow(WindowId.Gifts, finishWindow);
             _windowService.AddWindow(WindowId.Training, trainingWindow);
-            _windowService.AddWindow(WindowId.Result, resultWindow);
+            _windowService.AddWindow(WindowId.Result, resultsWindow);
+            _windowService.AddWindow(WindowId.Settings, settingsWindow);
         }
     }
 }

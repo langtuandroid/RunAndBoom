@@ -39,7 +39,7 @@ namespace CodeBase.Data.Stats
             if (PlayTimeData.IsPlayTimeLessTarget())
                 StarsCount++;
 
-            Score += (int)(TargetScore * PlayTimeData.GetRatio());
+            Score += (int)(TargetScore * PlayTimeData.Ratio);
         }
 
         private void CalculateKills()
@@ -47,7 +47,7 @@ namespace CodeBase.Data.Stats
             if (KillsData.IsTotalKilled())
                 StarsCount++;
 
-            Score += (int)Math.Floor(TargetScore * KillsData.GetRatio());
+            Score += (int)Math.Floor(TargetScore * KillsData.Ratio);
         }
 
         private void CalculateRestarts()

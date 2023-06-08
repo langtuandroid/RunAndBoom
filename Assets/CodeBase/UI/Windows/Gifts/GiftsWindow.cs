@@ -55,9 +55,9 @@ namespace CodeBase.UI.Windows.Gifts
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
             WindowService.HideAll();
-            ProgressService.Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+            Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
-            ProgressService.Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
+            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             SaveLoadService.SaveProgress();
             GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
             Close();

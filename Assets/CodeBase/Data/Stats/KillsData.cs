@@ -8,6 +8,8 @@ namespace CodeBase.Data.Stats
         public int KilledEnemies;
         public int TotalEnemies;
 
+        public float Ratio => KilledEnemies / (float)TotalEnemies;
+
         public KillsData(int totalEnemies)
         {
             TotalEnemies = totalEnemies;
@@ -22,8 +24,5 @@ namespace CodeBase.Data.Stats
 
         public bool IsTotalKilled() =>
             KilledEnemies == TotalEnemies;
-
-        public float GetRatio() =>
-            KilledEnemies / (float)TotalEnemies;
     }
 }

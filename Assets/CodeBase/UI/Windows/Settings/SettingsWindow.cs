@@ -1,7 +1,5 @@
-using CodeBase.Infrastructure.States;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,12 +30,5 @@ namespace CodeBase.UI.Windows.Settings
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Settings);
-
-        private void Restart()
-        {
-            WindowService.HideAll();
-            SoundInstance.StopRandomMusic();
-            GameStateMachine.Enter<LoadPlayerProgressState>();
-        }
     }
 }

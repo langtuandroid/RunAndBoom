@@ -15,8 +15,9 @@ MonoBehaviour:
   LevelKey: Level_4
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0.7, z: -9}
+  TargetPlayTime: 60
   LevelTransfer:
-    TransferTo: 0
+    TransferTo: 5
   EnemySpawners:
   - EnemyTypeId: 5
     Position: {x: -113.71535, y: 2.3351383, z: -16.435913}

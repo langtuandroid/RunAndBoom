@@ -15,29 +15,26 @@ namespace CodeBase.UI.Windows.Common
     public abstract class WindowBase : MonoBehaviour, IProgressReader
     {
         protected IWindowService WindowService;
-        protected IPlayerProgressService ProgressService;
+
+        // protected IPlayerProgressService ProgressService;
         protected ISaveLoadService SaveLoadService;
         protected IGameStateMachine GameStateMachine;
         protected IStaticDataService StaticDataService;
         protected AudioSource AudioSource;
-        private GameObject _hero;
-        private PlayerProgress _progress;
+        protected GameObject Hero;
+        [HideInInspector] public PlayerProgress Progress;
         protected float Volume;
         private WindowId _windowId;
-
-        private void Awake()
-        {
-            ProgressService = AllServices.Container.Single<IPlayerProgressService>();
-            SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
-            GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
-            StaticDataService = AllServices.Container.Single<IStaticDataService>();
-            AudioSource = GetComponent<AudioSource>();
-        }
 
         protected void Construct(GameObject hero, WindowId windowId)
         {
             WindowService = AllServices.Container.Single<IWindowService>();
-            _hero = hero;
+            // ProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
+            GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
+            StaticDataService = AllServices.Container.Single<IStaticDataService>();
+            AudioSource = GetComponent<AudioSource>();
+            Hero = hero;
             _windowId = windowId;
             Hide();
         }
@@ -50,11 +47,12 @@ namespace CodeBase.UI.Windows.Common
             if (!WindowService.IsAnotherActive(_windowId))
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                _hero.GetComponent<HeroShooting>().TurnOn();
-                _hero.GetComponent<HeroMovement>().TurnOn();
-                _hero.GetComponent<HeroRotating>().TurnOn();
-                _hero.GetComponent<HeroReloading>().TurnOn();
-                _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
+                Hero.GetComponent<HeroShooting>().TurnOn();
+                Hero.GetComponent<HeroMovement>().TurnOn();
+                Hero.GetComponent<HeroRotating>().TurnOn();
+                Hero.GetComponent<HeroReloading>().TurnOn();
+                Hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
+                Hero.GetComponentInChildren<PlayTimer>().enabled = true;
                 Time.timeScale = 1;
             }
         }
@@ -62,11 +60,12 @@ namespace CodeBase.UI.Windows.Common
         public void Show(bool showCursor)
         {
             gameObject.SetActive(true);
-            _hero.GetComponent<HeroShooting>().TurnOff();
-            _hero.GetComponent<HeroReloading>().TurnOff();
-            _hero.GetComponent<HeroMovement>().TurnOff();
-            _hero.GetComponent<HeroRotating>().TurnOff();
-            _hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
+            Hero.GetComponent<HeroShooting>().TurnOff();
+            Hero.GetComponent<HeroReloading>().TurnOff();
+            Hero.GetComponent<HeroMovement>().TurnOff();
+            Hero.GetComponent<HeroRotating>().TurnOff();
+            Hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
+            Hero.GetComponentInChildren<PlayTimer>().enabled = false;
             Time.timeScale = 0;
             ShowCursor(showCursor);
             PlayOpenSound();
@@ -91,17 +90,25 @@ namespace CodeBase.UI.Windows.Common
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
+            Progress = progress;
+            Progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            Progress.SettingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
             SwitchChanged();
         }
 
         private void VolumeChanged() =>
-            Volume = _progress.SettingsData.SoundVolume;
+            Volume = Progress.SettingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            Volume = Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero;
+
+        protected void Restart()
+        {
+            WindowService.HideAll();
+            Progress.Stats.Restarted();
+            SoundInstance.StopRandomMusic();
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+        }
     }
 }

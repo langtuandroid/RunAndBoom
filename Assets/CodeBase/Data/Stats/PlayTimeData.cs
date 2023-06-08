@@ -8,6 +8,8 @@ namespace CodeBase.Data.Stats
         public float PlayTime;
         private float _targetPlayTime;
 
+        public float Ratio => _targetPlayTime / PlayTime;
+
         public PlayTimeData(int targetPlayTime)
         {
             _targetPlayTime = targetPlayTime;
@@ -23,7 +25,8 @@ namespace CodeBase.Data.Stats
         public bool IsPlayTimeLessTarget() =>
             _targetPlayTime < PlayTime;
 
-        public float GetRatio() =>
-            _targetPlayTime / PlayTime;
+        public void Stop()
+        {
+        }
     }
 }

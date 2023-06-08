@@ -20,6 +20,6 @@ namespace CodeBase.UI.Elements.Hud
         }
 
         private void SetMoney() =>
-            _score.text = $"{_moneyData.AvailableMoney}";
+            _score.text = $"{_moneyData.Money}";
     }
 }

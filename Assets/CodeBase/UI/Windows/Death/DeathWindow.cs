@@ -1,5 +1,4 @@
-﻿using CodeBase.Infrastructure.States;
-using CodeBase.Services;
+﻿using CodeBase.Hero;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -10,19 +9,29 @@ namespace CodeBase.UI.Windows.Death
 {
     public class DeathWindow : WindowBase
     {
+        [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private void Start() =>
-            _restartButton.onClick.AddListener(Restart);
-
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Death);
-
-        private void Restart()
+        private void Start()
         {
-            WindowService.HideAll();
-            SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+            _recoverForAdsButton.onClick.AddListener(RecoverForAds);
+            _restartButton.onClick.AddListener(Restart);
+        }
+
+        private void RecoverForAds()
+        {
+            //TODO show ads
+
+            RecoverHealth();
+            Hide();
+        }
+
+        private void RecoverHealth() =>
+            Hero.GetComponent<HeroHealth>().Recover();
+
+        public void Construct(GameObject hero)
+        {
+            base.Construct(hero, WindowId.Death);
         }
 
         protected override void PlayOpenSound()

@@ -12,7 +12,8 @@ namespace CodeBase.UI.Windows.Results
 {
     public class ResultsWindow : WindowBase
     {
-        [SerializeField] private Button _toGifts;
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _toGiftsButton;
         [SerializeField] private StarsPanel _starsPanel;
         [SerializeField] private TextMeshProUGUI _playTimeCount;
         [SerializeField] private TextMeshProUGUI _killed;
@@ -25,7 +26,8 @@ namespace CodeBase.UI.Windows.Results
 
         private void Awake()
         {
-            _toGifts.onClick.AddListener(ToGiftsWindow);
+            _toGiftsButton.onClick.AddListener(ToGiftsWindow);
+            _restartButton.onClick.AddListener(Restart);
         }
 
         private void ToGiftsWindow()
@@ -50,8 +52,10 @@ namespace CodeBase.UI.Windows.Results
 
         public void ShowData()
         {
-            ProgressService.Progress.Stats.CurrentLevelStats.CalculateScore();
-            LevelStats levelStats = ProgressService.Progress.Stats.CurrentLevelStats;
+            Progress.Stats.CurrentLevelStats.CalculateScore();
+            // ProgressService.Progress.Stats.CurrentLevelStats.CalculateScore();
+            LevelStats levelStats = Progress.Stats.CurrentLevelStats;
+            // LevelStats levelStats = ProgressService.Progress.Stats.CurrentLevelStats;
             _starsPanel.ShowStars(levelStats.StarsCount);
 
             _playTimeCount.text = $"{levelStats.PlayTimeData.PlayTime.ToInt()}";

@@ -35,5 +35,13 @@ namespace CodeBase.Data.Stats
             LevelStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
             CurrentLevelStats = new LevelStats(scene, targetPlayTime, totalEnemies);
         }
+
+        public void Restarted()
+        {
+            CurrentLevelStats.RestartsData.Increment();
+            CurrentLevelStats.PlayTimeData.Clear();
+            CurrentLevelStats.KillsData.Clear();
+            CurrentLevelStats.MoneyData.Clear();
+        }
     }
 }

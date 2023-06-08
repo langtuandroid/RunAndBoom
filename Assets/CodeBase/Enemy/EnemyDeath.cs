@@ -71,6 +71,7 @@ namespace CodeBase.Enemy
             _heroHealth.Vampire(_health.Max);
             _isDead = true;
             _progressService.Progress.Stats.AllMoney.AddMoney(_reward);
+            _progressService.Progress.Stats.CurrentLevelStats.KillsData.Increment();
             _enemyAnimator.PlayDeath();
             Destroy(GetComponent<StopMovingOnAttack>());
             _agentMoveToHero.Stop();
