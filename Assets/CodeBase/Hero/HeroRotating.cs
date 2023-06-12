@@ -5,8 +5,9 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
-        [SerializeField] private Camera _main;
         [SerializeField] private float _sensitivity = 1.0f;
+
+        private const float EdgeAngle = 87f;
 
         private float _xAxisClamp = 0;
         private bool _canRotate = true;
@@ -30,7 +31,6 @@ namespace CodeBase.Hero
 
             _xAxisClamp -= rotationAmountY;
 
-            // Vector3 rotation = _main.transform.rotation.eulerAngles;
             Vector3 rotation = transform.rotation.eulerAngles;
 
             rotation.x -= rotationAmountY;
@@ -38,17 +38,16 @@ namespace CodeBase.Hero
 
             switch (_xAxisClamp)
             {
-                case > 90:
-                    _xAxisClamp = 90;
-                    rotation.x = 90;
+                case > EdgeAngle:
+                    _xAxisClamp = EdgeAngle;
+                    rotation.x = EdgeAngle;
                     break;
-                case < -90:
-                    _xAxisClamp = -90;
-                    rotation.x = -90;
+                case < -EdgeAngle:
+                    _xAxisClamp = -EdgeAngle;
+                    rotation.x = -EdgeAngle;
                     break;
             }
 
-            // _main.transform.rotation = Quaternion.Euler(rotation);
             transform.rotation = Quaternion.Euler(rotation);
         }
 

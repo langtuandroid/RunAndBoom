@@ -14,7 +14,7 @@ namespace CodeBase.Enemy
         public float Current => _current;
         public float Max => _max;
 
-        public void Initial(int max)
+        public void Construct(int max)
         {
             _max = max;
             _current = _max;

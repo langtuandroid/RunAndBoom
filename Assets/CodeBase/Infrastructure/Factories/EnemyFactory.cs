@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Enemy.Attacks;
 using CodeBase.Hero;
@@ -55,6 +56,7 @@ namespace CodeBase.Infrastructure.Factories
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
             GameObject prefab = await _assets.Load<GameObject>(enemyData.PrefabReference);
             GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
+            enemy.transform.position.AddY(Constants.AdditionYToEnemy);
             EnemyDeath death = enemy.GetComponent<EnemyDeath>();
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>()
@@ -65,10 +67,8 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponent<Aggro>().Construct(enemyData.FollowDistance);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);
             ConstructEnemyAttack(typeId, enemyData, enemy);
-
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-            health.Initial(enemyData.Hp);
-
+            health.Construct(enemyData.Hp);
             return enemy;
         }
 
