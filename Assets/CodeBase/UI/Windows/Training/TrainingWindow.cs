@@ -9,13 +9,23 @@ namespace CodeBase.UI.Windows.Training
     {
         private WeaponsVisibility _weaponsVisibility;
 
-        private void Update()
+        private void Update() =>
+            CheckClick();
+
+        private void CheckClick()
         {
             if (Input.anyKeyDown)
-            {
-                Hide();
-                _weaponsVisibility.ShowAvailable();
-            }
+                ActivateHud();
+
+            foreach (Touch touch in Input.touches)
+                if (touch.phase == TouchPhase.Began)
+                    ActivateHud();
+        }
+
+        private void ActivateHud()
+        {
+            Hide();
+            _weaponsVisibility.ShowAvailable();
         }
 
         public void Construct(GameObject hero, WeaponsVisibility weaponsVisibility)

@@ -51,7 +51,16 @@ namespace CodeBase.Hero
         private void Update()
         {
             if (_canShoot)
-                if (Input.GetMouseButton(0))
+                CheckShooting();
+        }
+
+        private void CheckShooting()
+        {
+            if (Input.GetMouseButton(0))
+                TryShoot();
+
+            foreach (Touch touch in Input.touches)
+                if (touch.phase == TouchPhase.Began)
                     TryShoot();
         }
 
@@ -61,10 +70,8 @@ namespace CodeBase.Hero
                 Shoot();
         }
 
-        private bool IsAvailableAmmo()
-        {
-            return _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
-        }
+        private bool IsAvailableAmmo() =>
+            _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
 
         private void Shoot()
         {

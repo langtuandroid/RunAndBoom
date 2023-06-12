@@ -175,7 +175,7 @@ namespace CodeBase.Infrastructure.States
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroDeath, heroReloading);
             _hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
-            _hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
+            _hud.GetComponentInChildren<WeaponsSelecter>().Construct(heroWeaponSelection);
             _hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
             _hud.GetComponentInChildren<Crosshairs>().Construct(heroReloading, heroWeaponSelection);
         }

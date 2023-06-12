@@ -93,7 +93,7 @@ namespace CodeBase.Hero
             WeaponChosen(heroWeaponTypeId);
         }
 
-        private void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
+        public void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
         {
             _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
             _currentWeapon = _heroWeaponTypeIds.IndexOf(heroWeaponTypeId);

@@ -190,7 +190,7 @@ namespace CodeBase.Hero
                 _maxHealthRatio =
                     _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId).Value;
 
-            Max = Constants.InitialMaxHP * _maxHealthRatio;
+            Max = Constants.InitialMaxHp * _maxHealthRatio;
             Current = Max;
             _progress.HealthState.MaxHp = Max;
             _progress.HealthState.CurrentHp = Current;

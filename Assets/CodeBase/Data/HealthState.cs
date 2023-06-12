@@ -10,7 +10,7 @@ namespace CodeBase.Data
 
         public HealthState()
         {
-            MaxHp = Constants.InitialMaxHP;
+            MaxHp = Constants.InitialMaxHp;
             CurrentHp = MaxHp;
         }
     }
