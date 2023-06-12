@@ -12,10 +12,16 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private void Start()
+        private void OnEnable()
         {
             _recoverForAdsButton.onClick.AddListener(RecoverForAds);
-            _restartButton.onClick.AddListener(Restart);
+            _restartButton.onClick.AddListener(RestartLevel);
+        }
+
+        private void OnDisable()
+        {
+            _recoverForAdsButton.onClick.RemoveListener(RecoverForAds);
+            _restartButton.onClick.RemoveListener(RestartLevel);
         }
 
         private void RecoverForAds()

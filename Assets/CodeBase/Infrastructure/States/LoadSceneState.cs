@@ -10,7 +10,9 @@ using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
+using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
+using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
@@ -38,6 +40,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IWindowService _windowService;
         private Scene _scene;
         private bool _isInitial = true;
+        private GameObject _hud;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
@@ -78,7 +81,8 @@ namespace CodeBase.Infrastructure.States
         {
             if (_isInitial && _progressService.Progress.SettingsData.ShowTraining)
             {
-                _windowService.Show<TrainingWindow>(WindowId.Training);
+                WindowBase trainingWindow = _windowService.Show<TrainingWindow>(WindowId.Training);
+                (trainingWindow as TrainingWindow)?.ShowAllWeaponCells();
                 _isInitial = false;
             }
         }
@@ -159,7 +163,9 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitHud(GameObject hero)
         {
-            GameObject hud = await _uiFactory.CreateHud();
+            if (_hud == null)
+                _hud = await _uiFactory.CreateHud();
+
             HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
             heroHealth.Construct(_staticDataService);
             hero.GetComponent<HeroMovement>().Construct(_staticDataService);
@@ -168,10 +174,10 @@ namespace CodeBase.Infrastructure.States
             HeroDeath heroDeath = hero.GetComponent<HeroDeath>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroDeath, heroReloading);
-            hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
-            hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
-            hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
-            hud.GetComponentInChildren<Crosshairs>().Construct(heroReloading, heroWeaponSelection);
+            _hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
+            _hud.GetComponentInChildren<WeaponsHighlighter>().Construct(heroWeaponSelection);
+            _hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
+            _hud.GetComponentInChildren<Crosshairs>().Construct(heroReloading, heroWeaponSelection);
         }
 
         private async Task InitWindows(GameObject hero)
@@ -187,15 +193,19 @@ namespace CodeBase.Infrastructure.States
             finishWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
             finishWindow.GetComponent<GiftsWindow>()?.Construct(hero);
             GameObject trainingWindow = await _uiFactory.CreateTrainingWindow();
-            trainingWindow.GetComponent<TrainingWindow>()?.Construct(hero);
+            trainingWindow.GetComponent<TrainingWindow>()
+                ?.Construct(hero, _hud.GetComponentInChildren<WeaponsVisibility>());
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
             resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
+            GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
+            gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Gifts, finishWindow);
             _windowService.AddWindow(WindowId.Training, trainingWindow);
             _windowService.AddWindow(WindowId.Result, resultsWindow);
+            _windowService.AddWindow(WindowId.GameEnd, gameEndWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
         }
     }

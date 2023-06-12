@@ -103,10 +103,10 @@ namespace CodeBase.UI.Windows.Common
         private void SwitchChanged() =>
             Volume = Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero;
 
-        protected void Restart()
+        protected void RestartLevel()
         {
             WindowService.HideAll();
-            Progress.Stats.Restarted();
+            Progress.Stats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
         }

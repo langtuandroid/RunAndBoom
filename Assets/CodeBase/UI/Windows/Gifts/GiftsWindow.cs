@@ -19,20 +19,26 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void Awake()
         {
-            _addCoinsButton.onClick.AddListener(ShowAds);
-            _toNextLevelButton.onClick.AddListener(ToNextLevel);
             _generator.GenerationStarted += DisableRefreshButtons;
             _generator.GenerationEnded += CheckRefreshButtons;
         }
 
-        private void OnEnable() =>
+        private void OnEnable()
+        {
+            _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
+        }
 
-        private void OnDisable() =>
+        private void OnDisable()
+        {
+            _addCoinsButton.onClick.RemoveListener(ShowAds);
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
+        }
 
-        public void Construct(GameObject hero) =>
+        public void Construct(GameObject hero)
+        {
             base.Construct(hero, WindowId.Gifts);
+        }
 
         public void AddNextScene(Scene nextScene)
         {
@@ -48,8 +54,10 @@ namespace CodeBase.UI.Windows.Gifts
         {
         }
 
-        private void Start() =>
+        private void Start()
+        {
             Cursor.lockState = CursorLockMode.Confined;
+        }
 
         private void ToNextLevel()
         {
@@ -74,8 +82,10 @@ namespace CodeBase.UI.Windows.Gifts
             //TODO ShowAds screen
         }
 
-        private void GenerateItems() =>
+        private void GenerateItems()
+        {
             _generator.Generate();
+        }
 
         protected override void PlayOpenSound()
         {

@@ -2,7 +2,6 @@
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Results;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace CodeBase.Logic.Level
                     Pickup();
 
                 Time.timeScale = 0;
-                WindowBase resultWindow = _windowService.Show<GiftsWindow>(WindowId.Result);
+                WindowBase resultWindow = _windowService.Show<ResultsWindow>(WindowId.Result);
                 (resultWindow as ResultsWindow)?.AddData(_nextScene, _maxPrice);
                 (resultWindow as ResultsWindow)?.ShowData();
             }

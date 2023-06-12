@@ -3339,6 +3339,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c884593c914a4c55b49157adc5ae2b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Progress:
+    SettingsData:
+      MusicVolume: 0
+      SoundVolume: 0
+      MusicOn: 0
+      SoundOn: 0
+      Language: 0
+      ShowTraining: 0
+    HealthState:
+      CurrentHp: 10
+      MaxHp: 10
+    WorldData:
+      LevelNameData:
+        Level: 
+        Sector: 
+    WeaponsData:
+      WeaponDatas: []
+      WeaponsAmmoData:
+        Amunition:
+          _keys: 
+          _values: 
+        Barrels:
+          _keys: 
+          _values: 
+      UpgradesData:
+        UpgradeItemDatas:
+        - LevelTypeId: 0
+          WeaponTypeId: 0
+          UpgradeTypeId: 0
+        - LevelTypeId: 0
+          WeaponTypeId: 0
+          UpgradeTypeId: 1
+        - LevelTypeId: 0
+          WeaponTypeId: 0
+          UpgradeTypeId: 2
+        - LevelTypeId: 0
+          WeaponTypeId: 1
+          UpgradeTypeId: 0
+        - LevelTypeId: 0
+          WeaponTypeId: 1
+          UpgradeTypeId: 1
+        - LevelTypeId: 0
+          WeaponTypeId: 1
+          UpgradeTypeId: 2
+        - LevelTypeId: 0
+          WeaponTypeId: 2
+          UpgradeTypeId: 0
+        - LevelTypeId: 0
+          WeaponTypeId: 2
+          UpgradeTypeId: 1
+        - LevelTypeId: 0
+          WeaponTypeId: 2
+          UpgradeTypeId: 2
+        - LevelTypeId: 0
+          WeaponTypeId: 3
+          UpgradeTypeId: 0
+        - LevelTypeId: 0
+          WeaponTypeId: 3
+          UpgradeTypeId: 1
+        - LevelTypeId: 0
+          WeaponTypeId: 3
+          UpgradeTypeId: 2
+      CurrentHeroWeaponTypeId: 0
+    PerksData:
+      Perks:
+      - LevelTypeId: 0
+        PerkTypeId: 1
+      - LevelTypeId: 0
+        PerkTypeId: 4
+      - LevelTypeId: 0
+        PerkTypeId: 0
+      - LevelTypeId: 0
+        PerkTypeId: 3
+      - LevelTypeId: 0
+        PerkTypeId: 2
+    Stats:
+      CurrentLevelStats:
+        Scene: 0
+        MoneyData:
+          Money: 0
+        PlayTimeData:
+          PlayTime: 0
+        KillsData:
+          KilledEnemies: 0
+          TotalEnemies: 0
+        RestartsData:
+          Count: 0
+        StarsCount: 0
+        Score: 0
+      LevelStats:
+        _keys: 
+        _values: []
+      AllMoney:
+        Money: 0
   _restartButton: {fileID: 8701783380240409709}
   _closeButton: {fileID: 4523219301099680667}
 --- !u!114 &6207973410136535489
@@ -3353,7 +3447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300e8d00455c4522bf49607409e222b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _title: {fileID: 8946289374112158562}
+  Title: {fileID: 8946289374112158562}
   _launchTrainingText: {fileID: 1361121878441089504}
 --- !u!82 &-6459657938183610138
 AudioSource:

@@ -36,7 +36,7 @@ namespace CodeBase.Data.Stats
             CurrentLevelStats = new LevelStats(scene, targetPlayTime, totalEnemies);
         }
 
-        public void Restarted()
+        public void RestartedLevel()
         {
             CurrentLevelStats.RestartsData.Increment();
             CurrentLevelStats.PlayTimeData.Clear();

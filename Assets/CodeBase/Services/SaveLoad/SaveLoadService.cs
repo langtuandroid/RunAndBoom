@@ -26,6 +26,12 @@ namespace CodeBase.Services.SaveLoad
             PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
         }
 
+        public void ClearProgress()
+        {
+            _progressService.ClearProgress();
+            PlayerPrefs.DeleteAll();
+        }
+
         public PlayerProgress LoadProgress()
         {
             string s = PlayerPrefs.GetString(ProgressKey);

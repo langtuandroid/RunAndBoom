@@ -2,6 +2,7 @@
 using CodeBase.Data.Stats;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
@@ -13,7 +14,7 @@ namespace CodeBase.UI.Windows.Results
     public class ResultsWindow : WindowBase
     {
         [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _toGiftsButton;
+        [SerializeField] private Button _toNextWindowButton;
         [SerializeField] private StarsPanel _starsPanel;
         [SerializeField] private TextMeshProUGUI _playTimeCount;
         [SerializeField] private TextMeshProUGUI _killed;
@@ -24,10 +25,32 @@ namespace CodeBase.UI.Windows.Results
         private int _maxPrice;
         private Scene _nextScene;
 
-        private void Awake()
+        private void OnEnable()
         {
-            _toGiftsButton.onClick.AddListener(ToGiftsWindow);
-            _restartButton.onClick.AddListener(Restart);
+            AddNextWindowListener();
+            _restartButton.onClick.AddListener(RestartLevel);
+        }
+
+        private void OnDisable()
+        {
+            RemoveNextWindowListener();
+            _restartButton.onClick.RemoveListener(RestartLevel);
+        }
+
+        private void AddNextWindowListener()
+        {
+            if (_nextScene == Scene.Initial)
+                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
+            else
+                _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
+        }
+
+        private void RemoveNextWindowListener()
+        {
+            if (_nextScene == Scene.Initial)
+                _toNextWindowButton.onClick.RemoveListener(ToGameEndWindow);
+            else
+                _toNextWindowButton.onClick.RemoveListener(ToGiftsWindow);
         }
 
         private void ToGiftsWindow()
@@ -39,6 +62,12 @@ namespace CodeBase.UI.Windows.Results
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
             (giftsWindow as GiftsWindow)?.AddNextScene(_nextScene);
+        }
+
+        private void ToGameEndWindow()
+        {
+            Hide();
+            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
         }
 
         public void Construct(GameObject hero) =>
@@ -53,18 +82,12 @@ namespace CodeBase.UI.Windows.Results
         public void ShowData()
         {
             Progress.Stats.CurrentLevelStats.CalculateScore();
-            // ProgressService.Progress.Stats.CurrentLevelStats.CalculateScore();
             LevelStats levelStats = Progress.Stats.CurrentLevelStats;
-            // LevelStats levelStats = ProgressService.Progress.Stats.CurrentLevelStats;
             _starsPanel.ShowStars(levelStats.StarsCount);
-
             _playTimeCount.text = $"{levelStats.PlayTimeData.PlayTime.ToInt()}";
-
             _killed.text = $"{levelStats.KillsData.KilledEnemies}";
             _totalEnemies.text = $"{levelStats.KillsData.TotalEnemies}";
-
             _restartsCount.text = $"{levelStats.RestartsData.Count}";
-
             _score.text = $"{levelStats.Score}";
         }
     }

@@ -118,5 +118,13 @@
         public static string ResultsSecRu = "сек";
         public static string ResultsSecEn = "sec";
         public static string ResultsSecTr = "san";
+
+        public static string GameEndTitleRu = "Конец игры";
+        public static string GameEndTitleEn = "End of the game";
+        public static string GameEndTitleTr = "Oyun sonu";
+
+        public static string GameEndWriteReviewRu = "Пожалуйста, напишите отзыв :)";
+        public static string GameEndWriteReviewEn = "Please write a review :)";
+        public static string GameEndWriteReviewTr = "Lütfen bir yorum yazın :)";
     }
 }

@@ -229,7 +229,7 @@ BoxCollider:
   m_GameObject: {fileID: 2604969150810982037}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -396,6 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8027270677975631171}
   - component: {fileID: 5913367420521618631}
+  - component: {fileID: 6544437507461944932}
   m_Layer: 6
   m_Name: HitBox
   m_TagString: Enemy
@@ -427,9 +428,23 @@ BoxCollider:
   m_GameObject: {fileID: 5049953314621015334}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1.7, z: 0.6}
+  m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!136 &6544437507461944932
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049953314621015334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.7
+  m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &6644373206372179618
 GameObject:

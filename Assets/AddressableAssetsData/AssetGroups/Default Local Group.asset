@@ -153,6 +153,14 @@ MonoBehaviour:
     m_Address: ResultsWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8406c05e3c3db124a8ea1d21131f5b29
+    m_Address: GameEndWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e6c88e97d682084a9f4d7bf69820025
+    m_Address: LeaderboardWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9cc2a55e604bc944590d8a935a0bb2a9, type: 2}
   m_SchemaSet:

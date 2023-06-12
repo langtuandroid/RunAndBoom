@@ -3,6 +3,7 @@ using System.Linq;
 using CodeBase.Data;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
+using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
@@ -46,6 +47,9 @@ namespace CodeBase.UI.Services.Windows
                     break;
                 case WindowId.Result:
                     window = ShowWindow<ResultsWindow>(WindowId.Result);
+                    break;
+                case WindowId.GameEnd:
+                    window = ShowWindow<GameEndWindow>(WindowId.GameEnd);
                     break;
             }
 

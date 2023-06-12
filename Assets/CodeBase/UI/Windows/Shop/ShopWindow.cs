@@ -20,11 +20,22 @@ namespace CodeBase.UI.Windows.Shop
 
         private void Awake()
         {
+            _generator.GenerationStarted += DisableRefreshButtons;
+            _generator.GenerationEnded += CheckRefreshButtons;
+        }
+
+        private void OnEnable()
+        {
             _skipButton.onClick.AddListener(CloseShop);
             _refreshButton.onClick.AddListener(GenerateShopItems);
             _refreshWithAdsButton.onClick.AddListener(ShowAdsAndGenerate);
-            _generator.GenerationStarted += DisableRefreshButtons;
-            _generator.GenerationEnded += CheckRefreshButtons;
+        }
+
+        private void OnDisable()
+        {
+            _skipButton.onClick.RemoveListener(CloseShop);
+            _refreshButton.onClick.RemoveListener(GenerateShopItems);
+            _refreshWithAdsButton.onClick.RemoveListener(ShowAdsAndGenerate);
         }
 
         public void Construct(GameObject hero) =>

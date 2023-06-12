@@ -10,5 +10,6 @@
         Gifts = 5,
         Training = 6,
         Result = 7,
+        GameEnd = 8,
     }
 }

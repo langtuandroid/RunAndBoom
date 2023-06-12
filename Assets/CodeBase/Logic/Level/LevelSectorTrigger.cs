@@ -9,8 +9,9 @@ using UnityEngine;
 
 namespace CodeBase.Logic.Level
 {
-    public class LevelSectorTrigger : MonoBehaviour
+    public class LevelSectorTrigger : MonoBehaviour, IProgressReader
     {
+        private const int MinItemValue = 5;
         [SerializeField] private int _number;
         [SerializeField] private int _refreshCount;
         [SerializeField] private int _watchAdsNumber;
@@ -18,6 +19,8 @@ namespace CodeBase.Logic.Level
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
         private bool _isPassed = false;
+        private PlayerProgress _progress;
+        private MoneyData _moneyData;
 
         public event Action Passed;
 
@@ -31,13 +34,30 @@ namespace CodeBase.Logic.Level
         {
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                Passed?.Invoke();
-                _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
-                WindowBase shopWindow = _windowService.Show<ShopWindow>(WindowId.Shop);
-                (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
-                (shopWindow as ShopWindow)?.AddCounts(_refreshCount, _watchAdsNumber);
-                _isPassed = true;
+                if (AllServices.Container.Single<IPlayerProgressService>().Progress.Stats.CurrentLevelStats.MoneyData
+                    .IsMoneyEnough(MinItemValue))
+                    // if (_progress.Stats.CurrentLevelStats.MoneyData.IsMoneyEnough(MinItemValue))
+                    ShowShopWindow();
+
+                SetPassed();
             }
         }
+
+        private void ShowShopWindow()
+        {
+            _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
+            WindowBase shopWindow = _windowService.Show<ShopWindow>(WindowId.Shop);
+            (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
+            (shopWindow as ShopWindow)?.AddCounts(_refreshCount, _watchAdsNumber);
+        }
+
+        private void SetPassed()
+        {
+            Passed?.Invoke();
+            _isPassed = true;
+        }
+
+        public void LoadProgress(PlayerProgress progress) =>
+            _progress = progress;
     }
 }

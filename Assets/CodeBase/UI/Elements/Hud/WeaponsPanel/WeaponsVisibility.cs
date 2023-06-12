@@ -15,46 +15,61 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         private PlayerProgress _progress;
 
-        private void Awake()
+        public void ShowAvailable()
         {
-            _grenadeLauncher.SetActive(false);
-            _rpg.SetActive(false);
-            _rocketLauncher.SetActive(false);
-            _mortar.SetActive(false);
-        }
-
-        private void Construct()
-        {
-            _progress.WeaponsData.SetAvailable += WeaponIsAvailable;
-
             foreach (WeaponData weaponsData in _progress.WeaponsData.WeaponDatas)
                 if (weaponsData.IsAvailable)
-                    WeaponIsAvailable(weaponsData.WeaponTypeId);
+                    SetVisibility(weaponsData.WeaponTypeId, true);
+                else
+                    SetVisibility(weaponsData.WeaponTypeId, false);
         }
 
-        private void WeaponIsAvailable(HeroWeaponTypeId typeId)
+        private void Show(HeroWeaponTypeId typeId) =>
+            SetVisibility(typeId, true);
+
+        private void SetVisibility(HeroWeaponTypeId typeId, bool isVisible)
         {
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    _grenadeLauncher.SetActive(true);
+                    if (_grenadeLauncher.activeInHierarchy != isVisible)
+                        _grenadeLauncher.SetActive(isVisible);
                     break;
                 case HeroWeaponTypeId.RPG:
-                    _rpg.SetActive(true);
+                    if (_rpg.activeInHierarchy != isVisible)
+                        _rpg.SetActive(isVisible);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    _rocketLauncher.SetActive(true);
+                    if (_rocketLauncher.activeInHierarchy != isVisible)
+                        _rocketLauncher.SetActive(isVisible);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    _mortar.SetActive(true);
+                    if (_mortar.activeInHierarchy != isVisible)
+                        _mortar.SetActive(isVisible);
                     break;
             }
+        }
+
+        public void ShowAll()
+        {
+            if (!_grenadeLauncher.activeInHierarchy)
+                _grenadeLauncher.SetActive(true);
+
+            if (!_rpg.activeInHierarchy)
+                _rpg.SetActive(true);
+
+            if (!_rocketLauncher.activeInHierarchy)
+                _rocketLauncher.SetActive(true);
+
+            if (!_mortar.activeInHierarchy)
+                _mortar.SetActive(true);
         }
 
         public void LoadProgress(PlayerProgress progress)
         {
             _progress = progress;
-            Construct();
+            _progress.WeaponsData.SetAvailable += Show;
+            ShowAvailable();
         }
     }
 }

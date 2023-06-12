@@ -1,12 +1,15 @@
 ﻿using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
+using TMPro;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements
 {
     public abstract class BaseText : MonoBehaviour
     {
+        [SerializeField] protected TextMeshProUGUI Title;
+
         private ILocalizationService _localizationService;
 
         private void Awake()
