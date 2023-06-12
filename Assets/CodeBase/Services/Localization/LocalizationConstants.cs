@@ -66,50 +66,59 @@
         public static string HudMortarEn = "Mortar";
         public static string HudMortarTr = "Harç";
 
-        public static string TrainingMoneyRu = "Количество ваших денег. Вы можете потратить их в магазине";
-        public static string TrainingMoneyEn = "The amount of your money. You can spend it in the shop";
-        public static string TrainingMoneyTr = "Paranızın miktarı. Dükkanda harcayabilirsiniz";
+        public static string TrainingMoneyRu = "Количество ваших денег";
+        public static string TrainingMoneyEn = "The amount of your money";
+        public static string TrainingMoneyTr = "Paranızın miktarı";
 
-        public static string TrainingLevelRu = "Ваш текущий уровень и секция";
-        public static string TrainingLevelEn = "Your current level and section";
-        public static string TrainingLevelTr = "Mevcut seviyeniz ve bölümünüz";
+        public static string TrainingLevelRu = "Ваш текущий уровень";
+        public static string TrainingLevelEn = "Your current level";
+        public static string TrainingLevelTr = "Mevcut seviyeniz";
 
-        public static string TrainingHealthBarRu = "Ваша полоса здоровья. Избегайте её обнуления";
-        public static string TrainingHealthBarEn = "Your health bar. Avoid zeroing it out";
-        public static string TrainingHealthBarTr = "Sağlık çubuğunuz. Sıfırlamaktan kaçının";
+        public static string TrainingHealthBarRu = "Ваша полоса здоровья";
+        public static string TrainingHealthBarEn = "Your health bar";
+        public static string TrainingHealthBarTr = "Sağlık çubuğunuz";
 
-        public static string TrainingOpenCloseSettingsRu =
-            "Нажмите Esc на Клавиатуре, чтобы открыть/закрыть окно настроек";
+        public static string TrainingOpenCloseSettingsPCRu =
+            "Нажмите Esc, чтобы открыть/закрыть окно настроек";
 
-        public static string TrainingOpenCloseSettingsEn =
-            "Press Esc on the Keyboard to open/close the settings window";
+        public static string TrainingOpenCloseSettingsPCEn =
+            "Press Esc to open/close the settings window";
 
-        public static string TrainingOpenCloseSettingsTr =
-            "Ayarlar penceresini açmak/kapatmak için Klavyede Esc tuşuna basın";
+        public static string TrainingOpenCloseSettingsPCTr =
+            "Ayarlar penceresini açmak/kapatmak için Esc tuşuna basın";
 
-        public static string TrainingLeaveTrainingRu = "Нажмите любую клавишу, чтобы покинуть обучение";
-        public static string TrainingLeaveTrainingEn = "Press any button to leave the training";
-        public static string TrainingLeaveTrainingTr = "Eğitimden çıkmak için herhangi bir tuşa basın";
+        public static string TrainingOpenCloseSettingsMobileRu =
+            "Нажмите кнопку шестерни, чтобы открыть/закрыть окно настроек";
 
-        public static string TrainingFireRu = "Нажмите Левую Кнопку Мыши, чтобы стрелять";
-        public static string TrainingFireEn = "Press Left Mouse Click to fire";
-        public static string TrainingFireTr = "Ateş etmek için Sol Fare Tıklamasına basın";
+        public static string TrainingOpenCloseSettingsMobileEn =
+            "Press the gear button to open/close the settings window";
 
-        public static string TrainingWeapon1Ru = "Нажмите 1 на Клавиатуре, чтобы выбрать гранатомёт";
-        public static string TrainingWeapon1En = "Press 1 on the Keyboard to choose grenade launcher";
-        public static string TrainingWeapon1Tr = "El bombası fırlatıcısını seçmek için Klavyede 1'e basın";
+        public static string TrainingOpenCloseSettingsMobileTr =
+            "Ayarlar penceresini açmak/kapatmak için dişli düğmesine basın";
 
-        public static string TrainingWeapon2Ru = "Нажмите 2 на Клавиатуре, чтобы выбрать РПГ";
-        public static string TrainingWeapon2En = "Press 2 on the Keyboard to choose RPG";
-        public static string TrainingWeapon2Tr = "RPG'yi seçmek için Klavyede 2'ye basın";
+        public static string TrainingLeaveTrainingPCRu = "Нажмите любую клавишу, чтобы покинуть обучение";
+        public static string TrainingLeaveTrainingPCEn = "Press any button to leave the training";
+        public static string TrainingLeaveTrainingPCTr = "Eğitimden çıkmak için herhangi bir tuşa basın";
 
-        public static string TrainingWeapon3Ru = "Нажмите 3 на Клавиатуре, чтобы выбрать ракетницу";
-        public static string TrainingWeapon3En = "Press 3 on the Keyboard to choose rocket launcher";
-        public static string TrainingWeapon3Tr = "Roket fırlatıcıyı seçmek için Klavyede 3'e basın";
+        public static string TrainingLeaveTrainingMobileRu = "Нажмите на экран, чтобы покинуть обучение";
+        public static string TrainingLeaveTrainingMobileEn = "Press on the screen to leave the training";
+        public static string TrainingLeaveTrainingMobileTr = "Eğitimden çıkmak için ekrana basın";
 
-        public static string TrainingWeapon4Ru = "Нажмите 4 на Клавиатуре, чтобы выбрать мортиру";
-        public static string TrainingWeapon4En = "Press 4 on the Keyboard to choose mortar";
-        public static string TrainingWeapon4Tr = "Harcı seçmek için Klavyede 4 tuşuna basın";
+        public static string TrainingShootPCRu = "Нажмите Левую Кнопку Мыши, чтобы стрелять";
+        public static string TrainingShootPCEn = "Press Left Mouse Click to shoot";
+        public static string TrainingShootPCTr = "Ateş etmek için Sol Fare Tıklamasına basın";
+
+        public static string TrainingShootMobileRu = "Нажмите на экран, чтобы стрелять";
+        public static string TrainingShootMobileEn = "Press on the screen to shoot";
+        public static string TrainingShootMobileTr = "Ateş etmek için ekrana basın";
+
+        public static string TrainingWeaponsPCRu = "Нажмите 1-4, чтобы выбрать оружие";
+        public static string TrainingWeaponsPCEn = "Press 1-4 to select a weapon";
+        public static string TrainingWeaponsPCTr = "Bir silah seçmek için 1-4'e basın";
+
+        public static string TrainingWeaponsMobileRu = "Нажмите на вкладку, чтобы выбрать оружие";
+        public static string TrainingWeaponsMobileEn = "Click on a tab to select a weapon";
+        public static string TrainingWeaponsMobileTr = "Silah seçmek için sekmelere tıklayın";
 
         public static string ResultsTitleRu = "Итоги";
         public static string ResultsTitleEn = "Result";
