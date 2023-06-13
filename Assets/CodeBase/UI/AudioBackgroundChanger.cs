@@ -26,15 +26,15 @@ namespace CodeBase.UI
         {
             if (inBackground)
             {
-                SoundInstance.StopRandomMusic(false);
+                // SoundInstance.StopRandomMusic(false);
                 SoundInstance.musicVolume = Constants.Zero;
                 SoundInstance.GetMusicSource().volume = Constants.Zero;
             }
             else
             {
-                SoundInstance.ResumeMusic();
-                SoundInstance.GetMusicSource().volume = _playerProgressService.Progress.SettingsData.MusicVolume;
+                // SoundInstance.ResumeMusic();
                 SoundInstance.musicVolume = _playerProgressService.Progress.SettingsData.MusicVolume;
+                SoundInstance.GetMusicSource().volume = _playerProgressService.Progress.SettingsData.MusicVolume;
             }
         }
     }
