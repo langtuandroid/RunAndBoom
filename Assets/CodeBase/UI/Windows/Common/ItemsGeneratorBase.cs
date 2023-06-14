@@ -91,7 +91,7 @@ namespace CodeBase.UI.Windows.Common
 
         protected void CreateNextLevelUpgrades()
         {
-            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponDatas.Where(data => data.IsAvailable).ToArray();
+            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
             List<UpgradeItemData> upgradeItemDatas = Progress.WeaponsData.UpgradesData.UpgradeItemDatas;
 
             foreach (WeaponData weaponData in availableWeapons)
@@ -141,7 +141,7 @@ namespace CodeBase.UI.Windows.Common
 
         protected void CreateAmmunition()
         {
-            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponDatas.Where(data => data.IsAvailable).ToArray();
+            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
 
             foreach (WeaponData weaponData in availableWeapons)
                 CheckAmmoCount(weaponData);
@@ -180,7 +180,7 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateWeapons()
         {
             WeaponData[] unavailableWeapons =
-                Progress.WeaponsData.WeaponDatas.Where(data => data.IsAvailable == false).ToArray();
+                Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable == false).ToArray();
 
             foreach (WeaponData weaponData in unavailableWeapons)
             {

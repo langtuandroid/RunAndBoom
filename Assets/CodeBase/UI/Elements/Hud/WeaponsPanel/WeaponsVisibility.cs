@@ -17,7 +17,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         public void ShowAvailable()
         {
-            foreach (WeaponData weaponsData in _progress.WeaponsData.WeaponDatas)
+            foreach (WeaponData weaponsData in _progress.WeaponsData.WeaponData)
                 if (weaponsData.IsAvailable)
                     SetVisibility(weaponsData.WeaponTypeId, true);
                 else

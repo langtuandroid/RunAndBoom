@@ -84,7 +84,7 @@ namespace CodeBase.Hero
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
-            if (!_progress.WeaponsData.WeaponDatas.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
+            if (!_progress.WeaponsData.WeaponData.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
                 return;
 
             foreach (var keyValue in _weaponsDictionary)

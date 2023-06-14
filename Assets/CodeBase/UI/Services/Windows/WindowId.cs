@@ -8,8 +8,7 @@
         Settings = 3,
         Shop = 4,
         Gifts = 5,
-        Training = 6,
-        Result = 7,
-        GameEnd = 8,
+        Result = 6,
+        GameEnd = 7,
     }
 }

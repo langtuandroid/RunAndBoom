@@ -8,7 +8,6 @@ using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
-using CodeBase.UI.Windows.Training;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -42,9 +41,6 @@ namespace CodeBase.UI.Services.Windows
                 case WindowId.Gifts:
                     window = ShowWindow<GiftsWindow>(WindowId.Gifts);
                     break;
-                case WindowId.Training:
-                    window = ShowWindow<TrainingWindow>(WindowId.Training);
-                    break;
                 case WindowId.Result:
                     window = ShowWindow<ResultsWindow>(WindowId.Result);
                     break;
@@ -74,7 +70,6 @@ namespace CodeBase.UI.Services.Windows
         {
             _windows.TryGetValue(windowId, out GameObject windowGameObject);
             T window = windowGameObject?.GetComponent<T>();
-            window?.Show(windowId != WindowId.Training);
             return window;
         }
 

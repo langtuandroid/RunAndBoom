@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Weapons;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Data.Weapons
 {
@@ -14,38 +15,39 @@ namespace CodeBase.Data.Weapons
         private const int InitialMortarAmmoCount = 6;
 
         private List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
-        public List<WeaponData> WeaponDatas;
+       public List<WeaponData> WeaponData;
         public WeaponsAmmoData WeaponsAmmoData;
         public UpgradesData UpgradesData;
         public HeroWeaponTypeId CurrentHeroWeaponTypeId;
 
         public event Action<HeroWeaponTypeId> SetAvailable;
+        public event Action CurrentWeaponChanged;
 
         public WeaponsData(Scene scene)
         {
-            WeaponDatas = new List<WeaponData>(_typeIds.Count);
-            WeaponsAmmoData = new WeaponsAmmoData(WeaponDatas, scene);
+            WeaponData = new List<WeaponData>(_typeIds.Count);
+            WeaponsAmmoData = new WeaponsAmmoData(WeaponData, scene);
             UpgradesData = new UpgradesData();
             FillAvailableWeapons();
-            CurrentHeroWeaponTypeId = WeaponDatas.First(x => x.IsAvailable).WeaponTypeId;
+            CurrentHeroWeaponTypeId = WeaponData.First(x => x.IsAvailable).WeaponTypeId;
         }
 
         private void FillAvailableWeapons()
         {
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
             // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RPG, false));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RPG, true));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RPG, true));
             // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, false));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, true));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, true));
             // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.Mortar, false));
-            WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.Mortar, true));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.Mortar, true));
 
             SetAvailableWeapons();
         }
 
         private void SetAvailableWeapons()
         {
-            foreach (WeaponData weaponData in WeaponDatas)
+            foreach (WeaponData weaponData in WeaponData)
                 if (weaponData.IsAvailable)
                     SetAvailable?.Invoke(weaponData.WeaponTypeId);
         }
@@ -54,11 +56,12 @@ namespace CodeBase.Data.Weapons
         {
             CurrentHeroWeaponTypeId = typeId;
             WeaponsAmmoData.SetCurrentWeapon(typeId);
+            CurrentWeaponChanged?.Invoke();
         }
 
         public void SetAvailableWeapon(HeroWeaponTypeId typeId)
         {
-            WeaponDatas.First(x => x.WeaponTypeId == typeId).SetWeaponAvailable();
+            WeaponData.First(x => x.WeaponTypeId == typeId).SetWeaponAvailable();
 
             switch (typeId)
             {
