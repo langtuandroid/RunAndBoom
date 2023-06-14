@@ -1,6 +1,4 @@
-﻿using CodeBase.UI.Services;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
 {

@@ -1,6 +1,4 @@
-﻿using System;
-using CodeBase.UI.Services;
-using UnityEditor.TextCore.Text;
+﻿using CodeBase.UI.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
