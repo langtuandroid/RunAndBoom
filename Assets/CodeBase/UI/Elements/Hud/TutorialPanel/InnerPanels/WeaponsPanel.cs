@@ -45,19 +45,27 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
                     x.WeaponTypeId == HeroWeaponTypeId.GrenadeLauncher && x.IsAvailable) !=
                 null)
                 _glClick.gameObject.SetActive(true);
+            else
+                _glClick.gameObject.SetActive(false);
 
             if (_progressWeaponsData.WeaponData.Find(x => x.WeaponTypeId == HeroWeaponTypeId.RPG && x.IsAvailable) !=
                 null)
                 _rpgClick.gameObject.SetActive(true);
+            else
+                _rpgClick.gameObject.SetActive(false);
 
             if (_progressWeaponsData.WeaponData.Find(x =>
                     x.WeaponTypeId == HeroWeaponTypeId.RocketLauncher && x.IsAvailable) !=
                 null)
                 _rlClick.gameObject.SetActive(true);
+            else
+                _rlClick.gameObject.SetActive(false);
 
             if (_progressWeaponsData.WeaponData.Find(x => x.WeaponTypeId == HeroWeaponTypeId.Mortar && x.IsAvailable) !=
                 null)
                 _mortarClick.gameObject.SetActive(true);
+            else
+                _mortarClick.gameObject.SetActive(false);
         }
 
         public void LoadProgress(PlayerProgress progress)

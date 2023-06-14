@@ -599,6 +599,8 @@ GameObject:
   m_Component:
   - component: {fileID: 743366677771958251}
   - component: {fileID: 480822287045688539}
+  - component: {fileID: 588681298731467219}
+  - component: {fileID: 8430445662646193805}
   m_Layer: 5
   m_Name: TutorialPanel
   m_TagString: Untagged
@@ -637,6 +639,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2418753637422028080}
   m_CullTransparentMesh: 0
+--- !u!114 &588681298731467219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418753637422028080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fb4199142f4944b265ea055709df1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementPanel: {fileID: 6214584778085484035}
+  _weaponsPanel: {fileID: 6696174859034299328}
+  _shootPanel: {fileID: 1740011829701762920}
+--- !u!114 &8430445662646193805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418753637422028080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f79992ffd8b4a27992febed02fecef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: {fileID: 0}
+  _shootText: {fileID: 435462227661996199}
+  _weaponsText: {fileID: 1074978187116893473}
+  _movementText: {fileID: 4528095244700341260}
 --- !u!1 &2603730789398768918
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +763,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 37.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1418,7 +1451,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 41.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1553,7 +1586,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.15
+  m_fontSize: 21.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

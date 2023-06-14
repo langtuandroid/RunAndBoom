@@ -16,7 +16,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         private bool _isShot;
         private bool _isWeaponSelected;
 
-        private void Awake()
+        private void Start()
         {
             if (Application.isMobilePlatform)
             {
