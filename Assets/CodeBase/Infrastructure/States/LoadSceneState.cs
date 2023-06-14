@@ -17,7 +17,6 @@ using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
-using CodeBase.UI.Windows.Training;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -56,7 +55,6 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
-            _loadingCurtain.FadedOut += TryShowTraining;
         }
 
         public void Enter(Scene scene)
@@ -75,16 +73,6 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
-        }
-
-        private void TryShowTraining()
-        {
-            if (_isInitial && _progressService.Progress.SettingsData.ShowTraining)
-            {
-                WindowBase trainingWindow = _windowService.Show<TrainingWindow>(WindowId.Training);
-                (trainingWindow as TrainingWindow)?.ShowAllWeaponCells();
-                _isInitial = false;
-            }
         }
 
         private async void OnLoaded(Scene scene)
@@ -174,7 +162,7 @@ namespace CodeBase.Infrastructure.States
             HeroDeath heroDeath = hero.GetComponent<HeroDeath>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroDeath, heroReloading);
-            _hud.GetComponentInChildren<HealthUI>().Construct(heroHealth);
+            _hud.GetComponentInChildren<Health>().Construct(heroHealth);
             _hud.GetComponentInChildren<WeaponsSelecter>().Construct(heroWeaponSelection);
             _hud.GetComponentInChildren<ReloadingIndicator>().Construct(heroReloading, heroWeaponSelection);
             _hud.GetComponentInChildren<Crosshairs>().Construct(heroReloading, heroWeaponSelection);
@@ -192,9 +180,6 @@ namespace CodeBase.Infrastructure.States
             GameObject finishWindow = await _uiFactory.CreateFinishWindow();
             finishWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
             finishWindow.GetComponent<GiftsWindow>()?.Construct(hero);
-            GameObject trainingWindow = await _uiFactory.CreateTrainingWindow();
-            trainingWindow.GetComponent<TrainingWindow>()
-                ?.Construct(hero, _hud.GetComponentInChildren<WeaponsVisibility>());
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
             resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
@@ -203,7 +188,6 @@ namespace CodeBase.Infrastructure.States
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Gifts, finishWindow);
-            _windowService.AddWindow(WindowId.Training, trainingWindow);
             _windowService.AddWindow(WindowId.Result, resultsWindow);
             _windowService.AddWindow(WindowId.GameEnd, gameEndWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
