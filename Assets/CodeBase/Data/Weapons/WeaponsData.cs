@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Weapons;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Data.Weapons
 {
@@ -15,7 +14,7 @@ namespace CodeBase.Data.Weapons
         private const int InitialMortarAmmoCount = 6;
 
         private List<HeroWeaponTypeId> _typeIds = DataExtensions.GetValues<HeroWeaponTypeId>().ToList();
-       public List<WeaponData> WeaponData;
+        public List<WeaponData> WeaponData;
         public WeaponsAmmoData WeaponsAmmoData;
         public UpgradesData UpgradesData;
         public HeroWeaponTypeId CurrentHeroWeaponTypeId;

@@ -10,13 +10,13 @@
         public static string SettingsLaunchTrainingEn = "Training after launch";
         public static string SettingsLaunchTrainingTr = "Lansman sonrası eğitim";
 
-        public static string CloseRu = "Закрыть";
-        public static string CloseEn = "Close";
-        public static string CloseTr = "Kapat";
-
         public static string DeathTitleRu = "Вы померли";
         public static string DeathTitleEn = "You are dead";
         public static string DeathTitleTr = "Sen öldün";
+
+        public static string DeathRecoverRu = "Вылечиться";
+        public static string DeathRecoverEn = "Recover";
+        public static string DeathRecoverTr = "Tedavi";
 
         public static string RestartRu = "Рестарт";
         public static string RestartEn = "Restart";
@@ -26,13 +26,13 @@
         public static string ShopTitleEn = "Shop";
         public static string ShopTitleTr = "Mağaza";
 
-        public static string SkipRu = "Пропустить";
-        public static string SkipEn = "Skip";
-        public static string SkipTr = "Atla";
+        public static string ShopRefreshRu = "Обновить";
+        public static string ShopRefreshEn = "Refresh";
+        public static string ShopRefreshTr = "Yenile";
 
-        public static string RefreshRu = "Обновить";
-        public static string RefreshEn = "Refresh";
-        public static string RefreshTr = "Yenile";
+        public static string ShopSkipRu = "Пропустить";
+        public static string ShopSkipEn = "Skip";
+        public static string ShopSkipTr = "Atla";
 
         public static string FinishTitleRu = "Выбери подарок";
         public static string FinishTitleEn = "Choose a gift";
@@ -42,9 +42,9 @@
         public static string AddCoinsEn = "Add coins";
         public static string AddCoinsTr = "Madeni para ekleyin";
 
-        public static string NextLevelRu = "Следующий уровень";
-        public static string NextLevelEn = "Next level";
-        public static string NextLevelTr = "Sonraki seviye";
+        public static string NextRu = "Далее";
+        public static string NextEn = "Next";
+        public static string NextTr = "Sonraki";
 
         public static string HudLevelRu = "Уровень";
         public static string HudLevelEn = "Level";
@@ -65,7 +65,7 @@
         public static string HudMortarRu = "Мортира";
         public static string HudMortarEn = "Mortar";
         public static string HudMortarTr = "Harç";
-        
+
         public static string HudShootRu = "Стрелять";
         public static string HudShootEn = "Shoot";
         public static string HudShootTr = "Ateş et";
@@ -77,6 +77,10 @@
         public static string HudMovementRu = "Передвижение";
         public static string HudMovementEn = "Movement";
         public static string HudMovementTr = "Taşınmak";
+
+        public static string HudSettingsRu = "Настройки";
+        public static string HudSettingsEn = "Settings";
+        public static string HudSettingsTr = "Ayarlar";
 
         public static string ResultsTitleRu = "Итоги";
         public static string ResultsTitleEn = "Result";
@@ -93,5 +97,9 @@
         public static string GameEndWriteReviewRu = "Пожалуйста, напишите отзыв :)";
         public static string GameEndWriteReviewEn = "Please write a review :)";
         public static string GameEndWriteReviewTr = "Lütfen bir yorum yazın :)";
+
+        public static string GameEndStartNewGameRu = "Начать новую игру";
+        public static string GameEndStartNewGameEn = "Start a new game";
+        public static string GameEndStartNewGameTr = "Yeni bir oyun başlatın";
     }
 }

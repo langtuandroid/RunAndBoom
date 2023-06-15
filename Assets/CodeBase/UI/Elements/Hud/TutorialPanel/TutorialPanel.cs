@@ -5,6 +5,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
     public class TutorialPanel : MonoBehaviour
     {
+        [SerializeField] private SettingsPanel _settingsPanel;
         [SerializeField] private MovementPanel _movementPanel;
         [SerializeField] private InnerPanels.WeaponsPanel _weaponsPanel;
         [SerializeField] private ShootPanel _shootPanel;
@@ -20,12 +21,14 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         {
             if (Application.isMobilePlatform)
             {
+                _settingsPanel.gameObject.SetActive(false);
                 _movementPanel.ShowForMobile();
                 _shootPanel.ShowForMobile();
                 _weaponsPanel.ShowForMobile();
             }
             else
             {
+                _settingsPanel.gameObject.SetActive(true);
                 _movementPanel.ShowForPc();
                 _shootPanel.ShowForPc();
                 _weaponsPanel.ShowForPc();
@@ -64,6 +67,9 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
                 _shootPanel.Hide();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                _settingsPanel.Hide();
         }
 
         private void CheckMovement()

@@ -11,8 +11,7 @@
         public const string ShopWindow = "ShopWindow";
         public const string DeathWindow = "DeathWindow";
         public const string SettingsWindow = "SettingsWindow";
-        public const string FinishWindow = "FinishWindow";
-        public const string TrainingWindow = "TrainingWindow";
+        public const string GiftsWindow = "GiftsWindow";
         public const string ResultsWindow = "ResultsWindow";
         public const string GameEndWindow = "GameEndWindow";
 

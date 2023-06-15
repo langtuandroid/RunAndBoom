@@ -7,24 +7,24 @@ namespace CodeBase.UI.Windows.Settings
 {
     public class SettingsText : BaseText
     {
-        [SerializeField] private TextMeshProUGUI _launchTrainingText;
+        [SerializeField] private TextMeshProUGUI _restartText;
 
         protected override void RuChosen()
         {
             Title.text = LocalizationConstants.SettingsTitleRu;
-            _launchTrainingText.text = LocalizationConstants.SettingsLaunchTrainingRu;
+            _restartText.text = LocalizationConstants.RestartRu;
         }
 
         protected override void TrChosen()
         {
             Title.text = LocalizationConstants.SettingsTitleTr;
-            _launchTrainingText.text = LocalizationConstants.SettingsLaunchTrainingTr;
+            _restartText.text = LocalizationConstants.RestartTr;
         }
 
         protected override void EnChosen()
         {
             Title.text = LocalizationConstants.SettingsTitleEn;
-            _launchTrainingText.text = LocalizationConstants.SettingsLaunchTrainingEn;
+            _restartText.text = LocalizationConstants.RestartEn;
         }
     }
 }

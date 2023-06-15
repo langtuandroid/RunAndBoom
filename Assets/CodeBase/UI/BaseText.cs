@@ -4,7 +4,7 @@ using CodeBase.Services.Localization;
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI.Elements
+namespace CodeBase.UI
 {
     public abstract class BaseText : MonoBehaviour
     {

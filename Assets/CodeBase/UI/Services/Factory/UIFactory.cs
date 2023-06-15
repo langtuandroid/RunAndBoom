@@ -40,11 +40,8 @@ namespace CodeBase.UI.Services.Factory
         public async Task<GameObject> CreateSettingsWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.SettingsWindow, _uiRoot);
 
-        public async Task<GameObject> CreateFinishWindow() =>
-            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.FinishWindow, _uiRoot);
-
-        public async Task<GameObject> CreateTrainingWindow() =>
-            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.TrainingWindow, _uiRoot);
+        public async Task<GameObject> CreateGiftsWindow() =>
+            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.GiftsWindow, _uiRoot);
 
         public async Task<GameObject> CreateResultsWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ResultsWindow, _uiRoot);
