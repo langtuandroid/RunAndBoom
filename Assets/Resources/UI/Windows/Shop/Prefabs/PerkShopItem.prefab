@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkShopItem
       objectReference: {fileID: 0}
+    - target: {fileID: 2937225459659487383, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 63.55
+      objectReference: {fileID: 0}
     - target: {fileID: 3799845236239743552, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_text
@@ -140,18 +145,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 37af2cd6c0732cc47a444bc89a8f17d5,
+        type: 3}
+    - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
       propertyPath: m_Color.b
-      value: 0.94509804
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.7254902
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6, type: 3}
