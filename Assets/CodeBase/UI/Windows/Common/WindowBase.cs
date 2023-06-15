@@ -57,7 +57,7 @@ namespace CodeBase.UI.Windows.Common
             }
         }
 
-        public void Show(bool showCursor)
+        public void Show(bool showCursor = true)
         {
             gameObject.SetActive(true);
             Hero.GetComponent<HeroShooting>().TurnOff();

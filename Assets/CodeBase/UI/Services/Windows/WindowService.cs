@@ -70,6 +70,7 @@ namespace CodeBase.UI.Services.Windows
         {
             _windows.TryGetValue(windowId, out GameObject windowGameObject);
             T window = windowGameObject?.GetComponent<T>();
+            window.Show();
             return window;
         }
 
