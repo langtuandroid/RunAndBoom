@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace CodeBase.UI.Elements.Hud.TutorialPanel
+﻿namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
-    public abstract class IconsPanel : MonoBehaviour
+    public abstract class IconsPanel : BaseText
     {
         public abstract void ShowForPc();
 
@@ -10,5 +8,8 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         public void Hide() =>
             gameObject.SetActive(false);
+
+        public void Show() =>
+            gameObject.SetActive(true);
     }
 }

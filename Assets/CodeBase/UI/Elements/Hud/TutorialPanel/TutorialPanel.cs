@@ -5,10 +5,11 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
     public class TutorialPanel : MonoBehaviour
     {
-        [SerializeField] private SettingsPanel _settingsPanel;
-        [SerializeField] private MovementPanel _movementPanel;
-        [SerializeField] private InnerPanels.WeaponsPanel _weaponsPanel;
-        [SerializeField] private ShootPanel _shootPanel;
+        [SerializeField] private Settings _settings;
+        [SerializeField] private Aim _aim;
+        [SerializeField] private Movement _movement;
+        [SerializeField] private Shoot _shoot;
+        [SerializeField] private InnerPanels.Weapons _weapons;
 
         private bool _isMovedForward;
         private bool _isMovedBack;
@@ -17,21 +18,23 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         private bool _isShot;
         private bool _isWeaponSelected;
 
-        private void Start()
+        private void OnEnable()
         {
             if (Application.isMobilePlatform)
             {
-                _settingsPanel.gameObject.SetActive(false);
-                _movementPanel.ShowForMobile();
-                _shootPanel.ShowForMobile();
-                _weaponsPanel.ShowForMobile();
+                _aim.ShowForMobile();
+                _settings.ShowForMobile();
+                _movement.ShowForMobile();
+                _shoot.ShowForMobile();
+                _weapons.ShowForMobile();
             }
             else
             {
-                _settingsPanel.gameObject.SetActive(true);
-                _movementPanel.ShowForPc();
-                _shootPanel.ShowForPc();
-                _weaponsPanel.ShowForPc();
+                _aim.ShowForPc();
+                _settings.ShowForPc();
+                _movement.ShowForPc();
+                _shoot.ShowForPc();
+                _weapons.ShowForPc();
             }
         }
 
@@ -63,19 +66,19 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) ||
                 Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
-                _weaponsPanel.Hide();
+                _weapons.Hide();
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
-                _shootPanel.Hide();
+                _shoot.Hide();
 
             if (Input.GetKeyDown(KeyCode.Escape))
-                _settingsPanel.Hide();
+                _settings.Hide();
         }
 
         private void CheckMovement()
         {
             if (_isMovedForward && _isMovedBack && _isMovedLeft && _isMovedRight)
-                _movementPanel.Hide();
+                _movement.Hide();
         }
     }
 }

@@ -236,7 +236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3253298939423573439}
   - component: {fileID: 1902254498596281270}
-  - component: {fileID: 5787722614955506181}
   - component: {fileID: 3152535897809152544}
   m_Layer: 5
   m_Name: Health_container
@@ -275,32 +274,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2171463091509951346}
   m_CullTransparentMesh: 0
---- !u!114 &5787722614955506181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171463091509951346}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 20
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 10
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 1
 --- !u!114 &3152535897809152544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,7 +684,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 31.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1057,7 +1030,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
+  m_fontSize: 31.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1106,16 +1079,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3253298939423573439}
     m_Modifications:
-    - target: {fileID: 2014031260364076964, guid: 6a18eeeca6766f648b1109e2afbd6f06,
-        type: 3}
-      propertyPath: m_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2014031261479104840, guid: 6a18eeeca6766f648b1109e2afbd6f06,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2014031261479104841, guid: 6a18eeeca6766f648b1109e2afbd6f06,
         type: 3}
       propertyPath: m_Pivot.x

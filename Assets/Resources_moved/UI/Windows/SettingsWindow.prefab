@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 132427084809604500}
   - component: {fileID: 3362947900599619923}
   m_Layer: 5
-  m_Name: Button
+  m_Name: EnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1248,7 +1248,7 @@ GameObject:
   - component: {fileID: 2787326029171402890}
   - component: {fileID: 9038580794040531373}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1528,7 +1528,7 @@ GameObject:
   - component: {fileID: 4982692080973033187}
   - component: {fileID: 3564925632555629156}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TrButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3499,7 +3499,7 @@ PrefabInstance:
     - target: {fileID: 5418055141649886440, guid: b13986bcec00e794cafca068069678ab,
         type: 3}
       propertyPath: m_Name
-      value: SelectedIcon
+      value: EnSelectedIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13986bcec00e794cafca068069678ab, type: 3}
@@ -3630,7 +3630,7 @@ PrefabInstance:
     - target: {fileID: 5418055141649886440, guid: b13986bcec00e794cafca068069678ab,
         type: 3}
       propertyPath: m_Name
-      value: SelectedIcon
+      value: RuSelectedIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13986bcec00e794cafca068069678ab, type: 3}
@@ -3761,7 +3761,7 @@ PrefabInstance:
     - target: {fileID: 5418055141649886440, guid: b13986bcec00e794cafca068069678ab,
         type: 3}
       propertyPath: m_Name
-      value: SelectedIcon
+      value: TrSelectedIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b13986bcec00e794cafca068069678ab, type: 3}

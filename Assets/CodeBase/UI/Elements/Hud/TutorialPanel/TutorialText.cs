@@ -7,32 +7,36 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
     public class TutorialText : BaseText
     {
         [SerializeField] private TextMeshProUGUI _settingsText;
+        [SerializeField] private TextMeshProUGUI _aimText;
         [SerializeField] private TextMeshProUGUI _movementText;
         [SerializeField] private TextMeshProUGUI _shootText;
         [SerializeField] private TextMeshProUGUI _weaponsText;
 
         protected override void RuChosen()
         {
-            _settingsText.text = LocalizationConstants.HudSettingsRu;
-            _movementText.text = LocalizationConstants.HudMovementRu;
-            _shootText.text = LocalizationConstants.HudShootRu;
-            _weaponsText.text = LocalizationConstants.HudWeaponsRu;
+            _settingsText.text = LocalizationConstants.TutorialSettingsRu;
+            _aimText.text = LocalizationConstants.TutorialAimRu;
+            _movementText.text = LocalizationConstants.TutorialMovementRu;
+            _shootText.text = LocalizationConstants.TutorialShootRu;
+            _weaponsText.text = LocalizationConstants.TutorialWeaponsRu;
         }
 
         protected override void TrChosen()
         {
-            _settingsText.text = LocalizationConstants.HudSettingsTr;
-            _movementText.text = LocalizationConstants.HudMovementTr;
-            _shootText.text = LocalizationConstants.HudShootTr;
-            _weaponsText.text = LocalizationConstants.HudWeaponsTr;
+            _settingsText.text = LocalizationConstants.TutorialSettingsTr;
+            _aimText.text = LocalizationConstants.TutorialAimTr;
+            _movementText.text = LocalizationConstants.TutorialMovementTr;
+            _shootText.text = LocalizationConstants.TutorialShootTr;
+            _weaponsText.text = LocalizationConstants.TutorialWeaponsTr;
         }
 
         protected override void EnChosen()
         {
-            _settingsText.text = LocalizationConstants.HudSettingsEn;
-            _movementText.text = LocalizationConstants.HudMovementEn;
-            _shootText.text = LocalizationConstants.HudShootEn;
-            _weaponsText.text = LocalizationConstants.HudWeaponsEn;
+            _settingsText.text = LocalizationConstants.TutorialSettingsEn;
+            _aimText.text = LocalizationConstants.TutorialAimEn;
+            _movementText.text = LocalizationConstants.TutorialMovementEn;
+            _shootText.text = LocalizationConstants.TutorialShootEn;
+            _weaponsText.text = LocalizationConstants.TutorialWeaponsEn;
         }
     }
 }

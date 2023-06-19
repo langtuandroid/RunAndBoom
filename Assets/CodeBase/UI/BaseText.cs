@@ -1,4 +1,5 @@
-﻿using CodeBase.Data.Settings;
+﻿using System;
+using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
 using TMPro;
@@ -16,6 +17,11 @@ namespace CodeBase.UI
         {
             _localizationService = AllServices.Container.Single<ILocalizationService>();
             _localizationService.LanguageChanged += ChangeText;
+            // ChangeText();
+        }
+
+        private void Start()
+        {
             ChangeText();
         }
 
@@ -23,9 +29,9 @@ namespace CodeBase.UI
         protected abstract void TrChosen();
         protected abstract void EnChosen();
 
-        private void ChangeText()
+        public void ChangeText()
         {
-            switch (_localizationService.Language)
+            switch (AllServices.Container.Single<ILocalizationService>().Language)
             {
                 case Language.RU:
                     RuChosen();

@@ -66,21 +66,63 @@
         public static string HudMortarEn = "Mortar";
         public static string HudMortarTr = "Harç";
 
-        public static string HudShootRu = "Стрелять";
-        public static string HudShootEn = "Shoot";
-        public static string HudShootTr = "Ateş et";
+        public static string TutorialSettingsRu = "Настройки";
+        public static string TutorialSettingsEn = "Settings";
+        public static string TutorialSettingsTr = "Ayarlar";
 
-        public static string HudWeaponsRu = "Оружие";
-        public static string HudWeaponsEn = "Weapons";
-        public static string HudWeaponsTr = "Silahlar";
+        public static string TutorialSettingsButton = "Esc";
 
-        public static string HudMovementRu = "Передвижение";
-        public static string HudMovementEn = "Movement";
-        public static string HudMovementTr = "Taşınmak";
+        public static string TutorialAimRu = "Прицеливание";
+        public static string TutorialAimEn = "Aim";
+        public static string TutorialAimTr = "Hedefleme";
 
-        public static string HudSettingsRu = "Настройки";
-        public static string HudSettingsEn = "Settings";
-        public static string HudSettingsTr = "Ayarlar";
+        public static string TutorialSwipeRu = "Свайпать";
+        public static string TutorialSwipeEn = "Swipe";
+        public static string TutorialSwipeTr = "Kaydır";
+
+        public static string TutorialShootRu = "Стрелять";
+        public static string TutorialShootEn = "Shoot";
+        public static string TutorialShootTr = "Ateş et";
+
+        public static string TutorialLmbRu = "ЛКМ";
+        public static string TutorialLmbEn = "LMB";
+        public static string TutorialLmbTr = "SFD";
+
+        public static string TutorialShootButtonRu = "Кнопка";
+        public static string TutorialShootButtonEn = "Button";
+        public static string TutorialShootButtonTr = "Düğme";
+
+        public static string TutorialMovementRu = "Передвижение";
+        public static string TutorialMovementEn = "Movement";
+        public static string TutorialMovementTr = "Taşınmak";
+
+        public static string TutorialForwardButtonRu = "Ц";
+        public static string TutorialForwardButtonEn = "W";
+        public static string TutorialForwardButtonTr = "W";
+
+        public static string TutorialBackButtonRu = "Ы";
+        public static string TutorialBackButtonEn = "S";
+        public static string TutorialBackButtonTr = "S";
+
+        public static string TutorialLeftButtonRu = "Ф";
+        public static string TutorialLeftButtonEn = "A";
+        public static string TutorialLeftButtonTr = "A";
+
+        public static string TutorialRightButtonRu = "В";
+        public static string TutorialRightButtonEn = "D";
+        public static string TutorialRightButtonTr = "D";
+
+        public static string TutorialJoystickRu = "Джойстик";
+        public static string TutorialJoystickEn = "Joystick";
+        public static string TutorialJoystickTr = "Joystick";
+
+        public static string TutorialWeaponsRu = "Оружие";
+        public static string TutorialWeaponsEn = "Weapons";
+        public static string TutorialWeaponsTr = "Silahlar";
+
+        public static string TutorialClickWeaponsIconRu = "Нажмите иконку оружия";
+        public static string TutorialClickWeaponsIconEn = "Click weapons icon";
+        public static string TutorialClickWeaponsIconTr = "Silah simgesine tıklayın";
 
         public static string ResultsTitleRu = "Итоги";
         public static string ResultsTitleEn = "Result";

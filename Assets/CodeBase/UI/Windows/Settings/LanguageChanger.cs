@@ -25,8 +25,8 @@ namespace CodeBase.UI.Windows.Settings
             _ruButton.onClick.AddListener(RuClicked);
             _trButton.onClick.AddListener(TrClicked);
             _enButton.onClick.AddListener(EnClicked);
-            _localizationService.LanguageChanged += ChangeText;
-            ChangeText();
+            _localizationService.LanguageChanged += ChangeHighlighting;
+            ChangeHighlighting();
         }
 
         private void RuClicked() =>
@@ -38,7 +38,7 @@ namespace CodeBase.UI.Windows.Settings
         private void EnClicked() =>
             _localizationService.ChangeLanguage(Language.EN);
 
-        private void ChangeText()
+        private void ChangeHighlighting()
         {
             switch (_localizationService.Language)
             {
