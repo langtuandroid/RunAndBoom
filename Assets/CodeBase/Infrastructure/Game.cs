@@ -9,24 +9,10 @@ namespace CodeBase.Infrastructure
     {
         public readonly GameStateMachine StateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain)
+        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain, Language language)
         {
             StateMachine =
-                new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain, AllServices.Container,
-                    GetLanguage());
-        }
-
-        private Language GetLanguage()
-        {
-            switch (Application.systemLanguage)
-            {
-                case SystemLanguage.Russian:
-                    return Language.RU;
-                case SystemLanguage.Turkish:
-                    return Language.TR;
-                default:
-                    return Language.EN;
-            }
+                new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain, AllServices.Container, language);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
 using TMPro;
@@ -17,13 +16,10 @@ namespace CodeBase.UI
         {
             _localizationService = AllServices.Container.Single<ILocalizationService>();
             _localizationService.LanguageChanged += ChangeText;
-            // ChangeText();
         }
 
-        private void Start()
-        {
+        private void Start() =>
             ChangeText();
-        }
 
         protected abstract void RuChosen();
         protected abstract void TrChosen();

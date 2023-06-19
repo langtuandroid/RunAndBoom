@@ -2,6 +2,10 @@
 {
     public static class LocalizationConstants
     {
+        public static string LoadingRu = "Загрузка..";
+        public static string LoadingEn = "Loading..";
+        public static string LoadingTr = "Yükleniyor..";
+
         public static string SettingsTitleRu = "Настройки";
         public static string SettingsTitleEn = "Settings";
         public static string SettingsTitleTr = "Ayarlar";

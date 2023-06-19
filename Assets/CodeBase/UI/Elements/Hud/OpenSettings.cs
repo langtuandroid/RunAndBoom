@@ -4,9 +4,9 @@ using CodeBase.UI.Windows.Settings;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Elements
+namespace CodeBase.UI.Elements.Hud
 {
-    public class HudUI : MonoBehaviour
+    public class OpenSettings : MonoBehaviour
     {
         [SerializeField] private Button _settingsButton;
 
