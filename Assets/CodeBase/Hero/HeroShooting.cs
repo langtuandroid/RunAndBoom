@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
@@ -15,9 +16,9 @@ namespace CodeBase.Hero
         [SerializeField] private HeroReloading _heroReloading;
 
         private const float ShootDelay = 0.1f;
-        private const string Button = "Fire";
 
         private IPlayerProgressService _progressService;
+        private IInputService _inputService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _canShoot = false;
 
@@ -37,6 +38,7 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
+            _inputService = AllServices.Container.Single<IInputService>();
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
             _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
             _heroReloading.OnStopReloading += TurnOn;
@@ -57,7 +59,7 @@ namespace CodeBase.Hero
 
         private void CheckShooting()
         {
-            if (Input.GetMouseButton(0))
+            if (_inputService.IsAttackButtonUp())
                 TryShoot();
 
             foreach (Touch touch in Input.touches)

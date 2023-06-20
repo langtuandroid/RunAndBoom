@@ -37,7 +37,7 @@ namespace CodeBase.Hero
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void Update() => 
+        private void Update() =>
             Move();
 
         private void Move()
