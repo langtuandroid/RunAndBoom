@@ -5,9 +5,12 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
+        [SerializeField] private Camera _camera;
         [SerializeField] private float _sensitivity = 1.0f;
 
         private const float EdgeAngle = 87f;
+        private const string MouseX = "Mouse X";
+        private const string MouseY = "Mouse Y";
 
         private float _xAxisClamp = 0;
         private bool _canRotate = true;
@@ -23,15 +26,15 @@ namespace CodeBase.Hero
 
         private void Rotate()
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+            float mouseX = Input.GetAxis(MouseX);
+            float mouseY = Input.GetAxis(MouseY);
 
             float rotationAmountX = mouseX * _sensitivity;
             float rotationAmountY = mouseY * _sensitivity;
 
             _xAxisClamp -= rotationAmountY;
 
-            Vector3 rotation = transform.rotation.eulerAngles;
+            Vector3 rotation = _camera.transform.rotation.eulerAngles;
 
             rotation.x -= rotationAmountY;
             rotation.y += rotationAmountX;
@@ -48,7 +51,7 @@ namespace CodeBase.Hero
                     break;
             }
 
-            transform.rotation = Quaternion.Euler(rotation);
+            _camera.transform.rotation = Quaternion.Euler(rotation);
         }
 
         public void TurnOn() =>

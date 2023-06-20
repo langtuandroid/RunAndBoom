@@ -12,12 +12,10 @@ namespace CodeBase.Hero
 {
     public class HeroMovement : MonoBehaviour, IProgressReader
     {
-        private const float BaseRatio = 1f;
-        private const string Horizontal = "Horizontal";
-        private const string Vertical = "Vertical";
-
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private Camera _camera;
+        [SerializeField] private Transform _cameraTransform;
+
+        private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
@@ -42,17 +40,72 @@ namespace CodeBase.Hero
 
         private void Move()
         {
+            // MoveCharacterController();
+            // MoveCharacterControllerWithCorrection();
+            MoveRigidbody();
+        }
+
+        private void MoveRigidbody()
+        {
+            Vector3 movementVector = Vector3.zero;
+
+            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            {
+                Vector3 forward = new Vector3(-_cameraTransform.right.z, 0.0f, _cameraTransform.right.x);
+                movementVector =
+                    (forward * _inputService.Axis.y + _cameraTransform.right * _inputService.Axis.x +
+                     Vector3.up * _rigidbody.velocity.y).normalized * _movementSpeed;
+            }
+
+            _rigidbody.velocity = movementVector;
+        }
+
+        private void MoveCharacterController()
+        {
             Vector3 movementVector = Vector3.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
                 movementVector =
-                    _camera.transform.TransformDirection(new Vector3(_inputService.Axis.x, 0, _inputService.Axis.y));
+                    _cameraTransform.TransformDirection(new Vector3(_inputService.Axis.x, 0,
+                        _inputService.Axis.y));
                 movementVector.Normalize();
             }
 
             movementVector += Physics.gravity;
+            _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
+        }
 
+        private void MoveCharacterControllerWithCorrection()
+        {
+            Vector3 movementVector = Vector3.zero;
+
+            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            {
+                Vector3 cameraDirection = _cameraTransform.TransformDirection(new Vector3(_inputService.Axis.x, 0,
+                    _inputService.Axis.y));
+                float x = 0f;
+                float y = 0f;
+                float z = 0f;
+
+                if (cameraDirection.x > 0)
+                    x = 1f;
+                if (cameraDirection.x < 0)
+                    x = -1f;
+                if (cameraDirection.y > 0)
+                    y = 1f;
+                if (cameraDirection.y < 0)
+                    y = -1f;
+                if (cameraDirection.z > 0)
+                    z = 1f;
+                if (cameraDirection.z < 0)
+                    z = -1f;
+
+                movementVector = new Vector3(x, y, z);
+                movementVector.Normalize();
+            }
+
+            movementVector += Physics.gravity;
             _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
         }
 
