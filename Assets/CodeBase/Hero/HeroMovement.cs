@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Data.Perks;
+using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -11,8 +13,14 @@ namespace CodeBase.Hero
     public class HeroMovement : MonoBehaviour, IProgressReader
     {
         private const float BaseRatio = 1f;
+        private const string Horizontal = "Horizontal";
+        private const string Vertical = "Vertical";
+
+        [SerializeField] private CharacterController _characterController;
+        [SerializeField] private Camera _camera;
 
         private IStaticDataService _staticDataService;
+        private IInputService _inputService;
         private float _baseMovementSpeed = 5f;
         private float _movementRatio = 1f;
         private float _movementSpeed;
@@ -23,40 +31,29 @@ namespace CodeBase.Hero
         private Rigidbody _rigidbody;
         private Vector3 _playerMovementInput;
 
-        private void Awake() =>
-            _rigidbody = GetComponent<Rigidbody>();
-
-        private void Update()
+        private void Awake()
         {
-            _playerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            Move();
-
-            // if (_canMove)
-            // {
-            // float horizontalInput = Input.GetAxis("Horizontal");
-            // float verticalInput = Input.GetAxis("Vertical");
-
-            // transform.Translate(
-            //     new Vector3(horizontalInput, 0, verticalInput) * _movementSpeed *
-            //     Time.deltaTime);
-            // }
+            _inputService = AllServices.Container.Single<IInputService>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
+
+        private void Update() => 
+            Move();
 
         private void Move()
         {
-            Vector3 moveVector = transform.TransformDirection(_playerMovementInput) * _movementSpeed;
-            _rigidbody.velocity = new Vector3(moveVector.x, _rigidbody.velocity.y, moveVector.z);
-        }
+            Vector3 movementVector = Vector3.zero;
 
-        private void FixedUpdate()
-        {
-            // if (_canMove)
-            // {
-            //     float horizontalInput = Input.GetAxis("Horizontal");
-            //     float verticalInput = Input.GetAxis("Vertical");
-            //     
-            //     _rigidbody.MovePosition();
-            // }
+            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            {
+                movementVector =
+                    _camera.transform.TransformDirection(new Vector3(_inputService.Axis.x, 0, _inputService.Axis.y));
+                movementVector.Normalize();
+            }
+
+            movementVector += Physics.gravity;
+
+            _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
         }
 
         private void OnEnable()
@@ -71,10 +68,8 @@ namespace CodeBase.Hero
                 _runningItemData.LevelChanged -= ChangeSpeed;
         }
 
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
 
         private void SetSpeed()
         {

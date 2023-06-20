@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
 using CodeBase.Services.Constructor;
-using CodeBase.Services.Input.Platforms;
-using CodeBase.Services.Input.Types;
+using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
@@ -52,8 +49,7 @@ namespace CodeBase.Infrastructure.States
             RegisterStaticData();
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();
-            RegisterInputService();
-            RegisterPlatformInputService();
+            _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
@@ -101,121 +97,10 @@ namespace CodeBase.Infrastructure.States
         {
         }
 
-        private void RegisterInputService()
-        {
-            PlayerInput playerInput = new PlayerInput();
-            InputTypesServices inputTypesServices = new InputTypesServices();
-
-            if (Application.isEditor)
-            {
-                TouchScreenInputType touchScreenInputType = new TouchScreenInputType(playerInput);
-                inputTypesServices.AddInputService(touchScreenInputType);
-                inputTypesServices.AddInputService(new KeyboardMouseInputType(playerInput));
-            }
-            else if (Application.platform == RuntimePlatform.WindowsPlayer)
-            {
-                inputTypesServices.AddInputService(new KeyboardMouseInputType(playerInput));
-            }
-            else
-            {
-                TouchScreenInputType touchScreenInputType = new TouchScreenInputType(playerInput);
-                inputTypesServices.AddInputService(touchScreenInputType);
-            }
-
-            _services.RegisterSingle<IInputTypesServices>(inputTypesServices);
-        }
-
-        private void RegisterPlatformInputService()
-        {
-            IInputTypesServices inputTypesServices = _services.Single<IInputTypesServices>();
-
-            if (Application.isEditor)
-            {
-                RegisterEditorInput(inputTypesServices);
-            }
-            else if (Application.platform == RuntimePlatform.WindowsPlayer ||
-                     Application.platform == RuntimePlatform.OSXPlayer ||
-                     Application.platform == RuntimePlatform.LinuxPlayer)
-            {
-                RegisterDesktopInput(inputTypesServices);
-            }
-            else if (Application.platform == RuntimePlatform.Android ||
-                     Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                RegisterMobileInput(inputTypesServices);
-            }
-        }
-
-        private void RegisterEditorInput(IInputTypesServices inputTypesServices)
-        {
-            KeyboardMouseInputType keyboardMouseInputType = null;
-            TouchScreenInputType touchScreenInputType = null;
-
-            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
-
-            foreach (IInputTypeService inputService in inputServicesList)
-            {
-                if (inputService is KeyboardMouseInputType)
-                    keyboardMouseInputType = inputService as KeyboardMouseInputType;
-
-                if (inputService is TouchScreenInputType)
-                    touchScreenInputType = inputService as TouchScreenInputType;
-            }
-
-            if (keyboardMouseInputType != null && touchScreenInputType != null)
-            {
-                DesktopPlatformInputService desktopInputTypeService =
-                    new DesktopPlatformInputService(keyboardMouseInputType);
-                MobilePlatformInputService mobileInputTypeService =
-                    new MobilePlatformInputService(touchScreenInputType);
-                _services.RegisterSingle<IPlatformInputService>(new EditorPlatformInputService(desktopInputTypeService,
-                    mobileInputTypeService));
-            }
-            else
-            {
-                InputServicesException("Input services for EditorInput are not created");
-            }
-        }
-
-        private void RegisterDesktopInput(IInputTypesServices inputTypesServices)
-        {
-            KeyboardMouseInputType keyboardMouseInputType = null;
-
-            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
-
-            foreach (IInputTypeService inputService in inputServicesList)
-            {
-                if (inputService is KeyboardMouseInputType)
-                    keyboardMouseInputType = inputService as KeyboardMouseInputType;
-            }
-
-            if (keyboardMouseInputType != null)
-                _services.RegisterSingle<IPlatformInputService>(
-                    new DesktopPlatformInputService(keyboardMouseInputType));
-            else
-                InputServicesException("Input services for DesktopInput are not created");
-        }
-
-        private void RegisterMobileInput(IInputTypesServices inputTypesServices)
-        {
-            TouchScreenInputType touchScreenInputType = null;
-
-            List<IInputTypeService> inputServicesList = inputTypesServices.GetInputServices();
-
-            foreach (IInputTypeService inputService in inputServicesList)
-            {
-                if (inputService is TouchScreenInputType)
-                    touchScreenInputType = inputService as TouchScreenInputType;
-            }
-
-            if (touchScreenInputType != null)
-                _services.RegisterSingle<IPlatformInputService>(new MobilePlatformInputService(touchScreenInputType));
-            else
-                InputServicesException("Input services for MobileInput are not created");
-        }
-
-        private void InputServicesException(string message) =>
-            throw new Exception(message);
+        private static IInputService InputService() =>
+            Application.isEditor
+                ? new StandaloneInputService()
+                : new MobileInputService();
 
         private void SetTargetFrameRate()
         {

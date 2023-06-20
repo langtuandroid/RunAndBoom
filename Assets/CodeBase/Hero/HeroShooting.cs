@@ -15,6 +15,7 @@ namespace CodeBase.Hero
         [SerializeField] private HeroReloading _heroReloading;
 
         private const float ShootDelay = 0.1f;
+        private const string Button = "Fire";
 
         private IPlayerProgressService _progressService;
         private HeroWeaponAppearance _heroWeaponAppearance;
