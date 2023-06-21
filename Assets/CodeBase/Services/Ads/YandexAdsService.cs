@@ -3,7 +3,7 @@ using Agava.YandexGames;
 
 namespace CodeBase.Services.Ads
 {
-    public class AdsService : IAdsService
+    public class YandexAdsService : IAdsService
     {
         public event Action<bool> OnFullScreenClosed;
         public event Action OnRewardedClosed;

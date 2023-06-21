@@ -50,7 +50,7 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<ILocalizationService>((new LocalizationService(_language)));
-            _services.RegisterSingle<IAdsService>((new AdsService()));
+            _services.RegisterSingle<IAdsService>((new YandexAdsService()));
             RegisterStaticData();
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();
