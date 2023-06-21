@@ -5,6 +5,7 @@ using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
@@ -49,6 +50,7 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<ILocalizationService>((new LocalizationService(_language)));
+            _services.RegisterSingle<IAdsService>((new AdsService()));
             RegisterStaticData();
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();

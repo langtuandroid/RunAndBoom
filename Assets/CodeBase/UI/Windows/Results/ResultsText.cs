@@ -1,5 +1,4 @@
 ﻿using CodeBase.Services.Localization;
-using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
 
