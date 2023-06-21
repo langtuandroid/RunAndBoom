@@ -40,9 +40,9 @@ namespace CodeBase.Hero
 
         private void Move()
         {
-            // MoveCharacterController();
+            MoveCharacterController();
             // MoveCharacterControllerWithCorrection();
-            MoveRigidbody();
+            // MoveRigidbody();
         }
 
         private void MoveRigidbody()

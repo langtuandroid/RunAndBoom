@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class HeroRotating : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
