@@ -9,6 +9,7 @@
         Shop = 4,
         Gifts = 5,
         Result = 6,
-        GameEnd = 7,
+        LeaderBoard = 7,
+        GameEnd = 8,
     }
 }

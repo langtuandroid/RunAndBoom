@@ -46,6 +46,9 @@ namespace CodeBase.UI.Services.Factory
         public async Task<GameObject> CreateResultsWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ResultsWindow, _uiRoot);
 
+        public Task<GameObject> CreateLeaderBoardWindow() =>
+            _registratorService.InstantiateRegisteredAsync(AssetAddresses.LeaderBoardWindow, _uiRoot);
+
         public async Task<GameObject> CreateGameEndWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.GameEndWindow, _uiRoot);
     }

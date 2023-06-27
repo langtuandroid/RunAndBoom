@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Agava.YandexGames;
 using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
@@ -17,9 +16,13 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _restartButton;
 
         private IAdsService _adsService;
+        private bool IsRestartButtonEnabled;
 
         private void Awake()
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            _restartButton.enabled = false;
+#endif
             _adsService = AllServices.Container.Single<IAdsService>();
             StartCoroutine(InitializeYandexSDK());
         }
@@ -28,14 +31,20 @@ namespace CodeBase.UI.Windows.Death
         {
             _recoverForAdsButton.onClick.AddListener(ShowAds);
             _restartButton.onClick.AddListener(RestartLevel);
-            _adsService.OnFullScreenClosed += RecoverForAds;
+            _adsService.OnInitializeSuccess += EnableRestartButton;
+            _adsService.OnClosedFullScreen += RecoverForAds;
+            _adsService.OnErrorFullScreen += ShowError;
+            _adsService.OnOfflineFullScreen += ShowOffline;
         }
 
         private void OnDisable()
         {
             _recoverForAdsButton.onClick.RemoveListener(ShowAds);
             _restartButton.onClick.RemoveListener(RestartLevel);
-            _adsService.OnFullScreenClosed -= RecoverForAds;
+            _adsService.OnInitializeSuccess -= EnableRestartButton;
+            _adsService.OnClosedFullScreen -= RecoverForAds;
+            _adsService.OnErrorFullScreen -= ShowError;
+            _adsService.OnOfflineFullScreen -= ShowOffline;
         }
 
         public void Construct(GameObject hero) =>
@@ -46,8 +55,11 @@ namespace CodeBase.UI.Windows.Death
 #if !UNITY_WEBGL || UNITY_EDITOR
             yield break;
 #endif
-            yield return YandexGamesSdk.Initialize();
+            yield return _adsService.Initialize();
         }
+
+        private void EnableRestartButton() =>
+            _restartButton.enabled = true;
 
         private void ShowAds()
         {
@@ -57,6 +69,12 @@ namespace CodeBase.UI.Windows.Death
 #endif
             _adsService.ShowFullScreenAd();
         }
+
+        private void ShowError(string message) =>
+            Debug.Log($"OnErrorFullScreen: {message}");
+
+        private void ShowOffline() =>
+            Debug.Log("OnOfflineFullScreen");
 
         private void RecoverForAds(bool wasShown)
         {

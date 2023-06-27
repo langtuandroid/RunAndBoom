@@ -15,21 +15,18 @@ namespace CodeBase.UI.Windows.Common
     public abstract class WindowBase : MonoBehaviour, IProgressReader
     {
         protected IWindowService WindowService;
-
-        // protected IPlayerProgressService ProgressService;
         protected ISaveLoadService SaveLoadService;
         protected IGameStateMachine GameStateMachine;
         protected IStaticDataService StaticDataService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
-        [HideInInspector] public PlayerProgress Progress;
+        protected PlayerProgress Progress;
         protected float Volume;
         private WindowId _windowId;
 
         protected void Construct(GameObject hero, WindowId windowId)
         {
             WindowService = AllServices.Container.Single<IWindowService>();
-            // ProgressService = AllServices.Container.Single<IPlayerProgressService>();
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
             StaticDataService = AllServices.Container.Single<IStaticDataService>();

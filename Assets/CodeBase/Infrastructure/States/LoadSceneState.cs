@@ -13,6 +13,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.Leaderboard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
@@ -135,8 +136,6 @@ namespace CodeBase.Infrastructure.States
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
                 await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
-
-            // TryShowTraining();
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
@@ -181,6 +180,8 @@ namespace CodeBase.Infrastructure.States
             giftsWindow.GetComponent<GiftsWindow>()?.Construct(hero);
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
             resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
+            GameObject leaderBoardWindow = await _uiFactory.CreateLeaderBoardWindow();
+            leaderBoardWindow.GetComponent<LeaderboardWindow>()?.Construct(hero);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
             gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
 
@@ -188,6 +189,7 @@ namespace CodeBase.Infrastructure.States
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Gifts, giftsWindow);
             _windowService.AddWindow(WindowId.Result, resultsWindow);
+            _windowService.AddWindow(WindowId.LeaderBoard, leaderBoardWindow);
             _windowService.AddWindow(WindowId.GameEnd, gameEndWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
         }

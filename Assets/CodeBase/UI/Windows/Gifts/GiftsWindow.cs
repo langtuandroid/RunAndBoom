@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Agava.YandexGames;
 using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
@@ -25,6 +24,9 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void Awake()
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            _addCoinsButton.enabled = false;
+#endif
             _adsService = AllServices.Container.Single<IAdsService>();
             StartCoroutine(InitializeYandexSDK());
         }
@@ -36,15 +38,27 @@ namespace CodeBase.UI.Windows.Gifts
         {
             _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
-            _adsService.OnRewardedClosed += AddCoins;
+            _adsService.OnInitializeSuccess += EnableAddCoinsButton;
+            _adsService.OnRewarded += AddCoins;
+            _adsService.OnErrorRewarded += ShowError;
+            _adsService.OnClosedRewarded += ShowClosed;
         }
 
         private void OnDisable()
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
-            _adsService.OnRewardedClosed -= AddCoins;
+            _adsService.OnInitializeSuccess -= EnableAddCoinsButton;
+            _adsService.OnRewarded -= AddCoins;
+            _adsService.OnErrorRewarded -= ShowError;
+            _adsService.OnClosedRewarded -= ShowClosed;
         }
+
+        private void ShowError(string message) =>
+            Debug.Log($"OnErrorRewarded: {message}");
+
+        private void ShowClosed() =>
+            Debug.Log("OnClosedRewarded");
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
@@ -54,8 +68,12 @@ namespace CodeBase.UI.Windows.Gifts
 #if !UNITY_WEBGL || UNITY_EDITOR
             yield break;
 #endif
-            yield return YandexGamesSdk.Initialize();
+            yield return _adsService.Initialize();
         }
+
+        private void EnableAddCoinsButton() =>
+            _addCoinsButton.enabled = true;
+
 
         public void AddNextScene(Scene nextScene)
         {
