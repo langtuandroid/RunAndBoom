@@ -76,13 +76,13 @@
 
         public static string TutorialSettingsButton = "Esc";
 
-        public static string TutorialAimRu = "Прицеливание";
-        public static string TutorialAimEn = "Aim";
-        public static string TutorialAimTr = "Hedefleme";
+        public static string TutorialRotationRu = "Поворот";
+        public static string TutorialRotationEn = "Rotation";
+        public static string TutorialRotationTr = "Rotasyon";
 
-        public static string TutorialSwipeRu = "Свайпать";
-        public static string TutorialSwipeEn = "Swipe";
-        public static string TutorialSwipeTr = "Kaydır";
+        public static string TutorialLookJoystickRu = "Правый невидимый джойстик";
+        public static string TutorialLookJoystickEn = "Right invisible joystick";
+        public static string TutorialLookJoystickTr = "Sağ görünmez kumanda kolu";
 
         public static string TutorialShootRu = "Стрелять";
         public static string TutorialShootEn = "Shoot";
@@ -92,9 +92,9 @@
         public static string TutorialLmbEn = "LMB";
         public static string TutorialLmbTr = "SFD";
 
-        public static string TutorialShootButtonRu = "Кнопка";
-        public static string TutorialShootButtonEn = "Button";
-        public static string TutorialShootButtonTr = "Düğme";
+        public static string TutorialShootButtonRu = "Кнопка стрельбы";
+        public static string TutorialShootButtonEn = "Shoot button";
+        public static string TutorialShootButtonTr = "Ateş düğmesi";
 
         public static string TutorialMovementRu = "Передвижение";
         public static string TutorialMovementEn = "Movement";
@@ -116,9 +116,9 @@
         public static string TutorialRightButtonEn = "D";
         public static string TutorialRightButtonTr = "D";
 
-        public static string TutorialJoystickRu = "Джойстик";
-        public static string TutorialJoystickEn = "Joystick";
-        public static string TutorialJoystickTr = "Joystick";
+        public static string TutorialMoveJoystickRu = "Левый джойстик";
+        public static string TutorialMoveJoystickEn = "Left joystick";
+        public static string TutorialMoveJoystickTr = "Sol kumanda kolu";
 
         public static string TutorialWeaponsRu = "Оружие";
         public static string TutorialWeaponsEn = "Weapons";

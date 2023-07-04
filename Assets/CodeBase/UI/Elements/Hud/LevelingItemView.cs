@@ -32,17 +32,17 @@ namespace CodeBase.UI.Elements.Hud
         {
             if (LevelingStaticData == null || LevelingStaticData.ILevelTypeId == LevelTypeId.None)
             {
-                MainTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
-                LevelTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                MainTypeImage.ChangeImageAlpha(Constants.Invisible);
+                LevelTypeImage.ChangeImageAlpha(Constants.Invisible);
                 return;
             }
 
             if (LevelingStaticData.ILevelTypeId == LevelTypeId.Level_1)
-                LevelTypeImage.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                LevelTypeImage.ChangeImageAlpha(Constants.Invisible);
             else
-                LevelTypeImage.ChangeImageAlpha(Constants.AlphaActiveItem);
+                LevelTypeImage.ChangeImageAlpha(Constants.Visible);
 
-            MainTypeImage.ChangeImageAlpha(Constants.AlphaActiveItem);
+            MainTypeImage.ChangeImageAlpha(Constants.Visible);
         }
     }
 }

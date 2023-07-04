@@ -153,12 +153,12 @@ namespace CodeBase.Infrastructure.States
             if (_hud == null)
                 _hud = await _uiFactory.CreateHud();
 
-            HeroHealth heroHealth = hero.GetComponent<HeroHealth>();
+            HeroHealth heroHealth = hero.GetComponentInChildren<HeroHealth>();
             heroHealth.Construct(_staticDataService);
             hero.GetComponent<HeroMovement>().Construct(_staticDataService);
             hero.GetComponent<HeroReloading>().Construct(_staticDataService);
             HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
-            HeroDeath heroDeath = hero.GetComponent<HeroDeath>();
+            HeroDeath heroDeath = hero.GetComponentInChildren<HeroDeath>();
             HeroWeaponSelection heroWeaponSelection = hero.GetComponentInChildren<HeroWeaponSelection>();
             heroWeaponSelection.Construct(heroDeath, heroReloading);
             _hud.GetComponentInChildren<Health>().Construct(heroHealth);

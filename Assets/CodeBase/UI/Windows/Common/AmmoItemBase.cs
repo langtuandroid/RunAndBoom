@@ -27,12 +27,12 @@ namespace CodeBase.UI.Windows.Common
         {
             _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
 
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             BackgroundIcon.color = Constants.ShopItemAmmo;
             MainIcon.sprite = _shopAmmoStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
+            LevelIcon.ChangeImageAlpha(Constants.Invisible);
+            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = $"{_shopAmmoStaticData.Cost} $";

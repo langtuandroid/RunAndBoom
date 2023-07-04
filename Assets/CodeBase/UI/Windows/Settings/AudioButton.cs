@@ -53,13 +53,13 @@ namespace CodeBase.UI.Windows.Settings
         {
             if (IsSelected)
             {
-                ImageSelected.ChangeImageAlpha(Constants.AlphaActiveItem);
-                ImageUnselected.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                ImageSelected.ChangeImageAlpha(Constants.Visible);
+                ImageUnselected.ChangeImageAlpha(Constants.Invisible);
             }
             else
             {
-                ImageUnselected.ChangeImageAlpha(Constants.AlphaActiveItem);
-                ImageSelected.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                ImageUnselected.ChangeImageAlpha(Constants.Visible);
+                ImageSelected.ChangeImageAlpha(Constants.Invisible);
             }
         }
 

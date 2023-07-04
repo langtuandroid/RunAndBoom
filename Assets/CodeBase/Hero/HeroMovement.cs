@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Data.Perks;
+using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -10,9 +12,15 @@ namespace CodeBase.Hero
 {
     public class HeroMovement : MonoBehaviour, IProgressReader
     {
+        [SerializeField] private LayerMask _groundMask;
+        [SerializeField] private float _groundYOffset = -0.1f;
+        [SerializeField] float _gravity = -9.81f;
+
         private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
+        private IInputService _inputService;
+        private CharacterController _characterController;
         private float _baseMovementSpeed = 5f;
         private float _movementRatio = 1f;
         private float _movementSpeed;
@@ -20,43 +28,61 @@ namespace CodeBase.Hero
         private PerkItemData _runningItemData;
         private PlayerProgress _progress;
         private List<PerkItemData> _perks;
-        private Rigidbody _rigidbody;
         private Vector3 _playerMovementInput;
+        private float _airSpeed = 1.5f;
+        private Vector3 _spherePosition;
+        private Vector3 _velocity;
 
-        private void Awake() =>
-            _rigidbody = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            _characterController = GetComponent<CharacterController>();
+            _inputService = AllServices.Container.Single<IInputService>();
+        }
 
         private void Update()
         {
-            _playerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             Move();
-
-            // if (_canMove)
-            // {
-            // float horizontalInput = Input.GetAxis("Horizontal");
-            // float verticalInput = Input.GetAxis("Vertical");
-
-            // transform.Translate(
-            //     new Vector3(horizontalInput, 0, verticalInput) * _movementSpeed *
-            //     Time.deltaTime);
-            // }
+            Gravity();
         }
+
+        public void Construct(IStaticDataService staticDataService) =>
+            _staticDataService = staticDataService;
 
         private void Move()
         {
-            Vector3 moveVector = transform.TransformDirection(_playerMovementInput) * _movementSpeed;
-            _rigidbody.velocity = new Vector3(moveVector.x, _rigidbody.velocity.y, moveVector.z);
+            if (_inputService.MoveAxis.sqrMagnitude > Constants.Epsilon)
+            {
+                Vector3 airDirection = Vector3.zero;
+                Vector3 direction = Vector3.zero;
+
+                if (IsGrounded())
+                    airDirection = transform.forward * _inputService.MoveAxis.y +
+                                   transform.right * _inputService.MoveAxis.x;
+                else
+                    direction = transform.forward * _inputService.MoveAxis.y +
+                                transform.right * _inputService.MoveAxis.x;
+
+                _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
+                                          Time.deltaTime);
+            }
         }
 
-        private void FixedUpdate()
+        private bool IsGrounded()
         {
-            // if (_canMove)
-            // {
-            //     float horizontalInput = Input.GetAxis("Horizontal");
-            //     float verticalInput = Input.GetAxis("Vertical");
-            //     
-            //     _rigidbody.MovePosition();
-            // }
+            _spherePosition = new Vector3(transform.position.x, transform.position.y - _groundYOffset,
+                transform.position.z);
+            if (Physics.CheckSphere(_spherePosition, _characterController.radius - 0.05f, _groundMask)) return true;
+            return false;
+        }
+
+        private void Gravity()
+        {
+            if (!IsGrounded())
+                _velocity.y += _gravity * Time.deltaTime;
+            else if (_velocity.y < 0)
+                _velocity.y = -2;
+
+            _characterController.Move(_velocity * Time.deltaTime);
         }
 
         private void OnEnable()
@@ -69,11 +95,6 @@ namespace CodeBase.Hero
         {
             if (_runningItemData != null)
                 _runningItemData.LevelChanged -= ChangeSpeed;
-        }
-
-        public void Construct(IStaticDataService staticDataService)
-        {
-            _staticDataService = staticDataService;
         }
 
         private void SetSpeed()

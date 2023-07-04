@@ -36,7 +36,9 @@ namespace CodeBase.UI.Windows.Gifts
         {
             _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
+            _generator.GenerationStarted += DisableRefreshButtons;
             _adsService.OnRewardedClosed += AddCoins;
+            _generator.GenerationEnded += CheckRefreshButtons;
         }
 
         private void OnDisable()
@@ -44,6 +46,8 @@ namespace CodeBase.UI.Windows.Gifts
             _addCoinsButton.onClick.RemoveListener(ShowAds);
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
             _adsService.OnRewardedClosed -= AddCoins;
+            _generator.GenerationStarted -= DisableRefreshButtons;
+            _generator.GenerationEnded -= CheckRefreshButtons;
         }
 
         public void Construct(GameObject hero) =>
@@ -63,6 +67,8 @@ namespace CodeBase.UI.Windows.Gifts
             GenerateItems();
         }
 
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
+                Cursor.lockState = CursorLockMode.Confined;
         private void ToNextLevel()
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
@@ -75,11 +81,8 @@ namespace CodeBase.UI.Windows.Gifts
             Close();
         }
 
-        private void Close()
-        {
+        private void Close() =>
             Hide();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
 
         private void ShowAds()
         {

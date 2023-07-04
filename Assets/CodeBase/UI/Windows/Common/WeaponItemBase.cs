@@ -28,11 +28,11 @@ namespace CodeBase.UI.Windows.Common
             _weaponStaticData = StaticDataService.ForShopWeapon(_weaponTypeId);
 
             BackgroundIcon.color = Constants.ShopItemWeapon;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             MainIcon.sprite = _weaponStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
+            LevelIcon.ChangeImageAlpha(Constants.Invisible);
+            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = $"{_weaponStaticData.Cost} $";

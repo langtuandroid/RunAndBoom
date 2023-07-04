@@ -2,6 +2,7 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -46,7 +47,9 @@ namespace CodeBase.UI.Windows.Common
 
             if (!WindowService.IsAnotherActive(_windowId))
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                if (AllServices.Container.Single<IInputService>() is DesktopInputService)
+                    Cursor.lockState = CursorLockMode.Locked;
+
                 Hero.GetComponent<HeroShooting>().TurnOn();
                 Hero.GetComponent<HeroMovement>().TurnOn();
                 Hero.GetComponent<HeroRotating>().TurnOn();
@@ -67,7 +70,10 @@ namespace CodeBase.UI.Windows.Common
             Hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
             Hero.GetComponentInChildren<PlayTimer>().enabled = false;
             Time.timeScale = 0;
-            ShowCursor(showCursor);
+
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
+                ShowCursor(showCursor);
+
             PlayOpenSound();
         }
 

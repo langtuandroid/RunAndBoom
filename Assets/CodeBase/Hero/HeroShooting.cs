@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
@@ -17,10 +18,29 @@ namespace CodeBase.Hero
         private const float ShootDelay = 0.1f;
 
         private IPlayerProgressService _progressService;
+        private IInputService _inputService;
         private HeroWeaponAppearance _heroWeaponAppearance;
         private bool _canShoot = false;
 
         public event Action Shot;
+
+        private void Awake()
+        {
+            _inputService = AllServices.Container.Single<IInputService>();
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+            _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
+            _heroReloading.OnStopReloading += TurnOn;
+        }
+
+        private void Update() =>
+            TryShoot();
+
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
+        {
+            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+            TurnOn();
+        }
 
         public void TurnOn() =>
             StartCoroutine(EnableShoot());
@@ -34,39 +54,12 @@ namespace CodeBase.Hero
             _canShoot = true;
         }
 
-        private void Awake()
-        {
-            _progressService = AllServices.Container.Single<IPlayerProgressService>();
-            _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
-            _heroReloading.OnStopReloading += TurnOn;
-        }
-
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
-            TrailStaticData trailStaticData)
-        {
-            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
-            TurnOn();
-        }
-
-        private void Update()
-        {
-            if (_canShoot)
-                CheckShooting();
-        }
-
-        private void CheckShooting()
-        {
-            if (Input.GetMouseButton(0))
-                TryShoot();
-
-            foreach (Touch touch in Input.touches)
-                if (touch.phase == TouchPhase.Began)
-                    TryShoot();
-        }
-
         private void TryShoot()
         {
-            if (_canShoot && IsAvailableAmmo())
+            if (!_canShoot)
+                return;
+
+            if (_inputService.IsAttackButtonUp() && IsAvailableAmmo())
                 Shoot();
         }
 

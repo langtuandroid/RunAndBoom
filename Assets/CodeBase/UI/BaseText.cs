@@ -16,6 +16,11 @@ namespace CodeBase.UI
         {
             _localizationService = AllServices.Container.Single<ILocalizationService>();
             _localizationService.LanguageChanged += ChangeText;
+            InitiateServices();
+        }
+
+        protected virtual void InitiateServices()
+        {
         }
 
         private void Start() =>

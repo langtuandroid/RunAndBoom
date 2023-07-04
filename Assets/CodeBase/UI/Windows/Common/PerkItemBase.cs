@@ -28,17 +28,17 @@ namespace CodeBase.UI.Windows.Common
             _perkStaticData = StaticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
 
             BackgroundIcon.color = Constants.ShopItemPerk;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             MainIcon.sprite = _perkStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
+            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (_perkStaticData.ILevel != null)
                 LevelIcon.sprite = _perkStaticData.ILevel;
 
             LevelIcon.ChangeImageAlpha(_perkStaticData.ILevel != null
-                ? Constants.AlphaActiveItem
-                : Constants.AlphaInactiveItem);
+                ? Constants.Visible
+                : Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = $"{_perkStaticData.Cost} $";

@@ -1,4 +1,6 @@
-﻿using CodeBase.Services.Localization;
+﻿using CodeBase.Services;
+using CodeBase.Services.Input;
+using CodeBase.Services.Localization;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
@@ -8,16 +10,37 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
         [SerializeField] private Action _lmbClick;
         [SerializeField] private Action _buttonClick;
 
+        private bool _show;
+        private IInputService _inputService;
+
+        protected override void InitiateServices() =>
+            _inputService = AllServices.Container.Single<IInputService>();
+
+        private void Update()
+        {
+            if (!_show)
+                return;
+
+            if (_inputService.IsAttackButtonUp())
+            {
+                _lmbClick.Hide();
+                _buttonClick.Hide();
+                _show = false;
+            }
+        }
+
         public override void ShowForPc()
         {
             _lmbClick.Show();
             _buttonClick.Hide();
+            _show = true;
         }
 
         public override void ShowForMobile()
         {
             _buttonClick.Show();
             _lmbClick.Hide();
+            _show = true;
         }
 
         protected override void RuChosen()
