@@ -24,6 +24,24 @@ namespace CodeBase.Hero
 
         public event Action Shot;
 
+        private void Awake()
+        {
+            _inputService = AllServices.Container.Single<IInputService>();
+            _progressService = AllServices.Container.Single<IPlayerProgressService>();
+            _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
+            _heroReloading.OnStopReloading += TurnOn;
+        }
+
+        private void Update() =>
+            TryShoot();
+
+        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
+            TrailStaticData trailStaticData)
+        {
+            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+            TurnOn();
+        }
+
         public void TurnOn() =>
             StartCoroutine(EnableShoot());
 
@@ -36,40 +54,12 @@ namespace CodeBase.Hero
             _canShoot = true;
         }
 
-        private void Awake()
-        {
-            _inputService = AllServices.Container.Single<IInputService>();
-            _progressService = AllServices.Container.Single<IPlayerProgressService>();
-            _heroWeaponSelection.WeaponSelected += GetCurrentWeaponObject;
-            _heroReloading.OnStopReloading += TurnOn;
-        }
-
-        private void GetCurrentWeaponObject(GameObject weaponPrefab, HeroWeaponStaticData heroWeaponStaticData,
-            TrailStaticData trailStaticData)
-        {
-            _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
-            TurnOn();
-        }
-
-        private void Update()
-        {
-            if (_canShoot)
-                CheckShooting();
-        }
-
-        private void CheckShooting()
-        {
-            if (_inputService.IsAttackButtonUp())
-                TryShoot();
-
-            foreach (Touch touch in Input.touches)
-                if (touch.phase == TouchPhase.Began)
-                    TryShoot();
-        }
-
         private void TryShoot()
         {
-            if (_canShoot && IsAvailableAmmo())
+            if (!_canShoot)
+                return;
+
+            if (_inputService.IsAttackButtonUp() && IsAvailableAmmo())
                 Shoot();
         }
 

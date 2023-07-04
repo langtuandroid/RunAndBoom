@@ -14,12 +14,19 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
         [SerializeField] private Action _rlButton;
         [SerializeField] private Action _mortarButton;
         [SerializeField] private Action _weaponsClick;
-        [SerializeField] private Action _glClick;
-        [SerializeField] private Action _rpgClick;
-        [SerializeField] private Action _rlClick;
-        [SerializeField] private Action _mortarClick;
 
+        private bool _showGL;
+        private bool _showRPG;
+        private bool _showRL;
+        private bool _showMortar;
         private WeaponsData _progressWeaponsData;
+
+        private void Update()
+        {
+            if (!_glButton.IsVisible() && !_rpgButton.IsVisible() && !_rlButton.IsVisible() &&
+                !_mortarButton.IsVisible())
+                Hide();
+        }
 
         public override void ShowForPc()
         {
@@ -47,19 +54,26 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
 
         private void HideWeaponClick()
         {
+            if (_weaponsClick.IsVisible())
+                _weaponsClick.Hide();
+
             switch (_progressWeaponsData.CurrentHeroWeaponTypeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    _glClick.gameObject.SetActive(false);
+                    if (_glButton.IsVisible())
+                        _glButton.Hide();
                     break;
                 case HeroWeaponTypeId.RPG:
-                    _rpgClick.gameObject.SetActive(false);
+                    if (_rpgButton.IsVisible())
+                        _rpgButton.Hide();
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    _rlClick.gameObject.SetActive(false);
+                    if (_rlButton.IsVisible())
+                        _rlButton.Hide();
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    _mortarClick.gameObject.SetActive(false);
+                    if (_mortarButton.IsVisible())
+                        _mortarButton.Hide();
                     break;
             }
         }

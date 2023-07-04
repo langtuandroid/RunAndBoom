@@ -1,4 +1,5 @@
 ﻿using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Settings;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace CodeBase.UI.Elements.Hud
         {
             _windowService = AllServices.Container.Single<IWindowService>();
 
-            if (Application.isMobilePlatform)
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
             {
                 _settingsButton.gameObject.SetActive(true);
                 _settingsButton.onClick.AddListener(ShowSettingsWindow);

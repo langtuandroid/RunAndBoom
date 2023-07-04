@@ -7,8 +7,7 @@ namespace CodeBase.Services.Input
         private const string MouseX = "Mouse X";
         private const string MouseY = "Mouse Y";
 
-        public override bool IsAttackButtonUp() =>
-            UnityEngine.Input.GetMouseButton(0);
+        public override bool IsAttackButtonUp() => UnityEngine.Input.GetMouseButton(0);
 
         public override Vector2 MoveAxis
         {

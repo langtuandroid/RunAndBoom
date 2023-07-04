@@ -45,10 +45,8 @@ namespace CodeBase.Hero
             Gravity();
         }
 
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
 
         private void Move()
         {
@@ -116,15 +114,11 @@ namespace CodeBase.Hero
             _movementSpeed = _baseMovementSpeed * _movementRatio;
         }
 
-        public void TurnOn()
-        {
+        public void TurnOn() =>
             _canMove = true;
-        }
 
-        public void TurnOff()
-        {
+        public void TurnOff() =>
             _canMove = false;
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {

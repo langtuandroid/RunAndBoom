@@ -1,12 +1,18 @@
-﻿using CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels;
+﻿using CodeBase.Services;
+using CodeBase.Services.Input;
+using CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
     public class TutorialPanel : MonoBehaviour
     {
         [SerializeField] private Settings _settings;
-        [SerializeField] private Aim _aim;
+
+        [FormerlySerializedAs("_aim")] [SerializeField]
+        private Look look;
+
         [SerializeField] private Movement _movement;
         [SerializeField] private Shoot _shoot;
         [SerializeField] private InnerPanels.Weapons _weapons;
@@ -20,9 +26,9 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         private void OnEnable()
         {
-            if (Application.isMobilePlatform)
+            if (AllServices.Container.Single<IInputService>() is MobileInputService)
             {
-                _aim.ShowForMobile();
+                look.ShowForMobile();
                 _settings.ShowForMobile();
                 _movement.ShowForMobile();
                 _shoot.ShowForMobile();
@@ -30,7 +36,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             }
             else
             {
-                _aim.ShowForPc();
+                look.ShowForPc();
                 _settings.ShowForPc();
                 _movement.ShowForPc();
                 _shoot.ShowForPc();

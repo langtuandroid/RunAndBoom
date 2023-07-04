@@ -1,5 +1,7 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
+using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -60,7 +62,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void Start()
         {
-            if (!Application.isMobilePlatform)
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 Cursor.lockState = CursorLockMode.Confined;
         }
 

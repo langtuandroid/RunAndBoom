@@ -6,17 +6,28 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
     {
         [SerializeField] private Action _esc;
 
-        public override void ShowForPc()
+        private bool _show;
+
+        private void Update()
         {
-            // _esc.Show();
-            Show();
+            if (!_show)
+                return;
+
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Hide();
+                _show = false;
+            }
         }
 
-        public override void ShowForMobile()
+        public override void ShowForPc()
         {
-            // _esc.Hide();
-            Hide();
+            Show();
+            _show = true;
         }
+
+        public override void ShowForMobile() =>
+            Hide();
 
         protected override void RuChosen()
         {

@@ -15,7 +15,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         protected override void RuChosen()
         {
             _settingsText.text = LocalizationConstants.TutorialSettingsRu;
-            _aimText.text = LocalizationConstants.TutorialAimRu;
+            _aimText.text = LocalizationConstants.TutorialRotationRu;
             _movementText.text = LocalizationConstants.TutorialMovementRu;
             _shootText.text = LocalizationConstants.TutorialShootRu;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsRu;
@@ -24,7 +24,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         protected override void TrChosen()
         {
             _settingsText.text = LocalizationConstants.TutorialSettingsTr;
-            _aimText.text = LocalizationConstants.TutorialAimTr;
+            _aimText.text = LocalizationConstants.TutorialRotationTr;
             _movementText.text = LocalizationConstants.TutorialMovementTr;
             _shootText.text = LocalizationConstants.TutorialShootTr;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsTr;
@@ -33,7 +33,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         protected override void EnChosen()
         {
             _settingsText.text = LocalizationConstants.TutorialSettingsEn;
-            _aimText.text = LocalizationConstants.TutorialAimEn;
+            _aimText.text = LocalizationConstants.TutorialRotationEn;
             _movementText.text = LocalizationConstants.TutorialMovementEn;
             _shootText.text = LocalizationConstants.TutorialShootEn;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsEn;

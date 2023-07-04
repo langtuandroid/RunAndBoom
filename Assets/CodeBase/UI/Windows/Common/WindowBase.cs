@@ -2,6 +2,7 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -46,7 +47,7 @@ namespace CodeBase.UI.Windows.Common
 
             if (!WindowService.IsAnotherActive(_windowId))
             {
-                if (!Application.isMobilePlatform)
+                if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                     Cursor.lockState = CursorLockMode.Locked;
 
                 Hero.GetComponent<HeroShooting>().TurnOn();
@@ -70,7 +71,7 @@ namespace CodeBase.UI.Windows.Common
             Hero.GetComponentInChildren<PlayTimer>().enabled = false;
             Time.timeScale = 0;
 
-            if (!Application.isMobilePlatform)
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 ShowCursor(showCursor);
 
             PlayOpenSound();

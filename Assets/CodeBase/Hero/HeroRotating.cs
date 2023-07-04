@@ -21,7 +21,7 @@ namespace CodeBase.Hero
 
         private void Start()
         {
-            if (!Application.isMobilePlatform)
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 Cursor.lockState = CursorLockMode.Locked;
             else
                 Cursor.lockState = CursorLockMode.Confined;
