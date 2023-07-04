@@ -8,6 +8,8 @@ namespace CodeBase.Services.Input
 
         public override bool IsAttackButtonUp() => SimpleInput.GetButtonUp(Button);
 
-        public override Vector2 Axis => SimpleInputAxis();
+        public override Vector2 MoveAxis => MoveSimpleInputAxis();
+
+        public override Vector2 LookAxis => LookSimpleInputAxis();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodeBase.Data.Perks;
 using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items.Gifts;
@@ -15,9 +14,6 @@ namespace CodeBase.UI.Windows.Gifts
 {
     public class GiftsGenerator : ItemsGeneratorBase
     {
-        public override event Action GenerationStarted;
-        public override event Action GenerationEnded;
-
         public void Construct(GameObject hero)
         {
             base.Construct(hero);
@@ -28,14 +24,12 @@ namespace CodeBase.UI.Windows.Gifts
 
         public override void Generate()
         {
-            GenerationStarted?.Invoke();
             SetHighlightingVisibility(false);
             GetMoney();
             InitializeEmptyData();
             CreateAllItems();
             GenerateAllItems();
             SetHighlightingVisibility(true);
-            GenerationEnded?.Invoke();
         }
 
         protected override void CreateAllItems()

@@ -26,12 +26,12 @@ namespace CodeBase.UI.Windows.Common
         {
             _moneyStaticData = StaticDataService.ForMoney(_moneyTypeId);
 
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             BackgroundIcon.color = Constants.ShopItemAmmo;
             MainIcon.sprite = _moneyStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
+            LevelIcon.ChangeImageAlpha(Constants.Invisible);
+            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = "";

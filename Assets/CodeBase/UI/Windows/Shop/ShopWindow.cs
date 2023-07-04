@@ -29,6 +29,8 @@ namespace CodeBase.UI.Windows.Shop
             _skipButton.onClick.AddListener(CloseShop);
             _refreshButton.onClick.AddListener(GenerateShopItems);
             _refreshWithAdsButton.onClick.AddListener(ShowAdsAndGenerate);
+            _generator.GenerationStarted += DisableRefreshButtons;
+            _generator.GenerationEnded += CheckRefreshButtons;
         }
 
         private void OnDisable()
@@ -36,6 +38,8 @@ namespace CodeBase.UI.Windows.Shop
             _skipButton.onClick.RemoveListener(CloseShop);
             _refreshButton.onClick.RemoveListener(GenerateShopItems);
             _refreshWithAdsButton.onClick.RemoveListener(ShowAdsAndGenerate);
+            _generator.GenerationStarted -= DisableRefreshButtons;
+            _generator.GenerationEnded -= CheckRefreshButtons;
         }
 
         public void Construct(GameObject hero) =>
@@ -123,11 +127,8 @@ namespace CodeBase.UI.Windows.Shop
         private void Start() =>
             Cursor.lockState = CursorLockMode.Confined;
 
-        private void CloseShop()
-        {
+        private void CloseShop() =>
             Hide();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
 
         private void ShowAdsAndGenerate()
         {

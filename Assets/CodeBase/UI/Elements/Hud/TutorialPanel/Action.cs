@@ -14,7 +14,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         private void Awake()
         {
             _image = GetComponent<Image>();
-            _image.ChangeImageAlpha(Constants.AlphaTutorialItem);
+            _image.ChangeImageAlpha(Constants.HalfVisible);
         }
 
         public void Show() =>

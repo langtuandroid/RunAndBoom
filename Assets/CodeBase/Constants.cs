@@ -6,9 +6,9 @@ namespace CodeBase
     {
         public const int InitialMaxHp = 10;
         public const float AdditionYToEnemy = 1f;
-        public const float AlphaActiveItem = 1f;
-        public const float AlphaTutorialItem = 0.5f;
-        public const float AlphaInactiveItem = 0f;
+        public const float Visible = 1f;
+        public const float HalfVisible = 0.5f;
+        public const float Invisible = 0f;
         public const float Zero = 0.0f;
         public const float Epsilon = 0.001f;
 

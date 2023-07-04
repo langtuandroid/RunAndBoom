@@ -12,13 +12,15 @@ namespace CodeBase.Hero
 {
     public class HeroMovement : MonoBehaviour, IProgressReader
     {
-        [SerializeField] private CharacterController _characterController;
-        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private LayerMask _groundMask;
+        [SerializeField] private float _groundYOffset = -0.1f;
+        [SerializeField] float _gravity = -9.81f;
 
         private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
+        private CharacterController _characterController;
         private float _baseMovementSpeed = 5f;
         private float _movementRatio = 1f;
         private float _movementSpeed;
@@ -26,87 +28,63 @@ namespace CodeBase.Hero
         private PerkItemData _runningItemData;
         private PlayerProgress _progress;
         private List<PerkItemData> _perks;
-        private Rigidbody _rigidbody;
         private Vector3 _playerMovementInput;
+        private float _airSpeed = 1.5f;
+        private Vector3 _spherePosition;
+        private Vector3 _velocity;
 
         private void Awake()
         {
+            _characterController = GetComponent<CharacterController>();
             _inputService = AllServices.Container.Single<IInputService>();
-            _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void Update() =>
+        private void Update()
+        {
             Move();
+            Gravity();
+        }
+
+        public void Construct(IStaticDataService staticDataService)
+        {
+            _staticDataService = staticDataService;
+        }
 
         private void Move()
         {
-            MoveCharacterController();
-            // MoveCharacterControllerWithCorrection();
-            // MoveRigidbody();
+            if (_inputService.MoveAxis.sqrMagnitude > Constants.Epsilon)
+            {
+                Vector3 airDirection = Vector3.zero;
+                Vector3 direction = Vector3.zero;
+
+                if (IsGrounded())
+                    airDirection = transform.forward * _inputService.MoveAxis.y +
+                                   transform.right * _inputService.MoveAxis.x;
+                else
+                    direction = transform.forward * _inputService.MoveAxis.y +
+                                transform.right * _inputService.MoveAxis.x;
+
+                _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
+                                          Time.deltaTime);
+            }
         }
 
-        private void MoveRigidbody()
+        private bool IsGrounded()
         {
-            Vector3 movementVector = Vector3.zero;
-
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
-            {
-                Vector3 forward = new Vector3(-_cameraTransform.right.z, 0.0f, _cameraTransform.right.x);
-                movementVector =
-                    (forward * _inputService.Axis.y + _cameraTransform.right * _inputService.Axis.x +
-                     Vector3.up * _rigidbody.velocity.y).normalized * _movementSpeed;
-            }
-
-            _rigidbody.velocity = movementVector;
+            _spherePosition = new Vector3(transform.position.x, transform.position.y - _groundYOffset,
+                transform.position.z);
+            if (Physics.CheckSphere(_spherePosition, _characterController.radius - 0.05f, _groundMask)) return true;
+            return false;
         }
 
-        private void MoveCharacterController()
+        private void Gravity()
         {
-            Vector3 movementVector = Vector3.zero;
+            if (!IsGrounded())
+                _velocity.y += _gravity * Time.deltaTime;
+            else if (_velocity.y < 0)
+                _velocity.y = -2;
 
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
-            {
-                movementVector =
-                    _cameraTransform.TransformDirection(new Vector3(_inputService.Axis.x, 0,
-                        _inputService.Axis.y));
-                movementVector.Normalize();
-            }
-
-            movementVector += Physics.gravity;
-            _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
-        }
-
-        private void MoveCharacterControllerWithCorrection()
-        {
-            Vector3 movementVector = Vector3.zero;
-
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
-            {
-                Vector3 cameraDirection = _cameraTransform.TransformDirection(new Vector3(_inputService.Axis.x, 0,
-                    _inputService.Axis.y));
-                float x = 0f;
-                float y = 0f;
-                float z = 0f;
-
-                if (cameraDirection.x > 0)
-                    x = 1f;
-                if (cameraDirection.x < 0)
-                    x = -1f;
-                if (cameraDirection.y > 0)
-                    y = 1f;
-                if (cameraDirection.y < 0)
-                    y = -1f;
-                if (cameraDirection.z > 0)
-                    z = 1f;
-                if (cameraDirection.z < 0)
-                    z = -1f;
-
-                movementVector = new Vector3(x, y, z);
-                movementVector.Normalize();
-            }
-
-            movementVector += Physics.gravity;
-            _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
+            _characterController.Move(_velocity * Time.deltaTime);
         }
 
         private void OnEnable()
@@ -120,9 +98,6 @@ namespace CodeBase.Hero
             if (_runningItemData != null)
                 _runningItemData.LevelChanged -= ChangeSpeed;
         }
-
-        public void Construct(IStaticDataService staticDataService) =>
-            _staticDataService = staticDataService;
 
         private void SetSpeed()
         {
@@ -141,11 +116,15 @@ namespace CodeBase.Hero
             _movementSpeed = _baseMovementSpeed * _movementRatio;
         }
 
-        public void TurnOn() =>
+        public void TurnOn()
+        {
             _canMove = true;
+        }
 
-        public void TurnOff() =>
+        public void TurnOff()
+        {
             _canMove = false;
+        }
 
         public void LoadProgress(PlayerProgress progress)
         {

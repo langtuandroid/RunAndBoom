@@ -11,14 +11,14 @@ namespace CodeBase.UI.Windows.Results
 
         public void ShowReached()
         {
-            _reached.ChangeImageAlpha(Constants.AlphaActiveItem);
-            _unreached.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            _reached.ChangeImageAlpha(Constants.Visible);
+            _unreached.ChangeImageAlpha(Constants.Invisible);
         }
 
         public void ShowUnreached()
         {
-            _unreached.ChangeImageAlpha(Constants.AlphaActiveItem);
-            _reached.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            _unreached.ChangeImageAlpha(Constants.Visible);
+            _reached.ChangeImageAlpha(Constants.Invisible);
         }
     }
 }

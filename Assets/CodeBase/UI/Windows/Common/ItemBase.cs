@@ -68,16 +68,16 @@ namespace CodeBase.UI.Windows.Common
         protected void ClearData()
         {
             if (BackgroundIcon != null)
-                BackgroundIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                BackgroundIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (MainIcon != null)
-                MainIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                MainIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (LevelIcon != null)
-                LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                LevelIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (AdditionalIcon != null)
-                AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+                AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = "";

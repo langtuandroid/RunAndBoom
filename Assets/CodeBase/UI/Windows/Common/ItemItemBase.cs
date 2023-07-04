@@ -30,11 +30,11 @@ namespace CodeBase.UI.Windows.Common
             _itemStaticData = StaticDataService.ForShopItem(_typeId);
 
             BackgroundIcon.color = Constants.ShopItemItem;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             MainIcon.sprite = _itemStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
-            LevelIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaInactiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
+            LevelIcon.ChangeImageAlpha(Constants.Invisible);
+            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
                 CostText.text = $"{_itemStaticData.Cost} $";

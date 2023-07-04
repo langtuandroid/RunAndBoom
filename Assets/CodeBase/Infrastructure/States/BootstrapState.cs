@@ -98,9 +98,11 @@ namespace CodeBase.Infrastructure.States
         }
 
         private static IInputService InputService() =>
-            Application.isEditor
-                ? new DesktopInputService()
-                : new MobileInputService();
+            // Application.isMobilePlatform
+            //     ? 
+            new MobileInputService()
+        // : new DesktopInputService()
+        ;
 
         private void SetTargetFrameRate()
         {

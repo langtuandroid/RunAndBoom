@@ -35,19 +35,19 @@ namespace CodeBase.UI.Windows.Common
             _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
             BackgroundIcon.color = Constants.ShopItemUpgrade;
-            BackgroundIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
             MainIcon.sprite = _upgradableWeaponStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            MainIcon.ChangeImageAlpha(Constants.Visible);
 
             if (_shopUpgradeLevelStaticData.MainImage != null)
                 LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
 
             LevelIcon.ChangeImageAlpha(_shopUpgradeLevelStaticData.MainImage != null
-                ? Constants.AlphaActiveItem
-                : Constants.AlphaInactiveItem);
+                ? Constants.Visible
+                : Constants.Invisible);
 
             AdditionalIcon.sprite = _upgradeStaticData.MainImage;
-            AdditionalIcon.ChangeImageAlpha(Constants.AlphaActiveItem);
+            AdditionalIcon.ChangeImageAlpha(Constants.Visible);
 
             if (CostText != null)
                 CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";

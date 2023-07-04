@@ -1,3 +1,5 @@
+using CodeBase.Services;
+using CodeBase.Services.Input;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -5,17 +7,25 @@ namespace CodeBase.Hero
     public class HeroRotating : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        [SerializeField] private float _sensitivity = 1.0f;
+        [SerializeField] private float _verticalSensitivity = 2.0f;
+        [SerializeField] private float _horizontalSensitivity = 2.0f;
+        [SerializeField] private float _edgeAngle = 87f;
 
-        private const float EdgeAngle = 87f;
-        private const string MouseX = "Mouse X";
-        private const string MouseY = "Mouse Y";
-
+        private IInputService _inputService;
         private float _xAxisClamp = 0;
         private bool _canRotate = true;
+        private float _verticalRotation;
 
-        private void Start() =>
-            Cursor.lockState = CursorLockMode.Locked;
+        private void Awake() =>
+            _inputService = AllServices.Container.Single<IInputService>();
+
+        private void Start()
+        {
+            if (!Application.isMobilePlatform)
+                Cursor.lockState = CursorLockMode.Locked;
+            else
+                Cursor.lockState = CursorLockMode.Confined;
+        }
 
         private void Update()
         {
@@ -25,32 +35,21 @@ namespace CodeBase.Hero
 
         private void Rotate()
         {
-            float mouseX = Input.GetAxis(MouseX);
-            float mouseY = Input.GetAxis(MouseY);
-
-            float rotationAmountX = mouseX * _sensitivity;
-            float rotationAmountY = mouseY * _sensitivity;
-
-            _xAxisClamp -= rotationAmountY;
-
-            Vector3 rotation = _camera.transform.rotation.eulerAngles;
-
-            rotation.x -= rotationAmountY;
-            rotation.y += rotationAmountX;
-
-            switch (_xAxisClamp)
+            if (_inputService.LookAxis.sqrMagnitude > Constants.Epsilon)
             {
-                case > EdgeAngle:
-                    _xAxisClamp = EdgeAngle;
-                    rotation.x = EdgeAngle;
-                    break;
-                case < -EdgeAngle:
-                    _xAxisClamp = -EdgeAngle;
-                    rotation.x = -EdgeAngle;
-                    break;
+                RotateHorizontal();
+                RotateVertical();
             }
+        }
 
-            _camera.transform.rotation = Quaternion.Euler(rotation);
+        private void RotateHorizontal() =>
+            transform.Rotate(Vector3.up * _inputService.LookAxis.x * _horizontalSensitivity);
+
+        private void RotateVertical()
+        {
+            _verticalRotation -= _inputService.LookAxis.y;
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -_edgeAngle, _edgeAngle);
+            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
         }
 
         public void TurnOn() =>
