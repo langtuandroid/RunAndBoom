@@ -4,6 +4,7 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
+using CodeBase.Services.Input;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -29,8 +30,11 @@ namespace CodeBase.UI.Windows.Gifts
             StartCoroutine(InitializeYandexSDK());
         }
 
-        private void Start() =>
-            Cursor.lockState = CursorLockMode.Confined;
+        private void Start()
+        {
+            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
+                Cursor.lockState = CursorLockMode.Confined;
+        }
 
         private void OnEnable()
         {
@@ -67,8 +71,14 @@ namespace CodeBase.UI.Windows.Gifts
             GenerateItems();
         }
 
-            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
-                Cursor.lockState = CursorLockMode.Confined;
+        private void DisableRefreshButtons()
+        {
+        }
+
+        private void CheckRefreshButtons()
+        {
+        }
+
         private void ToNextLevel()
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
