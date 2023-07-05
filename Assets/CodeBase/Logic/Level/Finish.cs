@@ -12,8 +12,8 @@ namespace CodeBase.Logic.Level
         [SerializeField] private GameObject pickupEffect;
         [SerializeField] private int _maxPrice;
 
-        private Scene _nextScene;
         private IWindowService _windowService;
+        private Scene _nextLevel;
 
         private void Awake()
         {
@@ -29,13 +29,13 @@ namespace CodeBase.Logic.Level
 
                 Time.timeScale = 0;
                 WindowBase resultWindow = _windowService.Show<ResultsWindow>(WindowId.Result);
-                (resultWindow as ResultsWindow)?.AddData(_nextScene, _maxPrice);
+                (resultWindow as ResultsWindow)?.AddData(_nextLevel, _maxPrice);
                 (resultWindow as ResultsWindow)?.ShowData();
             }
         }
 
-        public void Construct(Scene nextScene) =>
-            _nextScene = nextScene;
+        public void Construct(Scene nextLevel) =>
+            _nextLevel = nextLevel;
 
         private void Pickup()
         {

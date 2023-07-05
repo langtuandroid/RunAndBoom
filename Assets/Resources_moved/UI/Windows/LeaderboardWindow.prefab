@@ -228,7 +228,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.75
+  m_fontSize: 26.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1359,7 +1359,7 @@ GameObject:
   - component: {fileID: 2117154713735244700}
   - component: {fileID: 1130965814566858546}
   m_Layer: 5
-  m_Name: LeaderBoardWindow
+  m_Name: LeaderboardWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1495,12 +1495,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d6e993f6b34b169a5a6ed74715aa8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rankText: {fileID: 0}
   _iconImage: {fileID: 0}
   _nameText: {fileID: 0}
   _scoreText: {fileID: 0}
   _leaderBoard: {fileID: 6528733737723970833}
   _playerPrefab: {fileID: 1815766353686235680, guid: a6da4fa8d1c51b545bbaad432e48c24b,
     type: 3}
+  _restartButton: {fileID: 3695666442272690622}
+  _toNextWindowButton: {fileID: 4523219301099680667}
 --- !u!114 &1130965814566858546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1514,6 +1517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Title: {fileID: 459448000172655841}
+  _restartText: {fileID: 2102243702677103738}
+  _nextText: {fileID: 400105653269854108}
 --- !u!1 &9070063836948516343
 GameObject:
   m_ObjectHideFlags: 0

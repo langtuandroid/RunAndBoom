@@ -129,7 +129,7 @@ namespace CodeBase.Infrastructure.States
             GameObject hero = await InitHero(levelData);
             await InitHud(hero);
             await InitWindows(hero);
-            await InitLevelTransfer(levelData);
+            InitLevelTransfer(levelData);
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
@@ -141,7 +141,7 @@ namespace CodeBase.Infrastructure.States
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
             await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
-        private async Task InitLevelTransfer(LevelStaticData levelData)
+        private void InitLevelTransfer(LevelStaticData levelData)
         {
             GameObject findWithTag = GameObject.FindWithTag(FinishPointTag);
             findWithTag.GetComponent<Finish>().Construct(levelData.LevelTransfer.TransferTo);

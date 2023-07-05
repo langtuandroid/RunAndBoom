@@ -1,9 +1,9 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
 using CodeBase.Data.Stats;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.GameEnd;
-using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.Leaderboard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
 using UnityEngine;
@@ -14,7 +14,7 @@ namespace CodeBase.UI.Windows.Results
     public class ResultsWindow : WindowBase
     {
         [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _toNextWindowButton;
+        [SerializeField] private Button _toLeaderBoardWindowButton;
         [SerializeField] private StarsPanel _starsPanel;
         [SerializeField] private TextMeshProUGUI _playTimeCount;
         [SerializeField] private TextMeshProUGUI _killed;
@@ -22,52 +22,27 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private TextMeshProUGUI _restartsCount;
         [SerializeField] private TextMeshProUGUI _score;
 
-        private int _maxPrice;
+        private LevelStats _levelStats;
         private Scene _nextScene;
+        private int _maxPrice;
+
+        private void Awake()
+        {
+            PrepareLevelStats();
+            LeaderboardService.OnInitializeSuccess += AddNewResult;
+            StartCoroutine(InitializeLeaderboardSDK());
+        }
 
         private void OnEnable()
         {
-            AddNextWindowListener();
             _restartButton.onClick.AddListener(RestartLevel);
+            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
         }
 
         private void OnDisable()
         {
-            RemoveNextWindowListener();
             _restartButton.onClick.RemoveListener(RestartLevel);
-        }
-
-        private void AddNextWindowListener()
-        {
-            if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
-            else
-                _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
-        }
-
-        private void RemoveNextWindowListener()
-        {
-            if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.RemoveListener(ToGameEndWindow);
-            else
-                _toNextWindowButton.onClick.RemoveListener(ToGiftsWindow);
-        }
-
-        private void ToGiftsWindow()
-        {
-            Hide();
-            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
-            GiftsGenerator giftsGenerator =
-                (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
-            giftsGenerator?.SetMaxPrice(_maxPrice);
-            giftsGenerator?.Generate();
-            (giftsWindow as GiftsWindow)?.AddNextScene(_nextScene);
-        }
-
-        private void ToGameEndWindow()
-        {
-            Hide();
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+            _toLeaderBoardWindowButton.onClick.RemoveListener(ToLeaderBoardWindow);
         }
 
         public void Construct(GameObject hero) =>
@@ -75,20 +50,43 @@ namespace CodeBase.UI.Windows.Results
 
         public void AddData(Scene nextScene, int maxPrice)
         {
-            _nextScene = nextScene;
             _maxPrice = maxPrice;
+            _nextScene = nextScene;
         }
+
+        private void ToLeaderBoardWindow()
+        {
+            Hide();
+            LeaderboardWindow leaderboardWindow =
+                WindowService.Show<LeaderboardWindow>(WindowId.LeaderBoard) as LeaderboardWindow;
+            leaderboardWindow?.AddData(_nextScene, _maxPrice);
+        }
+
+        private void PrepareLevelStats()
+        {
+            _levelStats = Progress.Stats.CurrentLevelStats;
+            _levelStats.CalculateScore();
+        }
+
+        private IEnumerator InitializeLeaderboardSDK()
+        {
+#if !UNITY_WEBGL || UNITY_EDITOR
+            yield break;
+#endif
+            yield return LeaderboardService.Initialize();
+        }
+
+        private void AddNewResult() =>
+            LeaderboardService.SetValue(_nextScene.GetLeaderBoardName(), _levelStats.Score);
 
         public void ShowData()
         {
-            Progress.Stats.CurrentLevelStats.CalculateScore();
-            LevelStats levelStats = Progress.Stats.CurrentLevelStats;
-            _starsPanel.ShowStars(levelStats.StarsCount);
-            _playTimeCount.text = $"{levelStats.PlayTimeData.PlayTime.ToInt()}";
-            _killed.text = $"{levelStats.KillsData.KilledEnemies}";
-            _totalEnemies.text = $"{levelStats.KillsData.TotalEnemies}";
-            _restartsCount.text = $"{levelStats.RestartsData.Count}";
-            _score.text = $"{levelStats.Score}";
+            _starsPanel.ShowStars(_levelStats.StarsCount);
+            _playTimeCount.text = $"{_levelStats.PlayTimeData.PlayTime.ToInt()}";
+            _killed.text = $"{_levelStats.KillsData.KilledEnemies}";
+            _totalEnemies.text = $"{_levelStats.KillsData.TotalEnemies}";
+            _restartsCount.text = $"{_levelStats.RestartsData.Count}";
+            _score.text = $"{_levelStats.Score}";
         }
     }
 }

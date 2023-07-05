@@ -13,7 +13,8 @@ namespace CodeBase.Editor
         public static void RenderCustomGizmo(ProjectileDirection direction, GizmoType gizmo)
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(direction.transform.position, direction.transform.position + direction.transform.forward * _length);
+            Gizmos.DrawLine(direction.transform.position,
+                direction.transform.position + direction.transform.forward * _length);
         }
     }
 }

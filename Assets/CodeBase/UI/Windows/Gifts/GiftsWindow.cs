@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Data;
 using CodeBase.Infrastructure.States;
-using CodeBase.Services;
-using CodeBase.Services.Ads;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -20,15 +18,15 @@ namespace CodeBase.UI.Windows.Gifts
         [SerializeField] private int _coinsCount;
 
         private Scene _nextScene;
-        private IAdsService _adsService;
 
         private void Awake()
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
             _addCoinsButton.enabled = false;
 #endif
-            _adsService = AllServices.Container.Single<IAdsService>();
-            StartCoroutine(InitializeYandexSDK());
+            GenerateItems();
+            AdsService.OnInitializeSuccess += EnableAddCoinsButton;
+            StartCoroutine(InitializeAdsSDK());
         }
 
         private void Start() =>
@@ -38,21 +36,24 @@ namespace CodeBase.UI.Windows.Gifts
         {
             _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
-            _adsService.OnInitializeSuccess += EnableAddCoinsButton;
-            _adsService.OnRewarded += AddCoins;
-            _adsService.OnErrorRewarded += ShowError;
-            _adsService.OnClosedRewarded += ShowClosed;
+            AdsService.OnInitializeSuccess += EnableAddCoinsButton;
+            AdsService.OnRewarded += AddCoins;
+            AdsService.OnErrorRewarded += ShowError;
+            AdsService.OnClosedRewarded += ShowClosed;
         }
 
         private void OnDisable()
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
-            _adsService.OnInitializeSuccess -= EnableAddCoinsButton;
-            _adsService.OnRewarded -= AddCoins;
-            _adsService.OnErrorRewarded -= ShowError;
-            _adsService.OnClosedRewarded -= ShowClosed;
+            AdsService.OnInitializeSuccess -= EnableAddCoinsButton;
+            AdsService.OnRewarded -= AddCoins;
+            AdsService.OnErrorRewarded -= ShowError;
+            AdsService.OnClosedRewarded -= ShowClosed;
         }
+
+        public void Construct(GameObject hero) =>
+            base.Construct(hero, WindowId.Gifts);
 
         private void ShowError(string message) =>
             Debug.Log($"OnErrorRewarded: {message}");
@@ -60,26 +61,16 @@ namespace CodeBase.UI.Windows.Gifts
         private void ShowClosed() =>
             Debug.Log("OnClosedRewarded");
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Gifts);
-
-        private IEnumerator InitializeYandexSDK()
+        private IEnumerator InitializeAdsSDK()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             yield break;
 #endif
-            yield return _adsService.Initialize();
+            yield return AdsService.Initialize();
         }
 
         private void EnableAddCoinsButton() =>
             _addCoinsButton.enabled = true;
-
-
-        public void AddNextScene(Scene nextScene)
-        {
-            _nextScene = nextScene;
-            GenerateItems();
-        }
 
         private void ToNextLevel()
         {
@@ -105,7 +96,7 @@ namespace CodeBase.UI.Windows.Gifts
             AddCoins();
             return;
 #endif
-            _adsService.ShowRewardedAd();
+            AdsService.ShowRewardedAd();
         }
 
         private void AddCoins() =>

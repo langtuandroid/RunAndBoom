@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using Agava.YandexGames;
-using CodeBase.Services;
-using CodeBase.Services.Ads;
+using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.GameEnd;
+using CodeBase.UI.Windows.Gifts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,61 +19,106 @@ namespace CodeBase.UI.Windows.Leaderboard
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private GameObject _leaderBoard;
         [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _toNextWindowButton;
 
-        private IAdsService _adsService;
+        private Scene _nextScene;
+        private int _maxPrice;
 
         private void Awake()
         {
             _leaderBoard.SetActive(false);
-            _iconImage.texture = null;
-            _nameText.text = "";
-            _scoreText.text = "";
+            // _iconImage.texture = null;
+            // _nameText.text = "";
+            // _scoreText.text = "";
+            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
+            StartCoroutine(InitializeLeaderboardSDK());
+        }
+
+        private IEnumerator InitializeLeaderboardSDK()
+        {
+#if !UNITY_WEBGL || UNITY_EDITOR
+            yield break;
+#endif
+            yield return LeaderboardService.Initialize();
         }
 
         private void Start()
         {
             ClearLeaderBoard();
-            _adsService = AllServices.Container.Single<IAdsService>();
-            StartCoroutine(InitializeYandexSDK());
         }
 
         private void OnEnable()
         {
-            _adsService.OnInitializeSuccess += RequestLeaderBoardData;
+            AddNextWindowListener();
+            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
+            _restartButton.onClick.AddListener(RestartLevel);
         }
 
         private void OnDisable()
         {
-            _adsService.OnInitializeSuccess -= RequestLeaderBoardData;
+            RemoveNextWindowListener();
+            LeaderboardService.OnInitializeSuccess -= RequestLeaderBoardData;
+            _restartButton.onClick.AddListener(RestartLevel);
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
 
-        private IEnumerator InitializeYandexSDK()
+        public void AddData(Scene nextLevel, int maxPrice)
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
-            yield return YandexGamesSdk.Initialize();
+            _nextScene = nextLevel;
+            _maxPrice = maxPrice;
+        }
+
+        private void AddNextWindowListener()
+        {
+            if (_nextScene == Scene.Initial)
+                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
+            else
+                _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
+        }
+
+        private void RemoveNextWindowListener()
+        {
+            if (_nextScene == Scene.Initial)
+                _toNextWindowButton.onClick.RemoveListener(ToGameEndWindow);
+            else
+                _toNextWindowButton.onClick.RemoveListener(ToGiftsWindow);
+        }
+
+        private void ToGiftsWindow()
+        {
+            Hide();
+            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
+            GiftsGenerator giftsGenerator =
+                (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
+            giftsGenerator?.SetMaxPrice(_maxPrice);
+            giftsGenerator?.Generate();
+        }
+
+        private void ToGameEndWindow()
+        {
+            Hide();
+            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
         }
 
         private void RequestLeaderBoardData()
         {
-            _adsService.OnSuccessGetEntries += FillLeaderBoard;
-            _adsService.GetEntries();
+            LeaderboardService.OnSuccessGetEntries += FillLeaderBoard;
+            LeaderboardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
 
-            _adsService.OnSuccessGetEntry += FillPlayerInfo;
-            _adsService.GetPlayerEntry();
+            LeaderboardService.OnSuccessGetEntry += FillPlayerInfo;
+            LeaderboardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
         }
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
-            _rankText.text = response.rank.ToString();
-            StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
-            _nameText.text = response.player.publicName;
-            _scoreText.text = response.score.ToString();
-            _adsService.OnSuccessGetEntry -= FillPlayerInfo;
+            // _rankText.text = response.rank.ToString();
+            // StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
+            // _nameText.text = response.player.publicName;
+            // _scoreText.text = response.score.ToString();
+            LeaderboardService.OnSuccessGetEntry -= FillPlayerInfo;
         }
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
@@ -92,8 +138,8 @@ namespace CodeBase.UI.Windows.Leaderboard
                     response.score.ToString();
             }
 
+            LeaderboardService.OnSuccessGetEntries -= FillLeaderBoard;
             _leaderBoard.SetActive(true);
-            _adsService.OnSuccessGetEntries -= FillLeaderBoard;
         }
 
         private void ClearLeaderBoard()

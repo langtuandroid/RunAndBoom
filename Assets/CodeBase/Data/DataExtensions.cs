@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Services.Ads;
 using UnityEngine;
 
 namespace CodeBase.Data
@@ -25,7 +26,23 @@ namespace CodeBase.Data
         public static IEnumerable<T> GetValues<T>() =>
             Enum.GetValues(typeof(T)).Cast<T>();
 
-        public static float SqrMagnitudeTo(this Vector3 from, Vector3 to) =>
-            Vector3.SqrMagnitude(to - from);
+        public static string GetLeaderBoardName(this Scene scene)
+        {
+            switch (scene)
+            {
+                case Scene.Level_1:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1;
+                case Scene.Level_2:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2;
+                case Scene.Level_3:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3;
+                case Scene.Level_4:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4;
+                case Scene.Level_5:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5;
+                default:
+                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedTheGame;
+            }
+        }
     }
 }

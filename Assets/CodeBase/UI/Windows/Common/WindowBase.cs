@@ -2,6 +2,7 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -18,6 +19,8 @@ namespace CodeBase.UI.Windows.Common
         protected ISaveLoadService SaveLoadService;
         protected IGameStateMachine GameStateMachine;
         protected IStaticDataService StaticDataService;
+        protected IAdsService AdsService;
+        protected ILeaderboardService LeaderboardService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
         protected PlayerProgress Progress;
@@ -30,6 +33,8 @@ namespace CodeBase.UI.Windows.Common
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
+            AdsService = AllServices.Container.Single<IAdsService>();
+            LeaderboardService = AllServices.Container.Single<ILeaderboardService>();
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;

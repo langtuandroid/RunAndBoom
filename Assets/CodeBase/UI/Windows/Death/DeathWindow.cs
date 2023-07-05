@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using CodeBase.Hero;
-using CodeBase.Services;
-using CodeBase.Services.Ads;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -15,47 +13,45 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private IAdsService _adsService;
-        private bool IsRestartButtonEnabled;
-
         private void Awake()
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
             _restartButton.enabled = false;
 #endif
-            _adsService = AllServices.Container.Single<IAdsService>();
-            StartCoroutine(InitializeYandexSDK());
+
+            AdsService.OnInitializeSuccess += EnableRestartButton;
+            StartCoroutine(InitializeAdsSDK());
         }
 
         private void OnEnable()
         {
             _recoverForAdsButton.onClick.AddListener(ShowAds);
             _restartButton.onClick.AddListener(RestartLevel);
-            _adsService.OnInitializeSuccess += EnableRestartButton;
-            _adsService.OnClosedFullScreen += RecoverForAds;
-            _adsService.OnErrorFullScreen += ShowError;
-            _adsService.OnOfflineFullScreen += ShowOffline;
+            AdsService.OnInitializeSuccess += EnableRestartButton;
+            AdsService.OnClosedFullScreen += RecoverForAds;
+            AdsService.OnErrorFullScreen += ShowError;
+            AdsService.OnOfflineFullScreen += ShowOffline;
         }
 
         private void OnDisable()
         {
             _recoverForAdsButton.onClick.RemoveListener(ShowAds);
             _restartButton.onClick.RemoveListener(RestartLevel);
-            _adsService.OnInitializeSuccess -= EnableRestartButton;
-            _adsService.OnClosedFullScreen -= RecoverForAds;
-            _adsService.OnErrorFullScreen -= ShowError;
-            _adsService.OnOfflineFullScreen -= ShowOffline;
+            AdsService.OnInitializeSuccess -= EnableRestartButton;
+            AdsService.OnClosedFullScreen -= RecoverForAds;
+            AdsService.OnErrorFullScreen -= ShowError;
+            AdsService.OnOfflineFullScreen -= ShowOffline;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        private IEnumerator InitializeYandexSDK()
+        private IEnumerator InitializeAdsSDK()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             yield break;
 #endif
-            yield return _adsService.Initialize();
+            yield return AdsService.Initialize();
         }
 
         private void EnableRestartButton() =>
@@ -67,7 +63,7 @@ namespace CodeBase.UI.Windows.Death
             RecoverForAds(true);
             return;
 #endif
-            _adsService.ShowFullScreenAd();
+            AdsService.ShowFullScreenAd();
         }
 
         private void ShowError(string message) =>
