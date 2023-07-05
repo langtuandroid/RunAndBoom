@@ -9,12 +9,13 @@ using UnityEngine;
 
 namespace CodeBase.Logic.Level
 {
-    public class LevelSectorTrigger : MonoBehaviour, IProgressReader
+    public class LevelSectorTrigger : MonoBehaviour
     {
-        private const int MinItemValue = 5;
         [SerializeField] private int _number;
         [SerializeField] private int _refreshCount;
         [SerializeField] private int _watchAdsNumber;
+
+        private const int MinItemValue = 5;
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
@@ -34,9 +35,7 @@ namespace CodeBase.Logic.Level
         {
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                if (AllServices.Container.Single<IPlayerProgressService>().Progress.Stats.CurrentLevelStats.MoneyData
-                    .IsMoneyEnough(MinItemValue))
-                    // if (_progress.Stats.CurrentLevelStats.MoneyData.IsMoneyEnough(MinItemValue))
+                if (_progressService.Progress.Stats.CurrentLevelStats.MoneyData.IsMoneyEnough(MinItemValue))
                     ShowShopWindow();
 
                 SetPassed();
@@ -45,7 +44,6 @@ namespace CodeBase.Logic.Level
 
         private void ShowShopWindow()
         {
-            _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
             WindowBase shopWindow = _windowService.Show<ShopWindow>(WindowId.Shop);
             (shopWindow as ShopWindow)?.gameObject.GetComponent<ShopItemsGenerator>()?.Generate();
             (shopWindow as ShopWindow)?.AddCounts(_refreshCount, _watchAdsNumber);
@@ -53,11 +51,9 @@ namespace CodeBase.Logic.Level
 
         private void SetPassed()
         {
+            _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
             Passed?.Invoke();
             _isPassed = true;
         }
-
-        public void LoadProgress(PlayerProgress progress) =>
-            _progress = progress;
     }
 }
