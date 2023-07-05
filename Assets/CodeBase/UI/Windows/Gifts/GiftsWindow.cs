@@ -26,7 +26,7 @@ namespace CodeBase.UI.Windows.Gifts
 #endif
             GenerateItems();
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
-            StartCoroutine(InitializeAdsSDK());
+            InitializeAdsSDK();
         }
 
         private void Start() =>
@@ -38,7 +38,7 @@ namespace CodeBase.UI.Windows.Gifts
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
             AdsService.OnRewarded += AddCoins;
-            AdsService.OnErrorRewarded += ShowError;
+            AdsService.OnError += ShowError;
             AdsService.OnClosedRewarded += ShowClosed;
         }
 
@@ -48,26 +48,34 @@ namespace CodeBase.UI.Windows.Gifts
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
             AdsService.OnInitializeSuccess -= EnableAddCoinsButton;
             AdsService.OnRewarded -= AddCoins;
-            AdsService.OnErrorRewarded -= ShowError;
+            AdsService.OnError -= ShowError;
             AdsService.OnClosedRewarded -= ShowClosed;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
 
+        private void InitializeAdsSDK()
+        {
+            if (IsAdsSDKInitialized())
+                StartCoroutine(CoroutineInitializeAdsSDK());
+            else 
+                EnableAddCoinsButton();
+        }
+
+        private bool IsAdsSDKInitialized() =>
+            AdsService.IsInitialized();
+
+        private IEnumerator CoroutineInitializeAdsSDK()
+        {
+            yield return AdsService.Initialize();
+        }
+
         private void ShowError(string message) =>
             Debug.Log($"OnErrorRewarded: {message}");
 
         private void ShowClosed() =>
             Debug.Log("OnClosedRewarded");
-
-        private IEnumerator InitializeAdsSDK()
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
-            yield return AdsService.Initialize();
-        }
 
         private void EnableAddCoinsButton() =>
             _addCoinsButton.enabled = true;

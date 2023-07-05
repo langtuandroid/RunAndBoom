@@ -35,7 +35,7 @@ namespace CodeBase.Logic.Level
         {
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                if (_progressService.Progress.Stats.CurrentLevelStats.MoneyData.IsMoneyEnough(MinItemValue))
+                if (_progressService.Progress.Stats.IsMoneyEnough(MinItemValue))
                     ShowShopWindow();
 
                 SetPassed();

@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Services.Ads
+﻿namespace CodeBase.Services.LeaderBoard
 {
     public class LeaderboardsConstants
     {

@@ -15,12 +15,13 @@ namespace CodeBase.UI.Windows.Death
 
         private void Awake()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            _restartButton.enabled = false;
-#endif
+            // if (!Application.isEditor)
+            //     _restartButton.enabled = false;
 
-            AdsService.OnInitializeSuccess += EnableRestartButton;
-            StartCoroutine(InitializeAdsSDK());
+            // AdsService.OnInitializeSuccess += EnableRestartButton;
+
+            // if (!Application.isEditor)
+                // InitializeAdsSDK();
         }
 
         private void OnEnable()
@@ -29,7 +30,7 @@ namespace CodeBase.UI.Windows.Death
             _restartButton.onClick.AddListener(RestartLevel);
             AdsService.OnInitializeSuccess += EnableRestartButton;
             AdsService.OnClosedFullScreen += RecoverForAds;
-            AdsService.OnErrorFullScreen += ShowError;
+            AdsService.OnError += ShowError;
             AdsService.OnOfflineFullScreen += ShowOffline;
         }
 
@@ -39,18 +40,26 @@ namespace CodeBase.UI.Windows.Death
             _restartButton.onClick.RemoveListener(RestartLevel);
             AdsService.OnInitializeSuccess -= EnableRestartButton;
             AdsService.OnClosedFullScreen -= RecoverForAds;
-            AdsService.OnErrorFullScreen -= ShowError;
+            AdsService.OnError -= ShowError;
             AdsService.OnOfflineFullScreen -= ShowOffline;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        private IEnumerator InitializeAdsSDK()
+        private void InitializeAdsSDK()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
+            if (IsAdsSDKInitialized())
+                StartCoroutine(CoroutineInitializeAdsSDK());
+            else 
+                EnableRestartButton();
+        }
+
+        private bool IsAdsSDKInitialized() =>
+            AdsService.IsInitialized();
+
+        private IEnumerator CoroutineInitializeAdsSDK()
+        {
             yield return AdsService.Initialize();
         }
 
@@ -59,11 +68,10 @@ namespace CodeBase.UI.Windows.Death
 
         private void ShowAds()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            RecoverForAds(true);
-            return;
-#endif
-            AdsService.ShowFullScreenAd();
+            if (Application.isEditor)
+                RecoverForAds(true);
+            else
+                AdsService.ShowFullScreenAd();
         }
 
         private void ShowError(string message) =>

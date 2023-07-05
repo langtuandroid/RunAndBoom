@@ -30,7 +30,7 @@ namespace CodeBase.UI.Windows.Results
         {
             PrepareLevelStats();
             LeaderboardService.OnInitializeSuccess += AddNewResult;
-            StartCoroutine(InitializeLeaderboardSDK());
+            InitializeLeaderboardSDK();
         }
 
         private void OnEnable()
@@ -68,11 +68,18 @@ namespace CodeBase.UI.Windows.Results
             _levelStats.CalculateScore();
         }
 
-        private IEnumerator InitializeLeaderboardSDK()
+        private void InitializeLeaderboardSDK()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
+            if (IsAdsLeaderboardInitialized())
+                StartCoroutine(CoroutineInitializeLeaderboardSDK());
+            else AddNewResult();
+        }
+
+        private bool IsAdsLeaderboardInitialized() =>
+            LeaderboardService.IsInitialized();
+
+        private IEnumerator CoroutineInitializeLeaderboardSDK()
+        {
             yield return LeaderboardService.Initialize();
         }
 

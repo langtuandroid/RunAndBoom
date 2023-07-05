@@ -3,6 +3,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
+using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;

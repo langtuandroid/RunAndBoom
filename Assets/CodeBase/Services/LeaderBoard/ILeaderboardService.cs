@@ -2,7 +2,7 @@
 using System.Collections;
 using Agava.YandexGames;
 
-namespace CodeBase.Services.Ads
+namespace CodeBase.Services.LeaderBoard
 {
     public interface ILeaderboardService : IService
     {
@@ -10,6 +10,7 @@ namespace CodeBase.Services.Ads
         public event Action<LeaderboardGetEntriesResponse> OnSuccessGetEntries;
         public event Action<LeaderboardEntryResponse> OnSuccessGetEntry;
 
+        bool IsInitialized();
         IEnumerator Initialize();
         void GetPlayerEntry(string leaderboardName);
         void GetEntries(string leaderboardName);

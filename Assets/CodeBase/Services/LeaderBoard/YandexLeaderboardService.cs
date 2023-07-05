@@ -2,7 +2,7 @@
 using System.Collections;
 using Agava.YandexGames;
 
-namespace CodeBase.Services.Ads
+namespace CodeBase.Services.LeaderBoard
 {
     public class YandexLeaderboardService : ILeaderboardService
     {
@@ -13,14 +13,13 @@ namespace CodeBase.Services.Ads
         public event Action<LeaderboardGetEntriesResponse> OnSuccessGetEntries;
         public event Action<LeaderboardEntryResponse> OnSuccessGetEntry;
 
+        public bool IsInitialized() =>
+            YandexGamesSdk.IsInitialized;
+
         public IEnumerator Initialize()
         {
-            if (!IsInitialized())
-                yield return YandexGamesSdk.Initialize(OnInitializeSuccess);
+            yield return YandexGamesSdk.Initialize(OnInitializeSuccess);
         }
-
-        private bool IsInitialized() =>
-            YandexGamesSdk.IsInitialized;
 
         public void GetPlayerEntry(string leaderboardName) =>
             Leaderboard.GetPlayerEntry(leaderboardName: leaderboardName,

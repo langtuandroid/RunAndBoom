@@ -32,20 +32,26 @@ namespace CodeBase.UI.Windows.Leaderboard
             // _nameText.text = "";
             // _scoreText.text = "";
             LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
-            StartCoroutine(InitializeLeaderboardSDK());
+           InitializeLeaderboardSDK();
         }
 
-        private IEnumerator InitializeLeaderboardSDK()
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
-            yield return LeaderboardService.Initialize();
-        }
-
-        private void Start()
-        {
+        private void Start() => 
             ClearLeaderBoard();
+
+        private void InitializeLeaderboardSDK()
+        {
+            if (IsAdsLeaderboardInitialized())
+                StartCoroutine(CoroutineInitializeLeaderboardSDK());
+            else 
+                RequestLeaderBoardData();
+        }
+
+        private bool IsAdsLeaderboardInitialized() =>
+            LeaderboardService.IsInitialized();
+
+        private IEnumerator CoroutineInitializeLeaderboardSDK()
+        {
+            yield return LeaderboardService.Initialize();
         }
 
         private void OnEnable()

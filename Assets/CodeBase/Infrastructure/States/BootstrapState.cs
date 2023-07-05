@@ -9,8 +9,10 @@ using CodeBase.Services.Ads;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.Input.Platforms;
 using CodeBase.Services.Input.Types;
+using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.PlayerAuthorization;
 using CodeBase.Services.Pool;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.Registrator;
@@ -52,6 +54,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<ILocalizationService>((new LocalizationService(_language)));
             _services.RegisterSingle<IAdsService>((new YandexAdsService()));
             _services.RegisterSingle<ILeaderboardService>((new YandexLeaderboardService()));
+            _services.RegisterSingle<IAuthorization>((new YandexAuthorization()));
             RegisterStaticData();
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetsProvider();
