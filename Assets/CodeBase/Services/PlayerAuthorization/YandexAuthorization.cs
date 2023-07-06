@@ -1,6 +1,5 @@
 ﻿using System;
 using Agava.YandexGames;
-using CodeBase.Services.Ads;
 
 namespace CodeBase.Services.PlayerAuthorization
 {

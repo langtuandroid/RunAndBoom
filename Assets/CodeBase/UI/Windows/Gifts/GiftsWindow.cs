@@ -21,12 +21,12 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void Awake()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            _addCoinsButton.enabled = false;
-#endif
             GenerateItems();
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
             InitializeAdsSDK();
+
+            if (!Application.isEditor)
+                _addCoinsButton.enabled = false;
         }
 
         private void Start() =>
@@ -59,7 +59,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             if (IsAdsSDKInitialized())
                 StartCoroutine(CoroutineInitializeAdsSDK());
-            else 
+            else
                 EnableAddCoinsButton();
         }
 
@@ -100,10 +100,12 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ShowAds()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            AddCoins();
-            return;
-#endif
+            if (Application.isEditor)
+            {
+                AddCoins();
+                return;
+            }
+
             AdsService.ShowRewardedAd();
         }
 

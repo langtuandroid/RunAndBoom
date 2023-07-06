@@ -19,6 +19,7 @@ namespace CodeBase.UI.Windows.Leaderboard
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private GameObject _leaderBoard;
         [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private GameObject _playerContainer;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _toNextWindowButton;
 
@@ -28,30 +29,24 @@ namespace CodeBase.UI.Windows.Leaderboard
         private void Awake()
         {
             _leaderBoard.SetActive(false);
-            // _iconImage.texture = null;
-            // _nameText.text = "";
-            // _scoreText.text = "";
+            _rankText.text = "";
+            _iconImage.texture = null;
+            _nameText.text = "";
+            _scoreText.text = "";
+            _playerContainer.SetActive(false);
             LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
-           InitializeLeaderboardSDK();
+            InitializeLeaderboardSDK();
         }
 
-        private void Start() => 
+        private void Start() =>
             ClearLeaderBoard();
 
         private void InitializeLeaderboardSDK()
         {
-            if (IsAdsLeaderboardInitialized())
-                StartCoroutine(CoroutineInitializeLeaderboardSDK());
-            else 
+            if (IsLeaderboardInitialized())
                 RequestLeaderBoardData();
-        }
-
-        private bool IsAdsLeaderboardInitialized() =>
-            LeaderboardService.IsInitialized();
-
-        private IEnumerator CoroutineInitializeLeaderboardSDK()
-        {
-            yield return LeaderboardService.Initialize();
+            else
+                StartCoroutine(CoroutineInitializeLeaderboardSDK());
         }
 
         private void OnEnable()
@@ -75,6 +70,14 @@ namespace CodeBase.UI.Windows.Leaderboard
         {
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
+        }
+
+        private bool IsLeaderboardInitialized() =>
+            LeaderboardService.IsInitialized();
+
+        private IEnumerator CoroutineInitializeLeaderboardSDK()
+        {
+            yield return LeaderboardService.Initialize();
         }
 
         private void AddNextWindowListener()
@@ -120,10 +123,10 @@ namespace CodeBase.UI.Windows.Leaderboard
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
-            // _rankText.text = response.rank.ToString();
-            // StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
-            // _nameText.text = response.player.publicName;
-            // _scoreText.text = response.score.ToString();
+            _rankText.text = $"#{response.rank}";
+            StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage, _playerContainer));
+            _nameText.text = response.player.publicName;
+            _scoreText.text = response.score.ToString();
             LeaderboardService.OnSuccessGetEntry -= FillPlayerInfo;
         }
 
@@ -134,10 +137,11 @@ namespace CodeBase.UI.Windows.Leaderboard
             foreach (var response in leaderboardEntryResponses)
             {
                 var player = Instantiate(_playerPrefab, _leaderBoard.transform);
+                player.SetActive(false);
                 player.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
                     response.rank.ToString();
                 RawImage image = player.transform.GetChild(1).GetComponent<RawImage>();
-                StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, image));
+                StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, image, player));
                 player.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text =
                     response.player.publicName;
                 player.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text =
@@ -157,11 +161,12 @@ namespace CodeBase.UI.Windows.Leaderboard
             }
         }
 
-        private IEnumerator LoadAvatar(string avatarUrl, RawImage image)
+        private IEnumerator LoadAvatar(string avatarUrl, RawImage image, GameObject gameObject)
         {
             WWW www = new WWW(avatarUrl);
             yield return null;
             image.texture = www.texture;
+            gameObject.SetActive(true);
         }
     }
 }
