@@ -11,36 +11,18 @@ namespace CodeBase.Hero
         private IAuthorization _authorization;
         private IAdsService _adsService;
 
-        private void Awake()
+        private void Start()
         {
-            if (Application.isEditor)
-                return;
+            // if (Application.isEditor)
+            //     return;
 
             _authorization = AllServices.Container.Single<IAuthorization>();
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
             _adsService = AllServices.Container.Single<IAdsService>();
-        }
-
-        private void Start()
-        {
-            if (Application.isEditor)
-                return;
-
-            Authorize();
+            _adsService.OnInitializeSuccess += Authorize;
             InitializeAdsSDK();
         }
-
-        private void Authorize()
-        {
-            if (_authorization.IsAuthorized())
-                _authorization.RequestPersonalProfileDataPermission();
-            else
-                _authorization.Authorize();
-        }
-
-        private void RequestPersonalProfileDataPermission() =>
-            _authorization.RequestPersonalProfileDataPermission();
 
         private void InitializeAdsSDK()
         {
@@ -51,12 +33,38 @@ namespace CodeBase.Hero
         private bool IsAdsSDKInitialized() =>
             _adsService.IsInitialized();
 
+        private void Authorize()
+        {
+            Debug.Log("Authorize");
+            if (_authorization.IsAuthorized())
+            {
+                RequestPersonalProfileDataPermission();
+            }
+            else
+            {
+                _authorization.OnAuthorizeSuccessCallback += _authorization.RequestPersonalProfileDataPermission;
+                _authorization.OnErrorCallback += ShowError;
+                _authorization.Authorize();
+            }
+        }
+
+        private void RequestPersonalProfileDataPermission()
+        {
+            Debug.Log("RequestPersonalProfileDataPermission");
+            _authorization.RequestPersonalProfileDataPermission();
+            _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
+        }
+
         private IEnumerator CoroutineInitializeAdsSDK()
         {
+            Debug.Log("CoroutineInitializeAdsSDK");
             yield return _adsService.Initialize();
         }
 
-        private void ShowError(string error) =>
-            Debug.Log($"Error: {error}");
+        private void ShowError(string error)
+        {
+            Debug.Log($"ShowError {error}");
+            _authorization.OnErrorCallback -= ShowError;
+        }
     }
 }
