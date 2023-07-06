@@ -22,11 +22,13 @@ namespace CodeBase.UI.Windows.Gifts
         private void Awake()
         {
             GenerateItems();
+
+            if (Application.isEditor)
+                return;
+
+            _addCoinsButton.enabled = false;
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
             InitializeAdsSDK();
-
-            if (!Application.isEditor)
-                _addCoinsButton.enabled = false;
         }
 
         private void Start() =>
@@ -58,9 +60,9 @@ namespace CodeBase.UI.Windows.Gifts
         private void InitializeAdsSDK()
         {
             if (IsAdsSDKInitialized())
-                StartCoroutine(CoroutineInitializeAdsSDK());
-            else
                 EnableAddCoinsButton();
+            else
+                StartCoroutine(CoroutineInitializeAdsSDK());
         }
 
         private bool IsAdsSDKInitialized() =>

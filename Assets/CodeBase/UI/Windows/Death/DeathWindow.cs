@@ -15,13 +15,12 @@ namespace CodeBase.UI.Windows.Death
 
         private void Awake()
         {
-            // if (!Application.isEditor)
-            //     _restartButton.enabled = false;
+            if (Application.isEditor)
+                return;
 
-            // AdsService.OnInitializeSuccess += EnableRestartButton;
-
-            // if (!Application.isEditor)
-            // InitializeAdsSDK();
+            _restartButton.enabled = false;
+            AdsService.OnInitializeSuccess += EnableRestartButton;
+            InitializeAdsSDK();
         }
 
         private void OnEnable()
@@ -50,9 +49,9 @@ namespace CodeBase.UI.Windows.Death
         private void InitializeAdsSDK()
         {
             if (IsAdsSDKInitialized())
-                StartCoroutine(CoroutineInitializeAdsSDK());
-            else
                 EnableRestartButton();
+            else
+                StartCoroutine(CoroutineInitializeAdsSDK());
         }
 
         private bool IsAdsSDKInitialized() =>
