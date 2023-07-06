@@ -28,6 +28,9 @@ namespace CodeBase.UI.Windows.Gifts
 
         public override void Generate()
         {
+            if (Progress == null)
+                return;
+
             GenerationStarted?.Invoke();
             SetHighlightingVisibility(false);
             GetMoney();

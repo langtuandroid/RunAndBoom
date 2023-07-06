@@ -11,7 +11,7 @@ namespace CodeBase.Services.PlayerAuthorization
         event Action<string> OnGetPlayerDataSuccessCallback;
         event Action OnSetPlayerDataSuccessCallback;
         event Action<string> OnErrorCallback;
-        
+
         bool IsAuthorized();
         void Authorize();
         void RequestPersonalProfileDataPermission();

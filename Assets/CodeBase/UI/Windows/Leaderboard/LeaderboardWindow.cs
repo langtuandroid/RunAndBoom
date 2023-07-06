@@ -34,6 +34,10 @@ namespace CodeBase.UI.Windows.Leaderboard
             _nameText.text = "";
             _scoreText.text = "";
             _playerContainer.SetActive(false);
+
+            if (LeaderboardService == null)
+                return;
+
             LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
             InitializeLeaderboardSDK();
         }
@@ -52,15 +56,19 @@ namespace CodeBase.UI.Windows.Leaderboard
         private void OnEnable()
         {
             AddNextWindowListener();
-            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (LeaderboardService != null)
+                LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
         }
 
         private void OnDisable()
         {
             RemoveNextWindowListener();
-            LeaderboardService.OnInitializeSuccess -= RequestLeaderBoardData;
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (LeaderboardService != null)
+                LeaderboardService.OnInitializeSuccess -= RequestLeaderBoardData;
         }
 
         public void Construct(GameObject hero) =>

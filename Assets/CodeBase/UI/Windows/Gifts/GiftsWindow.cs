@@ -19,8 +19,9 @@ namespace CodeBase.UI.Windows.Gifts
 
         private Scene _nextScene;
 
-        private void Awake()
+        private void Start()
         {
+            Cursor.lockState = CursorLockMode.Confined;
             GenerateItems();
 
             if (Application.isEditor)
@@ -31,13 +32,14 @@ namespace CodeBase.UI.Windows.Gifts
             InitializeAdsSDK();
         }
 
-        private void Start() =>
-            Cursor.lockState = CursorLockMode.Confined;
-
         private void OnEnable()
         {
             _addCoinsButton.onClick.AddListener(ShowAds);
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
+
+            if (AdsService == null)
+                return;
+
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
             AdsService.OnRewarded += AddCoins;
             AdsService.OnError += ShowError;
@@ -48,6 +50,10 @@ namespace CodeBase.UI.Windows.Gifts
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
             _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
+
+            if (AdsService == null)
+                return;
+
             AdsService.OnInitializeSuccess -= EnableAddCoinsButton;
             AdsService.OnRewarded -= AddCoins;
             AdsService.OnError -= ShowError;

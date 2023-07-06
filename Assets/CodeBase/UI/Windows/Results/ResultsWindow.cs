@@ -26,12 +26,17 @@ namespace CodeBase.UI.Windows.Results
         private Scene _nextScene;
         private int _maxPrice;
 
-        private void Awake()
+        private void Start()
         {
             PrepareLevelStats();
+
+            if (LeaderboardService == null)
+                return;
+
             LeaderboardService.OnInitializeSuccess += AddNewResult;
             InitializeLeaderboardSDK();
         }
+
 
         private void OnEnable()
         {
@@ -64,6 +69,9 @@ namespace CodeBase.UI.Windows.Results
 
         private void PrepareLevelStats()
         {
+            if (Progress == null)
+                return;
+
             _levelStats = Progress.Stats.CurrentLevelStats;
             _levelStats.CalculateScore();
         }

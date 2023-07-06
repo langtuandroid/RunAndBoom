@@ -13,7 +13,7 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private void Awake()
+        private void Start()
         {
             if (Application.isEditor)
                 return;
@@ -27,6 +27,10 @@ namespace CodeBase.UI.Windows.Death
         {
             _recoverForAdsButton.onClick.AddListener(ShowAds);
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (AdsService == null)
+                return;
+
             AdsService.OnInitializeSuccess += EnableRestartButton;
             AdsService.OnClosedFullScreen += RecoverForAds;
             AdsService.OnError += ShowError;
@@ -37,6 +41,10 @@ namespace CodeBase.UI.Windows.Death
         {
             _recoverForAdsButton.onClick.RemoveListener(ShowAds);
             _restartButton.onClick.RemoveListener(RestartLevel);
+
+            if (AdsService == null)
+                return;
+
             AdsService.OnInitializeSuccess -= EnableRestartButton;
             AdsService.OnClosedFullScreen -= RecoverForAds;
             AdsService.OnError -= ShowError;
