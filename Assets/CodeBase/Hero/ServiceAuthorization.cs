@@ -23,10 +23,15 @@ namespace CodeBase.Hero
             if (Application.isEditor)
                 return;
 
-            if (!_authorization.IsAuthorized())
-                _authorization.Authorize();
-            else
+            Authorize();
+        }
+
+        private void Authorize()
+        {
+            if (_authorization.IsAuthorized())
                 _authorization.RequestPersonalProfileDataPermission();
+            else
+                _authorization.Authorize();
         }
 
         private void RequestPersonalProfileDataPermission() =>
