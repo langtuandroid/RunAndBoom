@@ -33,6 +33,12 @@ namespace CodeBase.Hero
         private bool IsAdsSDKInitialized() =>
             _adsService.IsInitialized();
 
+        private IEnumerator CoroutineInitializeAdsSDK()
+        {
+            Debug.Log("CoroutineInitializeAdsSDK");
+            yield return _adsService.Initialize();
+        }
+
         private void Authorize()
         {
             Debug.Log("Authorize");
@@ -53,12 +59,6 @@ namespace CodeBase.Hero
             Debug.Log("RequestPersonalProfileDataPermission");
             _authorization.RequestPersonalProfileDataPermission();
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
-        }
-
-        private IEnumerator CoroutineInitializeAdsSDK()
-        {
-            Debug.Log("CoroutineInitializeAdsSDK");
-            yield return _adsService.Initialize();
         }
 
         private void ShowError(string error)
