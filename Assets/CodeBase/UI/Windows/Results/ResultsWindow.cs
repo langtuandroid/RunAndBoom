@@ -61,10 +61,8 @@ namespace CodeBase.UI.Windows.Results
 
         private void ToLeaderBoardWindow()
         {
-            Hide();
-            LeaderboardWindow leaderboardWindow =
-                WindowService.Show<LeaderboardWindow>(WindowId.LeaderBoard) as LeaderboardWindow;
-            leaderboardWindow?.AddData(_nextScene, _maxPrice);
+            WindowBase leaderboardWindow = WindowService.Show<LeaderboardWindow>(WindowId.LeaderBoard);
+            (leaderboardWindow as LeaderboardWindow)?.AddData(_nextScene, _maxPrice);
         }
 
         private void PrepareLevelStats()

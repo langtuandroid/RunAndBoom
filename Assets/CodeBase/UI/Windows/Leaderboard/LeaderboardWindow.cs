@@ -106,19 +106,14 @@ namespace CodeBase.UI.Windows.Leaderboard
 
         private void ToGiftsWindow()
         {
-            Hide();
             WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
-            GiftsGenerator giftsGenerator =
-                (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
+            GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
         }
 
-        private void ToGameEndWindow()
-        {
-            Hide();
+        private void ToGameEndWindow() =>
             WindowService.Show<GameEndWindow>(WindowId.GameEnd);
-        }
 
         private void RequestLeaderBoardData()
         {
