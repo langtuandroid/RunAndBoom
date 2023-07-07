@@ -42,7 +42,7 @@ namespace CodeBase.UI.Windows.Gifts
 
             AdsService.OnInitializeSuccess += EnableAddCoinsButton;
             AdsService.OnRewarded += AddCoins;
-            AdsService.OnError += ShowError;
+            AdsService.OnShowRewardedAdError += ShowError;
             AdsService.OnClosedRewarded += ShowClosed;
         }
 
@@ -56,7 +56,7 @@ namespace CodeBase.UI.Windows.Gifts
 
             AdsService.OnInitializeSuccess -= EnableAddCoinsButton;
             AdsService.OnRewarded -= AddCoins;
-            AdsService.OnError -= ShowError;
+            AdsService.OnShowRewardedAdError -= ShowError;
             AdsService.OnClosedRewarded -= ShowClosed;
         }
 
@@ -79,8 +79,11 @@ namespace CodeBase.UI.Windows.Gifts
             yield return AdsService.Initialize();
         }
 
-        private void ShowError(string message) =>
+        private void ShowError(string message)
+        {
             Debug.Log($"OnErrorRewarded: {message}");
+            AddCoins();
+        }
 
         private void ShowClosed() =>
             Debug.Log("OnClosedRewarded");

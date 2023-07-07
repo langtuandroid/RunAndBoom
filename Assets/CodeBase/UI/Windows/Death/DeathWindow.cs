@@ -33,7 +33,7 @@ namespace CodeBase.UI.Windows.Death
 
             AdsService.OnInitializeSuccess += EnableRestartButton;
             AdsService.OnClosedFullScreen += RecoverForAds;
-            AdsService.OnError += ShowError;
+            AdsService.OnShowFullScreenAdError += ShowError;
             AdsService.OnOfflineFullScreen += ShowOffline;
         }
 
@@ -47,7 +47,7 @@ namespace CodeBase.UI.Windows.Death
 
             AdsService.OnInitializeSuccess -= EnableRestartButton;
             AdsService.OnClosedFullScreen -= RecoverForAds;
-            AdsService.OnError -= ShowError;
+            AdsService.OnShowFullScreenAdError -= ShowError;
             AdsService.OnOfflineFullScreen -= ShowOffline;
         }
 
@@ -81,8 +81,11 @@ namespace CodeBase.UI.Windows.Death
                 AdsService.ShowFullScreenAd();
         }
 
-        private void ShowError(string message) =>
+        private void ShowError(string message)
+        {
             Debug.Log($"OnErrorFullScreen: {message}");
+            RecoverForAds(true);
+        }
 
         private void ShowOffline() =>
             Debug.Log("OnOfflineFullScreen");

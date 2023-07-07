@@ -9,7 +9,8 @@ namespace CodeBase.Services.Ads
         public event Action<bool> OnClosedFullScreen;
         public event Action OnOfflineFullScreen;
         public event Action OnClosedRewarded;
-        public event Action<string> OnError;
+        public event Action<string> OnShowFullScreenAdError;
+        public event Action<string> OnShowRewardedAdError;
         public event Action OnRewarded;
 
         bool IsInitialized();
