@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Leaderboard
 {
-    public class LeaderboardWindow : WindowBase
+    public class LeaderBoardWindow : WindowBase
     {
         [SerializeField] private TextMeshProUGUI _rankText;
         [SerializeField] private RawImage _iconImage;

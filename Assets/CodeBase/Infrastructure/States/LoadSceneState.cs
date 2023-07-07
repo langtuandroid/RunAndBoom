@@ -181,7 +181,7 @@ namespace CodeBase.Infrastructure.States
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
             resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
             GameObject leaderBoardWindow = await _uiFactory.CreateLeaderBoardWindow();
-            leaderBoardWindow.GetComponent<LeaderboardWindow>()?.Construct(hero);
+            leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
             gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
 
