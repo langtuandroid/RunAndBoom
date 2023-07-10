@@ -20,42 +20,45 @@ namespace CodeBase.Hero
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
             _adsService = AllServices.Container.Single<IAdsService>();
-            _adsService.OnInitializeSuccess += Authorize;
+            _adsService.OnInitializeSuccess += TryAuthorize;
             InitializeAdsSDK();
         }
 
         private void InitializeAdsSDK()
         {
-            if (IsAdsSDKInitialized())
-                Authorize();
+            Debug.Log("InitializeAdsSDK");
+            if (_adsService.IsInitialized())
+                TryAuthorize();
             else
                 StartCoroutine(CoroutineInitializeAdsSDK());
         }
 
-        private bool IsAdsSDKInitialized() =>
-            _adsService.IsInitialized();
-
         private IEnumerator CoroutineInitializeAdsSDK()
         {
+            Debug.Log("CoroutineInitializeAdsSDK");
             yield return _adsService.Initialize();
+        }
+
+        private void TryAuthorize()
+        {
+            Debug.Log("TryAuthorize");
+            if (_authorization.IsAuthorized())
+                RequestPersonalProfileDataPermission();
+            else
+                Authorize();
         }
 
         private void Authorize()
         {
-            if (_authorization.IsAuthorized())
-            {
-                RequestPersonalProfileDataPermission();
-            }
-            else
-            {
-                _authorization.OnAuthorizeSuccessCallback += _authorization.RequestPersonalProfileDataPermission;
-                _authorization.OnErrorCallback += ShowError;
-                _authorization.Authorize();
-            }
+            Debug.Log("Authorize");
+            _authorization.OnAuthorizeSuccessCallback += _authorization.RequestPersonalProfileDataPermission;
+            _authorization.OnErrorCallback += ShowError;
+            _authorization.Authorize();
         }
 
         private void RequestPersonalProfileDataPermission()
         {
+            Debug.Log("RequestPersonalProfileDataPermission");
             _authorization.RequestPersonalProfileDataPermission();
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
         }
