@@ -35,7 +35,6 @@ namespace CodeBase.UI.Windows.Gifts
         private void OnEnable()
         {
             _addCoinsButton.onClick.AddListener(ShowAds);
-            _toNextLevelButton.onClick.AddListener(ToNextLevel);
 
             if (AdsService == null)
                 return;
@@ -49,7 +48,6 @@ namespace CodeBase.UI.Windows.Gifts
         private void OnDisable()
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
-            _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
 
             if (AdsService == null)
                 return;
@@ -62,6 +60,13 @@ namespace CodeBase.UI.Windows.Gifts
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
+
+        public void AddData(Scene nextLevel)
+        {
+            _nextScene = nextLevel;
+            _toNextLevelButton.onClick.AddListener(ToNextLevel);
+        }
+
 
         private void InitializeAdsSDK()
         {

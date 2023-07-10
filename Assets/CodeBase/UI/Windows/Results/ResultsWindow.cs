@@ -3,7 +3,7 @@ using CodeBase.Data;
 using CodeBase.Data.Stats;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.Leaderboard;
+using CodeBase.UI.Windows.LeaderBoard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
 using UnityEngine;
@@ -40,8 +40,7 @@ namespace CodeBase.UI.Windows.Results
 
         private void OnEnable()
         {
-            _restartButton.onClick.AddListener(RestartLevel);
-            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
+            // SubscribeButtons();
         }
 
         private void OnDisable()
@@ -57,11 +56,19 @@ namespace CodeBase.UI.Windows.Results
         {
             _maxPrice = maxPrice;
             _nextScene = nextScene;
+            SubscribeButtons();
+        }
+
+        private void SubscribeButtons()
+        {
+            _restartButton.onClick.AddListener(RestartLevel);
+            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
         }
 
         private void ToLeaderBoardWindow()
         {
             WindowBase leaderboardWindow = WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
+            WindowService.HideOthers(WindowId.LeaderBoard);
             (leaderboardWindow as LeaderBoardWindow)?.AddData(_nextScene, _maxPrice);
         }
 

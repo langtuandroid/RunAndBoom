@@ -2,9 +2,9 @@
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI.Windows.Leaderboard
+namespace CodeBase.UI.Windows.LeaderBoard
 {
-    public class LeaderboardText : BaseText
+    public class LeaderBoardText : BaseText
     {
         [SerializeField] private TextMeshProUGUI _restartText;
         [SerializeField] private TextMeshProUGUI _nextText;

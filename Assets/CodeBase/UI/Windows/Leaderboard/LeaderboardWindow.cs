@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows.Leaderboard
+namespace CodeBase.UI.Windows.LeaderBoard
 {
     public class LeaderBoardWindow : WindowBase
     {
@@ -47,7 +47,7 @@ namespace CodeBase.UI.Windows.Leaderboard
 
         private void OnEnable()
         {
-            AddNextWindowListener();
+            // AddNextWindowListener();
             _restartButton.onClick.AddListener(RestartLevel);
 
             if (LeaderboardService != null)
@@ -70,6 +70,7 @@ namespace CodeBase.UI.Windows.Leaderboard
         {
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
+            AddNextWindowListener();
         }
 
         private void InitializeLeaderboardSDK()
@@ -119,7 +120,9 @@ namespace CodeBase.UI.Windows.Leaderboard
         private void ToGiftsWindow()
         {
             WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
+            (giftsWindow as GiftsWindow).AddData(_nextScene);
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
+            WindowService.HideOthers(WindowId.Gifts);
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
         }

@@ -10,5 +10,6 @@ namespace CodeBase.UI.Services.Windows
         void AddWindow(WindowId windowId, GameObject window);
         bool IsAnotherActive(WindowId windowId);
         void HideAll();
+        void HideOthers(WindowId windowId);
     }
 }

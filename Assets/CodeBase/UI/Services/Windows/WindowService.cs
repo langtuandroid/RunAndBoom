@@ -5,7 +5,7 @@ using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
-using CodeBase.UI.Windows.Leaderboard;
+using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
@@ -65,6 +65,15 @@ namespace CodeBase.UI.Services.Windows
             }
 
             _windows.Clear();
+        }
+
+        public void HideOthers(WindowId windowId)
+        {
+            foreach (var vk in _windows)
+            {
+                if (vk.Key != windowId && vk.Value.activeInHierarchy)
+                    vk.Value.SetActive(false);
+            }
         }
 
         public void AddWindow(WindowId windowId, GameObject window) =>

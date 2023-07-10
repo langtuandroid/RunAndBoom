@@ -13,7 +13,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
-using CodeBase.UI.Windows.Leaderboard;
+using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
