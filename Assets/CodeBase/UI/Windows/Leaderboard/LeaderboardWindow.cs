@@ -37,13 +37,14 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
             if (LeaderboardService == null)
                 return;
+        }
 
+        private void Start()
+        {
+            ClearLeaderBoard();
             LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
             InitializeLeaderboardSDK();
         }
-
-        private void Start() =>
-            ClearLeaderBoard();
 
         private void OnEnable()
         {
@@ -76,14 +77,11 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void InitializeLeaderboardSDK()
         {
             Debug.Log("InitializeLeaderboardSDK");
-            if (IsLeaderboardInitialized())
+            if (LeaderboardService.IsInitialized())
                 RequestLeaderBoardData();
             else
                 StartCoroutine(CoroutineInitializeLeaderboardSDK());
         }
-
-        private bool IsLeaderboardInitialized() =>
-            LeaderboardService.IsInitialized();
 
         private IEnumerator CoroutineInitializeLeaderboardSDK()
         {
