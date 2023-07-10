@@ -45,14 +45,6 @@ namespace CodeBase.UI.Windows.Leaderboard
         private void Start() =>
             ClearLeaderBoard();
 
-        private void InitializeLeaderboardSDK()
-        {
-            if (IsLeaderboardInitialized())
-                RequestLeaderBoardData();
-            else
-                StartCoroutine(CoroutineInitializeLeaderboardSDK());
-        }
-
         private void OnEnable()
         {
             AddNextWindowListener();
@@ -80,12 +72,32 @@ namespace CodeBase.UI.Windows.Leaderboard
             _maxPrice = maxPrice;
         }
 
+        private void InitializeLeaderboardSDK()
+        {
+            Debug.Log("InitializeLeaderboardSDK");
+            if (IsLeaderboardInitialized())
+                RequestLeaderBoardData();
+            else
+                StartCoroutine(CoroutineInitializeLeaderboardSDK());
+        }
+
         private bool IsLeaderboardInitialized() =>
             LeaderboardService.IsInitialized();
 
         private IEnumerator CoroutineInitializeLeaderboardSDK()
         {
+            Debug.Log($"CoroutineInitializeLeaderboardSDK");
             yield return LeaderboardService.Initialize();
+        }
+
+        private void RequestLeaderBoardData()
+        {
+            Debug.Log($"RequestLeaderBoardData");
+            LeaderboardService.OnSuccessGetEntries += FillLeaderBoard;
+            LeaderboardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
+
+            LeaderboardService.OnSuccessGetEntry += FillPlayerInfo;
+            LeaderboardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
         }
 
         private void AddNextWindowListener()
@@ -115,17 +127,9 @@ namespace CodeBase.UI.Windows.Leaderboard
         private void ToGameEndWindow() =>
             WindowService.Show<GameEndWindow>(WindowId.GameEnd);
 
-        private void RequestLeaderBoardData()
-        {
-            LeaderboardService.OnSuccessGetEntries += FillLeaderBoard;
-            LeaderboardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
-
-            LeaderboardService.OnSuccessGetEntry += FillPlayerInfo;
-            LeaderboardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
-        }
-
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
+            Debug.Log("FillPlayerInfo");
             _rankText.text = $"#{response.rank}";
             StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage, _playerContainer));
             _nameText.text = response.player.publicName;
@@ -135,6 +139,7 @@ namespace CodeBase.UI.Windows.Leaderboard
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
         {
+            Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
 
             foreach (var response in leaderboardEntryResponses)

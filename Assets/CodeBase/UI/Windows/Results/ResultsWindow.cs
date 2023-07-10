@@ -76,6 +76,7 @@ namespace CodeBase.UI.Windows.Results
 
         private void InitializeLeaderboardSDK()
         {
+            Debug.Log("InitializeLeaderboardSDK");
             if (IsAdsLeaderboardInitialized())
                 StartCoroutine(CoroutineInitializeLeaderboardSDK());
             else AddNewResult();
@@ -86,11 +87,16 @@ namespace CodeBase.UI.Windows.Results
 
         private IEnumerator CoroutineInitializeLeaderboardSDK()
         {
+            Debug.Log("CoroutineInitializeLeaderboardSDK");
             yield return LeaderboardService.Initialize();
         }
 
-        private void AddNewResult() =>
+        private void AddNewResult()
+        {
+            Debug.Log("AddNewResult");
+            Debug.Log($"SetValue {_levelStats.Score}");
             LeaderboardService.SetValue(_nextScene.GetLeaderBoardName(), _levelStats.Score);
+        }
 
         public void ShowData()
         {

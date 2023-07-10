@@ -74,6 +74,9 @@ namespace CodeBase.UI.Windows.Gifts
         private bool IsAdsSDKInitialized() =>
             AdsService.IsInitialized();
 
+        private void EnableAddCoinsButton() =>
+            _addCoinsButton.enabled = true;
+
         private IEnumerator CoroutineInitializeAdsSDK()
         {
             yield return AdsService.Initialize();
@@ -87,9 +90,6 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ShowClosed() =>
             Debug.Log("OnClosedRewarded");
-
-        private void EnableAddCoinsButton() =>
-            _addCoinsButton.enabled = true;
 
         private void ToNextLevel()
         {
