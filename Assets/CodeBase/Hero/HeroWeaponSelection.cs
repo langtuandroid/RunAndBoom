@@ -76,7 +76,7 @@ namespace CodeBase.Hero
         public void TurnOff() =>
             _canSelect = false;
 
-        private void SelectWeapon(HeroWeaponTypeId heroWeaponTypeId)
+        public void SelectWeapon(HeroWeaponTypeId heroWeaponTypeId)
         {
             if (_currentWeapon != _heroWeaponTypeIds.IndexOf(heroWeaponTypeId))
                 FindWeaponContainer(heroWeaponTypeId);
@@ -93,7 +93,7 @@ namespace CodeBase.Hero
             WeaponChosen(heroWeaponTypeId);
         }
 
-        public void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
+        private void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
         {
             _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
             _currentWeapon = _heroWeaponTypeIds.IndexOf(heroWeaponTypeId);

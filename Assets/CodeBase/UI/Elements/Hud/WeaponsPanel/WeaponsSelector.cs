@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 {
-    public class WeaponsSelecter : MonoBehaviour
+    public class WeaponsSelector : MonoBehaviour
     {
         [SerializeField] private GameObject _grenadeLauncher;
         [SerializeField] private GameObject _rpg;
@@ -60,16 +60,16 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         }
 
         private void SelectGrenadeLauncher() =>
-            _heroWeaponSelection.WeaponChosen(HeroWeaponTypeId.GrenadeLauncher);
+            _heroWeaponSelection.SelectWeapon(HeroWeaponTypeId.GrenadeLauncher);
 
         private void SelectRpg() =>
-            _heroWeaponSelection.WeaponChosen(HeroWeaponTypeId.RPG);
+            _heroWeaponSelection.SelectWeapon(HeroWeaponTypeId.RPG);
 
         private void SelectRocketLauncher() =>
-            _heroWeaponSelection.WeaponChosen(HeroWeaponTypeId.RocketLauncher);
+            _heroWeaponSelection.SelectWeapon(HeroWeaponTypeId.RocketLauncher);
 
         private void SelectMortar() =>
-            _heroWeaponSelection.WeaponChosen(HeroWeaponTypeId.Mortar);
+            _heroWeaponSelection.SelectWeapon(HeroWeaponTypeId.Mortar);
 
         private void HighlightWeapon(GameObject o, HeroWeaponStaticData heroWeaponStaticData, TrailStaticData t) =>
             HighlightWeapon(heroWeaponStaticData.WeaponTypeId);

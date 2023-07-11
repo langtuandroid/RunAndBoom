@@ -19,12 +19,12 @@ namespace CodeBase.UI.Elements.Hud
 
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
             {
-                _settingsButton.gameObject.SetActive(true);
-                _settingsButton.onClick.AddListener(ShowSettingsWindow);
+                _settingsButton.gameObject.SetActive(false);
             }
             else
             {
-                _settingsButton.gameObject.SetActive(false);
+                _settingsButton.gameObject.SetActive(true);
+                _settingsButton.onClick.AddListener(ShowSettingsWindow);
             }
         }
 
