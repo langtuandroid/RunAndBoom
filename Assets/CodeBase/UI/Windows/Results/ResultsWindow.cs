@@ -27,13 +27,12 @@ namespace CodeBase.UI.Windows.Results
 
         private void OnEnable()
         {
-            AddNextWindowListener();
             _restartButton.onClick.AddListener(RestartLevel);
         }
 
         private void OnDisable()
         {
-            RemoveNextWindowListener();
+            // RemoveNextWindowListener();
             _restartButton.onClick.RemoveListener(RestartLevel);
         }
 
@@ -77,6 +76,7 @@ namespace CodeBase.UI.Windows.Results
         {
             _nextScene = nextScene;
             _maxPrice = maxPrice;
+            AddNextWindowListener();
         }
 
         public void ShowData()
