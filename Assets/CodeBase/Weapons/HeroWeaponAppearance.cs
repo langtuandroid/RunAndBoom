@@ -29,7 +29,6 @@ namespace CodeBase.Weapons
             _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
             _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
-
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
 
@@ -69,11 +68,15 @@ namespace CodeBase.Weapons
             for (int i = 0; i < ProjectilesRespawns.Length; i++)
             {
                 StartCoroutine(CoroutineShootTo());
-                ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[i]);
                 Release();
                 PlayShootSound();
             }
+
+            ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
         }
+
+        public void ReturnShotsVfx() =>
+            ShotVfxsContainer.ReturnShotVfx();
 
         protected virtual IEnumerator CoroutineShootTo()
         {

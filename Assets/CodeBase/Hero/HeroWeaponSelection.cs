@@ -87,6 +87,9 @@ namespace CodeBase.Hero
             if (!_progress.WeaponsData.WeaponData.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
                 return;
 
+            GameObject weapon = _weaponsDictionary.First(x => x.Key == heroWeaponTypeId).Value;
+            weapon.GetComponent<HeroWeaponAppearance>().ReturnShotsVfx();
+
             foreach (var keyValue in _weaponsDictionary)
                 keyValue.Value.SetActive(keyValue.Key == heroWeaponTypeId);
 

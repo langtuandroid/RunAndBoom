@@ -13,6 +13,7 @@ namespace CodeBase.Weapons
         private int _index;
         private Transform _root;
         private ShotVfxTypeId _shotVfxTypeId;
+        private GameObject _shotVfx;
 
         public void Construct(float shotVfxLifetime, ShotVfxTypeId shotVfxTypeId, Transform root)
         {
@@ -24,12 +25,10 @@ namespace CodeBase.Weapons
 
         public void ShowShotVfx(Transform muzzleTransform)
         {
-            GameObject shotVfx = _objectsPoolService.GetShotVfx(_shotVfxTypeId);
-            shotVfx.transform.SetParent(_root);
-            SetShotVfx(shotVfx, muzzleTransform);
-            // shotVfx.GetComponent<AudioSource>().Play();
-
-            StartCoroutine(CoroutineLaunchShotVfx(shotVfx));
+            _shotVfx = _objectsPoolService.GetShotVfx(_shotVfxTypeId);
+            _shotVfx.transform.SetParent(_root);
+            SetShotVfx(_shotVfx, muzzleTransform);
+            StartCoroutine(CoroutineLaunchShotVfx());
         }
 
         private void SetShotVfx(GameObject shotVfx, Transform muzzleTransform)
@@ -38,11 +37,20 @@ namespace CodeBase.Weapons
             shotVfx.transform.rotation = muzzleTransform.rotation;
         }
 
-        private IEnumerator CoroutineLaunchShotVfx(GameObject shotVfx)
+        private IEnumerator CoroutineLaunchShotVfx()
         {
-            shotVfx.SetActive(true);
+            _shotVfx.SetActive(true);
             yield return new WaitForSeconds(_shotVfxLifetime);
-            _objectsPoolService.ReturnShotVfx(shotVfx);
+            ReturnShotVfx();
+        }
+
+        public void ReturnShotVfx()
+        {
+            if (_objectsPoolService == null || _shotVfx == null)
+                return;
+
+            _objectsPoolService.ReturnShotVfx(_shotVfx);
+            _shotVfx = null;
         }
     }
 }
