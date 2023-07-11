@@ -84,6 +84,10 @@
         public static string TutorialLookJoystickEn = "Right invisible joystick";
         public static string TutorialLookJoystickTr = "Sağ görünmez kumanda kolu";
 
+        public static string TutorialLookMouseRu = "Мышка";
+        public static string TutorialLookMouseEn = "Mouse";
+        public static string TutorialLookMouseTr = "Faresi";
+
         public static string TutorialShootRu = "Стрелять";
         public static string TutorialShootEn = "Shoot";
         public static string TutorialShootTr = "Ateş et";

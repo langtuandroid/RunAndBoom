@@ -5,11 +5,5 @@
         public abstract void ShowForPc();
 
         public abstract void ShowForMobile();
-
-        public void Hide() =>
-            gameObject.SetActive(false);
-
-        public void Show() =>
-            gameObject.SetActive(true);
     }
 }

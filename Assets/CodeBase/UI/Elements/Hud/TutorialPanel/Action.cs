@@ -22,8 +22,5 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         public void Hide() =>
             gameObject.SetActive(false);
-
-        public bool IsVisible() =>
-            gameObject.activeInHierarchy;
     }
 }

@@ -903,12 +903,12 @@ PrefabInstance:
     - target: {fileID: 743366677771958251, guid: e56e47c717f7c164bb7e1f5898f05ea0,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 743366677771958251, guid: e56e47c717f7c164bb7e1f5898f05ea0,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 743366677771958251, guid: e56e47c717f7c164bb7e1f5898f05ea0,
         type: 3}
