@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Common
         protected IGameStateMachine GameStateMachine;
         protected IStaticDataService StaticDataService;
         protected IAdsService AdsService;
-        protected ILeaderboardService LeaderboardService;
+        protected ILeaderboardService LeaderBoardService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
         protected PlayerProgress Progress;
@@ -36,7 +36,7 @@ namespace CodeBase.UI.Windows.Common
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             AdsService = AllServices.Container.Single<IAdsService>();
-            LeaderboardService = AllServices.Container.Single<ILeaderboardService>();
+            LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;

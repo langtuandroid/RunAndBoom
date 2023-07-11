@@ -26,27 +26,26 @@ namespace CodeBase.UI.Windows.Results
         private Scene _nextScene;
         private int _maxPrice;
 
-        private void Start()
-        {
-            PrepareLevelStats();
-
-            if (LeaderboardService == null)
-                return;
-
-            LeaderboardService.OnInitializeSuccess += AddNewResult;
-            InitializeLeaderboardSDK();
-        }
-
-
         private void OnEnable()
         {
-            // SubscribeButtons();
+            PrepareLevelStats();
+            _restartButton.onClick.AddListener(RestartLevel);
+            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
+
+            if (Application.isEditor || LeaderBoardService == null)
+                return;
+
+            LeaderBoardService.OnInitializeSuccess += AddNewResult;
+            InitializeLeaderboardSDK();
         }
 
         private void OnDisable()
         {
             _restartButton.onClick.RemoveListener(RestartLevel);
             _toLeaderBoardWindowButton.onClick.RemoveListener(ToLeaderBoardWindow);
+
+            if (LeaderBoardService != null)
+                LeaderBoardService.OnInitializeSuccess -= AddNewResult;
         }
 
         public void Construct(GameObject hero) =>
@@ -56,13 +55,6 @@ namespace CodeBase.UI.Windows.Results
         {
             _maxPrice = maxPrice;
             _nextScene = nextScene;
-            SubscribeButtons();
-        }
-
-        private void SubscribeButtons()
-        {
-            _restartButton.onClick.AddListener(RestartLevel);
-            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
         }
 
         private void ToLeaderBoardWindow()
@@ -90,19 +82,19 @@ namespace CodeBase.UI.Windows.Results
         }
 
         private bool IsAdsLeaderboardInitialized() =>
-            LeaderboardService.IsInitialized();
+            LeaderBoardService.IsInitialized();
 
         private IEnumerator CoroutineInitializeLeaderboardSDK()
         {
             Debug.Log("CoroutineInitializeLeaderboardSDK");
-            yield return LeaderboardService.Initialize();
+            yield return LeaderBoardService.Initialize();
         }
 
         private void AddNewResult()
         {
             Debug.Log("AddNewResult");
             Debug.Log($"SetValue {_levelStats.Score}");
-            LeaderboardService.SetValue(_nextScene.GetLeaderBoardName(), _levelStats.Score);
+            LeaderBoardService.SetValue(_nextScene.GetLeaderBoardName(), _levelStats.Score);
         }
 
         public void ShowData()

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Agava.YandexGames;
 using CodeBase.Data;
+using CodeBase.Services;
+using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
@@ -23,6 +25,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _toNextWindowButton;
 
+        private IAuthorization _authorization;
         private Scene _nextScene;
         private int _maxPrice;
 
@@ -50,8 +53,10 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 InitializeAdsSDK();
             }
 
-            if (LeaderboardService != null)
-                LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
+            if (_authorization == null)
+                _authorization = AllServices.Container.Single<IAuthorization>();
+
+            _authorization.OnErrorCallback += ShowError;
         }
 
         private void OnDisable()
@@ -61,8 +66,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
             if (AdsService != null)
                 AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
 
-            if (LeaderboardService != null)
-                LeaderboardService.OnInitializeSuccess -= RequestLeaderBoardData;
+            if (_authorization != null)
+                _authorization.OnErrorCallback -= ShowError;
         }
 
         public void Construct(GameObject hero) =>
@@ -72,54 +77,71 @@ namespace CodeBase.UI.Windows.LeaderBoard
         {
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
-            AddNextWindowListener();
-        }
 
-        protected override void AdsServiceInitializedSuccess()
-        {
-            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
-            InitializeLeaderboardSDK();
-        }
-
-        private void InitializeLeaderboardSDK()
-        {
-            Debug.Log("InitializeLeaderboardSDK");
-            if (LeaderboardService.IsInitialized())
-                RequestLeaderBoardData();
-            else
-                StartCoroutine(CoroutineInitializeLeaderboardSDK());
-        }
-
-        private IEnumerator CoroutineInitializeLeaderboardSDK()
-        {
-            Debug.Log($"CoroutineInitializeLeaderboardSDK");
-            yield return LeaderboardService.Initialize();
-        }
-
-        private void RequestLeaderBoardData()
-        {
-            Debug.Log($"RequestLeaderBoardData");
-            LeaderboardService.OnSuccessGetEntries += FillLeaderBoard;
-            LeaderboardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
-
-            LeaderboardService.OnSuccessGetEntry += FillPlayerInfo;
-            LeaderboardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
-        }
-
-        private void AddNextWindowListener()
-        {
             if (_nextScene == Scene.Initial)
                 _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
-        private void RemoveNextWindowListener()
+        protected override void AdsServiceInitializedSuccess()
         {
-            if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.RemoveListener(ToGameEndWindow);
+            Debug.Log("TryAuthorize");
+            if (_authorization.IsAuthorized())
+            {
+                _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
+                RequestPersonalProfileDataPermission();
+            }
             else
-                _toNextWindowButton.onClick.RemoveListener(ToGiftsWindow);
+            {
+                Authorize();
+            }
+        }
+
+        private void RequestLeaderBoardData()
+        {
+            Debug.Log($"RequestLeaderBoardData");
+            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoardData;
+            LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
+            LeaderBoardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
+
+            LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
+            LeaderBoardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
+        }
+
+        private void Authorize()
+        {
+            Debug.Log("Authorize");
+            _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
+            _authorization.OnErrorCallback += ShowError;
+            _authorization.Authorize();
+        }
+
+        private void RequestPersonalProfileDataPermission()
+        {
+            Debug.Log("RequestPersonalProfileDataPermission");
+            _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback += InitializeLeaderBoard;
+            _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
+            _authorization.OnErrorCallback += ShowError;
+            _authorization.RequestPersonalProfileDataPermission();
+        }
+
+        private void InitializeLeaderBoard()
+        {
+            Debug.Log("InitializeLeaderBoard");
+            _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback -= InitializeLeaderBoard;
+            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoardData;
+
+            if (LeaderBoardService.IsInitialized())
+                RequestLeaderBoardData();
+            else
+                StartCoroutine(LeaderBoardService.Initialize());
+        }
+
+        private void ShowError(string error)
+        {
+            Debug.Log($"ServiceAuthorization ShowError {error}");
+            _authorization.OnErrorCallback -= ShowError;
         }
 
         private void ToGiftsWindow()
@@ -142,7 +164,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
             StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage, _playerContainer));
             _nameText.text = response.player.publicName;
             _scoreText.text = response.score.ToString();
-            LeaderboardService.OnSuccessGetEntry -= FillPlayerInfo;
+            LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
         }
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
@@ -164,7 +186,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
                     response.score.ToString();
             }
 
-            LeaderboardService.OnSuccessGetEntries -= FillLeaderBoard;
+            LeaderBoardService.OnSuccessGetEntries -= FillLeaderBoard;
             _leaderBoard.SetActive(true);
         }
 

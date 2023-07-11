@@ -20,8 +20,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void OnEnable()
         {
-            if (!Application.isEditor)
-                _addCoinsButton.enabled = false;
+            _addCoinsButton.enabled = Application.isEditor;
 
             _addCoinsButton.onClick.AddListener(ShowAds);
             Cursor.lockState = CursorLockMode.Confined;
@@ -77,13 +76,13 @@ namespace CodeBase.UI.Windows.Gifts
         private void ToNextLevel()
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
-            WindowService.HideAll();
+            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
-            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             SaveLoadService.SaveProgress();
-            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            WindowService.HideAll();
             Close();
+            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
         }
 
         private void Close()
@@ -97,14 +96,18 @@ namespace CodeBase.UI.Windows.Gifts
             if (Application.isEditor)
             {
                 AddCoins();
+                _addCoinsButton.gameObject.SetActive(false);
                 return;
             }
 
             AdsService.ShowRewardedAd();
         }
 
-        private void AddCoins() =>
+        private void AddCoins()
+        {
             Progress.Stats.AllMoney.AddMoney(_coinsCount);
+            _addCoinsButton.gameObject.SetActive(false);
+        }
 
         private void GenerateItems() =>
             _generator.Generate();
