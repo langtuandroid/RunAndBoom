@@ -34,22 +34,21 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _nameText.text = "";
             _scoreText.text = "";
             _playerContainer.SetActive(false);
-
-            if (LeaderboardService == null)
-                return;
-        }
-
-        private void Start()
-        {
-            ClearLeaderBoard();
-            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
-            InitializeLeaderboardSDK();
         }
 
         private void OnEnable()
         {
-            // AddNextWindowListener();
+            ClearLeaderBoard();
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (Application.isEditor)
+                return;
+
+            if (AdsService != null)
+            {
+                AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
+                InitializeAdsSDK();
+            }
 
             if (LeaderboardService != null)
                 LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
@@ -57,8 +56,10 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void OnDisable()
         {
-            RemoveNextWindowListener();
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (AdsService != null)
+                AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
 
             if (LeaderboardService != null)
                 LeaderboardService.OnInitializeSuccess -= RequestLeaderBoardData;
@@ -72,6 +73,12 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
             AddNextWindowListener();
+        }
+
+        protected override void AdsServiceInitializedSuccess()
+        {
+            LeaderboardService.OnInitializeSuccess += RequestLeaderBoardData;
+            InitializeLeaderboardSDK();
         }
 
         private void InitializeLeaderboardSDK()

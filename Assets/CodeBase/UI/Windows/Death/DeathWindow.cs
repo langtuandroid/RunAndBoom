@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -15,26 +14,27 @@ namespace CodeBase.UI.Windows.Death
 
         private void Start()
         {
-            if (Application.isEditor)
-                return;
-
-            _restartButton.enabled = false;
-            AdsService.OnInitializeSuccess += EnableRestartButton;
-            InitializeAdsSDK();
         }
 
         private void OnEnable()
         {
+            if (!Application.isEditor)
+                _restartButton.enabled = false;
+
             _recoverForAdsButton.onClick.AddListener(ShowAds);
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (Application.isEditor)
+                return;
 
             if (AdsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess += EnableRestartButton;
+            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
             AdsService.OnClosedFullScreen += RecoverForAds;
             AdsService.OnShowFullScreenAdError += ShowError;
             AdsService.OnOfflineFullScreen += ShowOffline;
+            InitializeAdsSDK();
         }
 
         private void OnDisable()
@@ -45,7 +45,7 @@ namespace CodeBase.UI.Windows.Death
             if (AdsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess -= EnableRestartButton;
+            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
             AdsService.OnClosedFullScreen -= RecoverForAds;
             AdsService.OnShowFullScreenAdError -= ShowError;
             AdsService.OnOfflineFullScreen -= ShowOffline;
@@ -54,23 +54,7 @@ namespace CodeBase.UI.Windows.Death
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        private void InitializeAdsSDK()
-        {
-            if (IsAdsSDKInitialized())
-                EnableRestartButton();
-            else
-                StartCoroutine(CoroutineInitializeAdsSDK());
-        }
-
-        private bool IsAdsSDKInitialized() =>
-            AdsService.IsInitialized();
-
-        private IEnumerator CoroutineInitializeAdsSDK()
-        {
-            yield return AdsService.Initialize();
-        }
-
-        private void EnableRestartButton() =>
+        protected override void AdsServiceInitializedSuccess() =>
             _restartButton.enabled = true;
 
         private void ShowAds()

@@ -13,8 +13,8 @@ namespace CodeBase.Hero
 
         private void Start()
         {
-            // if (Application.isEditor)
-            //     return;
+            if (Application.isEditor)
+                return;
 
             _authorization = AllServices.Container.Single<IAuthorization>();
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;

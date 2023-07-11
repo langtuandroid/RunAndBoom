@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
@@ -112,6 +113,23 @@ namespace CodeBase.UI.Windows.Common
             Progress.Stats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+        }
+
+        protected void InitializeAdsSDK()
+        {
+            if (AdsService.IsInitialized())
+                AdsServiceInitializedSuccess();
+            else
+                StartCoroutine(CoroutineInitializeAdsSDK());
+        }
+
+        private IEnumerator CoroutineInitializeAdsSDK()
+        {
+            yield return AdsService.Initialize();
+        }
+
+        protected virtual void AdsServiceInitializedSuccess()
+        {
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
@@ -19,30 +18,26 @@ namespace CodeBase.UI.Windows.Gifts
 
         private Scene _nextScene;
 
-        private void Start()
+        private void OnEnable()
         {
+            if (!Application.isEditor)
+                _addCoinsButton.enabled = false;
+
+            _addCoinsButton.onClick.AddListener(ShowAds);
             Cursor.lockState = CursorLockMode.Confined;
             GenerateItems();
 
             if (Application.isEditor)
                 return;
 
-            _addCoinsButton.enabled = false;
-            AdsService.OnInitializeSuccess += EnableAddCoinsButton;
-            InitializeAdsSDK();
-        }
-
-        private void OnEnable()
-        {
-            _addCoinsButton.onClick.AddListener(ShowAds);
-
             if (AdsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess += EnableAddCoinsButton;
+            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
             AdsService.OnRewarded += AddCoins;
             AdsService.OnShowRewardedAdError += ShowError;
             AdsService.OnClosedRewarded += ShowClosed;
+            InitializeAdsSDK();
         }
 
         private void OnDisable()
@@ -52,7 +47,7 @@ namespace CodeBase.UI.Windows.Gifts
             if (AdsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess -= EnableAddCoinsButton;
+            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
             AdsService.OnRewarded -= AddCoins;
             AdsService.OnShowRewardedAdError -= ShowError;
             AdsService.OnClosedRewarded -= ShowClosed;
@@ -67,25 +62,8 @@ namespace CodeBase.UI.Windows.Gifts
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
         }
 
-
-        private void InitializeAdsSDK()
-        {
-            if (IsAdsSDKInitialized())
-                EnableAddCoinsButton();
-            else
-                StartCoroutine(CoroutineInitializeAdsSDK());
-        }
-
-        private bool IsAdsSDKInitialized() =>
-            AdsService.IsInitialized();
-
-        private void EnableAddCoinsButton() =>
+        protected override void AdsServiceInitializedSuccess() =>
             _addCoinsButton.enabled = true;
-
-        private IEnumerator CoroutineInitializeAdsSDK()
-        {
-            yield return AdsService.Initialize();
-        }
 
         private void ShowError(string message)
         {
