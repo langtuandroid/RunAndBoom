@@ -161,12 +161,12 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
             Debug.Log("FillPlayerInfo");
-            Debug.Log($"rank {response.rank}");
+            Debug.Log($"FillPlayerInfo rank {response.rank}");
+            Debug.Log($"FillPlayerInfo publicName {response.player.publicName}");
+            Debug.Log($"FillPlayerInfo score {response.score}");
             _rankText.text = $"#{response.rank}";
             StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage, _playerContainer));
-            Debug.Log($"publicName {response.player.publicName}");
             _nameText.text = response.player.publicName;
-            Debug.Log($"score {response.score}");
             _scoreText.text = response.score.ToString();
             LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
         }
@@ -175,11 +175,15 @@ namespace CodeBase.UI.Windows.LeaderBoard
         {
             Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
+            Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
 
             foreach (var response in leaderboardEntryResponses)
             {
                 var player = Instantiate(_playerPrefab, _leaderBoard.transform);
                 player.SetActive(false);
+                Debug.Log($"FillLeaderBoard rank {response.rank}");
+                Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
+                Debug.Log($"FillLeaderBoard score {response.score}");
                 player.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
                     response.rank.ToString();
                 RawImage image = player.transform.GetChild(1).GetComponent<RawImage>();
