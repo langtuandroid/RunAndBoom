@@ -72,6 +72,7 @@ namespace CodeBase.Infrastructure.States
 
         public void Exit()
         {
+            _loadingCurtain.Hide();
         }
 
         private async void OnLoaded(Scene scene)
@@ -116,7 +117,6 @@ namespace CodeBase.Infrastructure.States
                 _enemyFactory.CreateSpawnersRoot();
                 await InitGameWorld(levelData);
                 await InitSpawners(levelData);
-                _loadingCurtain.Hide();
             }
         }
 

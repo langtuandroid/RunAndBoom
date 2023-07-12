@@ -14,11 +14,16 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         [SerializeField] private InnerPanels.Weapons _weapons;
 
         private IInputService _inputService;
+        private bool _hidden;
+
+        private void Awake()
+        {
+            _hidden = false;
+            _inputService = AllServices.Container.Single<IInputService>();
+        }
 
         private void Start()
         {
-            _inputService = AllServices.Container.Single<IInputService>();
-
             if (_inputService is MobileInputService)
             {
                 _look.ShowForMobile();
@@ -39,6 +44,9 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         private void Update()
         {
+            if (_hidden)
+                return;
+
             if (_inputService.IsAttackButtonUp())
                 HidePanel();
 
@@ -71,7 +79,17 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
                 HidePanel();
         }
 
-        public void HidePanel() =>
-            gameObject.SetActive(false);
+        public void HidePanel()
+        {
+            if (_hidden)
+                return;
+
+            _settings.Hide();
+            _look.Hide();
+            _movement.Hide();
+            _shoot.Hide();
+            _weapons.Hide();
+            _hidden = true;
+        }
     }
 }
