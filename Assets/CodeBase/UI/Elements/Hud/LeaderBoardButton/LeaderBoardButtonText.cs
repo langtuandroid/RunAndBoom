@@ -1,8 +1,8 @@
 ﻿using CodeBase.Services.Localization;
 
-namespace CodeBase.UI.Windows.LeaderBoard
+namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 {
-    public class LeaderBoardText : BaseText
+    public class LeaderBoardButtonText : BaseText
     {
         protected override void RuChosen() =>
             Title.text = LocalizationConstants.LeaderBoardTitleRu;

@@ -5,8 +5,6 @@ using CodeBase.Services;
 using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.GameEnd;
-using CodeBase.UI.Windows.Gifts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,6 +14,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
 {
     public class LeaderBoardWindow : WindowBase
     {
+        [SerializeField] private Button _closeButton;
         [SerializeField] private TextMeshProUGUI _rankText;
         [SerializeField] private RawImage _iconImage;
         [SerializeField] private TextMeshProUGUI _nameText;
@@ -23,8 +22,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
         [SerializeField] private GameObject _leaderBoard;
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private GameObject _playerContainer;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _toNextWindowButton;
 
         private IAuthorization _authorization;
         private Scene _nextScene;
@@ -43,7 +40,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void OnEnable()
         {
             ClearLeaderBoard();
-            _restartButton.onClick.AddListener(RestartLevel);
+            _closeButton.onClick.AddListener(Close);
 
             if (Application.isEditor)
                 return;
@@ -62,7 +59,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void OnDisable()
         {
-            _restartButton.onClick.AddListener(RestartLevel);
+            _closeButton.onClick.RemoveListener(Close);
 
             if (AdsService != null)
                 AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
@@ -74,16 +71,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
 
-        public void AddData(Scene nextLevel, int maxPrice)
-        {
-            _nextScene = nextLevel;
-            _maxPrice = maxPrice;
-
-            if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
-            else
-                _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
-        }
+        private void Close() =>
+            gameObject.SetActive(false);
 
         protected override void AdsServiceInitializedSuccess()
         {
@@ -144,19 +133,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
             Debug.Log($"ServiceAuthorization ShowError {error}");
             _authorization.OnErrorCallback -= ShowError;
         }
-
-        private void ToGiftsWindow()
-        {
-            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
-            (giftsWindow as GiftsWindow).AddData(_nextScene);
-            GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
-            WindowService.HideOthers(WindowId.Gifts);
-            giftsGenerator?.SetMaxPrice(_maxPrice);
-            giftsGenerator?.Generate();
-        }
-
-        private void ToGameEndWindow() =>
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {

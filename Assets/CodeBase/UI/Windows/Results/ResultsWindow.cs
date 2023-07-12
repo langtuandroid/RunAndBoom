@@ -3,6 +3,8 @@ using CodeBase.Data;
 using CodeBase.Data.Stats;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.GameEnd;
+using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.LeaderBoard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
@@ -14,7 +16,7 @@ namespace CodeBase.UI.Windows.Results
     public class ResultsWindow : WindowBase
     {
         [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _toLeaderBoardWindowButton;
+        [SerializeField] private Button _toNextWindowButton;
         [SerializeField] private StarsPanel _starsPanel;
         [SerializeField] private TextMeshProUGUI _playTimeCount;
         [SerializeField] private TextMeshProUGUI _killed;
@@ -30,7 +32,6 @@ namespace CodeBase.UI.Windows.Results
         {
             PrepareLevelStats();
             _restartButton.onClick.AddListener(RestartLevel);
-            _toLeaderBoardWindowButton.onClick.AddListener(ToLeaderBoardWindow);
 
             if (Application.isEditor || LeaderBoardService == null)
                 return;
@@ -42,7 +43,6 @@ namespace CodeBase.UI.Windows.Results
         private void OnDisable()
         {
             _restartButton.onClick.RemoveListener(RestartLevel);
-            _toLeaderBoardWindowButton.onClick.RemoveListener(ToLeaderBoardWindow);
 
             if (LeaderBoardService != null)
                 LeaderBoardService.OnInitializeSuccess -= AddNewResult;
@@ -51,18 +51,19 @@ namespace CodeBase.UI.Windows.Results
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Result);
 
-        public void AddData(Scene nextScene, int maxPrice)
+        public void AddData(Scene nextLevel, int maxPrice)
         {
+            _nextScene = nextLevel;
             _maxPrice = maxPrice;
-            _nextScene = nextScene;
+
+            if (_nextScene == Scene.Initial)
+                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
+            else
+                _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
-        private void ToLeaderBoardWindow()
-        {
-            WindowBase leaderboardWindow = WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
-            WindowService.HideOthers(WindowId.LeaderBoard);
-            (leaderboardWindow as LeaderBoardWindow)?.AddData(_nextScene, _maxPrice);
-        }
+        private void ToLeaderBoardWindow() =>
+            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
 
         private void PrepareLevelStats()
         {
@@ -103,6 +104,19 @@ namespace CodeBase.UI.Windows.Results
             _totalEnemies.text = $"{_levelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{_levelStats.RestartsData.Count}";
             _score.text = $"{_levelStats.Score}";
+        }
+
+        private void ToGameEndWindow() =>
+            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+
+        private void ToGiftsWindow()
+        {
+            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
+            (giftsWindow as GiftsWindow).AddData(_nextScene);
+            GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
+            WindowService.HideOthers(WindowId.Gifts);
+            giftsGenerator?.SetMaxPrice(_maxPrice);
+            giftsGenerator?.Generate();
         }
     }
 }
