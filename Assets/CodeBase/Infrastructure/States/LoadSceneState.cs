@@ -92,6 +92,9 @@ namespace CodeBase.Infrastructure.States
                 case Scene.Level_4:
                     await InitGameWorld();
                     break;
+                case Scene.Level_5:
+                    await InitGameWorld();
+                    break;
             }
 
             InformProgressReaders();
@@ -135,8 +138,6 @@ namespace CodeBase.Infrastructure.States
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
                 await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
-
-            // TryShowTraining();
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
