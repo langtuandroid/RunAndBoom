@@ -36,7 +36,7 @@ namespace CodeBase.UI.Windows.Results
                 return;
 
             LeaderBoardService.OnInitializeSuccess += AddNewResult;
-            InitializeLeaderboardSDK();
+            InitializeLeaderboard();
         }
 
         private void OnDisable()
@@ -73,20 +73,18 @@ namespace CodeBase.UI.Windows.Results
             _levelStats.CalculateScore();
         }
 
-        private void InitializeLeaderboardSDK()
+        private void InitializeLeaderboard()
         {
-            Debug.Log("InitializeLeaderboardSDK");
-            if (IsAdsLeaderboardInitialized())
-                StartCoroutine(CoroutineInitializeLeaderboardSDK());
-            else AddNewResult();
+            Debug.Log("InitializeLeaderBoard");
+            if (LeaderBoardService.IsInitialized())
+                AddNewResult();
+            else
+                StartCoroutine(CoroutineInitializeLeaderBoard());
         }
 
-        private bool IsAdsLeaderboardInitialized() =>
-            LeaderBoardService.IsInitialized();
-
-        private IEnumerator CoroutineInitializeLeaderboardSDK()
+        private IEnumerator CoroutineInitializeLeaderBoard()
         {
-            Debug.Log("CoroutineInitializeLeaderboardSDK");
+            Debug.Log("CoroutineInitializeLeaderBoard");
             yield return LeaderBoardService.Initialize();
         }
 

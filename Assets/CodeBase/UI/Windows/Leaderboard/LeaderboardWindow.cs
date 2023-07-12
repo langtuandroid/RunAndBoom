@@ -9,6 +9,7 @@ using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.LeaderBoard
@@ -29,7 +30,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private Scene _nextScene;
         private int _maxPrice;
 
-        private void Awake()
+        private void Start()
         {
             _leaderBoard.SetActive(false);
             _rankText.text = "";
@@ -160,9 +161,12 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
             Debug.Log("FillPlayerInfo");
+            Debug.Log($"rank {response.rank}");
             _rankText.text = $"#{response.rank}";
             StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage, _playerContainer));
+            Debug.Log($"publicName {response.player.publicName}");
             _nameText.text = response.player.publicName;
+            Debug.Log($"score {response.score}");
             _scoreText.text = response.score.ToString();
             LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
         }
@@ -201,10 +205,21 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private IEnumerator LoadAvatar(string avatarUrl, RawImage image, GameObject gameObject)
         {
-            WWW www = new WWW(avatarUrl);
-            yield return null;
-            image.texture = www.texture;
-            gameObject.SetActive(true);
+            Debug.Log("LoadAvatar started");
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(avatarUrl);
+            yield return request.SendWebRequest();
+
+            if (request.result is UnityWebRequest.Result.ConnectionError or UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.Log($"LoadAvatar {request.error}");
+            }
+            else
+            {
+                image.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                gameObject.SetActive(true);
+            }
+
+            Debug.Log("LoadAvatar finished");
         }
     }
 }

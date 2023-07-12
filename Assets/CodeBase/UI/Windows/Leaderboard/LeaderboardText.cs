@@ -11,18 +11,21 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         protected override void RuChosen()
         {
+            Title.text = LocalizationConstants.LeaderBoardTitleRu;
             _restartText.text = LocalizationConstants.RestartRu;
             _nextText.text = LocalizationConstants.NextRu;
         }
 
         protected override void TrChosen()
         {
+            Title.text = LocalizationConstants.LeaderBoardTitleTr;
             _restartText.text = LocalizationConstants.RestartTr;
             _nextText.text = LocalizationConstants.NextTr;
         }
 
         protected override void EnChosen()
         {
+            Title.text = LocalizationConstants.LeaderBoardTitleEn;
             _restartText.text = LocalizationConstants.RestartEn;
             _nextText.text = LocalizationConstants.NextEn;
         }
