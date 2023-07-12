@@ -5,7 +5,6 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
-using CodeBase.UI.Windows.LeaderBoard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
 using UnityEngine;
@@ -61,9 +60,6 @@ namespace CodeBase.UI.Windows.Results
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
-
-        private void ToLeaderBoardWindow() =>
-            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
 
         private void PrepareLevelStats()
         {
