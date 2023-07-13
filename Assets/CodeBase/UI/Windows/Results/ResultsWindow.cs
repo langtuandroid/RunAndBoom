@@ -91,6 +91,7 @@ namespace CodeBase.UI.Windows.Results
         {
             Debug.Log("AddNewResult");
             Debug.Log($"SetValue {_levelStats.Score}");
+            Debug.Log($"Current level {_currentLevel}");
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
         }
 
