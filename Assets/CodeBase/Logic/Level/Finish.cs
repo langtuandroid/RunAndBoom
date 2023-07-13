@@ -39,6 +39,8 @@ namespace CodeBase.Logic.Level
         {
             _currentLevel = currentLevel;
             _nextLevel = nextLevel;
+            Debug.Log($"Current Level {_currentLevel}");
+            Debug.Log($"Next Level {_nextLevel}");
         }
 
         private void Pickup()
