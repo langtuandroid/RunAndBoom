@@ -50,6 +50,17 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _authorization.OnErrorCallback += ShowError;
         }
 
+        private void OnDisable()
+        {
+            _closeButton.onClick.RemoveListener(Close);
+
+            if (AdsService != null)
+                AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+
+            if (_authorization != null)
+                _authorization.OnErrorCallback -= ShowError;
+        }
+
         private void ClearPlayerData()
         {
             _rankText.text = "";
@@ -81,17 +92,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
             FillLeaderBoard(leaderboardGetEntriesResponse);
         }
 
-        private void OnDisable()
-        {
-            _closeButton.onClick.RemoveListener(Close);
-
-            if (AdsService != null)
-                AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-
-            if (_authorization != null)
-                _authorization.OnErrorCallback -= ShowError;
-        }
-
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
 
@@ -117,10 +117,11 @@ namespace CodeBase.UI.Windows.LeaderBoard
             Debug.Log($"RequestLeaderBoardData");
             LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoardData;
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
-            LeaderBoardService.GetEntries(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
-
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
-            LeaderBoardService.GetPlayerEntry(Progress.Stats.CurrentLevelStats.Scene.GetLeaderBoardName());
+            Scene scene = Progress.Stats.CurrentLevelStats.Scene;
+            // Debug.Log($"Scene {scene.ToString()}");
+            LeaderBoardService.GetEntries(scene.GetLeaderBoardName());
+            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName());
         }
 
         private void Authorize()
@@ -168,7 +169,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         {
             Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
-            Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
+            // Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
             LeaderboardEntryResponse response;
             PlayerItem playerItem;
 
@@ -179,9 +180,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
                 response = leaderboardEntryResponses[i];
                 playerItem = _players[i].GetComponent<PlayerItem>();
-                Debug.Log($"FillLeaderBoard rank {response.rank}");
-                Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
-                Debug.Log($"FillLeaderBoard score {response.score}");
+                // Debug.Log($"FillLeaderBoard rank {response.rank}");
+                // Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
+                // Debug.Log($"FillLeaderBoard score {response.score}");
                 playerItem.Rank.text = response.rank.ToString();
 
                 if (!Application.isEditor)
