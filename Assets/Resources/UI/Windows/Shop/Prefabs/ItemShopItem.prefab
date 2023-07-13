@@ -136,7 +136,18 @@ PrefabInstance:
     - target: {fileID: 2937225459659487383, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_fontSize
-      value: 63.55
+      value: 63.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799845236239743552, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_text
+      value: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435
+        \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799845236239743552, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 8407409614125653421, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
@@ -151,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9197363118949476714, guid: 67911c8c3ce0b0a4ea8aa32b9c2385c6,
         type: 3}
