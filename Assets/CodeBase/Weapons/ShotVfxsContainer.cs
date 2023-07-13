@@ -8,12 +8,13 @@ namespace CodeBase.Weapons
 {
     public class ShotVfxsContainer : MonoBehaviour
     {
+        [SerializeField] private GameObject _shotVfx;
+
         private IObjectsPoolService _objectsPoolService;
         private float _shotVfxLifetime;
         private int _index;
         private Transform _root;
         private ShotVfxTypeId _shotVfxTypeId;
-        private GameObject _shotVfx;
 
         public void Construct(float shotVfxLifetime, ShotVfxTypeId shotVfxTypeId, Transform root)
         {
