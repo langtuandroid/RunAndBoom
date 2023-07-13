@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
@@ -8,8 +6,6 @@ using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.Input;
-using CodeBase.Services.Input.Platforms;
-using CodeBase.Services.Input.Types;
 using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
