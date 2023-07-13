@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 634931496865043934}
   - component: {fileID: 666766783877941314}
   - component: {fileID: 5949808958275313175}
+  - component: {fileID: 250507394933344256}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -501,6 +502,22 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 0, y: 2}
   m_UseGraphicAlpha: 1
+--- !u!114 &250507394933344256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815766353686235680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873e51a452844740a97aa0e2cbbf0269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rank: {fileID: 6490111190076952370}
+  Icon: {fileID: 1004012531884626563}
+  Name: {fileID: 7860839759714070660}
+  Score: {fileID: 7250650271330788618}
 --- !u!1 &6070072618692854886
 GameObject:
   m_ObjectHideFlags: 0

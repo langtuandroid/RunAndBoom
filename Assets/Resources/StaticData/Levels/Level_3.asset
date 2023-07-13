@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab2b985c7a34d0cbf4d8e141d0bbd31, type: 3}
   m_Name: Level_3
   m_EditorClassIdentifier: 
-  LevelKey: Level_3
+  Level: 3
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0.7, z: -9}
-  TargetPlayTime: 60
+  TargetPlayTime: 150
   LevelTransfer:
     TransferTo: 4
   EnemySpawners:
@@ -26,7 +26,7 @@ MonoBehaviour:
   - EnemyTypeId: 0
     Position: {x: 67.3, y: 2.4437504, z: 27.5}
   - EnemyTypeId: 0
-    Position: {x: 2.0830824, y: -0.15081978, z: 64.27966}
+    Position: {x: 2.14, y: -0.15499997, z: 64.27966}
   - EnemyTypeId: 1
     Position: {x: 59.148598, y: 1.0993881, z: 63.132896}
   - EnemyTypeId: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   - EnemyTypeId: 0
     Position: {x: 67.3, y: 2.4437504, z: 27.5}
   - EnemyTypeId: 0
-    Position: {x: 2.0830824, y: -0.15081978, z: 64.27966}
+    Position: {x: 2.14, y: -0.15499997, z: 64.27966}
   - EnemyTypeId: 0
     Position: {x: 94.77385, y: 5.057461, z: 3.1185074}
   - EnemyTypeId: 0

@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Services.LeaderBoard
 {
-    public class LeaderboardsConstants
+    public static class LeaderboardsConstants
     {
         public const string LeaderboardPlayersWhoPassedTheGame = "PlayersWhoPassedTheGame";
         public const string LeaderboardPlayersWhoPassedLevel1 = "PlayersWhoPassedLevel1";

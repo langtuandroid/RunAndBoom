@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Data;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
@@ -59,7 +60,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<ShopUpgradeLevelInfoData, UpgradeLevelInfoStaticData> _shopUpgradeLevelsInfo;
         private Dictionary<UpgradeTypeId, ShopUpgradeStaticData> _shopUpgrades;
         private Dictionary<HeroWeaponTypeId, ShopWeaponStaticData> _shopWeapons;
-        private Dictionary<string, LevelStaticData> _levels;
+        private Dictionary<Scene, LevelStaticData> _levels;
         private Dictionary<TrailTypeId, TrailStaticData> _trails;
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
         private Dictionary<ShotVfxTypeId, ShotVfxStaticData> _shotVfxs;
@@ -82,7 +83,7 @@ namespace CodeBase.Services.StaticData
 
             _levels = Resources
                 .LoadAll<LevelStaticData>(LevelsPath)
-                .ToDictionary(x => x.LevelKey, x => x);
+                .ToDictionary(x => x.Level, x => x);
 
             _projectiles = Resources
                 .LoadAll<ProjectileStaticData>(ProjectilesPath)
@@ -160,8 +161,8 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public LevelStaticData ForLevel(string sceneKey) =>
-            _levels.TryGetValue(sceneKey, out LevelStaticData staticData)
+        public LevelStaticData ForLevel(Scene scene) =>
+            _levels.TryGetValue(scene, out LevelStaticData staticData)
                 ? staticData
                 : null;
 

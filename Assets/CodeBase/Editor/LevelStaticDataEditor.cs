@@ -67,8 +67,6 @@ namespace CodeBase.Editor
                     }
                 }
 
-                levelData.LevelKey = SceneManager.GetActiveScene().name;
-
                 if (levelData.InitializeHeroPosition)
                     levelData.InitialHeroPosition = GameObject.FindWithTag(InitialPointTag).transform.position;
             }

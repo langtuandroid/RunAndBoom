@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic.Level;
@@ -107,7 +108,7 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitGameWorld()
         {
-            var levelData = LevelStaticData();
+            LevelStaticData levelData = LevelStaticData();
 
             if (levelData.InitializeHeroPosition)
             {
@@ -121,8 +122,11 @@ namespace CodeBase.Infrastructure.States
         private async Task InitUIRoot() =>
             await _uiFactory.CreateUIRoot();
 
-        private LevelStaticData LevelStaticData() =>
-            _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
+        private LevelStaticData LevelStaticData()
+        {
+            Scene scene = Enum.Parse<Scene>(SceneManager.GetActiveScene().name);
+            return _staticDataService.ForLevel(scene);
+        }
 
         private async Task InitGameWorld(LevelStaticData levelData)
         {
@@ -144,7 +148,7 @@ namespace CodeBase.Infrastructure.States
         private void InitLevelTransfer(LevelStaticData levelData)
         {
             GameObject findWithTag = GameObject.FindWithTag(FinishPointTag);
-            findWithTag.GetComponent<Finish>().Construct(levelData.LevelTransfer.TransferTo);
+            findWithTag.GetComponent<Finish>().Construct(levelData.Level, levelData.LevelTransfer.TransferTo);
         }
 
         private async Task InitHud(GameObject hero)

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CodeBase.Services;
+﻿using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.PlayerAuthorization;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace CodeBase.Hero
         {
             if (Application.isEditor)
                 return;
-            
+
             _adsService = AllServices.Container.Single<IAdsService>();
             InitializeAdsSDK();
         }

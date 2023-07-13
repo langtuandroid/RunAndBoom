@@ -75,7 +75,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ToNextLevel()
         {
-            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
+            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);

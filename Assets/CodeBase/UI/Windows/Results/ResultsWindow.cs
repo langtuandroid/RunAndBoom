@@ -26,6 +26,7 @@ namespace CodeBase.UI.Windows.Results
         private LevelStats _levelStats;
         private Scene _nextScene;
         private int _maxPrice;
+        private Scene _currentLevel;
 
         private void OnEnable()
         {
@@ -50,8 +51,9 @@ namespace CodeBase.UI.Windows.Results
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Result);
 
-        public void AddData(Scene nextLevel, int maxPrice)
+        public void AddData(Scene currentLevel, Scene nextLevel, int maxPrice)
         {
+            _currentLevel = currentLevel;
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
 
@@ -89,7 +91,7 @@ namespace CodeBase.UI.Windows.Results
         {
             Debug.Log("AddNewResult");
             Debug.Log($"SetValue {_levelStats.Score}");
-            LeaderBoardService.SetValue(_nextScene.GetLeaderBoardName(), _levelStats.Score);
+            LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
         }
 
         public void ShowData()

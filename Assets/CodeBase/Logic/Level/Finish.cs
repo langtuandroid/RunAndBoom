@@ -14,6 +14,7 @@ namespace CodeBase.Logic.Level
 
         private IWindowService _windowService;
         private Scene _nextLevel;
+        private Scene _currentLevel;
 
         private void Awake()
         {
@@ -29,13 +30,16 @@ namespace CodeBase.Logic.Level
 
                 Time.timeScale = 0;
                 WindowBase resultWindow = _windowService.Show<ResultsWindow>(WindowId.Result);
-                (resultWindow as ResultsWindow)?.AddData(_nextLevel, _maxPrice);
+                (resultWindow as ResultsWindow)?.AddData(_currentLevel, _nextLevel, _maxPrice);
                 (resultWindow as ResultsWindow)?.ShowData();
             }
         }
 
-        public void Construct(Scene nextLevel) =>
+        public void Construct(Scene currentLevel, Scene nextLevel)
+        {
+            _currentLevel = currentLevel;
             _nextLevel = nextLevel;
+        }
 
         private void Pickup()
         {
