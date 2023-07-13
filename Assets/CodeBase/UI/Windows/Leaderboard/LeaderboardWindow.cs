@@ -208,7 +208,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _rankText.text = $"#{response.rank}";
             _nameText.text = response.player.publicName;
             _scoreText.text = response.score.ToString();
-            LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
+
+            if (LeaderBoardService != null)
+                LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
 
             if (!string.IsNullOrEmpty(response.player.publicName))
                 _playerDataContainer.SetActive(true);
