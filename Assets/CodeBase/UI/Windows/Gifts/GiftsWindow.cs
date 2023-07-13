@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using Agava.YandexGames;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.States;
-using CodeBase.Services.Input;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;

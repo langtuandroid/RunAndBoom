@@ -169,7 +169,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         {
             Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
-            // Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
+            Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
             LeaderboardEntryResponse response;
             PlayerItem playerItem;
 
@@ -180,9 +180,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
                 response = leaderboardEntryResponses[i];
                 playerItem = _players[i].GetComponent<PlayerItem>();
-                // Debug.Log($"FillLeaderBoard rank {response.rank}");
-                // Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
-                // Debug.Log($"FillLeaderBoard score {response.score}");
+                Debug.Log($"FillLeaderBoard rank {response.rank}");
+                Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
+                Debug.Log($"FillLeaderBoard score {response.score}");
                 playerItem.Rank.text = response.rank.ToString();
 
                 if (!Application.isEditor)
@@ -193,22 +193,25 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 playerItem.gameObject.SetActive(true);
             }
 
-            LeaderBoardService.OnSuccessGetEntries -= FillLeaderBoard;
+            if (LeaderBoardService != null)
+                LeaderBoardService.OnSuccessGetEntries -= FillLeaderBoard;
         }
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
             Debug.Log("FillPlayerInfo");
-            // Debug.Log($"FillPlayerInfo rank {response.rank}");
-            // Debug.Log($"FillPlayerInfo publicName {playerPublicName}");
-            // Debug.Log($"FillPlayerInfo score {response.score}");
+            Debug.Log($"FillPlayerInfo rank {response.rank}");
+            Debug.Log($"FillPlayerInfo publicName {response.player.publicName}");
+            Debug.Log($"FillPlayerInfo score {response.score}");
             if (!Application.isEditor)
                 StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
 
             _rankText.text = $"#{response.rank}";
             _nameText.text = response.player.publicName;
             _scoreText.text = response.score.ToString();
-            LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
+
+            if (LeaderBoardService != null)
+                LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
 
             if (!string.IsNullOrEmpty(response.player.publicName))
                 _playerDataContainer.SetActive(true);
