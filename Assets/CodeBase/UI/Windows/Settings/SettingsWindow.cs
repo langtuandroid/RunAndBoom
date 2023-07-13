@@ -28,11 +28,8 @@ namespace CodeBase.UI.Windows.Settings
                 Close();
         }
 
-        private void Close()
-        {
-            // SaveLoadService.SaveProgress();
+        private void Close() =>
             Hide();
-        }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Settings);

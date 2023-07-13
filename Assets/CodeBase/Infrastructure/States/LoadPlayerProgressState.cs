@@ -53,7 +53,7 @@ namespace CodeBase.Infrastructure.States
 
         private PlayerProgress NewProgress()
         {
-            LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel.ToString());
+            LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel);
             return new PlayerProgress(InitialLevel, _language, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
         }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab2b985c7a34d0cbf4d8e141d0bbd31, type: 3}
   m_Name: Level_5
   m_EditorClassIdentifier: 
-  LevelKey: Level_5
+  Level: 5
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0.7, z: -9}
-  TargetPlayTime: 60
+  TargetPlayTime: 180
   LevelTransfer:
     TransferTo: 0
   EnemySpawners:

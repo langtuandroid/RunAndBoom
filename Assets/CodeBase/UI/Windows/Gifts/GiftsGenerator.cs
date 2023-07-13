@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CodeBase.Data.Perks;
 using CodeBase.Data.Upgrades;
 using CodeBase.StaticData.Items.Gifts;
@@ -24,6 +25,9 @@ namespace CodeBase.UI.Windows.Gifts
 
         public override void Generate()
         {
+            if (Progress == null)
+                return;
+
             SetHighlightingVisibility(false);
             GetMoney();
             InitializeEmptyData();

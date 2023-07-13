@@ -1,4 +1,5 @@
-﻿using CodeBase.Services.Pool;
+﻿using CodeBase.Data;
+using CodeBase.Services.Pool;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Items;
@@ -21,7 +22,7 @@ namespace CodeBase.Services.StaticData
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
         HeroWeaponStaticData ForHeroWeapon(HeroWeaponTypeId typeId);
         EnemyWeaponStaticData ForEnemyWeapon(EnemyWeaponTypeId typeId);
-        LevelStaticData ForLevel(string sceneKey);
+        LevelStaticData ForLevel(Scene scene);
         ProjectileStaticData ForProjectile(ProjectileTypeId typeId);
         ShotVfxStaticData ForShotVfx(ShotVfxTypeId typeId);
         TrailStaticData ForTrail(TrailTypeId typeId);

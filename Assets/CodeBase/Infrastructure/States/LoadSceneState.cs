@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic.Level;
@@ -13,6 +14,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
@@ -110,7 +112,7 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitGameWorld()
         {
-            var levelData = LevelStaticData();
+            LevelStaticData levelData = LevelStaticData();
 
             if (levelData.InitializeHeroPosition)
             {
@@ -123,15 +125,18 @@ namespace CodeBase.Infrastructure.States
         private async Task InitUIRoot() =>
             await _uiFactory.CreateUIRoot();
 
-        private LevelStaticData LevelStaticData() =>
-            _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
+        private LevelStaticData LevelStaticData()
+        {
+            Scene scene = Enum.Parse<Scene>(SceneManager.GetActiveScene().name);
+            return _staticDataService.ForLevel(scene);
+        }
 
         private async Task InitGameWorld(LevelStaticData levelData)
         {
             GameObject hero = await InitHero(levelData);
             await InitHud(hero);
             await InitWindows(hero);
-            await InitLevelTransfer(levelData);
+            InitLevelTransfer(levelData);
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
@@ -143,10 +148,10 @@ namespace CodeBase.Infrastructure.States
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>
             await _gameFactory.CreateHero(levelStaticData.InitialHeroPosition);
 
-        private async Task InitLevelTransfer(LevelStaticData levelData)
+        private void InitLevelTransfer(LevelStaticData levelData)
         {
             GameObject findWithTag = GameObject.FindWithTag(FinishPointTag);
-            findWithTag.GetComponent<Finish>().Construct(levelData.LevelTransfer.TransferTo);
+            findWithTag.GetComponent<Finish>().Construct(levelData.Level, levelData.LevelTransfer.TransferTo);
         }
 
         private async Task InitHud(GameObject hero)
@@ -182,6 +187,8 @@ namespace CodeBase.Infrastructure.States
             giftsWindow.GetComponent<GiftsWindow>()?.Construct(hero);
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
             resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
+            GameObject leaderBoardWindow = await _uiFactory.CreateLeaderBoardWindow();
+            leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
             gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
 
@@ -189,6 +196,7 @@ namespace CodeBase.Infrastructure.States
             _windowService.AddWindow(WindowId.Death, deathWindow);
             _windowService.AddWindow(WindowId.Gifts, giftsWindow);
             _windowService.AddWindow(WindowId.Result, resultsWindow);
+            _windowService.AddWindow(WindowId.LeaderBoard, leaderBoardWindow);
             _windowService.AddWindow(WindowId.GameEnd, gameEndWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
         }

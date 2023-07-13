@@ -12,25 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab2b985c7a34d0cbf4d8e141d0bbd31, type: 3}
   m_Name: Level_4
   m_EditorClassIdentifier: 
-  LevelKey: Level_4
+  Level: 4
   InitializeHeroPosition: 1
   InitialHeroPosition: {x: 0, y: 0.7, z: -9}
-  TargetPlayTime: 60
+  TargetPlayTime: 180
   LevelTransfer:
     TransferTo: 5
   EnemySpawners:
-  - EnemyTypeId: 5
-    Position: {x: -113.71535, y: 2.3351383, z: -16.435913}
-  - EnemyTypeId: 5
-    Position: {x: -119.821915, y: 2.0242658, z: 1.0037231}
-  - EnemyTypeId: 3
-    Position: {x: -121.95894, y: 2.0407126, z: -21.60801}
-  - EnemyTypeId: 3
-    Position: {x: -130.45348, y: 2.0407133, z: -2.3337631}
-  - EnemyTypeId: 3
-    Position: {x: -111.33626, y: 2.3254733, z: 36.606163}
-  - EnemyTypeId: 3
-    Position: {x: -107.26578, y: 1.6275312, z: 28.911873}
   - EnemyTypeId: 2
     Position: {x: -73.19011, y: 0.59355533, z: 37.883446}
   - EnemyTypeId: 0
@@ -51,6 +39,8 @@ MonoBehaviour:
     Position: {x: -91.270645, y: 2.042855, z: 64.490776}
   - EnemyTypeId: 0
     Position: {x: -101.71562, y: 2.3372822, z: 66.13693}
+  - EnemyTypeId: 3
+    Position: {x: -121.95894, y: 2.0407126, z: -21.60801}
   - EnemyTypeId: 2
     Position: {x: 23.943775, y: -1.0307109, z: 34.748367}
   - EnemyTypeId: 0
@@ -79,6 +69,8 @@ MonoBehaviour:
     Position: {x: -72.95363, y: 2.3401093, z: 66.45566}
   - EnemyTypeId: 1
     Position: {x: -110.056595, y: 2.0242655, z: -1.3061371}
+  - EnemyTypeId: 3
+    Position: {x: -130.45348, y: 2.0407133, z: -2.3337631}
   - EnemyTypeId: 1
     Position: {x: 3.57, y: -2.58, z: 20.435226}
   - EnemyTypeId: 0
@@ -89,6 +81,10 @@ MonoBehaviour:
     Position: {x: -77.33852, y: 0.5935551, z: 28.426914}
   - EnemyTypeId: 2
     Position: {x: -121.84816, y: 2.024265, z: -9.158432}
+  - EnemyTypeId: 3
+    Position: {x: -107.26578, y: 1.6275312, z: 28.911873}
+  - EnemyTypeId: 5
+    Position: {x: -119.821915, y: 2.0242658, z: 1.0037231}
   - EnemyTypeId: 2
     Position: {x: -97.7072, y: 2.0428555, z: 59.970036}
   - EnemyTypeId: 2
@@ -117,8 +113,12 @@ MonoBehaviour:
     Position: {x: -39.527824, y: -0.27511418, z: 66.44089}
   - EnemyTypeId: 0
     Position: {x: -20.091724, y: -0.58883154, z: 59.79652}
+  - EnemyTypeId: 5
+    Position: {x: -113.71535, y: 2.3351383, z: -16.435913}
   - EnemyTypeId: 0
     Position: {x: -58.31462, y: 1.0338619, z: 59.686897}
+  - EnemyTypeId: 3
+    Position: {x: -111.33626, y: 2.3254733, z: 36.606163}
   - EnemyTypeId: 5
     Position: {x: -79.698715, y: 0.29355562, z: 37.03846}
   - EnemyTypeId: 1
@@ -220,14 +220,10 @@ MonoBehaviour:
   - EnemyTypeId: 3
     Position: {x: -130.45348, y: 2.0407133, z: -2.3337631}
   - EnemyTypeId: 3
-    Position: {x: -111.33626, y: 2.3254733, z: 36.606163}
-  - EnemyTypeId: 3
     Position: {x: -107.26578, y: 1.6275312, z: 28.911873}
+  - EnemyTypeId: 3
+    Position: {x: -111.33626, y: 2.3254733, z: 36.606163}
   EnemyWithSRSpawners:
-  - EnemyTypeId: 5
-    Position: {x: -113.71535, y: 2.3351383, z: -16.435913}
-  - EnemyTypeId: 5
-    Position: {x: -119.821915, y: 2.0242658, z: 1.0037231}
   - EnemyTypeId: 5
     Position: {x: -91.14191, y: 2.3372808, z: 53.90524}
   - EnemyTypeId: 5
@@ -240,6 +236,10 @@ MonoBehaviour:
     Position: {x: -33.163696, y: -0.5770327, z: 78.164764}
   - EnemyTypeId: 5
     Position: {x: -73.87404, y: 2.026407, z: 60.07112}
+  - EnemyTypeId: 5
+    Position: {x: -119.821915, y: 2.0242658, z: 1.0037231}
+  - EnemyTypeId: 5
+    Position: {x: -113.71535, y: 2.3351383, z: -16.435913}
   - EnemyTypeId: 5
     Position: {x: -79.698715, y: 0.29355562, z: 37.03846}
   - EnemyTypeId: 5

@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
 using CodeBase.Data.Stats;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -22,73 +23,98 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private TextMeshProUGUI _restartsCount;
         [SerializeField] private TextMeshProUGUI _score;
 
-        private int _maxPrice;
+        private LevelStats _levelStats;
         private Scene _nextScene;
+        private int _maxPrice;
+        private Scene _currentLevel;
 
         private void OnEnable()
         {
+            PrepareLevelStats();
             _restartButton.onClick.AddListener(RestartLevel);
+
+            if (Application.isEditor || LeaderBoardService == null)
+                return;
+
+            LeaderBoardService.OnInitializeSuccess += AddNewResult;
+            InitializeLeaderboard();
         }
 
         private void OnDisable()
         {
-            // RemoveNextWindowListener();
             _restartButton.onClick.RemoveListener(RestartLevel);
+
+            if (LeaderBoardService != null)
+                LeaderBoardService.OnInitializeSuccess -= AddNewResult;
         }
 
-        private void AddNextWindowListener()
+        public void Construct(GameObject hero) =>
+            base.Construct(hero, WindowId.Result);
+
+        public void AddData(Scene currentLevel, Scene nextLevel, int maxPrice)
         {
+            _currentLevel = currentLevel;
+            _nextScene = nextLevel;
+            _maxPrice = maxPrice;
+
             if (_nextScene == Scene.Initial)
                 _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
-        private void RemoveNextWindowListener()
+        private void PrepareLevelStats()
         {
-            if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.RemoveListener(ToGameEndWindow);
+            if (Progress == null)
+                return;
+
+            _levelStats = Progress.Stats.CurrentLevelStats;
+            _levelStats.CalculateScore();
+        }
+
+        private void InitializeLeaderboard()
+        {
+            Debug.Log("InitializeLeaderBoard");
+            if (LeaderBoardService.IsInitialized())
+                AddNewResult();
             else
-                _toNextWindowButton.onClick.RemoveListener(ToGiftsWindow);
+                StartCoroutine(CoroutineInitializeLeaderBoard());
         }
 
-        private void ToGiftsWindow()
+        private IEnumerator CoroutineInitializeLeaderBoard()
         {
-            Hide();
-            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
-            GiftsGenerator giftsGenerator =
-                (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
-            giftsGenerator?.SetMaxPrice(_maxPrice);
-            giftsGenerator?.Generate();
-            (giftsWindow as GiftsWindow)?.AddNextScene(_nextScene);
+            Debug.Log("CoroutineInitializeLeaderBoard");
+            yield return LeaderBoardService.Initialize();
         }
 
-        private void ToGameEndWindow()
+        private void AddNewResult()
         {
-            Hide();
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
-        }
-
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Result);
-
-        public void AddData(Scene nextScene, int maxPrice)
-        {
-            _nextScene = nextScene;
-            _maxPrice = maxPrice;
-            AddNextWindowListener();
+            Debug.Log("AddNewResult");
+            Debug.Log($"SetValue {_levelStats.Score}");
+            LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
         }
 
         public void ShowData()
         {
-            Progress.Stats.CurrentLevelStats.CalculateScore();
-            LevelStats levelStats = Progress.Stats.CurrentLevelStats;
-            _starsPanel.ShowStars(levelStats.StarsCount);
-            _playTimeCount.text = $"{levelStats.PlayTimeData.PlayTime.ToInt()}";
-            _killed.text = $"{levelStats.KillsData.KilledEnemies}";
-            _totalEnemies.text = $"{levelStats.KillsData.TotalEnemies}";
-            _restartsCount.text = $"{levelStats.RestartsData.Count}";
-            _score.text = $"{levelStats.Score}";
+            _starsPanel.ShowStars(_levelStats.StarsCount);
+            _playTimeCount.text = $"{_levelStats.PlayTimeData.PlayTime.ToInt()}";
+            _killed.text = $"{_levelStats.KillsData.KilledEnemies}";
+            _totalEnemies.text = $"{_levelStats.KillsData.TotalEnemies}";
+            _restartsCount.text = $"{_levelStats.RestartsData.Count}";
+            _score.text = $"{_levelStats.Score}";
+        }
+
+        private void ToGameEndWindow() =>
+            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+
+        private void ToGiftsWindow()
+        {
+            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
+            (giftsWindow as GiftsWindow).AddData(_nextScene);
+            GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
+            WindowService.HideOthers(WindowId.Gifts);
+            giftsGenerator?.SetMaxPrice(_maxPrice);
+            giftsGenerator?.Generate();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Data;
 using UnityEngine;
 
 namespace CodeBase.StaticData.Levels
@@ -6,7 +7,7 @@ namespace CodeBase.StaticData.Levels
     [CreateAssetMenu(fileName = "LevelData", menuName = "StaticData/Level")]
     public class LevelStaticData : ScriptableObject
     {
-        public string LevelKey;
+        public Scene Level;
         public bool InitializeHeroPosition;
         public Vector3 InitialHeroPosition;
         public int TargetPlayTime;

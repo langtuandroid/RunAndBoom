@@ -2,8 +2,6 @@
 using Agava.YandexGames;
 using CodeBase.Data;
 using CodeBase.Infrastructure.States;
-using CodeBase.Services;
-using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
@@ -22,58 +20,62 @@ namespace CodeBase.UI.Windows.Gifts
         [SerializeField] private int _coinsCount;
 
         private Scene _nextScene;
-        private IAdsService _adsService;
-
-        private void Awake()
-        {
-            _adsService = AllServices.Container.Single<IAdsService>();
-            StartCoroutine(InitializeYandexSDK());
-        }
-
-        private void Start()
-        {
-            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
-                Cursor.lockState = CursorLockMode.Confined;
-        }
 
         private void OnEnable()
         {
+            _addCoinsButton.enabled = Application.isEditor;
+
             _addCoinsButton.onClick.AddListener(ShowAds);
-            _toNextLevelButton.onClick.AddListener(ToNextLevel);
-            _generator.GenerationStarted += DisableRefreshButtons;
-            _adsService.OnRewardedClosed += AddCoins;
-            _generator.GenerationEnded += CheckRefreshButtons;
+            Cursor.lockState = CursorLockMode.Confined;
+            GenerateItems();
+
+            if (Application.isEditor)
+                return;
+
+            if (AdsService == null)
+                return;
+
+            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
+            AdsService.OnRewarded += AddCoins;
+            AdsService.OnShowRewardedAdError += ShowError;
+            AdsService.OnClosedRewarded += ShowClosed;
+            InitializeAdsSDK();
         }
 
         private void OnDisable()
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
-            _toNextLevelButton.onClick.RemoveListener(ToNextLevel);
-            _adsService.OnRewardedClosed -= AddCoins;
-            _generator.GenerationStarted -= DisableRefreshButtons;
-            _generator.GenerationEnded -= CheckRefreshButtons;
+
+            if (AdsService == null)
+                return;
+
+            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+            AdsService.OnRewarded -= AddCoins;
+            AdsService.OnShowRewardedAdError -= ShowError;
+            AdsService.OnClosedRewarded -= ShowClosed;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
 
-        private IEnumerator InitializeYandexSDK()
+        public void AddData(Scene nextLevel)
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
-            yield return YandexGamesSdk.Initialize();
+            _nextScene = nextLevel;
+            _toNextLevelButton.onClick.AddListener(ToNextLevel);
         }
 
-        public void AddNextScene(Scene nextScene)
+        protected override void AdsServiceInitializedSuccess() =>
+            _addCoinsButton.enabled = true;
+
+        private void ShowError(string message)
         {
-            _nextScene = nextScene;
-            GenerateItems();
+            Debug.Log($"OnErrorRewarded: {message}");
+            AddCoins();
         }
 
-        private void DisableRefreshButtons()
-        {
-        }
+        private void ShowClosed() =>
+            Debug.Log("OnClosedRewarded");
+
 
         private void CheckRefreshButtons()
         {
@@ -81,30 +83,39 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ToNextLevel()
         {
-            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene.ToString());
-            WindowService.HideAll();
+            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
+            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
-            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             SaveLoadService.SaveProgress();
-            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            WindowService.HideAll();
             Close();
+            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
         }
 
-        private void Close() =>
+        private void Close()
+        {
             Hide();
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
         private void ShowAds()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            AddCoins();
-            return;
-#endif
-            _adsService.ShowRewardedAd();
+            if (Application.isEditor)
+            {
+                AddCoins();
+                _addCoinsButton.gameObject.SetActive(false);
+                return;
+            }
+
+            AdsService.ShowRewardedAd();
         }
 
-        private void AddCoins() =>
+        private void AddCoins()
+        {
             Progress.Stats.AllMoney.AddMoney(_coinsCount);
+            _addCoinsButton.gameObject.SetActive(false);
+        }
 
         private void GenerateItems() =>
             _generator.Generate();

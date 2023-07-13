@@ -1,8 +1,11 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
+using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
@@ -16,24 +19,25 @@ namespace CodeBase.UI.Windows.Common
     public abstract class WindowBase : MonoBehaviour, IProgressReader
     {
         protected IWindowService WindowService;
-
-        // protected IPlayerProgressService ProgressService;
         protected ISaveLoadService SaveLoadService;
         protected IGameStateMachine GameStateMachine;
         protected IStaticDataService StaticDataService;
+        protected IAdsService AdsService;
+        protected ILeaderboardService LeaderBoardService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
-        [HideInInspector] public PlayerProgress Progress;
+        protected PlayerProgress Progress;
         protected float Volume;
         private WindowId _windowId;
 
         protected void Construct(GameObject hero, WindowId windowId)
         {
             WindowService = AllServices.Container.Single<IWindowService>();
-            // ProgressService = AllServices.Container.Single<IPlayerProgressService>();
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
+            AdsService = AllServices.Container.Single<IAdsService>();
+            LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;
@@ -115,6 +119,23 @@ namespace CodeBase.UI.Windows.Common
             Progress.Stats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+        }
+
+        protected void InitializeAdsSDK()
+        {
+            if (AdsService.IsInitialized())
+                AdsServiceInitializedSuccess();
+            else
+                StartCoroutine(CoroutineInitializeAdsSDK());
+        }
+
+        private IEnumerator CoroutineInitializeAdsSDK()
+        {
+            yield return AdsService.Initialize();
+        }
+
+        protected virtual void AdsServiceInitializedSuccess()
+        {
         }
     }
 }

@@ -261,7 +261,7 @@ RectTransform:
   m_Father: {fileID: 8732475175201418447}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.02, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.38, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -814,7 +814,7 @@ GameObject:
   - component: {fileID: 6999087204268184440}
   - component: {fileID: 6075231009224129109}
   m_Layer: 5
-  m_Name: Money_counter
+  m_Name: MoneyCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

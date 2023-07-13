@@ -140,6 +140,10 @@
         public static string ResultsSecEn = "sec";
         public static string ResultsSecTr = "san";
 
+        public static string LeaderBoardTitleRu = "Таблица лидеров";
+        public static string LeaderBoardTitleEn = "Leader board";
+        public static string LeaderBoardTitleTr = "Li̇der panosu";
+
         public static string GameEndTitleRu = "Конец игры";
         public static string GameEndTitleEn = "End of the game";
         public static string GameEndTitleTr = "Oyun sonu";

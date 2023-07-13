@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using Agava.YandexGames;
-using CodeBase.Hero;
-using CodeBase.Services;
-using CodeBase.Services.Ads;
+﻿using CodeBase.Hero;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -16,47 +12,63 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private IAdsService _adsService;
-
-        private void Awake()
-        {
-            _adsService = AllServices.Container.Single<IAdsService>();
-            StartCoroutine(InitializeYandexSDK());
-        }
-
         private void OnEnable()
         {
+            if (!Application.isEditor)
+                _restartButton.enabled = false;
+
             _recoverForAdsButton.onClick.AddListener(ShowAds);
             _restartButton.onClick.AddListener(RestartLevel);
-            _adsService.OnFullScreenClosed += RecoverForAds;
+
+            if (Application.isEditor)
+                return;
+
+            if (AdsService == null)
+                return;
+
+            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
+            AdsService.OnClosedFullScreen += RecoverForAds;
+            AdsService.OnShowFullScreenAdError += ShowError;
+            AdsService.OnOfflineFullScreen += ShowOffline;
+            InitializeAdsSDK();
         }
 
         private void OnDisable()
         {
             _recoverForAdsButton.onClick.RemoveListener(ShowAds);
             _restartButton.onClick.RemoveListener(RestartLevel);
-            _adsService.OnFullScreenClosed -= RecoverForAds;
+
+            if (AdsService == null)
+                return;
+
+            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+            AdsService.OnClosedFullScreen -= RecoverForAds;
+            AdsService.OnShowFullScreenAdError -= ShowError;
+            AdsService.OnOfflineFullScreen -= ShowOffline;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        private IEnumerator InitializeYandexSDK()
-        {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            yield break;
-#endif
-            yield return YandexGamesSdk.Initialize();
-        }
+        protected override void AdsServiceInitializedSuccess() =>
+            _restartButton.enabled = true;
 
         private void ShowAds()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            RecoverForAds(true);
-            return;
-#endif
-            _adsService.ShowFullScreenAd();
+            if (Application.isEditor)
+                RecoverForAds(true);
+            else
+                AdsService.ShowFullScreenAd();
         }
+
+        private void ShowError(string message)
+        {
+            Debug.Log($"OnErrorFullScreen: {message}");
+            RecoverForAds(true);
+        }
+
+        private void ShowOffline() =>
+            Debug.Log("OnOfflineFullScreen");
 
         private void RecoverForAds(bool wasShown)
         {
