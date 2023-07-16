@@ -787,6 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fb4199142f4944b265ea055709df1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _background: {fileID: 7733309833756839783}
   _settings: {fileID: 6911360749126107058}
   _look: {fileID: 1301341392228096063}
   _movement: {fileID: 6214584778085484035}
@@ -823,7 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.27450982, g: 0.32941177, b: 0.39607847, a: 0.6}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.07058824}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

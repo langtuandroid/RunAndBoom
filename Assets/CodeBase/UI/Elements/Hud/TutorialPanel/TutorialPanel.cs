@@ -1,12 +1,15 @@
 ﻿using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels;
+using CodeBase.UI.Services;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
     public class TutorialPanel : MonoBehaviour
     {
+        [SerializeField] private Image _background;
         [SerializeField] private Settings _settings;
         [SerializeField] private Look _look;
         [SerializeField] private Movement _movement;
@@ -14,6 +17,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         [SerializeField] private InnerPanels.Weapons _weapons;
 
         private IInputService _inputService;
+        private float _visibleTransparentValue = 0.07058824f;
         private bool _hidden;
 
         private void Awake()
@@ -40,6 +44,8 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
                 _shoot.ShowForPc();
                 _weapons.ShowForPc();
             }
+
+            _background.ChangeImageAlpha(_visibleTransparentValue);
         }
 
         private void Update()
@@ -89,6 +95,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _movement.Hide();
             _shoot.Hide();
             _weapons.Hide();
+            _background.ChangeImageAlpha(Constants.Invisible);
             _hidden = true;
         }
     }
