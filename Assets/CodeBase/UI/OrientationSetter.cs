@@ -4,14 +4,12 @@ namespace CodeBase.UI
 {
     public class OrientationSetter : MonoBehaviour
     {
-        [SerializeField] private Orientation ScreenOrientation;
+        [SerializeField] private Orientation _screenOrientation;
 
         private Orientation _currentOrientation;
 
-        private void Awake()
-        {
+        private void Awake() =>
             GetCurrentOrientation();
-        }
 
         private void GetCurrentOrientation()
         {
@@ -36,7 +34,7 @@ namespace CodeBase.UI
         {
             SetOrientationRules();
 
-            if (_currentOrientation != ScreenOrientation)
+            if (_currentOrientation != _screenOrientation)
                 ChangeOrientation();
 
             Destroy(gameObject);
@@ -44,30 +42,30 @@ namespace CodeBase.UI
 
         private void ChangeOrientation()
         {
-            switch (ScreenOrientation)
+            switch (_screenOrientation)
             {
                 case Orientation.Any: break;
                 case Orientation.LandscapeFixed:
-                    Screen.orientation = UnityEngine.ScreenOrientation.LandscapeLeft;
+                    Screen.orientation = ScreenOrientation.LandscapeLeft;
                     break;
                 case Orientation.Landscape:
-                    Screen.orientation = UnityEngine.ScreenOrientation.LandscapeLeft;
+                    Screen.orientation = ScreenOrientation.LandscapeLeft;
                     break;
                 case Orientation.PortraitFixed:
-                    Screen.orientation = UnityEngine.ScreenOrientation.Portrait;
+                    Screen.orientation = ScreenOrientation.Portrait;
                     break;
                 case Orientation.Portrait:
-                    Screen.orientation = UnityEngine.ScreenOrientation.Portrait;
+                    Screen.orientation = ScreenOrientation.Portrait;
                     break;
             }
         }
 
         private void SetOrientationRules()
         {
-            switch (ScreenOrientation)
+            switch (_screenOrientation)
             {
                 case Orientation.Any:
-                    Screen.orientation = UnityEngine.ScreenOrientation.AutoRotation;
+                    Screen.orientation = ScreenOrientation.AutoRotation;
 
                     Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = true;
                     Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = true;
@@ -75,8 +73,8 @@ namespace CodeBase.UI
 
                 case Orientation.Portrait:
                     // Force screen to orient right, then switch to Auto
-                    Screen.orientation = UnityEngine.ScreenOrientation.Portrait;
-                    Screen.orientation = UnityEngine.ScreenOrientation.AutoRotation;
+                    Screen.orientation = ScreenOrientation.Portrait;
+                    Screen.orientation = ScreenOrientation.AutoRotation;
 
                     Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = true;
                     Screen.autorotateToLandscapeLeft =
@@ -84,20 +82,20 @@ namespace CodeBase.UI
                     break;
 
                 case Orientation.PortraitFixed:
-                    Screen.orientation = UnityEngine.ScreenOrientation.Portrait;
+                    Screen.orientation = ScreenOrientation.Portrait;
                     break;
 
                 case Orientation.Landscape:
                     // Force screen to orient right, then switch to Auto
-                    Screen.orientation = UnityEngine.ScreenOrientation.LandscapeLeft;
-                    Screen.orientation = UnityEngine.ScreenOrientation.AutoRotation;
+                    Screen.orientation = ScreenOrientation.LandscapeLeft;
+                    Screen.orientation = ScreenOrientation.AutoRotation;
 
                     Screen.autorotateToPortrait = Screen.autorotateToPortraitUpsideDown = false;
                     Screen.autorotateToLandscapeLeft = Screen.autorotateToLandscapeRight = true;
                     break;
 
                 case Orientation.LandscapeFixed:
-                    Screen.orientation = UnityEngine.ScreenOrientation.LandscapeLeft;
+                    Screen.orientation = ScreenOrientation.LandscapeLeft;
                     break;
             }
         }
