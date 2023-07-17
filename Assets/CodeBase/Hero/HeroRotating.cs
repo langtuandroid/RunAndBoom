@@ -9,7 +9,7 @@ namespace CodeBase.Hero
         [SerializeField] private Camera _camera;
         [SerializeField] private float _verticalSensitivity = 2.0f;
         [SerializeField] private float _horizontalSensitivity = 2.0f;
-        [SerializeField] private float _edgeAngle = 87f;
+        [SerializeField] private float _edgeAngle = 85f;
 
         private IInputService _inputService;
         private float _xAxisClamp = 0;
@@ -48,7 +48,8 @@ namespace CodeBase.Hero
         private void RotateVertical()
         {
             _verticalRotation -= _inputService.LookAxis.y;
-            _verticalRotation = Mathf.Clamp(_verticalRotation, -_edgeAngle, _edgeAngle);
+            float verticalAngle = _edgeAngle / _verticalSensitivity;
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -verticalAngle, verticalAngle);
             _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
         }
 
