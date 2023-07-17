@@ -128,6 +128,10 @@
         public static string TutorialWeaponsEn = "Weapons";
         public static string TutorialWeaponsTr = "Silahlar";
 
+        public static string TutorialLeaderBoardRu = "Таблица лидеров";
+        public static string TutorialLeaderBoardEn = "Leader board";
+        public static string TutorialLeaderBoardTr = "Li̇der panosu";
+
         public static string TutorialClickWeaponsIconRu = "Нажмите иконку оружия";
         public static string TutorialClickWeaponsIconEn = "Click weapons icon";
         public static string TutorialClickWeaponsIconTr = "Silah simgesine tıklayın";

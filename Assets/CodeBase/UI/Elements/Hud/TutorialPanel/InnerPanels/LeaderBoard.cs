@@ -2,9 +2,9 @@
 
 namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
 {
-    public class Settings : IconsPanel
+    public class LeaderBoard : IconsPanel
     {
-        [SerializeField] private Action _esc;
+        [SerializeField] private Action _tab;
 
         public override void ShowForPc() =>
             gameObject.SetActive(true);

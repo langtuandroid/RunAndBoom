@@ -11,6 +11,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         [SerializeField] private TextMeshProUGUI _movementText;
         [SerializeField] private TextMeshProUGUI _shootText;
         [SerializeField] private TextMeshProUGUI _weaponsText;
+        [SerializeField] private TextMeshProUGUI _leaderBoardText;
 
         protected override void RuChosen()
         {
@@ -19,6 +20,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _movementText.text = LocalizationConstants.TutorialMovementRu;
             _shootText.text = LocalizationConstants.TutorialShootRu;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsRu;
+            _leaderBoardText.text = LocalizationConstants.TutorialLeaderBoardRu;
         }
 
         protected override void TrChosen()
@@ -28,6 +30,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _movementText.text = LocalizationConstants.TutorialMovementTr;
             _shootText.text = LocalizationConstants.TutorialShootTr;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsTr;
+            _leaderBoardText.text = LocalizationConstants.TutorialLeaderBoardTr;
         }
 
         protected override void EnChosen()
@@ -37,6 +40,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _movementText.text = LocalizationConstants.TutorialMovementEn;
             _shootText.text = LocalizationConstants.TutorialShootEn;
             _weaponsText.text = LocalizationConstants.TutorialWeaponsEn;
+            _leaderBoardText.text = LocalizationConstants.TutorialLeaderBoardEn;
         }
     }
 }

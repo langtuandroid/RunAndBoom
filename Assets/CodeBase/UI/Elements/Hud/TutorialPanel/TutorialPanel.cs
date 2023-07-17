@@ -15,6 +15,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         [SerializeField] private Movement _movement;
         [SerializeField] private Shoot _shoot;
         [SerializeField] private InnerPanels.Weapons _weapons;
+        [SerializeField] private LeaderBoard _leaderBoard;
 
         private IInputService _inputService;
         private float _visibleTransparentValue = 0.07058824f;
@@ -35,6 +36,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
                 _movement.ShowForMobile();
                 _shoot.ShowForMobile();
                 _weapons.ShowForMobile();
+                _leaderBoard.ShowForMobile();
             }
             else
             {
@@ -43,6 +45,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
                 _movement.ShowForPc();
                 _shoot.ShowForPc();
                 _weapons.ShowForPc();
+                _leaderBoard.ShowForPc();
             }
 
             _background.ChangeImageAlpha(_visibleTransparentValue);
@@ -95,6 +98,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _movement.Hide();
             _shoot.Hide();
             _weapons.Hide();
+            _leaderBoard.Hide();
             _background.ChangeImageAlpha(Constants.Invisible);
             _hidden = true;
         }

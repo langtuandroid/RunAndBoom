@@ -74,7 +74,6 @@ namespace CodeBase.UI.Windows.Results
 
         private void InitializeLeaderboard()
         {
-            Debug.Log("InitializeLeaderBoard");
             if (LeaderBoardService.IsInitialized())
                 AddNewResult();
             else
@@ -83,17 +82,11 @@ namespace CodeBase.UI.Windows.Results
 
         private IEnumerator CoroutineInitializeLeaderBoard()
         {
-            Debug.Log("CoroutineInitializeLeaderBoard");
             yield return LeaderBoardService.Initialize();
         }
 
-        private void AddNewResult()
-        {
-            Debug.Log("AddNewResult");
-            Debug.Log($"SetValue {_levelStats.Score}");
-            Debug.Log($"Current level {_currentLevel}");
+        private void AddNewResult() =>
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
-        }
 
         public void ShowData()
         {

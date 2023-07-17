@@ -96,11 +96,10 @@ namespace CodeBase.UI.Windows.LeaderBoard
             base.Construct(hero, WindowId.LeaderBoard);
 
         private void Close() =>
-            gameObject.SetActive(false);
+            Hide();
 
         protected override void AdsServiceInitializedSuccess()
         {
-            Debug.Log("TryAuthorize");
             if (_authorization.IsAuthorized())
             {
                 _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
@@ -114,19 +113,16 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void RequestLeaderBoardData()
         {
-            Debug.Log($"RequestLeaderBoardData");
             LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoardData;
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
             Scene scene = Progress.Stats.CurrentLevelStats.Scene;
-            // Debug.Log($"Scene {scene.ToString()}");
             LeaderBoardService.GetEntries(scene.GetLeaderBoardName());
             LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName());
         }
 
         private void Authorize()
         {
-            Debug.Log("Authorize");
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
             _authorization.Authorize();
@@ -134,7 +130,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void RequestPersonalProfileDataPermission()
         {
-            Debug.Log("RequestPersonalProfileDataPermission");
             _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback += InitializeLeaderBoard;
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
@@ -143,7 +138,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void InitializeLeaderBoard()
         {
-            Debug.Log("InitializeLeaderBoard");
             _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback -= InitializeLeaderBoard;
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoardData;
 
@@ -153,11 +147,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 StartCoroutine(LeaderBoardService.Initialize());
         }
 
-        private void ShowError(string error)
-        {
-            Debug.Log($"ServiceAuthorization ShowError {error}");
+        private void ShowError(string error) =>
             _authorization.OnErrorCallback -= ShowError;
-        }
 
         private void ClearLeaderBoard()
         {
@@ -167,9 +158,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
         {
-            Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
-            Debug.Log($"entries count {leaderboardGetEntriesResponse.entries.Length}");
             LeaderboardEntryResponse response;
             PlayerItem playerItem;
 
@@ -180,9 +169,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
                 response = leaderboardEntryResponses[i];
                 playerItem = _players[i].GetComponent<PlayerItem>();
-                Debug.Log($"FillLeaderBoard rank {response.rank}");
-                Debug.Log($"FillLeaderBoard publicName {response.player.publicName}");
-                Debug.Log($"FillLeaderBoard score {response.score}");
                 playerItem.Rank.text = response.rank.ToString();
 
                 if (!Application.isEditor)
@@ -199,10 +185,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
-            Debug.Log("FillPlayerInfo");
-            Debug.Log($"FillPlayerInfo rank {response.rank}");
-            Debug.Log($"FillPlayerInfo publicName {response.player.publicName}");
-            Debug.Log($"FillPlayerInfo score {response.score}");
             if (!Application.isEditor)
                 StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
 
@@ -219,7 +201,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private IEnumerator LoadAvatar(string avatarUrl, RawImage image)
         {
-            Debug.Log("LoadAvatar started");
             UnityWebRequest request = UnityWebRequestTexture.GetTexture(avatarUrl);
             yield return request.SendWebRequest();
 
@@ -227,8 +208,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 Debug.Log($"LoadAvatar {request.error}");
             else
                 image.texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-
-            Debug.Log("LoadAvatar finished");
         }
     }
 }

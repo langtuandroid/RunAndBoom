@@ -31,7 +31,6 @@ namespace CodeBase.Enemy.Attacks
             {
                 PhysicsDebug.DrawDebug(StartPoint(), _effectiveDistance, DrawingHitTime);
                 hit.transform.gameObject.GetComponent<IHealth>().TakeDamage(_damage);
-                Debug.Log($"{gameObject.name} hit Hero with {_damage} damage");
             }
         }
 

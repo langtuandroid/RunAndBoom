@@ -21,7 +21,6 @@ namespace CodeBase.Hero
 
         private void InitializeAdsSDK()
         {
-            Debug.Log("InitializeAdsSDK");
             if (!_adsService.IsInitialized())
                 StartCoroutine(_adsService.Initialize());
         }
