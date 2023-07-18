@@ -49,21 +49,24 @@ namespace CodeBase.Hero
 
         private void Move()
         {
+            if (_inputService == null)
+                return;
+
+            Vector3 airDirection = Vector3.zero;
+            Vector3 direction = Vector3.zero;
+
             if (_inputService.MoveAxis.sqrMagnitude > Constants.Epsilon)
             {
-                Vector3 airDirection = Vector3.zero;
-                Vector3 direction = Vector3.zero;
-
                 if (IsGrounded())
                     airDirection = transform.forward * _inputService.MoveAxis.y +
                                    transform.right * _inputService.MoveAxis.x;
                 else
                     direction = transform.forward * _inputService.MoveAxis.y +
                                 transform.right * _inputService.MoveAxis.x;
-
-                _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
-                                          Time.deltaTime);
             }
+
+            _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
+                                      Time.deltaTime);
         }
 
         private bool IsGrounded()
