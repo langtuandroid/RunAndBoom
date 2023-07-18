@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
@@ -27,7 +28,7 @@ namespace CodeBase.Infrastructure.States
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
                         services.Single<IEnemyFactory>(), services.Single<IPlayerProgressService>(),
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
-                        services.Single<IWindowService>()),
+                        services.Single<IWindowService>(), services.Single<IInputService>()),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
                     services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(),
                     services.Single<IStaticDataService>(), services.Single<ILocalizationService>(), language),

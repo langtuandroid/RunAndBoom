@@ -21,8 +21,7 @@ namespace CodeBase.UI.Windows.Gifts.Items
 
         protected override void Clicked()
         {
-            int value = _shopAmmoStaticData.Count.GetHashCode();
-            Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
+            Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, GetCount(_shopAmmoStaticData.Count));
             ClearData();
             _generator.Clicked();
             SoundInstance.InstantiateOnTransform(

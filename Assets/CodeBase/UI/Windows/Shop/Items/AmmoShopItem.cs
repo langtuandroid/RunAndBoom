@@ -22,8 +22,8 @@ namespace CodeBase.UI.Windows.Shop.Items
             if (ShopItemBalance.IsMoneyEnough(_shopAmmoStaticData.Cost))
             {
                 ShopItemBalance.ReduceMoney(_shopAmmoStaticData.Cost);
-                int value = _shopAmmoStaticData.Count.GetHashCode();
-                Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, value);
+                Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
+                    GetCount(_shopAmmoStaticData.Count));
                 ClearData();
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),

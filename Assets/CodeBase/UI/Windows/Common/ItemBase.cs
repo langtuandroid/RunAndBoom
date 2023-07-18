@@ -1,9 +1,9 @@
 ﻿using CodeBase.Data;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
-using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
 using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Shop;
@@ -27,12 +27,11 @@ namespace CodeBase.UI.Windows.Common
         private ShopItemHighlighter _shopItemHighlighter;
         protected IStaticDataService StaticDataService;
         protected ILocalizationService LocalizationService;
+        protected IInputService InputService;
         protected PlayerProgress Progress;
         protected ShopItemBalance ShopItemBalance;
         protected GiftsItemBalance GiftsItemBalance;
         private PlayerProgress _progress;
-        private const float BaseRatio = 1.0f;
-        protected float MaxHealthRatio = 1.0f;
         protected float Volume;
         protected AudioSource AudioSource;
 
@@ -48,21 +47,9 @@ namespace CodeBase.UI.Windows.Common
             Progress = progress;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             LocalizationService = AllServices.Container.Single<ILocalizationService>();
+            InputService = AllServices.Container.Single<IInputService>();
             ShopItemBalance = new ShopItemBalance();
             GiftsItemBalance = new GiftsItemBalance();
-
-            SetMaxHealth();
-        }
-
-        private void SetMaxHealth()
-        {
-            var upMaxHealthItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
-
-            if (upMaxHealthItemData.LevelTypeId == LevelTypeId.None)
-                MaxHealthRatio = BaseRatio;
-            else
-                MaxHealthRatio =
-                    StaticDataService.ForPerk(PerkTypeId.UpMaxHealth, upMaxHealthItemData.LevelTypeId).Value;
         }
 
         protected void ClearData()
@@ -89,14 +76,11 @@ namespace CodeBase.UI.Windows.Common
                 TitleText.text = "";
 
             _shopItemHighlighter.enabled = false;
-            // _shopItemHighlighter.SetVisibility(false);
             gameObject.SetActive(false);
         }
 
-        public void ChangeClickability(bool isClickable)
-        {
+        public void ChangeClickability(bool isClickable) =>
             Button.enabled = isClickable;
-        }
 
         protected abstract void FillData();
         protected abstract void Clicked();

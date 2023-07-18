@@ -5,6 +5,7 @@ using CodeBase.Enemy.Attacks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Logic.EnemySpawners;
+using CodeBase.Services.Input;
 using CodeBase.Services.Registrator;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemies;
@@ -21,10 +22,13 @@ namespace CodeBase.Infrastructure.Factories
         private readonly IRegistratorService _registratorService;
         private readonly IGameFactory _gameFactory;
         private Transform _spawnersRoot;
+        private IInputService _inputService;
 
-        public EnemyFactory(IAssets assets, IStaticDataService staticData, IRegistratorService registratorService,
+        public EnemyFactory(IInputService inputService, IAssets assets, IStaticDataService staticData,
+            IRegistratorService registratorService,
             IGameFactory gameFactory)
         {
+            _inputService = inputService;
             _assets = assets;
             _staticData = staticData;
             _registratorService = registratorService;
@@ -36,8 +40,6 @@ namespace CodeBase.Infrastructure.Factories
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.SpawnersRoot);
             GameObject gameObject = Object.Instantiate(prefab);
             _spawnersRoot = gameObject.transform;
-            // GameObject prefab = await _assets.Instantiate(AssetAddresses.SpawnersRoot);
-            // _spawnersRoot = prefab.transform;
         }
 
         public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
@@ -61,7 +63,8 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>()
                 .Construct(_gameFactory.GetHero().GetComponentInChildren<HeroHealth>(), enemyData.Reward);
-            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform, enemyData.MoveSpeed,
+            enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform,
+                GetSpeed(enemyData.MoveSpeed),
                 enemyData.IsMovable);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.FollowDistance);
@@ -104,6 +107,14 @@ namespace CodeBase.Infrastructure.Factories
                         attackCooldown: enemyData.AttackCooldown);
                     break;
             }
+        }
+
+        private float GetSpeed(float baseSpeed)
+        {
+            if (_inputService is MobileInputService)
+                return baseSpeed / Constants.MobileEnemySpeedDivider;
+            else
+                return baseSpeed;
         }
     }
 }

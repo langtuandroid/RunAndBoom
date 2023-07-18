@@ -2,6 +2,8 @@
 using CodeBase.Data;
 using CodeBase.Data.Perks;
 using CodeBase.Logic;
+using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -15,6 +17,7 @@ namespace CodeBase.Hero
         private const float BaseArmorRatio = 0f;
         private const float ZeroValue = 0f;
 
+        private IInputService _inputService;
         private IStaticDataService _staticDataService;
         private PlayerProgress _progress;
         private PerkItemData _regenerationItemData;
@@ -32,6 +35,9 @@ namespace CodeBase.Hero
         public float Max { get; private set; }
 
         public event Action HealthChanged;
+
+        private void Awake() =>
+            _inputService = AllServices.Container.Single<IInputService>();
 
         private void OnEnable()
         {
@@ -97,10 +103,8 @@ namespace CodeBase.Hero
         private bool IsDelaySpent() =>
             _regenerationCurrentTime <= 0f;
 
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {
@@ -190,11 +194,20 @@ namespace CodeBase.Hero
                 _maxHealthRatio =
                     _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId).Value;
 
-            Max = Constants.InitialMaxHp * _maxHealthRatio;
+            SetMaxHealth();
+
             Current = Max;
             _progress.HealthState.MaxHp = Max;
             _progress.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
+        }
+
+        private void SetMaxHealth()
+        {
+            if (_inputService is MobileInputService)
+                Max = Constants.InitialMaxHp * _maxHealthRatio;
+            else
+                Max = Constants.InitialMaxHp * 1.5f * _maxHealthRatio;
         }
 
         private void SetupArmor()
