@@ -33,9 +33,9 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnRewarded += AddCoins;
-            AdsService.OnShowRewardedAdError += ShowError;
-            AdsService.OnClosedRewarded += ShowClosed;
+            AdsService.OnShowFullScreenAdError += ShowError;
+            AdsService.OnClosedFullScreenAd += ShowClosed;
+            AdsService.OnOfflineFullScreenAd += ShowOffline;
             InitializeAdsSDK();
         }
 
@@ -47,9 +47,9 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnRewarded -= AddCoins;
-            AdsService.OnShowRewardedAdError -= ShowError;
-            AdsService.OnClosedRewarded -= ShowClosed;
+            AdsService.OnShowFullScreenAdError -= ShowError;
+            AdsService.OnClosedFullScreenAd -= ShowClosed;
+            AdsService.OnOfflineFullScreenAd -= ShowOffline;
         }
 
         public void Construct(GameObject hero) =>
@@ -66,23 +66,25 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ShowError(string message)
         {
-            Debug.Log($"OnErrorRewarded: {message}");
-            AddCoins();
+            Debug.Log($"OnErrorFullScreenAd: {message}");
+            // AddCoins();
         }
 
-        private void ShowClosed() =>
-            Debug.Log("OnClosedRewarded");
-
-
-        private void CheckRefreshButtons()
+        private void ShowClosed(bool closed)
         {
+            Debug.Log("OnClosedFullScreenAd");
+            if (closed)
+                AddCoins();
         }
+
+        private void ShowOffline() =>
+            Debug.Log("OnOfflineFullScreen");
 
         private void ToNextLevel()
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
-            Progress.Stats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+            Progress.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
             SaveLoadService.SaveProgress();
             WindowService.HideAll();
@@ -105,12 +107,12 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
             }
 
-            AdsService.ShowRewardedAd();
+            AdsService.ShowFullScreenAd();
         }
 
         private void AddCoins()
         {
-            Progress.Stats.AllMoney.AddMoney(_coinsCount);
+            Progress.AllStats.AddMoney(_coinsCount);
             _addCoinsButton.gameObject.SetActive(false);
         }
 

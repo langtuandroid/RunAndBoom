@@ -104,7 +104,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
             LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoardData;
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
-            Scene scene = Progress.Stats.CurrentLevelStats.Scene;
+            Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
             LeaderBoardService.GetEntries(scene.GetLeaderBoardName());
             LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName());
         }

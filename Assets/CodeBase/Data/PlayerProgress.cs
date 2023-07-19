@@ -14,21 +14,21 @@ namespace CodeBase.Data
         public WorldData WorldData;
         public WeaponsData WeaponsData;
         public PerksData PerksData;
-        public Stats.Stats Stats;
+        public AllStats AllStats;
 
         public PlayerProgress(Scene initialLevel, Language language, int targetPlayTime, int totalEnemies)
         {
             SettingsData = new SettingsData(language);
             HealthState = new HealthState();
-            Stats = new Stats.Stats();
+            AllStats = new AllStats();
 
-            if (Stats.CurrentLevelStats == null)
-                Stats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, totalEnemies);
+            if (AllStats.CurrentLevelStats == null)
+                AllStats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, totalEnemies);
 
-            WorldData = new WorldData(Stats.CurrentLevelStats.Scene.ToString());
+            WorldData = new WorldData(AllStats.CurrentLevelStats.Scene.ToString());
             PerksData = new PerksData();
-            Stats.LevelStats = new SceneDataDictionary();
-            WeaponsData = new WeaponsData(Stats.CurrentLevelStats.Scene);
+            AllStats.LevelStats = new SceneDataDictionary();
+            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.Scene);
         }
     }
 }

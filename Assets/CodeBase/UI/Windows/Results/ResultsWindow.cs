@@ -68,7 +68,7 @@ namespace CodeBase.UI.Windows.Results
             if (Progress == null)
                 return;
 
-            _levelStats = Progress.Stats.CurrentLevelStats;
+            _levelStats = Progress.AllStats.CurrentLevelStats;
             _levelStats.CalculateScore();
         }
 

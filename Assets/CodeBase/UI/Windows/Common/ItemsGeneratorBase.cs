@@ -67,7 +67,7 @@ namespace CodeBase.UI.Windows.Common
         public abstract void Generate();
 
         protected void GetMoney() =>
-            Money = Progress.Stats.AllMoney.Money;
+            Money = Progress.AllStats.AllMoney.Money;
 
         protected void InitializeEmptyData()
         {

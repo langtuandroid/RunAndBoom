@@ -116,7 +116,7 @@ namespace CodeBase.UI.Windows.Common
         protected void RestartLevel()
         {
             WindowService.HideAll();
-            Progress.Stats.RestartedLevel();
+            Progress.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
         }
