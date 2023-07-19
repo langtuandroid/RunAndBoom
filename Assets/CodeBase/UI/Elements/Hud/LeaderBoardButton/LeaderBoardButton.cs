@@ -41,15 +41,16 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
         private void Update()
         {
-            if (!_isTutorialVisible)
+            if (_inputService is MobileInputService || !Input.GetKeyUp(KeyCode.Tab))
                 return;
 
-            if (_inputService is MobileInputService || !Input.GetKeyUp(KeyCode.Tab))
+            ShowLeaderBoardWindow();
+
+            if (!_isTutorialVisible)
                 return;
 
             _tutorialPanel.HidePanel();
             _isTutorialVisible = false;
-            ShowLeaderBoardWindow();
         }
 
         private void ShowLeaderBoardWindow() =>

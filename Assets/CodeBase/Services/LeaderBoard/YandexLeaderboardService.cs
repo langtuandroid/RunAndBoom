@@ -9,7 +9,6 @@ namespace CodeBase.Services.LeaderBoard
         private const int TopPlayersCount = 5;
 
         public event Action OnInitializeSuccess;
-
         public event Action<LeaderboardGetEntriesResponse> OnSuccessGetEntries;
         public event Action<LeaderboardEntryResponse> OnSuccessGetEntry;
 
