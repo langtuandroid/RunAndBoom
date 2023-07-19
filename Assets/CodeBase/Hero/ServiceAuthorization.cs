@@ -10,24 +10,25 @@ namespace CodeBase.Hero
         private IAdsService _adsService;
         private IAuthorization _authorization;
 
-        private void Start()
+        private void OnEnable()
         {
             if (Application.isEditor)
                 return;
 
-            _adsService = AllServices.Container.Single<IAdsService>();
-            _authorization = AllServices.Container.Single<IAuthorization>();
-        }
+            if (_adsService == null)
+                _adsService = AllServices.Container.Single<IAdsService>();
 
-        private void OnEnable()
-        {
+            if (_authorization == null)
+                _authorization = AllServices.Container.Single<IAuthorization>();
+
             _adsService.OnInitializeSuccess += TryAuthorize;
             InitializeAdsSDK();
         }
 
         private void OnDisable()
         {
-            _adsService.OnInitializeSuccess -= TryAuthorize;
+            if (_adsService != null)
+                _adsService.OnInitializeSuccess -= TryAuthorize;
         }
 
         private void InitializeAdsSDK()
