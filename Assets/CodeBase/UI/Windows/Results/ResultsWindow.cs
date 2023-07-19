@@ -87,7 +87,7 @@ namespace CodeBase.UI.Windows.Results
 
         private void AddNewResult()
         {
-            Debug.Log($"AddNewResult {_levelStats.Scene}");
+            Debug.Log($"AddNewResult {_levelStats.Scene} {_levelStats.Score}");
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
         }
 
