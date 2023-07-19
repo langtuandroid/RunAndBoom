@@ -76,7 +76,7 @@ namespace CodeBase.Infrastructure.States
                 ));
 
             _services.RegisterSingle<IEnemyFactory>(
-                new EnemyFactory(
+                new EnemyFactory(_services.Single<IInputService>(),
                     _services.Single<IAssets>(), _services.Single<IStaticDataService>(),
                     _services.Single<IRegistratorService>(), _services.Single<IGameFactory>()
                 ));

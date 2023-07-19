@@ -25,5 +25,8 @@ namespace CodeBase
         public const string DestructableTag = "Destructable";
         public const string GroundTag = "Ground";
         public const string Level = "Level_";
+
+        public const float MobileAmmoMultiplier = 2f;
+        public const float MobileEnemySpeedDivider = 1.5f;
     }
 }

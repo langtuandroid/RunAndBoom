@@ -15,7 +15,7 @@ namespace CodeBase.Logic.Level
         [SerializeField] private int _refreshCount;
         [SerializeField] private int _watchAdsNumber;
 
-        private const int MinItemValue = 5;
+        private const int MinItemValue = 6;
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;

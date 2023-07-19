@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Data.Perks;
-using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -33,11 +32,8 @@ namespace CodeBase.Hero
         private Vector3 _spherePosition;
         private Vector3 _velocity;
 
-        private void Awake()
-        {
+        private void Awake() =>
             _characterController = GetComponent<CharacterController>();
-            _inputService = AllServices.Container.Single<IInputService>();
-        }
 
         private void Update()
         {
@@ -45,26 +41,32 @@ namespace CodeBase.Hero
             Gravity();
         }
 
-        public void Construct(IStaticDataService staticDataService) =>
+        public void Construct(IStaticDataService staticDataService, IInputService inputService)
+        {
             _staticDataService = staticDataService;
+            _inputService = inputService;
+        }
 
         private void Move()
         {
+            if (_inputService == null)
+                return;
+
+            Vector3 airDirection = Vector3.zero;
+            Vector3 direction = Vector3.zero;
+
             if (_inputService.MoveAxis.sqrMagnitude > Constants.Epsilon)
             {
-                Vector3 airDirection = Vector3.zero;
-                Vector3 direction = Vector3.zero;
-
                 if (IsGrounded())
                     airDirection = transform.forward * _inputService.MoveAxis.y +
                                    transform.right * _inputService.MoveAxis.x;
                 else
                     direction = transform.forward * _inputService.MoveAxis.y +
                                 transform.right * _inputService.MoveAxis.x;
-
-                _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
-                                          Time.deltaTime);
             }
+
+            _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
+                                      Time.deltaTime);
         }
 
         private bool IsGrounded()

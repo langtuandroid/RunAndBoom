@@ -85,8 +85,11 @@ namespace CodeBase.UI.Windows.Results
             yield return LeaderBoardService.Initialize();
         }
 
-        private void AddNewResult() =>
+        private void AddNewResult()
+        {
+            Debug.Log($"AddNewResult {_levelStats.Scene}");
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
+        }
 
         public void ShowData()
         {

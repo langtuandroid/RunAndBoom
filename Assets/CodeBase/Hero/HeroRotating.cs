@@ -36,21 +36,28 @@ namespace CodeBase.Hero
         private void Rotate()
         {
             if (_inputService.LookAxis.sqrMagnitude > Constants.Epsilon)
-            {
-                RotateHorizontal();
-                RotateVertical();
-            }
+                CalculateVertical();
+
+            RotateHorizontal();
+            RotateVertical();
         }
+
+        private void CalculateVertical() =>
+            _verticalRotation -= _inputService.LookAxis.y;
 
         private void RotateHorizontal() =>
             transform.Rotate(Vector3.up * _inputService.LookAxis.x * _horizontalSensitivity);
 
         private void RotateVertical()
         {
-            _verticalRotation -= _inputService.LookAxis.y;
+            ClampAngle();
+            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
+        }
+
+        private void ClampAngle()
+        {
             float verticalAngle = _edgeAngle / _verticalSensitivity;
             _verticalRotation = Mathf.Clamp(_verticalRotation, -verticalAngle, verticalAngle);
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
         }
 
         public void TurnOn() =>

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic.Level;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
@@ -38,6 +39,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IStaticDataService _staticDataService;
         private readonly IUIFactory _uiFactory;
         private readonly IWindowService _windowService;
+        private readonly IInputService _inputService;
         private Scene _scene;
         private bool _isInitial = true;
         private GameObject _hud;
@@ -45,7 +47,7 @@ namespace CodeBase.Infrastructure.States
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
             IPlayerProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory,
-            IWindowService windowService)
+            IWindowService windowService, IInputService inputService)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -56,6 +58,7 @@ namespace CodeBase.Infrastructure.States
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _windowService = windowService;
+            _inputService = inputService;
         }
 
         public void Enter(Scene scene)
@@ -161,7 +164,7 @@ namespace CodeBase.Infrastructure.States
 
             HeroHealth heroHealth = hero.GetComponentInChildren<HeroHealth>();
             heroHealth.Construct(_staticDataService);
-            hero.GetComponent<HeroMovement>().Construct(_staticDataService);
+            hero.GetComponent<HeroMovement>().Construct(_staticDataService, _inputService);
             hero.GetComponent<HeroReloading>().Construct(_staticDataService);
             HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
             HeroDeath heroDeath = hero.GetComponentInChildren<HeroDeath>();

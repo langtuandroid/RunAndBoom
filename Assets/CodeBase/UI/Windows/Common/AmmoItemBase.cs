@@ -1,4 +1,5 @@
 ﻿using CodeBase.Data;
+using CodeBase.Services.Input;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 
@@ -37,11 +38,21 @@ namespace CodeBase.UI.Windows.Common
             if (CostText != null)
                 CostText.text = $"{_shopAmmoStaticData.Cost} $";
 
-            // CostText.color = Constants.ShopItemPerk;
-            CountText.text = $"{_shopAmmoStaticData.Count}";
-            // CountText.color = Constants.ShopItemCountField;
+            int count = GetCount(_shopAmmoStaticData.Count);
+
+            CountText.text = $"{count}";
             TitleText.text =
-                $"{LocalizationService.GetText(russian: _shopAmmoStaticData.RuTitle, turkish: _shopAmmoStaticData.TrTitle, english: _shopAmmoStaticData.EnTitle)}";
+                LocalizationService.GetText(russian: $"{count} {_shopAmmoStaticData.RuTitle}",
+                    turkish: $"{count} {_shopAmmoStaticData.TrTitle}",
+                    english: $"{count} {_shopAmmoStaticData.EnTitle}");
+        }
+
+        protected int GetCount(int baseCount)
+        {
+            if (InputService is MobileInputService)
+                return (int)(baseCount * Constants.MobileAmmoMultiplier);
+            else
+                return baseCount;
         }
     }
 }

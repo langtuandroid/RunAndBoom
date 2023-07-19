@@ -7,6 +7,7 @@ using CodeBase.Data.Upgrades;
 using CodeBase.Data.Weapons;
 using CodeBase.Hero;
 using CodeBase.Services;
+using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.StaticData;
@@ -28,6 +29,7 @@ namespace CodeBase.UI.Windows.Common
 
         private const float DangerousHealthLevel = 0.5f;
 
+        private IInputService _inputService;
         private IStaticDataService _staticDataService;
         protected IRandomService RandomService;
         private HashSet<int> _shopItemsNumbers;
@@ -57,6 +59,7 @@ namespace CodeBase.UI.Windows.Common
         {
             Hero = hero;
             Health = hero.GetComponent<HeroHealth>();
+            _inputService = AllServices.Container.Single<IInputService>();
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             RandomService = AllServices.Container.Single<IRandomService>();
         }
@@ -215,7 +218,7 @@ namespace CodeBase.UI.Windows.Common
         private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCountType,
             ShopAmmoStaticData shopAmmoStaticData)
         {
-            AmmoItem ammoItem = new AmmoItem(typeId, ammoCountType, shopAmmoStaticData.Count);
+            AmmoItem ammoItem = new AmmoItem(typeId, ammoCountType, GetCount(shopAmmoStaticData.Count));
 
             if (Money >= shopAmmoStaticData.Cost)
                 _availableAmmunition.Add(ammoItem);
@@ -327,6 +330,14 @@ namespace CodeBase.UI.Windows.Common
         {
             int i = RandomService.NextNumberFrom(_shopItemsNumbers);
             return GameObjectItems[i];
+        }
+
+        private int GetCount(int baseCount)
+        {
+            if (_inputService is MobileInputService)
+                return (int)(baseCount * Constants.MobileAmmoMultiplier);
+            else
+                return baseCount;
         }
 
         public void LoadProgress(PlayerProgress progress) =>
