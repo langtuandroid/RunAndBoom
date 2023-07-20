@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
@@ -123,15 +122,11 @@ namespace CodeBase.UI.Windows.Common
 
         protected void InitializeAdsSDK()
         {
+            Debug.Log("InitializeAdsSDK");
             if (AdsService.IsInitialized())
                 AdsServiceInitializedSuccess();
             else
-                StartCoroutine(CoroutineInitializeAdsSDK());
-        }
-
-        private IEnumerator CoroutineInitializeAdsSDK()
-        {
-            yield return AdsService.Initialize();
+                StartCoroutine(AdsService.Initialize());
         }
 
         protected virtual void AdsServiceInitializedSuccess()

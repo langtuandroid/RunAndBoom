@@ -6,10 +6,9 @@ namespace CodeBase.UI.Services.Windows
 {
     public interface IWindowService : IService
     {
-        WindowBase? Show<TWindowBase>(WindowId windowId);
+        WindowBase? Show<TWindowBase>(WindowId windowId, bool hideOthers = true);
         void AddWindow(WindowId windowId, GameObject window);
         bool IsAnotherActive(WindowId windowId);
         void HideAll();
-        void HideOthers(WindowId windowId);
     }
 }

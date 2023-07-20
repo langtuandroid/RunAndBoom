@@ -33,6 +33,7 @@ namespace CodeBase.Hero
 
         private void InitializeAdsSDK()
         {
+            Debug.Log("ServiceAuthorization InitializeAdsSDK");
             if (_adsService.IsInitialized())
                 TryAuthorize();
             else
@@ -41,6 +42,7 @@ namespace CodeBase.Hero
 
         private void TryAuthorize()
         {
+            Debug.Log("ServiceAuthorization InitializeAdsSDK");
             if (_authorization.IsAuthorized())
             {
                 _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
@@ -54,7 +56,7 @@ namespace CodeBase.Hero
 
         private void Authorize()
         {
-            Debug.Log("Authorize");
+            Debug.Log("ServiceAuthorization Authorize");
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
             _authorization.Authorize();
@@ -62,7 +64,7 @@ namespace CodeBase.Hero
 
         private void RequestPersonalProfileDataPermission()
         {
-            Debug.Log("RequestPersonalProfileDataPermission");
+            Debug.Log("ServiceAuthorization RequestPersonalProfileDataPermission");
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
             _authorization.OnErrorCallback += ShowError;
             _authorization.RequestPersonalProfileDataPermission();
@@ -70,7 +72,7 @@ namespace CodeBase.Hero
 
         private void ShowError(string error)
         {
-            Debug.Log($"Show error {error}");
+            Debug.Log($"ServiceAuthorization Show error {error}");
             _authorization.OnErrorCallback -= ShowError;
         }
     }

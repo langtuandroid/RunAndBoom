@@ -109,7 +109,6 @@ namespace CodeBase.UI.Windows.Results
             WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
             (giftsWindow as GiftsWindow).AddData(_nextScene);
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
-            WindowService.HideOthers(WindowId.Gifts);
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
         }
