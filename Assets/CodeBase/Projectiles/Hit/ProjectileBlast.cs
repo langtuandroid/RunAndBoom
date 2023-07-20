@@ -44,8 +44,8 @@ namespace CodeBase.Projectiles.Hit
             _audioSource = GetComponent<AudioSource>();
             Tags = new[]
             {
-                Constants.EnemyTag, Constants.ObstacleTag, Constants.DestructableTag, Constants.WallTag,
-                Constants.GroundTag
+                Constants.EnemyTag, Constants.ObstacleTag, Constants.BarrierTag, Constants.DestructableTag,
+                Constants.WallTag, Constants.GroundTag
             };
         }
 

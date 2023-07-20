@@ -22,7 +22,7 @@ namespace CodeBase.UI.Services.Windows
             _windows = new Dictionary<WindowId, GameObject>(DataExtensions.GetValues<WindowId>().Count());
         }
 
-        public WindowBase? Show<TWindowBase>(WindowId windowId)
+        public WindowBase? Show<TWindowBase>(WindowId windowId, bool hideOthers = true)
         {
             WindowBase? window = null;
 
@@ -52,6 +52,9 @@ namespace CodeBase.UI.Services.Windows
                     window = ShowWindow<GameEndWindow>(WindowId.GameEnd);
                     break;
             }
+
+            if (hideOthers)
+                HideOthers(windowId);
 
             return window;
         }

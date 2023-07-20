@@ -10,17 +10,18 @@ namespace CodeBase.Projectiles.Hit
         private void Awake() =>
             Tags = new[]
             {
-                Constants.EnemyTag, Constants.HeroTag, Constants.ObstacleTag, Constants.DestructableTag,
-                Constants.WallTag, Constants.GroundTag
+                Constants.EnemyTag, Constants.HeroTag, Constants.ObstacleTag, Constants.BarrierTag,
+                Constants.DestructableTag, Constants.WallTag, Constants.GroundTag
             };
 
         public void Construct(float damage) =>
             _damage = damage;
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            string targetTag = collision.gameObject.tag;
+        private void OnCollisionEnter(Collision collision) =>
+            StopProjectile(collision, collision.gameObject.tag);
 
+        private void StopProjectile(Collision collision, string targetTag)
+        {
             if (IsTargetTag(targetTag))
             {
                 if (Trail != null)

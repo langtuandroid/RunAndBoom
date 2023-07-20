@@ -22,6 +22,7 @@ namespace CodeBase
         public const string WallTag = "Wall";
         public const string EnemyTag = "Enemy";
         public const string ObstacleTag = "Obstacle";
+        public const string BarrierTag = "Barrier";
         public const string DestructableTag = "Destructable";
         public const string GroundTag = "Ground";
         public const string Level = "Level_";

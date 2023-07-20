@@ -3,13 +3,13 @@
 namespace CodeBase.Data.Stats
 {
     [Serializable]
-    public class Stats
+    public class AllStats
     {
         public LevelStats CurrentLevelStats;
         public SceneDataDictionary LevelStats;
         public MoneyData AllMoney;
 
-        public Stats()
+        public AllStats()
         {
             LevelStats = new SceneDataDictionary();
             AllMoney = new MoneyData();

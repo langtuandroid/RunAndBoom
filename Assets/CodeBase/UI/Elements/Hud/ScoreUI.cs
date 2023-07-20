@@ -14,7 +14,7 @@ namespace CodeBase.UI.Elements.Hud
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _moneyData = progress.Stats.AllMoney;
+            _moneyData = progress.AllStats.AllMoney;
             _moneyData.MoneyChanged += SetMoney;
             SetMoney();
         }

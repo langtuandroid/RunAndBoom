@@ -27,9 +27,8 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnClosedFullScreen += RecoverForAds;
-            AdsService.OnShowFullScreenAdError += ShowError;
-            AdsService.OnOfflineFullScreen += ShowOffline;
+            AdsService.OnRewardedAd += RecoverForAds;
+            AdsService.OnShowVideoAdError += ShowError;
             InitializeAdsSDK();
         }
 
@@ -42,9 +41,8 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnClosedFullScreen -= RecoverForAds;
-            AdsService.OnShowFullScreenAdError -= ShowError;
-            AdsService.OnOfflineFullScreen -= ShowOffline;
+            AdsService.OnRewardedAd -= RecoverForAds;
+            AdsService.OnShowVideoAdError -= ShowError;
         }
 
         public void Construct(GameObject hero) =>
@@ -56,27 +54,18 @@ namespace CodeBase.UI.Windows.Death
         private void ShowAds()
         {
             if (Application.isEditor)
-                RecoverForAds(true);
+                RecoverForAds();
             else
-                AdsService.ShowFullScreenAd();
+                AdsService.ShowVideoAd();
         }
 
-        private void ShowError(string message)
-        {
+        private void ShowError(string message) =>
             Debug.Log($"OnErrorFullScreen: {message}");
-            RecoverForAds(true);
-        }
 
-        private void ShowOffline() =>
-            Debug.Log("OnOfflineFullScreen");
-
-        private void RecoverForAds(bool wasShown)
+        private void RecoverForAds()
         {
-            if (wasShown)
-            {
-                RecoverHealth();
-                Hide();
-            }
+            RecoverHealth();
+            Hide();
         }
 
         private void RecoverHealth() =>

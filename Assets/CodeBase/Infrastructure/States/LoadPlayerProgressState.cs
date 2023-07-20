@@ -35,7 +35,7 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            _stateMachine.Enter<LoadSceneState, Scene>(_progressService.Progress.Stats.CurrentLevelStats.Scene);
+            _stateMachine.Enter<LoadSceneState, Scene>(_progressService.Progress.AllStats.CurrentLevelStats.Scene);
         }
 
         public void Exit()

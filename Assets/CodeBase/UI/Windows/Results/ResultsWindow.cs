@@ -68,7 +68,7 @@ namespace CodeBase.UI.Windows.Results
             if (Progress == null)
                 return;
 
-            _levelStats = Progress.Stats.CurrentLevelStats;
+            _levelStats = Progress.AllStats.CurrentLevelStats;
             _levelStats.CalculateScore();
         }
 
@@ -87,7 +87,7 @@ namespace CodeBase.UI.Windows.Results
 
         private void AddNewResult()
         {
-            Debug.Log($"AddNewResult {_levelStats.Scene}");
+            Debug.Log($"AddNewResult {_levelStats.Scene} {_levelStats.Score}");
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(), _levelStats.Score);
         }
 
@@ -109,7 +109,6 @@ namespace CodeBase.UI.Windows.Results
             WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
             (giftsWindow as GiftsWindow).AddData(_nextScene);
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
-            WindowService.HideOthers(WindowId.Gifts);
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
         }
