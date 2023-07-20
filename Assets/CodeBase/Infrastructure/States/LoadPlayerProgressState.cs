@@ -8,7 +8,7 @@ using CodeBase.StaticData.Levels;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadPlayerProgressState : IState
+    public class LoadPlayerProgressState : IPayloadedState<bool>
     {
         private const Scene InitialLevel = Scene.Level_1;
 
@@ -32,9 +32,9 @@ namespace CodeBase.Infrastructure.States
             _language = language;
         }
 
-        public void Enter()
+        public void Enter(bool isHardMode)
         {
-            LoadProgressOrInitNew();
+            LoadProgressOrInitNew(isHardMode);
             _stateMachine.Enter<LoadSceneState, Scene>(_progressService.Progress.AllStats.CurrentLevelStats.Scene);
         }
 
@@ -42,20 +42,20 @@ namespace CodeBase.Infrastructure.States
         {
         }
 
-        private void LoadProgressOrInitNew()
+        private void LoadProgressOrInitNew(bool isHardMode)
         {
             _progressServiceProgress = _saveLoadService.LoadProgress();
-            _progressService.SetProgress(_progressServiceProgress ?? NewProgress());
+            _progressService.SetProgress(_progressServiceProgress ?? NewProgress(isHardMode));
 
             if (_progressServiceProgress != null)
                 _localizationService.ChangeLanguage(_language);
         }
 
-        private PlayerProgress NewProgress()
+        private PlayerProgress NewProgress(bool isHardMode)
         {
             LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel);
             return new PlayerProgress(InitialLevel, _language, levelStaticData.TargetPlayTime,
-                levelStaticData.EnemySpawners.Count);
+                levelStaticData.EnemySpawners.Count, isHardMode);
         }
     }
 }

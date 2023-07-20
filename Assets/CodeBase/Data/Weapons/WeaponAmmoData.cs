@@ -24,15 +24,35 @@ namespace CodeBase.Data.Weapons
         public event Action<int> RocketLauncherAmmoChanged;
         public event Action<int> MortarAmmoChanged;
 
-        public WeaponsAmmoData(List<WeaponData> weaponDatas, Scene scene)
+        public WeaponsAmmoData(List<WeaponData> weaponDatas, Scene scene, bool isHardMode)
         {
             _weaponDatas = weaponDatas;
 
             if (scene == Scene.Level_1)
-                FillAmmo();
+                FillAmmo(isHardMode);
 
             InvokeChanges();
             FillWeaponsBarrels();
+        }
+
+        private void FillAmmo(bool isHardMode)
+        {
+            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialGlAmmoCount;
+
+            if (!isHardMode)
+                Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialRpgAmmoCount;
+            else
+                Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
+
+            if (!isHardMode)
+                Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialRlAmmoCount;
+            else
+                Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
+
+            if (!isHardMode)
+                Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialMortarAmmoCount;
+            else
+                Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
         }
 
         private void InvokeChanges()
@@ -52,17 +72,6 @@ namespace CodeBase.Data.Weapons
             Barrels.Dictionary[HeroWeaponTypeId.RPG] = 1;
             Barrels.Dictionary[HeroWeaponTypeId.RocketLauncher] = 3;
             Barrels.Dictionary[HeroWeaponTypeId.Mortar] = 1;
-        }
-
-        private void FillAmmo()
-        {
-            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialGlAmmoCount;
-            Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialRpgAmmoCount;
-            Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialRlAmmoCount;
-            Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialMortarAmmoCount;
-            // Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
-            // Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
-            // Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
         }
 
         public void AddAmmo(HeroWeaponTypeId typeId, int ammo)

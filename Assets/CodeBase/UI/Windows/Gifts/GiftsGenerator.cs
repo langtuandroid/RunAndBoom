@@ -14,10 +14,8 @@ namespace CodeBase.UI.Windows.Gifts
 {
     public class GiftsGenerator : ItemsGeneratorBase
     {
-        public void Construct(GameObject hero)
-        {
+        public new void Construct(GameObject hero) =>
             base.Construct(hero);
-        }
 
         public void SetMaxPrice(int maxPrice) =>
             Money = maxPrice;
@@ -47,12 +45,26 @@ namespace CodeBase.UI.Windows.Gifts
 
         protected override void GenerateAllItems()
         {
-            GenerateItems();
-            GenerateAmmo();
-            GeneratePerks();
-            GenerateUpgrades();
-            GenerateMoney();
-            // GenerateWeapons();
+            if (Progress.IsHardMode)
+            {
+                GenerateItems();
+                GenerateMoney();
+                GenerateAmmo();
+                GenerateWeapons();
+                GeneratePerks();
+                GenerateUpgrades();
+            }
+            else
+            {
+                GenerateItems();
+                GenerateAmmo();
+
+                if (Progress.AllStats.AllMoney.Money < Constants.MinMoneyForGenerator)
+                    GenerateMoney();
+
+                GeneratePerks();
+                GenerateUpgrades();
+            }
         }
 
         protected override void CreateAmmoItem(GameObject hero, GameObject parent, List<AmmoItem> list,

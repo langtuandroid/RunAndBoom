@@ -212,7 +212,18 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateMoney()
         {
             foreach (MoneyTypeId moneyTypeId in DataExtensions.GetValues<MoneyTypeId>())
-                _moneyTypeIds.Add(moneyTypeId);
+            {
+                if (Progress.IsHardMode)
+                {
+                    if (moneyTypeId == MoneyTypeId.Bag)
+                        _moneyTypeIds.Add(moneyTypeId);
+                }
+                else
+                {
+                    if (moneyTypeId != MoneyTypeId.Bag && moneyTypeId != MoneyTypeId.BagHard)
+                        _moneyTypeIds.Add(moneyTypeId);
+                }
+            }
         }
 
         private void AddAmmo(HeroWeaponTypeId typeId, AmmoCountType ammoCountType,
@@ -322,7 +333,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreatePerkItem(Hero, view, _availablePerks, true);
+                    CreateMoneyItem(Hero, view, _moneyTypeIds, true);
             }
         }
 

@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using CodeBase.Services;
+using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
@@ -14,8 +17,6 @@ namespace CodeBase.Infrastructure
         private const float StepAlpha = 0.03f;
         private const float PrepareWaiting = 2f;
         private bool _isInitial = true;
-
-        public event Action FadedOut;
 
         private void Awake() =>
             DontDestroyOnLoad(this);
@@ -42,9 +43,9 @@ namespace CodeBase.Infrastructure
                 _curtain.alpha -= StepAlpha;
                 yield return new WaitForSeconds(StepAlpha);
             }
-
-            FadedOut?.Invoke();
+            
             gameObject.SetActive(false);
+            AllServices.Container.Single<ISaveLoadService>().SaveProgress();
         }
     }
 }

@@ -15,8 +15,10 @@ namespace CodeBase.Data
         public WeaponsData WeaponsData;
         public PerksData PerksData;
         public AllStats AllStats;
+        public bool IsHardMode;
 
-        public PlayerProgress(Scene initialLevel, Language language, int targetPlayTime, int totalEnemies)
+        public PlayerProgress(Scene initialLevel, Language language, int targetPlayTime, int totalEnemies,
+            bool isHardMode)
         {
             SettingsData = new SettingsData(language);
             HealthState = new HealthState();
@@ -28,7 +30,8 @@ namespace CodeBase.Data
             WorldData = new WorldData(AllStats.CurrentLevelStats.Scene.ToString());
             PerksData = new PerksData();
             AllStats.LevelStats = new SceneDataDictionary();
-            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.Scene);
+            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.Scene, isHardMode);
+            IsHardMode = isHardMode;
         }
     }
 }
