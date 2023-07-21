@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -43,7 +41,7 @@ namespace CodeBase.Infrastructure
                 _curtain.alpha -= StepAlpha;
                 yield return new WaitForSeconds(StepAlpha);
             }
-            
+
             gameObject.SetActive(false);
             AllServices.Container.Single<ISaveLoadService>().SaveProgress();
         }

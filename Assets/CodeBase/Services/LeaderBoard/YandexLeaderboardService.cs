@@ -11,6 +11,9 @@ namespace CodeBase.Services.LeaderBoard
         public event Action OnInitializeSuccess;
         public event Action<LeaderboardGetEntriesResponse> OnSuccessGetEntries;
         public event Action<LeaderboardEntryResponse> OnSuccessGetEntry;
+        public event Action<string> OnGetEntryError;
+        public event Action<string> OnGetEntriesError;
+        public event Action<string> OnSetValueError;
 
         public bool IsInitialized() =>
             YandexGamesSdk.IsInitialized;
@@ -22,13 +25,14 @@ namespace CodeBase.Services.LeaderBoard
 
         public void GetPlayerEntry(string leaderboardName) =>
             Leaderboard.GetPlayerEntry(leaderboardName: leaderboardName,
-                onSuccessCallback: OnSuccessGetEntry);
+                onSuccessCallback: OnSuccessGetEntry, onErrorCallback: OnGetEntryError);
 
         public void GetEntries(string leaderboardName) =>
             Leaderboard.GetEntries(leaderboardName: leaderboardName,
-                onSuccessCallback: OnSuccessGetEntries, topPlayersCount: TopPlayersCount);
+                onSuccessCallback: OnSuccessGetEntries, topPlayersCount: TopPlayersCount,
+                onErrorCallback: OnGetEntriesError);
 
         public void SetValue(string leaderboardName, int value) =>
-            Leaderboard.SetScore(leaderboardName: leaderboardName, score: value);
+            Leaderboard.SetScore(leaderboardName: leaderboardName, score: value, onErrorCallback: OnSetValueError);
     }
 }

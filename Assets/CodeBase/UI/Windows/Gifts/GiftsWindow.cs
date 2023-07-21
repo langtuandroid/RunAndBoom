@@ -64,7 +64,7 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void AdsServiceInitializedSuccess() =>
             _addCoinsButton.enabled = true;
 
-        private void ShowError(string message) => 
+        private void ShowError(string message) =>
             Debug.Log($"OnErrorFullScreenAd: {message}");
 
         private void ShowClosed(bool closed)

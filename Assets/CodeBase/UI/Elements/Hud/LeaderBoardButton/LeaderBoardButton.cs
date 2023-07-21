@@ -54,6 +54,6 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
         }
 
         private void ShowLeaderBoardWindow() =>
-            _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard,false);
+            _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
     }
 }

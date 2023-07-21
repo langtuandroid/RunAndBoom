@@ -58,7 +58,7 @@ namespace CodeBase.Hero
         {
             Debug.Log("ServiceAuthorization Authorize");
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
-            _authorization.OnErrorCallback += ShowError;
+            _authorization.OnAuthorizeErrorCallback += ShowAuthorizeError;
             _authorization.Authorize();
         }
 
@@ -66,14 +66,20 @@ namespace CodeBase.Hero
         {
             Debug.Log("ServiceAuthorization RequestPersonalProfileDataPermission");
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
-            _authorization.OnErrorCallback += ShowError;
+            _authorization.OnRequestErrorCallback += ShowRequestError;
             _authorization.RequestPersonalProfileDataPermission();
         }
 
-        private void ShowError(string error)
+        private void ShowAuthorizeError(string error)
         {
-            Debug.Log($"ServiceAuthorization Show error {error}");
-            _authorization.OnErrorCallback -= ShowError;
+            Debug.Log($"ServiceAuthorization ShowAuthorizeError {error}");
+            _authorization.OnAuthorizeErrorCallback -= ShowAuthorizeError;
+        }
+
+        private void ShowRequestError(string error)
+        {
+            Debug.Log($"ServiceAuthorization ShowRequestError {error}");
+            _authorization.OnRequestErrorCallback -= ShowRequestError;
         }
     }
 }

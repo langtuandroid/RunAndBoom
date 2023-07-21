@@ -9,6 +9,9 @@ namespace CodeBase.Services.LeaderBoard
         public event Action OnInitializeSuccess;
         public event Action<LeaderboardGetEntriesResponse> OnSuccessGetEntries;
         public event Action<LeaderboardEntryResponse> OnSuccessGetEntry;
+        public event Action<string> OnGetEntryError;
+        public event Action<string> OnGetEntriesError;
+        public event Action<string> OnSetValueError;
 
         bool IsInitialized();
         IEnumerator Initialize();

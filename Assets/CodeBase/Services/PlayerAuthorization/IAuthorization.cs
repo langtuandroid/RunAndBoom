@@ -5,12 +5,14 @@ namespace CodeBase.Services.PlayerAuthorization
 {
     public interface IAuthorization : IService
     {
-        event Action OnAuthorizeSuccessCallback;
-        event Action OnRequestPersonalProfileDataPermissionSuccessCallback;
-        event Action<PlayerAccountProfileDataResponse> OnGetProfileDataSuccessCallback;
-        event Action<string> OnGetPlayerDataSuccessCallback;
-        event Action OnSetPlayerDataSuccessCallback;
-        event Action<string> OnErrorCallback;
+        public event Action OnAuthorizeSuccessCallback;
+        public event Action OnRequestPersonalProfileDataPermissionSuccessCallback;
+        public event Action<PlayerAccountProfileDataResponse> OnGetProfileDataSuccessCallback;
+        public event Action<string> OnGetPlayerDataSuccessCallback;
+        public event Action OnSetPlayerDataSuccessCallback;
+        public event Action<string> OnAuthorizeErrorCallback;
+        public event Action<string> OnRequestErrorCallback;
+        public event Action<string> OnGetDataErrorCallback;
 
         bool IsAuthorized();
         void Authorize();

@@ -161,7 +161,11 @@
         public static string GameEndStartNewStardardGameTr = "Yeni bir Standart Oyun başlatın (tüm silahlar mevcut)";
 
         public static string GameEndStartNewHardGameRu = "Начать новую Тяжёлую игру (в начале только гранатомёт)";
-        public static string GameEndStartNewHardGameEn = "Start a new Heavy game (only grenade launcher at the beginning)";
-        public static string GameEndStartNewHardGameTr = "Yeni bir Heavy oyunu başlatın (başlangıçta sadece el bombası fırlatıcı)";
+
+        public static string GameEndStartNewHardGameEn =
+            "Start a new Heavy game (only grenade launcher at the beginning)";
+
+        public static string GameEndStartNewHardGameTr =
+            "Yeni bir Heavy oyunu başlatın (başlangıçta sadece el bombası fırlatıcı)";
     }
 }

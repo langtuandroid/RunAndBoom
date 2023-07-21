@@ -10,26 +10,29 @@ namespace CodeBase.Services.PlayerAuthorization
         public event Action<PlayerAccountProfileDataResponse> OnGetProfileDataSuccessCallback;
         public event Action<string> OnGetPlayerDataSuccessCallback;
         public event Action OnSetPlayerDataSuccessCallback;
-        public event Action<string> OnErrorCallback;
+        public event Action<string> OnAuthorizeErrorCallback;
+        public event Action<string> OnRequestErrorCallback;
+        public event Action<string> OnGetDataErrorCallback;
+        public event Action<string> OnSetDataErrorCallback;
 
         public bool IsAuthorized() =>
             PlayerAccount.IsAuthorized;
 
         public void Authorize() =>
-            PlayerAccount.Authorize(OnAuthorizeSuccessCallback, OnErrorCallback);
+            PlayerAccount.Authorize(OnAuthorizeSuccessCallback, OnAuthorizeErrorCallback);
 
         public void RequestPersonalProfileDataPermission() =>
             PlayerAccount.RequestPersonalProfileDataPermission(
                 OnRequestPersonalProfileDataPermissionSuccessCallback,
-                OnErrorCallback);
+                OnRequestErrorCallback);
 
         public void GetProfileData() =>
-            PlayerAccount.GetProfileData(OnGetProfileDataSuccessCallback, OnErrorCallback);
+            PlayerAccount.GetProfileData(OnGetProfileDataSuccessCallback, OnGetDataErrorCallback);
 
         public void GetPlayerData() =>
-            PlayerAccount.GetPlayerData(OnGetPlayerDataSuccessCallback, OnErrorCallback);
+            PlayerAccount.GetPlayerData(OnGetPlayerDataSuccessCallback, OnGetDataErrorCallback);
 
         public void SetPlayerData(string data) =>
-            PlayerAccount.SetPlayerData(data, OnSetPlayerDataSuccessCallback, OnErrorCallback);
+            PlayerAccount.SetPlayerData(data, OnSetPlayerDataSuccessCallback, OnSetDataErrorCallback);
     }
 }

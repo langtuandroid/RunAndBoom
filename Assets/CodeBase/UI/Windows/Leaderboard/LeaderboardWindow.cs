@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using Agava.YandexGames;
 using CodeBase.Data;
+using CodeBase.Services;
+using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using TMPro;
@@ -20,6 +22,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         [SerializeField] private GameObject[] _players;
         [SerializeField] private GameObject _playerDataContainer;
 
+        private IAuthorization _authorization;
         private Scene _nextScene;
         private int _maxPrice;
 
@@ -34,6 +37,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 AddTestData();
                 return;
             }
+
+            if (_authorization == null)
+                _authorization = AllServices.Container.Single<IAuthorization>();
 
             if (AdsService != null)
             {
@@ -87,34 +93,91 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void Close() =>
             Hide();
 
-        protected override void AdsServiceInitializedSuccess()
-        {
-            Debug.Log("AdsServiceInitializedSuccess");
-            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoardData;
-
-            if (LeaderBoardService.IsInitialized())
-                RequestLeaderBoardData();
-            else
-                StartCoroutine(LeaderBoardService.Initialize());
-        }
-
-        private void RequestLeaderBoardData()
-        {
-            Debug.Log("RequestLeaderBoardData");
-            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoardData;
-            LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
-            LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
-            Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
-            Debug.Log($"Scene {scene}");
-            LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
-            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
-        }
-
         private void ClearLeaderBoard()
         {
             Debug.Log("ClearLeaderBoard");
             foreach (GameObject player in _players)
                 player.SetActive(false);
+        }
+
+        protected override void AdsServiceInitializedSuccess()
+        {
+            Debug.Log("AdsServiceInitializedSuccess");
+            LeaderBoardService.OnInitializeSuccess += TryAuthorize;
+
+            if (LeaderBoardService.IsInitialized())
+                TryAuthorize();
+            else
+                StartCoroutine(LeaderBoardService.Initialize());
+        }
+
+        private void TryAuthorize()
+        {
+            Debug.Log("TryAuthorize");
+            LeaderBoardService.OnInitializeSuccess -= TryAuthorize;
+
+            if (_authorization.IsAuthorized())
+                RequestPersonalProfileDataPermission();
+            else
+                Authorize();
+        }
+
+        private void Authorize()
+        {
+            Debug.Log("Authorize");
+            _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
+            _authorization.OnAuthorizeErrorCallback += ShowAuthorizeError;
+            _authorization.Authorize();
+        }
+
+        private void RequestPersonalProfileDataPermission()
+        {
+            Debug.Log("RequestPersonalProfileDataPermission");
+            _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
+            _authorization.OnAuthorizeErrorCallback -= ShowAuthorizeError;
+            _authorization.OnRequestErrorCallback += ShowRequestError;
+            _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback += RequestLeaderBoardData;
+            _authorization.RequestPersonalProfileDataPermission();
+        }
+
+        private void ShowAuthorizeError(string error)
+        {
+            Debug.Log($"ShowAuthorizeError {error}");
+            _authorization.OnAuthorizeErrorCallback -= ShowAuthorizeError;
+        }
+
+        private void ShowRequestError(string error)
+        {
+            Debug.Log($"ShowRequestError {error}");
+            _authorization.OnRequestErrorCallback -= ShowRequestError;
+            RequestLeaderBoardData();
+        }
+
+        private void ShowGetEntriesError(string error)
+        {
+            Debug.Log($"ShowGetEntriesError {error}");
+            LeaderBoardService.OnGetEntriesError -= ShowGetEntriesError;
+        }
+
+        private void ShowGetEntryError(string error)
+        {
+            Debug.Log($"ShowGetEntryError {error}");
+            LeaderBoardService.OnGetEntryError -= ShowGetEntryError;
+        }
+
+        private void RequestLeaderBoardData()
+        {
+            Debug.Log("RequestLeaderBoardData");
+            _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback -= RequestLeaderBoardData;
+            _authorization.OnRequestErrorCallback -= ShowRequestError;
+            LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
+            LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
+            Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
+            Debug.Log($"Scene {scene}");
+            LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
+            LeaderBoardService.OnGetEntryError += ShowGetEntryError;
+            LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
+            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
         }
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)

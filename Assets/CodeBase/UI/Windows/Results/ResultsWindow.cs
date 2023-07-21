@@ -88,7 +88,14 @@ namespace CodeBase.UI.Windows.Results
         private void AddNewResult()
         {
             Debug.Log($"AddNewResult {_levelStats.Scene} {_levelStats.Score}");
+            LeaderBoardService.OnSetValueError += ShowSetValueError;
             LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(Progress.IsHardMode), _levelStats.Score);
+        }
+
+        private void ShowSetValueError(string error)
+        {
+            Debug.Log($"ShowSetValueError {error}");
+            LeaderBoardService.OnSetValueError -= ShowSetValueError;
         }
 
         public void ShowData()
