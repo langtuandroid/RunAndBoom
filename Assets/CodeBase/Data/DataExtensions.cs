@@ -26,22 +26,40 @@ namespace CodeBase.Data
         public static IEnumerable<T> GetValues<T>() =>
             Enum.GetValues(typeof(T)).Cast<T>();
 
-        public static string GetLeaderBoardName(this Scene scene)
+        public static string GetLeaderBoardName(this Scene scene, bool isHardMode)
         {
             switch (scene)
             {
                 case Scene.Level_1:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1Hard;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1;
                 case Scene.Level_2:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2Hard;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2;
                 case Scene.Level_3:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3Hard;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3;
                 case Scene.Level_4:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4Hard;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4;
                 case Scene.Level_5:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5Hard;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5;
                 default:
-                    return LeaderboardsConstants.LeaderboardPlayersWhoPassedTheGame;
+                    if (isHardMode)
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedHardGameMode;
+                    else
+                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedTheGame;
             }
         }
     }

@@ -117,7 +117,7 @@ namespace CodeBase.UI.Windows.Common
             WindowService.HideAll();
             Progress.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState>();
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, bool>(Progress.IsHardMode);
         }
 
         protected void InitializeAdsSDK()

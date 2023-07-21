@@ -156,8 +156,12 @@
         public static string GameEndWriteReviewEn = "Please write a review :)";
         public static string GameEndWriteReviewTr = "Lütfen bir yorum yazın :)";
 
-        public static string GameEndStartNewGameRu = "Начать новую игру";
-        public static string GameEndStartNewGameEn = "Start a new game";
-        public static string GameEndStartNewGameTr = "Yeni bir oyun başlatın";
+        public static string GameEndStartNewStardardGameRu = "Начать новую Стандартную игру (доступно всё оружие)";
+        public static string GameEndStartNewStardardGameEn = "Start a new Standard Game (all weapons available)";
+        public static string GameEndStartNewStardardGameTr = "Yeni bir Standart Oyun başlatın (tüm silahlar mevcut)";
+
+        public static string GameEndStartNewHardGameRu = "Начать новую Тяжёлую игру (в начале только гранатомёт)";
+        public static string GameEndStartNewHardGameEn = "Start a new Heavy game (only grenade launcher at the beginning)";
+        public static string GameEndStartNewHardGameTr = "Yeni bir Heavy oyunu başlatın (başlangıçta sadece el bombası fırlatıcı)";
     }
 }

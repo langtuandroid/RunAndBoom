@@ -22,24 +22,21 @@ namespace CodeBase.Data.Weapons
         public event Action<HeroWeaponTypeId> SetAvailable;
         public event Action CurrentWeaponChanged;
 
-        public WeaponsData(Scene scene)
+        public WeaponsData(Scene scene, bool isHardMode)
         {
             WeaponData = new List<WeaponData>(_typeIds.Count);
-            WeaponsAmmoData = new WeaponsAmmoData(WeaponData, scene);
+            WeaponsAmmoData = new WeaponsAmmoData(WeaponData, scene, isHardMode);
             UpgradesData = new UpgradesData();
-            FillAvailableWeapons();
+            FillAvailableWeapons(isHardMode);
             CurrentHeroWeaponTypeId = WeaponData.First(x => x.IsAvailable).WeaponTypeId;
         }
 
-        private void FillAvailableWeapons()
+        private void FillAvailableWeapons(bool isHardMode)
         {
             WeaponData.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
-            // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RPG, false));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RPG, true));
-            // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, false));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, true));
-            // WeaponDatas.Add(new WeaponData(HeroWeaponTypeId.Mortar, false));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.Mortar, true));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RPG, !isHardMode));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, !isHardMode));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.Mortar, !isHardMode));
 
             SetAvailableWeapons();
         }

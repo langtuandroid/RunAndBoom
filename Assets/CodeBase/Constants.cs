@@ -29,5 +29,7 @@ namespace CodeBase
 
         public const float MobileAmmoMultiplier = 2f;
         public const float MobileEnemySpeedDivider = 1.5f;
+
+        public const float MinMoneyForGenerator = 10;
     }
 }

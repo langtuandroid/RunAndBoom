@@ -106,8 +106,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
             Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
             Debug.Log($"Scene {scene}");
-            LeaderBoardService.GetEntries(scene.GetLeaderBoardName());
-            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName());
+            LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
+            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
         }
 
         private void ClearLeaderBoard()
