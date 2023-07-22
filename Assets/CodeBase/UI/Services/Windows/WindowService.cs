@@ -70,7 +70,7 @@ namespace CodeBase.UI.Services.Windows
             _windows.Clear();
         }
 
-        public void HideOthers(WindowId windowId)
+        private void HideOthers(WindowId windowId)
         {
             foreach (var vk in _windows)
             {
