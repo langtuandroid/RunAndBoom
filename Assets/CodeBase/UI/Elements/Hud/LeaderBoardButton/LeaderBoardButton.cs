@@ -1,4 +1,5 @@
 ﻿using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Services.Windows;
@@ -16,6 +17,7 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
         private IWindowService _windowService;
         private IInputService _inputService;
+        private IAdsService _adsService;
         private IAuthorization _authorization;
         private bool _isTutorialVisible;
 
@@ -32,6 +34,9 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
             if (_inputService is MobileInputService)
                 _button.onClick.AddListener(CheckAuthorization);
+
+            if (_adsService == null)
+                _adsService = AllServices.Container.Single<IAdsService>();
 
             if (_authorization == null)
                 _authorization = AllServices.Container.Single<IAuthorization>();
@@ -67,11 +72,26 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
                 return;
             }
 
+            if (_adsService.IsInitialized())
+                Authorize();
+            else
+                InitializeAds();
+        }
+
+        private void Authorize()
+        {
             if (_authorization.IsAuthorized())
                 ToLeaderBoardWindow();
             else
                 ToAuthorizationWindow();
         }
+
+        private void InitializeAds()
+        {
+            _adsService.OnInitializeSuccess += Authorize;
+            StartCoroutine(_adsService.Initialize());
+        }
+
 
         private void ToAuthorizationWindow() =>
             _windowService.Show<AuthorizationWindow>(WindowId.Authorization, false);
