@@ -146,7 +146,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4c85e72c55e583044accbbfe17b51e88
-    m_Address: ResultsWindow
+    m_Address: ResultWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 8406c05e3c3db124a8ea1d21131f5b29
@@ -155,6 +155,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 8e6c88e97d682084a9f4d7bf69820025
     m_Address: LeaderBoardWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4198acde34373b3409ac05fdf03c8a6f
+    m_Address: AuthorizationWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

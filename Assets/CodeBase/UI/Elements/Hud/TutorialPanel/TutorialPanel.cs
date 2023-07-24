@@ -19,13 +19,14 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         private IInputService _inputService;
         private float _visibleTransparentValue = 0.07058824f;
-        private bool _hidden;
 
         private void Awake()
         {
-            _hidden = false;
             _inputService = AllServices.Container.Single<IInputService>();
+            _hidden = false;
         }
+
+        private bool _hidden;
 
         private void Start()
         {

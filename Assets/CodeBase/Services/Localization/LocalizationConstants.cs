@@ -28,7 +28,7 @@
 
         public static string ShopTitleRu = "Магазин";
         public static string ShopTitleEn = "Shop";
-        public static string ShopTitleTr = "Mağaza";
+        public static string ShopTitleTr = "Dükkan";
 
         public static string ShopRefreshRu = "Обновить";
         public static string ShopRefreshEn = "Refresh";
@@ -143,6 +143,24 @@
         public static string ResultsSecRu = "сек";
         public static string ResultsSecEn = "sec";
         public static string ResultsSecTr = "san";
+
+        public static string AuthorizationTitleRu = "Авторизация";
+        public static string AuthorizationTitleEn = "Authorization";
+        public static string AuthorizationTitleTr = "Yetkilendirme";
+
+        public static string AuthorizationMessageRu =
+            "Чтобы получить доступ к таблице лидеров, необходимо авторизоваться";
+
+        public static string AuthorizationMessageEn = "To access the leaderboard, you must be logged in";
+        public static string AuthorizationMessageTr = "Liderlik tablosuna erişmek için giriş yapmış olmanız gerekir";
+
+        public static string ApplyRu = "Принять";
+        public static string ApplyEn = "Apply";
+        public static string ApplyTr = "Başvurmak";
+
+        public static string DenyRu = "Отклонить";
+        public static string DenyEn = "Deny";
+        public static string DenyTr = "Reddet";
 
         public static string LeaderBoardTitleRu = "Таблица лидеров";
         public static string LeaderBoardTitleEn = "Leader board";

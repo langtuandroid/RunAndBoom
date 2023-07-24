@@ -10,17 +10,17 @@ namespace CodeBase.Hero
         private bool _isPlaying;
         private float _playTime;
 
-        private void Awake() =>
+        private void Start() =>
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
+
+        private void OnEnable() =>
+            _isPlaying = true;
 
         private void Update()
         {
             if (_isPlaying)
                 _playTime += Time.deltaTime;
         }
-
-        private void OnEnable() =>
-            _isPlaying = true;
 
         private void OnDisable()
         {

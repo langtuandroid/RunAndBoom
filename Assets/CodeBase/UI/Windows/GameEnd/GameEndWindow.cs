@@ -13,8 +13,10 @@ namespace CodeBase.UI.Windows.GameEnd
         [SerializeField] private Button _startNewStandardGameButton;
         [SerializeField] private Button _startNewHardGameButton;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             _startNewStandardGameButton.onClick.AddListener(StartNewCommonGame);
             _startNewHardGameButton.onClick.AddListener(StartNewHardModeGame);
         }

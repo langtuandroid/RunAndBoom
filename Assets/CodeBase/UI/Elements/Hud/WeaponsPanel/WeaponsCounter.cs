@@ -1,4 +1,6 @@
 ﻿using CodeBase.Data;
+using CodeBase.Services;
+using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Weapons;
 using TMPro;
@@ -13,6 +15,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         [SerializeField] private TextMeshProUGUI _rocketLaucher;
         [SerializeField] private TextMeshProUGUI _mortar;
 
+        private ILocalizationService _localizationService;
         private PlayerProgress _progress;
 
         private void OnEnable()
@@ -26,6 +29,11 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
                     ChangeRocketLauncherAmmo;
                 _progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
             }
+
+            if (_localizationService == null)
+                _localizationService = AllServices.Container.Single<ILocalizationService>();
+
+            _localizationService.LanguageChanged += RefreshAmmo;
         }
 
         private void OnDisable()
@@ -39,6 +47,9 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
                     ChangeRocketLauncherAmmo;
                 _progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged -= ChangeMortarAmmo;
             }
+
+            if (_localizationService != null)
+                _localizationService.LanguageChanged -= RefreshAmmo;
         }
 
         private void Construct()
@@ -65,6 +76,16 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         private void ChangeMortarAmmo(int ammo) =>
             _mortar.text = $"{ammo}";
+
+        private void RefreshAmmo()
+        {
+            ChangeGrenadeLauncherAmmo(
+                _progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher]);
+            ChangeRpgAmmo(_progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RPG]);
+            ChangeRocketLauncherAmmo(
+                _progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher]);
+            ChangeMortarAmmo(_progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.Mortar]);
+        }
 
         public void LoadProgress(PlayerProgress progress)
         {

@@ -19,14 +19,28 @@ namespace CodeBase.UI.Windows.Settings
         private PlayerProgress _progress;
         private ILocalizationService _localizationService;
 
-        private void Awake()
+        private void Start()
         {
-            _localizationService = AllServices.Container.Single<ILocalizationService>();
+        }
+
+        private void OnEnable()
+        {
             _ruButton.onClick.AddListener(RuClicked);
             _trButton.onClick.AddListener(TrClicked);
             _enButton.onClick.AddListener(EnClicked);
+            _localizationService = AllServices.Container.Single<ILocalizationService>();
             _localizationService.LanguageChanged += ChangeHighlighting;
             ChangeHighlighting();
+        }
+
+        private void OnDisable()
+        {
+            _ruButton.onClick.RemoveListener(RuClicked);
+            _trButton.onClick.RemoveListener(TrClicked);
+            _enButton.onClick.RemoveListener(EnClicked);
+
+            if (_localizationService != null)
+                _localizationService.LanguageChanged -= ChangeHighlighting;
         }
 
         private void RuClicked() =>

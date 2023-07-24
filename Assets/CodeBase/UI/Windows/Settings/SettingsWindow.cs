@@ -10,8 +10,10 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _closeButton;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             _restartButton.onClick.AddListener(RestartLevel);
             _closeButton.onClick.AddListener(Close);
         }

@@ -18,8 +18,10 @@ namespace CodeBase.UI.Windows.Gifts
 
         private Scene _nextScene;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             _addCoinsButton.enabled = Application.isEditor;
 
             _addCoinsButton.onClick.AddListener(ShowAds);

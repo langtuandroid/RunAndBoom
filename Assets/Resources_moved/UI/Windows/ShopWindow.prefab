@@ -117,7 +117,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1657,99 +1657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22906a7c41ea4e5f8f89166fadd2dd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Progress:
-    SettingsData:
-      MusicVolume: 0
-      SoundVolume: 0
-      MusicOn: 0
-      SoundOn: 0
-      Language: 0
-    HealthState:
-      CurrentHp: 10
-      MaxHp: 10
-    WorldData:
-      LevelNameData:
-        Level: 
-        Sector: 
-    WeaponsData:
-      WeaponData: []
-      WeaponsAmmoData:
-        Amunition:
-          _keys: 
-          _values: 
-        Barrels:
-          _keys: 
-          _values: 
-      UpgradesData:
-        UpgradeItemDatas:
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 2
-      CurrentHeroWeaponTypeId: 0
-    PerksData:
-      Perks:
-      - LevelTypeId: 0
-        PerkTypeId: 1
-      - LevelTypeId: 0
-        PerkTypeId: 4
-      - LevelTypeId: 0
-        PerkTypeId: 0
-      - LevelTypeId: 0
-        PerkTypeId: 3
-      - LevelTypeId: 0
-        PerkTypeId: 2
-    Stats:
-      CurrentLevelStats:
-        Scene: 0
-        MoneyData:
-          Money: 0
-        PlayTimeData:
-          PlayTime: 0
-        KillsData:
-          KilledEnemies: 0
-          TotalEnemies: 0
-        RestartsData:
-          Count: 0
-        StarsCount: 0
-        Score: 0
-      LevelStats:
-        _keys: 
-        _values: []
-      AllMoney:
-        Money: 0
   _skipButton: {fileID: 2657333749712880067}
   _refreshButton: {fileID: 1569317114695053260}
   _refreshWithAdsButton: {fileID: 5242105746357409219}
@@ -2143,7 +2050,7 @@ PrefabInstance:
     - target: {fileID: 7070277472010823758, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_fontSize
-      value: 26.9
+      value: 23.55
       objectReference: {fileID: 0}
     - target: {fileID: 7345940753834378323, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
@@ -2305,7 +2212,7 @@ PrefabInstance:
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.15
+      value: 27.2
       objectReference: {fileID: 0}
     - target: {fileID: 8626759551013094327, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
@@ -2593,7 +2500,7 @@ PrefabInstance:
     - target: {fileID: 7070277472010823758, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_fontSize
-      value: 26.9
+      value: 23.55
       objectReference: {fileID: 0}
     - target: {fileID: 7345940753834378323, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
@@ -2655,7 +2562,7 @@ PrefabInstance:
     - target: {fileID: 6826179740748139844, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 18.85
       objectReference: {fileID: 0}
     - target: {fileID: 8216786071548057615, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
@@ -3038,7 +2945,7 @@ PrefabInstance:
     - target: {fileID: 7070277472010823758, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
       propertyPath: m_fontSize
-      value: 26.9
+      value: 23.55
       objectReference: {fileID: 0}
     - target: {fileID: 7345940753834378323, guid: c3aa2ca8c77da0948b672ed8372b6792,
         type: 3}
@@ -3100,7 +3007,7 @@ PrefabInstance:
     - target: {fileID: 6826179740748139844, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 18.85
       objectReference: {fileID: 0}
     - target: {fileID: 8216786071548057615, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
@@ -3352,7 +3259,7 @@ PrefabInstance:
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.15
+      value: 27.2
       objectReference: {fileID: 0}
     - target: {fileID: 8626759551013094327, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
@@ -3399,7 +3306,7 @@ PrefabInstance:
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 19.15
       objectReference: {fileID: 0}
     - target: {fileID: 6179133162252986396, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -3551,7 +3458,7 @@ PrefabInstance:
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 19.15
       objectReference: {fileID: 0}
     - target: {fileID: 6179133162252986396, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -3808,7 +3715,7 @@ PrefabInstance:
     - target: {fileID: 8094311916750761898, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
       propertyPath: m_fontSize
-      value: 29.15
+      value: 27.2
       objectReference: {fileID: 0}
     - target: {fileID: 8626759551013094327, guid: cb8aed86c67360f4e8cc7ac095eb7c51,
         type: 3}
@@ -3855,7 +3762,7 @@ PrefabInstance:
     - target: {fileID: 5921139530418029569, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 19.15
       objectReference: {fileID: 0}
     - target: {fileID: 6179133162252986396, guid: 1ebba1c96afd47649b8fd38a1e38c81a,
         type: 3}
@@ -4164,7 +4071,7 @@ PrefabInstance:
     - target: {fileID: 6826179740748139844, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}
       propertyPath: m_fontSize
-      value: 20.15
+      value: 18.85
       objectReference: {fileID: 0}
     - target: {fileID: 8216786071548057615, guid: 9f56cf3d61c93a147bf7dbe614fad4b2,
         type: 3}

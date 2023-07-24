@@ -14,6 +14,7 @@ namespace CodeBase.UI.Services.Factory
         Task<GameObject> CreateSettingsWindow();
         Task<GameObject> CreateGiftsWindow();
         Task<GameObject> CreateResultsWindow();
+        Task<GameObject> CreateAuthorizationWindow();
         Task<GameObject> CreateLeaderBoardWindow();
         Task<GameObject> CreateGameEndWindow();
     }

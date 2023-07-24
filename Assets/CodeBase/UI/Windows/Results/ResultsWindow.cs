@@ -28,8 +28,10 @@ namespace CodeBase.UI.Windows.Results
         private int _maxPrice;
         private Scene _currentLevel;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             PrepareLevelStats();
             _restartButton.onClick.AddListener(RestartLevel);
 

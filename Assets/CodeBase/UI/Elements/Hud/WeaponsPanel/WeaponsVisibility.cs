@@ -15,7 +15,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         private PlayerProgress _progress;
 
-        public void ShowAvailable()
+        private void ShowAvailable()
         {
             foreach (WeaponData weaponsData in _progress.WeaponsData.WeaponData)
                 if (weaponsData.IsAvailable)
@@ -23,9 +23,6 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
                 else
                     SetVisibility(weaponsData.WeaponTypeId, false);
         }
-
-        private void Show(HeroWeaponTypeId typeId) =>
-            SetVisibility(typeId, true);
 
         private void SetVisibility(HeroWeaponTypeId typeId, bool isVisible)
         {
@@ -71,5 +68,8 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
             _progress.WeaponsData.SetAvailable += Show;
             ShowAvailable();
         }
+
+        private void Show(HeroWeaponTypeId typeId) =>
+            SetVisibility(typeId, true);
     }
 }

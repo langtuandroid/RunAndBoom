@@ -18,14 +18,10 @@ namespace CodeBase.UI.Windows.Shop
         private int _maxRefreshCount;
         private int _watchAdsNumber;
 
-        private void Awake()
+        private new void OnEnable()
         {
-            _generator.GenerationStarted += DisableRefreshButtons;
-            _generator.GenerationEnded += CheckRefreshButtons;
-        }
+            base.OnEnable();
 
-        private void OnEnable()
-        {
             _skipButton.onClick.AddListener(CloseShop);
             _refreshButton.onClick.AddListener(GenerateShopItems);
             _refreshWithAdsButton.onClick.AddListener(ShowAdsAndGenerate);

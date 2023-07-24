@@ -29,6 +29,30 @@ namespace CodeBase.UI.Windows.Common
         protected float Volume;
         private WindowId _windowId;
 
+        protected void OnEnable()
+        {
+            if (WindowService == null)
+                WindowService = AllServices.Container.Single<IWindowService>();
+
+            if (SaveLoadService == null)
+                SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
+
+            if (GameStateMachine == null)
+                GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
+
+            if (StaticDataService == null)
+                StaticDataService = AllServices.Container.Single<IStaticDataService>();
+
+            if (AdsService == null)
+                AdsService = AllServices.Container.Single<IAdsService>();
+
+            if (LeaderBoardService == null)
+                LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
+
+            if (AudioSource == null)
+                AudioSource = GetComponent<AudioSource>();
+        }
+
         protected void Construct(GameObject hero, WindowId windowId)
         {
             WindowService = AllServices.Container.Single<IWindowService>();
