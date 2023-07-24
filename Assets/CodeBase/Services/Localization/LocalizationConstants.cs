@@ -148,7 +148,9 @@
         public static string AuthorizationTitleEn = "Authorization";
         public static string AuthorizationTitleTr = "Yetkilendirme";
 
-        public static string AuthorizationMessageRu = "Чтобы получить доступ к таблице лидеров, необходимо авторизоваться";
+        public static string AuthorizationMessageRu =
+            "Чтобы получить доступ к таблице лидеров, необходимо авторизоваться";
+
         public static string AuthorizationMessageEn = "To access the leaderboard, you must be logged in";
         public static string AuthorizationMessageTr = "Liderlik tablosuna erişmek için giriş yapmış olmanız gerekir";
 

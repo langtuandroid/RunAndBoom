@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
+using CodeBase.UI.Windows.Authorization;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Death;
 using CodeBase.UI.Windows.GameEnd;
@@ -33,17 +34,20 @@ namespace CodeBase.UI.Services.Windows
                 case WindowId.Settings:
                     window = ShowWindow<SettingsWindow>(WindowId.Settings);
                     break;
-                case WindowId.Shop:
-                    window = ShowWindow<ShopWindow>(WindowId.Shop);
-                    break;
                 case WindowId.Death:
                     window = ShowWindow<DeathWindow>(WindowId.Death);
                     break;
-                case WindowId.Result:
-                    window = ShowWindow<ResultsWindow>(WindowId.Result);
+                case WindowId.Authorization:
+                    window = ShowWindow<AuthorizationWindow>(WindowId.Authorization);
                     break;
                 case WindowId.LeaderBoard:
                     window = ShowWindow<LeaderBoardWindow>(WindowId.LeaderBoard);
+                    break;
+                case WindowId.Shop:
+                    window = ShowWindow<ShopWindow>(WindowId.Shop);
+                    break;
+                case WindowId.Result:
+                    window = ShowWindow<ResultsWindow>(WindowId.Result);
                     break;
                 case WindowId.Gifts:
                     window = ShowWindow<GiftsWindow>(WindowId.Gifts);

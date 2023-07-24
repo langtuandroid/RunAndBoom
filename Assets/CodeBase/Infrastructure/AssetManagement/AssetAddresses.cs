@@ -12,8 +12,9 @@
         public const string DeathWindow = "DeathWindow";
         public const string SettingsWindow = "SettingsWindow";
         public const string GiftsWindow = "GiftsWindow";
-        public const string ResultsWindow = "ResultsWindow";
+        public const string ResultWindow = "ResultWindow";
         public const string LeaderBoardWindow = "LeaderBoardWindow";
+        public const string AuthorizationWindow = "AuthorizationWindow";
         public const string GameEndWindow = "GameEndWindow";
 
         // Roots for game objects created by pool

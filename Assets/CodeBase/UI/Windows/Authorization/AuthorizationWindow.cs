@@ -80,7 +80,7 @@ namespace CodeBase.UI.Windows.Authorization
         private void ToLeaderBoardWindow()
         {
             Debug.Log("ToLeaderBoard");
-            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
+            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
             Hide();
         }
     }
