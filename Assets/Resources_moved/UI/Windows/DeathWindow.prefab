@@ -117,7 +117,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -962,99 +962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2af28673e14383be89e0b71cbeadec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Progress:
-    SettingsData:
-      MusicVolume: 0
-      SoundVolume: 0
-      MusicOn: 0
-      SoundOn: 0
-      Language: 0
-    HealthState:
-      CurrentHp: 10
-      MaxHp: 10
-    WorldData:
-      LevelNameData:
-        Level: 
-        Sector: 
-    WeaponsData:
-      WeaponData: []
-      WeaponsAmmoData:
-        Amunition:
-          _keys: 
-          _values: 
-        Barrels:
-          _keys: 
-          _values: 
-      UpgradesData:
-        UpgradeItemDatas:
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 0
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 1
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 2
-          UpgradeTypeId: 2
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 0
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 1
-        - LevelTypeId: 0
-          WeaponTypeId: 3
-          UpgradeTypeId: 2
-      CurrentHeroWeaponTypeId: 0
-    PerksData:
-      Perks:
-      - LevelTypeId: 0
-        PerkTypeId: 1
-      - LevelTypeId: 0
-        PerkTypeId: 4
-      - LevelTypeId: 0
-        PerkTypeId: 0
-      - LevelTypeId: 0
-        PerkTypeId: 3
-      - LevelTypeId: 0
-        PerkTypeId: 2
-    Stats:
-      CurrentLevelStats:
-        Scene: 0
-        MoneyData:
-          Money: 0
-        PlayTimeData:
-          PlayTime: 0
-        KillsData:
-          KilledEnemies: 0
-          TotalEnemies: 0
-        RestartsData:
-          Count: 0
-        StarsCount: 0
-        Score: 0
-      LevelStats:
-        _keys: 
-        _values: []
-      AllMoney:
-        Money: 0
   _recoverForAdsButton: {fileID: 6924505680867505443}
   _restartButton: {fileID: 4043010174517037517}
 --- !u!114 &6503235472273453021
@@ -1285,7 +1192,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
-  m_isRichText: 0
+  m_isRichText: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
