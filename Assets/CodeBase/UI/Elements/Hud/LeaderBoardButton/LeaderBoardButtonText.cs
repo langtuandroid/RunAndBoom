@@ -1,4 +1,5 @@
 ﻿using CodeBase.Services.Localization;
+using CodeBase.UI.Windows.Common;
 
 namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 {

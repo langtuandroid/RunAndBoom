@@ -21,12 +21,6 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
         private IAuthorization _authorization;
         private bool _isTutorialVisible;
 
-        private void Awake()
-        {
-            _windowService = AllServices.Container.Single<IWindowService>();
-            _inputService = AllServices.Container.Single<IInputService>();
-        }
-
         private void OnEnable()
         {
             _isTutorialVisible = true;
@@ -34,6 +28,12 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
             if (_inputService is MobileInputService)
                 _button.onClick.AddListener(CheckAuthorization);
+
+            if (_windowService == null)
+                _windowService = AllServices.Container.Single<IWindowService>();
+
+            if (_inputService == null)
+                _inputService = AllServices.Container.Single<IInputService>();
 
             if (_adsService == null)
                 _adsService = AllServices.Container.Single<IAdsService>();

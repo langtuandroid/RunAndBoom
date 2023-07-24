@@ -4,7 +4,7 @@ using CodeBase.Services.Localization;
 using TMPro;
 using UnityEngine;
 
-namespace CodeBase.UI
+namespace CodeBase.UI.Windows.Common
 {
     public abstract class BaseText : MonoBehaviour
     {
@@ -12,7 +12,7 @@ namespace CodeBase.UI
 
         private ILocalizationService _localizationService;
 
-        private void Awake()
+        private void OnEnable()
         {
             _localizationService = AllServices.Container.Single<ILocalizationService>();
             _localizationService.LanguageChanged += ChangeText;

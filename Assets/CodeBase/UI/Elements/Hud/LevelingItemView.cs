@@ -17,8 +17,11 @@ namespace CodeBase.UI.Elements.Hud
         protected LevelingItemData ItemData;
         protected ILeveling LevelingStaticData;
 
-        private void Awake() =>
-            StaticDataService = AllServices.Container.Single<IStaticDataService>();
+        private void Awake()
+        {
+            if (StaticDataService == null)
+                StaticDataService = AllServices.Container.Single<IStaticDataService>();
+        }
 
         protected void Construct(LevelingItemData itemData)
         {

@@ -23,10 +23,8 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
         private Dictionary<UpgradeTypeId, UpgradeView> _activeUpgrades;
         private PlayerProgress _progress;
 
-        private void Awake()
-        {
+        private void Awake() =>
             _activeUpgrades = new Dictionary<UpgradeTypeId, UpgradeView>(_upgradeTypeIds.Count());
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {

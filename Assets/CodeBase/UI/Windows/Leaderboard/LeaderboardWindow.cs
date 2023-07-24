@@ -22,8 +22,10 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private Scene _nextScene;
         private int _maxPrice;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             ClearLeaderBoard();
             ClearPlayerData();
             _closeButton.onClick.AddListener(Close);

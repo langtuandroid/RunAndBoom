@@ -15,14 +15,17 @@ namespace CodeBase.UI.Windows.Settings
 
         protected PlayerProgress Progress;
         protected bool IsSelected;
-        protected float Volume;
+        private float _volume;
         private AudioSource _audioSource;
 
-        private void Awake()
-        {
-            _button.onClick.AddListener(ButtonPressed);
+        private void Awake() =>
             _audioSource = GetComponent<AudioSource>();
-        }
+
+        private void OnEnable() =>
+            _button.onClick.AddListener(ButtonPressed);
+
+        private void OnDisable() =>
+            _button.onClick.RemoveListener(ButtonPressed);
 
         private void ButtonPressed()
         {
@@ -44,10 +47,10 @@ namespace CodeBase.UI.Windows.Settings
         }
 
         private void VolumeChanged() =>
-            Volume = Progress.SettingsData.SoundVolume;
+            _volume = Progress.SettingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            Volume = Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero;
+            _volume = Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero;
 
         private void ChangeImage()
         {
@@ -65,10 +68,10 @@ namespace CodeBase.UI.Windows.Settings
 
         private void ButtonClickAudio()
         {
-            if (Volume != Constants.Zero)
+            if (_volume != Constants.Zero)
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.CheckboxClick), transform: transform,
-                    Volume, _audioSource);
+                    _volume, _audioSource);
         }
 
         protected abstract void SwitchAudio();

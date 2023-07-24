@@ -18,8 +18,10 @@ namespace CodeBase.UI.Windows.Authorization
         private Scene _nextScene;
         private int _maxPrice;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             _applyButton.onClick.AddListener(Authorize);
             _denyButton.onClick.AddListener(Hide);
 

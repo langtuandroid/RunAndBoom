@@ -12,8 +12,10 @@ namespace CodeBase.UI.Windows.Death
         [SerializeField] private Button _recoverForAdsButton;
         [SerializeField] private Button _restartButton;
 
-        private void OnEnable()
+        private new void OnEnable()
         {
+            base.OnEnable();
+
             if (!Application.isEditor)
                 _restartButton.enabled = false;
 

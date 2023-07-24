@@ -1,4 +1,6 @@
-﻿namespace CodeBase.UI.Elements.Hud.TutorialPanel
+﻿using CodeBase.UI.Windows.Common;
+
+namespace CodeBase.UI.Elements.Hud.TutorialPanel
 {
     public abstract class IconsPanel : BaseText
     {

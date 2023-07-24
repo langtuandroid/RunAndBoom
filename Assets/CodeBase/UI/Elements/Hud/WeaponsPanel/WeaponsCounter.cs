@@ -32,7 +32,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
             if (_localizationService == null)
                 _localizationService = AllServices.Container.Single<ILocalizationService>();
-            
+
             _localizationService.LanguageChanged += RefreshAmmo;
         }
 
