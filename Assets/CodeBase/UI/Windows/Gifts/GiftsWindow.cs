@@ -37,7 +37,7 @@ namespace CodeBase.UI.Windows.Gifts
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
             AdsService.OnShowVideoAdError += ShowError;
             AdsService.OnClosedVideoAd += ShowClosed;
-            AdsService.OnRewardedAd += AddCoins;
+            AdsService.OnRewardedAd += AddCoinsAfterAds;
             InitializeAdsSDK();
         }
 
@@ -51,11 +51,14 @@ namespace CodeBase.UI.Windows.Gifts
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
             AdsService.OnShowVideoAdError -= ShowError;
             AdsService.OnClosedVideoAd -= ShowClosed;
-            AdsService.OnRewardedAd -= AddCoins;
+            AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
-        private void ShowClosed() =>
+        private void ShowClosed()
+        {
             Debug.Log("OnClosedVideoAd");
+            SoundInstance.StartRandomMusic();
+        }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
@@ -66,11 +69,17 @@ namespace CodeBase.UI.Windows.Gifts
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
         }
 
+        private void GenerateItems() =>
+            _generator.Generate();
+
         protected override void AdsServiceInitializedSuccess() =>
             _addCoinsButton.enabled = true;
 
-        private void ShowError(string message) =>
+        private void ShowError(string message)
+        {
             Debug.Log($"OnErrorFullScreenAd: {message}");
+            SoundInstance.StartRandomMusic();
+        }
 
         private void ToNextLevel()
         {
@@ -99,7 +108,14 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
             }
 
+            SoundInstance.StopRandomMusic();
             AdsService.ShowVideoAd();
+        }
+
+        private void AddCoinsAfterAds()
+        {
+            AddCoins();
+            SoundInstance.StartRandomMusic();
         }
 
         private void AddCoins()
@@ -108,9 +124,6 @@ namespace CodeBase.UI.Windows.Gifts
             Progress.AllStats.AddMoney(_coinsCount);
             _addCoinsButton.enabled = false;
         }
-
-        private void GenerateItems() =>
-            _generator.Generate();
 
         protected override void PlayOpenSound()
         {
