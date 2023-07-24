@@ -28,7 +28,7 @@
 
         public static string ShopTitleRu = "Магазин";
         public static string ShopTitleEn = "Shop";
-        public static string ShopTitleTr = "Mağaza";
+        public static string ShopTitleTr = "Dükkan";
 
         public static string ShopRefreshRu = "Обновить";
         public static string ShopRefreshEn = "Refresh";
