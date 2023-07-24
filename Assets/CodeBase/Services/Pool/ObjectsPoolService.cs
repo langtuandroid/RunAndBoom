@@ -14,7 +14,7 @@ namespace CodeBase.Services.Pool
 {
     public class ObjectsPoolService : IObjectsPoolService
     {
-        private const int InitialCapacity = 5;
+        private const int InitialCapacity = 15;
         private const int AdditionalCount = 5;
 
         private IAssets _assets;
@@ -35,10 +35,8 @@ namespace CodeBase.Services.Pool
             _constructorService = constructorService;
         }
 
-        public void GenerateObjects()
-        {
+        public void GenerateObjects() => 
             CreateRoots();
-        }
 
         private async void CreateRoots()
         {

@@ -19,6 +19,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private GameObject[] _players;
         [SerializeField] private GameObject _playerDataContainer;
+        
         private Scene _nextScene;
         private int _maxPrice;
 

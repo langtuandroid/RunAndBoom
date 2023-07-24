@@ -35,9 +35,9 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnShowFullScreenAdError += ShowError;
-            AdsService.OnClosedFullScreenAd += ShowClosed;
-            AdsService.OnOfflineFullScreenAd += ShowOffline;
+            AdsService.OnShowVideoAdError += ShowError;
+            AdsService.OnClosedVideoAd += ShowClosed;
+            AdsService.OnRewardedAd += AddCoins;
             InitializeAdsSDK();
         }
 
@@ -49,10 +49,13 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnShowFullScreenAdError -= ShowError;
-            AdsService.OnClosedFullScreenAd -= ShowClosed;
-            AdsService.OnOfflineFullScreenAd -= ShowOffline;
+            AdsService.OnShowVideoAdError -= ShowError;
+            AdsService.OnClosedVideoAd -= ShowClosed;
+            AdsService.OnRewardedAd -= AddCoins;
         }
+
+        private void ShowClosed() =>
+            Debug.Log("OnClosedVideoAd");
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
@@ -69,16 +72,6 @@ namespace CodeBase.UI.Windows.Gifts
         private void ShowError(string message) =>
             Debug.Log($"OnErrorFullScreenAd: {message}");
 
-        private void ShowClosed(bool closed)
-        {
-            Debug.Log("OnClosedFullScreenAd");
-            if (closed)
-                AddCoins();
-        }
-
-        private void ShowOffline() =>
-            Debug.Log("OnOfflineFullScreen");
-
         private void ToNextLevel()
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
@@ -89,6 +82,7 @@ namespace CodeBase.UI.Windows.Gifts
             WindowService.HideAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            AdsService.ShowFullScreenAd();
         }
 
         private void Close()
@@ -102,17 +96,17 @@ namespace CodeBase.UI.Windows.Gifts
             if (Application.isEditor)
             {
                 AddCoins();
-                _addCoinsButton.gameObject.SetActive(false);
                 return;
             }
 
-            AdsService.ShowFullScreenAd();
+            AdsService.ShowVideoAd();
         }
 
         private void AddCoins()
         {
+            Debug.Log("AddCoins");
             Progress.AllStats.AddMoney(_coinsCount);
-            _addCoinsButton.gameObject.SetActive(false);
+            _addCoinsButton.enabled = false;
         }
 
         private void GenerateItems() =>

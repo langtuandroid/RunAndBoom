@@ -56,18 +56,29 @@ namespace CodeBase.UI.Windows.Death
         private void ShowAds()
         {
             if (Application.isEditor)
-                RecoverForAds();
+            {
+                Recover();
+            }
             else
+            {
                 AdsService.ShowVideoAd();
+                SoundInstance.StopRandomMusic(false);
+            }
         }
 
         private void ShowError(string message) =>
             Debug.Log($"OnErrorFullScreen: {message}");
 
-        private void RecoverForAds()
+        private void Recover()
         {
             RecoverHealth();
             Hide();
+        }
+
+        private void RecoverForAds()
+        {
+            Recover();
+            SoundInstance.StartRandomMusic();
         }
 
         private void RecoverHealth() =>
