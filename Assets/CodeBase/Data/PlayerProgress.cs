@@ -29,7 +29,7 @@ namespace CodeBase.Data
 
             WorldData = new WorldData(AllStats.CurrentLevelStats.Scene.ToString());
             PerksData = new PerksData();
-            AllStats.LevelStats = new SceneDataDictionary();
+            AllStats.LevelsStats = new SceneDataDictionary();
             WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.Scene, isHardMode);
             IsHardMode = isHardMode;
         }

@@ -29,7 +29,7 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnRewardedAd += RecoverForAds;
+            AdsService.OnClosedVideoAd += RecoverForAds;
             AdsService.OnShowVideoAdError += ShowError;
             InitializeAdsSDK();
         }
@@ -43,31 +43,45 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnRewardedAd -= RecoverForAds;
+            AdsService.OnClosedVideoAd -= RecoverForAds;
             AdsService.OnShowVideoAdError -= ShowError;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        protected override void AdsServiceInitializedSuccess() =>
+        protected override void AdsServiceInitializedSuccess()
+        {
+            base.AdsServiceInitializedSuccess();
             _restartButton.enabled = true;
+        }
 
         private void ShowAds()
         {
             if (Application.isEditor)
-                RecoverForAds();
+            {
+                Recover();
+            }
             else
+            {
                 AdsService.ShowVideoAd();
+                SoundInstance.StopRandomMusic(false);
+            }
         }
 
         private void ShowError(string message) =>
             Debug.Log($"OnErrorFullScreen: {message}");
 
-        private void RecoverForAds()
+        private void Recover()
         {
             RecoverHealth();
             Hide();
+        }
+
+        private void RecoverForAds()
+        {
+            Recover();
+            SoundInstance.StartRandomMusic();
         }
 
         private void RecoverHealth() =>

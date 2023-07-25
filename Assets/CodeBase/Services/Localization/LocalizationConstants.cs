@@ -10,11 +10,7 @@
         public static string SettingsTitleEn = "Settings";
         public static string SettingsTitleTr = "Ayarlar";
 
-        public static string SettingsLaunchTrainingRu = "Обучение после запуска";
-        public static string SettingsLaunchTrainingEn = "Training after launch";
-        public static string SettingsLaunchTrainingTr = "Lansman sonrası eğitim";
-
-        public static string DeathTitleRu = "Вы померли";
+        public static string DeathTitleRu = "Вы умерли";
         public static string DeathTitleEn = "You are dead";
         public static string DeathTitleTr = "Sen öldün";
 
@@ -41,10 +37,6 @@
         public static string FinishTitleRu = "Выбери подарок";
         public static string FinishTitleEn = "Choose a gift";
         public static string FinishTitleTr = "Bir hediye seçin";
-
-        public static string AddCoinsRu = "Добавить монет";
-        public static string AddCoinsEn = "Add coins";
-        public static string AddCoinsTr = "Madeni para ekleyin";
 
         public static string NextRu = "Далее";
         public static string NextEn = "Next";
@@ -73,8 +65,6 @@
         public static string TutorialSettingsRu = "Настройки";
         public static string TutorialSettingsEn = "Settings";
         public static string TutorialSettingsTr = "Ayarlar";
-
-        public static string TutorialSettingsButton = "Esc";
 
         public static string TutorialRotationRu = "Поворот";
         public static string TutorialRotationEn = "Rotation";

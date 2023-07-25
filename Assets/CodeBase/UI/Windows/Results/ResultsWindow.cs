@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using CodeBase.Data;
-using CodeBase.Data.Stats;
+﻿using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
@@ -23,10 +21,8 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private TextMeshProUGUI _restartsCount;
         [SerializeField] private TextMeshProUGUI _score;
 
-        private LevelStats _levelStats;
         private Scene _nextScene;
         private int _maxPrice;
-        private Scene _currentLevel;
 
         private new void OnEnable()
         {
@@ -38,8 +34,8 @@ namespace CodeBase.UI.Windows.Results
             if (Application.isEditor || LeaderBoardService == null)
                 return;
 
-            LeaderBoardService.OnInitializeSuccess += AddNewResult;
-            InitializeLeaderboard();
+            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            InitializeLeaderBoard();
         }
 
         private void OnDisable()
@@ -47,7 +43,7 @@ namespace CodeBase.UI.Windows.Results
             _restartButton.onClick.RemoveListener(RestartLevel);
 
             if (LeaderBoardService != null)
-                LeaderBoardService.OnInitializeSuccess -= AddNewResult;
+                LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero) =>
@@ -55,7 +51,7 @@ namespace CodeBase.UI.Windows.Results
 
         public void AddData(Scene currentLevel, Scene nextLevel, int maxPrice)
         {
-            _currentLevel = currentLevel;
+            CurrentLevel = currentLevel;
             _nextScene = nextLevel;
             _maxPrice = maxPrice;
 
@@ -65,49 +61,14 @@ namespace CodeBase.UI.Windows.Results
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
-        private void PrepareLevelStats()
-        {
-            if (Progress == null)
-                return;
-
-            _levelStats = Progress.AllStats.CurrentLevelStats;
-            _levelStats.CalculateScore();
-        }
-
-        private void InitializeLeaderboard()
-        {
-            if (LeaderBoardService.IsInitialized())
-                AddNewResult();
-            else
-                StartCoroutine(CoroutineInitializeLeaderBoard());
-        }
-
-        private IEnumerator CoroutineInitializeLeaderBoard()
-        {
-            yield return LeaderBoardService.Initialize();
-        }
-
-        private void AddNewResult()
-        {
-            Debug.Log($"AddNewResult {_levelStats.Scene} {_levelStats.Score}");
-            LeaderBoardService.OnSetValueError += ShowSetValueError;
-            LeaderBoardService.SetValue(_currentLevel.GetLeaderBoardName(Progress.IsHardMode), _levelStats.Score);
-        }
-
-        private void ShowSetValueError(string error)
-        {
-            Debug.Log($"ShowSetValueError {error}");
-            LeaderBoardService.OnSetValueError -= ShowSetValueError;
-        }
-
         public void ShowData()
         {
-            _starsPanel.ShowStars(_levelStats.StarsCount);
-            _playTimeCount.text = $"{_levelStats.PlayTimeData.PlayTime.ToInt()}";
-            _killed.text = $"{_levelStats.KillsData.KilledEnemies}";
-            _totalEnemies.text = $"{_levelStats.KillsData.TotalEnemies}";
-            _restartsCount.text = $"{_levelStats.RestartsData.Count}";
-            _score.text = $"{_levelStats.Score}";
+            _starsPanel.ShowStars(LevelStats.StarsCount);
+            _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
+            _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
+            _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
+            _restartsCount.text = $"{LevelStats.RestartsData.Count}";
+            _score.text = $"{LevelStats.Score}";
         }
 
         private void ToGameEndWindow() =>
@@ -120,6 +81,12 @@ namespace CodeBase.UI.Windows.Results
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
+        }
+
+        protected override void RequestLeaderBoard()
+        {
+            base.RequestLeaderBoard();
+            AddLevelResult();
         }
     }
 }

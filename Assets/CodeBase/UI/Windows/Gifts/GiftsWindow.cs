@@ -35,9 +35,9 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnShowFullScreenAdError += ShowError;
-            AdsService.OnClosedFullScreenAd += ShowClosed;
-            AdsService.OnOfflineFullScreenAd += ShowOffline;
+            AdsService.OnShowVideoAdError += ShowError;
+            AdsService.OnClosedVideoAd += ShowClosed;
+            AdsService.OnRewardedAd += AddCoinsAfterAds;
             InitializeAdsSDK();
         }
 
@@ -49,9 +49,9 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnShowFullScreenAdError -= ShowError;
-            AdsService.OnClosedFullScreenAd -= ShowClosed;
-            AdsService.OnOfflineFullScreenAd -= ShowOffline;
+            AdsService.OnShowVideoAdError -= ShowError;
+            AdsService.OnClosedVideoAd -= ShowClosed;
+            AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
         public void Construct(GameObject hero) =>
@@ -63,32 +63,42 @@ namespace CodeBase.UI.Windows.Gifts
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
         }
 
-        protected override void AdsServiceInitializedSuccess() =>
-            _addCoinsButton.enabled = true;
+        private void GenerateItems() =>
+            _generator.Generate();
 
-        private void ShowError(string message) =>
-            Debug.Log($"OnErrorFullScreenAd: {message}");
-
-        private void ShowClosed(bool closed)
+        protected override void AdsServiceInitializedSuccess()
         {
-            Debug.Log("OnClosedFullScreenAd");
-            if (closed)
-                AddCoins();
+            base.AdsServiceInitializedSuccess();
+            _addCoinsButton.enabled = true;
         }
 
-        private void ShowOffline() =>
-            Debug.Log("OnOfflineFullScreen");
+        private void ShowClosed()
+        {
+            Debug.Log("OnClosedVideoAd");
+            AdsService.OnClosedVideoAd -= ShowClosed;
+            SoundInstance.StartRandomMusic();
+        }
+
+        private void ShowError(string message)
+        {
+            Debug.Log($"OnErrorFullScreenAd: {message}");
+            AdsService.OnShowVideoAdError -= ShowError;
+            SoundInstance.StartRandomMusic();
+        }
 
         private void ToNextLevel()
         {
+            Debug.Log("ToNextLevel");
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
+            Progress.WorldData.ShowAdOnLevelStart = true;
             SaveLoadService.SaveProgress();
             WindowService.HideAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            Debug.Log($"{_nextScene}");
         }
 
         private void Close()
@@ -102,21 +112,25 @@ namespace CodeBase.UI.Windows.Gifts
             if (Application.isEditor)
             {
                 AddCoins();
-                _addCoinsButton.gameObject.SetActive(false);
                 return;
             }
 
-            AdsService.ShowFullScreenAd();
+            SoundInstance.StopRandomMusic();
+            AdsService.ShowVideoAd();
+        }
+
+        private void AddCoinsAfterAds()
+        {
+            AddCoins();
+            AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
         private void AddCoins()
         {
+            Debug.Log("AddCoins");
             Progress.AllStats.AddMoney(_coinsCount);
-            _addCoinsButton.gameObject.SetActive(false);
+            _addCoinsButton.enabled = false;
         }
-
-        private void GenerateItems() =>
-            _generator.Generate();
 
         protected override void PlayOpenSound()
         {

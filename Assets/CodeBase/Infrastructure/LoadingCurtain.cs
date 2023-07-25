@@ -1,5 +1,7 @@
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -27,7 +29,7 @@ namespace CodeBase.Infrastructure
 
         public void Hide()
         {
-            SoundInstance.SetStartFade(1f);
+            SoundInstance.SetStartFade();
             SoundInstance.StartRandomMusic();
             StartCoroutine(FadeOut());
         }
@@ -42,8 +44,26 @@ namespace CodeBase.Infrastructure
                 yield return new WaitForSeconds(StepAlpha);
             }
 
-            gameObject.SetActive(false);
+            ShowAd();
             AllServices.Container.Single<ISaveLoadService>().SaveProgress();
+            gameObject.SetActive(false);
+        }
+
+        private void ShowAd()
+        {
+            IPlayerProgressService playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            Debug.Log($"ShowAd {playerProgressService.Progress.WorldData.ShowAdOnLevelStart}");
+
+            if (playerProgressService.Progress.WorldData.ShowAdOnLevelStart)
+            {
+                playerProgressService.Progress.WorldData.ShowAdOnLevelStart = false;
+
+                if (Application.isEditor)
+                    return;
+
+                SoundInstance.StopRandomMusic(false);
+                AllServices.Container.Single<IAdsService>().ShowInterstitialAd();
+            }
         }
     }
 }

@@ -9,10 +9,12 @@ namespace CodeBase.Infrastructure
     {
         public readonly GameStateMachine StateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain, Language language)
+        public Game(ICoroutineRunner coroutineRunner, ILoadingCurtain loadingCurtain, IAdListener adListener,
+            Language language)
         {
             StateMachine =
-                new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain, AllServices.Container, language);
+                new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain, adListener,
+                    AllServices.Container, language);
         }
     }
 }
