@@ -35,7 +35,7 @@ namespace CodeBase.Services.Pool
             _constructorService = constructorService;
         }
 
-        public void GenerateObjects() => 
+        public void GenerateObjects() =>
             CreateRoots();
 
         private async void CreateRoots()

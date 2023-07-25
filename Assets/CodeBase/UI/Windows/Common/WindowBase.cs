@@ -161,13 +161,16 @@ namespace CodeBase.UI.Windows.Common
         {
         }
 
-        protected void InitializeLeaderboard()
+        protected void InitializeLeaderBoard()
         {
             if (LeaderBoardService.IsInitialized())
-                AddLevelResult();
+                RequestLeaderBoard();
             else
                 StartCoroutine(CoroutineInitializeLeaderBoard());
         }
+
+        protected virtual void RequestLeaderBoard() =>
+            AddLevelResult();
 
         private IEnumerator CoroutineInitializeLeaderBoard()
         {
@@ -189,15 +192,12 @@ namespace CodeBase.UI.Windows.Common
             LevelStats.CalculateScore();
         }
 
-        private void AddLevelResult()
+        protected void AddLevelResult()
         {
             Debug.Log($"AddLevelResult {LevelStats.Scene} {LevelStats.Score}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(Progress.IsHardMode),
                 LevelStats.Score);
         }
-
-        protected virtual void AddDataToLeaderBoard() =>
-            AddLevelResult();
     }
 }

@@ -29,7 +29,7 @@ namespace CodeBase.Infrastructure
 
         public void Hide()
         {
-            SoundInstance.SetStartFade(1f);
+            SoundInstance.SetStartFade();
             SoundInstance.StartRandomMusic();
             StartCoroutine(FadeOut());
         }
@@ -52,10 +52,15 @@ namespace CodeBase.Infrastructure
         private void ShowAd()
         {
             IPlayerProgressService playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            Debug.Log($"ShowAd {playerProgressService.Progress.WorldData.ShowAdOnLevelStart}");
 
             if (playerProgressService.Progress.WorldData.ShowAdOnLevelStart)
             {
                 playerProgressService.Progress.WorldData.ShowAdOnLevelStart = false;
+
+                if (Application.isEditor)
+                    return;
+
                 SoundInstance.StopRandomMusic(false);
                 AllServices.Container.Single<IAdsService>().ShowInterstitialAd();
             }

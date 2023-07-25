@@ -301,7 +301,7 @@ namespace Plugins.SoundInstance.Core.Static
             return _MusicHandler.audioSource;
         }
 
-        public static void SetStartFade(float fade) =>
+        public static void SetStartFade(float fade = 1f) =>
             _MusicHandler.SetStartFade(fade);
 
         public static void StartRandomMusic() =>

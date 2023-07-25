@@ -83,6 +83,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ToNextLevel()
         {
+            Debug.Log("ToNextLevel");
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
@@ -92,6 +93,7 @@ namespace CodeBase.UI.Windows.Gifts
             WindowService.HideAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            Debug.Log($"{_nextScene}");
         }
 
         private void Close()

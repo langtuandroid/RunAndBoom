@@ -37,11 +37,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 return;
             }
 
-            if (AdsService != null)
-            {
-                AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-                InitializeAdsSDK();
-            }
+            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            InitializeLeaderBoard();
         }
 
         private void OnDisable()
@@ -49,11 +46,14 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _closeButton.onClick.RemoveListener(Close);
 
             if (AdsService != null)
-                AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+                AdsService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
+
+        protected override void RequestLeaderBoard() =>
+            GetLeaderBoardData();
 
         private void ClearPlayerData()
         {
@@ -96,17 +96,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 player.SetActive(false);
         }
 
-        protected override void AdsServiceInitializedSuccess()
-        {
-            Debug.Log("AdsServiceInitializedSuccess");
-            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoardData;
-
-            if (LeaderBoardService.IsInitialized())
-                RequestLeaderBoardData();
-            else
-                StartCoroutine(LeaderBoardService.Initialize());
-        }
-
         private void ShowGetEntriesError(string error)
         {
             Debug.Log($"ShowGetEntriesError {error}");
@@ -119,7 +108,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
             LeaderBoardService.OnGetEntryError -= ShowGetEntryError;
         }
 
-        private void RequestLeaderBoardData()
+        private void GetLeaderBoardData()
         {
             Debug.Log("RequestLeaderBoardData");
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;

@@ -27,19 +27,25 @@ namespace CodeBase.UI.Windows.GameEnd
             if (Application.isEditor || LeaderBoardService == null)
                 return;
 
-            LeaderBoardService.OnInitializeSuccess += AddDataToLeaderBoard;
-            InitializeLeaderboard();
+            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            InitializeLeaderBoard();
         }
 
         private void OnDisable()
         {
             _startNewStandardGameButton.onClick.RemoveListener(StartNewCommonGame);
             _startNewHardGameButton.onClick.RemoveListener(StartNewHardModeGame);
-            LeaderBoardService.OnInitializeSuccess -= AddDataToLeaderBoard;
+            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.GameEnd);
+
+        protected override void RequestLeaderBoard()
+        {
+            AddLevelResult();
+            AddGameResult();
+        }
 
         private void StartNewCommonGame()
         {
@@ -58,12 +64,6 @@ namespace CodeBase.UI.Windows.GameEnd
             SoundInstance.StopRandomMusic();
             WindowService.HideAll();
             SaveLoadService.ClearProgress();
-        }
-
-        protected override void AddDataToLeaderBoard()
-        {
-            base.AddDataToLeaderBoard();
-            AddGameResult();
         }
 
         private void AddGameResult()

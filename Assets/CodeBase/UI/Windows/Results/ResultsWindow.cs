@@ -34,8 +34,8 @@ namespace CodeBase.UI.Windows.Results
             if (Application.isEditor || LeaderBoardService == null)
                 return;
 
-            LeaderBoardService.OnInitializeSuccess += AddDataToLeaderBoard;
-            InitializeLeaderboard();
+            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            InitializeLeaderBoard();
         }
 
         private void OnDisable()
@@ -43,7 +43,7 @@ namespace CodeBase.UI.Windows.Results
             _restartButton.onClick.RemoveListener(RestartLevel);
 
             if (LeaderBoardService != null)
-                LeaderBoardService.OnInitializeSuccess -= AddDataToLeaderBoard;
+                LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero) =>
