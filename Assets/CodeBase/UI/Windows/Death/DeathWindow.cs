@@ -29,7 +29,7 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnRewardedAd += RecoverForAds;
+            AdsService.OnClosedVideoAd += RecoverForAds;
             AdsService.OnShowVideoAdError += ShowError;
             InitializeAdsSDK();
         }
@@ -43,7 +43,7 @@ namespace CodeBase.UI.Windows.Death
                 return;
 
             AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnRewardedAd -= RecoverForAds;
+            AdsService.OnClosedVideoAd -= RecoverForAds;
             AdsService.OnShowVideoAdError -= ShowError;
         }
 

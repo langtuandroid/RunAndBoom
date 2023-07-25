@@ -1,4 +1,6 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
+using CodeBase.Data.Stats;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
 using CodeBase.Services;
@@ -28,6 +30,8 @@ namespace CodeBase.UI.Windows.Common
         protected PlayerProgress Progress;
         protected float Volume;
         private WindowId _windowId;
+        protected LevelStats LevelStats;
+        protected Scene CurrentLevel;
 
         protected void OnEnable()
         {
@@ -156,5 +160,44 @@ namespace CodeBase.UI.Windows.Common
         protected virtual void AdsServiceInitializedSuccess()
         {
         }
+
+        protected void InitializeLeaderboard()
+        {
+            if (LeaderBoardService.IsInitialized())
+                AddLevelResult();
+            else
+                StartCoroutine(CoroutineInitializeLeaderBoard());
+        }
+
+        private IEnumerator CoroutineInitializeLeaderBoard()
+        {
+            yield return LeaderBoardService.Initialize();
+        }
+
+        protected void ShowSetValueError(string error)
+        {
+            Debug.Log($"ShowSetValueError {error}");
+            LeaderBoardService.OnSetValueError -= ShowSetValueError;
+        }
+
+        protected void PrepareLevelStats()
+        {
+            if (Progress == null)
+                return;
+
+            LevelStats = Progress.AllStats.CurrentLevelStats;
+            LevelStats.CalculateScore();
+        }
+
+        private void AddLevelResult()
+        {
+            Debug.Log($"AddLevelResult {LevelStats.Scene} {LevelStats.Score}");
+            LeaderBoardService.OnSetValueError += ShowSetValueError;
+            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(Progress.IsHardMode),
+                LevelStats.Score);
+        }
+
+        protected virtual void AddDataToLeaderBoard() =>
+            AddLevelResult();
     }
 }

@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using CodeBase.Data;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -17,14 +18,24 @@ namespace CodeBase.UI.Windows.GameEnd
         {
             base.OnEnable();
 
+            PrepareLevelStats();
+            Progress.AllStats.SaveCurrentLevelStats();
+
             _startNewStandardGameButton.onClick.AddListener(StartNewCommonGame);
             _startNewHardGameButton.onClick.AddListener(StartNewHardModeGame);
+
+            if (Application.isEditor || LeaderBoardService == null)
+                return;
+
+            LeaderBoardService.OnInitializeSuccess += AddDataToLeaderBoard;
+            InitializeLeaderboard();
         }
 
         private void OnDisable()
         {
             _startNewStandardGameButton.onClick.RemoveListener(StartNewCommonGame);
             _startNewHardGameButton.onClick.RemoveListener(StartNewHardModeGame);
+            LeaderBoardService.OnInitializeSuccess -= AddDataToLeaderBoard;
         }
 
         public void Construct(GameObject hero) =>
@@ -47,6 +58,20 @@ namespace CodeBase.UI.Windows.GameEnd
             SoundInstance.StopRandomMusic();
             WindowService.HideAll();
             SaveLoadService.ClearProgress();
+        }
+
+        protected override void AddDataToLeaderBoard()
+        {
+            base.AddDataToLeaderBoard();
+            AddGameResult();
+        }
+
+        private void AddGameResult()
+        {
+            Debug.Log($"AddGameResult {Progress.AllStats.GetLevelsStats()}");
+            LeaderBoardService.OnSetValueError += ShowSetValueError;
+            LeaderBoardService.SetValue(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode),
+                Progress.AllStats.GetLevelsStats());
         }
     }
 }

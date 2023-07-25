@@ -267,8 +267,7 @@ namespace CodeBase.UI.Windows.Common
         {
             if (_availableItems.Count != 0 && _shopItemsNumbers.Count != 0)
             {
-                float healthPercentage = Progress.HealthState.CurrentHp / Progress.HealthState.MaxHp;
-
+                float healthPercentage = Health.Current / Health.Max;
                 ShopItemStaticData shopItemStaticData = _staticDataService.ForShopItem(ItemTypeId.HealthRecover);
 
                 if (healthPercentage <= DangerousHealthLevel && _availableItems.Contains(ItemTypeId.HealthRecover) &&

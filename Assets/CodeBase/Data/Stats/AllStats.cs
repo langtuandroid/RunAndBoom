@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CodeBase.Data.Stats
 {
@@ -6,12 +7,12 @@ namespace CodeBase.Data.Stats
     public class AllStats
     {
         public LevelStats CurrentLevelStats;
-        public SceneDataDictionary LevelStats;
+        public SceneDataDictionary LevelsStats;
         public MoneyData AllMoney;
 
         public AllStats()
         {
-            LevelStats = new SceneDataDictionary();
+            LevelsStats = new SceneDataDictionary();
             AllMoney = new MoneyData();
         }
 
@@ -32,9 +33,12 @@ namespace CodeBase.Data.Stats
 
         public void StartNewLevel(Scene scene, int targetPlayTime, int totalEnemies)
         {
-            LevelStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
+            SaveCurrentLevelStats();
             CurrentLevelStats = new LevelStats(scene, targetPlayTime, totalEnemies);
         }
+
+        public void SaveCurrentLevelStats() =>
+            LevelsStats.Dictionary[CurrentLevelStats.Scene] = CurrentLevelStats;
 
         public void RestartedLevel()
         {
@@ -42,6 +46,16 @@ namespace CodeBase.Data.Stats
             CurrentLevelStats.PlayTimeData.Clear();
             CurrentLevelStats.KillsData.Clear();
             CurrentLevelStats.MoneyData.Clear();
+        }
+
+        public int GetLevelsStats()
+        {
+            int results = 0;
+
+            foreach (KeyValuePair<Scene, LevelStats> pair in LevelsStats.Dictionary)
+                results += pair.Value.Score;
+
+            return results;
         }
     }
 }
