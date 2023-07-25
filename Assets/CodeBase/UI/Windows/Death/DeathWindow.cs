@@ -50,8 +50,11 @@ namespace CodeBase.UI.Windows.Death
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Death);
 
-        protected override void AdsServiceInitializedSuccess() =>
+        protected override void AdsServiceInitializedSuccess()
+        {
+            base.AdsServiceInitializedSuccess();
             _restartButton.enabled = true;
+        }
 
         private void ShowAds()
         {

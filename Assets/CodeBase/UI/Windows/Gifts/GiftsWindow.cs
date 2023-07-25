@@ -54,12 +54,6 @@ namespace CodeBase.UI.Windows.Gifts
             AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
-        private void ShowClosed()
-        {
-            Debug.Log("OnClosedVideoAd");
-            SoundInstance.StartRandomMusic();
-        }
-
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
 
@@ -72,12 +66,23 @@ namespace CodeBase.UI.Windows.Gifts
         private void GenerateItems() =>
             _generator.Generate();
 
-        protected override void AdsServiceInitializedSuccess() =>
+        protected override void AdsServiceInitializedSuccess()
+        {
+            base.AdsServiceInitializedSuccess();
             _addCoinsButton.enabled = true;
+        }
+
+        private void ShowClosed()
+        {
+            Debug.Log("OnClosedVideoAd");
+            AdsService.OnClosedVideoAd -= ShowClosed;
+            SoundInstance.StartRandomMusic();
+        }
 
         private void ShowError(string message)
         {
             Debug.Log($"OnErrorFullScreenAd: {message}");
+            AdsService.OnShowVideoAdError -= ShowError;
             SoundInstance.StartRandomMusic();
         }
 
@@ -117,7 +122,7 @@ namespace CodeBase.UI.Windows.Gifts
         private void AddCoinsAfterAds()
         {
             AddCoins();
-            // SoundInstance.StartRandomMusic();
+            AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
         private void AddCoins()

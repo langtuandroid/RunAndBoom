@@ -82,5 +82,11 @@ namespace CodeBase.UI.Windows.Results
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();
         }
+
+        protected override void RequestLeaderBoard()
+        {
+            base.RequestLeaderBoard();
+            AddLevelResult();
+        }
     }
 }

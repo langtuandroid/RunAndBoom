@@ -52,8 +52,11 @@ namespace CodeBase.UI.Windows.LeaderBoard
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
 
-        protected override void RequestLeaderBoard() =>
+        protected override void RequestLeaderBoard()
+        {
+            base.RequestLeaderBoard();
             GetLeaderBoardData();
+        }
 
         private void ClearPlayerData()
         {

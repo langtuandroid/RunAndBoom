@@ -43,6 +43,7 @@ namespace CodeBase.UI.Windows.GameEnd
 
         protected override void RequestLeaderBoard()
         {
+            base.RequestLeaderBoard();
             AddLevelResult();
             AddGameResult();
         }

@@ -157,9 +157,8 @@ namespace CodeBase.UI.Windows.Common
                 StartCoroutine(AdsService.Initialize());
         }
 
-        protected virtual void AdsServiceInitializedSuccess()
-        {
-        }
+        protected virtual void AdsServiceInitializedSuccess() =>
+            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
 
         protected void InitializeLeaderBoard()
         {
@@ -170,7 +169,7 @@ namespace CodeBase.UI.Windows.Common
         }
 
         protected virtual void RequestLeaderBoard() =>
-            AddLevelResult();
+            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
 
         private IEnumerator CoroutineInitializeLeaderBoard()
         {
