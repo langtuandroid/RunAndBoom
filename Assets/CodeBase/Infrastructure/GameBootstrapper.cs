@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure
     public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
         [SerializeField] private LoadingCurtain _curtainPrefab;
+        [SerializeField] private AdListener _adListenerPrefab;
         [SerializeField] private AudioBackgroundChanger _audioBackgroundChangerPrefab;
 
         private Game _game;
@@ -18,9 +19,10 @@ namespace CodeBase.Infrastructure
         {
             Language language = GetLanguage();
             LoadingCurtain loadingCurtain = Instantiate(_curtainPrefab);
+            AdListener adListener = Instantiate(_adListenerPrefab);
             SetLoadingText(language, loadingCurtain);
 
-            _game = new Game(this, loadingCurtain, language);
+            _game = new Game(this, loadingCurtain, adListener, language);
             _game.StateMachine.Enter<BootstrapState>();
             Instantiate(_audioBackgroundChangerPrefab);
 

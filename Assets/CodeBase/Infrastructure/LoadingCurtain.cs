@@ -1,5 +1,7 @@
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -42,8 +44,21 @@ namespace CodeBase.Infrastructure
                 yield return new WaitForSeconds(StepAlpha);
             }
 
-            gameObject.SetActive(false);
+            ShowAd();
             AllServices.Container.Single<ISaveLoadService>().SaveProgress();
+            gameObject.SetActive(false);
+        }
+
+        private void ShowAd()
+        {
+            IPlayerProgressService playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+
+            if (playerProgressService.Progress.WorldData.ShowAdOnLevelStart)
+            {
+                playerProgressService.Progress.WorldData.ShowAdOnLevelStart = false;
+                SoundInstance.StopRandomMusic(false);
+                AllServices.Container.Single<IAdsService>().ShowInterstitialAd();
+            }
         }
     }
 }

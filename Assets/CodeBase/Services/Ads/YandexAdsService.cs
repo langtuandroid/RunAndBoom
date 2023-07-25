@@ -10,9 +10,9 @@ namespace CodeBase.Services.Ads
         public event Action OnClosedVideoAd;
         public event Action<string> OnShowVideoAdError;
         public event Action OnRewardedAd;
-        public event Action<bool> OnClosedFullScreenAd;
-        public event Action<string> OnShowFullScreenAdError;
-        public event Action OnOfflineFullScreenAd;
+        public event Action<bool> OnClosedInterstitialAd;
+        public event Action<string> OnShowInterstitialAdError;
+        public event Action OnOfflineInterstitialAd;
 
         public bool IsInitialized() =>
             YandexGamesSdk.IsInitialized;
@@ -26,8 +26,8 @@ namespace CodeBase.Services.Ads
             VideoAd.Show(onCloseCallback: OnClosedVideoAd, onErrorCallback: OnShowVideoAdError,
                 onRewardedCallback: OnRewardedAd);
 
-        public void ShowFullScreenAd() =>
-            InterstitialAd.Show(onCloseCallback: OnClosedFullScreenAd, onErrorCallback: OnShowFullScreenAdError,
-                onOfflineCallback: OnOfflineFullScreenAd);
+        public void ShowInterstitialAd() =>
+            InterstitialAd.Show(onCloseCallback: OnClosedInterstitialAd, onErrorCallback: OnShowInterstitialAdError,
+                onOfflineCallback: OnOfflineInterstitialAd);
     }
 }

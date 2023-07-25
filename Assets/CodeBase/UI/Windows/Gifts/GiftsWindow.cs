@@ -87,11 +87,11 @@ namespace CodeBase.UI.Windows.Gifts
             Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             Progress.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
+            Progress.WorldData.ShowAdOnLevelStart = true;
             SaveLoadService.SaveProgress();
             WindowService.HideAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
-            AdsService.ShowFullScreenAd();
         }
 
         private void Close()
@@ -115,7 +115,7 @@ namespace CodeBase.UI.Windows.Gifts
         private void AddCoinsAfterAds()
         {
             AddCoins();
-            SoundInstance.StartRandomMusic();
+            // SoundInstance.StartRandomMusic();
         }
 
         private void AddCoins()

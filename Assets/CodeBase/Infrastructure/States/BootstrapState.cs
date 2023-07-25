@@ -28,7 +28,8 @@ namespace CodeBase.Infrastructure.States
         private AllServices _services;
         private Language _language;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services,
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, IAdListener adListener,
+            AllServices services,
             Language language)
         {
             _stateMachine = stateMachine;
@@ -37,6 +38,7 @@ namespace CodeBase.Infrastructure.States
             _language = language;
 
             RegisterServices();
+            adListener.SubscribeAdsService();
             SetTargetFrameRate();
         }
 
