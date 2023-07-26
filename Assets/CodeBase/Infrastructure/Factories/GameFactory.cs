@@ -48,7 +48,7 @@ namespace CodeBase.Infrastructure.Factories
             ProgressWriters = registratorService.ProgressWriters;
         }
 
-        public async Task WarmUp()
+        public void WarmUp()
         {
             _assets.Initialize();
             _objectsPoolService.GenerateObjects();
@@ -58,7 +58,6 @@ namespace CodeBase.Infrastructure.Factories
         {
             _heroGameObject =
                 await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hero, at.AddY(Yaddition));
-
             return _heroGameObject;
         }
 

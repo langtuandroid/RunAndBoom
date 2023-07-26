@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
+using CodeBase.Logic;
 using CodeBase.Logic.Level;
+using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -20,6 +23,7 @@ using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scene = CodeBase.Data.Scene;
@@ -44,11 +48,14 @@ namespace CodeBase.Infrastructure.States
         private Scene _scene;
         private bool _isInitial = true;
         private GameObject _hud;
+        private IAdListener _adListener;
+        private IAdsService _adsService;
+        private GameObject _hero;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
             IPlayerProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory,
-            IWindowService windowService, IInputService inputService)
+            IWindowService windowService, IInputService inputService, IAdsService adsService, IAdListener adListener)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -60,6 +67,26 @@ namespace CodeBase.Infrastructure.States
             _uiFactory = uiFactory;
             _windowService = windowService;
             _inputService = inputService;
+            _adsService = adsService;
+            _adListener = adListener;
+
+            _loadingCurtain.FadedOut += TryPauseGame;
+        }
+
+        private void TryPauseGame()
+        {
+            IPlayerProgressService playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+            Debug.Log($"ShowAd {playerProgressService.Progress.WorldData.ShowAdOnLevelStart}");
+
+            if (playerProgressService.Progress.WorldData.ShowAdOnLevelStart)
+            {
+                if (Application.isEditor)
+                    return;
+
+                Time.timeScale = Constants.TimeScaleStop;
+                SoundInstance.StopRandomMusic(false);
+                _adsService.ShowInterstitialAd();
+            }
         }
 
         public void Enter(Scene scene)
@@ -137,9 +164,15 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitGameWorld(LevelStaticData levelData)
         {
-            GameObject hero = await InitHero(levelData);
-            await InitHud(hero);
-            await InitWindows(hero);
+            _hero = await InitHero(levelData);
+
+            if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
+                _hero.StopHero();
+
+            _adListener.SubscribeAdsService();
+            _adListener.Construct(_hero, _loadingCurtain);
+            await InitHud(_hero);
+            await InitWindows(_hero);
             InitLevelTransfer(levelData);
         }
 

@@ -24,16 +24,14 @@ namespace CodeBase.UI.Windows.Results
         private Scene _nextScene;
         private int _maxPrice;
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
-            PrepareLevelStats();
             _restartButton.onClick.AddListener(RestartLevel);
 
-            if (Application.isEditor || LeaderBoardService == null)
+            if (Application.isEditor || LeaderBoardService == null || Progress == null)
                 return;
 
+            PrepareLevelStats();
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
         }
@@ -63,6 +61,7 @@ namespace CodeBase.UI.Windows.Results
 
         public void ShowData()
         {
+            PrepareLevelStats();
             _starsPanel.ShowStars(LevelStats.StarsCount);
             _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
             _killed.text = $"{LevelStats.KillsData.KilledEnemies}";

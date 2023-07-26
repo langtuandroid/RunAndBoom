@@ -18,21 +18,16 @@ namespace CodeBase.UI.Windows.Authorization
         private Scene _nextScene;
         private int _maxPrice;
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             _applyButton.onClick.AddListener(Authorize);
             _denyButton.onClick.AddListener(Hide);
 
-            if (Application.isEditor)
-            {
-                _applyButton.onClick.AddListener(ToLeaderBoardWindow);
-                return;
-            }
-
             if (_authorization == null)
                 _authorization = AllServices.Container.Single<IAuthorization>();
+
+            if (Application.isEditor)
+                _applyButton.onClick.AddListener(ToLeaderBoardWindow);
         }
 
         private void OnDisable()
@@ -41,10 +36,7 @@ namespace CodeBase.UI.Windows.Authorization
             _denyButton.onClick.RemoveListener(Hide);
 
             if (Application.isEditor)
-            {
                 _applyButton.onClick.RemoveListener(ToLeaderBoardWindow);
-                return;
-            }
         }
 
         public void Construct(GameObject hero) =>

@@ -14,6 +14,7 @@ namespace CodeBase.Services.LeaderBoard
         public event Action<string> OnGetEntryError;
         public event Action<string> OnGetEntriesError;
         public event Action<string> OnSetValueError;
+        public event Action OnSetValueSuccess;
 
         public bool IsInitialized() =>
             YandexGamesSdk.IsInitialized;
@@ -33,6 +34,7 @@ namespace CodeBase.Services.LeaderBoard
                 onErrorCallback: OnGetEntriesError);
 
         public void SetValue(string leaderboardName, int value) =>
-            Leaderboard.SetScore(leaderboardName: leaderboardName, score: value, onErrorCallback: OnSetValueError);
+            Leaderboard.SetScore(leaderboardName: leaderboardName, score: value, onErrorCallback: OnSetValueError,
+                onSuccessCallback: OnInitializeSuccess);
     }
 }

@@ -23,15 +23,13 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private Scene _nextScene;
         private int _maxPrice;
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             ClearLeaderBoard();
             ClearPlayerData();
             _closeButton.onClick.AddListener(Close);
 
-            if (Application.isEditor)
+            if (Application.isEditor || LeaderBoardService == null || Progress == null)
             {
                 AddTestData();
                 return;

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using CodeBase.Data;
 using CodeBase.Data.Stats;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.States;
+using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
@@ -33,7 +33,7 @@ namespace CodeBase.UI.Windows.Common
         protected LevelStats LevelStats;
         protected Scene CurrentLevel;
 
-        protected void OnEnable()
+        private void OnEnable()
         {
             if (WindowService == null)
                 WindowService = AllServices.Container.Single<IWindowService>();
@@ -81,26 +81,16 @@ namespace CodeBase.UI.Windows.Common
                 if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                     Cursor.lockState = CursorLockMode.Locked;
 
-                Hero.GetComponent<HeroShooting>().TurnOn();
-                Hero.GetComponent<HeroMovement>().TurnOn();
-                Hero.GetComponent<HeroRotating>().TurnOn();
-                Hero.GetComponent<HeroReloading>().TurnOn();
-                Hero.GetComponentInChildren<HeroWeaponSelection>().TurnOn();
-                Hero.GetComponentInChildren<PlayTimer>().enabled = true;
-                Time.timeScale = 1;
+                Hero.ResumeHero();
+                Time.timeScale = Constants.TimeScaleResume;
             }
         }
 
         public void Show(bool showCursor = true)
         {
             gameObject.SetActive(true);
-            Hero.GetComponent<HeroShooting>().TurnOff();
-            Hero.GetComponent<HeroReloading>().TurnOff();
-            Hero.GetComponent<HeroMovement>().TurnOff();
-            Hero.GetComponent<HeroRotating>().TurnOff();
-            Hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
-            Hero.GetComponentInChildren<PlayTimer>().enabled = false;
-            Time.timeScale = 0;
+            Hero.StopHero();
+            Time.timeScale = Constants.TimeScaleStop;
 
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 ShowCursor(showCursor);
@@ -195,8 +185,18 @@ namespace CodeBase.UI.Windows.Common
         {
             Debug.Log($"AddLevelResult {LevelStats.Scene} {LevelStats.Score}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
+            SubscribeSetValueSuccess();
             LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(Progress.IsHardMode),
                 LevelStats.Score);
         }
+
+        protected void SuccessSetValue()
+        {
+            Debug.Log("SuccessSetValue");
+            LeaderBoardService.OnSetValueSuccess -= SuccessSetValue;
+        }
+
+        protected virtual void SubscribeSetValueSuccess() =>
+            LeaderBoardService.OnSetValueSuccess += SuccessSetValue;
     }
 }
