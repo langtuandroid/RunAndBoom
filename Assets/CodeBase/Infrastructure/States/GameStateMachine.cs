@@ -20,8 +20,7 @@ namespace CodeBase.Infrastructure.States
         private IExitableState _activeState;
 
         public GameStateMachine(SceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IAdListener adListener,
-            AllServices services,
-            Language language)
+            AllServices services, Language language)
         {
             _states = new Dictionary<Type, IExitableState>()
             {

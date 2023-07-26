@@ -1,5 +1,4 @@
 ﻿using CodeBase.Logic;
-using CodeBase.Services;
 using CodeBase.Services.Ads;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -10,17 +9,32 @@ namespace CodeBase.Infrastructure
     {
         private IAdsService _adsService;
         private GameObject _hero;
-        private ILoadingCurtain _loadingCurtain;
 
-        public void Construct(GameObject hero, ILoadingCurtain loadingCurtain)
+        public void Construct(GameObject hero, IAdsService adsService)
         {
             _hero = hero;
-            _loadingCurtain = loadingCurtain;
+            _adsService = adsService;
+
+            if (!Application.isEditor)
+                InitializeAdsService();
+            else
+                ResumeGame();
         }
 
-        public void SubscribeAdsService()
+        private void InitializeAdsService()
         {
-            _adsService = AllServices.Container.Single<IAdsService>();
+            _adsService.OnInitializeSuccess += SubscribeAdsEvents;
+
+            if (_adsService.IsInitialized())
+                SubscribeAdsEvents();
+            else
+                StartCoroutine(_adsService.Initialize());
+        }
+
+        private void SubscribeAdsEvents()
+        {
+            Debug.Log($"SubscribeAdsEvents");
+            _adsService.OnInitializeSuccess -= SubscribeAdsEvents;
             _adsService.OnOfflineInterstitialAd += OnOfflineAd;
             _adsService.OnClosedInterstitialAd += AdClosed;
             _adsService.OnShowInterstitialAdError += ShowError;
@@ -29,28 +43,26 @@ namespace CodeBase.Infrastructure
         private void OnOfflineAd()
         {
             Debug.Log($"InterstitialAd OnOfflineAd");
-            _hero.ResumeHero();
-            Time.timeScale = Constants.TimeScaleResume;
-            TurnOnMusic();
+            ResumeGame();
         }
 
         private void AdClosed(bool isShowed)
         {
             Debug.Log($"InterstitialAd AdClosed {isShowed}");
-            _hero.ResumeHero();
-            Time.timeScale = Constants.TimeScaleResume;
-            TurnOnMusic();
+            ResumeGame();
         }
 
         private void ShowError(string error)
         {
             Debug.Log($"InterstitialAd ShowError {error}");
-            _hero.ResumeHero();
-            Time.timeScale = Constants.TimeScaleResume;
-            TurnOnMusic();
+            ResumeGame();
         }
 
-        private void TurnOnMusic() =>
+        private void ResumeGame()
+        {
             SoundInstance.StartRandomMusic();
+            _hero.ResumeHero();
+            Time.timeScale = Constants.TimeScaleResume;
+        }
     }
 }

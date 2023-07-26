@@ -169,8 +169,7 @@ namespace CodeBase.Infrastructure.States
             if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
                 _hero.StopHero();
 
-            _adListener.SubscribeAdsService();
-            _adListener.Construct(_hero, _loadingCurtain);
+            _adListener.Construct(_hero, _adsService);
             await InitHud(_hero);
             await InitWindows(_hero);
             InitLevelTransfer(levelData);
