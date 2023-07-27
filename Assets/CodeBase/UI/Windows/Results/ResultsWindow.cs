@@ -61,12 +61,14 @@ namespace CodeBase.UI.Windows.Results
 
         public void ShowData()
         {
-            PrepareLevelStats();
+            LevelStats.CalculateScore();
+            Debug.Log($"ShowData LevelStats.StarsCount {LevelStats.StarsCount}");
             _starsPanel.ShowStars(LevelStats.StarsCount);
             _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
             _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
             _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{LevelStats.RestartsData.Count}";
+            Debug.Log($"ShowData {LevelStats.Scene} {LevelStats.Score}");
             _score.text = $"{LevelStats.Score}";
         }
 

@@ -55,7 +55,7 @@ namespace CodeBase.Hero
             Vector3 airDirection = Vector3.zero;
             Vector3 direction = Vector3.zero;
 
-            if (_inputService.MoveAxis.sqrMagnitude > Constants.Epsilon)
+            if (_inputService.MoveAxis.sqrMagnitude > Constants.MovementEpsilon)
             {
                 if (IsGrounded())
                     airDirection = transform.forward * _inputService.MoveAxis.y +

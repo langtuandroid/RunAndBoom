@@ -178,7 +178,6 @@ namespace CodeBase.UI.Windows.Common
                 return;
 
             LevelStats = Progress.AllStats.CurrentLevelStats;
-            LevelStats.CalculateScore();
         }
 
         protected void AddLevelResult()

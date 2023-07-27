@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Services;
+using CodeBase.UI.Elements.Hud.TutorialPanel;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Factory
@@ -17,5 +18,6 @@ namespace CodeBase.UI.Services.Factory
         Task<GameObject> CreateAuthorizationWindow();
         Task<GameObject> CreateLeaderBoardWindow();
         Task<GameObject> CreateGameEndWindow();
+        TutorialPanel GetTutorialPanel();
     }
 }

@@ -92,7 +92,6 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void ClearLeaderBoard()
         {
-            Debug.Log("ClearLeaderBoard");
             foreach (GameObject player in _players)
                 player.SetActive(false);
         }
@@ -111,11 +110,11 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void GetLeaderBoardData()
         {
-            Debug.Log("RequestLeaderBoardData");
+            // Debug.Log("RequestLeaderBoardData");
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
             Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
-            Debug.Log($"Scene {scene}");
+            // Debug.Log($"Scene {scene}");
             LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
             LeaderBoardService.OnGetEntryError += ShowGetEntryError;
             LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
@@ -124,9 +123,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
         {
-            Debug.Log("FillLeaderBoard");
+            // Debug.Log("FillLeaderBoard");
             LeaderboardEntryResponse[] leaderboardEntryResponses = leaderboardGetEntriesResponse.entries;
-            Debug.Log($"leaderboardEntryResponses {leaderboardEntryResponses.Length}");
+            // Debug.Log($"leaderboardEntryResponses {leaderboardEntryResponses.Length}");
             LeaderboardEntryResponse response;
             PlayerItem playerItem;
 
@@ -145,10 +144,10 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 playerItem.Name.text = response.player.publicName;
                 playerItem.Score.text = response.score.ToString();
                 playerItem.gameObject.SetActive(true);
-                Debug.Log($"i {i}");
-                Debug.Log($"publicName {response.player.publicName}");
-                Debug.Log($"score {response.score}");
-                Debug.Log($"rank {response.rank}");
+                // Debug.Log($"i {i}");
+                // Debug.Log($"publicName {response.player.publicName}");
+                // Debug.Log($"score {response.score}");
+                // Debug.Log($"rank {response.rank}");
             }
 
             if (LeaderBoardService != null)
@@ -157,7 +156,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
         {
-            Debug.Log("FillPlayerInfo");
+            // Debug.Log("FillPlayerInfo");
             if (!Application.isEditor)
                 StartCoroutine(LoadAvatar(response.player.scopePermissions.avatar, _iconImage));
 
@@ -170,14 +169,14 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
             if (!string.IsNullOrEmpty(response.player.publicName))
                 _playerDataContainer.SetActive(true);
-            Debug.Log($"publicName {response.player.publicName}");
-            Debug.Log($"score {response.score}");
-            Debug.Log($"rank {response.rank}");
+            // Debug.Log($"publicName {response.player.publicName}");
+            // Debug.Log($"score {response.score}");
+            // Debug.Log($"rank {response.rank}");
         }
 
         private IEnumerator LoadAvatar(string avatarUrl, RawImage image)
         {
-            Debug.Log("LoadAvatar");
+            // Debug.Log("LoadAvatar");
             image.gameObject.SetActive(false);
             UnityWebRequest request = UnityWebRequestTexture.GetTexture(avatarUrl);
             yield return request.SendWebRequest();

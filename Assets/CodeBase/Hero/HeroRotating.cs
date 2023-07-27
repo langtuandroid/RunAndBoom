@@ -35,7 +35,7 @@ namespace CodeBase.Hero
 
         private void Rotate()
         {
-            if (_inputService.LookAxis.sqrMagnitude > Constants.Epsilon)
+            if (_inputService.LookAxis.sqrMagnitude > Constants.RotationEpsilon)
                 CalculateVertical();
 
             RotateHorizontal();
