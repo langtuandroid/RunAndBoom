@@ -17,16 +17,13 @@ namespace CodeBase.Infrastructure
 
         private void Awake()
         {
+            DontDestroyOnLoad(this);
             Language language = GetLanguage();
             LoadingCurtain loadingCurtain = Instantiate(_curtainPrefab);
-            AdListener adListener = Instantiate(_adListenerPrefab);
             SetLoadingText(language, loadingCurtain);
-
-            _game = new Game(this, loadingCurtain, adListener, language);
-            _game.StateMachine.Enter<BootstrapState>();
             Instantiate(_audioBackgroundChangerPrefab);
-
-            DontDestroyOnLoad(this);
+            _game = new Game(this, loadingCurtain, Instantiate(_adListenerPrefab), language);
+            _game.StateMachine.Enter<BootstrapState>();
         }
 
         private void SetLoadingText(Language language, LoadingCurtain loadingCurtain)

@@ -1,5 +1,6 @@
 ﻿using CodeBase.Logic;
 using CodeBase.Services.Ads;
+using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
@@ -9,11 +10,16 @@ namespace CodeBase.Infrastructure
     {
         private IAdsService _adsService;
         private GameObject _hero;
+        private IPlayerProgressService _progressService;
 
-        public void Construct(GameObject hero, IAdsService adsService)
+        private void Awake() =>
+            DontDestroyOnLoad(this);
+
+        public void Construct(GameObject hero, IAdsService adsService, IPlayerProgressService progressService)
         {
             _hero = hero;
             _adsService = adsService;
+            _progressService = progressService;
 
             if (!Application.isEditor)
                 InitializeAdsService();
@@ -23,6 +29,7 @@ namespace CodeBase.Infrastructure
 
         private void InitializeAdsService()
         {
+            Debug.Log("InitializeAdsService");
             _adsService.OnInitializeSuccess += SubscribeAdsEvents;
 
             if (_adsService.IsInitialized())
@@ -60,6 +67,7 @@ namespace CodeBase.Infrastructure
 
         private void ResumeGame()
         {
+            _progressService.Progress.WorldData.ShowAdOnLevelStart = false;
             SoundInstance.StartRandomMusic();
             _hero.ResumeHero();
             Time.timeScale = Constants.TimeScaleResume;

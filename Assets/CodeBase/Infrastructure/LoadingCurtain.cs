@@ -46,13 +46,8 @@ namespace CodeBase.Infrastructure
             }
 
             FadedOut?.Invoke();
-            ShowAd();
             AllServices.Container.Single<ISaveLoadService>().SaveProgress();
             gameObject.SetActive(false);
-        }
-
-        private void ShowAd()
-        {
         }
     }
 }
