@@ -4,7 +4,6 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic;
 using CodeBase.Logic.Level;
-using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
@@ -75,10 +74,7 @@ namespace CodeBase.Infrastructure.States
 
         private void TryPauseGame()
         {
-            IPlayerProgressService playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
-            Debug.Log($"ShowAd {playerProgressService.Progress.WorldData.ShowAdOnLevelStart}");
-
-            if (playerProgressService.Progress.WorldData.ShowAdOnLevelStart)
+            if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
             {
                 if (Application.isEditor)
                     return;
@@ -169,10 +165,10 @@ namespace CodeBase.Infrastructure.States
             if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
                 _hero.StopHero();
 
-            _adListener.Construct(_hero, _adsService);
             await InitHud(_hero);
             await InitWindows(_hero);
             InitLevelTransfer(levelData);
+            _adListener.Construct(_hero, _adsService, _progressService);
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
