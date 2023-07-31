@@ -48,7 +48,7 @@ namespace CodeBase.Data.Stats
             CurrentLevelStats.MoneyData.Clear();
         }
 
-        public int GetLevelsStats()
+        public int GetAllLevelsStats()
         {
             int results = 0;
 

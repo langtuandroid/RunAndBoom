@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.LeaderBoard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
 using UnityEngine;
@@ -31,7 +31,6 @@ namespace CodeBase.UI.Windows.Results
             if (Application.isEditor || LeaderBoardService == null || Progress == null)
                 return;
 
-            PrepareLevelStats();
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
         }
@@ -54,14 +53,13 @@ namespace CodeBase.UI.Windows.Results
             _maxPrice = maxPrice;
 
             if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
+                _toNextWindowButton.onClick.AddListener(ToGameLeaderBoardWindow);
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
         public void ShowData()
         {
-            LevelStats.CalculateScore();
             Debug.Log($"ShowData LevelStats.StarsCount {LevelStats.StarsCount}");
             _starsPanel.ShowStars(LevelStats.StarsCount);
             _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
@@ -72,8 +70,14 @@ namespace CodeBase.UI.Windows.Results
             _score.text = $"{LevelStats.Score}";
         }
 
-        private void ToGameEndWindow() =>
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+        public void CalculateScore() =>
+            LevelStats.CalculateScore();
+
+        private void ToGameLeaderBoardWindow()
+        {
+            WindowBase windowBase = WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
+            (windowBase as LeaderBoardWindow)?.SetGameLeaderBoard();
+        }
 
         private void ToGiftsWindow()
         {

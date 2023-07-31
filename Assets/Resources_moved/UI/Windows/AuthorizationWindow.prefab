@@ -1106,9 +1106,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5574487809345986679}
-  - component: {fileID: -6459657938183610138}
   - component: {fileID: 1888652718606135940}
   - component: {fileID: 158216921273071169}
+  - component: {fileID: -6459657938183610138}
   m_Layer: 5
   m_Name: AuthorizationWindow
   m_TagString: Untagged
@@ -1138,6 +1138,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1888652718606135940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300922620346195981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45cdc6224fd24013a7b60dee3112c7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Title: {fileID: 459448000172655841}
+  _messageText: {fileID: 4946951672448244900}
+  _applyText: {fileID: 8175576511004459122}
+  _denyText: {fileID: 8437942623075348513}
+--- !u!114 &158216921273071169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300922620346195981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bc3b1c3b31446cb7d79d8bbbe407e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applyButton: {fileID: 6638981770050432183}
+  _denyButton: {fileID: 6218865743593731641}
 --- !u!82 &-6459657938183610138
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1234,33 +1264,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1888652718606135940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300922620346195981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45cdc6224fd24013a7b60dee3112c7a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Title: {fileID: 459448000172655841}
-  _messageText: {fileID: 4946951672448244900}
-  _applyText: {fileID: 8175576511004459122}
-  _denyText: {fileID: 8437942623075348513}
---- !u!114 &158216921273071169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300922620346195981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83bc3b1c3b31446cb7d79d8bbbe407e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _applyButton: {fileID: 6638981770050432183}
-  _denyButton: {fileID: 6218865743593731641}

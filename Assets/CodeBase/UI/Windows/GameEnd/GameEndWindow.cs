@@ -22,7 +22,6 @@ namespace CodeBase.UI.Windows.GameEnd
             if (Application.isEditor || LeaderBoardService == null || Progress == null)
                 return;
 
-            PrepareLevelStats();
             Progress.AllStats.SaveCurrentLevelStats();
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
@@ -68,11 +67,12 @@ namespace CodeBase.UI.Windows.GameEnd
 
         private void AddGameResult()
         {
-            Debug.Log($"AddGameResult {Progress.AllStats.GetLevelsStats()}");
+            int allLevelsScore = Progress.AllStats.GetAllLevelsStats();
+            Debug.Log($"AddGameResult {allLevelsScore}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             LeaderBoardService.OnSetValueSuccess += SuccessSetValue;
             LeaderBoardService.SetValue(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode),
-                Progress.AllStats.GetLevelsStats());
+                allLevelsScore);
         }
     }
 }

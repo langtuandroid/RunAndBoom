@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace CodeBase.Data.Stats
 {
@@ -32,6 +33,7 @@ namespace CodeBase.Data.Stats
             CalculatePlayTime();
             CalculateKills();
             CalculateRestarts();
+            Debug.Log($"Score {Score}");
         }
 
         private void CalculatePlayTime()

@@ -122,6 +122,7 @@ namespace CodeBase.UI.Windows.Common
             Progress.SettingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
             SwitchChanged();
+            LevelStats = Progress.AllStats.CurrentLevelStats;
         }
 
         private void VolumeChanged() =>
@@ -170,14 +171,6 @@ namespace CodeBase.UI.Windows.Common
         {
             Debug.Log($"ShowSetValueError {error}");
             LeaderBoardService.OnSetValueError -= ShowSetValueError;
-        }
-
-        protected void PrepareLevelStats()
-        {
-            if (Progress == null)
-                return;
-
-            LevelStats = Progress.AllStats.CurrentLevelStats;
         }
 
         protected void AddLevelResult()

@@ -3,6 +3,7 @@ using Agava.YandexGames;
 using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
+using CodeBase.UI.Windows.GameEnd;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,6 +14,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
     public class LeaderBoardWindow : WindowBase
     {
         [SerializeField] private Button _closeButton;
+        [SerializeField] private Button _toGameEndWindowButton;
         [SerializeField] private TextMeshProUGUI _rankText;
         [SerializeField] private RawImage _iconImage;
         [SerializeField] private TextMeshProUGUI _nameText;
@@ -22,12 +24,15 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private Scene _nextScene;
         private int _maxPrice;
+        private bool _isCurrentScene = true;
 
         private void OnEnable()
         {
             ClearLeaderBoard();
             ClearPlayerData();
             _closeButton.onClick.AddListener(Close);
+            _toGameEndWindowButton.onClick.AddListener(ToGameEndWindow);
+            ActivateButtons();
 
             if (Application.isEditor || LeaderBoardService == null || Progress == null)
             {
@@ -42,6 +47,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void OnDisable()
         {
             _closeButton.onClick.RemoveListener(Close);
+            _toGameEndWindowButton.onClick.RemoveListener(ToGameEndWindow);
 
             if (AdsService != null)
                 AdsService.OnInitializeSuccess -= RequestLeaderBoard;
@@ -49,6 +55,26 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.LeaderBoard);
+
+        public void SetGameLeaderBoard()
+        {
+            _isCurrentScene = false;
+            ActivateButtons();
+        }
+
+        private void ActivateButtons()
+        {
+            if (_isCurrentScene)
+            {
+                _closeButton.gameObject.SetActive(true);
+                _toGameEndWindowButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                _closeButton.gameObject.SetActive(false);
+                _toGameEndWindowButton.gameObject.SetActive(true);
+            }
+        }
 
         protected override void RequestLeaderBoard()
         {
@@ -117,8 +143,18 @@ namespace CodeBase.UI.Windows.LeaderBoard
             // Debug.Log($"Scene {scene}");
             LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
             LeaderBoardService.OnGetEntryError += ShowGetEntryError;
-            LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
-            LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
+
+            if (_isCurrentScene)
+            {
+                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
+                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
+            }
+            else
+            {
+                LeaderBoardService.GetEntries(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode));
+                LeaderBoardService.GetPlayerEntry(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode));
+                _isCurrentScene = true;
+            }
         }
 
         private void FillLeaderBoard(LeaderboardGetEntriesResponse leaderboardGetEntriesResponse)
@@ -191,5 +227,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 image.gameObject.SetActive(true);
             }
         }
+
+        private void ToGameEndWindow() =>
+            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
     }
 }
