@@ -35,29 +35,39 @@ namespace CodeBase.Hero
 
         private void Rotate()
         {
-            if (_inputService.LookAxis.sqrMagnitude > Constants.RotationEpsilon)
-                CalculateVertical();
-
-            RotateHorizontal();
             RotateVertical();
+            RotateHorizontal();
+        }
+
+        private void RotateVertical()
+        {
+            if (_inputService.LookAxis.sqrMagnitude > Constants.RotationEpsilon)
+            {
+                CalculateVertical();
+                ClampAngle();
+            }
+
+            _camera.transform.localRotation =
+                Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
+
+            Debug.Log($"sqrMagnitude {_inputService.LookAxis.sqrMagnitude}");
         }
 
         private void CalculateVertical() =>
             _verticalRotation -= _inputService.LookAxis.y;
 
-        private void RotateHorizontal() =>
-            transform.Rotate(Vector3.up * _inputService.LookAxis.x * _horizontalSensitivity);
-
-        private void RotateVertical()
-        {
-            ClampAngle();
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
-        }
-
         private void ClampAngle()
         {
             float verticalAngle = _edgeAngle / _verticalSensitivity;
             _verticalRotation = Mathf.Clamp(_verticalRotation, -verticalAngle, verticalAngle);
+        }
+
+        private void RotateHorizontal()
+        {
+            if (_inputService.LookAxis.sqrMagnitude > Constants.RotationEpsilon)
+                transform.Rotate(Vector3.up * _inputService.LookAxis.x * _horizontalSensitivity * Time.deltaTime);
+            else
+                transform.Rotate(Vector3.zero);
         }
 
         public void TurnOn() =>
