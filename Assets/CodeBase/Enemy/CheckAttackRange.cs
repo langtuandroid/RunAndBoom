@@ -17,7 +17,8 @@ namespace CodeBase.Enemy
             _triggerObserver.TriggerEnter += TriggerEnter;
             _triggerObserver.TriggerExit += TriggerExit;
 
-            _attack.DisableAttack();
+            // _attack.DisableAttack();
+            _attack.enabled = false;
         }
 
         public void Construct(float radius) =>
@@ -27,7 +28,8 @@ namespace CodeBase.Enemy
         {
             if (_follow != null)
             {
-                _attack.EnableAttack();
+                // _attack.EnableAttack();
+                _attack.enabled = true;
                 _follow.Stop();
                 _follow.enabled = false;
             }
@@ -37,7 +39,8 @@ namespace CodeBase.Enemy
         {
             if (_follow != null)
             {
-                _attack.DisableAttack();
+                // _attack.DisableAttack();
+                _attack.enabled = false;
                 _follow.Move();
                 _follow.enabled = true;
             }

@@ -12,25 +12,25 @@ namespace CodeBase.Logic.Level
         [SerializeField] private LevelSectorTrigger _trigger;
 
         private const float Speed = 10f;
+        private const float YDelta = 0.01f;
 
         private AudioSource _audioSource;
         private float _minY;
         private float _maxY;
         private float _positionY;
         private float _targetY;
-        private Transform _doorTransform;
         private bool _close;
-        private float _currentVolume = 1f;
-
         private Coroutine _movementCoroutine;
         private PlayerProgress _progress;
         private float _volume;
+        private bool _move;
+        private Vector3 _doorPosition;
 
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-            _doorTransform = _door.GetComponent<Transform>();
-            _positionY = _door.transform.position.y;
+            _doorPosition = _door.GetComponent<Transform>().position;
+            _positionY = _doorPosition.y;
             _targetY = _positionY;
             _minY = _positionY - _door.GetComponent<MeshRenderer>().bounds.size.y;
             _maxY = _positionY;
@@ -44,16 +44,20 @@ namespace CodeBase.Logic.Level
             _close = true;
         }
 
-        private void Update()
+        private void Update() =>
+            TryMoveDoor();
+
+        private void TryMoveDoor()
         {
-            MoveDoor();
+            if (!IsArchivedTarget() && _move)
+                _doorPosition = Vector3.MoveTowards(_doorPosition,
+                    new Vector3(_doorPosition.x, _targetY, _doorPosition.z), Speed * Time.deltaTime);
+            else
+                _move = false;
         }
 
-        private void MoveDoor()
-        {
-            _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
-                new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z), Speed * Time.deltaTime);
-        }
+        private bool IsArchivedTarget() =>
+            Mathf.Abs(_positionY) - Mathf.Abs(_targetY) < YDelta;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -63,7 +67,8 @@ namespace CodeBase.Logic.Level
                 SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
-                    _currentVolume, _audioSource);
+                    _volume, _audioSource);
+                _move = true;
             }
         }
 
@@ -75,7 +80,8 @@ namespace CodeBase.Logic.Level
                 SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
-                    _currentVolume, _audioSource);
+                    _volume, _audioSource);
+                _move = true;
             }
         }
 

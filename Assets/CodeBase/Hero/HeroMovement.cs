@@ -37,6 +37,9 @@ namespace CodeBase.Hero
 
         private void Update()
         {
+            if (_inputService == null)
+                return;
+
             Move();
             Gravity();
         }
@@ -49,9 +52,6 @@ namespace CodeBase.Hero
 
         private void Move()
         {
-            if (_inputService == null)
-                return;
-
             Vector3 airDirection = Vector3.zero;
             Vector3 direction = Vector3.zero;
 
@@ -82,7 +82,7 @@ namespace CodeBase.Hero
             if (!IsGrounded())
                 _velocity.y += _gravity * Time.deltaTime;
             else if (_velocity.y < 0)
-                _velocity.y = -2;
+                _velocity.y = -0.2f;
 
             _characterController.Move(_velocity * Time.deltaTime);
         }

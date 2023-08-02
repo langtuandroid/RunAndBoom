@@ -7,26 +7,13 @@ namespace CodeBase.UI.Windows.Shop
     {
         [SerializeField] private GameObject _outline;
 
-        // private bool _mouseOver;
-
-        private void Update()
-        {
-            // _outline.SetActive(_mouseOver);
-        }
-
         private void OnDisable() =>
             _outline.SetActive(false);
 
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            // _mouseOver = true;
+        public void OnPointerEnter(PointerEventData eventData) =>
             _outline.SetActive(true);
-        }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            // _mouseOver = false;
+        public void OnPointerExit(PointerEventData eventData) =>
             _outline.SetActive(false);
-        }
     }
 }
