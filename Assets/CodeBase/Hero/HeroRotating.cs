@@ -37,6 +37,8 @@ namespace CodeBase.Hero
         {
             RotateVertical();
             RotateHorizontal();
+            // RotateVerticalOld();
+            // RotateHorizontalOld();
         }
 
         private void RotateVertical()
@@ -75,5 +77,29 @@ namespace CodeBase.Hero
 
         public void TurnOff() =>
             _canRotate = false;
+
+        private void RotateVerticalOld()
+        {
+            if (_inputService.LookAxis.sqrMagnitude > Constants.RotationEpsilon)
+            {
+                CalculateVerticalOld();
+                ClampAngleOld();
+                _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity, 0, 0);
+            }
+
+            Debug.Log($"sqrMagnitude {_inputService.LookAxis.sqrMagnitude}");
+        }
+
+        private void CalculateVerticalOld() =>
+            _verticalRotation -= _inputService.LookAxis.y;
+
+        private void ClampAngleOld()
+        {
+            float verticalAngle = _edgeAngle / _verticalSensitivity;
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -verticalAngle, verticalAngle);
+        }
+
+        private void RotateHorizontalOld() =>
+            transform.Rotate(Vector3.up * _inputService.LookAxis.x * _horizontalSensitivity);
     }
 }
