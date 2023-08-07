@@ -11,7 +11,7 @@ namespace CodeBase.Infrastructure.Factories
         List<IProgressReader> ProgressReaders { get; }
         List<IProgressSaver> ProgressWriters { get; }
 
-        Task WarmUp();
+        void WarmUp();
         Task<GameObject> CreateHero(Vector3 at);
         void CleanUp();
         GameObject GetHero();

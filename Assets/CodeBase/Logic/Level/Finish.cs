@@ -28,9 +28,9 @@ namespace CodeBase.Logic.Level
                 if (pickupEffect != null)
                     Pickup();
 
-                Time.timeScale = 0;
                 WindowBase resultWindow = _windowService.Show<ResultsWindow>(WindowId.Result);
                 (resultWindow as ResultsWindow)?.AddData(_currentLevel, _nextLevel, _maxPrice);
+                (resultWindow as ResultsWindow)?.CalculateScore();
                 (resultWindow as ResultsWindow)?.ShowData();
             }
         }

@@ -10,18 +10,16 @@ namespace CodeBase.Logic.Level
     {
         [SerializeField] private GameObject _door;
         [SerializeField] private LevelSectorTrigger _trigger;
+        [SerializeField] private float _minY;
+        [SerializeField] private float _maxY;
 
         private const float Speed = 10f;
 
         private AudioSource _audioSource;
-        private float _minY;
-        private float _maxY;
         private float _positionY;
         private float _targetY;
         private Transform _doorTransform;
         private bool _close;
-        private float _currentVolume = 1f;
-
         private Coroutine _movementCoroutine;
         private PlayerProgress _progress;
         private float _volume;
@@ -51,8 +49,10 @@ namespace CodeBase.Logic.Level
 
         private void MoveDoor()
         {
-            _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
-                new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z), Speed * Time.deltaTime);
+            if (_doorTransform.position.y != _targetY)
+                _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
+                    new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z),
+                    Speed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -63,7 +63,7 @@ namespace CodeBase.Logic.Level
                 SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
-                    _currentVolume, _audioSource);
+                    _volume, _audioSource);
             }
         }
 
@@ -75,7 +75,7 @@ namespace CodeBase.Logic.Level
                 SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
-                    _currentVolume, _audioSource);
+                    _volume, _audioSource);
             }
         }
 

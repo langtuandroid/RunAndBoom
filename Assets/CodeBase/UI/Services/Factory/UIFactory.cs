@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.Registrator;
+using CodeBase.UI.Elements.Hud.TutorialPanel;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Factory
@@ -9,8 +10,8 @@ namespace CodeBase.UI.Services.Factory
     {
         private IAssets _assets;
         private IRegistratorService _registratorService;
-
         private Transform _uiRoot;
+        private TutorialPanel _tutorialPanel;
 
         public UIFactory(IAssets assets, IRegistratorService registratorService)
         {
@@ -28,8 +29,12 @@ namespace CodeBase.UI.Services.Factory
         public Transform GetUIRoot() =>
             _uiRoot;
 
-        public async Task<GameObject> CreateHud() =>
-            await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
+        public async Task<GameObject> CreateHud()
+        {
+            var hudGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
+            _tutorialPanel = hudGameObject.GetComponentInChildren<TutorialPanel>();
+            return hudGameObject;
+        }
 
         public async Task<GameObject> CreateShopWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.ShopWindow, _uiRoot);
@@ -54,5 +59,8 @@ namespace CodeBase.UI.Services.Factory
 
         public async Task<GameObject> CreateGameEndWindow() =>
             await _registratorService.InstantiateRegisteredAsync(AssetAddresses.GameEndWindow, _uiRoot);
+
+        public TutorialPanel GetTutorialPanel() =>
+            _tutorialPanel;
     }
 }

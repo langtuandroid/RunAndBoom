@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
@@ -19,17 +20,17 @@ namespace CodeBase.Infrastructure.States
         private IExitableState _activeState;
 
         public GameStateMachine(SceneLoader sceneLoader, ILoadingCurtain loadingCurtain, IAdListener adListener,
-            AllServices services,
-            Language language)
+            AllServices services, Language language)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, adListener, services, language),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, language),
                 [typeof(LoadSceneState)] =
                     new LoadSceneState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
                         services.Single<IEnemyFactory>(), services.Single<IPlayerProgressService>(),
                         services.Single<IStaticDataService>(), services.Single<IUIFactory>(),
-                        services.Single<IWindowService>(), services.Single<IInputService>()),
+                        services.Single<IWindowService>(), services.Single<IInputService>(),
+                        services.Single<IAdsService>(), adListener),
                 [typeof(LoadPlayerProgressState)] = new LoadPlayerProgressState(this,
                     services.Single<IPlayerProgressService>(), services.Single<ISaveLoadService>(),
                     services.Single<IStaticDataService>(), services.Single<ILocalizationService>(), language),

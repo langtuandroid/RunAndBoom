@@ -18,5 +18,6 @@ namespace CodeBase.Services.LeaderBoard
         void GetPlayerEntry(string leaderboardName);
         void GetEntries(string leaderboardName);
         void SetValue(string leaderboardName, int value);
+        event Action OnSetValueSuccess;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using CodeBase.Data;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Shop;
@@ -19,9 +20,10 @@ namespace CodeBase.Logic.Level
 
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
-        private bool _isPassed = false;
+        private IUIFactory _uiFactory;
         private PlayerProgress _progress;
         private MoneyData _moneyData;
+        private bool _isPassed = false;
 
         public event Action Passed;
 
@@ -29,6 +31,7 @@ namespace CodeBase.Logic.Level
         {
             _windowService = AllServices.Container.Single<IWindowService>();
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
+            _uiFactory = AllServices.Container.Single<IUIFactory>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -39,8 +42,12 @@ namespace CodeBase.Logic.Level
                     ShowShopWindow();
 
                 SetPassed();
+                TryHideTutorialPanel();
             }
         }
+
+        private void TryHideTutorialPanel() =>
+            _uiFactory.GetTutorialPanel().ForceHidePanel();
 
         private void ShowShopWindow()
         {

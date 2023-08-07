@@ -10,7 +10,11 @@ namespace CodeBase
         public const float HalfVisible = 0.5f;
         public const float Invisible = 0f;
         public const float Zero = 0.0f;
-        public const float Epsilon = 0.001f;
+        public const float RotationEpsilon = 0.001f;
+        public const float MovementEpsilon = 0.5f;
+
+        public const float TimeScaleStop = 0.0f;
+        public const float TimeScaleResume = 1.0f;
 
         public static readonly Color ShopItemUpgrade = new Color(1f, 0.7064719f, 0f, 1f);
         public static readonly Color ShopItemAmmo = new Color(0.2321882f, 1f, 0f, 1f);

@@ -533,6 +533,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 386087593062180436}
     m_Modifications:
+    - target: {fileID: 1542843806902372086, guid: 539d3ae0891b0c748aef24f1734f33c7,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2284989858092018263, guid: 539d3ae0891b0c748aef24f1734f33c7,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -542,6 +547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3530409523215626413, guid: 539d3ae0891b0c748aef24f1734f33c7,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50.1
       objectReference: {fileID: 0}
     - target: {fileID: 3543746120258307583, guid: 539d3ae0891b0c748aef24f1734f33c7,
         type: 3}
@@ -558,6 +568,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6295574698517961660, guid: 539d3ae0891b0c748aef24f1734f33c7,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6738226971072509725, guid: 539d3ae0891b0c748aef24f1734f33c7,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -577,6 +592,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673399299382321305, guid: 539d3ae0891b0c748aef24f1734f33c7,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50.1
       objectReference: {fileID: 0}
     - target: {fileID: 8883585000983770789, guid: 539d3ae0891b0c748aef24f1734f33c7,
         type: 3}
@@ -955,11 +975,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7371933106466138398, guid: e56e47c717f7c164bb7e1f5898f05ea0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7943341274584256419, guid: e56e47c717f7c164bb7e1f5898f05ea0,
         type: 3}

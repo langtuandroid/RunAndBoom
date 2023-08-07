@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using CodeBase.UI.Windows.GameEnd;
 using CodeBase.UI.Windows.Gifts;
+using CodeBase.UI.Windows.LeaderBoard;
 using Tayx.Graphy.Utils.NumString;
 using TMPro;
 using UnityEngine;
@@ -24,14 +24,11 @@ namespace CodeBase.UI.Windows.Results
         private Scene _nextScene;
         private int _maxPrice;
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
-            PrepareLevelStats();
             _restartButton.onClick.AddListener(RestartLevel);
 
-            if (Application.isEditor || LeaderBoardService == null)
+            if (Application.isEditor || LeaderBoardService == null || Progress == null)
                 return;
 
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
@@ -56,23 +53,31 @@ namespace CodeBase.UI.Windows.Results
             _maxPrice = maxPrice;
 
             if (_nextScene == Scene.Initial)
-                _toNextWindowButton.onClick.AddListener(ToGameEndWindow);
+                _toNextWindowButton.onClick.AddListener(ToGameLeaderBoardWindow);
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
         }
 
         public void ShowData()
         {
+            Debug.Log($"ShowData LevelStats.StarsCount {LevelStats.StarsCount}");
             _starsPanel.ShowStars(LevelStats.StarsCount);
             _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
             _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
             _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{LevelStats.RestartsData.Count}";
+            Debug.Log($"ShowData {LevelStats.Scene} {LevelStats.Score}");
             _score.text = $"{LevelStats.Score}";
         }
 
-        private void ToGameEndWindow() =>
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+        public void CalculateScore() =>
+            LevelStats.CalculateScore();
+
+        private void ToGameLeaderBoardWindow()
+        {
+            WindowBase windowBase = WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
+            (windowBase as LeaderBoardWindow)?.SetGameLeaderBoard();
+        }
 
         private void ToGiftsWindow()
         {

@@ -14,7 +14,9 @@ namespace CodeBase.Services.Pool
 {
     public class ObjectsPoolService : IObjectsPoolService
     {
-        private const int InitialCapacity = 15;
+        private const int InitialVfxCapacity = 5;
+        private const int InitialEnemyProjectilesCapacity = 15;
+        private const int InitialHeroProjectilesCapacity = 6;
         private const int AdditionalCount = 5;
 
         private IAssets _assets;
@@ -60,7 +62,7 @@ namespace CodeBase.Services.Pool
         private async void GenerateEnemyProjectiles()
         {
             _enemyProjectiles = new Dictionary<string, List<GameObject>>();
-            List<GameObject> gameObjects = new List<GameObject>(InitialCapacity);
+            List<GameObject> gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
             GameObject projectile;
             EnemyStaticData enemyStaticData;
 
@@ -76,7 +78,7 @@ namespace CodeBase.Services.Pool
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.Pistol.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -90,7 +92,7 @@ namespace CodeBase.Services.Pool
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.Shotgun.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -104,7 +106,7 @@ namespace CodeBase.Services.Pool
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.SniperRifle.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -118,7 +120,7 @@ namespace CodeBase.Services.Pool
 
             _enemyProjectiles.Add(EnemyWeaponTypeId.SMG.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -136,7 +138,7 @@ namespace CodeBase.Services.Pool
         private async void GenerateHeroProjectiles()
         {
             _heroProjectiles = new Dictionary<string, List<GameObject>>();
-            List<GameObject> gameObjects = new List<GameObject>(InitialCapacity);
+            List<GameObject> gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -149,7 +151,7 @@ namespace CodeBase.Services.Pool
 
             _heroProjectiles.Add(HeroWeaponTypeId.GrenadeLauncher.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -162,7 +164,7 @@ namespace CodeBase.Services.Pool
 
             _heroProjectiles.Add(HeroWeaponTypeId.RPG.ToString(), gameObjects);
 
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -175,7 +177,7 @@ namespace CodeBase.Services.Pool
             }
 
             _heroProjectiles.Add(HeroWeaponTypeId.RocketLauncher.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -192,7 +194,7 @@ namespace CodeBase.Services.Pool
         private async void GenerateShotVfxs()
         {
             _shotVfxs = new Dictionary<string, List<GameObject>>();
-            List<GameObject> gameObjects = new List<GameObject>(InitialCapacity);
+            List<GameObject> gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -202,7 +204,7 @@ namespace CodeBase.Services.Pool
             }
 
             _shotVfxs.Add(ShotVfxTypeId.Grenade.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -212,7 +214,7 @@ namespace CodeBase.Services.Pool
             }
 
             _shotVfxs.Add(ShotVfxTypeId.RpgRocket.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -222,7 +224,7 @@ namespace CodeBase.Services.Pool
             }
 
             _shotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -232,7 +234,7 @@ namespace CodeBase.Services.Pool
             }
 
             _shotVfxs.Add(ShotVfxTypeId.Bomb.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
@@ -242,7 +244,7 @@ namespace CodeBase.Services.Pool
             }
 
             _shotVfxs.Add(ShotVfxTypeId.Bullet.ToString(), gameObjects);
-            gameObjects = new List<GameObject>(InitialCapacity);
+            gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {

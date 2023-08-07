@@ -13,11 +13,6 @@ namespace CodeBase.Projectiles.Movement
                 transform.position += transform.forward * Speed * Time.deltaTime;
         }
 
-        // public void Construct(float speed, float lifeTime)
-        // {
-        //     base.Construct(speed * 1f, lifeTime);
-        // }
-
         public override void Launch()
         {
             StartCoroutine(LaunchTime());

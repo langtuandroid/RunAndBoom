@@ -16,17 +16,17 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
         [SerializeField] private Shoot _shoot;
         [SerializeField] private InnerPanels.Weapons _weapons;
         [SerializeField] private LeaderBoard _leaderBoard;
+        [SerializeField] public bool _hideAtStage;
 
         private IInputService _inputService;
         private float _visibleTransparentValue = 0.07058824f;
+        private bool _hidden;
 
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
             _hidden = false;
         }
-
-        private bool _hidden;
 
         private void Start()
         {
@@ -54,16 +54,19 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         private void Update()
         {
+            if (_hideAtStage)
+                return;
+
             if (_hidden)
                 return;
 
             if (_inputService.IsAttackButtonUp())
                 HidePanel();
 
-            if (_inputService is MobileInputService && _inputService.LookAxis.magnitude > Constants.Epsilon)
+            if (_inputService is MobileInputService && _inputService.LookAxis.magnitude > Constants.RotationEpsilon)
                 HidePanel();
 
-            if (_inputService is MobileInputService && _inputService.MoveAxis.magnitude > Constants.Epsilon)
+            if (_inputService is MobileInputService && _inputService.MoveAxis.magnitude > Constants.MovementEpsilon)
                 HidePanel();
 
             if (Input.GetKeyDown(KeyCode.W))
@@ -91,6 +94,14 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
 
         public void HidePanel()
         {
+            if (_hideAtStage)
+                return;
+
+            ForceHidePanel();
+        }
+
+        public void ForceHidePanel()
+        {
             if (_hidden)
                 return;
 
@@ -102,6 +113,7 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel
             _leaderBoard.Hide();
             _background.ChangeImageAlpha(Constants.Invisible);
             _hidden = true;
+            _hideAtStage = false;
         }
     }
 }

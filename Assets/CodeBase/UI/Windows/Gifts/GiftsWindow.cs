@@ -18,12 +18,9 @@ namespace CodeBase.UI.Windows.Gifts
 
         private Scene _nextScene;
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             _addCoinsButton.enabled = Application.isEditor;
-
             _addCoinsButton.onClick.AddListener(ShowAds);
             Cursor.lockState = CursorLockMode.Confined;
             GenerateItems();
