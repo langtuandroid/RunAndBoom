@@ -11,6 +11,7 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
@@ -189,11 +190,25 @@ namespace CodeBase.Infrastructure.States
         private async Task InitHud(GameObject hero)
         {
             if (_hud == null)
-                _hud = await _uiFactory.CreateHud();
+                _hud = await _uiFactory.CreateHud(hero);
 
             HeroHealth heroHealth = hero.GetComponentInChildren<HeroHealth>();
             heroHealth.Construct(_staticDataService);
-            hero.GetComponent<HeroMovement>().Construct(_staticDataService, _inputService);
+
+            if (_inputService is MobileInputService)
+            {
+                MoveJoystick moveJoystick = _hud.GetComponentInChildren<MoveJoystick>();
+                LookJoystick lookJoystick = _hud.GetComponentInChildren<LookJoystick>();
+                hero.GetComponent<HeroMovement>().ConstructMobilePlatform(_staticDataService, moveJoystick);
+                hero.GetComponent<HeroRotating>().ConstructMobilePlatform(lookJoystick);
+            }
+            else
+            {
+                hero.GetComponent<HeroMovement>()
+                    .ConstructDesktopPlatform(_staticDataService, _inputService as DesktopInputService);
+                hero.GetComponent<HeroRotating>().ConstructDesktopPlatform(_inputService);
+            }
+
             hero.GetComponent<HeroReloading>().Construct(_staticDataService);
             HeroReloading heroReloading = hero.GetComponent<HeroReloading>();
             HeroDeath heroDeath = hero.GetComponentInChildren<HeroDeath>();

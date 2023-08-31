@@ -5,6 +5,7 @@ using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -13,17 +14,17 @@ namespace CodeBase.Hero
     {
         [SerializeField] private LayerMask _groundMask;
         [SerializeField] private float _groundYOffset = -0.1f;
-        [SerializeField] float _gravity = -9.81f;
+        [SerializeField] private float _gravity = -9.81f;
 
         private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
+        private MoveJoystick _moveJoystick;
         private CharacterController _characterController;
         private float _baseMovementSpeed = 5f;
         private float _movementRatio = 1f;
         private float _movementSpeed;
-        private bool _canMove;
         private PerkItemData _runningItemData;
         private PlayerProgress _progress;
         private List<PerkItemData> _perks;
@@ -31,60 +32,30 @@ namespace CodeBase.Hero
         private float _airSpeed = 1.5f;
         private Vector3 _spherePosition;
         private Vector3 _velocity;
+        private bool _canMove;
+        private bool _update;
+        private Vector2 _moveInput;
+        private bool _isMobile;
+        private Vector3 _direction = Vector3.zero;
+        private Coroutine _coroutineMove;
 
         private void Awake() =>
             _characterController = GetComponent<CharacterController>();
 
         private void Update()
         {
-            if (_inputService == null)
+            if (_update == false)
                 return;
 
-            Move();
+            if (!_canMove)
+                return;
+
+            if (_isMobile)
+                MobileMove();
+            else
+                DesktopMove();
+
             Gravity();
-        }
-
-        public void Construct(IStaticDataService staticDataService, IInputService inputService)
-        {
-            _staticDataService = staticDataService;
-            _inputService = inputService;
-        }
-
-        private void Move()
-        {
-            Vector3 airDirection = Vector3.zero;
-            Vector3 direction = Vector3.zero;
-
-            if (_inputService.MoveAxis.sqrMagnitude > Constants.MovementEpsilon)
-            {
-                if (IsGrounded())
-                    airDirection = transform.forward * _inputService.MoveAxis.y +
-                                   transform.right * _inputService.MoveAxis.x;
-                else
-                    direction = transform.forward * _inputService.MoveAxis.y +
-                                transform.right * _inputService.MoveAxis.x;
-            }
-
-            _characterController.Move((direction.normalized * _movementSpeed + airDirection * _airSpeed) *
-                                      Time.deltaTime);
-        }
-
-        private bool IsGrounded()
-        {
-            _spherePosition = new Vector3(transform.position.x, transform.position.y - _groundYOffset,
-                transform.position.z);
-            if (Physics.CheckSphere(_spherePosition, _characterController.radius - 0.05f, _groundMask)) return true;
-            return false;
-        }
-
-        private void Gravity()
-        {
-            if (!IsGrounded())
-                _velocity.y += _gravity * Time.deltaTime;
-            else if (_velocity.y < 0)
-                _velocity.y = -0.2f;
-
-            _characterController.Move(_velocity * Time.deltaTime);
         }
 
         private void OnEnable()
@@ -97,6 +68,62 @@ namespace CodeBase.Hero
         {
             if (_runningItemData != null)
                 _runningItemData.LevelChanged -= ChangeSpeed;
+        }
+
+        public void ConstructDesktopPlatform(IStaticDataService staticDataService, DesktopInputService inputService)
+        {
+            _staticDataService = staticDataService;
+            _inputService = inputService;
+            _isMobile = false;
+            _update = true;
+            _inputService.Moved += DesktopMove;
+        }
+
+        public void ConstructMobilePlatform(IStaticDataService staticDataService, MoveJoystick moveJoystick)
+        {
+            _moveJoystick = moveJoystick;
+            _staticDataService = staticDataService;
+            _isMobile = true;
+            _update = true;
+        }
+
+        private void DesktopMove(Vector2 moveInput) =>
+            _moveInput = moveInput;
+
+        private void DesktopMove()
+        {
+            _direction = transform.forward * _moveInput.y + transform.right * _moveInput.x;
+            _characterController.Move((_direction.normalized * _movementSpeed) * Time.deltaTime);
+        }
+
+        private void MobileMove()
+        {
+            if (_moveJoystick.Input.sqrMagnitude <= Constants.MovementEpsilon)
+                return;
+
+            _direction = transform.forward * _moveJoystick.Input.y + transform.right * _moveJoystick.Input.x;
+            _characterController.Move((_direction.normalized * _movementSpeed) * Time.deltaTime);
+        }
+
+        private void Gravity()
+        {
+            if (!IsGrounded())
+                _velocity.y += _gravity * Time.deltaTime;
+            else if (_velocity.y < 0)
+                _velocity.y = -0.2f;
+
+            _characterController.Move(_velocity * Time.deltaTime);
+        }
+
+        private bool IsGrounded()
+        {
+            _spherePosition = new Vector3(transform.position.x, transform.position.y - _groundYOffset,
+                transform.position.z);
+
+            if (Physics.CheckSphere(_spherePosition, _characterController.radius - 0.05f, _groundMask))
+                return true;
+
+            return false;
         }
 
         private void SetSpeed()

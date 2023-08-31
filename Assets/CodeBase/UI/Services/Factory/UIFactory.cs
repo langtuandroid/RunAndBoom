@@ -29,10 +29,14 @@ namespace CodeBase.UI.Services.Factory
         public Transform GetUIRoot() =>
             _uiRoot;
 
-        public async Task<GameObject> CreateHud()
+        public async Task<GameObject> CreateHud(GameObject hero)
         {
             var hudGameObject = await _registratorService.InstantiateRegisteredAsync(AssetAddresses.Hud);
             _tutorialPanel = hudGameObject.GetComponentInChildren<TutorialPanel>();
+
+            // if (Application.isMobilePlatform)
+            //     hudGameObject.GetComponentInChildren<LookArea>().Construct(hero.GetComponent<HeroRotating>());
+
             return hudGameObject;
         }
 

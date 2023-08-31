@@ -37,7 +37,7 @@ namespace CodeBase.Infrastructure.States
             _language = language;
 
             RegisterServices();
-            // SetTargetFrameRate();
+            SetTargetFrameRate();
         }
 
         public void Enter() =>
@@ -103,10 +103,13 @@ namespace CodeBase.Infrastructure.States
         {
         }
 
-        private static IInputService InputService() =>
-            Application.isMobilePlatform
-                ? new MobileInputService()
-                : new DesktopInputService();
+        private static IInputService InputService()
+        {
+            PlayerInput playerInput = new PlayerInput();
+            return Application.isMobilePlatform
+                ? new MobileInputService(playerInput)
+                : new DesktopInputService(playerInput);
+        }
 
         private void SetTargetFrameRate()
         {

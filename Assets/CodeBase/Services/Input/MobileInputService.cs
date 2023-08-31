@@ -1,15 +1,20 @@
+using System;
 using UnityEngine;
 
 namespace CodeBase.Services.Input
 {
     public class MobileInputService : InputService
     {
-        private const string Button = "Fire";
+        private PlayerInput _playerInput;
 
-        public override bool IsAttackButtonUp() => SimpleInput.GetButtonDown(Button);
+        public MobileInputService(PlayerInput playerInput)
+        {
+            _playerInput = playerInput;
+            _playerInput.Enable();
+        }
 
-        public override Vector2 MoveAxis => MoveSimpleInputAxis();
-
-        public override Vector2 LookAxis => LookSimpleInputAxis();
+        public override bool IsAttackButtonUp() => _playerInput.Player.Shoot.IsPressed();
+        public override event Action<Vector2> Moved;
+        public override event Action<Vector2> Looked;
     }
 }
