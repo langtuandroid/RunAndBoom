@@ -5,8 +5,8 @@ namespace CodeBase.Data.Settings
     [Serializable]
     public class SettingsData
     {
-        private const float DefaultMusicVolume = 0.5f;
-        private const float DefaultSoundVolume = 1f;
+        private const float InitialMusicVolume = 0.5f;
+        private const float InitialSoundVolume = 0.5f;
 
         public float MusicVolume;
         public float SoundVolume;
@@ -21,8 +21,8 @@ namespace CodeBase.Data.Settings
 
         public SettingsData(Language language)
         {
-            MusicVolume = DefaultMusicVolume;
-            SoundVolume = DefaultSoundVolume;
+            MusicVolume = InitialMusicVolume;
+            SoundVolume = InitialSoundVolume;
             MusicOn = true;
             SoundOn = true;
             SetLanguage(language);

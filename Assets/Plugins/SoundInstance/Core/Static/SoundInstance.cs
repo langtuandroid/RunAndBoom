@@ -6,11 +6,10 @@ namespace Plugins.SoundInstance.Core.Static
 {
     public static class SoundInstance
     {
-        public static float defaultVolume = 1;
-        public static float musicVolume = 0.7f;
+        public static float defaultVolume = 0.0f;
+        public static float musicVolume = 0.0f;
 
         private static SI_MusicHandler _MusicHandler;
-
         private static Music c_music;
 
 
