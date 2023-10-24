@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services.Input;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
@@ -17,9 +17,9 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        protected void Construct(AmmoItem ammoItem, PlayerProgress progress)
+        protected void Construct(AmmoItem ammoItem, ProgressData progressData)
         {
-            base.Construct(progress);
+            base.Construct(progressData);
             _ammoItem = ammoItem;
             FillData();
         }

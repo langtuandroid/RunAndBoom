@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Perks;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -12,17 +12,17 @@ namespace CodeBase.UI.Windows.Gifts.Items
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, PerkItemData perkItemData, PlayerProgress progress,
+        public void Construct(Transform heroTransform, PerkItemData perkItemData, ProgressData progressData,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(perkItemData, progress);
+            base.Construct(perkItemData, progressData);
         }
 
         protected override void Clicked()
         {
-            Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
+            ProgressData.PerksData.LevelUp(_perkStaticData.PerkTypeId);
             ClearData();
             _generator.Clicked();
 

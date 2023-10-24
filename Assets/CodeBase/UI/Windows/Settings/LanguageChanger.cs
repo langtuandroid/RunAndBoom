@@ -1,5 +1,4 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
 using UnityEngine;
@@ -16,12 +15,7 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] private GameObject _trSelection;
         [SerializeField] private GameObject _enSelection;
 
-        private PlayerProgress _progress;
         private ILocalizationService _localizationService;
-
-        private void Start()
-        {
-        }
 
         private void OnEnable()
         {

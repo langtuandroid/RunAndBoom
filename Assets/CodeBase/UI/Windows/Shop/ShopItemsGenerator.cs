@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeBase.Data.Perks;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress.Perks;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.StaticData.Weapons;
@@ -23,7 +23,7 @@ namespace CodeBase.UI.Windows.Shop
 
         public override void Generate()
         {
-            if (Progress == null)
+            if (ProgressData == null)
                 return;
 
             GenerationStarted?.Invoke();
@@ -59,7 +59,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             AmmoItem ammoItem = RandomService.NextFrom(list);
             AmmoShopItem view = parent.GetComponent<ShopCell>().GetView(typeof(AmmoShopItem)) as AmmoShopItem;
-            view?.Construct(hero.transform, ammoItem, Progress);
+            view?.Construct(hero.transform, ammoItem, ProgressData);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -69,7 +69,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             ItemShopItem view =
                 parent.GetComponent<ShopCell>().GetView(typeof(ItemShopItem)) as ItemShopItem;
-            view?.Construct(hero.transform, itemTypeId, Health, Progress);
+            view?.Construct(hero.transform, itemTypeId, Health, ProgressData);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -79,7 +79,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             UpgradeItemData upgradeItemData = RandomService.NextFrom(list);
             UpgradeShopItem view = parent.GetComponent<ShopCell>().GetView(typeof(UpgradeShopItem)) as UpgradeShopItem;
-            view?.Construct(hero.transform, upgradeItemData, Progress);
+            view?.Construct(hero.transform, upgradeItemData, ProgressData);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -89,7 +89,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             PerkItemData perkItemData = RandomService.NextFrom(list);
             PerkShopItem view = parent.GetComponent<ShopCell>().GetView(typeof(PerkShopItem)) as PerkShopItem;
-            view?.Construct(hero.transform, perkItemData, Progress);
+            view?.Construct(hero.transform, perkItemData, ProgressData);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -99,7 +99,7 @@ namespace CodeBase.UI.Windows.Shop
         {
             HeroWeaponTypeId weaponTypeId = RandomService.NextFrom(list);
             WeaponShopItem view = parent.GetComponent<ShopCell>().GetView(typeof(WeaponShopItem)) as WeaponShopItem;
-            view?.Construct(hero.transform, weaponTypeId, Progress);
+            view?.Construct(hero.transform, weaponTypeId, ProgressData);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }

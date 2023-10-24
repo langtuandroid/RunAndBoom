@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Hero;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
@@ -12,12 +12,12 @@ namespace CodeBase.UI.Windows.Gifts.Items
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, ItemTypeId typeId, PlayerProgress progress, HeroHealth health,
+        public void Construct(Transform heroTransform, ItemTypeId typeId, ProgressData progressData, HeroHealth health,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(typeId, health, progress);
+            base.Construct(typeId, health, progressData);
         }
 
         protected override void Clicked()

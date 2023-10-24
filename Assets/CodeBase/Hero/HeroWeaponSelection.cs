@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -18,7 +19,7 @@ namespace CodeBase.Hero
 
         private Dictionary<HeroWeaponTypeId, GameObject> _weaponsDictionary;
         private IStaticDataService _staticDataService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
         private bool _canSelect;
         private int _currentWeapon;
         private List<HeroWeaponTypeId> _heroWeaponTypeIds;
@@ -84,7 +85,7 @@ namespace CodeBase.Hero
 
         private void FindWeaponContainer(HeroWeaponTypeId heroWeaponTypeId)
         {
-            if (!_progress.WeaponsData.WeaponData.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
+            if (!_progressData.WeaponsData.WeaponData.First(x => x.WeaponTypeId == heroWeaponTypeId).IsAvailable)
                 return;
 
             GameObject weapon = _weaponsDictionary.First(x => x.Key == heroWeaponTypeId).Value;
@@ -98,17 +99,17 @@ namespace CodeBase.Hero
 
         private void WeaponChosen(HeroWeaponTypeId heroWeaponTypeId)
         {
-            _progress.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
+            _progressData.WeaponsData.SetCurrentWeapon(heroWeaponTypeId);
             _currentWeapon = _heroWeaponTypeIds.IndexOf(heroWeaponTypeId);
             HeroWeaponStaticData heroWeaponStaticData = _staticDataService.ForHeroWeapon(heroWeaponTypeId);
             TrailStaticData trailStaticData = _staticDataService.ForTrail(heroWeaponStaticData.TrailTypeId);
             WeaponSelected?.Invoke(_weaponsDictionary[heroWeaponTypeId], heroWeaponStaticData, trailStaticData);
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
-            FindWeaponContainer(_progress.WeaponsData.CurrentHeroWeaponTypeId);
+            _progressData = progressData;
+            FindWeaponContainer(_progressData.WeaponsData.CurrentHeroWeaponTypeId);
             _canSelect = true;
         }
     }

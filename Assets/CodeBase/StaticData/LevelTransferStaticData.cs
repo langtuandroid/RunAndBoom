@@ -1,14 +1,14 @@
 using System;
-using CodeBase.Data;
+using CodeBase.Data.Progress;
 
 namespace CodeBase.StaticData
 {
     [Serializable]
     public class LevelTransferStaticData
     {
-        public Scene TransferTo;
+        public SceneId TransferTo;
 
-        public LevelTransferStaticData(Scene transferTo)
+        public LevelTransferStaticData(SceneId transferTo)
         {
             TransferTo = transferTo;
         }

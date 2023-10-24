@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -11,17 +11,18 @@ namespace CodeBase.UI.Windows.Gifts.Items
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, AmmoItem ammoItem, PlayerProgress progress,
+        public void Construct(Transform heroTransform, AmmoItem ammoItem, ProgressData progressData,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(ammoItem, progress);
+            base.Construct(ammoItem, progressData);
         }
 
         protected override void Clicked()
         {
-            Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId, GetCount(_shopAmmoStaticData.Count));
+            ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
+                GetCount(_shopAmmoStaticData.Count));
             ClearData();
             _generator.Clicked();
             SoundInstance.InstantiateOnTransform(

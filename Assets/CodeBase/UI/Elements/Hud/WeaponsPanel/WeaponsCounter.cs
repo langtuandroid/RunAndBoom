@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
@@ -16,18 +16,18 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         [SerializeField] private TextMeshProUGUI _mortar;
 
         private ILocalizationService _localizationService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         private void OnEnable()
         {
-            if (_progress != null)
+            if (_progressData != null)
             {
-                _progress.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged +=
+                _progressData.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged +=
                     ChangeGrenadeLauncherAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged +=
+                _progressData.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
+                _progressData.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged +=
                     ChangeRocketLauncherAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
+                _progressData.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
             }
 
             if (_localizationService == null)
@@ -38,14 +38,14 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         private void OnDisable()
         {
-            if (_progress?.WeaponsData != null)
+            if (_progressData?.WeaponsData != null)
             {
-                _progress.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged -=
+                _progressData.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged -=
                     ChangeGrenadeLauncherAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged -= ChangeRpgAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged -=
+                _progressData.WeaponsData.WeaponsAmmoData.RpgAmmoChanged -= ChangeRpgAmmo;
+                _progressData.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged -=
                     ChangeRocketLauncherAmmo;
-                _progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged -= ChangeMortarAmmo;
+                _progressData.WeaponsData.WeaponsAmmoData.MortarAmmoChanged -= ChangeMortarAmmo;
             }
 
             if (_localizationService != null)
@@ -54,15 +54,15 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
 
         private void Construct()
         {
-            _progress.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged +=
+            _progressData.WeaponsData.WeaponsAmmoData.GrenadeLauncherAmmoChanged +=
                 ChangeGrenadeLauncherAmmo;
-            _progress.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
-            _progress.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;
-            _progress.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
-            _progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
-            _progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RPG);
-            _progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RocketLauncher);
-            _progress.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.Mortar);
+            _progressData.WeaponsData.WeaponsAmmoData.RpgAmmoChanged += ChangeRpgAmmo;
+            _progressData.WeaponsData.WeaponsAmmoData.RocketLauncherAmmoChanged += ChangeRocketLauncherAmmo;
+            _progressData.WeaponsData.WeaponsAmmoData.MortarAmmoChanged += ChangeMortarAmmo;
+            _progressData.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.GrenadeLauncher);
+            _progressData.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RPG);
+            _progressData.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.RocketLauncher);
+            _progressData.WeaponsData.WeaponsAmmoData.AmmoChanged(HeroWeaponTypeId.Mortar);
         }
 
         private void ChangeGrenadeLauncherAmmo(int ammo) =>
@@ -80,16 +80,16 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         private void RefreshAmmo()
         {
             ChangeGrenadeLauncherAmmo(
-                _progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher]);
-            ChangeRpgAmmo(_progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RPG]);
+                _progressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher]);
+            ChangeRpgAmmo(_progressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RPG]);
             ChangeRocketLauncherAmmo(
-                _progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher]);
-            ChangeMortarAmmo(_progress.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.Mortar]);
+                _progressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher]);
+            ChangeMortarAmmo(_progressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.Mortar]);
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
+            _progressData = progressData;
             Construct();
         }
     }

@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Settings;
 using CodeBase.Logic;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
@@ -14,7 +14,7 @@ using UnityEngine.Serialization;
 namespace CodeBase.Weapons
 {
     [RequireComponent(typeof(AudioSource))]
-    public abstract class BaseWeaponAppearance : MonoBehaviour, IProgressReader
+    public abstract class BaseWeaponAppearance : MonoBehaviour
     {
         [FormerlySerializedAs("_projectilesRespawns")] [SerializeField]
         public Transform[] ProjectilesRespawns;
@@ -33,13 +33,16 @@ namespace CodeBase.Weapons
         private ProjectileTypeId? _projectileTypeId;
         private IDeath _death;
         protected bool Enabled = true;
-        private PlayerProgress _progress;
+        private SettingsData _settingsData;
         protected float Volume = 1f;
 
         protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
 
-        private void Awake() =>
+        private void Awake()
+        {
             AudioSource = GetComponent<AudioSource>();
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+        }
 
         private void OnEnable()
         {
@@ -70,6 +73,9 @@ namespace CodeBase.Weapons
 
             if (_death != null)
                 _death.Died -= Disable;
+
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void Enable()
@@ -78,6 +84,11 @@ namespace CodeBase.Weapons
 
             if (_death != null)
                 _death.Died += Disable;
+
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
         }
 
         protected GameObject SetNewProjectile(Transform respawn)
@@ -129,19 +140,10 @@ namespace CodeBase.Weapons
 
         protected abstract void Launch(Vector3 targetPosition);
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-        }
-
         private void VolumeChanged() =>
-            Volume = _progress.SettingsData.SoundVolume;
+            Volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

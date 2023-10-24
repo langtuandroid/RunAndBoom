@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Gifts;
@@ -21,14 +21,14 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private TextMeshProUGUI _restartsCount;
         [SerializeField] private TextMeshProUGUI _score;
 
-        private Scene _nextScene;
+        private SceneId _nextSceneId;
         private int _maxPrice;
 
         private void OnEnable()
         {
             _restartButton.onClick.AddListener(RestartLevel);
 
-            if (Application.isEditor || LeaderBoardService == null || Progress == null)
+            if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
                 return;
 
             LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
@@ -46,13 +46,13 @@ namespace CodeBase.UI.Windows.Results
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Result);
 
-        public void AddData(Scene currentLevel, Scene nextLevel, int maxPrice)
+        public void AddData(SceneId currentLevel, SceneId nextLevel, int maxPrice)
         {
             CurrentLevel = currentLevel;
-            _nextScene = nextLevel;
+            _nextSceneId = nextLevel;
             _maxPrice = maxPrice;
 
-            if (_nextScene == Scene.Initial)
+            if (_nextSceneId == SceneId.Initial)
                 _toNextWindowButton.onClick.AddListener(ToGameLeaderBoardWindow);
             else
                 _toNextWindowButton.onClick.AddListener(ToGiftsWindow);
@@ -66,7 +66,7 @@ namespace CodeBase.UI.Windows.Results
             _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
             _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{LevelStats.RestartsData.Count}";
-            Debug.Log($"ShowData {LevelStats.Scene} {LevelStats.Score}");
+            Debug.Log($"ShowData {LevelStats.sceneId} {LevelStats.Score}");
             _score.text = $"{LevelStats.Score}";
         }
 
@@ -82,7 +82,7 @@ namespace CodeBase.UI.Windows.Results
         private void ToGiftsWindow()
         {
             WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
-            (giftsWindow as GiftsWindow).AddData(_nextScene);
+            (giftsWindow as GiftsWindow).AddData(_nextSceneId);
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
             giftsGenerator?.SetMaxPrice(_maxPrice);
             giftsGenerator?.Generate();

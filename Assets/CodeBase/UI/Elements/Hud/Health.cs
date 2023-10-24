@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace CodeBase.UI.Elements.Hud
         [SerializeField] private HpBar _hpBar;
 
         private IHealth _health;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         public void Construct(IHealth health)
         {

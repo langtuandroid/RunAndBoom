@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
@@ -21,15 +21,15 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
             _upgradeTypeIds = Enum.GetValues(typeof(UpgradeTypeId)).Cast<UpgradeTypeId>();
 
         private Dictionary<UpgradeTypeId, UpgradeView> _activeUpgrades;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         private void Awake() =>
             _activeUpgrades = new Dictionary<UpgradeTypeId, UpgradeView>(_upgradeTypeIds.Count());
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
-            _progress.WeaponsData.UpgradesData.NewUpgradeAdded += AddNewUpgrade;
+            _progressData = progressData;
+            _progressData.WeaponsData.UpgradesData.NewUpgradeAdded += AddNewUpgrade;
 
             ConstructUpgrades();
         }
@@ -46,7 +46,7 @@ namespace CodeBase.UI.Elements.Hud.WeaponUpgrades
 
         private void ConstructUpgrades()
         {
-            foreach (UpgradeItemData upgrade in _progress.WeaponsData.UpgradesData.UpgradeItemDatas)
+            foreach (UpgradeItemData upgrade in _progressData.WeaponsData.UpgradesData.UpgradeItemDatas)
             {
                 if (upgrade.WeaponTypeId == _weaponTypeId)
                     if (upgrade.LevelTypeId != LevelTypeId.None)

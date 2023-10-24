@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
@@ -41,7 +41,7 @@ namespace CodeBase.Infrastructure.States
         }
 
         public void Enter() =>
-            _sceneLoader.Load(scene: Scene.Initial, onLoaded: EnterLoadLevel);
+            _sceneLoader.Load(scene: SceneId.Initial, onLoaded: EnterLoadLevel);
 
         private void EnterLoadLevel() =>
             _stateMachine.Enter<LoadPlayerProgressState, bool>(false);

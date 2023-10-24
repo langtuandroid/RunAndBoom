@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Hits;
@@ -60,7 +60,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<ShopUpgradeLevelInfoData, UpgradeLevelInfoStaticData> _shopUpgradeLevelsInfo;
         private Dictionary<UpgradeTypeId, ShopUpgradeStaticData> _shopUpgrades;
         private Dictionary<HeroWeaponTypeId, ShopWeaponStaticData> _shopWeapons;
-        private Dictionary<Scene, LevelStaticData> _levels;
+        private Dictionary<SceneId, LevelStaticData> _levels;
         private Dictionary<TrailTypeId, TrailStaticData> _trails;
         private Dictionary<ProjectileTypeId, ProjectileStaticData> _projectiles;
         private Dictionary<ShotVfxTypeId, ShotVfxStaticData> _shotVfxs;
@@ -161,8 +161,8 @@ namespace CodeBase.Services.StaticData
                 ? staticData
                 : null;
 
-        public LevelStaticData ForLevel(Scene scene) =>
-            _levels.TryGetValue(scene, out LevelStaticData staticData)
+        public LevelStaticData ForLevel(SceneId sceneId) =>
+            _levels.TryGetValue(sceneId, out LevelStaticData staticData)
                 ? staticData
                 : null;
 

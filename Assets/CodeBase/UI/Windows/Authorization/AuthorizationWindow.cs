@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Services.Windows;
@@ -15,7 +15,7 @@ namespace CodeBase.UI.Windows.Authorization
         [SerializeField] private Button _denyButton;
 
         private IAuthorization _authorization;
-        private Scene _nextScene;
+        private SceneId _nextScene;
         private int _maxPrice;
 
         private void OnEnable()

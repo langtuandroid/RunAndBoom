@@ -1,6 +1,6 @@
 ﻿using System;
-using CodeBase.Data;
-using CodeBase.Data.Perks;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Input;
@@ -19,7 +19,7 @@ namespace CodeBase.Hero
 
         private IInputService _inputService;
         private IStaticDataService _staticDataService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
         private PerkItemData _regenerationItemData;
         private PerkItemData _vampirismItemData;
         private PerkItemData _upMaxHealthItemData;
@@ -76,7 +76,7 @@ namespace CodeBase.Hero
 
         public void Recover()
         {
-            _progress.HealthState.CurrentHp = Max;
+            _progressData.HealthState.CurrentHp = Max;
             Current = Max;
             HealthChanged?.Invoke();
         }
@@ -106,33 +106,33 @@ namespace CodeBase.Hero
         public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
+            _progressData = progressData;
             SetupUpMaxHealth();
             SetupRegeneration();
             SetupVampirism();
             SetupArmor();
         }
 
-        public void UpdateProgress(PlayerProgress progress)
+        public void UpdateProgressData(ProgressData progressData)
         {
-            _progress.HealthState.CurrentHp = Current;
-            _progress.HealthState.MaxHp = Max;
+            _progressData.HealthState.CurrentHp = Current;
+            _progressData.HealthState.MaxHp = Max;
         }
 
         public void TakeDamage(float damage)
         {
             float result = (BaseRatio - _armorRatio) * damage;
             Current -= result;
-            _progress.HealthState.CurrentHp = Current;
+            _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
 
         private void SetupVampirism()
         {
             _vampirismItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
             _vampirismItemData.LevelChanged += ChangeVampirism;
         }
 
@@ -145,7 +145,7 @@ namespace CodeBase.Hero
         private void SetupRegeneration()
         {
             _regenerationItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
             _regenerationItemData.LevelChanged += ChangeRegeneration;
             ChangeRegeneration();
             _regenerationCurrentTime = _regenerationDelay;
@@ -154,7 +154,7 @@ namespace CodeBase.Hero
         private void ChangeRegeneration()
         {
             _regenerationItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Regeneration);
 
             if (_regenerationItemData.LevelTypeId == LevelTypeId.None)
                 _regenerationValue = ZeroValue;
@@ -167,7 +167,7 @@ namespace CodeBase.Hero
         private void ChangeVampirism()
         {
             _vampirismItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Vampire);
 
             if (_vampirismItemData.LevelTypeId == LevelTypeId.None)
                 _vampirismValue = ZeroValue;
@@ -178,7 +178,7 @@ namespace CodeBase.Hero
         private void SetupUpMaxHealth()
         {
             _upMaxHealthItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
             _upMaxHealthItemData.LevelChanged += ChangeMaxHealth;
             ChangeMaxHealth();
         }
@@ -186,7 +186,7 @@ namespace CodeBase.Hero
         private void ChangeMaxHealth()
         {
             _upMaxHealthItemData =
-                _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
 
             if (_upMaxHealthItemData.LevelTypeId == LevelTypeId.None)
                 _maxHealthRatio = BaseRatio;
@@ -197,8 +197,8 @@ namespace CodeBase.Hero
             SetMaxHealth();
 
             Current = Max;
-            _progress.HealthState.MaxHp = Max;
-            _progress.HealthState.CurrentHp = Current;
+            _progressData.HealthState.MaxHp = Max;
+            _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
 
@@ -212,14 +212,14 @@ namespace CodeBase.Hero
 
         private void SetupArmor()
         {
-            _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
+            _armorItemData = _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
             _armorItemData.LevelChanged += ChangeArmor;
             ChangeArmor();
         }
 
         private void ChangeArmor()
         {
-            _armorItemData = _progress.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
+            _armorItemData = _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.Armor);
 
             if (_armorItemData.LevelTypeId == LevelTypeId.None)
                 _armorRatio = BaseArmorRatio;
@@ -234,7 +234,7 @@ namespace CodeBase.Hero
 
             float next = Current + value;
             Current = next > Max ? Max : next;
-            _progress.HealthState.CurrentHp = Current;
+            _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
     }

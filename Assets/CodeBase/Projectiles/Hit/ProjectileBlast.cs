@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Linq;
-using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
+using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -24,7 +25,8 @@ namespace CodeBase.Projectiles.Hit
         private const float SphereCastRadius = 0.2f;
 
         private IStaticDataService _staticDataService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
+        private SettingsData _settingsData;
         private float _baseBlastRadius;
         private UpgradeItemData _blastItemData;
         private float _blastRadiusRatio = BaseRatio;
@@ -47,6 +49,7 @@ namespace CodeBase.Projectiles.Hit
                 Constants.EnemyTag, Constants.ObstacleTag, Constants.BarrierTag, Constants.DestructableTag,
                 Constants.WallTag, Constants.GroundTag
             };
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
         public void OffCollider() =>
@@ -61,12 +64,20 @@ namespace CodeBase.Projectiles.Hit
 
             if (_blastItemData != null)
                 _blastItemData.LevelChanged += ChangeBlastSize;
+
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
         }
 
         private void OnDisable()
         {
             if (_blastItemData != null)
                 _blastItemData.LevelChanged -= ChangeBlastSize;
+
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -136,7 +147,7 @@ namespace CodeBase.Projectiles.Hit
 
         private void SetBlastSize()
         {
-            _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _blastItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _heroWeaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
             _blastItemData.LevelChanged += ChangeBlastSize;
             ChangeBlastSize();
@@ -144,7 +155,7 @@ namespace CodeBase.Projectiles.Hit
 
         private void ChangeBlastSize()
         {
-            _blastItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _blastItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _heroWeaponTypeId && x.UpgradeTypeId == UpgradeTypeId.BlastSize);
 
             if (_blastItemData.LevelTypeId == LevelTypeId.None)
@@ -199,22 +210,18 @@ namespace CodeBase.Projectiles.Hit
             HideBlast();
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
+            _progressData = progressData;
 
             if (_heroWeaponTypeId != null)
                 SetBlastSize();
         }
 
         private void VolumeChanged() =>
-            _volume = _progress.SettingsData.SoundVolume;
+            _volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

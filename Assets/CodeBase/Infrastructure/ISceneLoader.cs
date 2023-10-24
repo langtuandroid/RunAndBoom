@@ -1,10 +1,10 @@
 using System;
-using CodeBase.Data;
+using CodeBase.Data.Progress;
 
 namespace CodeBase.Infrastructure
 {
     public interface ISceneLoader
     {
-        void Load(Scene scene, Action<Scene> onLoaded = null);
+        void Load(SceneId sceneId, Action<SceneId> onLoaded = null);
     }
 }

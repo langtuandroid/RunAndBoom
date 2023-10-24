@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
@@ -12,9 +12,9 @@ namespace CodeBase.UI.Elements.Hud
         private string _sector;
         private MoneyData _moneyData;
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _moneyData = progress.AllStats.AllMoney;
+            _moneyData = progressData.AllStats.AllMoney;
             _moneyData.MoneyChanged += SetMoney;
             SetMoney();
         }

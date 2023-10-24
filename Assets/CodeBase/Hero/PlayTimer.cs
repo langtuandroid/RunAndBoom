@@ -24,7 +24,7 @@ namespace CodeBase.Hero
 
         private void OnDisable()
         {
-            _progressService.Progress.AllStats.CurrentLevelStats.PlayTimeData.Add(_playTime);
+            _progressService.ProgressData.AllStats.CurrentLevelStats.PlayTimeData.Add(_playTime);
             _isPlaying = false;
             _playTime = Constants.Zero;
         }

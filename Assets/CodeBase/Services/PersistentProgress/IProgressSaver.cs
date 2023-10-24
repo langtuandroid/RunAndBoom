@@ -1,9 +1,9 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 
 namespace CodeBase.Services.PersistentProgress
 {
     public interface IProgressSaver : IProgressReader
     {
-        void UpdateProgress(PlayerProgress progress);
+        void UpdateProgressData(ProgressData progressData);
     }
 }

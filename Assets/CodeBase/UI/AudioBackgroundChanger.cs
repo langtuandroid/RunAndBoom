@@ -31,11 +31,11 @@ namespace CodeBase.UI
             }
             else
             {
-                SoundInstance.musicVolume = _playerProgressService.Progress.SettingsData.MusicVolume;
-                SoundInstance.GetMusicSource().volume = _playerProgressService.Progress.SettingsData.MusicVolume;
+                SoundInstance.musicVolume = _playerProgressService.SettingsData.MusicVolume;
+                SoundInstance.GetMusicSource().volume = _playerProgressService.SettingsData.MusicVolume;
             }
 
-            Debug.Log($"saved volume {_playerProgressService.Progress.SettingsData.MusicVolume}");
+            Debug.Log($"saved volume {_playerProgressService.SettingsData.MusicVolume}");
             Debug.Log($"current music volume {SoundInstance.musicVolume}");
             Debug.Log($"current volume {SoundInstance.GetMusicSource().volume}");
         }

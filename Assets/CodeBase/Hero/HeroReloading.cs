@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
@@ -20,7 +20,7 @@ namespace CodeBase.Hero
         private const float BaseRatio = 1f;
 
         private IStaticDataService _staticDataService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
         private HeroWeaponTypeId _weaponTypeId;
         private float _currentAttackCooldown = 0f;
         private float _initialCooldown = 2f;
@@ -75,7 +75,7 @@ namespace CodeBase.Hero
 
         private void SetCooldown()
         {
-            _reloadingItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _reloadingItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.Reloading);
             _reloadingItemData.LevelChanged += ChangeCooldown;
             ChangeCooldown();
@@ -83,7 +83,7 @@ namespace CodeBase.Hero
 
         private void ChangeCooldown()
         {
-            _reloadingItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _reloadingItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.Reloading);
 
             if (_reloadingItemData.LevelTypeId == LevelTypeId.None)
@@ -105,7 +105,7 @@ namespace CodeBase.Hero
             _baseCooldown = heroWeaponStaticData.Cooldown;
             _currentAttackCooldown = 0f;
 
-            if (_progress != null)
+            if (_progressData != null)
                 SetCooldown();
         }
 
@@ -144,9 +144,9 @@ namespace CodeBase.Hero
             _initialCooldown -= Time.deltaTime;
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
+            _progressData = progressData;
             SetCooldown();
         }
     }

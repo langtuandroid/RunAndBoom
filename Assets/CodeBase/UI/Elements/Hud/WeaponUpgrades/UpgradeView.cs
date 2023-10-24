@@ -1,4 +1,4 @@
-﻿using CodeBase.Data.Upgrades;
+﻿using CodeBase.Data.Progress.Upgrades;
 using CodeBase.StaticData.Items.Inventory;
 using CodeBase.StaticData.Weapons;
 

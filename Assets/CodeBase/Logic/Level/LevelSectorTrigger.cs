@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Factory;
@@ -21,7 +22,7 @@ namespace CodeBase.Logic.Level
         private IWindowService _windowService;
         private IPlayerProgressService _progressService;
         private IUIFactory _uiFactory;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
         private MoneyData _moneyData;
         private bool _isPassed = false;
 
@@ -38,7 +39,7 @@ namespace CodeBase.Logic.Level
         {
             if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
             {
-                if (_progressService.Progress.AllStats.IsMoneyEnough(MinItemValue))
+                if (_progressService.ProgressData.AllStats.IsMoneyEnough(MinItemValue))
                     ShowShopWindow();
 
                 SetPassed();
@@ -58,7 +59,7 @@ namespace CodeBase.Logic.Level
 
         private void SetPassed()
         {
-            _progressService.Progress.WorldData.LevelNameData.ChangeSector(_number.ToString());
+            _progressService.ProgressData.WorldData.LevelNameData.ChangeSector(_number.ToString());
             Passed?.Invoke();
             _isPassed = true;
         }

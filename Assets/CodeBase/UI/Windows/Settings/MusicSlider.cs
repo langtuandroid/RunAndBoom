@@ -7,27 +7,33 @@ namespace CodeBase.UI.Windows.Settings
         protected override void ChangeValue(float value)
         {
             if (!IsSwitched)
-                Progress.SettingsData.SetMusicVolume(value);
+                SettingsData.SetMusicVolume(value);
             else
                 IsSwitched = false;
         }
 
-        protected override void SetListeners()
+        protected override void Subscribe()
         {
-            Progress.SettingsData.MusicVolumeChanged += VolumeChanged;
-            Progress.SettingsData.MusicSwitchChanged += SwitchChanged;
+            SettingsData.MusicVolumeChanged += VolumeChanged;
+            SettingsData.MusicSwitchChanged += SwitchChanged;
+        }
+
+        protected override void Unsubscribe()
+        {
+            SettingsData.MusicVolumeChanged -= VolumeChanged;
+            SettingsData.MusicSwitchChanged -= SwitchChanged;
         }
 
         protected override void VolumeChanged()
         {
             IsSwitched = false;
-            ChangeVolume(Progress.SettingsData.MusicVolume);
+            ChangeVolume(SettingsData.MusicVolume);
         }
 
         protected override void SwitchChanged()
         {
             IsSwitched = true;
-            ChangeVolume(Progress.SettingsData.MusicOn ? Progress.SettingsData.MusicVolume : Constants.Zero);
+            ChangeVolume(SettingsData.MusicOn ? SettingsData.MusicVolume : Constants.Zero);
         }
 
         protected override void ChangeVolume(float value)

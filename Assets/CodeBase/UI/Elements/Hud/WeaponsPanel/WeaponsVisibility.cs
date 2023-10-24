@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Weapons;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Weapons;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Weapons;
 using UnityEngine;
@@ -13,11 +13,11 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
         [SerializeField] private GameObject _rocketLauncher;
         [SerializeField] private GameObject _mortar;
 
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         private void ShowAvailable()
         {
-            foreach (WeaponData weaponsData in _progress.WeaponsData.WeaponData)
+            foreach (WeaponData weaponsData in _progressData.WeaponsData.WeaponData)
                 if (weaponsData.IsAvailable)
                     SetVisibility(weaponsData.WeaponTypeId, true);
                 else
@@ -62,10 +62,10 @@ namespace CodeBase.UI.Elements.Hud.WeaponsPanel
                 _mortar.SetActive(true);
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
-            _progress.WeaponsData.SetAvailable += Show;
+            _progressData = progressData;
+            _progressData.WeaponsData.SetAvailable += Show;
             ShowAvailable();
         }
 

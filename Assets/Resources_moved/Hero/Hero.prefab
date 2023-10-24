@@ -257,8 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 330585545}
-  _desktopVerticalSensitivity: 1
-  _desktopHorizontalSensitivity: 50
+  _desktopVerticalSensitivity: 0.2
+  _desktopHorizontalSensitivity: 10
   _mobileVerticalSensitivity: 5
   _mobileHorizontalSensitivity: 100
   _edgeAngle: 85

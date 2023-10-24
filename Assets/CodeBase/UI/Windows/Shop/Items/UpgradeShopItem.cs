@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -11,10 +11,10 @@ namespace CodeBase.UI.Windows.Shop.Items
     {
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, UpgradeItemData upgradeItemData, PlayerProgress progress)
+        public void Construct(Transform heroTransform, UpgradeItemData upgradeItemData, ProgressData progressData)
         {
             _heroTransform = heroTransform;
-            base.Construct(upgradeItemData, progress);
+            base.Construct(upgradeItemData, progressData);
         }
 
         protected override void Clicked()
@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             if (ShopItemBalance.IsMoneyEnough(_upgradeLevelInfoStaticData.Cost))
             {
                 ShopItemBalance.ReduceMoney(_upgradeLevelInfoStaticData.Cost);
-                Progress.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
+                ProgressData.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
                     _upgradeStaticData.UpgradeTypeId);
 
                 switch (_upgradeLevelInfoStaticData.LevelTypeId)

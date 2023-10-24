@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Agava.YandexGames;
 using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
@@ -22,7 +23,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
         [SerializeField] private GameObject[] _players;
         [SerializeField] private GameObject _playerDataContainer;
 
-        private Scene _nextScene;
+        private SceneId _nextScene;
         private int _maxPrice;
         private bool _isCurrentScene = true;
 
@@ -34,7 +35,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _toGameEndWindowButton.onClick.AddListener(ToGameEndWindow);
             ActivateButtons();
 
-            if (Application.isEditor || LeaderBoardService == null || Progress == null)
+            if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
             {
                 AddTestData();
                 return;
@@ -139,20 +140,20 @@ namespace CodeBase.UI.Windows.LeaderBoard
             // Debug.Log("RequestLeaderBoardData");
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
-            Scene scene = Progress.AllStats.CurrentLevelStats.Scene;
+            SceneId scene = ProgressData.AllStats.CurrentLevelStats.sceneId;
             // Debug.Log($"Scene {scene}");
             LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
             LeaderBoardService.OnGetEntryError += ShowGetEntryError;
 
             if (_isCurrentScene)
             {
-                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(Progress.IsHardMode));
-                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(Progress.IsHardMode));
+                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(ProgressData.IsHardMode));
+                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(ProgressData.IsHardMode));
             }
             else
             {
-                LeaderBoardService.GetEntries(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode));
-                LeaderBoardService.GetPlayerEntry(Scene.Initial.GetLeaderBoardName(Progress.IsHardMode));
+                LeaderBoardService.GetEntries(SceneId.Initial.GetLeaderBoardName(ProgressData.IsHardMode));
+                LeaderBoardService.GetPlayerEntry(SceneId.Initial.GetLeaderBoardName(ProgressData.IsHardMode));
                 _isCurrentScene = true;
             }
         }

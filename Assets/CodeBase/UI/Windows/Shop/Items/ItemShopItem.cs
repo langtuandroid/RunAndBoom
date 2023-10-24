@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Hero;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
@@ -11,10 +11,10 @@ namespace CodeBase.UI.Windows.Shop.Items
     {
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
+        public void Construct(Transform heroTransform, ItemTypeId typeId, HeroHealth health, ProgressData progressData)
         {
             _heroTransform = heroTransform;
-            base.Construct(typeId, health, progress);
+            base.Construct(typeId, health, progressData);
         }
 
         protected override void Clicked()

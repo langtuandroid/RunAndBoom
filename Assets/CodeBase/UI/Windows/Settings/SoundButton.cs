@@ -4,11 +4,11 @@
     {
         protected override void SwitchAudio()
         {
-            Progress.SettingsData.SetSoundSwitch(!IsSelected);
+            SettingsData.SetSoundSwitch(!IsSelected);
             IsSelected = !IsSelected;
         }
 
         protected override void SetSelection() =>
-            IsSelected = Progress.SettingsData.SoundOn;
+            IsSelected = SettingsData.SoundOn;
     }
 }

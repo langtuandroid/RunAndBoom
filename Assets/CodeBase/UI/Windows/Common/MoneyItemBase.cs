@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Gifts;
 using CodeBase.UI.Services;
 
@@ -15,9 +15,9 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        protected void Construct(MoneyTypeId moneyTypeId, PlayerProgress progress)
+        protected void Construct(MoneyTypeId moneyTypeId, ProgressData progressData)
         {
-            base.Construct(progress);
+            base.Construct(progressData);
             _moneyTypeId = moneyTypeId;
             FillData();
         }

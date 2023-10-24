@@ -46,7 +46,7 @@ namespace CodeBase.Infrastructure
             }
 
             FadedOut?.Invoke();
-            AllServices.Container.Single<ISaveLoadService>().SaveProgress();
+            AllServices.Container.Single<ISaveLoadService>().SaveProgressData();
             gameObject.SetActive(false);
         }
     }

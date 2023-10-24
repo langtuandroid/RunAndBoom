@@ -13,6 +13,7 @@ namespace CodeBase.Data.Settings
         public bool MusicOn;
         public bool SoundOn;
         public Language Language;
+        public float AimSensitive;
 
         public event Action MusicVolumeChanged;
         public event Action SoundVolumeChanged;

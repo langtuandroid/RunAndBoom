@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Infrastructure.States;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Windows;
@@ -16,7 +16,7 @@ namespace CodeBase.UI.Windows.Gifts
         [SerializeField] private ItemsGeneratorBase _generator;
         [SerializeField] private int _coinsCount;
 
-        private Scene _nextScene;
+        private SceneId _nextScene;
 
         private void OnEnable()
         {
@@ -54,7 +54,7 @@ namespace CodeBase.UI.Windows.Gifts
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Gifts);
 
-        public void AddData(Scene nextLevel)
+        public void AddData(SceneId nextLevel)
         {
             _nextScene = nextLevel;
             _toNextLevelButton.onClick.AddListener(ToNextLevel);
@@ -87,14 +87,14 @@ namespace CodeBase.UI.Windows.Gifts
         {
             Debug.Log("ToNextLevel");
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
-            Progress.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
-            Progress.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+            ProgressData.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
+            ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
-            Progress.WorldData.ShowAdOnLevelStart = true;
-            SaveLoadService.SaveProgress();
+            ProgressData.WorldData.ShowAdOnLevelStart = true;
+            SaveLoadService.SaveProgressData();
             WindowService.HideAll();
             Close();
-            GameStateMachine.Enter<LoadSceneState, Scene>(_nextScene);
+            GameStateMachine.Enter<LoadSceneState, SceneId>(_nextScene);
             Debug.Log($"{_nextScene}");
         }
 
@@ -125,7 +125,7 @@ namespace CodeBase.UI.Windows.Gifts
         private void AddCoins()
         {
             Debug.Log("AddCoins");
-            Progress.AllStats.AddMoney(_coinsCount);
+            ProgressData.AllStats.AddMoney(_coinsCount);
             _addCoinsButton.enabled = false;
         }
 

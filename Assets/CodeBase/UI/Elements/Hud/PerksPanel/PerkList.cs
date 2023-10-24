@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Data;
-using CodeBase.Data.Perks;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.StaticData.Items;
@@ -16,23 +16,21 @@ namespace CodeBase.UI.Elements.Hud.PerksPanel
         [SerializeField] private PerkView perkView;
 
         private IEnumerable<PerkTypeId> _perkTypeIds = Enum.GetValues(typeof(PerkTypeId)).Cast<PerkTypeId>();
-
         private Dictionary<PerkTypeId, PerkView> _activePerks;
-
         private IPlayerProgressService _playerProgressService;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         public void Construct()
         {
             _activePerks = new Dictionary<PerkTypeId, PerkView>(_perkTypeIds.Count());
             _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
             ConstructPerks();
-            _playerProgressService.Progress.PerksData.NewPerkAdded += AddNewPerk;
+            _progressData.PerksData.NewPerkAdded += AddNewPerk;
         }
 
         private void ConstructPerks()
         {
-            foreach (PerkItemData perkData in _playerProgressService.Progress.PerksData.Perks)
+            foreach (PerkItemData perkData in _playerProgressService.ProgressData.PerksData.Perks)
             {
                 if (perkData.LevelTypeId != LevelTypeId.None)
                     AddNewPerk(perkData);
@@ -46,9 +44,9 @@ namespace CodeBase.UI.Elements.Hud.PerksPanel
             _activePerks.Add(perkItemData.PerkTypeId, value);
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
+            _progressData = progressData;
             Construct();
         }
     }

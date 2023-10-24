@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
@@ -13,9 +13,9 @@ namespace CodeBase.UI.Elements.Hud
         private string _sector;
         private LevelNameData _levelNameData;
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _levelNameData = progress.WorldData.LevelNameData;
+            _levelNameData = progressData.WorldData.LevelNameData;
             _levelNameData.LevelChanged += SetLevel;
             _levelNameData.SectorChanged += SetSector;
             SetLevel();

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -25,7 +25,7 @@ namespace CodeBase.Projectiles.Movement
         private UpgradeItemData _speedItemData;
         private float _speedRatio = BaseRatio;
         private HeroWeaponTypeId? _weaponTypeId;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
 
         [HideInInspector] public float Speed { get; private set; }
         protected bool IsMove { get; set; }
@@ -46,7 +46,7 @@ namespace CodeBase.Projectiles.Movement
 
         public void Construct(ProjectileTypeId projectileTypeId)
         {
-            _progress = AllServices.Container.Single<IPlayerProgressService>().Progress;
+            _progressData = AllServices.Container.Single<IPlayerProgressService>().ProgressData;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
             Speed = projectileStaticData.Speed;
@@ -66,7 +66,7 @@ namespace CodeBase.Projectiles.Movement
 
         private void SetSpeed()
         {
-            _speedItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _speedItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.Speed);
             _speedItemData.LevelChanged += ChangeSpeed;
             ChangeSpeed();
@@ -74,7 +74,7 @@ namespace CodeBase.Projectiles.Movement
 
         private void ChangeSpeed()
         {
-            _speedItemData = _progress.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
+            _speedItemData = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas.First(x =>
                 x.WeaponTypeId == _weaponTypeId && x.UpgradeTypeId == UpgradeTypeId.Speed);
 
             if (_speedItemData.LevelTypeId == LevelTypeId.None)

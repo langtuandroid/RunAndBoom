@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Hero;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Services;
@@ -17,11 +17,11 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        protected void Construct(ItemTypeId typeId, HeroHealth health, PlayerProgress progress)
+        protected void Construct(ItemTypeId typeId, HeroHealth health, ProgressData progressData)
         {
             Health = health;
             _typeId = typeId;
-            base.Construct(progress);
+            base.Construct(progressData);
             FillData();
         }
 

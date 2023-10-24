@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using CodeBase.Data;
-using CodeBase.Data.Perks;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -26,7 +26,7 @@ namespace CodeBase.Hero
         private float _movementRatio = 1f;
         private float _movementSpeed;
         private PerkItemData _runningItemData;
-        private PlayerProgress _progress;
+        private ProgressData _progressData;
         private List<PerkItemData> _perks;
         private Vector3 _playerMovementInput;
         private float _airSpeed = 1.5f;
@@ -149,10 +149,10 @@ namespace CodeBase.Hero
         public void TurnOff() =>
             _canMove = false;
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            _progress = progress;
-            _perks = _progress.PerksData.Perks;
+            _progressData = progressData;
+            _perks = _progressData.PerksData.Perks;
             SetSpeed();
         }
     }

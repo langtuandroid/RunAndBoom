@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -10,10 +10,10 @@ namespace CodeBase.UI.Windows.Shop.Items
     {
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, AmmoItem ammoItem, PlayerProgress progress)
+        public void Construct(Transform heroTransform, AmmoItem ammoItem, ProgressData progressData)
         {
             _heroTransform = heroTransform;
-            base.Construct(ammoItem, progress);
+            base.Construct(ammoItem, progressData);
         }
 
 
@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             if (ShopItemBalance.IsMoneyEnough(_shopAmmoStaticData.Cost))
             {
                 ShopItemBalance.ReduceMoney(_shopAmmoStaticData.Cost);
-                Progress.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
+                ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
                     GetCount(_shopAmmoStaticData.Count));
                 ClearData();
                 SoundInstance.InstantiateOnTransform(

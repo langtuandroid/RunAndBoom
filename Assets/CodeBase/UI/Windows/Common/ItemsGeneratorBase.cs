@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data;
-using CodeBase.Data.Perks;
-using CodeBase.Data.Upgrades;
-using CodeBase.Data.Weapons;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
+using CodeBase.Data.Progress.Upgrades;
+using CodeBase.Data.Progress.Weapons;
 using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.Input;
@@ -44,13 +45,11 @@ namespace CodeBase.UI.Windows.Common
         private List<HeroWeaponTypeId> _availableWeapons;
         private List<PerkItemData> _availablePerks;
         private List<MoneyTypeId> _moneyTypeIds;
-
-        private Coroutine _coroutineShopItemsGeneration;
-
         protected HeroHealth Health;
         protected int Money;
-        protected PlayerProgress Progress;
+        protected ProgressData ProgressData;
         protected GameObject Hero;
+        private Coroutine _coroutineShopItemsGeneration;
 
         public virtual event Action GenerationStarted;
         public virtual event Action GenerationEnded;
@@ -67,7 +66,7 @@ namespace CodeBase.UI.Windows.Common
         public abstract void Generate();
 
         protected void GetMoney() =>
-            Money = Progress.AllStats.AllMoney.Money;
+            Money = ProgressData.AllStats.AllMoney.Money;
 
         protected void InitializeEmptyData()
         {
@@ -94,8 +93,9 @@ namespace CodeBase.UI.Windows.Common
 
         protected void CreateNextLevelUpgrades()
         {
-            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
-            List<UpgradeItemData> upgradeItemDatas = Progress.WeaponsData.UpgradesData.UpgradeItemDatas;
+            WeaponData[] availableWeapons =
+                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
+            List<UpgradeItemData> upgradeItemDatas = ProgressData.WeaponsData.UpgradesData.UpgradeItemDatas;
 
             foreach (WeaponData weaponData in availableWeapons)
             {
@@ -104,7 +104,7 @@ namespace CodeBase.UI.Windows.Common
                     if (weaponData.WeaponTypeId == upgradeItemData.WeaponTypeId)
                     {
                         UpgradeItemData nextLevelUpgrade =
-                            Progress.WeaponsData.UpgradesData.GetNextLevelUpgrade(weaponData.WeaponTypeId,
+                            ProgressData.WeaponsData.UpgradesData.GetNextLevelUpgrade(weaponData.WeaponTypeId,
                                 upgradeItemData.UpgradeTypeId);
 
                         if (nextLevelUpgrade.LevelTypeId != LevelTypeId.None)
@@ -127,7 +127,7 @@ namespace CodeBase.UI.Windows.Common
         {
             foreach (PerkTypeId perkTypeId in DataExtensions.GetValues<PerkTypeId>())
             {
-                PerkItemData nextLevelPerk = Progress.PerksData.GetNextLevelPerk(perkTypeId);
+                PerkItemData nextLevelPerk = ProgressData.PerksData.GetNextLevelPerk(perkTypeId);
 
                 if (nextLevelPerk.LevelTypeId != LevelTypeId.None)
                 {
@@ -144,7 +144,8 @@ namespace CodeBase.UI.Windows.Common
 
         protected void CreateAmmunition()
         {
-            WeaponData[] availableWeapons = Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
+            WeaponData[] availableWeapons =
+                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
 
             foreach (WeaponData weaponData in availableWeapons)
                 CheckAmmoCount(weaponData);
@@ -183,7 +184,7 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateWeapons()
         {
             WeaponData[] unavailableWeapons =
-                Progress.WeaponsData.WeaponData.Where(data => data.IsAvailable == false).ToArray();
+                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable == false).ToArray();
 
             foreach (WeaponData weaponData in unavailableWeapons)
             {
@@ -213,7 +214,7 @@ namespace CodeBase.UI.Windows.Common
         {
             foreach (MoneyTypeId moneyTypeId in DataExtensions.GetValues<MoneyTypeId>())
             {
-                if (Progress.IsHardMode)
+                if (ProgressData.IsHardMode)
                 {
                     if (moneyTypeId == MoneyTypeId.Bag)
                         _moneyTypeIds.Add(moneyTypeId);
@@ -350,7 +351,7 @@ namespace CodeBase.UI.Windows.Common
                 return baseCount;
         }
 
-        public void LoadProgress(PlayerProgress progress) =>
-            Progress = progress;
+        public void LoadProgressData(ProgressData progressData) =>
+            ProgressData = progressData;
     }
 }

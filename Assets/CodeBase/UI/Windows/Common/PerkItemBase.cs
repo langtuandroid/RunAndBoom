@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Perks;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Services;
 
@@ -16,9 +16,9 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(PerkItemData perkItemData, PlayerProgress progress)
+        public void Construct(PerkItemData perkItemData, ProgressData progressData)
         {
-            base.Construct(progress);
+            base.Construct(progressData);
             _perkItemData = perkItemData;
             FillData();
         }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using CodeBase.Data;
+using CodeBase.Data.Settings;
 using CodeBase.Logic;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -10,7 +11,8 @@ using UnityEngine;
 namespace CodeBase.DestructableObject
 {
     [RequireComponent(typeof(AudioSource))]
-    public class DestructableObjectDeath : MonoBehaviour, IDeath, IProgressReader
+    public class DestructableObjectDeath : MonoBehaviour, IDeath
+        //, IProgressReader
     {
         [SerializeField] private GameObject _solid;
         [SerializeField] private GameObject _broken;
@@ -20,7 +22,7 @@ namespace CodeBase.DestructableObject
         private float _deathDelay = 50f;
         private bool _isBroken = false;
         private List<Rigidbody> _parts;
-        private PlayerProgress _progress;
+        private SettingsData _settingsData;
         private float _volume;
 
         public event Action Died;
@@ -32,8 +34,24 @@ namespace CodeBase.DestructableObject
             _parts = new List<Rigidbody>(_broken.transform.childCount);
             _audioSource = GetComponent<AudioSource>();
 
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
+        }
+
+        private void OnEnable()
+        {
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void OnDisable()
+        {
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         public void Die()
@@ -76,19 +94,10 @@ namespace CodeBase.DestructableObject
             Destroy(gameObject);
         }
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-        }
-
         private void VolumeChanged() =>
-            _volume = _progress.SettingsData.SoundVolume;
+            _volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

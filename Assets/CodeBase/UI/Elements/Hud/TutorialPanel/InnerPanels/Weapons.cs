@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services.Localization;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
@@ -37,8 +37,8 @@ namespace CodeBase.UI.Elements.Hud.TutorialPanel.InnerPanels
             _weaponsClick.Show();
         }
 
-        public void LoadProgress(PlayerProgress progress) =>
-            progress.WeaponsData.CurrentWeaponChanged += HideWeaponClick;
+        public void LoadProgressData(ProgressData progressData) =>
+            progressData.WeaponsData.CurrentWeaponChanged += HideWeaponClick;
 
         private void HideWeaponClick() =>
             _panel.HidePanel();

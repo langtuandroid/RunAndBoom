@@ -67,7 +67,7 @@ namespace CodeBase.Infrastructure
 
         private void ResumeGame()
         {
-            _progressService.Progress.WorldData.ShowAdOnLevelStart = false;
+            _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
             SoundInstance.StartRandomMusic();
             _hero.ResumeHero();
             Time.timeScale = Constants.TimeScaleResume;

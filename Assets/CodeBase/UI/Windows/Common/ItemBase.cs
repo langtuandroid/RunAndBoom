@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
@@ -13,7 +14,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Common
 {
-    public abstract class ItemBase : MonoBehaviour, IProgressReader
+    public abstract class ItemBase : MonoBehaviour
     {
         [SerializeField] protected Image BackgroundIcon;
         [SerializeField] protected Image MainIcon;
@@ -28,23 +29,38 @@ namespace CodeBase.UI.Windows.Common
         protected IStaticDataService StaticDataService;
         protected ILocalizationService LocalizationService;
         protected IInputService InputService;
-        protected PlayerProgress Progress;
+        protected ProgressData ProgressData;
         protected ShopItemBalance ShopItemBalance;
         protected GiftsItemBalance GiftsItemBalance;
-        private PlayerProgress _progress;
         protected float Volume;
         protected AudioSource AudioSource;
+        private SettingsData _settingsData;
 
         private void Awake()
         {
             var parent = transform.parent;
             _shopItemHighlighter = parent.GetComponent<ShopItemHighlighter>();
             AudioSource = parent.GetComponent<AudioSource>();
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
-        protected void Construct(PlayerProgress progress)
+        private void OnEnable()
         {
-            Progress = progress;
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void OnDisable()
+        {
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
+        }
+
+        protected void Construct(ProgressData progressData)
+        {
+            ProgressData = progressData;
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             LocalizationService = AllServices.Container.Single<ILocalizationService>();
             InputService = AllServices.Container.Single<IInputService>();
@@ -85,23 +101,10 @@ namespace CodeBase.UI.Windows.Common
         protected abstract void FillData();
         protected abstract void Clicked();
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-        }
+        private void VolumeChanged() =>
+            Volume = _settingsData.SoundVolume;
 
-        private void VolumeChanged()
-        {
-            Volume = _progress.SettingsData.SoundVolume;
-        }
-
-        private void SwitchChanged()
-        {
-            Volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
-        }
+        private void SwitchChanged() =>
+            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

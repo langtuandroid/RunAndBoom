@@ -1,4 +1,5 @@
 ﻿using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
@@ -13,8 +14,8 @@ namespace CodeBase.Logic.Level
         [SerializeField] private int _maxPrice;
 
         private IWindowService _windowService;
-        private Scene _nextLevel;
-        private Scene _currentLevel;
+        private SceneId _nextLevel;
+        private SceneId _currentLevel;
 
         private void Awake()
         {
@@ -35,7 +36,7 @@ namespace CodeBase.Logic.Level
             }
         }
 
-        public void Construct(Scene currentLevel, Scene nextLevel)
+        public void Construct(SceneId currentLevel, SceneId nextLevel)
         {
             _currentLevel = currentLevel;
             _nextLevel = nextLevel;

@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Data.Perks;
-using CodeBase.Data.Upgrades;
+using CodeBase.Data.Progress.Perks;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.StaticData.Items.Gifts;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.StaticData.Items.Shop.Items;
@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         public override void Generate()
         {
-            if (Progress == null)
+            if (ProgressData == null)
                 return;
 
             SetHighlightingVisibility(false);
@@ -45,7 +45,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         protected override void GenerateAllItems()
         {
-            if (Progress.IsHardMode)
+            if (ProgressData.IsHardMode)
             {
                 GenerateItems();
                 GenerateMoney();
@@ -59,7 +59,7 @@ namespace CodeBase.UI.Windows.Gifts
                 GenerateItems();
                 GenerateAmmo();
 
-                if (Progress.AllStats.AllMoney.Money < Constants.MinMoneyForGenerator)
+                if (ProgressData.AllStats.AllMoney.Money < Constants.MinMoneyForGenerator)
                     GenerateMoney();
 
                 GeneratePerks();
@@ -72,7 +72,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             AmmoItem ammoItem = RandomService.NextFrom(list);
             AmmoGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(AmmoGiftItem)) as AmmoGiftItem;
-            view?.Construct(hero.transform, ammoItem, Progress, this);
+            view?.Construct(hero.transform, ammoItem, ProgressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -82,7 +82,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             ItemGiftItem view =
                 parent.GetComponent<ShopCell>().GetView(typeof(ItemGiftItem)) as ItemGiftItem;
-            view?.Construct(hero.transform, itemTypeId, Progress, Health, this);
+            view?.Construct(hero.transform, itemTypeId, ProgressData, Health, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -92,7 +92,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             UpgradeItemData upgradeItemData = RandomService.NextFrom(list);
             UpgradeGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(UpgradeGiftItem)) as UpgradeGiftItem;
-            view?.Construct(hero.transform, upgradeItemData, Progress, this);
+            view?.Construct(hero.transform, upgradeItemData, ProgressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -102,7 +102,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             PerkItemData perkItemData = RandomService.NextFrom(list);
             PerkGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(PerkGiftItem)) as PerkGiftItem;
-            view?.Construct(hero.transform, perkItemData, Progress, this);
+            view?.Construct(hero.transform, perkItemData, ProgressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -112,7 +112,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             HeroWeaponTypeId weaponTypeId = RandomService.NextFrom(list);
             WeaponGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(WeaponGiftItem)) as WeaponGiftItem;
-            view?.Construct(hero.transform, weaponTypeId, Progress, this);
+            view?.Construct(hero.transform, weaponTypeId, ProgressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -122,7 +122,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             MoneyTypeId moneyTypeId = RandomService.NextFrom(list);
             MoneyGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(MoneyGiftItem)) as MoneyGiftItem;
-            view?.Construct(hero.transform, moneyTypeId, Progress, this);
+            view?.Construct(hero.transform, moneyTypeId, ProgressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }

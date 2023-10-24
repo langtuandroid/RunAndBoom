@@ -1,4 +1,4 @@
-﻿using CodeBase.Data.Perks;
+﻿using CodeBase.Data.Progress.Perks;
 using CodeBase.StaticData.Items;
 
 namespace CodeBase.UI.Elements.Hud.PerksPanel

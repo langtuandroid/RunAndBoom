@@ -5,27 +5,33 @@
         protected override void ChangeValue(float value)
         {
             if (!IsSwitched)
-                Progress.SettingsData.SetSoundVolume(value);
+                SettingsData.SetSoundVolume(value);
             else
                 IsSwitched = false;
         }
 
-        protected override void SetListeners()
+        protected override void Subscribe()
         {
-            Progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            Progress.SettingsData.SoundSwitchChanged += SwitchChanged;
+            SettingsData.SoundVolumeChanged += VolumeChanged;
+            SettingsData.SoundSwitchChanged += SwitchChanged;
+        }
+
+        protected override void Unsubscribe()
+        {
+            SettingsData.SoundVolumeChanged += VolumeChanged;
+            SettingsData.SoundSwitchChanged += SwitchChanged;
         }
 
         protected override void VolumeChanged()
         {
             IsSwitched = false;
-            ChangeVolume(Progress.SettingsData.SoundVolume);
+            ChangeVolume(SettingsData.SoundVolume);
         }
 
         protected override void SwitchChanged()
         {
             IsSwitched = true;
-            ChangeVolume(Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero);
+            ChangeVolume(SettingsData.SoundOn ? SettingsData.SoundVolume : Constants.Zero);
         }
 
         protected override void ChangeVolume(float value)

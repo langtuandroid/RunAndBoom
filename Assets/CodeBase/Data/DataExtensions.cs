@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Data.Progress;
 using CodeBase.Services.LeaderBoard;
 using UnityEngine;
 
@@ -26,31 +27,31 @@ namespace CodeBase.Data
         public static IEnumerable<T> GetValues<T>() =>
             Enum.GetValues(typeof(T)).Cast<T>();
 
-        public static string GetLeaderBoardName(this Scene scene, bool isHardMode)
+        public static string GetLeaderBoardName(this SceneId sceneId, bool isHardMode)
         {
-            switch (scene)
+            switch (sceneId)
             {
-                case Scene.Level_1:
+                case SceneId.Level_1:
                     if (isHardMode)
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1Hard;
                     else
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1;
-                case Scene.Level_2:
+                case SceneId.Level_2:
                     if (isHardMode)
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2Hard;
                     else
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2;
-                case Scene.Level_3:
+                case SceneId.Level_3:
                     if (isHardMode)
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3Hard;
                     else
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3;
-                case Scene.Level_4:
+                case SceneId.Level_4:
                     if (isHardMode)
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4Hard;
                     else
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4;
-                case Scene.Level_5:
+                case SceneId.Level_5:
                     if (isHardMode)
                         return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5Hard;
                     else

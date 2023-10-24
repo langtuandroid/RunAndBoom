@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Upgrades;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Upgrades;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.UI.Services;
 
@@ -19,9 +19,9 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(UpgradeItemData upgradeItemData, PlayerProgress progress)
+        public void Construct(UpgradeItemData upgradeItemData, ProgressData progressData)
         {
-            base.Construct(progress);
+            base.Construct(progressData);
             _upgradeItemData = upgradeItemData;
             FillData();
         }

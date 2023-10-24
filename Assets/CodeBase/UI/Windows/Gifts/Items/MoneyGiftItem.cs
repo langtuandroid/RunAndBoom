@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Gifts;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -11,12 +11,12 @@ namespace CodeBase.UI.Windows.Gifts.Items
         private GiftsGenerator _generator;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, MoneyTypeId moneyTypeId, PlayerProgress progress,
+        public void Construct(Transform heroTransform, MoneyTypeId moneyTypeId, ProgressData progressData,
             GiftsGenerator generator)
         {
             _heroTransform = heroTransform;
             _generator = generator;
-            base.Construct(moneyTypeId, progress);
+            base.Construct(moneyTypeId, progressData);
         }
 
         protected override void Clicked()

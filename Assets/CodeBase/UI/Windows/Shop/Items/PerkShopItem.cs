@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Perks;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Perks;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -11,10 +11,10 @@ namespace CodeBase.UI.Windows.Shop.Items
     {
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform, PerkItemData perkItemData, PlayerProgress progress)
+        public void Construct(Transform heroTransform, PerkItemData perkItemData, ProgressData progressData)
         {
             _heroTransform = heroTransform;
-            base.Construct(perkItemData, progress);
+            base.Construct(perkItemData, progressData);
         }
 
         protected override void Clicked()
@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             if (ShopItemBalance.IsMoneyEnough(_perkStaticData.Cost))
             {
                 ShopItemBalance.ReduceMoney(_perkStaticData.Cost);
-                Progress.PerksData.LevelUp(_perkStaticData.PerkTypeId);
+                ProgressData.PerksData.LevelUp(_perkStaticData.PerkTypeId);
                 ClearData();
 
                 switch (_perkStaticData.ILevelTypeId)

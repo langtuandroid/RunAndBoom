@@ -64,13 +64,13 @@ namespace CodeBase.Hero
         }
 
         private bool IsAvailableAmmo() =>
-            _progressService.Progress.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
+            _progressService.ProgressData.WeaponsData.WeaponsAmmoData.IsAmmoAvailable();
 
         private void Shoot()
         {
             Shot?.Invoke();
             TurnOff();
-            _progressService.Progress.WeaponsData.WeaponsAmmoData.ReduceAmmo();
+            _progressService.ProgressData.WeaponsData.WeaponsAmmoData.ReduceAmmo();
             _heroWeaponAppearance.ShootTo();
         }
     }

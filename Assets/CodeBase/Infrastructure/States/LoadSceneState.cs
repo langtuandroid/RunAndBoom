@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CodeBase.Data.Progress;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Logic;
@@ -26,11 +27,10 @@ using CodeBase.UI.Windows.Shop;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scene = CodeBase.Data.Scene;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadSceneState : IPayloadedState<Scene>
+    public class LoadSceneState : IPayloadedState<SceneId>
     {
         private const string LevelName = "Level_";
         private const string FinishPointTag = "FinishPoint";
@@ -45,7 +45,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IUIFactory _uiFactory;
         private readonly IWindowService _windowService;
         private readonly IInputService _inputService;
-        private Scene _scene;
+        private SceneId _sceneId;
         private bool _isInitial = true;
         private GameObject _hud;
         private IAdListener _adListener;
@@ -75,7 +75,7 @@ namespace CodeBase.Infrastructure.States
 
         private void TryPauseGame()
         {
-            if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
+            if (_progressService.ProgressData.WorldData.ShowAdOnLevelStart)
             {
                 if (Application.isEditor)
                     return;
@@ -86,18 +86,18 @@ namespace CodeBase.Infrastructure.States
             }
         }
 
-        public void Enter(Scene scene)
+        public void Enter(SceneId sceneId)
         {
-            _scene = scene;
+            _sceneId = sceneId;
 
-            if (_scene.ToString().Contains(LevelName))
+            if (_sceneId.ToString().Contains(LevelName))
             {
                 _loadingCurtain.Show();
                 _gameFactory.CleanUp();
                 _gameFactory.WarmUp();
             }
 
-            _sceneLoader.Load(_scene, OnLoaded);
+            _sceneLoader.Load(_sceneId, OnLoaded);
         }
 
         public void Exit()
@@ -105,25 +105,25 @@ namespace CodeBase.Infrastructure.States
             _loadingCurtain.Hide();
         }
 
-        private async void OnLoaded(Scene scene)
+        private async void OnLoaded(SceneId sceneId)
         {
             await InitUIRoot();
 
-            switch (scene)
+            switch (sceneId)
             {
-                case Scene.Level_1:
+                case SceneId.Level_1:
                     await InitGameWorld();
                     break;
-                case Scene.Level_2:
+                case SceneId.Level_2:
                     await InitGameWorld();
                     break;
-                case Scene.Level_3:
+                case SceneId.Level_3:
                     await InitGameWorld();
                     break;
-                case Scene.Level_4:
+                case SceneId.Level_4:
                     await InitGameWorld();
                     break;
-                case Scene.Level_5:
+                case SceneId.Level_5:
                     await InitGameWorld();
                     break;
             }
@@ -135,7 +135,7 @@ namespace CodeBase.Infrastructure.States
         private void InformProgressReaders()
         {
             foreach (IProgressReader progressReader in _gameFactory.ProgressReaders)
-                progressReader.LoadProgress(_progressService.Progress);
+                progressReader.LoadProgressData(_progressService.ProgressData);
         }
 
         private async Task InitGameWorld()
@@ -155,15 +155,15 @@ namespace CodeBase.Infrastructure.States
 
         private LevelStaticData LevelStaticData()
         {
-            Scene scene = Enum.Parse<Scene>(SceneManager.GetActiveScene().name);
-            return _staticDataService.ForLevel(scene);
+            SceneId sceneId = Enum.Parse<SceneId>(SceneManager.GetActiveScene().name);
+            return _staticDataService.ForLevel(sceneId);
         }
 
         private async Task InitGameWorld(LevelStaticData levelData)
         {
             _hero = await InitHero(levelData);
 
-            if (_progressService.Progress.WorldData.ShowAdOnLevelStart)
+            if (_progressService.ProgressData.WorldData.ShowAdOnLevelStart)
                 _hero.StopHero();
 
             await InitHud(_hero);

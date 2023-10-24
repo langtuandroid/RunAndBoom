@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using CodeBase.Data;
-using CodeBase.Data.Stats;
+using CodeBase.Data.Progress;
+using CodeBase.Data.Progress.Stats;
+using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
@@ -27,11 +29,15 @@ namespace CodeBase.UI.Windows.Common
         protected ILeaderboardService LeaderBoardService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
-        protected PlayerProgress Progress;
         protected float Volume;
+        protected ProgressData ProgressData;
+        private SettingsData _settingsData;
         private WindowId _windowId;
         protected LevelStats LevelStats;
-        protected Scene CurrentLevel;
+        protected SceneId CurrentLevel;
+
+        private void Awake() =>
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
 
         private void OnEnable()
         {
@@ -55,6 +61,17 @@ namespace CodeBase.UI.Windows.Common
 
             if (AudioSource == null)
                 AudioSource = GetComponent<AudioSource>();
+
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void OnDisable()
+        {
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         protected void Construct(GameObject hero, WindowId windowId)
@@ -115,28 +132,25 @@ namespace CodeBase.UI.Windows.Common
                 Volume, AudioSource);
         }
 
-        public void LoadProgress(PlayerProgress progress)
+        public void LoadProgressData(ProgressData progressData)
         {
-            Progress = progress;
-            Progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            Progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-            LevelStats = Progress.AllStats.CurrentLevelStats;
+            ProgressData = progressData;
+            LevelStats = ProgressData.AllStats.CurrentLevelStats;
         }
 
         private void VolumeChanged() =>
-            Volume = Progress.SettingsData.SoundVolume;
+            Volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            Volume = Progress.SettingsData.SoundOn ? Progress.SettingsData.SoundVolume : Constants.Zero;
+            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
 
         protected void RestartLevel()
         {
             WindowService.HideAll();
-            Progress.AllStats.RestartedLevel();
+            ProgressData.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, bool>(Progress.IsHardMode);
+            AllServices.Container.Single<IGameStateMachine>()
+                .Enter<LoadPlayerProgressState, bool>(ProgressData.IsHardMode);
         }
 
         protected void InitializeAdsSDK()
@@ -175,10 +189,10 @@ namespace CodeBase.UI.Windows.Common
 
         protected void AddLevelResult()
         {
-            Debug.Log($"AddLevelResult {LevelStats.Scene} {LevelStats.Score}");
+            Debug.Log($"AddLevelResult {LevelStats.sceneId} {LevelStats.Score}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             SubscribeSetValueSuccess();
-            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(Progress.IsHardMode),
+            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsHardMode),
                 LevelStats.Score);
         }
 

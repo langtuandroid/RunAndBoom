@@ -1,4 +1,4 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Services;
@@ -16,9 +16,9 @@ namespace CodeBase.UI.Windows.Common
         private void OnDisable() =>
             Button?.onClick.RemoveListener(Clicked);
 
-        public void Construct(HeroWeaponTypeId weaponTypeId, PlayerProgress progress)
+        public void Construct(HeroWeaponTypeId weaponTypeId, ProgressData progressData)
         {
-            base.Construct(progress);
+            base.Construct(progressData);
             _weaponTypeId = weaponTypeId;
             FillData();
         }

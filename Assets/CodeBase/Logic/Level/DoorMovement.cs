@@ -1,4 +1,6 @@
 ﻿using CodeBase.Data;
+using CodeBase.Data.Settings;
+using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -6,7 +8,7 @@ using UnityEngine;
 namespace CodeBase.Logic.Level
 {
     [RequireComponent(typeof(AudioSource))]
-    public class DoorMovement : MonoBehaviour, IProgressReader
+    public class DoorMovement : MonoBehaviour
     {
         [SerializeField] private GameObject _door;
         [SerializeField] private LevelSectorTrigger _trigger;
@@ -21,7 +23,7 @@ namespace CodeBase.Logic.Level
         private Transform _doorTransform;
         private bool _close;
         private Coroutine _movementCoroutine;
-        private PlayerProgress _progress;
+        private SettingsData _settingsData;
         private float _volume;
 
         private void Awake()
@@ -33,7 +35,23 @@ namespace CodeBase.Logic.Level
             _minY = _positionY - _door.GetComponent<MeshRenderer>().bounds.size.y;
             _maxY = _positionY;
 
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+        }
+
+        private void OnEnable()
+        {
             _trigger.Passed += Close;
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+        }
+
+        private void OnDisable()
+        {
+            _trigger.Passed -= Close;
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void Close()
@@ -79,19 +97,10 @@ namespace CodeBase.Logic.Level
             }
         }
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _progress = progress;
-            _progress.SettingsData.SoundSwitchChanged += SwitchChanged;
-            _progress.SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-        }
-
         private void VolumeChanged() =>
-            _volume = _progress.SettingsData.SoundVolume;
+            _volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            _volume = _progress.SettingsData.SoundOn ? _progress.SettingsData.SoundVolume : Constants.Zero;
+            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }
