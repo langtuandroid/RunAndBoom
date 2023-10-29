@@ -11,8 +11,6 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] protected Slider Slider;
 
         protected SettingsData SettingsData;
-
-        // protected SettingsData SettingsData => AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         protected float Volume;
         protected float PreviousVolume;
         protected bool IsSwitched;
@@ -32,7 +30,7 @@ namespace CodeBase.UI.Windows.Settings
         {
             Subscribe();
             SwitchChanged();
-            // VolumeChanged();
+            VolumeChanged();
         }
 
         private void OnDisable() =>

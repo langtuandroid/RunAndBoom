@@ -32,7 +32,7 @@
         {
             IsSwitched = false;
 
-            // if (SettingsData != null)
+            if (SettingsData != null)
                 ChangeVolume(SettingsData.SoundVolume);
         }
 

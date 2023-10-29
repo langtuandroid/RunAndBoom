@@ -44,7 +44,7 @@ namespace CodeBase.Infrastructure.States
             _sceneLoader.Load(scene: SceneId.Initial, onLoaded: EnterLoadLevel);
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadPlayerProgressState, bool>(false);
+            _stateMachine.Enter<LoadGameDataState, bool>(false);
 
         private void RegisterServices()
         {

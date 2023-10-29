@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.Data.Settings
 {
@@ -22,8 +23,8 @@ namespace CodeBase.Data.Settings
 
         public SettingsData(Language language)
         {
-            MusicVolume = InitialMusicVolume;
-            SoundVolume = InitialSoundVolume;
+            SetMusicVolume(InitialMusicVolume);
+            SetSoundVolume(InitialSoundVolume);
             MusicOn = true;
             SoundOn = true;
             SetLanguage(language);

@@ -50,13 +50,13 @@ namespace CodeBase.UI.Windows.GameEnd
         private void StartNewCommonGame()
         {
             PrepareToStartNewGame();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, bool>(false);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadGameDataState, bool>(false);
         }
 
         private void StartNewHardModeGame()
         {
             PrepareToStartNewGame();
-            AllServices.Container.Single<IGameStateMachine>().Enter<LoadPlayerProgressState, bool>(true);
+            AllServices.Container.Single<IGameStateMachine>().Enter<LoadGameDataState, bool>(true);
         }
 
         private void PrepareToStartNewGame()

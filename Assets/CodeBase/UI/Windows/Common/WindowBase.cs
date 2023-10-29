@@ -150,7 +150,7 @@ namespace CodeBase.UI.Windows.Common
             ProgressData.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>()
-                .Enter<LoadPlayerProgressState, bool>(ProgressData.IsHardMode);
+                .Enter<LoadGameDataState, bool>(ProgressData.IsHardMode);
         }
 
         protected void InitializeAdsSDK()

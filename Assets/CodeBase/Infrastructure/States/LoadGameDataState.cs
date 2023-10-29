@@ -5,6 +5,7 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
+using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.Infrastructure.States
 {
