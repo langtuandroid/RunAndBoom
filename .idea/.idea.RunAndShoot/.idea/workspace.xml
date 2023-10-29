@@ -166,6 +166,9 @@
       <workItem from="1697555757161" duration="599000" />
       <workItem from="1697706613348" duration="1798000" />
       <workItem from="1698145826138" duration="8785000" />
+      <workItem from="1698159014118" duration="2634000" />
+      <workItem from="1698554584985" duration="3130000" />
+      <workItem from="1698571675634" duration="597000" />
     </task>
     <servers />
   </component>
@@ -176,5 +179,206 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/AudioButton.cs</url>
+          <line>37</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\AudioButton.cs" initialLine="31" containingFunctionPresentation="Method 'OnEnable'">
+            <startOffsets>
+              <option value="1076" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1101" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SoundButton.cs</url>
+          <line>6</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SoundButton.cs" initialLine="6" containingFunctionPresentation="Method 'SwitchAudio'">
+            <startOffsets>
+              <option value="158" />
+            </startOffsets>
+            <endOffsets>
+              <option value="199" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/AudioButton.cs</url>
+          <line>52</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\AudioButton.cs" initialLine="46" containingFunctionPresentation="Method 'OnDisable'">
+            <startOffsets>
+              <option value="1490" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1515" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/MusicSlider.cs</url>
+          <line>44</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\MusicSlider.cs" initialLine="44" containingFunctionPresentation="Method 'SwitchChanged'">
+            <startOffsets>
+              <option value="1151" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1176" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SoundSlider.cs</url>
+          <line>14</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SoundSlider.cs" initialLine="14" containingFunctionPresentation="Method 'Subscribe'">
+            <startOffsets>
+              <option value="368" />
+            </startOffsets>
+            <endOffsets>
+              <option value="393" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SoundSlider.cs</url>
+          <line>23</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SoundSlider.cs" initialLine="23" containingFunctionPresentation="Method 'Unsubscribe'">
+            <startOffsets>
+              <option value="622" />
+            </startOffsets>
+            <endOffsets>
+              <option value="647" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SoundSlider.cs</url>
+          <line>42</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SoundSlider.cs" initialLine="42" containingFunctionPresentation="Method 'SwitchChanged'">
+            <startOffsets>
+              <option value="1109" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1134" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/PersistentProgress/PlayerProgressService.cs</url>
+          <line>24</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\PersistentProgress\PlayerProgressService.cs" initialLine="24" containingFunctionPresentation="Method 'SetSettingsData'">
+            <startOffsets>
+              <option value="841" />
+            </startOffsets>
+            <endOffsets>
+              <option value="868" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadGameDataState.cs</url>
+          <line>51</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadGameDataState.cs" initialLine="51" containingFunctionPresentation="Method 'LoadProgressOrInitNew'">
+            <startOffsets>
+              <option value="1935" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1961" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadGameDataState.cs</url>
+          <line>60</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadGameDataState.cs" initialLine="60" containingFunctionPresentation="Method 'CreateNewGameData'">
+            <startOffsets>
+              <option value="2202" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2278" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadGameDataState.cs</url>
+          <line>37</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadGameDataState.cs" initialLine="37" containingFunctionPresentation="Method 'Enter'">
+            <startOffsets>
+              <option value="1487" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1521" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadGameDataState.cs</url>
+          <line>49</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadGameDataState.cs" initialLine="49" containingFunctionPresentation="Method 'LoadProgressOrInitNew'">
+            <startOffsets>
+              <option value="1869" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1921" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/BootstrapState.cs</url>
+          <line>46</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\BootstrapState.cs" initialLine="46" containingFunctionPresentation="Method 'EnterLoadLevel'">
+            <startOffsets>
+              <option value="1516" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1573" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/AudioSlider.cs</url>
+          <line>24</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\AudioSlider.cs" initialLine="24" containingFunctionPresentation="Method 'Start'">
+            <startOffsets>
+              <option value="607" />
+            </startOffsets>
+            <endOffsets>
+              <option value="632" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/AudioButton.cs</url>
+          <line>29</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\AudioButton.cs" initialLine="29" containingFunctionPresentation="Method 'Start'">
+            <startOffsets>
+              <option value="828" />
+            </startOffsets>
+            <endOffsets>
+              <option value="853" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

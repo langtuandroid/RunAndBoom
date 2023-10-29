@@ -12,12 +12,18 @@
 
         protected override void Subscribe()
         {
+            if (SettingsData == null)
+                return;
+
             SettingsData.SoundVolumeChanged += VolumeChanged;
             SettingsData.SoundSwitchChanged += SwitchChanged;
         }
 
         protected override void Unsubscribe()
         {
+            if (SettingsData == null)
+                return;
+
             SettingsData.SoundVolumeChanged += VolumeChanged;
             SettingsData.SoundSwitchChanged += SwitchChanged;
         }
@@ -25,13 +31,17 @@
         protected override void VolumeChanged()
         {
             IsSwitched = false;
-            ChangeVolume(SettingsData.SoundVolume);
+
+            // if (SettingsData != null)
+                ChangeVolume(SettingsData.SoundVolume);
         }
 
         protected override void SwitchChanged()
         {
             IsSwitched = true;
-            ChangeVolume(SettingsData.SoundOn ? SettingsData.SoundVolume : Constants.Zero);
+
+            if (SettingsData != null)
+                ChangeVolume(SettingsData.SoundOn ? SettingsData.SoundVolume : Constants.Zero);
         }
 
         protected override void ChangeVolume(float value)

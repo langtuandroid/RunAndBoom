@@ -21,13 +21,23 @@ namespace CodeBase.UI.Windows.Settings
 
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
-            SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            if (_audioSource == null)
+                _audioSource = GetComponent<AudioSource>();
+        }
+
+        private void Start()
+        {
+            if (SettingsData == null)
+                SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
         private void OnEnable()
         {
             _button.onClick.AddListener(ButtonPressed);
+
+            if (SettingsData == null)
+                return;
+
             SettingsData.SoundSwitchChanged += SwitchChanged;
             SettingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
@@ -39,6 +49,10 @@ namespace CodeBase.UI.Windows.Settings
         private void OnDisable()
         {
             _button.onClick.RemoveListener(ButtonPressed);
+
+            if (SettingsData == null)
+                return;
+
             SettingsData.SoundSwitchChanged -= SwitchChanged;
             SettingsData.SoundVolumeChanged -= VolumeChanged;
         }

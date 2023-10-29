@@ -65,6 +65,9 @@ namespace CodeBase.Projectiles.Hit
             if (_blastItemData != null)
                 _blastItemData.LevelChanged += ChangeBlastSize;
 
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged += SwitchChanged;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
@@ -75,6 +78,9 @@ namespace CodeBase.Projectiles.Hit
         {
             if (_blastItemData != null)
                 _blastItemData.LevelChanged -= ChangeBlastSize;
+
+            if (_settingsData == null)
+                return;
 
             _settingsData.SoundSwitchChanged -= SwitchChanged;
             _settingsData.SoundVolumeChanged -= VolumeChanged;

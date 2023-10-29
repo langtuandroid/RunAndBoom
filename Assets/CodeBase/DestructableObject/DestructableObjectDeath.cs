@@ -42,6 +42,9 @@ namespace CodeBase.DestructableObject
 
         private void OnEnable()
         {
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged += SwitchChanged;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
@@ -50,6 +53,9 @@ namespace CodeBase.DestructableObject
 
         private void OnDisable()
         {
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged -= SwitchChanged;
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }

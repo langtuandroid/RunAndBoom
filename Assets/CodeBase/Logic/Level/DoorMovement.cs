@@ -41,6 +41,10 @@ namespace CodeBase.Logic.Level
         private void OnEnable()
         {
             _trigger.Passed += Close;
+
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged += SwitchChanged;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
@@ -50,6 +54,10 @@ namespace CodeBase.Logic.Level
         private void OnDisable()
         {
             _trigger.Passed -= Close;
+
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged -= SwitchChanged;
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }

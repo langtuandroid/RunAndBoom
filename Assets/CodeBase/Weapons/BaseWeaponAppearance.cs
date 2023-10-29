@@ -44,15 +44,11 @@ namespace CodeBase.Weapons
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() =>
             Enable();
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() =>
             Disable();
-        }
 
         protected void Construct(IDeath death, float shotVfxLifeTime, float cooldown, ProjectileTypeId projectileTypeId,
             ShotVfxTypeId shotVfxTypeId)
@@ -62,20 +58,8 @@ namespace CodeBase.Weapons
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectileTypeId = projectileTypeId;
-            Enable();
-
-            _death.Died += Disable;
-        }
-
-        private void Disable()
-        {
-            Enabled = false;
-
-            if (_death != null)
-                _death.Died -= Disable;
-
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
+            // Enable();
+            // _death.Died += Disable;
         }
 
         private void Enable()
@@ -85,10 +69,27 @@ namespace CodeBase.Weapons
             if (_death != null)
                 _death.Died += Disable;
 
+            if (_settingsData == null)
+                return;
+
             _settingsData.SoundSwitchChanged += SwitchChanged;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
             SwitchChanged();
+        }
+
+        private void Disable()
+        {
+            Enabled = false;
+
+            if (_death != null)
+                _death.Died -= Disable;
+
+            if (_settingsData == null)
+                return;
+
+            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         protected GameObject SetNewProjectile(Transform respawn)

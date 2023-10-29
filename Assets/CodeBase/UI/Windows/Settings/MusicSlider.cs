@@ -14,12 +14,18 @@ namespace CodeBase.UI.Windows.Settings
 
         protected override void Subscribe()
         {
+            if (SettingsData == null)
+                return;
+
             SettingsData.MusicVolumeChanged += VolumeChanged;
             SettingsData.MusicSwitchChanged += SwitchChanged;
         }
 
         protected override void Unsubscribe()
         {
+            if (SettingsData == null)
+                return;
+
             SettingsData.MusicVolumeChanged -= VolumeChanged;
             SettingsData.MusicSwitchChanged -= SwitchChanged;
         }
@@ -27,13 +33,17 @@ namespace CodeBase.UI.Windows.Settings
         protected override void VolumeChanged()
         {
             IsSwitched = false;
-            ChangeVolume(SettingsData.MusicVolume);
+
+            // if (SettingsData != null)
+                ChangeVolume(SettingsData.MusicVolume);
         }
 
         protected override void SwitchChanged()
         {
             IsSwitched = true;
-            ChangeVolume(SettingsData.MusicOn ? SettingsData.MusicVolume : Constants.Zero);
+
+            if (SettingsData != null)
+                ChangeVolume(SettingsData.MusicOn ? SettingsData.MusicVolume : Constants.Zero);
         }
 
         protected override void ChangeVolume(float value)
