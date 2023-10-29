@@ -12,13 +12,13 @@ namespace CodeBase.UI.Windows.Settings
 
         private void OnEnable()
         {
-            _restartButton.onClick.AddListener(RestartLevel);
+            _restartButton.onClick.AddListener(Restart);
             _closeButton.onClick.AddListener(Close);
         }
 
         private void OnDisable()
         {
-            _restartButton.onClick.RemoveListener(RestartLevel);
+            _restartButton.onClick.RemoveListener(Restart);
             _closeButton.onClick.RemoveListener(Close);
         }
 
@@ -28,8 +28,17 @@ namespace CodeBase.UI.Windows.Settings
                 Close();
         }
 
-        private void Close() =>
+        private void Restart()
+        {
+            SaveLoadService.SaveSettingsData();
+            RestartLevel();
+        }
+
+        private void Close()
+        {
+            SaveLoadService.SaveSettingsData();
             Hide();
+        }
 
         public void Construct(GameObject hero) =>
             base.Construct(hero, WindowId.Settings);

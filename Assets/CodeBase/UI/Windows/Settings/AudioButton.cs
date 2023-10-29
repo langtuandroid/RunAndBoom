@@ -1,4 +1,5 @@
-﻿using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Settings
 {
-    public abstract class AudioButton : MonoBehaviour
+    public abstract class AudioButton : MonoBehaviour, IProgressReader
     {
         [SerializeField] private Button _button;
         [SerializeField] protected Image ImageSelected;
@@ -29,32 +30,6 @@ namespace CodeBase.UI.Windows.Settings
         {
             if (SettingsData == null)
                 SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
-        }
-
-        private void OnEnable()
-        {
-            _button.onClick.AddListener(ButtonPressed);
-
-            if (SettingsData == null)
-                return;
-
-            SettingsData.SoundSwitchChanged += SwitchChanged;
-            SettingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-            SetSelection();
-            ChangeImage();
-        }
-
-        private void OnDisable()
-        {
-            _button.onClick.RemoveListener(ButtonPressed);
-
-            if (SettingsData == null)
-                return;
-
-            SettingsData.SoundSwitchChanged -= SwitchChanged;
-            SettingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void ButtonPressed()
@@ -92,7 +67,23 @@ namespace CodeBase.UI.Windows.Settings
                     _volume, _audioSource);
         }
 
+        public void LoadProgressData(ProgressData progressData)
+        {
+            _button.onClick.AddListener(ButtonPressed);
+
+            if (SettingsData == null)
+                return;
+
+            SettingsData.SoundSwitchChanged += SwitchChanged;
+            SettingsData.SoundVolumeChanged += VolumeChanged;
+            VolumeChanged();
+            SwitchChanged();
+            SetSelection();
+            ChangeImage();
+        }
+
         protected abstract void SwitchAudio();
+
         protected abstract void SetSelection();
     }
 }

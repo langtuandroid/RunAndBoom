@@ -5,7 +5,6 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
-using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -55,18 +54,18 @@ namespace CodeBase.Infrastructure.States
 
             if (_progressData != null)
                 _localizationService.ChangeLanguage(_language);
+
+            _progressService.SetProgressData(_progressData);
+            _progressService.SetSettingsData(_settingsData);
         }
 
         private void CreateNewGameData(bool isHardMode)
         {
             LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel);
-            // _gameData = new GameData(InitialLevel, levelStaticData.TargetPlayTime, levelStaticData.EnemySpawners.Count,
-            //     isHardMode, _language);
             _progressData = new ProgressData(InitialLevel, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count,
                 isHardMode);
             _settingsData = new SettingsData(_language);
-            // _progressService.SetGameData(_gameData);
             _progressService.SetProgressData(_progressData);
             _progressService.SetSettingsData(_settingsData);
         }

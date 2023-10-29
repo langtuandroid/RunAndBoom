@@ -1,4 +1,5 @@
-﻿using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Progress;
+using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Settings
 {
-    public abstract class AudioSlider : MonoBehaviour
+    public abstract class AudioSlider : MonoBehaviour, IProgressReader
     {
         [SerializeField] protected Slider Slider;
 
@@ -15,10 +16,8 @@ namespace CodeBase.UI.Windows.Settings
         protected float PreviousVolume;
         protected bool IsSwitched;
 
-        private void Awake()
-        {
+        private void Awake() =>
             Slider.onValueChanged.AddListener(ChangeValue);
-        }
 
         private void Start()
         {
@@ -26,22 +25,23 @@ namespace CodeBase.UI.Windows.Settings
                 SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
-        private void OnEnable()
+        public void LoadProgressData(ProgressData progressData)
         {
             Subscribe();
             SwitchChanged();
             VolumeChanged();
         }
 
-        private void OnDisable() =>
-            Unsubscribe();
-
         protected abstract void ChangeValue(float value);
 
         protected abstract void Subscribe();
+
         protected abstract void Unsubscribe();
+
         protected abstract void SwitchChanged();
+
         protected abstract void ChangeVolume(float value);
+
         protected abstract void VolumeChanged();
     }
 }

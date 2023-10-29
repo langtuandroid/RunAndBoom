@@ -32,7 +32,7 @@ namespace CodeBase.Services.SaveLoad
         }
 
         public void SaveSettingsData() =>
-            PlayerPrefs.SetString(ProgressDataKey, _progressService.SettingsData.ToJson());
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
 
         public void ClearProgressData()
         {
