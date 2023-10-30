@@ -2,6 +2,7 @@
 using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,17 +13,23 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] protected Slider Slider;
 
         protected SettingsData SettingsData;
+        protected ISaveLoadService SaveLoadService;
         protected float Volume;
-        protected float PreviousVolume;
-        protected bool IsSwitched;
+        protected bool IsTurnedOn;
 
-        private void Awake() =>
+        private void OnEnable() =>
             Slider.onValueChanged.AddListener(ChangeValue);
+
+        private void OnDisable() =>
+            Slider.onValueChanged.RemoveListener(ChangeValue);
 
         private void Start()
         {
             if (SettingsData == null)
                 SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+
+            if (SaveLoadService == null)
+                SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
         }
 
         public void LoadProgressData(ProgressData progressData)

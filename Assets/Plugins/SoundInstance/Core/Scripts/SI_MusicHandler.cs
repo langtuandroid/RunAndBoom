@@ -88,6 +88,7 @@ namespace Plugins.SoundInstance.Core.Scripts
 
         public void PauseMusic(float fadeSpeed)
         {
+            //TODO: not pause, but changes a track
             StopAllCoroutines();
             StartCoroutine(Pause(fadeSpeed));
         }

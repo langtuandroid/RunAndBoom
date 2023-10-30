@@ -31,8 +31,46 @@ namespace CodeBase.Services.SaveLoad
             // PlayerPrefs.SetString(ProgressDataKey, _progressService.GameData.ProgressData.ToJson());
         }
 
-        public void SaveSettingsData() =>
+        // public void SaveSettingsData() =>
+        //     PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+
+        public void SaveMusicOn(bool musicOn)
+        {
+            _progressService.SettingsData.SetMusicSwitch(musicOn);
             PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        }
+
+        public void SaveSoundOn(bool soundOn)
+        {
+            _progressService.SettingsData.SetSoundSwitch(soundOn);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        }
+
+        public void SaveMusicVolume(float value)
+        {
+            _progressService.SettingsData.SetMusicVolume(value);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        }
+
+        public void SaveSoundVolume(float value)
+        {
+            _progressService.SettingsData.SetSoundVolume(value);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        }
+
+        public void SaveLanguage(Language language)
+        {
+            _progressService.SettingsData.SetLanguage(language);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        }
+
+        public void SaveVerticalAimValue(float value)
+        {
+        }
+
+        public void SaveHorizontalAimValue(float value)
+        {
+        }
 
         public void ClearProgressData()
         {

@@ -4,11 +4,12 @@
     {
         protected override void SwitchAudio()
         {
-            SettingsData.SetSoundSwitch(!IsSelected);
-            IsSelected = !IsSelected;
+            SettingsData.SetSoundSwitch(!IsTurnedOn);
+            IsTurnedOn = !IsTurnedOn;
+            SaveLoadService.SaveSoundOn(IsTurnedOn);
         }
 
         protected override void SetSelection() =>
-            IsSelected = SettingsData.SoundOn;
+            IsTurnedOn = SettingsData.SoundOn;
     }
 }

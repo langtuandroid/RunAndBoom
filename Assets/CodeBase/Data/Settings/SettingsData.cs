@@ -14,7 +14,8 @@ namespace CodeBase.Data.Settings
         public bool MusicOn;
         public bool SoundOn;
         public Language Language;
-        public float AimSensitive;
+        public float AimVerticalSensitive = 0.5f;
+        public float AimHorizontalSensitive = 0.5f;
 
         public event Action MusicVolumeChanged;
         public event Action SoundVolumeChanged;
@@ -25,8 +26,8 @@ namespace CodeBase.Data.Settings
         {
             SetMusicVolume(InitialMusicVolume);
             SetSoundVolume(InitialSoundVolume);
-            MusicOn = true;
-            SoundOn = true;
+            SetMusicSwitch(true);
+            SetSoundSwitch(true);
             SetLanguage(language);
         }
 
@@ -52,6 +53,12 @@ namespace CodeBase.Data.Settings
         {
             if (MusicOn == switcher)
                 return;
+
+            // if (switcher == false)
+            // {
+            //     SoundInstance.musicVolume = Constants.Zero;
+            //     SoundInstance.GetMusicSource().volume = Constants.Zero;
+            // }
 
             MusicOn = switcher;
             MusicSwitchChanged?.Invoke();

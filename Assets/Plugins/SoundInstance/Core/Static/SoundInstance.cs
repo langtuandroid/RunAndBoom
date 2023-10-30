@@ -17,7 +17,6 @@ namespace Plugins.SoundInstance.Core.Static
         // SOUNDS
         //
 
-
         public enum Randomization
         {
             NoRandomization,

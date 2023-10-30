@@ -4,10 +4,15 @@
     {
         protected override void ChangeValue(float value)
         {
-            if (!IsSwitched)
+            if (IsTurnedOn)
+            {
                 SettingsData.SetSoundVolume(value);
+                SaveLoadService.SaveSoundVolume(value);
+            }
             else
-                IsSwitched = false;
+            {
+                IsTurnedOn = true;
+            }
         }
 
         protected override void Subscribe()
@@ -30,7 +35,7 @@
 
         protected override void VolumeChanged()
         {
-            IsSwitched = false;
+            IsTurnedOn = true;
 
             if (SettingsData != null)
                 ChangeVolume(SettingsData.SoundVolume);
@@ -38,7 +43,7 @@
 
         protected override void SwitchChanged()
         {
-            IsSwitched = true;
+            IsTurnedOn = SettingsData.SoundOn;
 
             if (SettingsData != null)
                 ChangeVolume(SettingsData.SoundOn ? SettingsData.SoundVolume : Constants.Zero);
@@ -46,7 +51,6 @@
 
         protected override void ChangeVolume(float value)
         {
-            PreviousVolume = Volume;
             Volume = value;
             Slider.value = Volume;
         }

@@ -2,6 +2,7 @@
 using CodeBase.Data.Settings;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace CodeBase.UI.Windows.Settings
         [SerializeField] protected Image ImageUnselected;
 
         protected SettingsData SettingsData;
-        protected bool IsSelected;
+        protected ISaveLoadService SaveLoadService;
+        protected bool IsTurnedOn;
         private float _volume;
         private AudioSource _audioSource;
 
@@ -30,6 +32,9 @@ namespace CodeBase.UI.Windows.Settings
         {
             if (SettingsData == null)
                 SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+
+            if (SaveLoadService == null)
+                SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
         }
 
         private void ButtonPressed()
@@ -47,7 +52,7 @@ namespace CodeBase.UI.Windows.Settings
 
         private void ChangeImage()
         {
-            if (IsSelected)
+            if (IsTurnedOn)
             {
                 ImageSelected.ChangeImageAlpha(Constants.Visible);
                 ImageUnselected.ChangeImageAlpha(Constants.Invisible);

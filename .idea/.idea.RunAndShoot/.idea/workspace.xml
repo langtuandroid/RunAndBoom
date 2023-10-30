@@ -81,10 +81,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="23524">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="27348">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="23524" />
+      <option name="pid" value="27348" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -170,6 +170,7 @@
       <workItem from="1698159014118" duration="2634000" />
       <workItem from="1698554584985" duration="3130000" />
       <workItem from="1698571675634" duration="597000" />
+      <workItem from="1698638908640" duration="4662000" />
     </task>
     <servers />
   </component>
@@ -261,6 +262,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/MusicSlider.cs</url>
+          <line>55</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\MusicSlider.cs" initialLine="55" containingFunctionPresentation="Method 'ChangeVolume'">
+            <startOffsets>
+              <option value="1480" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1514" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

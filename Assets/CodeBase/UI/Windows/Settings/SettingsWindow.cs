@@ -30,13 +30,13 @@ namespace CodeBase.UI.Windows.Settings
 
         private void Restart()
         {
-            SaveLoadService.SaveSettingsData();
+            // SaveLoadService.SaveSettingsData();
             RestartLevel();
         }
 
         private void Close()
         {
-            SaveLoadService.SaveSettingsData();
+            // SaveLoadService.SaveSettingsData();
             Hide();
         }
 

@@ -6,10 +6,15 @@ namespace CodeBase.UI.Windows.Settings
     {
         protected override void ChangeValue(float value)
         {
-            if (!IsSwitched)
+            if (IsTurnedOn)
+            {
                 SettingsData.SetMusicVolume(value);
+                SaveLoadService.SaveMusicVolume(value);
+            }
             else
-                IsSwitched = false;
+            {
+                IsTurnedOn = true;
+            }
         }
 
         protected override void Subscribe()
@@ -32,7 +37,7 @@ namespace CodeBase.UI.Windows.Settings
 
         protected override void VolumeChanged()
         {
-            IsSwitched = false;
+            IsTurnedOn = true;
 
             if (SettingsData != null)
                 ChangeVolume(SettingsData.MusicVolume);
@@ -40,7 +45,7 @@ namespace CodeBase.UI.Windows.Settings
 
         protected override void SwitchChanged()
         {
-            IsSwitched = true;
+            IsTurnedOn = SettingsData.MusicOn;
 
             if (SettingsData != null)
                 ChangeVolume(SettingsData.MusicOn ? SettingsData.MusicVolume : Constants.Zero);
@@ -48,15 +53,29 @@ namespace CodeBase.UI.Windows.Settings
 
         protected override void ChangeVolume(float value)
         {
-            PreviousVolume = Volume;
             Volume = value;
-            SoundInstance.musicVolume = Volume;
-            SoundInstance.GetMusicSource().volume = Volume;
 
-            if (Volume == Constants.Zero && PreviousVolume != Constants.Zero)
+            if (SettingsData.MusicOn == false)
+            {
+                SoundInstance.musicVolume = Constants.Zero;
+                SoundInstance.GetMusicSource().volume = Constants.Zero;
                 SoundInstance.PauseMusic();
-            else if (Volume != Constants.Zero && PreviousVolume == Constants.Zero)
-                SoundInstance.ResumeMusic();
+            }
+            else
+            {
+                if (Volume == Constants.Zero)
+                {
+                    SoundInstance.musicVolume = Constants.Zero;
+                    SoundInstance.GetMusicSource().volume = Constants.Zero;
+                    SoundInstance.PauseMusic();
+                }
+                else if (Volume != Constants.Zero)
+                {
+                    SoundInstance.musicVolume = Volume;
+                    SoundInstance.GetMusicSource().volume = Volume;
+                    SoundInstance.ResumeMusic();
+                }
+            }
 
             Slider.value = Volume;
         }

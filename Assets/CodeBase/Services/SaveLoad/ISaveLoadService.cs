@@ -5,15 +5,18 @@ namespace CodeBase.Services.SaveLoad
 {
     public interface ISaveLoadService : IService
     {
-        // void SaveGameData();
         void SaveProgressData();
 
-        void SaveSettingsData();
-
-        // void ClearGameData();
+        // void SaveSettingsData();
+        void SaveMusicOn(bool musicOn);
+        void SaveSoundOn(bool soundOn);
+        void SaveMusicVolume(float value);
+        void SaveSoundVolume(float value);
+        void SaveLanguage(Language language);
+        void SaveVerticalAimValue(float value);
+        void SaveHorizontalAimValue(float value);
         void ClearProgressData();
 
-        // GameData LoadGameData();
         ProgressData LoadProgressData();
         SettingsData LoadSettingsData();
     }
