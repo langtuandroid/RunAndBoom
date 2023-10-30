@@ -38,8 +38,8 @@ namespace CodeBase.UI.Windows.Settings.AimSensitive
 
         private void ChangeValue(float value)
         {
-            _settingsData.SetAimVerticalSensitiveMultiplier(value);
-            _saveLoadService.SaveSoundVolume(value);
+            _settingsData.SetAimHorizontalSensitiveMultiplier(value);
+            _saveLoadService.SaveHorizontalAimValue(value);
         }
 
         public void LoadProgressData(ProgressData progressData)
