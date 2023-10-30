@@ -6,7 +6,7 @@ using CodeBase.Services.SaveLoad;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows.Settings
+namespace CodeBase.UI.Windows.Settings.Audio
 {
     public abstract class AudioSlider : MonoBehaviour, IProgressReader
     {

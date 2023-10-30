@@ -200,13 +200,13 @@ namespace CodeBase.Infrastructure.States
                 MoveJoystick moveJoystick = _hud.GetComponentInChildren<MoveJoystick>();
                 LookJoystick lookJoystick = _hud.GetComponentInChildren<LookJoystick>();
                 hero.GetComponent<HeroMovement>().ConstructMobilePlatform(_staticDataService, moveJoystick);
-                hero.GetComponent<HeroRotating>().ConstructMobilePlatform(lookJoystick);
+                hero.GetComponent<HeroRotating>().ConstructMobilePlatform(lookJoystick, _progressService);
             }
             else
             {
                 hero.GetComponent<HeroMovement>()
                     .ConstructDesktopPlatform(_staticDataService, _inputService as DesktopInputService);
-                hero.GetComponent<HeroRotating>().ConstructDesktopPlatform(_inputService);
+                hero.GetComponent<HeroRotating>().ConstructDesktopPlatform(_inputService, _progressService);
             }
 
             hero.GetComponent<HeroReloading>().Construct(_staticDataService);

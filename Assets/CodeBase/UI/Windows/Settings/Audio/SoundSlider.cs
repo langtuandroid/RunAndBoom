@@ -1,4 +1,4 @@
-﻿namespace CodeBase.UI.Windows.Settings
+﻿namespace CodeBase.UI.Windows.Settings.Audio
 {
     public class SoundSlider : AudioSlider
     {

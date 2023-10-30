@@ -1,4 +1,5 @@
 using CodeBase.Services.Input;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace CodeBase.Hero
         [SerializeField] private float _edgeAngle = 85f;
 
         private IInputService _inputService;
-
+        private IPlayerProgressService _playerProgressService;
         private LookJoystick _lookJoystick;
         private bool _isMobile;
         private bool _update;
@@ -23,13 +24,36 @@ namespace CodeBase.Hero
         private float _verticalRotation;
         private float _verticalAngle;
         private Vector2 _lookInput = Vector3.zero;
+        private float _verticalSensitiveMultiplier;
+        private float _horizontalSensitiveMultiplier;
 
-        public void ConstructDesktopPlatform(IInputService inputService)
+        public void ConstructDesktopPlatform(IInputService inputService, IPlayerProgressService playerProgressService)
         {
+            _playerProgressService = playerProgressService;
             _inputService = inputService;
             _isMobile = false;
             _update = true;
             _inputService.Looked += DesktopRotate;
+            _playerProgressService.SettingsData.AimVerticalSensitiveMultiplierChanged +=
+                UpdateVerticalSensitiveMultiplierMultiplier;
+            _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplierChanged +=
+                UpdateHorizontalSensitiveMultiplierMultiplier;
+            UpdateVerticalSensitiveMultiplierMultiplier();
+            UpdateHorizontalSensitiveMultiplierMultiplier();
+        }
+
+        public void ConstructMobilePlatform(LookJoystick lookJoystick, IPlayerProgressService playerProgressService)
+        {
+            _playerProgressService = playerProgressService;
+            _lookJoystick = lookJoystick;
+            _isMobile = true;
+            _update = true;
+            _playerProgressService.SettingsData.AimVerticalSensitiveMultiplierChanged +=
+                UpdateVerticalSensitiveMultiplierMultiplier;
+            _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplierChanged +=
+                UpdateHorizontalSensitiveMultiplierMultiplier;
+            UpdateVerticalSensitiveMultiplierMultiplier();
+            UpdateHorizontalSensitiveMultiplierMultiplier();
         }
 
         private void DesktopRotate(Vector2 lookInput)
@@ -39,12 +63,11 @@ namespace CodeBase.Hero
             // RotateHorizontal();
         }
 
-        public void ConstructMobilePlatform(LookJoystick lookJoystick)
-        {
-            _lookJoystick = lookJoystick;
-            _isMobile = true;
-            _update = true;
-        }
+        private void UpdateVerticalSensitiveMultiplierMultiplier() =>
+            _verticalSensitiveMultiplier = _playerProgressService.SettingsData.AimVerticalSensitiveMultiplier;
+
+        private void UpdateHorizontalSensitiveMultiplierMultiplier() =>
+            _horizontalSensitiveMultiplier = _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplier;
 
         private void Start()
         {
@@ -70,43 +93,68 @@ namespace CodeBase.Hero
 
         private void DesktopRotate()
         {
-            _verticalRotation -= _lookInput.y;
-            ClampAngle();
-            transform.Rotate(Vector3.up * _lookInput.x * _desktopHorizontalSensitivity * Time.deltaTime);
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _desktopVerticalSensitivity, 0, 0);
+            TryRotateVertical();
+            RotateHorizontal();
         }
 
         private void MobileRotate()
         {
-            RotateVertical();
+            TryRotateVertical();
             RotateHorizontal();
+        }
+
+        private void TryRotateVertical()
+        {
+            if (_isMobile)
+            {
+                if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
+                    _verticalRotation -= _lookJoystick.Input.y;
+            }
+            else
+            {
+                _verticalRotation -= _lookInput.y;
+            }
+
+            RotateVertical();
         }
 
         private void RotateVertical()
         {
-            if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
-                _verticalRotation -= _lookJoystick.Input.y;
-
             ClampAngle();
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _mobileVerticalSensitivity, 0, 0);
+            _camera.transform.localRotation =
+                Quaternion.Euler(_verticalRotation, 0, 0);
         }
 
         private void ClampAngle()
         {
             if (_isMobile)
-                _verticalAngle = _edgeAngle / _mobileVerticalSensitivity;
+                _verticalAngle = _edgeAngle / (_mobileVerticalSensitivity * _verticalSensitiveMultiplier);
             else
-                _verticalAngle = _edgeAngle / _desktopVerticalSensitivity;
+                _verticalAngle = _edgeAngle / (_desktopVerticalSensitivity * _verticalSensitiveMultiplier);
 
+            Debug.Log($"_verticalAngle {_verticalAngle}");
             _verticalRotation = Mathf.Clamp(_verticalRotation, -_verticalAngle, _verticalAngle);
         }
 
         private void RotateHorizontal()
         {
-            if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
-                transform.Rotate(Vector3.up * _lookJoystick.Input.x * _mobileHorizontalSensitivity * Time.deltaTime);
-
-            // transform.Rotate(Vector3.up * Constants.Zero * _horizontalSensitivity * Time.deltaTime);
+            if (_isMobile)
+            {
+                if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
+                    transform.Rotate(Vector3.up
+                                     * _lookJoystick.Input.x
+                                     * _mobileHorizontalSensitivity
+                                     * _horizontalSensitiveMultiplier
+                                     * Time.deltaTime);
+            }
+            else
+            {
+                transform.Rotate(Vector3.up
+                                 * _lookInput.x
+                                 * _desktopHorizontalSensitivity
+                                 * _horizontalSensitiveMultiplier
+                                 * Time.deltaTime);
+            }
         }
 
         public void TurnOn() =>

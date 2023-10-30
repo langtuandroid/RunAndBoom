@@ -1,33 +1,33 @@
 ﻿using System;
-using Plugins.SoundInstance.Core.Static;
 
 namespace CodeBase.Data.Settings
 {
     [Serializable]
     public class SettingsData
     {
-        private const float InitialMusicVolume = 0.5f;
-        private const float InitialSoundVolume = 0.5f;
-
         public float MusicVolume;
         public float SoundVolume;
         public bool MusicOn;
         public bool SoundOn;
         public Language Language;
-        public float AimVerticalSensitive = 0.5f;
-        public float AimHorizontalSensitive = 0.5f;
+        public float AimVerticalSensitiveMultiplier = 2f;
+        public float AimHorizontalSensitiveMultiplier = 2f;
 
         public event Action MusicVolumeChanged;
         public event Action SoundVolumeChanged;
         public event Action MusicSwitchChanged;
         public event Action SoundSwitchChanged;
+        public event Action AimVerticalSensitiveMultiplierChanged;
+        public event Action AimHorizontalSensitiveMultiplierChanged;
 
         public SettingsData(Language language)
         {
-            SetMusicVolume(InitialMusicVolume);
-            SetSoundVolume(InitialSoundVolume);
+            SetMusicVolume(Constants.InitialMusicVolume);
+            SetSoundVolume(Constants.InitialSoundVolume);
             SetMusicSwitch(true);
             SetSoundSwitch(true);
+            SetAimVerticalSensitiveMultiplier(Constants.InitialAimSliderValue);
+            SetAimHorizontalSensitiveMultiplier(Constants.InitialAimSliderValue);
             SetLanguage(language);
         }
 
@@ -54,12 +54,6 @@ namespace CodeBase.Data.Settings
             if (MusicOn == switcher)
                 return;
 
-            // if (switcher == false)
-            // {
-            //     SoundInstance.musicVolume = Constants.Zero;
-            //     SoundInstance.GetMusicSource().volume = Constants.Zero;
-            // }
-
             MusicOn = switcher;
             MusicSwitchChanged?.Invoke();
         }
@@ -79,6 +73,24 @@ namespace CodeBase.Data.Settings
                 return;
 
             Language = language;
+        }
+
+        public void SetAimVerticalSensitiveMultiplier(float value)
+        {
+            if (AimVerticalSensitiveMultiplier == value)
+                return;
+
+            AimVerticalSensitiveMultiplier = value;
+            AimVerticalSensitiveMultiplierChanged?.Invoke();
+        }
+
+        public void SetAimHorizontalSensitiveMultiplier(float value)
+        {
+            if (AimHorizontalSensitiveMultiplier == value)
+                return;
+
+            AimHorizontalSensitiveMultiplier = value;
+            AimHorizontalSensitiveMultiplierChanged?.Invoke();
         }
     }
 }

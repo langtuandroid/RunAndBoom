@@ -81,10 +81,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="27348">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="19560">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="27348" />
+      <option name="pid" value="19560" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -170,7 +170,9 @@
       <workItem from="1698159014118" duration="2634000" />
       <workItem from="1698554584985" duration="3130000" />
       <workItem from="1698571675634" duration="597000" />
-      <workItem from="1698638908640" duration="4662000" />
+      <workItem from="1698638908640" duration="11213000" />
+      <workItem from="1698655348556" duration="4284000" />
+      <workItem from="1698666854389" duration="666000" />
     </task>
     <servers />
   </component>
@@ -185,58 +187,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadPlayerProgressState.cs</url>
-          <line>47</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadPlayerProgressState.cs" initialLine="47" containingFunctionPresentation="Method 'LoadProgressOrInitNew'">
-            <startOffsets>
-              <option value="1783" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1846" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadPlayerProgressState.cs</url>
-          <line>36</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadPlayerProgressState.cs" initialLine="36" containingFunctionPresentation="Method 'Enter'">
-            <startOffsets>
-              <option value="1466" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1500" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadPlayerProgressState.cs</url>
-          <line>37</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadPlayerProgressState.cs" initialLine="37" containingFunctionPresentation="Method 'Enter'">
-            <startOffsets>
-              <option value="1513" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1641" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadPlayerProgressState.cs</url>
-          <line>56</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadPlayerProgressState.cs" initialLine="56" containingFunctionPresentation="Method 'NewProgress'">
-            <startOffsets>
-              <option value="2152" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2228" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/AudioBackgroundChanger.cs</url>
           <line>33</line>
@@ -264,17 +214,23 @@
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/MusicSlider.cs</url>
-          <line>55</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\MusicSlider.cs" initialLine="55" containingFunctionPresentation="Method 'ChangeVolume'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/SaveLoad/SaveLoadService.cs</url>
+          <line>63</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\SaveLoad\SaveLoadService.cs" initialLine="63" containingFunctionPresentation="Method 'SaveLanguage'">
             <startOffsets>
-              <option value="1480" />
+              <option value="2401" />
             </startOffsets>
             <endOffsets>
-              <option value="1514" />
+              <option value="2480" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="44" />
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/Audio/MusicSlider.cs</url>
+          <line>57</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\MusicSlider.cs" initialLine="58" containingFunctionPresentation="Method 'ChangeVolume'" />
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
