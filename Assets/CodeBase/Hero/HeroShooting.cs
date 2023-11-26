@@ -20,7 +20,9 @@ namespace CodeBase.Hero
         private IPlayerProgressService _progressService;
         private IInputService _inputService;
         private HeroWeaponAppearance _heroWeaponAppearance;
-        private bool _canShoot = false;
+        private bool _canShootTemp;
+        private bool _canShoot;
+        private bool _isInitial = true;
 
         public event Action Shot;
 
@@ -39,19 +41,34 @@ namespace CodeBase.Hero
             TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
-            TurnOn();
+
+            if (!_isInitial)
+                TurnOn();
         }
 
-        public void TurnOn() =>
+        public void TurnOn()
+        {
+            _canShootTemp = true;
             StartCoroutine(EnableShoot());
+        }
 
-        public void TurnOff() =>
+        public void TurnOff()
+        {
+            if (_canShootTemp)
+                _canShootTemp = false;
+
             _canShoot = false;
+        }
 
         private IEnumerator EnableShoot()
         {
             yield return new WaitForSeconds(ShootDelay);
-            _canShoot = true;
+
+            if (_canShootTemp)
+            {
+                _canShoot = true;
+                _isInitial = false;
+            }
         }
 
         private void TryShoot()

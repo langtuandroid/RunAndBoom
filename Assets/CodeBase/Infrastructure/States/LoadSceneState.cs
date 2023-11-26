@@ -24,6 +24,7 @@ using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
+using CodeBase.UI.Windows.Start;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -162,14 +163,11 @@ namespace CodeBase.Infrastructure.States
         private async Task InitGameWorld(LevelStaticData levelData)
         {
             _hero = await InitHero(levelData);
-
-            if (_progressService.ProgressData.WorldData.ShowAdOnLevelStart)
-                _hero.StopHero();
-
             await InitHud(_hero);
             await InitWindows(_hero);
             InitLevelTransfer(levelData);
             _adListener.Construct(_hero, _adsService, _progressService);
+            _hero.StopHero();
         }
 
         private async Task InitSpawners(LevelStaticData levelData)
@@ -240,6 +238,8 @@ namespace CodeBase.Infrastructure.States
             leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
             gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
+            GameObject startWindow = await _uiFactory.CreateStartWindow();
+            startWindow.GetComponent<StartWindow>()?.Construct(hero);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
@@ -249,6 +249,9 @@ namespace CodeBase.Infrastructure.States
             _windowService.AddWindow(WindowId.LeaderBoard, leaderBoardWindow);
             _windowService.AddWindow(WindowId.GameEnd, gameEndWindow);
             _windowService.AddWindow(WindowId.Settings, settingsWindow);
+            _windowService.AddWindow(WindowId.Start, startWindow);
+
+            _windowService.Show<StartWindow>(WindowId.Start);
         }
     }
 }

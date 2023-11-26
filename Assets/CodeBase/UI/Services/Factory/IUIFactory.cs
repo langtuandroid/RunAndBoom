@@ -18,6 +18,7 @@ namespace CodeBase.UI.Services.Factory
         Task<GameObject> CreateAuthorizationWindow();
         Task<GameObject> CreateLeaderBoardWindow();
         Task<GameObject> CreateGameEndWindow();
+        Task<GameObject> CreateStartWindow();
         TutorialPanel GetTutorialPanel();
     }
 }

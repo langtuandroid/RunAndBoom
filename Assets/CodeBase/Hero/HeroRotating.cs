@@ -59,8 +59,6 @@ namespace CodeBase.Hero
         private void DesktopRotate(Vector2 lookInput)
         {
             _lookInput = lookInput;
-            // RotateVertical();
-            // RotateHorizontal();
         }
 
         private void UpdateVerticalSensitiveMultiplierMultiplier()
@@ -110,26 +108,14 @@ namespace CodeBase.Hero
             transform.Rotate(Vector3.up * _lookInput.x * _horizontalSensitivity * Time.deltaTime);
             _verticalRotation -= _lookInput.y;
             ClampAngle();
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation
-                                                               // * _desktopVerticalSensitivity
-                                                               * _verticalSensitivity
+            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation * _verticalSensitivity
                 , 0, 0);
         }
 
         private void ClampAngle()
         {
-            // if (_isMobile)
-            //     _verticalAngle = _edgeAngle
-            //                      / _verticalSensitivity
-            //         ;
-            // else
-            _verticalAngle = _edgeAngle
-                             / _verticalSensitivity
-                ;
-
-            _verticalRotation = Mathf.Clamp(_verticalRotation
-                // * _verticalSensitivity
-                , -_verticalAngle, _verticalAngle);
+            _verticalAngle = _edgeAngle / _verticalSensitivity;
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -_verticalAngle, _verticalAngle);
         }
 
         private void MobileRotate()
@@ -144,99 +130,14 @@ namespace CodeBase.Hero
                 _verticalRotation -= _lookJoystick.Input.y;
 
             ClampAngle();
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation
-                // * _verticalSensitivity
-                , 0, 0);
+            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
         }
 
         private void RotateHorizontal()
         {
             if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
                 transform.Rotate(Vector3.up * _lookJoystick.Input.x * _horizontalSensitivity * Time.deltaTime);
-
-            // transform.Rotate(Vector3.up * Constants.Zero * _horizontalSensitivity * Time.deltaTime);
         }
-
-        // private void DesktopRotate()
-        // {
-        //     TryRotateVertical();
-        //     RotateHorizontal();
-        // }
-        //
-        // private void MobileRotate()
-        // {
-        //     TryRotateVertical();
-        //     RotateHorizontal();
-        // }
-        //
-        // private void TryRotateVertical()
-        // {
-        //     if (_isMobile)
-        //     {
-        //         if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
-        //             _verticalRotation -= _lookJoystick.Input.y;
-        //     }
-        //     else
-        //     {
-        //         _verticalRotation -= _lookInput.y;
-        //     }
-        //
-        //     Debug.Log($"TryRotateVertical _verticalRotation {_verticalRotation}");
-        //     RotateVertical();
-        // }
-        //
-        // private void RotateVertical()
-        // {
-        //     ClampAngle();
-        //     _camera.transform.localRotation =
-        //         Quaternion.Euler(_verticalRotation, 0, 0);
-        // }
-        //
-        // private void ClampAngle()
-        // {
-        //     // if (_isMobile)
-        //     //     _verticalAngle = _edgeAngle / (_mobileVerticalSensitivity * _verticalSensitiveMultiplier);
-        //     // else
-        //     //     _verticalAngle = _edgeAngle / (_desktopVerticalSensitivity * _verticalSensitiveMultiplier);
-        //     //
-        //     // Debug.Log($"_verticalAngle {_verticalAngle}");
-        //     // _verticalRotation = Mathf.Clamp(_verticalRotation, -_verticalAngle, _verticalAngle);
-        //
-        //     if (_isMobile)
-        //         _verticalRotation = Mathf.Clamp(
-        //             _verticalRotation * _mobileVerticalSensitivity * _verticalSensitiveMultiplier,
-        //             -_edgeAngle / (_mobileVerticalSensitivity * _verticalSensitiveMultiplier),
-        //             _edgeAngle / _mobileVerticalSensitivity * _verticalSensitiveMultiplier);
-        //     else
-        //         _verticalRotation =
-        //             Mathf.Clamp(
-        //                 _verticalRotation * _desktopVerticalSensitivity * _verticalSensitiveMultiplier,
-        //                 -_edgeAngle / (_desktopVerticalSensitivity * _verticalSensitiveMultiplier),
-        //                 _edgeAngle / (_desktopVerticalSensitivity * _verticalSensitiveMultiplier));
-        //
-        //     Debug.Log($"ClampAngle _verticalRotation {_verticalRotation}");
-        // }
-        //
-        // private void RotateHorizontal()
-        // {
-        //     if (_isMobile)
-        //     {
-        //         if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
-        //             transform.Rotate(Vector3.up
-        //                              * _lookJoystick.Input.x
-        //                              * _mobileHorizontalSensitivity
-        //                              * _horizontalSensitiveMultiplier
-        //                              * Time.deltaTime);
-        //     }
-        //     else
-        //     {
-        //         transform.Rotate(Vector3.up
-        //                          * _lookInput.x
-        //                          * _desktopHorizontalSensitivity
-        //                          * _horizontalSensitiveMultiplier
-        //                          * Time.deltaTime);
-        //     }
-        // }
 
         public void TurnOn() =>
             _canRotate = true;

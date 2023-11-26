@@ -51,25 +51,27 @@ namespace CodeBase.Infrastructure
         {
             Debug.Log($"InterstitialAd OnOfflineAd");
             ResumeGame();
+            _hero.ResumeHero();
         }
 
         private void AdClosed(bool isShowed)
         {
             Debug.Log($"InterstitialAd AdClosed {isShowed}");
             ResumeGame();
+            _hero.ResumeHero();
         }
 
         private void ShowError(string error)
         {
             Debug.Log($"InterstitialAd ShowError {error}");
             ResumeGame();
+            _hero.ResumeHero();
         }
 
         private void ResumeGame()
         {
             _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
             SoundInstance.StartRandomMusic();
-            _hero.ResumeHero();
             Time.timeScale = Constants.TimeScaleResume;
         }
     }

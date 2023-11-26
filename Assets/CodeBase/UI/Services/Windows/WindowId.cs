@@ -12,5 +12,6 @@
         Authorization = 7,
         LeaderBoard = 8,
         GameEnd = 9,
+        Start = 10,
     }
 }

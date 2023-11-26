@@ -92,7 +92,7 @@ namespace CodeBase.UI.Windows.Gifts
                 levelStaticData.EnemySpawners.Count);
             ProgressData.WorldData.ShowAdOnLevelStart = true;
             SaveLoadService.SaveProgressData();
-            WindowService.HideAll();
+            WindowService.ClearAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, SceneId>(_nextScene);
             Debug.Log($"{_nextScene}");

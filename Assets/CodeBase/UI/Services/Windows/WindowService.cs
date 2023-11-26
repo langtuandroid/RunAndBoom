@@ -10,6 +10,7 @@ using CodeBase.UI.Windows.LeaderBoard;
 using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
+using CodeBase.UI.Windows.Start;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -55,6 +56,9 @@ namespace CodeBase.UI.Services.Windows
                 case WindowId.GameEnd:
                     window = ShowWindow<GameEndWindow>(WindowId.GameEnd);
                     break;
+                case WindowId.Start:
+                    window = ShowWindow<StartWindow>(WindowId.Start);
+                    break;
             }
 
             if (hideOthers)
@@ -63,7 +67,7 @@ namespace CodeBase.UI.Services.Windows
             return window;
         }
 
-        public void HideAll()
+        public void ClearAll()
         {
             foreach (var vk in _windows)
             {

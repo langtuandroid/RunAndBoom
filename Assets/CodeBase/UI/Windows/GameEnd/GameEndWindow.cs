@@ -62,7 +62,7 @@ namespace CodeBase.UI.Windows.GameEnd
         private void PrepareToStartNewGame()
         {
             SoundInstance.StopRandomMusic();
-            WindowService.HideAll();
+            WindowService.ClearAll();
             SaveLoadService.ClearProgressData();
         }
 

@@ -6,6 +6,14 @@
         public static string LoadingEn = "Loading..";
         public static string LoadingTr = "Yükleniyor..";
 
+        public static string StartTitleRu = "Подготовиться!";
+        public static string StartTitleEn = "Get ready!";
+        public static string StartTitleTr = "Hazır olun!";
+
+        public static string StartButtonRu = "Играть";
+        public static string StartButtonEn = "Play";
+        public static string StartButtonTr = "Oyun";
+
         public static string SettingsTitleRu = "Настройки";
         public static string SettingsTitleEn = "Settings";
         public static string SettingsTitleTr = "Ayarlar";

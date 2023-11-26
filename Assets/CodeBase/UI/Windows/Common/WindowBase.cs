@@ -85,7 +85,7 @@ namespace CodeBase.UI.Windows.Common
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;
-            Hide();
+            // Hide();
         }
 
         protected void Hide()
@@ -146,7 +146,7 @@ namespace CodeBase.UI.Windows.Common
 
         protected void RestartLevel()
         {
-            WindowService.HideAll();
+            WindowService.ClearAll();
             ProgressData.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>()
