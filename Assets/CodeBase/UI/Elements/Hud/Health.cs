@@ -1,5 +1,4 @@
-﻿using CodeBase.Data.Progress;
-using CodeBase.Logic;
+﻿using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements.Hud

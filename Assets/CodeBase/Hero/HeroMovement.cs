@@ -42,6 +42,9 @@ namespace CodeBase.Hero
         private void Awake() =>
             _characterController = GetComponent<CharacterController>();
 
+        private void Start() =>
+            TurnOff();
+
         private void Update()
         {
             if (_update == false)

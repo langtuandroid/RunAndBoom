@@ -41,6 +41,9 @@ namespace CodeBase.Hero
             _heroShooting.Shot += StartCooldown;
         }
 
+        private void Start() =>
+            TurnOff();
+
         private void OnEnable()
         {
             if (_reloadingItemData != null)
@@ -62,10 +65,8 @@ namespace CodeBase.Hero
             }
         }
 
-        public void Construct(IStaticDataService staticDataService)
-        {
+        public void Construct(IStaticDataService staticDataService) =>
             _staticDataService = staticDataService;
-        }
 
         public void TurnOn() =>
             _canReload = true;
