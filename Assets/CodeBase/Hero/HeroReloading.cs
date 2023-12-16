@@ -41,9 +41,6 @@ namespace CodeBase.Hero
             _heroShooting.Shot += StartCooldown;
         }
 
-        private void Start() =>
-            TurnOff();
-
         private void OnEnable()
         {
             if (_reloadingItemData != null)

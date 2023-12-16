@@ -35,11 +35,11 @@ namespace CodeBase.Hero
             _update = true;
             _inputService.Looked += DesktopRotate;
             _playerProgressService.SettingsData.AimVerticalSensitiveMultiplierChanged +=
-                UpdateVerticalSensitiveMultiplierMultiplier;
+                UpdateVerticalSensitiveMultiplier;
             _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplierChanged +=
-                UpdateHorizontalSensitiveMultiplierMultiplier;
-            UpdateVerticalSensitiveMultiplierMultiplier();
-            UpdateHorizontalSensitiveMultiplierMultiplier();
+                UpdateHorizontalSensitiveMultiplier;
+            UpdateVerticalSensitiveMultiplier();
+            UpdateHorizontalSensitiveMultiplier();
         }
 
         public void ConstructMobilePlatform(LookJoystick lookJoystick, IPlayerProgressService playerProgressService)
@@ -49,19 +49,17 @@ namespace CodeBase.Hero
             _isMobile = true;
             _update = true;
             _playerProgressService.SettingsData.AimVerticalSensitiveMultiplierChanged +=
-                UpdateVerticalSensitiveMultiplierMultiplier;
+                UpdateVerticalSensitiveMultiplier;
             _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplierChanged +=
-                UpdateHorizontalSensitiveMultiplierMultiplier;
-            UpdateVerticalSensitiveMultiplierMultiplier();
-            UpdateHorizontalSensitiveMultiplierMultiplier();
+                UpdateHorizontalSensitiveMultiplier;
+            UpdateVerticalSensitiveMultiplier();
+            UpdateHorizontalSensitiveMultiplier();
         }
 
-        private void DesktopRotate(Vector2 lookInput)
-        {
+        private void DesktopRotate(Vector2 lookInput) =>
             _lookInput = lookInput;
-        }
 
-        private void UpdateVerticalSensitiveMultiplierMultiplier()
+        private void UpdateVerticalSensitiveMultiplier()
         {
             if (_isMobile)
                 _verticalSensitivity = _playerProgressService.SettingsData.AimVerticalSensitiveMultiplier *
@@ -71,7 +69,7 @@ namespace CodeBase.Hero
                                        _desktopVerticalSensitivity;
         }
 
-        private void UpdateHorizontalSensitiveMultiplierMultiplier()
+        private void UpdateHorizontalSensitiveMultiplier()
         {
             if (_isMobile)
                 _horizontalSensitivity = _playerProgressService.SettingsData.AimHorizontalSensitiveMultiplier *
@@ -83,6 +81,8 @@ namespace CodeBase.Hero
 
         private void Start()
         {
+            TurnOff();
+
             if (_inputService is DesktopInputService)
                 Cursor.lockState = CursorLockMode.Locked;
             else
