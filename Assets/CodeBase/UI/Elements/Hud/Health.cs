@@ -9,7 +9,6 @@ namespace CodeBase.UI.Elements.Hud
         [SerializeField] private HpBar _hpBar;
 
         private IHealth _health;
-        private ProgressData _progressData;
 
         public void Construct(IHealth health)
         {
