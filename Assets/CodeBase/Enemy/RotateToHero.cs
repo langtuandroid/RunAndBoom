@@ -8,6 +8,7 @@ namespace CodeBase.Enemy
 
         private Transform _heroTransform;
         private Vector3 _directionToLook;
+        private Quaternion _targetRotation;
 
         private void Update()
         {
@@ -21,7 +22,9 @@ namespace CodeBase.Enemy
         private void RotateTowardsHero()
         {
             UpdatePositionToLookAt();
-            transform.rotation = SmoothedRotation(transform.rotation, _directionToLook);
+            _targetRotation = TargetRotation(_directionToLook);
+            transform.rotation = SmoothedRotation(transform.rotation, _targetRotation);
+            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
         }
 
         private void UpdatePositionToLookAt()
@@ -30,11 +33,11 @@ namespace CodeBase.Enemy
             _directionToLook = new Vector3(positionDelta.x, transform.position.y, positionDelta.z).normalized;
         }
 
-        private Quaternion SmoothedRotation(Quaternion rotation, Vector3 positionToLook) =>
-            Quaternion.Lerp(rotation, TargetRotation(positionToLook), SpeedFactor());
-
         private Quaternion TargetRotation(Vector3 position) =>
-            Quaternion.LookRotation(position);
+            Quaternion.LookRotation(position, Vector3.up);
+
+        private Quaternion SmoothedRotation(Quaternion rotation, Quaternion targetRotation) =>
+            Quaternion.Lerp(rotation, targetRotation, SpeedFactor());
 
         private float SpeedFactor() =>
             _speed * Time.deltaTime;
