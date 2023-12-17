@@ -14,9 +14,9 @@ namespace CodeBase.Services.Pool
 {
     public class ObjectsPoolService : IObjectsPoolService
     {
-        private const int InitialVfxCapacity = 5;
-        private const int InitialEnemyProjectilesCapacity = 15;
-        private const int InitialHeroProjectilesCapacity = 6;
+        private const int InitialVfxCapacity = 15;
+        private const int InitialEnemyProjectilesCapacity = 50;
+        private const int InitialHeroProjectilesCapacity = 50;
         private const int AdditionalCount = 5;
 
         private IAssets _assets;

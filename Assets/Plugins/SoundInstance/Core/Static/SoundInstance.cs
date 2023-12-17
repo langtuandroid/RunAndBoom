@@ -35,7 +35,7 @@ namespace Plugins.SoundInstance.Core.Static
         /// <param name="randomization">Use this to add some randomness when you use the same clip multiples times</param>
         /// <param name="audioSource">The AudioSource template if you want to make it by yourself. (Volume and is3D will be overwritten)</param>
         public static void InstantiateOnTransform(AudioClip audioClip, Transform transform, float volume = -1,
-            bool is3D = true, Randomization randomization = Randomization.NoRandomization,
+            bool is3D = true, SoundInstance.Randomization randomization = Randomization.NoRandomization,
             AudioSource audioSource = null)
         {
             if (audioSource)
