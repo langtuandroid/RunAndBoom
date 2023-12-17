@@ -140,7 +140,7 @@ namespace CodeBase.UI.Windows.LeaderBoard
             // Debug.Log("RequestLeaderBoardData");
             LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
             LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
-            SceneId scene = ProgressData.AllStats.CurrentLevelStats.sceneId;
+            SceneId scene = ProgressData.AllStats.CurrentLevelStats.SceneId;
             // Debug.Log($"Scene {scene}");
             LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
             LeaderBoardService.OnGetEntryError += ShowGetEntryError;

@@ -31,8 +31,8 @@ namespace CodeBase.Services.SaveLoad
             // PlayerPrefs.SetString(ProgressDataKey, _progressService.GameData.ProgressData.ToJson());
         }
 
-        // public void SaveSettingsData() =>
-        //     PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
+        public void SaveSettingsData() =>
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
 
         public void SaveMusicOn(bool musicOn)
         {
@@ -66,10 +66,14 @@ namespace CodeBase.Services.SaveLoad
 
         public void SaveVerticalAimValue(float value)
         {
+            _progressService.SettingsData.SetAimVerticalSensitiveMultiplier(value);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
         }
 
         public void SaveHorizontalAimValue(float value)
         {
+            _progressService.SettingsData.SetAimHorizontalSensitiveMultiplier(value);
+            PlayerPrefs.SetString(SettingsDataKey, _progressService.SettingsData.ToJson());
         }
 
         public void ClearProgressData()

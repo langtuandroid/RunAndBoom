@@ -23,10 +23,10 @@ namespace CodeBase.Data.Progress
             if (AllStats.CurrentLevelStats == null)
                 AllStats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, totalEnemies);
 
-            WorldData = new WorldData(AllStats.CurrentLevelStats.sceneId.ToString());
+            WorldData = new WorldData(AllStats.CurrentLevelStats.SceneId.ToString());
             PerksData = new PerksData();
             AllStats.LevelsStats = new SceneDataDictionary();
-            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.sceneId, isHardMode);
+            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.SceneId, isHardMode);
             IsHardMode = isHardMode;
         }
     }

@@ -66,7 +66,7 @@ namespace CodeBase.UI.Windows.Results
             _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
             _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{LevelStats.RestartsData.Count}";
-            Debug.Log($"ShowData {LevelStats.sceneId} {LevelStats.Score}");
+            Debug.Log($"ShowData {LevelStats.SceneId} {LevelStats.Score}");
             _score.text = $"{LevelStats.Score}";
         }
 

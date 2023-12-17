@@ -7,7 +7,7 @@ namespace CodeBase.Services.SaveLoad
     {
         void SaveProgressData();
 
-        // void SaveSettingsData();
+        void SaveSettingsData();
         void SaveMusicOn(bool musicOn);
         void SaveSoundOn(bool soundOn);
         void SaveMusicVolume(float value);

@@ -106,10 +106,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29480">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20892">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="29480" />
+      <option name="pid" value="20892" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -216,7 +216,9 @@
       <workItem from="1702001280273" duration="9000" />
       <workItem from="1702124203160" duration="303000" />
       <workItem from="1702532453571" duration="699000" />
-      <workItem from="1702721968667" duration="681000" />
+      <workItem from="1702721968667" duration="9406000" />
+      <workItem from="1702738967670" duration="1670000" />
+      <workItem from="1702788378855" duration="7974000" />
     </task>
     <servers />
   </component>
@@ -262,10 +264,10 @@
           <line>63</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\SaveLoad\SaveLoadService.cs" initialLine="63" containingFunctionPresentation="Method 'SaveLanguage'">
             <startOffsets>
-              <option value="2401" />
+              <option value="2395" />
             </startOffsets>
             <endOffsets>
-              <option value="2480" />
+              <option value="2474" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="45" />
@@ -275,10 +277,10 @@
           <line>56</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\SaveLoad\SaveLoadService.cs" initialLine="56" containingFunctionPresentation="Method 'SaveSoundVolume'">
             <startOffsets>
-              <option value="2106" />
+              <option value="2100" />
             </startOffsets>
             <endOffsets>
-              <option value="2158" />
+              <option value="2152" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="51" />
@@ -295,45 +297,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/AdListener.cs</url>
-          <line>53</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\AdListener.cs" initialLine="53" containingFunctionPresentation="Method 'OnOfflineAd'">
-            <startOffsets>
-              <option value="1668" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1687" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/AdListener.cs</url>
-          <line>60</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\AdListener.cs" initialLine="60" containingFunctionPresentation="Method 'AdClosed'">
-            <startOffsets>
-              <option value="1854" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1873" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/AdListener.cs</url>
-          <line>67</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\AdListener.cs" initialLine="67" containingFunctionPresentation="Method 'ShowError'">
-            <startOffsets>
-              <option value="2038" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2057" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -14,8 +14,7 @@ namespace CodeBase.Logic.Level
         [SerializeField] private LevelSectorTrigger _trigger;
         [SerializeField] private float _minY;
         [SerializeField] private float _maxY;
-
-        private const float Speed = 10f;
+        [SerializeField] private float _speed = 10f;
 
         private AudioSource _audioSource;
         private float _positionY;
@@ -78,7 +77,7 @@ namespace CodeBase.Logic.Level
             if (_doorTransform.position.y != _targetY)
                 _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
                     new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z),
-                    Speed * Time.deltaTime);
+                    _speed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)

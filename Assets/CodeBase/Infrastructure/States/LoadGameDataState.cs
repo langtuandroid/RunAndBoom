@@ -37,7 +37,7 @@ namespace CodeBase.Infrastructure.States
         {
             LoadProgressOrInitNew(isHardMode);
             _stateMachine.Enter<LoadSceneState, SceneId>(_progressService.ProgressData.AllStats.CurrentLevelStats
-                .sceneId);
+                .SceneId);
         }
 
         public void Exit()

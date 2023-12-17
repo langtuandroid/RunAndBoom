@@ -189,7 +189,7 @@ namespace CodeBase.UI.Windows.Common
 
         protected void AddLevelResult()
         {
-            Debug.Log($"AddLevelResult {LevelStats.sceneId} {LevelStats.Score}");
+            Debug.Log($"AddLevelResult {LevelStats.SceneId} {LevelStats.Score}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             SubscribeSetValueSuccess();
             LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsHardMode),

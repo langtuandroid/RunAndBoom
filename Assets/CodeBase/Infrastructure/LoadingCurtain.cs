@@ -16,6 +16,7 @@ namespace CodeBase.Infrastructure
         private const float StepAlpha = 0.03f;
         private const float PrepareWaiting = 2f;
         private bool _isInitial = true;
+        private ISaveLoadService _saveLoadService;
 
         public event Action FadedOut;
 
@@ -46,8 +47,17 @@ namespace CodeBase.Infrastructure
             }
 
             FadedOut?.Invoke();
-            AllServices.Container.Single<ISaveLoadService>().SaveProgressData();
+            SaveData();
             gameObject.SetActive(false);
+        }
+
+        private void SaveData()
+        {
+            if (_saveLoadService == null)
+                _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+
+            _saveLoadService.SaveProgressData();
+            _saveLoadService.SaveSettingsData();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace CodeBase.Data.Progress.Stats
         }
 
         public void SaveCurrentLevelStats() =>
-            LevelsStats.Dictionary[CurrentLevelStats.sceneId] = CurrentLevelStats;
+            LevelsStats.Dictionary[CurrentLevelStats.SceneId] = CurrentLevelStats;
 
         public void RestartedLevel()
         {

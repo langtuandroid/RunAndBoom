@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Data.Progress.Stats
 {
@@ -10,7 +9,7 @@ namespace CodeBase.Data.Progress.Stats
         private const int TargetScore = 100;
         private const int AddingForRestarts = 1;
 
-        [FormerlySerializedAs("Scene")] public SceneId sceneId;
+        public SceneId SceneId;
         public MoneyData MoneyData;
         public PlayTimeData PlayTimeData;
         public KillsData KillsData;
@@ -20,7 +19,7 @@ namespace CodeBase.Data.Progress.Stats
 
         public LevelStats(SceneId sceneId, int targetPlayTime, int totalEnemies)
         {
-            this.sceneId = sceneId;
+            SceneId = sceneId;
             MoneyData = new MoneyData();
             PlayTimeData = new PlayTimeData(targetPlayTime);
             KillsData = new KillsData(totalEnemies);
