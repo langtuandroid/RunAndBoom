@@ -31,7 +31,10 @@ namespace CodeBase.UI.Elements.Hud
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("OpenSettings ShowSettingsWindow");
                 ShowSettingsWindow();
+            }
         }
 
         private void ShowSettingsWindow() =>

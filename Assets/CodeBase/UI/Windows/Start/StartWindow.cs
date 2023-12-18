@@ -22,7 +22,10 @@ namespace CodeBase.UI.Windows.Start
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("StartWindow Close");
                 Close();
+            }
         }
 
         private void Close() =>

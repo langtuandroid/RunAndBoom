@@ -25,7 +25,10 @@ namespace CodeBase.UI.Windows.Settings
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("SettingsWindow Close");
                 Close();
+            }
         }
 
         private void Restart()

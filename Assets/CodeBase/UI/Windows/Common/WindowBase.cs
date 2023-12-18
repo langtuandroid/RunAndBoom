@@ -85,7 +85,6 @@ namespace CodeBase.UI.Windows.Common
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;
-            // Hide();
         }
 
         protected void Hide()
