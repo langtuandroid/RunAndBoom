@@ -98,7 +98,6 @@ namespace CodeBase.UI.Windows.Common
                     Cursor.lockState = CursorLockMode.Locked;
 
                 Hero.ResumeHero();
-                // Time.timeScale = Constants.TimeScaleResume;
             }
         }
 
@@ -106,7 +105,6 @@ namespace CodeBase.UI.Windows.Common
         {
             gameObject.SetActive(true);
             Hero.StopHero();
-            // Time.timeScale = Constants.TimeScaleStop;
 
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 ShowCursor(showCursor);

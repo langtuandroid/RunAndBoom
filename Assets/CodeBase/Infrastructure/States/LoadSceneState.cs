@@ -81,7 +81,6 @@ namespace CodeBase.Infrastructure.States
                 if (Application.isEditor)
                     return;
 
-                // Time.timeScale = Constants.TimeScaleStop;
                 SoundInstance.StopRandomMusic(false);
                 _adsService.ShowInterstitialAd();
             }

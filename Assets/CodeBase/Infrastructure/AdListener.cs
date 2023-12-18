@@ -72,7 +72,6 @@ namespace CodeBase.Infrastructure
         {
             _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
             SoundInstance.StartRandomMusic();
-            // Time.timeScale = Constants.TimeScaleResume;
         }
     }
 }
