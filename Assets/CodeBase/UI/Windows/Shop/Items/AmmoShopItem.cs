@@ -15,7 +15,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             _heroTransform = heroTransform;
             base.Construct(ammoItem, progressData);
         }
-        
+
         protected override void Clicked()
         {
             if (ShopItemBalance.IsMoneyEnough(_shopAmmoStaticData.Cost))

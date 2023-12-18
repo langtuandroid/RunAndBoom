@@ -36,7 +36,7 @@ namespace CodeBase.UI.Windows.Common
             AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
-                CostText.text = $"{_shopAmmoStaticData.Cost} $";
+                CostText.text = $"{_shopAmmoStaticData.Cost}";
 
             int count = GetCount(_shopAmmoStaticData.Count);
 

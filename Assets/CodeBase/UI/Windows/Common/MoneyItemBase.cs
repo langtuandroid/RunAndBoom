@@ -39,7 +39,7 @@ namespace CodeBase.UI.Windows.Common
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";
             // CountText.color = Constants.ShopItemCountField;
-            TitleText.text = $"+{_moneyStaticData.Value} $";
+            TitleText.text = $"+{_moneyStaticData.Value}";
         }
     }
 }

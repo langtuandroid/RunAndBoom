@@ -35,7 +35,7 @@ namespace CodeBase.UI.Windows.Common
             AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (CostText != null)
-                CostText.text = $"{_weaponStaticData.Cost} $";
+                CostText.text = $"{_weaponStaticData.Cost}";
 
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";

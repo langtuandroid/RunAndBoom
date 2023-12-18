@@ -18,8 +18,8 @@ namespace CodeBase
         public const float InitialMusicVolume = 0.5f;
         public const float InitialSoundVolume = 0.5f;
 
-        public const float TimeScaleStop = 0.0f;
-        public const float TimeScaleResume = 1.0f;
+        // public const float TimeScaleStop = 0.0f;
+        // public const float TimeScaleResume = 1.0f;
 
         public static readonly Color ShopItemUpgrade = new Color(1f, 0.7064719f, 0f, 1f);
         public static readonly Color ShopItemAmmo = new Color(0.2321882f, 1f, 0f, 1f);

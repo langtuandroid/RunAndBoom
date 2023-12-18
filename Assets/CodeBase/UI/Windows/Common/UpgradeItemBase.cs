@@ -50,7 +50,7 @@ namespace CodeBase.UI.Windows.Common
             AdditionalIcon.ChangeImageAlpha(Constants.Visible);
 
             if (CostText != null)
-                CostText.text = $"{_upgradeLevelInfoStaticData.Cost} $";
+                CostText.text = $"{_upgradeLevelInfoStaticData.Cost}";
 
             // CostText.color = Constants.ShopItemPerk;
             CountText.text = "";

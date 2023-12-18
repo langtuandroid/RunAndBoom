@@ -41,7 +41,7 @@ namespace CodeBase.UI.Windows.Common
                 : Constants.Invisible);
 
             if (CostText != null)
-                CostText.text = $"{_perkStaticData.Cost} $";
+                CostText.text = $"{_perkStaticData.Cost}";
 
             CountText.text = "";
             // CostText.color = Constants.ShopItemPerk;
