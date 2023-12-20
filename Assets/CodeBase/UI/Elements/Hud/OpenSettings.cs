@@ -13,6 +13,16 @@ namespace CodeBase.UI.Elements.Hud
 
         private IWindowService _windowService;
 
+        private void OnEnable()
+        {
+            Debug.Log("OpenSettings OnEnable");
+        }
+
+        private void OnDisable()
+        {
+            Debug.Log("OpenSettings OnDisable");
+        }
+
         private void Start()
         {
             _windowService = AllServices.Container.Single<IWindowService>();
@@ -37,7 +47,10 @@ namespace CodeBase.UI.Elements.Hud
             }
         }
 
-        private void ShowSettingsWindow() =>
+        private void ShowSettingsWindow()
+        {
+            enabled = false;
             _windowService.Show<SettingsWindow>(WindowId.Settings);
+        }
     }
 }

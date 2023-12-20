@@ -1,4 +1,5 @@
 ﻿using CodeBase.Hero;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -45,8 +46,8 @@ namespace CodeBase.UI.Windows.Death
             AdsService.OnShowVideoAdError -= ShowError;
         }
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Death);
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Death, openSettings);
 
         protected override void AdsServiceInitializedSuccess()
         {

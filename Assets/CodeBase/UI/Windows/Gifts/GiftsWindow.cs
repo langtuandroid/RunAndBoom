@@ -1,6 +1,7 @@
 ﻿using CodeBase.Data.Progress;
 using CodeBase.Infrastructure.States;
 using CodeBase.StaticData.Levels;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -51,8 +52,8 @@ namespace CodeBase.UI.Windows.Gifts
             AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Gifts);
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Gifts, openSettings);
 
         public void AddData(SceneId nextLevel)
         {

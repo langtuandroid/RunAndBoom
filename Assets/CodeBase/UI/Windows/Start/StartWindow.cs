@@ -1,4 +1,5 @@
-﻿using CodeBase.UI.Services.Windows;
+﻿using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +10,11 @@ namespace CodeBase.UI.Windows.Start
     {
         [SerializeField] private Button _startButton;
 
-        private void OnEnable()
-        {
+        private void OnEnable() =>
             _startButton.onClick.AddListener(Close);
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() =>
             _startButton.onClick.RemoveListener(Close);
-        }
 
         private void Update()
         {
@@ -28,10 +25,10 @@ namespace CodeBase.UI.Windows.Start
             }
         }
 
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Start, openSettings);
+
         private void Close() =>
             Hide();
-
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Start);
     }
 }

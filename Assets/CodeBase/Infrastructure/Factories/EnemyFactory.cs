@@ -17,16 +17,15 @@ namespace CodeBase.Infrastructure.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
+        private readonly IInputService _inputService;
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
         private readonly IRegistratorService _registratorService;
         private readonly IGameFactory _gameFactory;
         private Transform _spawnersRoot;
-        private IInputService _inputService;
 
         public EnemyFactory(IInputService inputService, IAssets assets, IStaticDataService staticData,
-            IRegistratorService registratorService,
-            IGameFactory gameFactory)
+            IRegistratorService registratorService, IGameFactory gameFactory)
         {
             _inputService = inputService;
             _assets = assets;
@@ -64,8 +63,7 @@ namespace CodeBase.Infrastructure.Factories
             enemy.GetComponent<EnemyDeath>()
                 .Construct(_gameFactory.GetHero().GetComponentInChildren<HeroHealth>(), enemyData.Reward);
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform,
-                GetSpeed(enemyData.MoveSpeed),
-                enemyData.IsMovable);
+                GetSpeed(enemyData.MoveSpeed), enemyData.IsMovable);
             enemy.GetComponent<RotateToHero>().Construct(_gameFactory.GetHero().transform);
             enemy.GetComponent<Aggro>().Construct(enemyData.FollowDistance);
             enemy.GetComponent<CheckAttackRange>().Construct(enemyData.AttackDistance);

@@ -24,6 +24,7 @@ Shader "PicoTanks/UI/UIOutline"
 		_SpeedB("SpeedB", Vector) = (0,0,0,0)
 		_TilingA("TilingA", Vector) = (0,0,0,0)
 		_TilingB("TilingB", Vector) = (0,0,0,0)
+        _CurrentTime("CurrentTime", Float) = 1
 
 	}
 
@@ -106,7 +107,7 @@ Shader "PicoTanks/UI/UIOutline"
 	uniform float _InnerGlow;
 	uniform float _AlphaBoost;
 	uniform float _SoftenEdgeWidth;
-
+    uniform float _CurrentTime;
 
 	v2f vert(appdata_t IN )
 	{
@@ -127,8 +128,8 @@ Shader "PicoTanks/UI/UIOutline"
 
 	fixed4 frag(v2f IN ) : SV_Target
 	{
-		float mulTime33 = _Time.y * _SpeedA.x;
-		float mulTime49 = _Time.y * _SpeedA.y;
+		float mulTime33 = _CurrentTime * _SpeedA.x;
+		float mulTime49 = _CurrentTime * _SpeedA.y;
 		float2 appendResult31 = (float2(mulTime33 , mulTime49));
 		float2 texCoord16 = IN.texcoord.xy * _TilingA + appendResult31;
 		float mulTime52 = _Time.y * _SpeedB.x;

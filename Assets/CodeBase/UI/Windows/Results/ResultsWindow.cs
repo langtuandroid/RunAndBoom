@@ -1,4 +1,5 @@
 ﻿using CodeBase.Data.Progress;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Gifts;
@@ -43,8 +44,8 @@ namespace CodeBase.UI.Windows.Results
                 LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Result);
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Result, openSettings);
 
         public void AddData(SceneId currentLevel, SceneId nextLevel, int maxPrice)
         {

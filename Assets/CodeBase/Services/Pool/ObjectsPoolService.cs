@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Projectiles.Movement;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemies;
@@ -28,6 +29,8 @@ namespace CodeBase.Services.Pool
         private Transform _enemyProjectilesRoot;
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
+        private GameObject _gameObject;
+        private List<GameObject> _list = new List<GameObject>();
 
         public ObjectsPoolService(IAssets assets, IConstructorService constructorService,
             IStaticDataService staticDataService)
@@ -43,16 +46,16 @@ namespace CodeBase.Services.Pool
         private async void CreateRoots()
         {
             GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
-            GameObject gameObject = Object.Instantiate(root);
-            _heroProjectilesRoot = gameObject.transform;
+            _gameObject = Object.Instantiate(root);
+            _heroProjectilesRoot = _gameObject.transform;
 
             root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
-            gameObject = Object.Instantiate(root);
-            _enemyProjectilesRoot = gameObject.transform;
+            _gameObject = Object.Instantiate(root);
+            _enemyProjectilesRoot = _gameObject.transform;
 
             root = await _assets.Load<GameObject>(AssetAddresses.ShotVfxsRoot);
-            gameObject = Object.Instantiate(root);
-            _shotVfxsRoot = gameObject.transform;
+            _gameObject = Object.Instantiate(root);
+            _shotVfxsRoot = _gameObject.transform;
 
             GenerateHeroProjectiles();
             GenerateEnemyProjectiles();
@@ -264,35 +267,38 @@ namespace CodeBase.Services.Pool
 
         public GameObject GetShotVfx(ShotVfxTypeId typeId)
         {
-            GameObject gameObject = null;
+            _gameObject = null;
 
             switch (typeId)
             {
                 case ShotVfxTypeId.Grenade:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Grenade.ToString(), _shotVfxs,
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Grenade.ToString(), _shotVfxs,
                         _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.RocketLauncherRocket:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RocketLauncherRocket.ToString(), _shotVfxs,
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RocketLauncherRocket.ToString(),
+                        _shotVfxs,
                         _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.RpgRocket:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RpgRocket.ToString(), _shotVfxs,
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RpgRocket.ToString(), _shotVfxs,
                         _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Bomb:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bomb.ToString(), _shotVfxs, _shotVfxsRoot);
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bomb.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Bullet:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bullet.ToString(), _shotVfxs,
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bullet.ToString(), _shotVfxs,
                         _shotVfxsRoot);
                     break;
                 case ShotVfxTypeId.Shot:
-                    gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Shot.ToString(), _shotVfxs, _shotVfxsRoot);
+                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Shot.ToString(), _shotVfxs,
+                        _shotVfxsRoot);
                     break;
             }
 
-            return gameObject;
+            return _gameObject;
         }
 
         public void ReturnEnemyProjectile(GameObject gameObject) =>
@@ -314,24 +320,24 @@ namespace CodeBase.Services.Pool
             Transform parent)
         {
             dictionary.TryGetValue(name, out List<GameObject> list);
-            GameObject gameObject = null;
+            _gameObject = null;
 
             if (list != null)
             {
-                gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
+                _gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
 
-                if (gameObject != null)
+                if (_gameObject != null)
                 {
-                    return gameObject;
+                    return _gameObject;
                 }
                 else
                 {
-                    gameObject = ExtendList(pool, name, list, dictionary, parent);
-                    return gameObject;
+                    _gameObject = ExtendList(pool, name, list, dictionary, parent);
+                    return _gameObject;
                 }
             }
 
-            return gameObject;
+            return _gameObject;
         }
 
         private GameObject ExtendList(Pools pool, string name, List<GameObject> list,
@@ -360,6 +366,60 @@ namespace CodeBase.Services.Pool
                 return gameObject;
             else
                 return ExtendList(pool, name, list1, dictionary, parent);
+        }
+
+        public void StopAllObjects()
+        {
+            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.GrenadeLauncher.ToString(), _list);
+            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.RPG.ToString(), _list);
+            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.RocketLauncher.ToString(), _list);
+            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.Mortar.ToString(), _list);
+            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Pistol.ToString(), _list);
+            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Shotgun.ToString(), _list);
+            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SniperRifle.ToString(), _list);
+            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SMG.ToString(), _list);
+            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.MG.ToString(), _list);
+        }
+
+        public void LaunchAllObjects()
+        {
+            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.GrenadeLauncher.ToString(), _list);
+            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.RPG.ToString(), _list);
+            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.RocketLauncher.ToString(), _list);
+            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.Mortar.ToString(), _list);
+            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Pistol.ToString(), _list);
+            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Shotgun.ToString(), _list);
+            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SniperRifle.ToString(), _list);
+            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SMG.ToString(), _list);
+            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.MG.ToString(), _list);
+        }
+
+        private void StopObjectBy(Dictionary<string, List<GameObject>> dictionary, string type, List<GameObject> list)
+        {
+            dictionary.TryGetValue(type, out list);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].activeInHierarchy)
+                    // list[i].GetComponent<ProjectileMovement>().enabled = false;
+                    list[i].GetComponent<ProjectileMovement>().Stop();
+            }
+
+            list.Clear();
+        }
+
+        private void LaunchObjectBy(Dictionary<string, List<GameObject>> dictionary, string type, List<GameObject> list)
+        {
+            dictionary.TryGetValue(type, out list);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].activeInHierarchy)
+                    // list[i].GetComponent<ProjectileMovement>().enabled = true;
+                    list[i].GetComponent<ProjectileMovement>().Launch();
+            }
+
+            list.Clear();
         }
     }
 

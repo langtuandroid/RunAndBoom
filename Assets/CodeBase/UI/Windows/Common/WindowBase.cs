@@ -10,8 +10,10 @@ using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.PersistentProgress;
+using CodeBase.Services.Pool;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -35,6 +37,8 @@ namespace CodeBase.UI.Windows.Common
         private WindowId _windowId;
         protected LevelStats LevelStats;
         protected SceneId CurrentLevel;
+        private OpenSettings _openSettings;
+        private IObjectsPoolService _objectsPoolService;
 
         private void Awake() =>
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
@@ -59,6 +63,9 @@ namespace CodeBase.UI.Windows.Common
             if (LeaderBoardService == null)
                 LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
 
+            if (_objectsPoolService == null)
+                _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
+
             if (AudioSource == null)
                 AudioSource = GetComponent<AudioSource>();
 
@@ -74,7 +81,7 @@ namespace CodeBase.UI.Windows.Common
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
-        protected void Construct(GameObject hero, WindowId windowId)
+        protected void Construct(GameObject hero, WindowId windowId, OpenSettings openSettings)
         {
             WindowService = AllServices.Container.Single<IWindowService>();
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
@@ -82,13 +89,16 @@ namespace CodeBase.UI.Windows.Common
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             AdsService = AllServices.Container.Single<IAdsService>();
             LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
+            _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;
+            _openSettings = openSettings;
         }
 
         protected void Hide()
         {
+            // _objectsPoolService.LaunchAllObjects();
             gameObject.SetActive(false);
             PlayCloseSound();
 
@@ -98,17 +108,22 @@ namespace CodeBase.UI.Windows.Common
                     Cursor.lockState = CursorLockMode.Locked;
 
                 Hero.ResumeHero();
+                Time.timeScale = Constants.TimeScaleResume;
+                _openSettings.enabled = true;
             }
         }
 
         public void Show(bool showCursor = true)
         {
+            // _objectsPoolService.StopAllObjects();
             gameObject.SetActive(true);
             Hero.StopHero();
+            Time.timeScale = Constants.TimeScaleStop;
 
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 ShowCursor(showCursor);
 
+            _openSettings.enabled = false;
             PlayOpenSound();
         }
 

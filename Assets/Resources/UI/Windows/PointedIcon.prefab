@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3696774128883793398}
   - component: {fileID: 7588340256237463132}
   - component: {fileID: 4210204301226488535}
+  - component: {fileID: 180366951448082368}
   m_Layer: 5
   m_Name: PointedIcon
   m_TagString: Untagged
@@ -68,7 +69,20 @@ MonoBehaviour:
       m_Calls: []
   m_Texture: {fileID: 2800000, guid: 4579cdb6048a00a4ab91ff458aef6e05, type: 3}
   _outlineWidth: 15
-  _cornerRadius: 0
+  _cornerRadius: 13
   _cornerSegments: 20
   _mappingBias: 0.5
   _fillCenter: 0
+--- !u!114 &180366951448082368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4379063890191316188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf3fcce710b404fa36839f05ea88982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiOutline: {fileID: 4210204301226488535}

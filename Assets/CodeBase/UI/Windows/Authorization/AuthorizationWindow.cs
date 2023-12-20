@@ -1,6 +1,7 @@
 ﻿using CodeBase.Data.Progress;
 using CodeBase.Services;
 using CodeBase.Services.PlayerAuthorization;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.LeaderBoard;
@@ -39,8 +40,8 @@ namespace CodeBase.UI.Windows.Authorization
                 _applyButton.onClick.RemoveListener(ToLeaderBoardWindow);
         }
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.LeaderBoard);
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.LeaderBoard, openSettings);
 
         private void Authorize()
         {

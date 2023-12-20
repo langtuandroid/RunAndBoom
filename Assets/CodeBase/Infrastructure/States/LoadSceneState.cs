@@ -52,6 +52,7 @@ namespace CodeBase.Infrastructure.States
         private IAdListener _adListener;
         private IAdsService _adsService;
         private GameObject _hero;
+        private OpenSettings _openSettings;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
@@ -81,6 +82,7 @@ namespace CodeBase.Infrastructure.States
                 if (Application.isEditor)
                     return;
 
+                Time.timeScale = Constants.TimeScaleStop;
                 SoundInstance.StopRandomMusic(false);
                 _adsService.ShowInterstitialAd();
             }
@@ -219,26 +221,29 @@ namespace CodeBase.Infrastructure.States
 
         private async Task InitWindows(GameObject hero)
         {
+            if (_openSettings == null)
+                _openSettings = _hud.GetComponent<OpenSettings>();
+
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
-            shopWindow.GetComponent<ShopWindow>().Construct(hero);
+            shopWindow.GetComponent<ShopWindow>().Construct(hero, _openSettings);
             shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            deathWindow.GetComponent<DeathWindow>().Construct(hero);
+            deathWindow.GetComponent<DeathWindow>().Construct(hero, _openSettings);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
-            settingsWindow.GetComponent<SettingsWindow>().Construct(hero);
+            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _openSettings);
             GameObject giftsWindow = await _uiFactory.CreateGiftsWindow();
             giftsWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
-            giftsWindow.GetComponent<GiftsWindow>()?.Construct(hero);
+            giftsWindow.GetComponent<GiftsWindow>()?.Construct(hero, _openSettings);
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
-            resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero);
+            resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero, _openSettings);
             GameObject authorizationWindow = await _uiFactory.CreateAuthorizationWindow();
-            authorizationWindow.GetComponent<AuthorizationWindow>()?.Construct(hero);
+            authorizationWindow.GetComponent<AuthorizationWindow>()?.Construct(hero, _openSettings);
             GameObject leaderBoardWindow = await _uiFactory.CreateLeaderBoardWindow();
-            leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero);
+            leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero, _openSettings);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
-            gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero);
+            gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero, _openSettings);
             GameObject startWindow = await _uiFactory.CreateStartWindow();
-            startWindow.GetComponent<StartWindow>()?.Construct(hero);
+            startWindow.GetComponent<StartWindow>()?.Construct(hero, _openSettings);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);

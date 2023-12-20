@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8853153561087792087}
   - component: {fileID: 2368365055368693885}
   - component: {fileID: 8357707546370940150}
+  - component: {fileID: 469652633214699284}
   m_Layer: 5
   m_Name: GiftIcon
   m_TagString: Untagged
@@ -68,7 +69,20 @@ MonoBehaviour:
       m_Calls: []
   m_Texture: {fileID: 2800000, guid: f05d5ff7ad5396e408355284478a13c2, type: 3}
   _outlineWidth: 50
-  _cornerRadius: 0
+  _cornerRadius: 13
   _cornerSegments: 6
   _mappingBias: 0
   _fillCenter: 0
+--- !u!114 &469652633214699284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454561973197101821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf3fcce710b404fa36839f05ea88982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiOutline: {fileID: 8357707546370940150}

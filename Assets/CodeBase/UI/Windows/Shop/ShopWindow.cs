@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -33,8 +34,8 @@ namespace CodeBase.UI.Windows.Shop
             _generator.GenerationEnded -= CheckRefreshButtons;
         }
 
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Shop);
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Shop, openSettings);
 
         public void AddCounts(int maxRefreshCount, int watchAdsNumber)
         {

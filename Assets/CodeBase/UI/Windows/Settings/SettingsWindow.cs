@@ -1,3 +1,4 @@
+using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
@@ -31,19 +32,13 @@ namespace CodeBase.UI.Windows.Settings
             }
         }
 
-        private void Restart()
-        {
-            // SaveLoadService.SaveSettingsData();
+        public void Construct(GameObject hero, OpenSettings openSettings) =>
+            base.Construct(hero, WindowId.Settings, openSettings);
+
+        private void Restart() =>
             RestartLevel();
-        }
 
-        private void Close()
-        {
-            // SaveLoadService.SaveSettingsData();
+        private void Close() =>
             Hide();
-        }
-
-        public void Construct(GameObject hero) =>
-            base.Construct(hero, WindowId.Settings);
     }
 }
