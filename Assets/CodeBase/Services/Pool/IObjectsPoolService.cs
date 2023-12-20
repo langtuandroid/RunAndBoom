@@ -12,7 +12,5 @@ namespace CodeBase.Services.Pool
         void ReturnEnemyProjectile(GameObject gameObject);
         void ReturnHeroProjectile(GameObject gameObject);
         void ReturnShotVfx(GameObject gameObject);
-        void StopAllObjects();
-        void LaunchAllObjects();
     }
 }

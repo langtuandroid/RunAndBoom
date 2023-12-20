@@ -38,7 +38,6 @@ namespace CodeBase.UI.Windows.Common
         protected LevelStats LevelStats;
         protected SceneId CurrentLevel;
         private OpenSettings _openSettings;
-        private IObjectsPoolService _objectsPoolService;
 
         private void Awake() =>
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
@@ -63,9 +62,6 @@ namespace CodeBase.UI.Windows.Common
             if (LeaderBoardService == null)
                 LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
 
-            if (_objectsPoolService == null)
-                _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
-
             if (AudioSource == null)
                 AudioSource = GetComponent<AudioSource>();
 
@@ -89,7 +85,6 @@ namespace CodeBase.UI.Windows.Common
             StaticDataService = AllServices.Container.Single<IStaticDataService>();
             AdsService = AllServices.Container.Single<IAdsService>();
             LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
-            _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             AudioSource = GetComponent<AudioSource>();
             Hero = hero;
             _windowId = windowId;
@@ -98,7 +93,6 @@ namespace CodeBase.UI.Windows.Common
 
         protected void Hide()
         {
-            // _objectsPoolService.LaunchAllObjects();
             gameObject.SetActive(false);
             PlayCloseSound();
 
@@ -115,7 +109,6 @@ namespace CodeBase.UI.Windows.Common
 
         public void Show(bool showCursor = true)
         {
-            // _objectsPoolService.StopAllObjects();
             gameObject.SetActive(true);
             Hero.StopHero();
             Time.timeScale = Constants.TimeScaleStop;

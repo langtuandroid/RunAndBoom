@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Projectiles.Movement;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Enemies;
@@ -366,60 +365,6 @@ namespace CodeBase.Services.Pool
                 return gameObject;
             else
                 return ExtendList(pool, name, list1, dictionary, parent);
-        }
-
-        public void StopAllObjects()
-        {
-            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.GrenadeLauncher.ToString(), _list);
-            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.RPG.ToString(), _list);
-            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.RocketLauncher.ToString(), _list);
-            StopObjectBy(_heroProjectiles, HeroWeaponTypeId.Mortar.ToString(), _list);
-            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Pistol.ToString(), _list);
-            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Shotgun.ToString(), _list);
-            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SniperRifle.ToString(), _list);
-            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SMG.ToString(), _list);
-            StopObjectBy(_enemyProjectiles, EnemyWeaponTypeId.MG.ToString(), _list);
-        }
-
-        public void LaunchAllObjects()
-        {
-            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.GrenadeLauncher.ToString(), _list);
-            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.RPG.ToString(), _list);
-            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.RocketLauncher.ToString(), _list);
-            LaunchObjectBy(_heroProjectiles, HeroWeaponTypeId.Mortar.ToString(), _list);
-            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Pistol.ToString(), _list);
-            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.Shotgun.ToString(), _list);
-            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SniperRifle.ToString(), _list);
-            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.SMG.ToString(), _list);
-            LaunchObjectBy(_enemyProjectiles, EnemyWeaponTypeId.MG.ToString(), _list);
-        }
-
-        private void StopObjectBy(Dictionary<string, List<GameObject>> dictionary, string type, List<GameObject> list)
-        {
-            dictionary.TryGetValue(type, out list);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].activeInHierarchy)
-                    // list[i].GetComponent<ProjectileMovement>().enabled = false;
-                    list[i].GetComponent<ProjectileMovement>().Stop();
-            }
-
-            list.Clear();
-        }
-
-        private void LaunchObjectBy(Dictionary<string, List<GameObject>> dictionary, string type, List<GameObject> list)
-        {
-            dictionary.TryGetValue(type, out list);
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i].activeInHierarchy)
-                    // list[i].GetComponent<ProjectileMovement>().enabled = true;
-                    list[i].GetComponent<ProjectileMovement>().Launch();
-            }
-
-            list.Clear();
         }
     }
 

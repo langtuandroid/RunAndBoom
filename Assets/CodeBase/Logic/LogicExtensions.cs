@@ -10,7 +10,7 @@ namespace CodeBase.Logic
             if (hero.GetComponent<HeroShooting>() != null)
             {
                 hero.GetComponent<HeroShooting>().TurnOff();
-                hero.GetComponent<HeroMovement>().TurnOff();
+                // hero.GetComponent<HeroMovement>().TurnOff();
                 hero.GetComponent<HeroRotating>().TurnOff();
                 hero.GetComponent<HeroReloading>().TurnOff();
                 hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
