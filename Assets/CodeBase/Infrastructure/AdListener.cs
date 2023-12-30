@@ -21,10 +21,10 @@ namespace CodeBase.Infrastructure
             _adsService = adsService;
             _progressService = progressService;
 
+            ResumeGame();
+
             if (!Application.isEditor)
                 InitializeAdsService();
-            else
-                ResumeGame();
         }
 
         private void InitializeAdsService()
@@ -33,9 +33,14 @@ namespace CodeBase.Infrastructure
             _adsService.OnInitializeSuccess += SubscribeAdsEvents;
 
             if (_adsService.IsInitialized())
+            {
                 SubscribeAdsEvents();
+                ResumeGame();
+            }
             else
+            {
                 StartCoroutine(_adsService.Initialize());
+            }
         }
 
         private void SubscribeAdsEvents()

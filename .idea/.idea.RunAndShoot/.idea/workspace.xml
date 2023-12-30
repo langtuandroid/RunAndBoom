@@ -204,6 +204,8 @@
       <workItem from="1702990117366" duration="1598000" />
       <workItem from="1703004037182" duration="571000" />
       <workItem from="1703004616099" duration="4309000" />
+      <workItem from="1703862970023" duration="2604000" />
+      <workItem from="1703913040395" duration="4564000" />
     </task>
     <servers />
   </component>
@@ -243,32 +245,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/SaveLoad/SaveLoadService.cs</url>
-          <line>63</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\SaveLoad\SaveLoadService.cs" initialLine="63" containingFunctionPresentation="Method 'SaveLanguage'">
-            <startOffsets>
-              <option value="2395" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2474" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/SaveLoad/SaveLoadService.cs</url>
-          <line>56</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\SaveLoad\SaveLoadService.cs" initialLine="56" containingFunctionPresentation="Method 'SaveSoundVolume'">
-            <startOffsets>
-              <option value="2100" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2152" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/Audio/SoundSlider.cs</url>
