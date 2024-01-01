@@ -1,5 +1,4 @@
-﻿using CodeBase.Logic;
-using CodeBase.Services.Ads;
+﻿using CodeBase.Services.Ads;
 using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -56,7 +55,6 @@ namespace CodeBase.Infrastructure
         {
             Debug.Log($"InterstitialAd OnOfflineAd");
             ResumeGame();
-            _hero.ResumeHero();
             _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
@@ -64,7 +62,6 @@ namespace CodeBase.Infrastructure
         {
             Debug.Log($"InterstitialAd AdClosed {isShowed}");
             ResumeGame();
-            _hero.ResumeHero();
             _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
@@ -72,13 +69,14 @@ namespace CodeBase.Infrastructure
         {
             Debug.Log($"InterstitialAd ShowError {error}");
             ResumeGame();
-            _hero.ResumeHero();
             _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
         private void ResumeGame()
         {
             SoundInstance.StartRandomMusic();
+            SoundInstance.musicVolume = _progressService.SettingsData.MusicVolume;
+            SoundInstance.GetMusicSource().volume = _progressService.SettingsData.MusicVolume;
             Time.timeScale = Constants.TimeScaleResume;
         }
     }

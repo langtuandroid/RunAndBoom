@@ -24,9 +24,6 @@ namespace CodeBase.UI
 
         private void OnInBackgroundChange(bool inBackground)
         {
-            Debug.Log($"OnInBackgroundChange {inBackground}");
-            Debug.Log($"playerProgressService {AllServices.Container.Single<IPlayerProgressService>()}");
-
             if (_playerProgressService == null)
                 _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
 
@@ -43,10 +40,6 @@ namespace CodeBase.UI
                 SoundInstance.musicVolume = _playerProgressService.SettingsData.MusicVolume;
                 SoundInstance.GetMusicSource().volume = _playerProgressService.SettingsData.MusicVolume;
             }
-
-            Debug.Log($"saved volume {_playerProgressService.SettingsData.MusicVolume}");
-            Debug.Log($"current music volume {SoundInstance.musicVolume}");
-            Debug.Log($"current volume {SoundInstance.GetMusicSource().volume}");
         }
     }
 }
