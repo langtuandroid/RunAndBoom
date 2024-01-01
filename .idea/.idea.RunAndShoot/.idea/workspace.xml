@@ -11,11 +11,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6d9b197a0b824e1d8ee671e1e014c4d1fe00/c9/0d27d4e0/AudioListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/aa/103a78f1/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/c4/591f1dbc/KeyCode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/2021.3.14f1-x86_64/Editor/Data/CGIncludes/UnityShaderVariables.cginc" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/CodeBase/Data/Progress/ProgressData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.agava.webutility@8b3ff53334/Runtime/WebApplication.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Samples/Web Utility/3.1.0/Playtesting Sample/PlaytestingCanvas.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.agava.webutility@32d39130ea/Runtime/WebApplication.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.4.4/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.4.4/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
@@ -206,6 +208,9 @@
       <workItem from="1703004616099" duration="4309000" />
       <workItem from="1703862970023" duration="2604000" />
       <workItem from="1703913040395" duration="4564000" />
+      <workItem from="1703932553970" duration="4375000" />
+      <workItem from="1703995743948" duration="4129000" />
+      <workItem from="1704018619549" duration="616000" />
     </task>
     <servers />
   </component>
@@ -222,26 +227,26 @@
       <breakpoints>
         <line-breakpoint type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/AudioBackgroundChanger.cs</url>
-          <line>33</line>
+          <line>40</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\AudioBackgroundChanger.cs" initialLine="33" containingFunctionPresentation="Method 'OnInBackgroundChange'">
             <startOffsets>
-              <option value="1017" />
+              <option value="1369" />
             </startOffsets>
             <endOffsets>
-              <option value="1093" />
+              <option value="1445" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/AudioBackgroundChanger.cs</url>
-          <line>28</line>
+          <line>35</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\AudioBackgroundChanger.cs" initialLine="28" containingFunctionPresentation="Method 'OnInBackgroundChange'">
             <startOffsets>
-              <option value="840" />
+              <option value="1192" />
             </startOffsets>
             <endOffsets>
-              <option value="883" />
+              <option value="1235" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />

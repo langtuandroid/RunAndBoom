@@ -92,6 +92,7 @@ namespace CodeBase.UI.Windows.Gifts
             ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
             ProgressData.WorldData.ShowAdOnLevelStart = true;
+            Debug.Log($"ShowAdOnLevelStart {ProgressData.WorldData.ShowAdOnLevelStart}");
             SaveLoadService.SaveProgressData();
             SaveLoadService.SaveSettingsData();
             WindowService.ClearAll();

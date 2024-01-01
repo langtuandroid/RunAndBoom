@@ -57,6 +57,7 @@ namespace CodeBase.Infrastructure
             Debug.Log($"InterstitialAd OnOfflineAd");
             ResumeGame();
             _hero.ResumeHero();
+            _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
         private void AdClosed(bool isShowed)
@@ -64,6 +65,7 @@ namespace CodeBase.Infrastructure
             Debug.Log($"InterstitialAd AdClosed {isShowed}");
             ResumeGame();
             _hero.ResumeHero();
+            _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
         private void ShowError(string error)
@@ -71,11 +73,11 @@ namespace CodeBase.Infrastructure
             Debug.Log($"InterstitialAd ShowError {error}");
             ResumeGame();
             _hero.ResumeHero();
+            _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
         }
 
         private void ResumeGame()
         {
-            _progressService.ProgressData.WorldData.ShowAdOnLevelStart = false;
             SoundInstance.StartRandomMusic();
             Time.timeScale = Constants.TimeScaleResume;
         }

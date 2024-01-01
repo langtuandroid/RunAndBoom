@@ -24,6 +24,15 @@ namespace CodeBase.UI
 
         private void OnInBackgroundChange(bool inBackground)
         {
+            Debug.Log($"OnInBackgroundChange {inBackground}");
+            Debug.Log($"playerProgressService {AllServices.Container.Single<IPlayerProgressService>()}");
+
+            if (_playerProgressService == null)
+                _playerProgressService = AllServices.Container.Single<IPlayerProgressService>();
+
+            AudioListener.pause = inBackground;
+            AudioListener.volume = inBackground ? 0f : 1f;
+
             if (inBackground)
             {
                 SoundInstance.musicVolume = Constants.Zero;
