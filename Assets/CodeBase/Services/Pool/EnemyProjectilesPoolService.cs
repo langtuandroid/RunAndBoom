@@ -9,7 +9,7 @@ using UnityEngine.Pool;
 
 namespace CodeBase.Services.Pool
 {
-    public class EnemyProjectilesPoolServiceService : IEnemyProjectilesPoolService
+    public class EnemyProjectilesPoolService : IEnemyProjectilesPoolService
     {
         private const int InitialCapacity = 4;
         private const string PistolBulletTag = "PistolBullet";
@@ -30,8 +30,10 @@ namespace CodeBase.Services.Pool
         private ObjectPool<GameObject> _enemyMGBulletsPool;
         private GameObject _projectile;
         private EnemyStaticData _enemyStaticData;
+        private GameObject _pistolBulletPrefab;
+        private GameObject _shotPrefab;
 
-        public EnemyProjectilesPoolServiceService(IAssets assets, IConstructorService constructorService,
+        public EnemyProjectilesPoolService(IAssets assets, IConstructorService constructorService,
             IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
@@ -41,29 +43,33 @@ namespace CodeBase.Services.Pool
 
         public async void GenerateObjects()
         {
-            GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
+            GameObject root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
             _gameObject = Object.Instantiate(root);
             _root = _gameObject.transform;
+            _pistolBulletPrefab = await _assets.Instantiate(AssetAddresses.PistolBullet, _root);
+            _shotPrefab = await _assets.Instantiate(AssetAddresses.Shot, _root);
+            _pistolBulletPrefab.SetActive(false);
+            _shotPrefab.SetActive(false);
 
-            _enemyPistolBulletsPool = new ObjectPool<GameObject>(GetPistolBullet, GetFromPool, ReturnToPool,
+            _enemyPistolBulletsPool = new ObjectPool<GameObject>(GetPistolBullet, GetFromPool, ReturnToBack,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
-            _enemyShotsPool = new ObjectPool<GameObject>(GetShot, GetFromPool, ReturnToPool,
+            _enemyShotsPool = new ObjectPool<GameObject>(GetShot, GetFromPool, ReturnToBack,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
-            _enemySniperRifleBulletsPool = new ObjectPool<GameObject>(GetSniperRifleBullet, GetFromPool, ReturnToPool,
+            _enemySniperRifleBulletsPool = new ObjectPool<GameObject>(GetSniperRifleBullet, GetFromPool, ReturnToBack,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
-            _enemySMGBulletsPool = new ObjectPool<GameObject>(GetSMGBullet, GetFromPool, ReturnToPool,
+            _enemySMGBulletsPool = new ObjectPool<GameObject>(GetSMGBullet, GetFromPool, ReturnToBack,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
 
-            _enemyMGBulletsPool = new ObjectPool<GameObject>(GetMGBullet, GetFromPool, ReturnToPool,
+            _enemyMGBulletsPool = new ObjectPool<GameObject>(GetMGBullet, GetFromPool, ReturnToBack,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
         }
 
         private GameObject GetPistolBullet()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.PistolBullet, _root).Result;
+            _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithPistol);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.PistolBullet);
@@ -72,7 +78,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetShot()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.Shot, _root).Result;
+            _projectile = Object.Instantiate(_shotPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithShotgun);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.Shot);
@@ -81,7 +87,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetSniperRifleBullet()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.PistolBullet, _root).Result;
+            _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSniperRifle);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.RifleBullet);
@@ -90,7 +96,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetSMGBullet()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.PistolBullet, _root).Result;
+            _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSMG);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.PistolBullet);
@@ -99,7 +105,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetMGBullet()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.PistolBullet, _root).Result;
+            _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithMG);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.RifleBullet);
@@ -111,7 +117,9 @@ namespace CodeBase.Services.Pool
             switch (typeId)
             {
                 case EnemyWeaponTypeId.Pistol:
-                    return _enemyPistolBulletsPool.Get();
+                    _projectile = _enemyPistolBulletsPool.Get();
+                    // _projectile.SetActive(true);
+                    return _projectile;
 
                 case EnemyWeaponTypeId.Shotgun:
                     return _enemyShotsPool.Get();
@@ -129,7 +137,7 @@ namespace CodeBase.Services.Pool
             return null;
         }
 
-        public void ReturnToPool(GameObject pooledObject)
+        public void Return(GameObject pooledObject)
         {
             if (pooledObject.CompareTag(PistolBulletTag))
                 _enemyPistolBulletsPool.Release(pooledObject);
@@ -143,7 +151,10 @@ namespace CodeBase.Services.Pool
                 _enemyMGBulletsPool.Release(pooledObject);
             else
                 return;
+        }
 
+        private void ReturnToBack(GameObject pooledObject)
+        {
             pooledObject.transform.SetParent(_root);
             pooledObject.SetActive(false);
         }

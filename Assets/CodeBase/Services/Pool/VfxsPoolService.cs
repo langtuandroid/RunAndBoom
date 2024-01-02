@@ -7,7 +7,7 @@ namespace CodeBase.Services.Pool
 {
     public class VfxsPoolService : IVfxsPoolService
     {
-        private const int InitialCapacity = 4;
+        private const int InitialCapacity = 1;
         private const string BulletMuzzleFireVfxTag = "BulletMuzzleFireVfx";
         private const string ShotMuzzleFireVfxTag = "ShotMuzzleFireVfx";
         private const string GrenadeMuzzleFireVfxTag = "GrenadeMuzzleFireVfx";
@@ -24,15 +24,36 @@ namespace CodeBase.Services.Pool
         private ObjectPool<GameObject> _bombMuzzleFireVfxsPool;
         private ObjectPool<GameObject> _bulletMuzzleFireVfxsPool;
         private ObjectPool<GameObject> _shotMuzzleFireVfxsPool;
+        private GameObject _grenadeMuzzleFirePrefab;
+        private GameObject _rpgMuzzleFirePrefab;
+        private GameObject _rocketLauncherMuzzleBluePrefab;
+        private GameObject _bombMuzzlePrefab;
+        private GameObject _bulletMuzzleFirePrefab;
+        private GameObject _shotMuzzleFirePrefab;
 
-        public VfxsPoolService(IAssets assets) =>
+        public VfxsPoolService(IAssets assets)
+        {
             _assets = assets;
+        }
 
         public async void GenerateObjects()
         {
-            GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
+            GameObject root = await _assets.Load<GameObject>(AssetAddresses.ShotVfxsRoot);
             _gameObject = Object.Instantiate(root);
             _root = _gameObject.transform;
+            _grenadeMuzzleFirePrefab = await _assets.Instantiate(AssetAddresses.GrenadeMuzzleFire, _root);
+            _rpgMuzzleFirePrefab = await _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _root);
+            _rocketLauncherMuzzleBluePrefab = await
+                _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _root);
+            _bombMuzzlePrefab = await _assets.Instantiate(AssetAddresses.BombMuzzle, _root);
+            _bulletMuzzleFirePrefab = await _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _root);
+            _shotMuzzleFirePrefab = await _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _root);
+            _grenadeMuzzleFirePrefab.SetActive(false);
+            _rpgMuzzleFirePrefab.SetActive(false);
+            _rocketLauncherMuzzleBluePrefab.SetActive(false);
+            _bombMuzzlePrefab.SetActive(false);
+            _bulletMuzzleFirePrefab.SetActive(false);
+            _shotMuzzleFirePrefab.SetActive(false);
 
             _grenadeMuzzleFireVfxsPool = new ObjectPool<GameObject>(GetGrenadeMuzzleFire, GetFromPool, ReturnToPool,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
@@ -41,8 +62,7 @@ namespace CodeBase.Services.Pool
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
             _rocketLauncherMuzzleBlueFireVfxsPool = new ObjectPool<GameObject>(GetRocketLauncherMuzzleBlueFire,
-                GetFromPool, ReturnToPool,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+                GetFromPool, ReturnToPool, DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
             _bombMuzzleFireVfxsPool = new ObjectPool<GameObject>(GetBombMuzzleFire, GetFromPool, ReturnToPool,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
@@ -55,22 +75,22 @@ namespace CodeBase.Services.Pool
         }
 
         private GameObject GetGrenadeMuzzleFire() =>
-            _assets.Instantiate(AssetAddresses.GrenadeMuzzleFire, _root).Result;
+            Object.Instantiate(_grenadeMuzzleFirePrefab);
 
         private GameObject GetRpgMuzzleFire() =>
-            _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _root).Result;
+            Object.Instantiate(_rpgMuzzleFirePrefab);
 
         private GameObject GetRocketLauncherMuzzleBlueFire() =>
-            _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _root).Result;
+            Object.Instantiate(_rocketLauncherMuzzleBluePrefab);
 
         private GameObject GetBombMuzzleFire() =>
-            _assets.Instantiate(AssetAddresses.BombMuzzle, _root).Result;
+            Object.Instantiate(_bombMuzzlePrefab);
 
         private GameObject GetBulletMuzzleFire() =>
-            _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _root).Result;
+            Object.Instantiate(_bulletMuzzleFirePrefab);
 
         private GameObject GetShotMuzzleFire() =>
-            _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _root).Result;
+            Object.Instantiate(_shotMuzzleFirePrefab);
 
         public GameObject GetFromPool(ShotVfxTypeId typeId)
         {
@@ -98,7 +118,7 @@ namespace CodeBase.Services.Pool
             return null;
         }
 
-        public void ReturnToPool(GameObject pooledObject)
+        public void Return(GameObject pooledObject)
         {
             if (pooledObject.CompareTag(BulletMuzzleFireVfxTag))
                 _bulletMuzzleFireVfxsPool.Release(pooledObject);
@@ -114,7 +134,10 @@ namespace CodeBase.Services.Pool
                 _bombMuzzleFireVfxsPool.Release(pooledObject);
             else
                 return;
+        }
 
+        private void ReturnToPool(GameObject pooledObject)
+        {
             pooledObject.transform.SetParent(_root);
             pooledObject.SetActive(false);
         }
@@ -125,7 +148,9 @@ namespace CodeBase.Services.Pool
             pooledObject.SetActive(true);
         }
 
-        private void DestroyPooledObject(GameObject pooledObject) =>
+        private void DestroyPooledObject(GameObject pooledObject)
+        {
             Object.Destroy(pooledObject);
+        }
     }
 }

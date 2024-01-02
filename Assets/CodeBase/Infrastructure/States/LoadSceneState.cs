@@ -77,8 +77,6 @@ namespace CodeBase.Infrastructure.States
 
         private void TryPauseGame()
         {
-            Debug.Log("TryPauseGame");
-            Debug.Log($"ShowAdOnLevelStart {_progressService.ProgressData.WorldData.ShowAdOnLevelStart}");
             if (_progressService.ProgressData.WorldData.ShowAdOnLevelStart)
             {
                 if (Application.isEditor)

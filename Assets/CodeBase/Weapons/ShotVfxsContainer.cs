@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using CodeBase.Services;
 using CodeBase.Services.Pool;
 using CodeBase.StaticData.ShotVfxs;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace CodeBase.Weapons
         {
             _shotVfxTypeId = shotVfxTypeId;
             // _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
+            _vfxsPoolService = AllServices.Container.Single<IVfxsPoolService>();
             _shotVfxLifetime = shotVfxLifetime;
             _root = root;
         }
@@ -50,7 +52,7 @@ namespace CodeBase.Weapons
             if (_vfxsPoolService == null || _shotVfx == null)
                 return;
 
-            _vfxsPoolService.ReturnToPool(_shotVfx);
+            _vfxsPoolService.Return(_shotVfx);
             _shotVfx = null;
         }
     }

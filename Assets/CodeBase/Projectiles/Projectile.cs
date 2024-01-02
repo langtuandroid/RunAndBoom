@@ -8,7 +8,6 @@ namespace CodeBase.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
-        // private IObjectsPoolService _objectsPoolService;
         private IHeroProjectilesPoolService _heroProjectilesPool;
         private IEnemyProjectilesPoolService _enemyProjectilesPoolService;
         private ProjectileMovement _projectileMovement;
@@ -20,7 +19,6 @@ namespace CodeBase.Projectiles
 
         private void Awake()
         {
-            // _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
             _heroProjectilesPool = AllServices.Container.Single<IHeroProjectilesPoolService>();
             _enemyProjectilesPoolService = AllServices.Container.Single<IEnemyProjectilesPoolService>();
             _projectileMovement = GetComponent<ProjectileMovement>();
@@ -32,19 +30,19 @@ namespace CodeBase.Projectiles
             switch (ProjectileTypeId)
             {
                 case ProjectileTypeId.PistolBullet:
-                    _enemyProjectilesPoolService.ReturnToPool(gameObject);
+                    _enemyProjectilesPoolService.Return(gameObject);
                     break;
 
                 case ProjectileTypeId.RifleBullet:
-                    _enemyProjectilesPoolService.ReturnToPool(gameObject);
+                    _enemyProjectilesPoolService.Return(gameObject);
                     break;
 
                 case ProjectileTypeId.Shot:
-                    _enemyProjectilesPoolService.ReturnToPool(gameObject);
+                    _enemyProjectilesPoolService.Return(gameObject);
                     break;
 
                 default:
-                    _heroProjectilesPool.ReturnToPool(gameObject);
+                    _heroProjectilesPool.Return(gameObject);
                     break;
             }
         }

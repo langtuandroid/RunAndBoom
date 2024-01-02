@@ -80,7 +80,6 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
         private void Authorize()
         {
-            Debug.Log("Authorize");
             if (_authorization.IsAuthorized())
                 ToLeaderBoardWindow();
             else
@@ -93,16 +92,10 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
             StartCoroutine(_adsService.Initialize());
         }
 
-        private void ToAuthorizationWindow()
-        {
-            Debug.Log("ToAuthorizationWindow");
+        private void ToAuthorizationWindow() =>
             _windowService.Show<AuthorizationWindow>(WindowId.Authorization, false);
-        }
 
-        private void ToLeaderBoardWindow()
-        {
-            Debug.Log("ToLeaderBoardWindow");
+        private void ToLeaderBoardWindow() =>
             _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
-        }
     }
 }

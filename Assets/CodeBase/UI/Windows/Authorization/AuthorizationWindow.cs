@@ -45,7 +45,6 @@ namespace CodeBase.UI.Windows.Authorization
 
         private void Authorize()
         {
-            Debug.Log("Authorize");
             _authorization.OnAuthorizeSuccessCallback += RequestPersonalProfileDataPermission;
             _authorization.OnAuthorizeErrorCallback += ShowAuthorizeError;
             _authorization.Authorize();
@@ -53,7 +52,6 @@ namespace CodeBase.UI.Windows.Authorization
 
         private void RequestPersonalProfileDataPermission()
         {
-            Debug.Log("RequestPersonalProfileDataPermission");
             _authorization.OnAuthorizeSuccessCallback -= RequestPersonalProfileDataPermission;
             _authorization.OnRequestPersonalProfileDataPermissionSuccessCallback += ToLeaderBoardWindow;
             _authorization.OnRequestErrorCallback += ShowRequestError;
@@ -74,7 +72,6 @@ namespace CodeBase.UI.Windows.Authorization
 
         private void ToLeaderBoardWindow()
         {
-            Debug.Log("ToLeaderBoard");
             WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
             Hide();
         }

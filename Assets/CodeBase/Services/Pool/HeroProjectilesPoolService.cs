@@ -27,6 +27,10 @@ namespace CodeBase.Services.Pool
         private ObjectPool<GameObject> _heroRocketLauncherRocketsPool;
         private ObjectPool<GameObject> _heroBombsPool;
         private GameObject _projectile;
+        private GameObject _grenadePrefab;
+        private GameObject _rpgRocketPrefab;
+        private GameObject _rocketLauncherRocketPrefab;
+        private GameObject _bombPrefab;
 
         public HeroProjectilesPoolService(IAssets assets, IConstructorService constructorService,
             IStaticDataService staticDataService)
@@ -41,6 +45,14 @@ namespace CodeBase.Services.Pool
             GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
             _gameObject = Object.Instantiate(root);
             _root = _gameObject.transform;
+            _grenadePrefab = await _assets.Instantiate(AssetAddresses.Grenade, _root);
+            _rpgRocketPrefab = await _assets.Instantiate(AssetAddresses.RpgRocket, _root);
+            _rocketLauncherRocketPrefab = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _root);
+            _bombPrefab = await _assets.Instantiate(AssetAddresses.Bomb, _root);
+            _grenadePrefab.SetActive(false);
+            _rpgRocketPrefab.SetActive(false);
+            _rocketLauncherRocketPrefab.SetActive(false);
+            _bombPrefab.SetActive(false);
 
             _heroGrenadesPool = new ObjectPool<GameObject>(GetGrenade, GetFromPool, ReturnToPool,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 2);
@@ -58,7 +70,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetGrenade()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.Grenade, _root).Result;
+            _projectile = Object.Instantiate(_grenadePrefab);
             _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade,
                 HeroWeaponTypeId.GrenadeLauncher);
             return _projectile;
@@ -66,7 +78,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetRpgRocket()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.RpgRocket, _root).Result;
+            _projectile = Object.Instantiate(_rpgRocketPrefab);
             _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.RpgRocket,
                 BlastTypeId.RpgRocket, HeroWeaponTypeId.RPG);
             return _projectile;
@@ -74,7 +86,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetRocketLauncherRocket()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _root).Result;
+            _projectile = Object.Instantiate(_rocketLauncherRocketPrefab);
             _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.RocketLauncherRocket,
                 BlastTypeId.RocketLauncherRocket, HeroWeaponTypeId.RocketLauncher);
             return _projectile;
@@ -82,7 +94,7 @@ namespace CodeBase.Services.Pool
 
         private GameObject GetBomb()
         {
-            _projectile = _assets.Instantiate(AssetAddresses.Bomb, _root).Result;
+            _projectile = Object.Instantiate(_bombPrefab);
             _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb,
                 HeroWeaponTypeId.Mortar);
             return _projectile;
@@ -108,7 +120,7 @@ namespace CodeBase.Services.Pool
             return null;
         }
 
-        public void ReturnToPool(GameObject pooledObject)
+        public void Return(GameObject pooledObject)
         {
             if (pooledObject.CompareTag(GrenadeTag))
                 _heroGrenadesPool.Release(pooledObject);
@@ -120,7 +132,10 @@ namespace CodeBase.Services.Pool
                 _heroBombsPool.Release(pooledObject);
             else
                 return;
+        }
 
+        private void ReturnToPool(GameObject pooledObject)
+        {
             pooledObject.transform.SetParent(_root);
             pooledObject.SetActive(false);
         }

@@ -159,7 +159,6 @@ namespace CodeBase.UI.Windows.Common
 
         protected void InitializeAdsSDK()
         {
-            Debug.Log("InitializeAdsSDK");
             if (AdsService.IsInitialized())
                 AdsServiceInitializedSuccess();
             else
@@ -200,11 +199,8 @@ namespace CodeBase.UI.Windows.Common
                 LevelStats.Score);
         }
 
-        protected void SuccessSetValue()
-        {
-            Debug.Log("SuccessSetValue");
+        protected void SuccessSetValue() =>
             LeaderBoardService.OnSetValueSuccess -= SuccessSetValue;
-        }
 
         protected virtual void SubscribeSetValueSuccess() =>
             LeaderBoardService.OnSetValueSuccess += SuccessSetValue;

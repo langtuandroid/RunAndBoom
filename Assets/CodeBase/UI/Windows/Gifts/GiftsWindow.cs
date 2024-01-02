@@ -72,7 +72,6 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ShowClosed()
         {
-            Debug.Log("OnClosedVideoAd");
             AdsService.OnClosedVideoAd -= ShowClosed;
             SoundInstance.StartRandomMusic();
         }
@@ -86,19 +85,16 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ToNextLevel()
         {
-            Debug.Log("ToNextLevel");
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             ProgressData.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
             ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count);
             ProgressData.WorldData.ShowAdOnLevelStart = true;
-            Debug.Log($"ShowAdOnLevelStart {ProgressData.WorldData.ShowAdOnLevelStart}");
             SaveLoadService.SaveProgressData();
             SaveLoadService.SaveSettingsData();
             WindowService.ClearAll();
             Close();
             GameStateMachine.Enter<LoadSceneState, SceneId>(_nextScene);
-            Debug.Log($"{_nextScene}");
         }
 
         private void Close()
@@ -127,7 +123,6 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void AddCoins()
         {
-            Debug.Log("AddCoins");
             ProgressData.AllStats.AddMoney(_coinsCount);
             _addCoinsButton.enabled = false;
         }
