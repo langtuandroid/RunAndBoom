@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb
       objectReference: {fileID: 0}
+    - target: {fileID: 6337939419923400050, guid: b078ced2e1bbc4f48b5d6cce095777e5, type: 3}
+      propertyPath: m_TagString
+      value: Bomb
+      objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: b078ced2e1bbc4f48b5d6cce095777e5, type: 3}
       propertyPath: m_Height
       value: 0.4

@@ -113,7 +113,8 @@ namespace CodeBase.Weapons
         }
 
         protected override GameObject GetProjectile() =>
-            PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+            HeroProjectilesPoolService.GetFromPool(_heroWeaponTypeId);
+        // PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
 
         protected override void Launch()
         {

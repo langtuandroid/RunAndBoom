@@ -128,6 +128,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RpgRocket
       objectReference: {fileID: 0}
+    - target: {fileID: 6337939419923400050, guid: d19b11a31f792cd4c8aada8b50d1a233, type: 3}
+      propertyPath: m_TagString
+      value: RpgRocket
+      objectReference: {fileID: 0}
     - target: {fileID: 6337939420664514639, guid: d19b11a31f792cd4c8aada8b50d1a233, type: 3}
       propertyPath: m_Height
       value: 0.6

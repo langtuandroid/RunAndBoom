@@ -28,7 +28,10 @@ namespace CodeBase.Weapons
         [SerializeField] protected ShotVfxsContainer ShotVfxsContainer;
 
         protected AudioSource AudioSource;
-        protected IObjectsPoolService PoolService;
+
+        // protected IObjectsPoolService PoolService;
+        protected IHeroProjectilesPoolService HeroProjectilesPoolService;
+        protected IEnemyProjectilesPoolService EnemyProjectilesPoolService;
         private bool _initialVisibility;
         private ProjectileTypeId? _projectileTypeId;
         private IDeath _death;
@@ -54,7 +57,9 @@ namespace CodeBase.Weapons
             ShotVfxTypeId shotVfxTypeId)
         {
             _death = death;
-            PoolService = AllServices.Container.Single<IObjectsPoolService>();
+            // PoolService = AllServices.Container.Single<IObjectsPoolService>();
+            HeroProjectilesPoolService = AllServices.Container.Single<IHeroProjectilesPoolService>();
+            EnemyProjectilesPoolService = AllServices.Container.Single<IEnemyProjectilesPoolService>();
             ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             LaunchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectileTypeId = projectileTypeId;

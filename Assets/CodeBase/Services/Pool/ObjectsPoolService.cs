@@ -29,7 +29,6 @@ namespace CodeBase.Services.Pool
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
         private GameObject _gameObject;
-        private List<GameObject> _list = new List<GameObject>();
 
         public ObjectsPoolService(IAssets assets, IConstructorService constructorService,
             IStaticDataService staticDataService)

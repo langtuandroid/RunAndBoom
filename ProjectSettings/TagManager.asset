@@ -7,6 +7,18 @@ TagManager:
   - EnemySpawn
   - Enemy
   - Hero
+  - PistolBullet
+  - Shot
+  - Grenade
+  - RocketLauncherRocket
+  - RpgRocket
+  - Bomb
+  - BulletMuzzleFireVfx
+  - ShotMuzzleFireVfx
+  - GrenadeMuzzleFireVfx
+  - RpgMuzzleFireVfx
+  - RocketLauncherMuzzleBlueFireVfx
+  - BombMuzzleFireVfx
   layers:
   - Default
   - TransparentFX
