@@ -22,21 +22,21 @@ namespace CodeBase.Data.Progress.Weapons
         public event Action<HeroWeaponTypeId> SetAvailable;
         public event Action CurrentWeaponChanged;
 
-        public WeaponsData(SceneId sceneId, bool isHardMode)
+        public WeaponsData(SceneId sceneId, bool isAsianMode)
         {
             WeaponData = new List<WeaponData>(_typeIds.Count);
-            WeaponsAmmoData = new WeaponsAmmoData(WeaponData, sceneId, isHardMode);
+            WeaponsAmmoData = new WeaponsAmmoData(WeaponData, sceneId, isAsianMode);
             UpgradesData = new UpgradesData();
-            FillAvailableWeapons(isHardMode);
+            FillAvailableWeapons(isAsianMode);
             CurrentHeroWeaponTypeId = WeaponData.First(x => x.IsAvailable).WeaponTypeId;
         }
 
-        private void FillAvailableWeapons(bool isHardMode)
+        private void FillAvailableWeapons(bool isAsianMode)
         {
             WeaponData.Add(new WeaponData(HeroWeaponTypeId.GrenadeLauncher, true));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RPG, !isHardMode));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, !isHardMode));
-            WeaponData.Add(new WeaponData(HeroWeaponTypeId.Mortar, !isHardMode));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RPG, !isAsianMode));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.RocketLauncher, !isAsianMode));
+            WeaponData.Add(new WeaponData(HeroWeaponTypeId.Mortar, !isAsianMode));
 
             SetAvailableWeapons();
         }

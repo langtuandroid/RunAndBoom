@@ -27,40 +27,40 @@ namespace CodeBase.Data
         public static IEnumerable<T> GetValues<T>() =>
             Enum.GetValues(typeof(T)).Cast<T>();
 
-        public static string GetLeaderBoardName(this SceneId sceneId, bool isHardMode)
+        public static string GetLeaderBoardName(this SceneId sceneId, bool isAsianMode)
         {
             switch (sceneId)
             {
                 case SceneId.Level_1:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1Hard;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardLevel1AsianDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel1;
+                        return LeaderboardsConstants.LeaderboardLevel1StandardDifficulty;
                 case SceneId.Level_2:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2Hard;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardLevel2AsianDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel2;
+                        return LeaderboardsConstants.LeaderboardLevel2StandardDifficulty;
                 case SceneId.Level_3:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3Hard;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardLevel3AsianDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel3;
+                        return LeaderboardsConstants.LeaderboardLevel3StandardDifficulty;
                 case SceneId.Level_4:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4Hard;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardLevel4AsianDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel4;
+                        return LeaderboardsConstants.LeaderboardLevel4StandardDifficulty;
                 case SceneId.Level_5:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5Hard;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardLevel5AsianDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedLevel5;
+                        return LeaderboardsConstants.LeaderboardLevel5StandardDifficulty;
                 default:
-                    if (isHardMode)
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedHardGameMode;
+                    if (isAsianMode)
+                        return LeaderboardsConstants.LeaderboardAsianGameDifficulty;
                     else
-                        return LeaderboardsConstants.LeaderboardPlayersWhoPassedTheGame;
+                        return LeaderboardsConstants.LeaderboardStandardGameDifficulty;
             }
         }
     }

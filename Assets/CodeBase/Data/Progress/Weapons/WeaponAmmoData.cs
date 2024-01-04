@@ -24,32 +24,32 @@ namespace CodeBase.Data.Progress.Weapons
         public event Action<int> RocketLauncherAmmoChanged;
         public event Action<int> MortarAmmoChanged;
 
-        public WeaponsAmmoData(List<WeaponData> weaponDatas, SceneId sceneId, bool isHardMode)
+        public WeaponsAmmoData(List<WeaponData> weaponDatas, SceneId sceneId, bool isAsianMode)
         {
             _weaponDatas = weaponDatas;
 
             if (sceneId == SceneId.Level_1)
-                FillAmmo(isHardMode);
+                FillAmmo(isAsianMode);
 
             InvokeChanges();
             FillWeaponsBarrels();
         }
 
-        private void FillAmmo(bool isHardMode)
+        private void FillAmmo(bool isAsianMode)
         {
             Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialGlAmmoCount;
 
-            if (!isHardMode)
+            if (!isAsianMode)
                 Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialRpgAmmoCount;
             else
                 Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
 
-            if (!isHardMode)
+            if (!isAsianMode)
                 Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialRlAmmoCount;
             else
                 Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
 
-            if (!isHardMode)
+            if (!isAsianMode)
                 Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialMortarAmmoCount;
             else
                 Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;

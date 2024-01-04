@@ -88,9 +88,9 @@ namespace CodeBase.Infrastructure.States
             }
         }
 
-        public void Enter(SceneId sceneId)
+        public void Enter(SceneId isAsianMode)
         {
-            _sceneId = sceneId;
+            _sceneId = isAsianMode;
 
             if (_sceneId.ToString().Contains(LevelName))
             {

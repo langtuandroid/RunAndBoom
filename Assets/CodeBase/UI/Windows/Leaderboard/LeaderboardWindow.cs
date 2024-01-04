@@ -148,13 +148,13 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
             if (_isCurrentScene)
             {
-                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(ProgressData.IsHardMode));
-                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(ProgressData.IsHardMode));
+                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
+                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
             }
             else
             {
-                LeaderBoardService.GetEntries(SceneId.Initial.GetLeaderBoardName(ProgressData.IsHardMode));
-                LeaderBoardService.GetPlayerEntry(SceneId.Initial.GetLeaderBoardName(ProgressData.IsHardMode));
+                LeaderBoardService.GetEntries(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
+                LeaderBoardService.GetPlayerEntry(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
                 _isCurrentScene = true;
             }
         }

@@ -33,9 +33,9 @@ namespace CodeBase.Infrastructure.States
             _language = language;
         }
 
-        public void Enter(bool isHardMode)
+        public void Enter(bool isAsianMode)
         {
-            LoadProgressOrInitNew(isHardMode);
+            LoadProgressOrInitNew(isAsianMode);
             _stateMachine.Enter<LoadSceneState, SceneId>(_progressService.ProgressData.AllStats.CurrentLevelStats
                 .SceneId);
         }
@@ -44,13 +44,13 @@ namespace CodeBase.Infrastructure.States
         {
         }
 
-        private void LoadProgressOrInitNew(bool isHardMode)
+        private void LoadProgressOrInitNew(bool isAsianMode)
         {
             _settingsData = _saveLoadService.LoadSettingsData();
             _progressData = _saveLoadService.LoadProgressData();
 
             if (_settingsData == null)
-                CreateNewGameData(isHardMode);
+                CreateNewGameData(isAsianMode);
 
             if (_progressData != null)
                 _localizationService.ChangeLanguage(_language);
@@ -59,12 +59,12 @@ namespace CodeBase.Infrastructure.States
             _progressService.SetSettingsData(_settingsData);
         }
 
-        private void CreateNewGameData(bool isHardMode)
+        private void CreateNewGameData(bool isAsianMode)
         {
             LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel);
             _progressData = new ProgressData(InitialLevel, levelStaticData.TargetPlayTime,
                 levelStaticData.EnemySpawners.Count,
-                isHardMode);
+                isAsianMode);
             _settingsData = new SettingsData(_language);
             _progressService.SetProgressData(_progressData);
             _progressService.SetSettingsData(_settingsData);

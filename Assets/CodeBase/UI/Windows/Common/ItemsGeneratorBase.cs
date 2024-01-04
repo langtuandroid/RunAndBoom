@@ -214,7 +214,7 @@ namespace CodeBase.UI.Windows.Common
         {
             foreach (MoneyTypeId moneyTypeId in DataExtensions.GetValues<MoneyTypeId>())
             {
-                if (ProgressData.IsHardMode)
+                if (ProgressData.IsAsianMode)
                 {
                     if (moneyTypeId == MoneyTypeId.Bag)
                         _moneyTypeIds.Add(moneyTypeId);

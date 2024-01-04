@@ -73,7 +73,7 @@ namespace CodeBase.UI.Windows.GameEnd
             Debug.Log($"AddGameResult {allLevelsScore}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             LeaderBoardService.OnSetValueSuccess += SuccessSetValue;
-            LeaderBoardService.SetValue(SceneId.Initial.GetLeaderBoardName(ProgressData.IsHardMode),
+            LeaderBoardService.SetValue(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode),
                 allLevelsScore);
         }
     }

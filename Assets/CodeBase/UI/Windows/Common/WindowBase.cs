@@ -154,7 +154,7 @@ namespace CodeBase.UI.Windows.Common
             ProgressData.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>()
-                .Enter<LoadGameDataState, bool>(ProgressData.IsHardMode);
+                .Enter<LoadGameDataState, bool>(ProgressData.IsAsianMode);
         }
 
         protected void InitializeAdsSDK()
@@ -195,7 +195,7 @@ namespace CodeBase.UI.Windows.Common
             Debug.Log($"AddLevelResult {LevelStats.SceneId} {LevelStats.Score}");
             LeaderBoardService.OnSetValueError += ShowSetValueError;
             SubscribeSetValueSuccess();
-            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsHardMode),
+            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsAsianMode),
                 LevelStats.Score);
         }
 

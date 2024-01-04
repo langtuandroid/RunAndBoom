@@ -45,7 +45,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         protected override void GenerateAllItems()
         {
-            if (ProgressData.IsHardMode)
+            if (ProgressData.IsAsianMode)
             {
                 GenerateItems();
                 GenerateMoney();

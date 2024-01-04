@@ -13,9 +13,9 @@ namespace CodeBase.Data.Progress
         public WeaponsData WeaponsData;
         public PerksData PerksData;
         public AllStats AllStats;
-        public bool IsHardMode;
+        public bool IsAsianMode;
 
-        public ProgressData(SceneId initialLevel, int targetPlayTime, int totalEnemies, bool isHardMode)
+        public ProgressData(SceneId initialLevel, int targetPlayTime, int totalEnemies, bool isAsianMode)
         {
             HealthState = new HealthState();
             AllStats = new AllStats();
@@ -26,8 +26,8 @@ namespace CodeBase.Data.Progress
             WorldData = new WorldData(AllStats.CurrentLevelStats.SceneId.ToString());
             PerksData = new PerksData();
             AllStats.LevelsStats = new SceneDataDictionary();
-            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.SceneId, isHardMode);
-            IsHardMode = isHardMode;
+            WeaponsData = new WeaponsData(AllStats.CurrentLevelStats.SceneId, isAsianMode);
+            IsAsianMode = isAsianMode;
         }
     }
 }
