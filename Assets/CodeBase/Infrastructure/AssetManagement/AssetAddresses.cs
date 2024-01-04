@@ -23,6 +23,7 @@
         public const string EnemyProjectilesRoot = "EnemyProjectilesRoot";
         public const string HeroProjectilesRoot = "HeroProjectilesRoot";
         public const string ShotVfxsRoot = "ShotVfxsRoot";
+        public const string BlastsVfxsRoot = "BlastsRoot";
 
         // Projectiles created by pool
         public const string PistolBullet = "PistolBullet";
@@ -37,10 +38,13 @@
         public const string ShotMuzzleFire = "GunFireYellow";
         public const string GrenadeMuzzleFire = "GrenadeMuzzleFire";
         public const string RpgMuzzleFire = "RocketMuzzleFire";
-
         public const string RocketLauncherMuzzleBlue = "RocketMuzzleBlue";
-
-        // public const string BombMuzzle = "NukeMuzzleBlue";
         public const string BombMuzzle = "BombMuzzleBlue";
+        
+        // Blasts created by pool
+        public const string GrenadeBlast = "GrenadeLauncherExplosion";
+        public const string RocketLauncherRocketBlast = "RocketLauncherExplosion";
+        public const string RpgRocketBlast = "RpgExplosion";
+        public const string BombBlast = "BombExplosion";
     }
 }

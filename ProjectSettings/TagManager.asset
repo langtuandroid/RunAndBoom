@@ -19,6 +19,10 @@ TagManager:
   - RpgMuzzleFireVfx
   - RocketLauncherMuzzleBlueFireVfx
   - BombMuzzleFireVfx
+  - GrenadeBlast
+  - RpgRocketBlast
+  - RocketLauncherRocketBlast
+  - BombBlast
   layers:
   - Default
   - TransparentFX

@@ -59,6 +59,8 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
+            _services.RegisterSingle<IVfxsPoolService>(new VfxsPoolService(_services.Single<IAssets>()));
+            _services.RegisterSingle<IBlastsPoolService>(new BlastsPoolService(_services.Single<IAssets>()));
             _services.RegisterSingle<IConstructorService>(new ConstructorService());
 
             _services.RegisterSingle<IUIFactory>(
@@ -68,12 +70,13 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IWindowService>(new WindowService());
 
             _services.RegisterSingle<IHeroProjectilesPoolService>(new HeroProjectilesPoolService(
-                _services.Single<IAssets>(), _services.Single<IConstructorService>(),
+                _services.Single<IAssets>(),
+                _services.Single<IConstructorService>(),
                 _services.Single<IStaticDataService>()));
             _services.RegisterSingle<IEnemyProjectilesPoolService>(new EnemyProjectilesPoolService(
-                _services.Single<IAssets>(), _services.Single<IConstructorService>(),
+                _services.Single<IAssets>(),
+                _services.Single<IConstructorService>(),
                 _services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IVfxsPoolService>(new VfxsPoolService(_services.Single<IAssets>()));
 
             _services.RegisterSingle<IGameFactory>(
                 new GameFactory(
@@ -81,13 +84,16 @@ namespace CodeBase.Infrastructure.States
                     _services.Single<IHeroProjectilesPoolService>(),
                     _services.Single<IEnemyProjectilesPoolService>(),
                     _services.Single<IVfxsPoolService>(),
+                    _services.Single<IBlastsPoolService>(),
                     _services.Single<IRegistratorService>()
                 ));
 
             _services.RegisterSingle<IEnemyFactory>(
                 new EnemyFactory(_services.Single<IInputService>(),
-                    _services.Single<IAssets>(), _services.Single<IStaticDataService>(),
-                    _services.Single<IRegistratorService>(), _services.Single<IGameFactory>()));
+                    _services.Single<IAssets>(),
+                    _services.Single<IStaticDataService>(),
+                    _services.Single<IRegistratorService>(),
+                    _services.Single<IGameFactory>()));
 
             _services.RegisterSingle<ISaveLoadService>(
                 new SaveLoadService(_services.Single<IGameFactory>()));

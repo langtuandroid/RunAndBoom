@@ -14,15 +14,17 @@ namespace CodeBase.Projectiles
 
         public ProjectileTypeId ProjectileTypeId { get; private set; }
 
-        public void Construct(ProjectileTypeId projectileTypeId) =>
+        public void Construct(ProjectileTypeId projectileTypeId)
+        {
             ProjectileTypeId = projectileTypeId;
+            _projectileMovement = GetComponent<ProjectileMovement>();
+            _projectileMovement.Stoped += ReturnToRoot;
+        }
 
         private void Awake()
         {
             _heroProjectilesPool = AllServices.Container.Single<IHeroProjectilesPoolService>();
             _enemyProjectilesPoolService = AllServices.Container.Single<IEnemyProjectilesPoolService>();
-            _projectileMovement = GetComponent<ProjectileMovement>();
-            _projectileMovement.Stoped += ReturnToRoot;
         }
 
         private void ReturnToRoot()

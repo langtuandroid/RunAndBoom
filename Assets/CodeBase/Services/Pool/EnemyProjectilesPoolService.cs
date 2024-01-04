@@ -117,9 +117,7 @@ namespace CodeBase.Services.Pool
             switch (typeId)
             {
                 case EnemyWeaponTypeId.Pistol:
-                    _projectile = _enemyPistolBulletsPool.Get();
-                    // _projectile.SetActive(true);
-                    return _projectile;
+                    return _enemyPistolBulletsPool.Get();
 
                 case EnemyWeaponTypeId.Shotgun:
                     return _enemyShotsPool.Get();
