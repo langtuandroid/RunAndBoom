@@ -109,7 +109,7 @@ namespace CodeBase.Hero
         public void LoadProgressData(ProgressData progressData)
         {
             _progressData = progressData;
-            SetupUpMaxHealth();
+            SetupUpHealth();
             SetupRegeneration();
             SetupVampirism();
             SetupArmor();
@@ -121,11 +121,20 @@ namespace CodeBase.Hero
             _progressData.HealthState.MaxHp = Max;
         }
 
-        public void TakeDamage(float damage)
+        private void SetupUpHealth()
         {
-            float result = (BaseRatio - _armorRatio) * damage;
-            Current -= result;
-            _progressData.HealthState.CurrentHp = Current;
+            _upMaxHealthItemData =
+                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
+            _upMaxHealthItemData.LevelChanged += ChangeMaxHealth;
+
+            if (_upMaxHealthItemData.LevelTypeId == LevelTypeId.None)
+                _maxHealthRatio = BaseRatio;
+            else
+                _maxHealthRatio =
+                    _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId).Value;
+
+            Max = _progressData.HealthState.MaxHp;
+            Current = _progressData.HealthState.CurrentHp;
             HealthChanged?.Invoke();
         }
 
@@ -175,14 +184,6 @@ namespace CodeBase.Hero
                 _vampirismValue = _staticDataService.ForPerk(PerkTypeId.Vampire, _vampirismItemData.LevelTypeId).Value;
         }
 
-        private void SetupUpMaxHealth()
-        {
-            _upMaxHealthItemData =
-                _progressData.PerksData.Perks.Find(x => x.PerkTypeId == PerkTypeId.UpMaxHealth);
-            _upMaxHealthItemData.LevelChanged += ChangeMaxHealth;
-            ChangeMaxHealth();
-        }
-
         private void ChangeMaxHealth()
         {
             _upMaxHealthItemData =
@@ -195,20 +196,14 @@ namespace CodeBase.Hero
                     _staticDataService.ForPerk(PerkTypeId.UpMaxHealth, _upMaxHealthItemData.LevelTypeId).Value;
 
             SetMaxHealth();
-
             Current = Max;
             _progressData.HealthState.MaxHp = Max;
             _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }
 
-        private void SetMaxHealth()
-        {
-            if (_inputService is MobileInputService)
-                Max = Constants.InitialMaxHp * _maxHealthRatio;
-            else
-                Max = Constants.InitialMaxHp * 1.5f * _maxHealthRatio;
-        }
+        private void SetMaxHealth() =>
+            Max = Constants.InitialMaxHp * _maxHealthRatio;
 
         private void SetupArmor()
         {
@@ -234,6 +229,14 @@ namespace CodeBase.Hero
 
             float next = Current + value;
             Current = next > Max ? Max : next;
+            _progressData.HealthState.CurrentHp = Current;
+            HealthChanged?.Invoke();
+        }
+
+        public void TakeDamage(float damage)
+        {
+            float result = (BaseRatio - _armorRatio) * damage;
+            Current -= result;
             _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
         }

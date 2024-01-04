@@ -4,7 +4,7 @@ namespace CodeBase
 {
     public static class Constants
     {
-        public const int InitialMaxHp = 10;
+        public const int InitialMaxHp = 15;
         public const float AdditionYToEnemy = 1f;
         public const float Visible = 1f;
         public const float HalfVisible = 0.5f;

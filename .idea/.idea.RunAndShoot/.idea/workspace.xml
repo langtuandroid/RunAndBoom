@@ -88,10 +88,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="27980">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="27980" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -219,6 +219,8 @@
       <workItem from="1704208538635" duration="8352000" />
       <workItem from="1704253148990" duration="7065000" />
       <workItem from="1704275870230" duration="2431000" />
+      <workItem from="1704337363674" duration="5127000" />
+      <workItem from="1704358127537" duration="1841000" />
     </task>
     <servers />
   </component>
@@ -274,13 +276,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Projectiles/Hit/ProjectileBlast.cs</url>
-          <line>184</line>
+          <line>208</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Projectiles\Hit\ProjectileBlast.cs" initialLine="183" containingFunctionPresentation="Method 'DestroyBlast'">
             <startOffsets>
-              <option value="6960" />
+              <option value="7184" />
             </startOffsets>
             <endOffsets>
-              <option value="7007" />
+              <option value="7231" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="74" />
