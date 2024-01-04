@@ -8,11 +8,9 @@ namespace CodeBase.Data.Progress
         public float CurrentHp;
         public float MaxHp;
 
-        public HealthState(
-            SceneId sceneId
-            )
+        public HealthState(SceneId sceneId)
         {
-            if(sceneId == SceneId.Level_1)
+            if (sceneId == SceneId.Level_1)
             {
                 MaxHp = Constants.InitialMaxHp;
                 CurrentHp = MaxHp;

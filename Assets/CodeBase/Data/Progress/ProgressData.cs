@@ -18,13 +18,11 @@ namespace CodeBase.Data.Progress
         public ProgressData(SceneId initialLevel, int targetPlayTime, int totalEnemies, bool isAsianMode)
         {
             AllStats = new AllStats();
-            
+
             if (AllStats.CurrentLevelStats == null)
                 AllStats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, totalEnemies);
 
-            HealthState = new HealthState(
-                AllStats.CurrentLevelStats.SceneId
-                );
+            HealthState = new HealthState(AllStats.CurrentLevelStats.SceneId);
             WorldData = new WorldData(AllStats.CurrentLevelStats.SceneId.ToString());
             PerksData = new PerksData();
             AllStats.LevelsStats = new SceneDataDictionary();

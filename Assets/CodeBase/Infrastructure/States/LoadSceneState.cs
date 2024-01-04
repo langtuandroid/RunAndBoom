@@ -243,7 +243,7 @@ namespace CodeBase.Infrastructure.States
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
             gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero, _openSettings);
             GameObject startWindow = await _uiFactory.CreateStartWindow();
-            startWindow.GetComponent<StartWindow>()?.Construct(hero, _openSettings);
+            startWindow.GetComponent<StartWindow>()?.Construct(hero, _openSettings, _progressService, _adsService);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);
