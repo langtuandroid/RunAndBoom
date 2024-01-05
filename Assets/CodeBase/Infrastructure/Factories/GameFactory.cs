@@ -60,9 +60,10 @@ namespace CodeBase.Infrastructure.Factories
             // Debug.Log($"enemyProjectilesPoolService {_enemyProjectilesPoolService}");
             // Debug.Log($"vfxsPoolService {_vfxsPoolService}");
             _assets.Initialize();
-            _heroProjectilesPoolService.GenerateObjects();
-            _enemyProjectilesPoolService.GenerateObjects();
-            _vfxsPoolService.GenerateObjects();
+            _objectsPoolService.GenerateObjects();
+            // _heroProjectilesPoolService.GenerateObjects();
+            // _enemyProjectilesPoolService.GenerateObjects();
+            // _vfxsPoolService.GenerateObjects();
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)

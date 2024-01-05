@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Services.Constructor;
+using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
@@ -18,6 +19,7 @@ namespace CodeBase.Services.Pool
 
         private IAssets _assets;
         private IConstructorService _constructorService;
+        private IStaticDataService _staticDataService;
         private Transform _root;
         private GameObject _gameObject;
         private ObjectPool<GameObject> _heroGrenadesPool;
@@ -30,67 +32,27 @@ namespace CodeBase.Services.Pool
         private GameObject _rocketLauncherRocketPrefab;
         private GameObject _bombPrefab;
 
-        public HeroProjectilesPoolService(IAssets assets, IConstructorService constructorService)
+        public HeroProjectilesPoolService(IAssets assets, IConstructorService constructorService,
+            IStaticDataService staticDataService)
         {
+            _staticDataService = staticDataService;
             _assets = assets;
             _constructorService = constructorService;
         }
 
         public async void GenerateObjects()
         {
-            Debug.Log("HeroProjectilesPoolService GenerateObjects");
-            // if (_heroGrenadesPool != null)
-            //     _heroGrenadesPool.Dispose();
-            //
-            // if (_heroRpgRocketsPool != null)
-            //     _heroRpgRocketsPool.Dispose();
-            //
-            // if (_heroRocketLauncherRocketsPool != null)
-            //     _heroRocketLauncherRocketsPool.Dispose();
-            //
-            // if (_heroBombsPool != null)
-            //     _heroBombsPool.Dispose();
-            Debug.Log($"root {_root}");
-            Debug.Log($"grenadePrefab {_grenadePrefab}");
-            Debug.Log($"rpgRocketPrefab {_rpgRocketPrefab}");
-            Debug.Log($"rocketLauncherRocketPrefab {_rocketLauncherRocketPrefab}");
-            Debug.Log($"bombPrefab {_bombPrefab}");
-
-            if (_root == null)
-            {
-                GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
-                _gameObject = Object.Instantiate(root);
-                _root = _gameObject.transform;
-            }
-
-            if (_grenadePrefab == null)
-            {
-                _grenadePrefab = await _assets.Instantiate(AssetAddresses.Grenade, _root);
-                _grenadePrefab.SetActive(false);
-            }
-
-            if (_rpgRocketPrefab == null)
-            {
-                _rpgRocketPrefab = await _assets.Instantiate(AssetAddresses.RpgRocket, _root);
-                _rpgRocketPrefab.SetActive(false);
-            }
-
-            if (_rocketLauncherRocketPrefab == null)
-            {
-                _rocketLauncherRocketPrefab = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _root);
-                _rocketLauncherRocketPrefab.SetActive(false);
-            }
-
-            if (_bombPrefab == null)
-            {
-                _bombPrefab = await _assets.Instantiate(AssetAddresses.Bomb, _root);
-                _bombPrefab.SetActive(false);
-            }
-
-            Debug.Log($"grenadePrefab {_grenadePrefab}");
-            Debug.Log($"rpgRocketPrefab {_rpgRocketPrefab}");
-            Debug.Log($"rocketLauncherRocketPrefab {_rocketLauncherRocketPrefab}");
-            Debug.Log($"bombPrefab {_bombPrefab}");
+            GameObject root = await _assets.Load<GameObject>(AssetAddresses.HeroProjectilesRoot);
+            _gameObject = Object.Instantiate(root);
+            _root = _gameObject.transform;
+            _grenadePrefab = await _assets.Instantiate(AssetAddresses.Grenade, _root);
+            _rpgRocketPrefab = await _assets.Instantiate(AssetAddresses.RpgRocket, _root);
+            _rocketLauncherRocketPrefab = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _root);
+            _bombPrefab = await _assets.Instantiate(AssetAddresses.Bomb, _root);
+            _grenadePrefab.SetActive(false);
+            _rpgRocketPrefab.SetActive(false);
+            _rocketLauncherRocketPrefab.SetActive(false);
+            _bombPrefab.SetActive(false);
 
             _heroGrenadesPool = new ObjectPool<GameObject>(GetGrenade, GetFromPool, ReturnToPool,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 2);
@@ -104,90 +66,54 @@ namespace CodeBase.Services.Pool
 
             _heroBombsPool = new ObjectPool<GameObject>(GetBomb, GetFromPool, ReturnToPool,
                 DestroyPooledObject, true, InitialCapacity, InitialCapacity * 2);
-
-            Debug.Log($"heroGrenadesPool {_heroGrenadesPool}");
-            Debug.Log($"heroRpgRocketsPool {_heroRpgRocketsPool}");
-            Debug.Log($"heroRocketLauncherRocketsPool {_heroRocketLauncherRocketsPool}");
-            Debug.Log($"heroBombsPool {_heroBombsPool}");
         }
 
         private GameObject GetGrenade()
         {
-            // Debug.Log($"grenadePrefab {_grenadePrefab}");
-            // if (_grenadePrefab == null)
-            //     CreatePrefab(_grenadePrefab, AssetAddresses.Grenade);
-
-            Debug.Log($"grenadePrefab {_grenadePrefab}");
             _projectile = Object.Instantiate(_grenadePrefab);
-            Debug.Log($"constructorService {_constructorService}");
-            _constructorService.ConstructHeroProjectile(this,
-                AllServices.Container.Single<IEnemyProjectilesPoolService>(), _projectile, ProjectileTypeId.Grenade,
-                BlastTypeId.Grenade,
+            _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade,
                 HeroWeaponTypeId.GrenadeLauncher);
-            Debug.Log($"GetGrenade {_projectile}");
             return _projectile;
         }
 
         private GameObject GetRpgRocket()
         {
-            // Debug.Log($"rpgRocketPrefab {_rpgRocketPrefab}");
-            // if (_rpgRocketPrefab == null)
-            //     CreatePrefab(_rpgRocketPrefab, AssetAddresses.RpgRocket);
-
-            Debug.Log($"rpgRocketPrefab {_rpgRocketPrefab}");
             _projectile = Object.Instantiate(_rpgRocketPrefab);
-            Debug.Log($"constructorService {_constructorService}");
-            _constructorService.ConstructHeroProjectile(this,
-                AllServices.Container.Single<IEnemyProjectilesPoolService>(), _projectile, ProjectileTypeId.RpgRocket,
+            _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.RpgRocket,
                 BlastTypeId.RpgRocket, HeroWeaponTypeId.RPG);
-            Debug.Log($"GetRpgRocket {_projectile}");
             return _projectile;
         }
-
-        private async void CreatePrefab(GameObject prefab, string address) =>
-            prefab = await _assets.Instantiate(address);
 
         private GameObject GetRocketLauncherRocket()
         {
             _projectile = Object.Instantiate(_rocketLauncherRocketPrefab);
-            _constructorService.ConstructHeroProjectile(this,
-                AllServices.Container.Single<IEnemyProjectilesPoolService>(), _projectile,
-                ProjectileTypeId.RocketLauncherRocket,
+            _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.RocketLauncherRocket,
                 BlastTypeId.RocketLauncherRocket, HeroWeaponTypeId.RocketLauncher);
-            Debug.Log($"GetRocketLauncherRocket {_projectile}");
             return _projectile;
         }
 
         private GameObject GetBomb()
         {
             _projectile = Object.Instantiate(_bombPrefab);
-            _constructorService.ConstructHeroProjectile(this,
-                AllServices.Container.Single<IEnemyProjectilesPoolService>(), _projectile, ProjectileTypeId.Bomb,
-                BlastTypeId.Bomb,
+            _constructorService.ConstructHeroProjectile(_projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb,
                 HeroWeaponTypeId.Mortar);
-            Debug.Log($"GetBomb {_projectile}");
             return _projectile;
         }
 
         public GameObject GetFromPool(HeroWeaponTypeId typeId)
         {
-            Debug.Log("GetFromPool");
             switch (typeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    Debug.Log($"heroGrenadesPool {_heroGrenadesPool}");
                     return _heroGrenadesPool.Get();
 
                 case HeroWeaponTypeId.RPG:
-                    Debug.Log($"heroRpgRocketsPool {_heroRpgRocketsPool}");
                     return _heroRpgRocketsPool.Get();
 
                 case HeroWeaponTypeId.RocketLauncher:
-                    Debug.Log($"heroRocketLauncherRocketsPool {_heroRocketLauncherRocketsPool}");
                     return _heroRocketLauncherRocketsPool.Get();
 
                 case HeroWeaponTypeId.Mortar:
-                    Debug.Log($"heroBombsPool {_heroBombsPool}");
                     return _heroBombsPool.Get();
             }
 
