@@ -1,6 +1,7 @@
 ﻿using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
+using CodeBase.Services.Pool;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
@@ -13,23 +14,28 @@ namespace CodeBase.Services.Constructor
     {
         private IStaticDataService _staticDataService;
 
-        public ConstructorService() =>
-            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+        public ConstructorService(IStaticDataService staticDataService) =>
+            _staticDataService = staticDataService;
 
-        public void ConstructEnemyProjectile(GameObject projectile, float damage, ProjectileTypeId typeId)
+        public void ConstructEnemyProjectile(IHeroProjectilesPoolService heroProjectilesPoolService,
+            IEnemyProjectilesPoolService enemyProjectilesPoolService, GameObject projectile, float damage,
+            ProjectileTypeId typeId)
         {
-            projectile.GetComponent<Projectile>().Construct(typeId);
+            projectile.GetComponent<Projectile>()
+                .Construct(heroProjectilesPoolService, enemyProjectilesPoolService, typeId);
             projectile.GetComponent<ProjectileMovement>().Construct(typeId);
             projectile.GetComponentInChildren<ProjectileHit>().Construct(damage);
         }
 
-        public void ConstructHeroProjectile(GameObject projectile, ProjectileTypeId projectileTypeId,
-            BlastTypeId blastTypeId, HeroWeaponTypeId heroWeaponTypeId)
+        public void ConstructHeroProjectile(IHeroProjectilesPoolService heroProjectilesPoolService,
+            IEnemyProjectilesPoolService enemyProjectilesPoolService, GameObject projectile,
+            ProjectileTypeId projectileTypeId, BlastTypeId blastTypeId, HeroWeaponTypeId heroWeaponTypeId)
         {
             ProjectileStaticData projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
             BlastStaticData blastStaticData = _staticDataService.ForBlast(blastTypeId);
             TrailStaticData trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
-            projectile.GetComponent<Projectile>().Construct(projectileTypeId);
+            projectile.GetComponent<Projectile>()
+                .Construct(heroProjectilesPoolService, enemyProjectilesPoolService, projectileTypeId);
             projectile.GetComponent<ProjectileMovement>()
                 .Construct(projectileTypeId);
             projectile.GetComponentInChildren<ProjectileBlast>()
@@ -47,19 +53,25 @@ namespace CodeBase.Services.Constructor
             switch (projectileTypeId)
             {
                 case ProjectileTypeId.PistolBullet:
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
 
                 case ProjectileTypeId.RifleBullet:
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
 
                 case ProjectileTypeId.Shot:
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
@@ -68,7 +80,9 @@ namespace CodeBase.Services.Constructor
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.Grenade);
                     trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId, HeroWeaponTypeId.GrenadeLauncher);
                     newProjectile.GetComponentInChildren<ProjectileBlast>()
@@ -81,7 +95,9 @@ namespace CodeBase.Services.Constructor
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.RpgRocket);
                     trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId, HeroWeaponTypeId.RPG);
                     newProjectile.GetComponentInChildren<ProjectileBlast>().Construct(blastStaticData.Prefab,
@@ -93,7 +109,9 @@ namespace CodeBase.Services.Constructor
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.RocketLauncherRocket);
                     trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId, HeroWeaponTypeId.RocketLauncher);
                     newProjectile.GetComponentInChildren<ProjectileBlast>()
@@ -106,7 +124,9 @@ namespace CodeBase.Services.Constructor
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.Bomb);
                     trailStaticData = _staticDataService.ForTrail(projectileStaticData.TrailTypeId);
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<Projectile>().Construct(
+                        AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                        AllServices.Container.Single<IEnemyProjectilesPoolService>(), projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>().Construct(projectileTypeId,
                         HeroWeaponTypeId.Mortar);
                     newProjectile.GetComponentInChildren<ProjectileBlast>()

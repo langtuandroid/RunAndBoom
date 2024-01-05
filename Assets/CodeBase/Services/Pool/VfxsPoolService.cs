@@ -38,6 +38,25 @@ namespace CodeBase.Services.Pool
 
         public async void GenerateObjects()
         {
+            Debug.Log("VfxsPoolService GenerateObjects");
+            if (_grenadeMuzzleFireVfxsPool != null)
+                _grenadeMuzzleFireVfxsPool.Dispose();
+
+            if (_rpgMuzzleFireVfxsPool != null)
+                _rpgMuzzleFireVfxsPool.Dispose();
+
+            if (_rocketLauncherMuzzleBlueFireVfxsPool != null)
+                _rocketLauncherMuzzleBlueFireVfxsPool.Dispose();
+
+            if (_bombMuzzleFireVfxsPool != null)
+                _bombMuzzleFireVfxsPool.Dispose();
+
+            if (_bulletMuzzleFireVfxsPool != null)
+                _bulletMuzzleFireVfxsPool.Dispose();
+
+            if (_shotMuzzleFireVfxsPool != null)
+                _shotMuzzleFireVfxsPool.Dispose();
+
             GameObject root = await _assets.Load<GameObject>(AssetAddresses.ShotVfxsRoot);
             _gameObject = Object.Instantiate(root);
             _root = _gameObject.transform;

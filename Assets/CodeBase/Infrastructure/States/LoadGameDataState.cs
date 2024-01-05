@@ -33,9 +33,9 @@ namespace CodeBase.Infrastructure.States
             _language = language;
         }
 
-        public void Enter(bool isAsianMode)
+        public void Enter(bool sceneId)
         {
-            LoadProgressOrInitNew(isAsianMode);
+            LoadProgressOrInitNew(sceneId);
             _stateMachine.Enter<LoadSceneState, SceneId>(_progressService.ProgressData.AllStats.CurrentLevelStats
                 .SceneId);
         }

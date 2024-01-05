@@ -43,36 +43,88 @@ namespace CodeBase.Services.Pool
 
         public async void GenerateObjects()
         {
-            GameObject root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
-            _gameObject = Object.Instantiate(root);
-            _root = _gameObject.transform;
-            _pistolBulletPrefab = await _assets.Instantiate(AssetAddresses.PistolBullet, _root);
-            _shotPrefab = await _assets.Instantiate(AssetAddresses.Shot, _root);
-            _pistolBulletPrefab.SetActive(false);
-            _shotPrefab.SetActive(false);
+            Debug.Log("EnemyProjectilesPoolService GenerateObjects");
+            // if (_enemyPistolBulletsPool != null)
+            //     _enemyPistolBulletsPool.Dispose();
+            //
+            // if (_enemyShotsPool != null)
+            //     _enemyShotsPool.Dispose();
+            //
+            // if (_enemySniperRifleBulletsPool != null)
+            //     _enemySniperRifleBulletsPool.Dispose();
+            //
+            // if (_enemySMGBulletsPool != null)
+            //     _enemySMGBulletsPool.Dispose();
+            //
+            // if (_enemyMGBulletsPool != null)
+            //     _enemyMGBulletsPool.Dispose();
+            Debug.Log($"root {_root}");
+            Debug.Log($"pistolBulletPrefab {_pistolBulletPrefab}");
+            Debug.Log($"shotPrefab {_shotPrefab}");
+            Debug.Log($"enemyPistolBulletsPool {_enemyPistolBulletsPool}");
+            Debug.Log($"enemyShotsPool {_enemyShotsPool}");
+            Debug.Log($"enemySniperRifleBulletsPool {_enemySniperRifleBulletsPool}");
+            Debug.Log($"enemySMGBulletsPool {_enemySMGBulletsPool}");
+            Debug.Log($"enemyMGBulletsPool {_enemyMGBulletsPool}");
 
-            _enemyPistolBulletsPool = new ObjectPool<GameObject>(GetPistolBullet, GetFromPool, ReturnToBack,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+            if (_root == null)
+            {
+                GameObject root = await _assets.Load<GameObject>(AssetAddresses.EnemyProjectilesRoot);
+                _gameObject = Object.Instantiate(root);
+                _root = _gameObject.transform;
+            }
 
-            _enemyShotsPool = new ObjectPool<GameObject>(GetShot, GetFromPool, ReturnToBack,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+            if (_pistolBulletPrefab == null)
+            {
+                _pistolBulletPrefab = await _assets.Instantiate(AssetAddresses.PistolBullet, _root);
+                _pistolBulletPrefab.SetActive(false);
+            }
 
-            _enemySniperRifleBulletsPool = new ObjectPool<GameObject>(GetSniperRifleBullet, GetFromPool, ReturnToBack,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+            if (_shotPrefab == null)
+            {
+                _shotPrefab = await _assets.Instantiate(AssetAddresses.Shot, _root);
+                _shotPrefab.SetActive(false);
+            }
 
-            _enemySMGBulletsPool = new ObjectPool<GameObject>(GetSMGBullet, GetFromPool, ReturnToBack,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
+            if (_enemyPistolBulletsPool == null)
+                _enemyPistolBulletsPool = new ObjectPool<GameObject>(GetPistolBullet, GetFromPool, ReturnToBack,
+                    DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
 
-            _enemyMGBulletsPool = new ObjectPool<GameObject>(GetMGBullet, GetFromPool, ReturnToBack,
-                DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
+            if (_enemyShotsPool == null)
+                _enemyShotsPool = new ObjectPool<GameObject>(GetShot, GetFromPool, ReturnToBack,
+                    DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+
+            if (_enemySniperRifleBulletsPool == null)
+                _enemySniperRifleBulletsPool = new ObjectPool<GameObject>(GetSniperRifleBullet, GetFromPool,
+                    ReturnToBack,
+                    DestroyPooledObject, true, InitialCapacity, InitialCapacity * 3);
+
+            if (_enemySMGBulletsPool == null)
+                _enemySMGBulletsPool = new ObjectPool<GameObject>(GetSMGBullet, GetFromPool, ReturnToBack,
+                    DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
+
+            if (_enemyMGBulletsPool == null)
+                _enemyMGBulletsPool = new ObjectPool<GameObject>(GetMGBullet, GetFromPool, ReturnToBack,
+                    DestroyPooledObject, true, InitialCapacity, InitialCapacity * 5);
+
+            Debug.Log($"pistolBulletPrefab {_pistolBulletPrefab}");
+            Debug.Log($"shotPrefab {_shotPrefab}");
+            Debug.Log($"enemyPistolBulletsPool {_enemyPistolBulletsPool}");
+            Debug.Log($"enemyShotsPool {_enemyShotsPool}");
+            Debug.Log($"enemySniperRifleBulletsPool {_enemySniperRifleBulletsPool}");
+            Debug.Log($"enemySMGBulletsPool {_enemySMGBulletsPool}");
+            Debug.Log($"enemyMGBulletsPool {_enemyMGBulletsPool}");
+            Debug.Log("EnemyProjectilesPoolService GenerateObjects end");
         }
 
         private GameObject GetPistolBullet()
         {
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithPistol);
-            _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
+            _constructorService.ConstructEnemyProjectile(AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                this, _projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.PistolBullet);
+            Debug.Log($"GetPistolBullet {_projectile}");
             return _projectile;
         }
 
@@ -80,8 +132,10 @@ namespace CodeBase.Services.Pool
         {
             _projectile = Object.Instantiate(_shotPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithShotgun);
-            _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
+            _constructorService.ConstructEnemyProjectile(AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                this, _projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.Shot);
+            Debug.Log($"GetShot {_projectile}");
             return _projectile;
         }
 
@@ -89,8 +143,10 @@ namespace CodeBase.Services.Pool
         {
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSniperRifle);
-            _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
+            _constructorService.ConstructEnemyProjectile(AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                this, _projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.RifleBullet);
+            Debug.Log($"GetSniperRifleBullet {_projectile}");
             return _projectile;
         }
 
@@ -98,8 +154,10 @@ namespace CodeBase.Services.Pool
         {
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSMG);
-            _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
+            _constructorService.ConstructEnemyProjectile(AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                this, _projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.PistolBullet);
+            Debug.Log($"GetSMGBullet {_projectile}");
             return _projectile;
         }
 
@@ -107,8 +165,10 @@ namespace CodeBase.Services.Pool
         {
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithMG);
-            _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
+            _constructorService.ConstructEnemyProjectile(AllServices.Container.Single<IHeroProjectilesPoolService>(),
+                this, _projectile, _enemyStaticData.Damage,
                 ProjectileTypeId.RifleBullet);
+            Debug.Log($"GetMGBullet {_projectile}");
             return _projectile;
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IPayloadedState<Tpayload> : IExitableState
     {
-        void Enter(Tpayload isAsianMode);
+        void Enter(Tpayload sceneId);
     }
 }

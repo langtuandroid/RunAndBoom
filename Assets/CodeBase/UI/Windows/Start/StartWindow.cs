@@ -32,6 +32,10 @@ namespace CodeBase.UI.Windows.Start
         {
             _progressService = progressService;
             _adsService = adsService;
+            base.Construct(hero, WindowId.Start, openSettings);
+
+            if (Application.isEditor)
+                return;
 
             if (_progressService.ProgressData.WorldData.ShowAdOnLevelStart)
             {
@@ -44,8 +48,6 @@ namespace CodeBase.UI.Windows.Start
             {
                 _startButton.enabled = true;
             }
-
-            base.Construct(hero, WindowId.Start, openSettings);
         }
 
         private void EnableStartButton()

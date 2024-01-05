@@ -40,7 +40,7 @@
         public const string RpgMuzzleFire = "RocketMuzzleFire";
         public const string RocketLauncherMuzzleBlue = "RocketMuzzleBlue";
         public const string BombMuzzle = "BombMuzzleBlue";
-        
+
         // Blasts created by pool
         public const string GrenadeBlast = "GrenadeLauncherExplosion";
         public const string RocketLauncherRocketBlast = "RocketLauncherExplosion";

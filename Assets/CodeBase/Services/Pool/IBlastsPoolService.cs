@@ -1,5 +1,4 @@
 ﻿using CodeBase.StaticData.Hits;
-using CodeBase.StaticData.ShotVfxs;
 using UnityEngine;
 
 namespace CodeBase.Services.Pool

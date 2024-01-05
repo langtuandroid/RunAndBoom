@@ -99,10 +99,12 @@ namespace CodeBase.Weapons
 
         protected GameObject SetNewProjectile(Transform respawn)
         {
+            Debug.Log("SetNewProjectile");
             GameObject projectile = GetProjectile();
             projectile.transform.SetParent(respawn);
             projectile.transform.localPosition = Vector3.zero;
             projectile.transform.rotation = respawn.rotation;
+            Debug.Log($"SetNewProjectile {projectile}");
             return projectile;
         }
 
