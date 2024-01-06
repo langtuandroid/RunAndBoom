@@ -191,6 +191,8 @@ namespace CodeBase.Infrastructure.States
             if (_hud == null)
                 _hud = await _uiFactory.CreateHud(hero);
 
+            _hud.GetComponentInChildren<HitRedFlashShower>().Construct(hero.GetComponent<HeroHealth>());
+
             HeroHealth heroHealth = hero.GetComponentInChildren<HeroHealth>();
             heroHealth.Construct(_staticDataService);
 

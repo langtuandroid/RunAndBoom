@@ -17,7 +17,6 @@ namespace CodeBase.Hero
         private const float BaseArmorRatio = 0f;
         private const float ZeroValue = 0f;
 
-        private IInputService _inputService;
         private IStaticDataService _staticDataService;
         private ProgressData _progressData;
         private PerkItemData _regenerationItemData;
@@ -35,9 +34,7 @@ namespace CodeBase.Hero
         public float Max { get; private set; }
 
         public event Action HealthChanged;
-
-        private void Awake() =>
-            _inputService = AllServices.Container.Single<IInputService>();
+        public event Action HealthDamaged;
 
         private void OnEnable()
         {
@@ -239,6 +236,7 @@ namespace CodeBase.Hero
             Current -= result;
             _progressData.HealthState.CurrentHp = Current;
             HealthChanged?.Invoke();
+            HealthDamaged?.Invoke();
         }
     }
 }
