@@ -31,6 +31,7 @@ namespace CodeBase.UI.Windows.Gifts
             CreateAllItems();
             GenerateAllItems();
             SetHighlightingVisibility(true);
+            PlaySound();
         }
 
         protected override void CreateAllItems()

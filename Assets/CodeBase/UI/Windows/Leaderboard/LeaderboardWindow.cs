@@ -6,6 +6,7 @@ using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
+using Plugins.SoundInstance.Core.Static;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -230,7 +231,12 @@ namespace CodeBase.UI.Windows.LeaderBoard
             }
         }
 
-        private void ToGameEndWindow() =>
+        private void ToGameEndWindow()
+        {
             WindowService.Show<GameEndWindow>(WindowId.GameEnd);
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.GameWon), transform: transform,
+                Volume, AudioSource);
+        }
     }
 }

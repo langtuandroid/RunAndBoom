@@ -33,6 +33,7 @@ namespace CodeBase.UI.Windows.Shop
             CreateAllItems();
             GenerateAllItems();
             SetHighlightingVisibility(true);
+            PlaySound();
             GenerationEnded?.Invoke();
         }
 

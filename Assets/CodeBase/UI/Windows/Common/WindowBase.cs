@@ -64,15 +64,15 @@ namespace CodeBase.UI.Windows.Common
             if (AudioSource == null)
                 AudioSource = GetComponent<AudioSource>();
 
-            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundSwitchChanged += SetVolume;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
-            SwitchChanged();
+            SetVolume();
         }
 
         private void OnDisable()
         {
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundSwitchChanged -= SetVolume;
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
@@ -124,16 +124,20 @@ namespace CodeBase.UI.Windows.Common
 
         protected virtual void PlayCloseSound()
         {
+            SetVolume();
             SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: transform,
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: Hero.transform,
                 Volume, AudioSource);
         }
 
         protected virtual void PlayOpenSound()
         {
+            SetVolume();
             SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: transform,
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: Hero.transform,
                 Volume, AudioSource);
+            Debug.Log("PlayOpenSound");
+            Debug.Log($"Volume {Volume}");
         }
 
         public void LoadProgressData(ProgressData progressData)
@@ -145,7 +149,7 @@ namespace CodeBase.UI.Windows.Common
         private void VolumeChanged() =>
             Volume = _settingsData.SoundVolume;
 
-        private void SwitchChanged() =>
+        private void SetVolume() =>
             Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
 
         protected void RestartLevel()

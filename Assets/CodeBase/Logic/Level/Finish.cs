@@ -17,10 +17,8 @@ namespace CodeBase.Logic.Level
         private SceneId _nextLevel;
         private SceneId _currentLevel;
 
-        private void Awake()
-        {
+        private void Awake() =>
             _windowService = AllServices.Container.Single<IWindowService>();
-        }
 
         private void OnTriggerEnter(Collider other)
         {

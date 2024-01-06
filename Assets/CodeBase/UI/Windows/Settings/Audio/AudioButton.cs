@@ -21,6 +21,10 @@ namespace CodeBase.UI.Windows.Settings.Audio
         protected bool IsTurnedOn;
         private float _volume;
         private AudioSource _audioSource;
+        private Transform _heroTransform;
+
+        protected void Construct(Transform heroTransform) =>
+            _heroTransform = heroTransform;
 
         private void Awake()
         {
@@ -68,8 +72,8 @@ namespace CodeBase.UI.Windows.Settings.Audio
         {
             if (_volume != Constants.Zero)
                 SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.CheckboxClick), transform: transform,
-                    _volume, _audioSource);
+                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.CheckboxClick),
+                    transform: _heroTransform, _volume, _audioSource);
         }
 
         public void LoadProgressData(ProgressData progressData)

@@ -1,7 +1,12 @@
-﻿namespace CodeBase.UI.Windows.Settings.Audio
+﻿using UnityEngine;
+
+namespace CodeBase.UI.Windows.Settings.Audio
 {
     public class SoundButton : AudioButton
     {
+        public new void Construct(Transform heroTransform) =>
+            base.Construct(heroTransform);
+
         protected override void SwitchAudio()
         {
             SettingsData.SetSoundSwitch(!IsTurnedOn);

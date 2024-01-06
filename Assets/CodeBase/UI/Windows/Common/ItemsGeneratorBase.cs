@@ -6,6 +6,7 @@ using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Perks;
 using CodeBase.Data.Progress.Upgrades;
 using CodeBase.Data.Progress.Weapons;
+using CodeBase.Data.Settings;
 using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.Input;
@@ -20,6 +21,7 @@ using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Shop;
+using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Common
@@ -33,6 +35,7 @@ namespace CodeBase.UI.Windows.Common
         private IInputService _inputService;
         private IStaticDataService _staticDataService;
         protected IRandomService RandomService;
+        private SettingsData _settingsData;
         private HashSet<int> _shopItemsNumbers;
         private List<AmmoItem> _unavailableAmmunition;
         private List<ItemTypeId> _unavailableItems;
@@ -50,6 +53,7 @@ namespace CodeBase.UI.Windows.Common
         protected ProgressData ProgressData;
         protected GameObject Hero;
         private Coroutine _coroutineShopItemsGeneration;
+        protected float Volume;
 
         public virtual event Action GenerationStarted;
         public virtual event Action GenerationEnded;
@@ -61,9 +65,21 @@ namespace CodeBase.UI.Windows.Common
             _inputService = AllServices.Container.Single<IInputService>();
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             RandomService = AllServices.Container.Single<IRandomService>();
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
         public abstract void Generate();
+
+        private void SetVolume() =>
+            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
+
+        protected void PlaySound()
+        {
+            SetVolume();
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Generate), transform: Hero.transform,
+                Volume);
+        }
 
         protected void GetMoney() =>
             Money = ProgressData.AllStats.AllMoney.Money;

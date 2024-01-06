@@ -2,7 +2,6 @@
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,12 +89,7 @@ namespace CodeBase.UI.Windows.Shop
         private void CloseShop() =>
             Hide();
 
-        private void GenerateShopItems()
-        {
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Generate), transform: transform,
-                Volume);
+        private void GenerateShopItems() =>
             _generator.Generate();
-        }
     }
 }

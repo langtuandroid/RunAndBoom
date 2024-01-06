@@ -130,9 +130,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void PlayOpenSound()
         {
             SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.VictoryMusic), transform: transform,
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.VictoryMusic), transform: Hero.transform,
                 Volume, AudioSource);
-            SoundInstance.StopRandomMusic(false);
+            // SoundInstance.StopRandomMusic(false);
         }
     }
 }

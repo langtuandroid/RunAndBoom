@@ -11,8 +11,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6d9b197a0b824e1d8ee671e1e014c4d1fe00/c9/0d27d4e0/AudioListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/aa/103a78f1/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/ad/d671da40/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/c4/591f1dbc/KeyCode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bae255e3e08e46f7bc2fbd23dde96338158800/e5/f4837405/ObjectPool`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/2021.3.14f1-x86_64/Editor/Data/CGIncludes/UnityShaderVariables.cginc" root0="SKIP_HIGHLIGHTING" />
@@ -39,29 +41,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "XThreadsFramesViewSplitterKey": "0.2524272",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.2524272&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\Stas\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Stas\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\Stas\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Stas\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Stas\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Stas\\AppData\\Local\\Symbols\\src&quot;
     ],
-    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": [
+    &quot;stardust.markdown.MarkdownSplitEditorSuppressor:keyList&quot;: [
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="E:\Program Files\Unity\2021.3.14f1-x86_64\Editor\Unity.exe" />
@@ -89,10 +91,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18652">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="27448">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="18652" />
+      <option name="pid" value="27448" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -225,6 +227,8 @@
       <workItem from="1704418960057" duration="1042000" />
       <workItem from="1704420769788" duration="9840000" />
       <workItem from="1704448246627" duration="6092000" />
+      <workItem from="1704553472674" duration="7668000" />
+      <workItem from="1704561579710" duration="424000" />
     </task>
     <servers />
   </component>
@@ -280,20 +284,20 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>151</line>
+          <line>88</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="152" containingFunctionPresentation="Method 'GetRocketLauncherRocket'">
             <startOffsets>
-              <option value="6557" />
+              <option value="-1" />
             </startOffsets>
             <endOffsets>
-              <option value="6619" />
+              <option value="-1" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>137</line>
+          <line>80</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="139" containingFunctionPresentation="Method 'GetRpgRocket'">
             <startOffsets>
               <option value="5886" />
@@ -306,7 +310,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>111</line>
+          <line>68</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="115" containingFunctionPresentation="Method 'GenerateObjects'">
             <startOffsets>
               <option value="4791" />
@@ -319,7 +323,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>120</line>
+          <line>72</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="124" containingFunctionPresentation="Method 'GetGrenade'">
             <startOffsets>
               <option value="5092" />
@@ -329,45 +333,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadSceneState.cs</url>
-          <line>101</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadSceneState.cs" initialLine="101" containingFunctionPresentation="Method 'Enter'">
-            <startOffsets>
-              <option value="3764" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3802" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadSceneState.cs</url>
-          <line>98</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadSceneState.cs" initialLine="98" containingFunctionPresentation="Method 'Enter'">
-            <startOffsets>
-              <option value="3714" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3736" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/EnemyProjectilesPoolService.cs</url>
-          <line>117</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\EnemyProjectilesPoolService.cs" initialLine="117" containingFunctionPresentation="Method 'GenerateObjects'">
-            <startOffsets>
-              <option value="5450" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5451" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/VfxsPoolService.cs</url>
@@ -382,11 +347,89 @@
           </properties>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/ItemBase.cs</url>
+          <line>51</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\ItemBase.cs" initialLine="51" containingFunctionPresentation="Method 'OnEnable'">
+            <startOffsets>
+              <option value="1956" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1968" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/ItemBase.cs</url>
+          <line>68</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\ItemBase.cs" initialLine="68" containingFunctionPresentation="Method 'Construct'">
+            <startOffsets>
+              <option value="2633" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2645" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/LeaderBoard/LeaderBoardWindow.cs</url>
+          <line>235</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\LeaderBoard\LeaderBoardWindow.cs" initialLine="235" containingFunctionPresentation="Method 'ToGameEndWindow'">
+            <startOffsets>
+              <option value="9129" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9181" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/Audio/AudioButton.cs</url>
+          <line>72</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\Audio\AudioButton.cs" initialLine="68" containingFunctionPresentation="Method 'ButtonClickAudio'">
+            <startOffsets>
+              <option value="2235" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2265" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
+          <line>152</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="152" containingFunctionPresentation="Method 'SetVolume'">
+            <startOffsets>
+              <option value="5587" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5662" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SettingsWindow.cs</url>
+          <line>52</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SettingsWindow.cs" initialLine="52" containingFunctionPresentation="Method 'Construct'">
+            <startOffsets>
+              <option value="1570" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1571" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
-        <watch expression="this._progressService" />
+        <watch expression="this._progressService" language="C#" />
       </configuration>
     </watches-manager>
   </component>

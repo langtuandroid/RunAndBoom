@@ -18,8 +18,8 @@ namespace CodeBase.UI.Windows.GameEnd
 
         private void OnEnable()
         {
-            _startNewStandardGameButton.onClick.AddListener(StartNewCommonGame);
-            _startNewHardGameButton.onClick.AddListener(StartNewHardModeGame);
+            _startNewStandardGameButton.onClick.AddListener(StartNewStandardDifficultyGame);
+            _startNewHardGameButton.onClick.AddListener(StartNewAsianDifficultyGame);
 
             if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
                 return;
@@ -31,8 +31,8 @@ namespace CodeBase.UI.Windows.GameEnd
 
         private void OnDisable()
         {
-            _startNewStandardGameButton.onClick.RemoveListener(StartNewCommonGame);
-            _startNewHardGameButton.onClick.RemoveListener(StartNewHardModeGame);
+            _startNewStandardGameButton.onClick.RemoveListener(StartNewStandardDifficultyGame);
+            _startNewHardGameButton.onClick.RemoveListener(StartNewAsianDifficultyGame);
             LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
@@ -48,13 +48,13 @@ namespace CodeBase.UI.Windows.GameEnd
         protected override void SubscribeSetValueSuccess() =>
             LeaderBoardService.OnSetValueSuccess += AddGameResult;
 
-        private void StartNewCommonGame()
+        private void StartNewStandardDifficultyGame()
         {
             PrepareToStartNewGame();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadGameDataState, bool>(false);
         }
 
-        private void StartNewHardModeGame()
+        private void StartNewAsianDifficultyGame()
         {
             PrepareToStartNewGame();
             AllServices.Container.Single<IGameStateMachine>().Enter<LoadGameDataState, bool>(true);

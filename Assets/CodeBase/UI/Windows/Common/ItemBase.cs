@@ -46,15 +46,15 @@ namespace CodeBase.UI.Windows.Common
 
         private void OnEnable()
         {
-            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundSwitchChanged += SetVolume;
             _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
-            SwitchChanged();
+            SetVolume();
         }
 
         private void OnDisable()
         {
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
+            _settingsData.SoundSwitchChanged -= SetVolume;
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
@@ -66,6 +66,7 @@ namespace CodeBase.UI.Windows.Common
             InputService = AllServices.Container.Single<IInputService>();
             ShopItemBalance = new ShopItemBalance();
             GiftsItemBalance = new GiftsItemBalance();
+            SetVolume();
         }
 
         protected void ClearData()
@@ -104,7 +105,7 @@ namespace CodeBase.UI.Windows.Common
         private void VolumeChanged() =>
             Volume = _settingsData.SoundVolume;
 
-        private void SwitchChanged() =>
+        protected void SetVolume() =>
             Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }
