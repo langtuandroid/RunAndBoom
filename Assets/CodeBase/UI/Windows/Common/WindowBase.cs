@@ -37,6 +37,7 @@ namespace CodeBase.UI.Windows.Common
         protected LevelStats LevelStats;
         protected SceneId CurrentLevel;
         private OpenSettings _openSettings;
+        private bool _isInitial;
 
         private void Awake() =>
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
@@ -88,6 +89,7 @@ namespace CodeBase.UI.Windows.Common
             Hero = hero;
             _windowId = windowId;
             _openSettings = openSettings;
+            _isInitial = true;
         }
 
         protected void Hide()
@@ -116,7 +118,11 @@ namespace CodeBase.UI.Windows.Common
                 ShowCursor(showCursor);
 
             _openSettings.enabled = false;
-            PlayOpenSound();
+
+            if (!_isInitial)
+                PlayOpenSound();
+            else
+                _isInitial = false;
         }
 
         private void ShowCursor(bool showCursor) =>

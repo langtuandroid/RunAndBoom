@@ -7,6 +7,7 @@ namespace CodeBase.Enemy
     public class EnemyHealth : MonoBehaviour, IHealth
     {
         [SerializeField] private float _max;
+        [SerializeField] private EnemyHitShower _enemyHitShower;
 
         private float _previousCurrent;
         private float _current;
@@ -26,6 +27,7 @@ namespace CodeBase.Enemy
         {
             _current -= damage;
             HealthChanged?.Invoke();
+            _enemyHitShower.Show();
         }
     }
 }

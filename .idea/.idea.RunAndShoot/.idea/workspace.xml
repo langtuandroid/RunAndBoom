@@ -93,10 +93,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32404">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32404" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -234,6 +234,7 @@
       <workItem from="1704562009899" duration="329000" />
       <workItem from="1704562671470" duration="1715000" />
       <workItem from="1704564407438" duration="146000" />
+      <workItem from="1704597318412" duration="2040000" />
     </task>
     <servers />
   </component>
@@ -403,19 +404,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
-          <line>152</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="152" containingFunctionPresentation="Method 'SetVolume'">
-            <startOffsets>
-              <option value="5587" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5662" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SettingsWindow.cs</url>

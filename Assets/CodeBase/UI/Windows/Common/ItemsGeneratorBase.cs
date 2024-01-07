@@ -75,6 +75,9 @@ namespace CodeBase.UI.Windows.Common
 
         protected void PlaySound()
         {
+            if (_shopItemsNumbers.Count == GameObjectItems.Length)
+                return;
+
             SetVolume();
             SoundInstance.InstantiateOnTransform(
                 audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Generate), transform: Hero.transform,
