@@ -17,6 +17,7 @@ namespace CodeBase.Weapons
         private int _index;
         private Transform _root;
         private ShotVfxTypeId _shotVfxTypeId;
+        private WaitForSeconds _coroutineLaunchShotVfx;
 
         public void Construct(float shotVfxLifetime, ShotVfxTypeId shotVfxTypeId, Transform root)
         {
@@ -25,6 +26,9 @@ namespace CodeBase.Weapons
             // _vfxsPoolService = AllServices.Container.Single<IVfxsPoolService>();
             _shotVfxLifetime = shotVfxLifetime;
             _root = root;
+
+            if (_coroutineLaunchShotVfx == null)
+                _coroutineLaunchShotVfx = new WaitForSeconds(_shotVfxLifetime);
         }
 
         public void ShowShotVfx(Transform muzzleTransform)
@@ -44,7 +48,7 @@ namespace CodeBase.Weapons
         private IEnumerator CoroutineLaunchShotVfx()
         {
             _shotVfx.SetActive(true);
-            yield return new WaitForSeconds(_shotVfxLifetime);
+            yield return _coroutineLaunchShotVfx;
             ReturnShotVfx();
         }
 

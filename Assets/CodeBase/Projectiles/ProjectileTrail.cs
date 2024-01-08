@@ -12,6 +12,8 @@ namespace CodeBase.Projectiles
         private float _startDelay;
         private float _endDelay;
         private ParticleSystem _particleSystem;
+        private WaitForSeconds _coroutineShowTrace;
+        private WaitForSeconds _coroutineHideTrace;
 
         private void OnEnable() =>
             Hide();
@@ -20,6 +22,13 @@ namespace CodeBase.Projectiles
         {
             _startDelay = trailStaticData.StartDelay;
             _endDelay = trailStaticData.EndDelay;
+
+            if (_coroutineShowTrace == null)
+                _coroutineShowTrace = new WaitForSeconds(_startDelay);
+
+            if (_coroutineHideTrace == null)
+                _coroutineHideTrace = new WaitForSeconds(_endDelay);
+
             CreateTrailVfx(trailStaticData.Prefab);
         }
 
@@ -40,7 +49,7 @@ namespace CodeBase.Projectiles
                 // if (_particleSystem == null) 
                 //     _particleSystem = _trailVfx.GetComponent<ParticleSystem>();
 
-                yield return new WaitForSeconds(_startDelay);
+                yield return _coroutineShowTrace;
                 _trailVfx.SetActive(true);
                 // _particleSystem?.Play(true);
             }
@@ -51,7 +60,7 @@ namespace CodeBase.Projectiles
 
         private IEnumerator CoroutineHideTrace()
         {
-            yield return new WaitForSeconds(_endDelay);
+            yield return _coroutineHideTrace;
             Hide();
         }
 

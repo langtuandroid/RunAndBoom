@@ -23,6 +23,7 @@ namespace CodeBase.Hero
         private bool _canShootTemp;
         private bool _canShoot;
         private bool _isInitial = true;
+        private WaitForSeconds _waitForSeconds;
 
         public event Action Shot;
 
@@ -41,6 +42,7 @@ namespace CodeBase.Hero
             TrailStaticData trailStaticData)
         {
             _heroWeaponAppearance = weaponPrefab.GetComponent<HeroWeaponAppearance>();
+            _waitForSeconds = new WaitForSeconds(ShootDelay);
 
             if (!_isInitial)
                 TurnOn();
@@ -62,7 +64,7 @@ namespace CodeBase.Hero
 
         private IEnumerator EnableShoot()
         {
-            yield return new WaitForSeconds(ShootDelay);
+            yield return _waitForSeconds;
 
             if (_canShootTemp)
             {

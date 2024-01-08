@@ -39,6 +39,7 @@ namespace CodeBase.Projectiles.Hit
         private HeroWeaponTypeId? _heroWeaponTypeId;
         private AudioSource _audioSource;
         private float _volume = 1f;
+        private WaitForSeconds _waitForSecondsBlast;
 
         private void Awake()
         {
@@ -149,6 +150,7 @@ namespace CodeBase.Projectiles.Hit
             _prefab = prefab;
             _sphereRadius = radius;
             _damage = damage;
+            _waitForSecondsBlast = new WaitForSeconds(BlastDuration);
         }
 
         private void SetBlastSize()
@@ -212,7 +214,7 @@ namespace CodeBase.Projectiles.Hit
 
         private IEnumerator DestroyBlast()
         {
-            yield return new WaitForSeconds(BlastDuration);
+            yield return _waitForSecondsBlast;
             HideBlast();
         }
 

@@ -28,6 +28,7 @@ namespace CodeBase.Enemy
         private int _reward;
         private bool _isDead;
         private EnemyAnimator _enemyAnimator;
+        private WaitForSeconds _coroutineDestroyTimer;
 
         public event Action Died;
 
@@ -57,6 +58,7 @@ namespace CodeBase.Enemy
         {
             _heroHealth = heroHealth;
             _reward = reward;
+            _coroutineDestroyTimer = new WaitForSeconds(DestroyDelay);
         }
 
         private void HealthChanged()
@@ -73,23 +75,23 @@ namespace CodeBase.Enemy
             _progressService.ProgressData.AllStats.AddMoney(_reward);
             _progressService.ProgressData.AllStats.CurrentLevelStats.KillsData.Increment();
             _enemyAnimator.PlayDeath();
-            Destroy(GetComponent<StopMovingOnAttack>());
             _agentMoveToHero.Stop();
-            _hitBox.SetActive(false);
+            _agentMoveToHero.enabled = false;
             _diedBox.SetActive(true);
+            _hitBox.SetActive(false);
             StartCoroutine(CoroutineDestroyTimer());
-            Destroy(GetComponent<RotateToHero>());
-            Destroy(GetComponent<Aggro>());
-            Destroy(GetComponent<AnimateAlongAgent>());
-            Destroy(GetComponent<CheckAttackRange>());
-            Destroy(GetComponent<NavMeshAgent>(), 1);
-            Destroy(GetComponent<AgentMoveToHero>());
-            Destroy(GetComponent<BoxCollider>());
+            GetComponent<RotateToHero>().enabled = false;
+            GetComponent<Aggro>().enabled = false;
+            GetComponent<AnimateAlongAgent>().enabled = false;
+            GetComponent<CheckAttackRange>().enabled = false;
+            GetComponent<NavMeshAgent>().enabled = false;
+            GetComponent<AgentMoveToHero>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
         }
 
         private IEnumerator CoroutineDestroyTimer()
         {
-            yield return new WaitForSeconds(DestroyDelay);
+            yield return _coroutineDestroyTimer;
             Destroy(gameObject);
         }
     }

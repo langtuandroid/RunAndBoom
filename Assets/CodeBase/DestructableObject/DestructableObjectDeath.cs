@@ -12,7 +12,7 @@ namespace CodeBase.DestructableObject
 {
     [RequireComponent(typeof(AudioSource))]
     public class DestructableObjectDeath : MonoBehaviour, IDeath
-        //, IProgressReader
+    //, IProgressReader
     {
         [SerializeField] private GameObject _solid;
         [SerializeField] private GameObject _broken;
@@ -24,6 +24,7 @@ namespace CodeBase.DestructableObject
         private List<Rigidbody> _parts;
         private SettingsData _settingsData;
         private float _volume;
+        private WaitForSeconds _waitForSeconds;
 
         public event Action Died;
 
@@ -38,6 +39,8 @@ namespace CodeBase.DestructableObject
 
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
+
+            _waitForSeconds = new WaitForSeconds(_deathDelay);
         }
 
         private void OnEnable()
@@ -96,7 +99,7 @@ namespace CodeBase.DestructableObject
 
         private IEnumerator DestroyTimer()
         {
-            yield return new WaitForSeconds(_deathDelay);
+            yield return _waitForSeconds;
             Destroy(gameObject);
         }
 

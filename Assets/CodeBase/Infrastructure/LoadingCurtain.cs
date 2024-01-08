@@ -17,11 +17,17 @@ namespace CodeBase.Infrastructure
         private const float PrepareWaiting = 2f;
         private bool _isInitial = true;
         private ISaveLoadService _saveLoadService;
+        private WaitForSeconds _waitForSeconds;
+        private WaitForSeconds _forSeconds;
 
         public event Action FadedOut;
 
-        private void Awake() =>
+        private void Awake()
+        {
             DontDestroyOnLoad(this);
+            _waitForSeconds = new WaitForSeconds(PrepareWaiting);
+            _forSeconds = new WaitForSeconds(StepAlpha);
+        }
 
         public void Show()
         {
@@ -38,12 +44,12 @@ namespace CodeBase.Infrastructure
 
         private IEnumerator FadeOut()
         {
-            yield return new WaitForSeconds(PrepareWaiting);
+            yield return _waitForSeconds;
 
             while (_curtain.alpha > MinimumAlpha)
             {
                 _curtain.alpha -= StepAlpha;
-                yield return new WaitForSeconds(StepAlpha);
+                yield return _forSeconds;
             }
 
             FadedOut?.Invoke();

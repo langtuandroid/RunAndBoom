@@ -7,13 +7,17 @@ namespace CodeBase.UI.Elements.Enemy
     {
         private const float MainCameraCreationDelay = 0.5f;
         private Camera _mainCamera;
+        private WaitForSeconds _coroutineLookAt;
 
-        private void Start() =>
+        private void Start()
+        {
+            _coroutineLookAt = new WaitForSeconds(MainCameraCreationDelay);
             StartCoroutine(CoroutineLookAt());
+        }
 
         private IEnumerator CoroutineLookAt()
         {
-            yield return new WaitForSeconds(MainCameraCreationDelay);
+            yield return _coroutineLookAt;
             _mainCamera = Camera.main;
 
             while (gameObject.activeSelf)

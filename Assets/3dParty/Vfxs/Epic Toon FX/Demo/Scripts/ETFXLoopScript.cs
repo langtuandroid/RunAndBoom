@@ -12,9 +12,11 @@ namespace EpicToonFX
 	
 		public bool spawnWithoutLight = true;
 		public bool spawnWithoutSound = true;
+		private WaitForSeconds _waitForSeconds;
 
 		void Start ()
 		{	
+			_waitForSeconds = new WaitForSeconds(loopTimeLimit);
 			PlayEffect();
 		}
 
@@ -39,8 +41,8 @@ namespace EpicToonFX
 				effectPlayer.GetComponent<AudioSource>().enabled = false;
 				//Destroy(gameObject.GetComponent<AudioSource>());
 			}
-				
-			yield return new WaitForSeconds(loopTimeLimit);
+
+			yield return _waitForSeconds;
 
 			Destroy (effectPlayer);
 			PlayEffect();

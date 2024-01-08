@@ -12,9 +12,11 @@ public class ETFXTarget : MonoBehaviour
 	public GameObject respawnParticle;
 	private Renderer targetRenderer;
 	private Collider targetCollider;
+	private WaitForSeconds _waitForRespawn;
 
-    void Start()
+	void Start()
     {
+	    _waitForRespawn = new WaitForSeconds(3);
 		targetRenderer = GetComponent<Renderer>();
 		targetCollider = GetComponent<Collider>();
     }
@@ -45,7 +47,7 @@ public class ETFXTarget : MonoBehaviour
 	
 	IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(3);
+	    yield return _waitForRespawn;
 		SpawnTarget();
     }
 }
