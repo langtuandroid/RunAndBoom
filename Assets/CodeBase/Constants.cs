@@ -10,7 +10,7 @@ namespace CodeBase
         public const float HalfVisible = 0.5f;
         public const float Invisible = 0f;
         public const float Zero = 0.0f;
-        public const float RotationEpsilon = 0.05f;
+        public const float RotationEpsilon = 0.002f;
         public const float MovementEpsilon = 0.05f;
         public const float MinAimSliderValue = 0.0f;
         public const float MaxAimSliderValue = 4.0f;

@@ -114,7 +114,11 @@ namespace CodeBase.Hero
 
         private void ClampAngle()
         {
-            _verticalAngle = _edgeAngle / _verticalSensitivity;
+            if (!_isMobile)
+                _verticalAngle = _edgeAngle / _verticalSensitivity;
+            else
+                _verticalAngle = _edgeAngle;
+
             _verticalRotation = Mathf.Clamp(_verticalRotation, -_verticalAngle, _verticalAngle);
         }
 
@@ -124,19 +128,19 @@ namespace CodeBase.Hero
             RotateVertical();
         }
 
-        private void RotateVertical()
-        {
-            if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
-                _verticalRotation -= _lookJoystick.Input.y;
-
-            ClampAngle();
-            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
-        }
-
         private void RotateHorizontal()
         {
             if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
                 transform.Rotate(Vector3.up * _lookJoystick.Input.x * _horizontalSensitivity * Time.deltaTime);
+        }
+
+        private void RotateVertical()
+        {
+            if (_lookJoystick.Input.sqrMagnitude > Constants.RotationEpsilon)
+                _verticalRotation -= _lookJoystick.Input.y * _verticalSensitivity;
+
+            ClampAngle();
+            _camera.transform.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
         }
 
         public void TurnOn() =>
