@@ -2,8 +2,6 @@
 using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Perks;
 using CodeBase.Logic;
-using CodeBase.Services;
-using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;

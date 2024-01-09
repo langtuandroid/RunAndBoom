@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.GameReadyService;
 using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -55,6 +56,12 @@ namespace CodeBase.Infrastructure
             FadedOut?.Invoke();
             SaveData();
             gameObject.SetActive(false);
+
+            if (!Application.isEditor)
+            {
+                AllServices.Container.Single<IGameReadyService>().OnGameReadyButtonClick();
+                Debug.Log("OnGameReadyButtonClick");
+            }
         }
 
         private void SaveData()

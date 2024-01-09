@@ -5,7 +5,6 @@ using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Levels;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace CodeBase.Editor
 {

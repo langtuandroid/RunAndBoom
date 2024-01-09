@@ -87,8 +87,14 @@ namespace CodeBase.UI.Windows.Gifts
         {
             LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
             ProgressData.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
-            ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
-                levelStaticData.EnemySpawners.Count);
+
+            if (ProgressData.IsAsianMode)
+                ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+                    levelStaticData.MaxStarsScoreAsian, levelStaticData.EnemySpawners.Count);
+            else
+                ProgressData.AllStats.StartNewLevel(_nextScene, levelStaticData.TargetPlayTime,
+                    levelStaticData.MaxStarsScoreStandard, levelStaticData.EnemySpawners.Count);
+
             ProgressData.WorldData.ShowAdOnLevelStart = true;
             SaveLoadService.SaveProgressData();
             SaveLoadService.SaveSettingsData();

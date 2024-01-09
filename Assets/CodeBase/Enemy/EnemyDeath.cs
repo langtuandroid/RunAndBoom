@@ -73,20 +73,21 @@ namespace CodeBase.Enemy
             _heroHealth.Vampire(_health.Max);
             _isDead = true;
             _progressService.ProgressData.AllStats.AddMoney(_reward);
-            _progressService.ProgressData.AllStats.CurrentLevelStats.KillsData.Increment();
+            // _progressService.ProgressData.AllStats.CurrentLevelStats.KillsData.Increment();
             _enemyAnimator.PlayDeath();
             _agentMoveToHero.Stop();
             _agentMoveToHero.enabled = false;
             _diedBox.SetActive(true);
             _hitBox.SetActive(false);
             StartCoroutine(CoroutineDestroyTimer());
-            GetComponent<RotateToHero>().enabled = false;
-            GetComponent<Aggro>().enabled = false;
-            GetComponent<AnimateAlongAgent>().enabled = false;
-            GetComponent<CheckAttackRange>().enabled = false;
-            GetComponent<NavMeshAgent>().enabled = false;
-            GetComponent<AgentMoveToHero>().enabled = false;
-            GetComponent<BoxCollider>().enabled = false;
+            Destroy(GetComponent<RotateToHero>());
+            Destroy(GetComponent<Aggro>());
+            Destroy(GetComponent<AnimateAlongAgent>());
+            Destroy(GetComponent<CheckAttackRange>());
+            Destroy(GetComponent<StopMovingOnAttack>());
+            Destroy(GetComponent<NavMeshAgent>());
+            Destroy(_agentMoveToHero);
+            Destroy(GetComponent<BoxCollider>());
         }
 
         private IEnumerator CoroutineDestroyTimer()

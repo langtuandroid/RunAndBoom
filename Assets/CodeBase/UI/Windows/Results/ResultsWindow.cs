@@ -17,8 +17,8 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private Button _toNextWindowButton;
         [SerializeField] private StarsPanel _starsPanel;
         [SerializeField] private TextMeshProUGUI _playTimeCount;
-        [SerializeField] private TextMeshProUGUI _killed;
-        [SerializeField] private TextMeshProUGUI _totalEnemies;
+        // [SerializeField] private TextMeshProUGUI _killed;
+        // [SerializeField] private TextMeshProUGUI _totalEnemies;
         [SerializeField] private TextMeshProUGUI _restartsCount;
         [SerializeField] private TextMeshProUGUI _score;
 
@@ -64,8 +64,8 @@ namespace CodeBase.UI.Windows.Results
             Debug.Log($"ShowData LevelStats.StarsCount {LevelStats.StarsCount}");
             _starsPanel.ShowStars(LevelStats.StarsCount);
             _playTimeCount.text = $"{LevelStats.PlayTimeData.PlayTime.ToInt()}";
-            _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
-            _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
+            // _killed.text = $"{LevelStats.KillsData.KilledEnemies}";
+            // _totalEnemies.text = $"{LevelStats.KillsData.TotalEnemies}";
             _restartsCount.text = $"{LevelStats.RestartsData.Count}";
             Debug.Log($"ShowData {LevelStats.SceneId} {LevelStats.Score}");
             _score.text = $"{LevelStats.Score}";

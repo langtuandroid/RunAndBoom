@@ -12,12 +12,6 @@ namespace CodeBase.Enemy
         private bool _move;
         private bool _isMovable;
 
-        private void OnEnable() =>
-            _agent.enabled = true;
-
-        private void OnDisable() =>
-            _agent.enabled = false;
-
         private void Update() =>
             SetDestinationForAgent();
 

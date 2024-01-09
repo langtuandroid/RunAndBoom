@@ -50,23 +50,16 @@ namespace CodeBase.UI.Windows.Start
             }
         }
 
-        private void EnableStartButton()
-        {
-            _adsService.OnOfflineInterstitialAd -= EnableStartButton;
-            _adsService.OnClosedInterstitialAd -= EnableStartButton;
-            _adsService.OnShowInterstitialAdError -= EnableStartButton;
-            _startButton.enabled = true;
-        }
+        private void EnableStartButton() =>
+            ToWindow();
 
-        private void EnableStartButton(bool obj)
-        {
-            _adsService.OnOfflineInterstitialAd -= EnableStartButton;
-            _adsService.OnClosedInterstitialAd -= EnableStartButton;
-            _adsService.OnShowInterstitialAdError -= EnableStartButton;
-            _startButton.enabled = true;
-        }
+        private void EnableStartButton(bool obj) =>
+            ToWindow();
 
-        private void EnableStartButton(string obj)
+        private void EnableStartButton(string obj) =>
+            ToWindow();
+
+        private void ToWindow()
         {
             _adsService.OnOfflineInterstitialAd -= EnableStartButton;
             _adsService.OnClosedInterstitialAd -= EnableStartButton;

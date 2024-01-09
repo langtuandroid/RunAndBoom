@@ -31,10 +31,10 @@ namespace CodeBase.Data.Progress.Stats
         public bool IsMoneyEnough(int value) =>
             AllMoney.IsMoneyEnough(value);
 
-        public void StartNewLevel(SceneId sceneId, int targetPlayTime, int totalEnemies)
+        public void StartNewLevel(SceneId sceneId, int targetPlayTime, int maxStarsScore, int totalEnemies)
         {
             SaveCurrentLevelStats();
-            CurrentLevelStats = new LevelStats(sceneId, targetPlayTime, totalEnemies);
+            CurrentLevelStats = new LevelStats(sceneId, targetPlayTime,  maxStarsScore, totalEnemies);
         }
 
         public void SaveCurrentLevelStats() =>
@@ -44,7 +44,7 @@ namespace CodeBase.Data.Progress.Stats
         {
             CurrentLevelStats.RestartsData.Increment();
             CurrentLevelStats.PlayTimeData.Clear();
-            CurrentLevelStats.KillsData.Clear();
+            // CurrentLevelStats.KillsData.Clear();
             CurrentLevelStats.MoneyData.Clear();
         }
 

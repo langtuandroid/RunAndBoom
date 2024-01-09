@@ -11,6 +11,8 @@ namespace CodeBase.StaticData.Levels
         public bool InitializeHeroPosition;
         public Vector3 InitialHeroPosition;
         public int TargetPlayTime;
+        public int MaxStarsScoreStandard;
+        public int MaxStarsScoreAsian;
 
         public LevelTransferStaticData LevelTransfer;
         public List<EnemySpawnerData> EnemySpawners;

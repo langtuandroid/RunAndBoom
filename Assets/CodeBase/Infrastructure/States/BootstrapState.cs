@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Constructor;
+using CodeBase.Services.GameReadyService;
 using CodeBase.Services.Input;
 using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.Localization;
@@ -51,6 +52,7 @@ namespace CodeBase.Infrastructure.States
         {
             _services.RegisterSingle<ILocalizationService>((new LocalizationService(_language)));
             _services.RegisterSingle<IAdsService>((new YandexAdsService()));
+            _services.RegisterSingle<IGameReadyService>((new YandexGameReadyService()));
             _services.RegisterSingle<ILeaderboardService>((new YandexLeaderboardService()));
             _services.RegisterSingle<IAuthorization>((new YandexAuthorization()));
             RegisterStaticData();
@@ -107,7 +109,7 @@ namespace CodeBase.Infrastructure.States
         {
             AppMetrica.Instance.ActivateWithConfiguration(new YandexAppMetricaConfig(AppMetricaApiKey));
         }
-        
+
         private void RegisterStaticData()
         {
             IStaticDataService staticData = new StaticDataService();
@@ -129,9 +131,12 @@ namespace CodeBase.Infrastructure.States
         private static IInputService InputService()
         {
             PlayerInput playerInput = new PlayerInput();
-            return Application.isMobilePlatform
-                ? new MobileInputService(playerInput)
-                : new DesktopInputService(playerInput);
+            return 
+                // Application.isMobilePlatform
+                // ? 
+                new MobileInputService(playerInput)
+                // : new DesktopInputService(playerInput)
+                ;
         }
 
         private void SetTargetFrameRate()

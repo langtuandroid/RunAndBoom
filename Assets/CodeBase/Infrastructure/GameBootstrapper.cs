@@ -44,7 +44,10 @@ namespace CodeBase.Infrastructure
 
         private Language GetLanguage()
         {
-            switch (Application.systemLanguage)
+            SystemLanguage systemLanguage = Application.systemLanguage;
+            Debug.Log($"systemLanguage {systemLanguage}");
+
+            switch (systemLanguage)
             {
                 case SystemLanguage.Russian:
                     return Language.RU;

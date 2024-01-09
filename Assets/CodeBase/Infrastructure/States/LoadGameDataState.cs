@@ -62,9 +62,14 @@ namespace CodeBase.Infrastructure.States
         private void CreateNewGameData(bool isAsianMode)
         {
             LevelStaticData levelStaticData = _staticDataService.ForLevel(InitialLevel);
-            _progressData = new ProgressData(InitialLevel, levelStaticData.TargetPlayTime,
-                levelStaticData.EnemySpawners.Count,
-                isAsianMode);
+
+            if (isAsianMode)
+                _progressData = new ProgressData(InitialLevel, levelStaticData.TargetPlayTime,
+                    levelStaticData.MaxStarsScoreAsian, levelStaticData.EnemySpawners.Count, isAsianMode);
+            else
+                _progressData = new ProgressData(InitialLevel, levelStaticData.TargetPlayTime,
+                    levelStaticData.MaxStarsScoreStandard, levelStaticData.EnemySpawners.Count, isAsianMode);
+
             _settingsData = new SettingsData(_language);
             _progressService.SetProgressData(_progressData);
             _progressService.SetSettingsData(_settingsData);

@@ -231,6 +231,7 @@
       <workItem from="1704692719056" duration="709000" />
       <workItem from="1704694580526" duration="658000" />
       <workItem from="1704701768671" duration="4703000" />
+      <workItem from="1704723476740" duration="6588000" />
     </task>
     <servers />
   </component>
@@ -283,58 +284,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>88</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="152" containingFunctionPresentation="Method 'GetRocketLauncherRocket'">
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>80</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="139" containingFunctionPresentation="Method 'GetRpgRocket'">
-            <startOffsets>
-              <option value="5886" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5937" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>68</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="115" containingFunctionPresentation="Method 'GenerateObjects'">
-            <startOffsets>
-              <option value="4791" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4792" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/HeroProjectilesPoolService.cs</url>
-          <line>72</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\HeroProjectilesPoolService.cs" initialLine="124" containingFunctionPresentation="Method 'GetGrenade'">
-            <startOffsets>
-              <option value="5092" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5141" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/VfxsPoolService.cs</url>

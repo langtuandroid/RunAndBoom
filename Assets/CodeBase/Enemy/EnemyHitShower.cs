@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Enemy
 {
@@ -7,10 +6,10 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private GameObject _bloodVfx;
 
-        private void Awake() => 
+        private void Awake() =>
             _bloodVfx.SetActive(false);
 
-        public void Show() => 
+        public void Show() =>
             _bloodVfx.SetActive(true);
     }
 }
