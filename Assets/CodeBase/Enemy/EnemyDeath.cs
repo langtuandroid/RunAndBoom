@@ -87,7 +87,7 @@ namespace CodeBase.Enemy
             Destroy(GetComponent<StopMovingOnAttack>());
             Destroy(GetComponent<NavMeshAgent>());
             Destroy(_agentMoveToHero);
-            Destroy(GetComponent<BoxCollider>());
+            // Destroy(GetComponent<BoxCollider>());
         }
 
         private IEnumerator CoroutineDestroyTimer()
