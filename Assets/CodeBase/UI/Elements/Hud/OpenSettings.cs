@@ -39,5 +39,11 @@ namespace CodeBase.UI.Elements.Hud
             enabled = false;
             _windowService.Show<SettingsWindow>(WindowId.Settings);
         }
+
+        public void On() =>
+            _settingsButton.onClick.AddListener(ShowSettingsWindow);
+
+        public void Off() =>
+            _settingsButton.onClick.RemoveListener(ShowSettingsWindow);
     }
 }

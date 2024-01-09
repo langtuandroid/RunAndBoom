@@ -104,7 +104,7 @@ namespace CodeBase.UI.Windows.Common
 
                 Hero.ResumeHero();
                 Time.timeScale = Constants.TimeScaleResume;
-                _openSettings.enabled = true;
+                _openSettings.On();
             }
         }
 
@@ -117,7 +117,7 @@ namespace CodeBase.UI.Windows.Common
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                 ShowCursor(showCursor);
 
-            _openSettings.enabled = false;
+            _openSettings.Off();
 
             if (!_isInitial)
                 PlayOpenSound();
