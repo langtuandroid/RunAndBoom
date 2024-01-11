@@ -131,11 +131,10 @@ namespace CodeBase.Infrastructure.States
         private static IInputService InputService()
         {
             PlayerInput playerInput = new PlayerInput();
-            return 
+            return
                 Application.isMobilePlatform
-                ? 
-                new MobileInputService(playerInput)
-                : new DesktopInputService(playerInput)
+                    ? new MobileInputService(playerInput)
+                    : new DesktopInputService(playerInput)
                 ;
         }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6450515641149796552}
   - component: {fileID: 6450515641149796551}
+  - component: {fileID: 1926749268083030616}
   m_Layer: 0
   m_Name: SpawnMarker
   m_TagString: Untagged
@@ -24,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6450515641149796550}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6450515641149796551
 MonoBehaviour:
@@ -44,4 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b627b6904074cf791af25ef989506e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypeId: 0
+  UniqueId: {fileID: 1926749268083030616}
+  EnemyTypeId: 0
+  AreaTypeId: 0
+--- !u!114 &1926749268083030616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450515641149796550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185449c7a5a9480a8f77b6cf45139084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 

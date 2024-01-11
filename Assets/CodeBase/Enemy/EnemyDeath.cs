@@ -6,7 +6,6 @@ using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace CodeBase.Enemy
 {
@@ -24,11 +23,15 @@ namespace CodeBase.Enemy
         private IHealth _health;
         private HeroHealth _heroHealth;
         private AgentMoveToHero _agentMoveToHero;
-
         private int _reward;
         private bool _isDead;
         private EnemyAnimator _enemyAnimator;
         private WaitForSeconds _coroutineDestroyTimer;
+        private RotateToHero _rotateToHero;
+        private Aggro _getComponent;
+        private AnimateAlongAgent _animateAlongAgent;
+        private CheckAttackRange _checkAttackRange;
+        private StopMovingOnAttack _stopMovingOnAttack;
 
         public event Action Died;
 
@@ -38,7 +41,13 @@ namespace CodeBase.Enemy
 
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
+            _rotateToHero = GetComponent<RotateToHero>();
+            _getComponent = GetComponent<Aggro>();
+            _animateAlongAgent = GetComponent<AnimateAlongAgent>();
+            _checkAttackRange = GetComponent<CheckAttackRange>();
+            _stopMovingOnAttack = GetComponent<StopMovingOnAttack>();
             _health = GetComponent<IHealth>();
+            _hitBox.SetActive(true);
             _diedBox.SetActive(false);
         }
 
@@ -47,9 +56,6 @@ namespace CodeBase.Enemy
 
         private void OnDisable() =>
             _health.HealthChanged -= HealthChanged;
-
-        private void Start() =>
-            _diedBox.SetActive(false);
 
         private void OnDestroy() =>
             _health.HealthChanged -= HealthChanged;
@@ -69,25 +75,21 @@ namespace CodeBase.Enemy
 
         public void Die()
         {
+            _diedBox.SetActive(true);
             Died?.Invoke();
             _heroHealth.Vampire(_health.Max);
             _isDead = true;
             _progressService.ProgressData.AllStats.AddMoney(_reward);
-            // _progressService.ProgressData.AllStats.CurrentLevelStats.KillsData.Increment();
             _enemyAnimator.PlayDeath();
             _agentMoveToHero.Stop();
             _agentMoveToHero.enabled = false;
-            _diedBox.SetActive(true);
-            _hitBox.SetActive(false);
             StartCoroutine(CoroutineDestroyTimer());
-            Destroy(GetComponent<RotateToHero>());
-            Destroy(GetComponent<Aggro>());
-            Destroy(GetComponent<AnimateAlongAgent>());
-            Destroy(GetComponent<CheckAttackRange>());
-            Destroy(GetComponent<StopMovingOnAttack>());
-            Destroy(GetComponent<NavMeshAgent>());
-            Destroy(_agentMoveToHero);
-            // Destroy(GetComponent<BoxCollider>());
+            _rotateToHero.Off();
+            _getComponent.Off();
+            _animateAlongAgent.Off();
+            _checkAttackRange.Off();
+            _stopMovingOnAttack.Off();
+            _hitBox.SetActive(false);
         }
 
         private IEnumerator CoroutineDestroyTimer()

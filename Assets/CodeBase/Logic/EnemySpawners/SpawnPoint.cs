@@ -10,17 +10,25 @@ namespace CodeBase.Logic.EnemySpawners
         [SerializeField] private EnemyTypeId _enemyTypeId;
 
         private IEnemyFactory _factory;
+        // private AreaData _areaData;
 
         private void Awake() =>
             _factory = AllServices.Container.Single<IEnemyFactory>();
 
-        public void Construct(EnemyTypeId enemyTypeId) =>
+        public void Construct(EnemyTypeId enemyTypeId
+            // , AreaData areaData
+        )
+        {
             _enemyTypeId = enemyTypeId;
+            // _areaData = areaData;
+        }
 
         public void Initialize() =>
             Spawn();
 
         private async void Spawn() =>
-            await _factory.CreateEnemy(_enemyTypeId, transform);
+            await _factory.CreateEnemy(_enemyTypeId, transform
+                // , _areaData
+            );
     }
 }

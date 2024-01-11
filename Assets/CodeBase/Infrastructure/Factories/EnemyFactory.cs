@@ -41,17 +41,23 @@ namespace CodeBase.Infrastructure.Factories
             _spawnersRoot = gameObject.transform;
         }
 
-        public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
+        public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId
+            // , AreaData area
+        )
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
             GameObject spawnerObject = _registratorService.InstantiateRegistered(prefab, at);
             SpawnPoint spawner = spawnerObject.GetComponent<SpawnPoint>();
-            spawner.Construct(enemyTypeId);
+            spawner.Construct(enemyTypeId
+                // , area
+            );
             spawner.Initialize();
             spawnerObject.transform.SetParent(_spawnersRoot);
         }
 
-        public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
+        public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent
+            // , AreaData area
+        )
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
@@ -70,6 +76,7 @@ namespace CodeBase.Infrastructure.Factories
             ConstructEnemyAttack(typeId, enemyData, enemy);
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Construct(enemyData.Hp);
+            // area.AreaClearChecker.AddEnemy(health);
             return enemy;
         }
 

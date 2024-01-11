@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.StaticData.Weapons;
+using UnityEngine;
 
 namespace CodeBase.Data.Progress.Weapons
 {
     [Serializable]
     public class WeaponsAmmoData : ItemData
     {
-        // private const int InitialGlAmmoCount = 27;
-        private const int InitialGlAmmoCount = 12;
-        private const int InitialRpgAmmoCount = 6;
-        private const int InitialRlAmmoCount = 9;
-        private const int InitialMortarAmmoCount = 3;
+        private const int InitialMobileGlAmmoCount = 18;
+        private const int InitialMobileRpgAmmoCount = 9;
+        private const int InitialMobileRlAmmoCount = 15;
+        private const int InitialMobileMortarAmmoCount = 6;
+        private const int InitialDesktopGlAmmoCount = 12;
+        private const int InitialDesktopRpgAmmoCount = 6;
+        private const int InitialDesktopRlAmmoCount = 9;
+        private const int InitialDesktopMortarAmmoCount = 3;
 
         private HeroWeaponTypeId _currentHeroWeaponTypeId;
         private List<WeaponData> _weaponDatas;
@@ -37,22 +41,44 @@ namespace CodeBase.Data.Progress.Weapons
 
         private void FillAmmo(bool isAsianMode)
         {
-            Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialGlAmmoCount;
+            if (Application.isMobilePlatform)
+            {
+                Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialMobileGlAmmoCount;
 
-            if (!isAsianMode)
-                Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialRpgAmmoCount;
-            else
-                Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialMobileRpgAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
 
-            if (!isAsianMode)
-                Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialRlAmmoCount;
-            else
-                Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialMobileRlAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
 
-            if (!isAsianMode)
-                Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialMortarAmmoCount;
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialMobileMortarAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
+            }
             else
-                Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
+            {
+                Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] = InitialDesktopGlAmmoCount;
+
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.RPG] = InitialDesktopRpgAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.RPG] = 0;
+
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = InitialDesktopRlAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] = 0;
+
+                if (!isAsianMode)
+                    Amunition.Dictionary[HeroWeaponTypeId.Mortar] = InitialDesktopMortarAmmoCount;
+                else
+                    Amunition.Dictionary[HeroWeaponTypeId.Mortar] = 0;
+            }
         }
 
         private void InvokeChanges()

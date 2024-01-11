@@ -8,10 +8,10 @@ namespace CodeBase.Logic
     {
         public string Id;
 
-        private void Start() =>
-            GenerateId();
+        // private void Start() =>
+        //     GenerateId();
 
-        private void GenerateId()
+        public void GenerateId()
         {
             UniqueId[] uniqueIds = FindObjectsOfType<UniqueId>();
 

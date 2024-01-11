@@ -11,6 +11,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/04357ffd4714400887f96e81d706ab7cd400/65/364d40f7/NavMeshAgent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/41914444499f4996a3e6af79cf6c1fdb574b98/ed/4bb24536/Array.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/64861216782042de93237b5c061bff1b951c00/00/9af39cdd/ProfilerWindow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ec8e29954a6455daa48484a381ec41846ac00/33/6ffbe8b0/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/2021.3.14f1-x86_64/Editor/Data/CGIncludes/UnityShaderVariables.cginc" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/CodeBase/Data/Progress/ProgressData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Samples/Web Utility/3.1.0/Playtesting Sample/PlaytestingCanvas.cs" root0="FORCE_HIGHLIGHTING" />
@@ -86,10 +90,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="27140">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="27140" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -236,7 +240,10 @@
       <workItem from="1704723476740" duration="6588000" />
       <workItem from="1704765015685" duration="14106000" />
       <workItem from="1704788097698" duration="4018000" />
-      <workItem from="1704813076231" duration="1678000" />
+      <workItem from="1704813076231" duration="5178000" />
+      <workItem from="1704848235669" duration="11796000" />
+      <workItem from="1704882642693" duration="4203000" />
+      <workItem from="1704950543797" duration="2055000" />
     </task>
     <servers />
   </component>
@@ -356,43 +363,43 @@
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/SettingsWindow.cs</url>
-          <line>52</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Settings\SettingsWindow.cs" initialLine="52" containingFunctionPresentation="Method 'Construct'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Logic/Level/DoorMovement.cs</url>
+          <line>83</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Logic\Level\DoorMovement.cs" initialLine="83" containingFunctionPresentation="Method 'OnTriggerEnter'">
             <startOffsets>
-              <option value="1570" />
+              <option value="2608" />
             </startOffsets>
             <endOffsets>
-              <option value="1571" />
+              <option value="2750" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="74" />
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Elements/Hud/HitRedFlashShower.cs</url>
-          <line>19</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Elements\Hud\HitRedFlashShower.cs" initialLine="19" containingFunctionPresentation="Method 'Construct'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/StaticData/AreaData.cs</url>
+          <line>21</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\StaticData\AreaData.cs" initialLine="21" containingFunctionPresentation="Constructor 'AreaData'">
             <startOffsets>
-              <option value="535" />
+              <option value="663" />
             </startOffsets>
             <endOffsets>
-              <option value="564" />
+              <option value="664" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="77" />
+          <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Infrastructure/States/LoadSceneState.cs</url>
-          <line>193</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Infrastructure\States\LoadSceneState.cs" initialLine="193" containingFunctionPresentation="Method 'InitHud'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Logic/Level/AreaClearChecker.cs</url>
+          <line>22</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Logic\Level\AreaClearChecker.cs" initialLine="22" containingFunctionPresentation="Method 'InitializeAreaStaticData'">
             <startOffsets>
-              <option value="6793" />
+              <option value="642" />
             </startOffsets>
             <endOffsets>
-              <option value="6885" />
+              <option value="697" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="78" />
+          <option name="timeStamp" value="86" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

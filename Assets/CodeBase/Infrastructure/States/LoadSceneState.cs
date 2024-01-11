@@ -53,6 +53,7 @@ namespace CodeBase.Infrastructure.States
         private IAdsService _adsService;
         private GameObject _hero;
         private OpenSettings _openSettings;
+        private AreaClearChecker _areaClearChecker;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
@@ -174,7 +175,15 @@ namespace CodeBase.Infrastructure.States
         private async Task InitSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
-                await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId);
+            {
+                // foreach (AreaData area in levelData.Areas)
+                // {
+                //     if (spawnerData.AreaTypeId == area.AreaTypeId)
+                await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId
+                    // , area
+                );
+                // }
+            }
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelStaticData) =>

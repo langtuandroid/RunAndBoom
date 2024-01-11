@@ -8,11 +8,13 @@ namespace CodeBase.StaticData
     public class EnemySpawnerData
     {
         public EnemyTypeId EnemyTypeId;
+        public AreaTypeId AreaTypeId;
         public Vector3 Position;
 
-        public EnemySpawnerData(EnemyTypeId enemyTypeId, Vector3 position)
+        public EnemySpawnerData(EnemyTypeId enemyTypeId, AreaTypeId areaTypeId, Vector3 position)
         {
             EnemyTypeId = enemyTypeId;
+            AreaTypeId = areaTypeId;
             Position = position;
         }
     }

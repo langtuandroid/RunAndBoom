@@ -1,23 +1,28 @@
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    public class RotateToHero : MonoBehaviour
+    public class RotateToHero : MonoBehaviour, IOnOffable
     {
         [SerializeField] private float _speed;
 
         private Transform _heroTransform;
         private Vector3 _directionToLook;
         private Quaternion _targetRotation;
+        private bool _run;
 
         private void Update()
         {
-            if (_heroTransform)
+            if (_heroTransform && _run)
                 RotateTowardsHero();
         }
 
-        public void Construct(Transform heroTransform) =>
+        public void Construct(Transform heroTransform)
+        {
             _heroTransform = heroTransform;
+            On();
+        }
 
         private void RotateTowardsHero()
         {
@@ -41,5 +46,11 @@ namespace CodeBase.Enemy
 
         private float SpeedFactor() =>
             _speed * Time.deltaTime;
+
+        public void On() =>
+            _run = true;
+
+        public void Off() =>
+            _run = false;
     }
 }

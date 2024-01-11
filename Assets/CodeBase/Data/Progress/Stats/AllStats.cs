@@ -34,7 +34,7 @@ namespace CodeBase.Data.Progress.Stats
         public void StartNewLevel(SceneId sceneId, int targetPlayTime, int maxStarsScore, int totalEnemies)
         {
             SaveCurrentLevelStats();
-            CurrentLevelStats = new LevelStats(sceneId, targetPlayTime,  maxStarsScore, totalEnemies);
+            CurrentLevelStats = new LevelStats(sceneId, targetPlayTime, maxStarsScore, totalEnemies);
         }
 
         public void SaveCurrentLevelStats() =>

@@ -16,7 +16,9 @@ namespace CodeBase.UI.Windows.Results
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _toNextWindowButton;
         [SerializeField] private StarsPanel _starsPanel;
+
         [SerializeField] private TextMeshProUGUI _playTimeCount;
+
         // [SerializeField] private TextMeshProUGUI _killed;
         // [SerializeField] private TextMeshProUGUI _totalEnemies;
         [SerializeField] private TextMeshProUGUI _restartsCount;

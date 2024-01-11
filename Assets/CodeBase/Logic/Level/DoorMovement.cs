@@ -1,5 +1,5 @@
-﻿using CodeBase.Data;
-using CodeBase.Data.Settings;
+﻿using CodeBase.Data.Settings;
+using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
@@ -15,6 +15,7 @@ namespace CodeBase.Logic.Level
         [SerializeField] private float _minY;
         [SerializeField] private float _maxY;
         [SerializeField] private float _speed = 10f;
+        [SerializeField] private AreaClearChecker _areaClearChecker;
 
         private AudioSource _audioSource;
         private float _positionY;
@@ -67,10 +68,8 @@ namespace CodeBase.Logic.Level
             _close = true;
         }
 
-        private void Update()
-        {
+        private void Update() =>
             MoveDoor();
-        }
 
         private void MoveDoor()
         {
@@ -82,10 +81,11 @@ namespace CodeBase.Logic.Level
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag(Constants.HeroTag) && _close == false)
+            if (other.TryGetComponent(out HeroHealth heroHealth) && _close == false
+                // && _areaClearChecker.IsAreaClear()
+               )
             {
                 _targetY = _minY;
-                SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
                     _volume, _audioSource);
@@ -94,10 +94,9 @@ namespace CodeBase.Logic.Level
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareByTag(Constants.HeroTag) && _close == false)
+            if (other.TryGetComponent(out HeroHealth heroHealth) && _close == false)
             {
                 _targetY = _maxY;
-                SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening);
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
                     _volume, _audioSource);

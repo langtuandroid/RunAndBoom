@@ -15,12 +15,13 @@ namespace CodeBase.Data.Progress
         public AllStats AllStats;
         public bool IsAsianMode;
 
-        public ProgressData(SceneId initialLevel, int targetPlayTime, int maxStarsScore, int totalEnemies, bool isAsianMode)
+        public ProgressData(SceneId initialLevel, int targetPlayTime, int maxStarsScore, int totalEnemies,
+            bool isAsianMode)
         {
             AllStats = new AllStats();
 
             if (AllStats.CurrentLevelStats == null)
-                AllStats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime,  maxStarsScore, totalEnemies);
+                AllStats.CurrentLevelStats = new LevelStats(initialLevel, targetPlayTime, maxStarsScore, totalEnemies);
 
             HealthState = new HealthState(AllStats.CurrentLevelStats.SceneId);
             WorldData = new WorldData(AllStats.CurrentLevelStats.SceneId.ToString());
