@@ -1,6 +1,8 @@
 ﻿using CodeBase.Services.Ads;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
@@ -28,11 +30,11 @@ namespace CodeBase.UI.Windows.Start
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, IPlayerProgressService progressService,
-            IAdsService adsService)
+            IAdsService adsService, MobileInput mobileInput, MoveJoystick moveJoystick, LookJoystick lookJoystick)
         {
             _progressService = progressService;
             _adsService = adsService;
-            base.Construct(hero, WindowId.Start, openSettings);
+            base.Construct(hero, WindowId.Start, openSettings, mobileInput, moveJoystick, lookJoystick);
 
             if (Application.isEditor)
                 return;

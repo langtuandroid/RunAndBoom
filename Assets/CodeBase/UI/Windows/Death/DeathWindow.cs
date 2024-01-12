@@ -1,5 +1,7 @@
 ﻿using CodeBase.Hero;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -46,8 +48,9 @@ namespace CodeBase.UI.Windows.Death
             AdsService.OnShowVideoAdError -= ShowError;
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings) =>
-            base.Construct(hero, WindowId.Death, openSettings);
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
+            MoveJoystick moveJoystick, LookJoystick lookJoystick) =>
+            base.Construct(hero, WindowId.Death, openSettings, mobileInput, moveJoystick, lookJoystick);
 
         protected override void AdsServiceInitializedSuccess()
         {

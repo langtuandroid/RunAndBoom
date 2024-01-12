@@ -9,12 +9,12 @@ namespace CodeBase.Logic
         {
             if (hero.GetComponent<HeroShooting>() != null)
             {
+                hero.GetComponentInChildren<PlayTimer>().enabled = false;
                 hero.GetComponent<HeroShooting>().TurnOff();
                 // hero.GetComponent<HeroMovement>().TurnOff();
                 hero.GetComponent<HeroRotating>().TurnOff();
                 hero.GetComponent<HeroReloading>().TurnOff();
                 hero.GetComponentInChildren<HeroWeaponSelection>().TurnOff();
-                hero.GetComponentInChildren<PlayTimer>().enabled = false;
             }
         }
 

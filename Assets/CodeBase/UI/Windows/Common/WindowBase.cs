@@ -13,6 +13,8 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
@@ -38,6 +40,9 @@ namespace CodeBase.UI.Windows.Common
         protected SceneId CurrentLevel;
         private OpenSettings _openSettings;
         private bool _isInitial;
+        private MobileInput _mobileInput;
+        private MoveJoystick _moveJoystick;
+        private LookJoystick _lookJoystick;
 
         private void Awake() =>
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
@@ -77,8 +82,11 @@ namespace CodeBase.UI.Windows.Common
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
-        protected void Construct(GameObject hero, WindowId windowId, OpenSettings openSettings)
+        protected void Construct(GameObject hero, WindowId windowId, OpenSettings openSettings, MobileInput mobileInput,
+            MoveJoystick moveJoystick, LookJoystick lookJoystick)
         {
+            _moveJoystick = moveJoystick;
+            _lookJoystick = lookJoystick;
             WindowService = AllServices.Container.Single<IWindowService>();
             SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
             GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
@@ -89,6 +97,7 @@ namespace CodeBase.UI.Windows.Common
             Hero = hero;
             _windowId = windowId;
             _openSettings = openSettings;
+            _mobileInput = mobileInput;
             _isInitial = true;
         }
 
@@ -105,6 +114,9 @@ namespace CodeBase.UI.Windows.Common
                 Hero.ResumeHero();
                 Time.timeScale = Constants.TimeScaleResume;
                 _openSettings.On();
+
+                if (_mobileInput != null)
+                    _mobileInput.On();
             }
         }
 
@@ -118,6 +130,9 @@ namespace CodeBase.UI.Windows.Common
                 ShowCursor(showCursor);
 
             _openSettings.Off();
+
+            if (_mobileInput != null)
+                _mobileInput.Off();
 
             if (!_isInitial)
                 PlayOpenSound();
@@ -142,8 +157,6 @@ namespace CodeBase.UI.Windows.Common
             SoundInstance.InstantiateOnTransform(
                 audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: Hero.transform,
                 Volume, AudioSource);
-            Debug.Log("PlayOpenSound");
-            Debug.Log($"Volume {Volume}");
         }
 
         public void LoadProgressData(ProgressData progressData)

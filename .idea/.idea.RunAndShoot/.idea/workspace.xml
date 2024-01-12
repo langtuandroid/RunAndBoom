@@ -90,10 +90,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="19552">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="19552" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -246,6 +246,8 @@
       <workItem from="1704950543797" duration="2055000" />
       <workItem from="1705032578751" duration="752000" />
       <workItem from="1705042506682" duration="1375000" />
+      <workItem from="1705049440043" duration="2607000" />
+      <workItem from="1705052451536" duration="4756000" />
     </task>
     <servers />
   </component>
@@ -340,13 +342,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/LeaderBoard/LeaderBoardWindow.cs</url>
-          <line>235</line>
+          <line>238</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\LeaderBoard\LeaderBoardWindow.cs" initialLine="235" containingFunctionPresentation="Method 'ToGameEndWindow'">
             <startOffsets>
-              <option value="9129" />
+              <option value="9369" />
             </startOffsets>
             <endOffsets>
-              <option value="9181" />
+              <option value="9421" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="71" />
@@ -404,17 +406,30 @@
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Hero/HeroWeaponSelection.cs</url>
-          <line>77</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Hero\HeroWeaponSelection.cs" initialLine="77" containingFunctionPresentation="Method 'TurnOff'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
+          <line>134</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="124" containingFunctionPresentation="Method 'Show'">
             <startOffsets>
-              <option value="2746" />
+              <option value="5025" />
             </startOffsets>
             <endOffsets>
-              <option value="2764" />
+              <option value="5044" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="88" />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
+          <line>118</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="110" containingFunctionPresentation="Method 'Hide'">
+            <startOffsets>
+              <option value="4583" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4601" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="92" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

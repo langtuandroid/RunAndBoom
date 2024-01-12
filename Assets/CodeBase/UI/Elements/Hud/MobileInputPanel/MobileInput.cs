@@ -10,5 +10,11 @@ namespace CodeBase.UI.Elements.Hud.MobileInputPanel
 
         private void Awake() =>
             _panel.SetActive(AllServices.Container.Single<IInputService>() is MobileInputService);
+
+        public void On() =>
+            gameObject.SetActive(true);
+
+        public void Off() =>
+            gameObject.SetActive(false);
     }
 }

@@ -14,6 +14,9 @@ namespace CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks
 
         private void OnEnable()
         {
+            Input = Vector2.zero;
+            MovementFinger = null;
+            Joystick.Knob.anchoredPosition = Vector2.zero;
             EnhancedTouchSupport.Enable();
             Touch.onFingerDown += HandleFingerDown;
             Touch.onFingerUp += HandleLoseFinger;

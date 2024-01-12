@@ -12,6 +12,7 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
 using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Elements.Hud.WeaponsPanel;
 using CodeBase.UI.Services.Factory;
@@ -54,6 +55,9 @@ namespace CodeBase.Infrastructure.States
         private GameObject _hero;
         private OpenSettings _openSettings;
         private AreaClearChecker _areaClearChecker;
+        private MobileInput _mobileInput;
+        private MoveJoystick _moveJoystick;
+        private LookJoystick _lookJoystick;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain, IGameFactory gameFactory, IEnemyFactory enemyFactory,
@@ -207,10 +211,10 @@ namespace CodeBase.Infrastructure.States
 
             if (_inputService is MobileInputService)
             {
-                MoveJoystick moveJoystick = _hud.GetComponentInChildren<MoveJoystick>();
-                LookJoystick lookJoystick = _hud.GetComponentInChildren<LookJoystick>();
-                hero.GetComponent<HeroMovement>().ConstructMobilePlatform(_staticDataService, moveJoystick);
-                hero.GetComponent<HeroRotating>().ConstructMobilePlatform(lookJoystick, _progressService);
+                _moveJoystick = _hud.GetComponentInChildren<MoveJoystick>();
+                _lookJoystick = _hud.GetComponentInChildren<LookJoystick>();
+                hero.GetComponent<HeroMovement>().ConstructMobilePlatform(_staticDataService, _moveJoystick);
+                hero.GetComponent<HeroRotating>().ConstructMobilePlatform(_lookJoystick, _progressService);
             }
             else
             {
@@ -235,26 +239,39 @@ namespace CodeBase.Infrastructure.States
             if (_openSettings == null)
                 _openSettings = _hud.GetComponent<OpenSettings>();
 
+            if (_mobileInput == null)
+                _mobileInput = _hud.GetComponentInChildren<MobileInput>();
+
             GameObject shopWindow = await _uiFactory.CreateShopWindow();
-            shopWindow.GetComponent<ShopWindow>().Construct(hero, _openSettings);
+            shopWindow.GetComponent<ShopWindow>()
+                .Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             shopWindow.GetComponent<ShopItemsGenerator>()?.Construct(hero);
             GameObject deathWindow = await _uiFactory.CreateDeathWindow();
-            deathWindow.GetComponent<DeathWindow>().Construct(hero, _openSettings);
+            deathWindow.GetComponent<DeathWindow>()
+                .Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject settingsWindow = await _uiFactory.CreateSettingsWindow();
-            settingsWindow.GetComponent<SettingsWindow>().Construct(hero, _openSettings);
+            settingsWindow.GetComponent<SettingsWindow>()
+                .Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject giftsWindow = await _uiFactory.CreateGiftsWindow();
             giftsWindow.GetComponent<GiftsGenerator>()?.Construct(hero);
-            giftsWindow.GetComponent<GiftsWindow>()?.Construct(hero, _openSettings);
+            giftsWindow.GetComponent<GiftsWindow>()
+                ?.Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject resultsWindow = await _uiFactory.CreateResultsWindow();
-            resultsWindow.GetComponent<ResultsWindow>()?.Construct(hero, _openSettings);
+            resultsWindow.GetComponent<ResultsWindow>()
+                ?.Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject authorizationWindow = await _uiFactory.CreateAuthorizationWindow();
-            authorizationWindow.GetComponent<AuthorizationWindow>()?.Construct(hero, _openSettings);
+            authorizationWindow.GetComponent<AuthorizationWindow>()
+                ?.Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject leaderBoardWindow = await _uiFactory.CreateLeaderBoardWindow();
-            leaderBoardWindow.GetComponent<LeaderBoardWindow>()?.Construct(hero, _openSettings);
+            leaderBoardWindow.GetComponent<LeaderBoardWindow>()
+                ?.Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject gameEndWindow = await _uiFactory.CreateGameEndWindow();
-            gameEndWindow.GetComponent<GameEndWindow>()?.Construct(hero, _openSettings);
+            gameEndWindow.GetComponent<GameEndWindow>()
+                ?.Construct(hero, _openSettings, _mobileInput, _moveJoystick, _lookJoystick);
             GameObject startWindow = await _uiFactory.CreateStartWindow();
-            startWindow.GetComponent<StartWindow>()?.Construct(hero, _openSettings, _progressService, _adsService);
+            startWindow.GetComponent<StartWindow>()
+                ?.Construct(hero, _openSettings, _progressService, _adsService, _mobileInput, _moveJoystick,
+                    _lookJoystick);
 
             _windowService.AddWindow(WindowId.Shop, shopWindow);
             _windowService.AddWindow(WindowId.Death, deathWindow);

@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Logic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,7 +15,7 @@ namespace CodeBase.Enemy
 
         private bool _run;
 
-        private void Awake() => 
+        private void Awake() =>
             On();
 
         private void Update()

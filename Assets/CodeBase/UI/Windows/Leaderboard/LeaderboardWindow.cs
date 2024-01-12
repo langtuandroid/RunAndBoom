@@ -3,6 +3,8 @@ using Agava.YandexGames;
 using CodeBase.Data;
 using CodeBase.Data.Progress;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
@@ -56,8 +58,9 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 AdsService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings) =>
-            base.Construct(hero, WindowId.LeaderBoard, openSettings);
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
+            MoveJoystick moveJoystick, LookJoystick lookJoystick) =>
+            base.Construct(hero, WindowId.LeaderBoard, openSettings, mobileInput, moveJoystick, lookJoystick);
 
         public void SetGameLeaderBoard()
         {

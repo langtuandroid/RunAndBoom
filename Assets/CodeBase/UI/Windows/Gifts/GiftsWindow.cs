@@ -2,6 +2,8 @@
 using CodeBase.Infrastructure.States;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Elements.Hud;
+using CodeBase.UI.Elements.Hud.MobileInputPanel;
+using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -52,8 +54,9 @@ namespace CodeBase.UI.Windows.Gifts
             AdsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings) =>
-            base.Construct(hero, WindowId.Gifts, openSettings);
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
+            MoveJoystick moveJoystick, LookJoystick lookJoystick) =>
+            base.Construct(hero, WindowId.Gifts, openSettings, mobileInput, moveJoystick, lookJoystick);
 
         public void AddData(SceneId nextLevel)
         {
