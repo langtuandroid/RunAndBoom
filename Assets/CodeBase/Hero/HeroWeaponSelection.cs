@@ -110,7 +110,6 @@ namespace CodeBase.Hero
         {
             _progressData = progressData;
             FindWeaponContainer(_progressData.WeaponsData.CurrentHeroWeaponTypeId);
-            _canSelect = true;
         }
     }
 }
