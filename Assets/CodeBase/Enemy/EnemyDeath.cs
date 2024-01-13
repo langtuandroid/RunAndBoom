@@ -75,6 +75,7 @@ namespace CodeBase.Enemy
 
         public void Die()
         {
+            _hitBox.SetActive(false);
             _diedBox.SetActive(true);
             Died?.Invoke();
             _heroHealth.Vampire(_health.Max);
@@ -89,7 +90,6 @@ namespace CodeBase.Enemy
             _animateAlongAgent.Off();
             _checkAttackRange.Off();
             _stopMovingOnAttack.Off();
-            _hitBox.SetActive(false);
         }
 
         private IEnumerator CoroutineDestroyTimer()

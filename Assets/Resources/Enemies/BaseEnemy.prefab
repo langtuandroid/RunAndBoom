@@ -464,7 +464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7282656571530433564}
   - component: {fileID: 9189682587486684162}
-  - component: {fileID: 6396720007156576127}
+  - component: {fileID: 7246536926510164226}
   m_Layer: 7
   m_Name: DeadBox
   m_TagString: Enemy
@@ -508,8 +508,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 0.1, z: 0.6}
   m_Center: {x: 0, y: 0.05, z: 0}
---- !u!135 &6396720007156576127
-SphereCollider:
+--- !u!136 &7246536926510164226
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -526,9 +526,11 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0.2, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 0.4
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1001 &959312703399445160
 PrefabInstance:
   m_ObjectHideFlags: 0
