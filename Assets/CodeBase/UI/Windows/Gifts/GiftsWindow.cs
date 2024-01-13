@@ -6,7 +6,6 @@ using CodeBase.UI.Elements.Hud.MobileInputPanel;
 using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,18 +72,54 @@ namespace CodeBase.UI.Windows.Gifts
             _addCoinsButton.enabled = true;
         }
 
+        private void ShowAds()
+        {
+            if (Application.isEditor)
+            {
+                AddCoins();
+                return;
+            }
+
+            Debug.Log("ShowAds");
+            // OffMusic();
+            AdsService.ShowVideoAd();
+        }
+
         private void ShowClosed()
         {
             AdsService.OnClosedVideoAd -= ShowClosed;
-            SoundInstance.StartRandomMusic();
+            Debug.Log("ShowClosed");
+            // OnMusic();
         }
 
         private void ShowError(string message)
         {
             Debug.Log($"OnErrorFullScreenAd: {message}");
             AdsService.OnShowVideoAdError -= ShowError;
-            SoundInstance.StartRandomMusic();
+            Debug.Log("ShowError");
+            // OnMusic();
         }
+
+        private void AddCoinsAfterAds()
+        {
+            AdsService.OnRewardedAd -= AddCoinsAfterAds;
+            // OnMusic();
+            AddCoins();
+            Debug.Log("AddCoinsAfterAds");
+        }
+
+        private void AddCoins()
+        {
+            ProgressData.AllStats.AddMoney(_coinsCount);
+            _addCoinsButton.enabled = false;
+        }
+
+        // protected override void PlayOpenSound()
+        // {
+        //     SoundInstance.InstantiateOnTransform(
+        //         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.VictoryMusic), transform: Hero.transform,
+        //         Volume, AudioSource);
+        // }
 
         private void ToNextLevel()
         {
@@ -110,38 +145,6 @@ namespace CodeBase.UI.Windows.Gifts
         {
             Hide();
             Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        private void ShowAds()
-        {
-            if (Application.isEditor)
-            {
-                AddCoins();
-                return;
-            }
-
-            SoundInstance.StopRandomMusic();
-            AdsService.ShowVideoAd();
-        }
-
-        private void AddCoinsAfterAds()
-        {
-            AddCoins();
-            AdsService.OnRewardedAd -= AddCoinsAfterAds;
-        }
-
-        private void AddCoins()
-        {
-            ProgressData.AllStats.AddMoney(_coinsCount);
-            _addCoinsButton.enabled = false;
-        }
-
-        protected override void PlayOpenSound()
-        {
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.VictoryMusic), transform: Hero.transform,
-                Volume, AudioSource);
-            // SoundInstance.StopRandomMusic(false);
         }
     }
 }
