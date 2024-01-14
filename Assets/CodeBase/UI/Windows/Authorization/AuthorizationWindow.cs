@@ -3,7 +3,6 @@ using CodeBase.Services;
 using CodeBase.Services.PlayerAuthorization;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.MobileInputPanel;
-using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.LeaderBoard;
@@ -42,9 +41,8 @@ namespace CodeBase.UI.Windows.Authorization
                 _applyButton.onClick.RemoveListener(ToLeaderBoardWindow);
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
-            MoveJoystick moveJoystick, LookJoystick lookJoystick) =>
-            base.Construct(hero, WindowId.LeaderBoard, openSettings, mobileInput, moveJoystick, lookJoystick);
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
+            base.Construct(hero, WindowId.LeaderBoard, openSettings, mobileInput);
 
         private void Authorize()
         {

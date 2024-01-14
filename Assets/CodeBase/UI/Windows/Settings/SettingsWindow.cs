@@ -1,6 +1,5 @@
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.MobileInputPanel;
-using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Settings.Audio;
@@ -36,10 +35,9 @@ namespace CodeBase.UI.Windows.Settings
                 Close();
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
-            MoveJoystick moveJoystick, LookJoystick lookJoystick)
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput)
         {
-            base.Construct(hero, WindowId.Settings, openSettings, mobileInput, moveJoystick, lookJoystick);
+            base.Construct(hero, WindowId.Settings, openSettings, mobileInput);
 
             if (_heroTransform == null)
                 _heroTransform = hero.transform;

@@ -1,7 +1,6 @@
 ﻿using System;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.MobileInputPanel;
-using CodeBase.UI.Elements.Hud.MobileInputPanel.Joysticks;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
@@ -35,9 +34,8 @@ namespace CodeBase.UI.Windows.Shop
             _generator.GenerationEnded -= CheckRefreshButtons;
         }
 
-        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput,
-            MoveJoystick moveJoystick, LookJoystick lookJoystick) =>
-            base.Construct(hero, WindowId.Shop, openSettings, mobileInput, moveJoystick, lookJoystick);
+        public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
+            base.Construct(hero, WindowId.Shop, openSettings, mobileInput);
 
         public void AddCounts(int maxRefreshCount, int watchAdsNumber)
         {
