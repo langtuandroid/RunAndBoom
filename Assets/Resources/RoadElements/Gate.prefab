@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 8202281675316761909}
   - component: {fileID: 8202281675316761908}
   - component: {fileID: 3863178973430695603}
-  - component: {fileID: 1863940560365311219}
+  - component: {fileID: 3144335016879518852}
   - component: {fileID: 893376430031789071}
   m_Layer: 10
   m_Name: DoorTrigger
@@ -736,7 +736,7 @@ MonoBehaviour:
   _minY: 0
   _maxY: 0
   _speed: 5
---- !u!114 &1863940560365311219
+--- !u!114 &3144335016879518852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -745,11 +745,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8202281675316762058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 951f0f27d88d4750b1a32ec4d10e716d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a59465d5bfd4d82a592a78a3423203c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _areaTypeId: 0
-  _spawnMarkers: []
+  _enemyCheckers: []
 --- !u!82 &893376430031789071
 AudioSource:
   m_ObjectHideFlags: 0

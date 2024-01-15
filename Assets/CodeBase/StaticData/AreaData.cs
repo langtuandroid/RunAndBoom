@@ -11,13 +11,16 @@ namespace CodeBase.StaticData
     public class AreaData
     {
         public AreaTypeId AreaTypeId;
-        public List<SpawnMarker> SpawnMarkers;
+        public List<SpawnMarkerData> SpawnMarkerDatas;
+        [HideInInspector] public AreaEnemiesContainer AreaEnemiesContainer;
         [HideInInspector] public AreaClearChecker AreaClearChecker;
 
-        public AreaData(AreaTypeId areaTypeId, List<SpawnMarker> spawnMarkers, AreaClearChecker areaClearChecker)
+        public AreaData(AreaTypeId areaTypeId, List<SpawnMarkerData> spawnMarkerDatas,
+            AreaEnemiesContainer areaEnemiesContainer, AreaClearChecker areaClearChecker)
         {
             AreaTypeId = areaTypeId;
-            SpawnMarkers = spawnMarkers;
+            SpawnMarkerDatas = spawnMarkerDatas;
+            AreaEnemiesContainer = areaEnemiesContainer;
             AreaClearChecker = areaClearChecker;
         }
     }

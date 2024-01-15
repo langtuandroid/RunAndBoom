@@ -24,6 +24,8 @@ namespace CodeBase.StaticData.Levels
         public List<EnemySpawnerData> EnemyWithSRSpawners;
         public List<EnemySpawnerData> EnemyWithMGSpawners;
 
-        public List<AreaData> Areas;
+        // public List<AreaData> AreaDatas;
+        // public List<AreaEnemiesContainer> AreaEnemiesContainers;
+        // public List<AreaClearChecker> AreaClearCheckers;
     }
 }

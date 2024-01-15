@@ -15,8 +15,8 @@ namespace CodeBase.Logic.Level
         [SerializeField] private float _minY;
         [SerializeField] private float _maxY;
         [SerializeField] private float _speed = 10f;
-        [SerializeField] private AreaClearChecker _areaClearChecker;
 
+        private AreaTriggersChecker _areaTriggersChecker;
         private AudioSource _audioSource;
         private float _positionY;
         private float _targetY;
@@ -28,6 +28,7 @@ namespace CodeBase.Logic.Level
 
         private void Awake()
         {
+            _areaTriggersChecker = GetComponent<AreaTriggersChecker>();
             _audioSource = GetComponent<AudioSource>();
             _doorTransform = _door.GetComponent<Transform>();
             _positionY = _door.transform.position.y;
@@ -41,6 +42,7 @@ namespace CodeBase.Logic.Level
         private void OnEnable()
         {
             _trigger.Passed += Close;
+            _areaTriggersChecker.Cleared += Open;
 
             if (_settingsData == null)
                 return;
@@ -54,6 +56,7 @@ namespace CodeBase.Logic.Level
         private void OnDisable()
         {
             _trigger.Passed -= Close;
+            _areaTriggersChecker.Cleared -= Open;
 
             if (_settingsData == null)
                 return;
@@ -62,34 +65,13 @@ namespace CodeBase.Logic.Level
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
-        private void Close()
-        {
-            _targetY = _maxY;
-            _close = true;
-        }
-
         private void Update() =>
             MoveDoor();
 
-        private void MoveDoor()
-        {
-            if (_doorTransform.position.y != _targetY)
-                _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
-                    new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z),
-                    _speed * Time.deltaTime);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out HeroHealth heroHealth) && _close == false
-                // && _areaClearChecker.IsAreaClear()
-               )
-            {
-                _targetY = _minY;
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
-                    _volume, _audioSource);
-            }
+            if (other.TryGetComponent(out HeroHealth heroHealth) && _close == false)
+                _areaTriggersChecker.CheckTriggersForEnemies();
         }
 
         private void OnTriggerExit(Collider other)
@@ -101,6 +83,28 @@ namespace CodeBase.Logic.Level
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
                     _volume, _audioSource);
             }
+        }
+
+        private void Close()
+        {
+            _targetY = _maxY;
+            _close = true;
+        }
+
+        private void MoveDoor()
+        {
+            if (_doorTransform.position.y != _targetY)
+                _doorTransform.position = Vector3.MoveTowards(_doorTransform.position,
+                    new Vector3(_doorTransform.position.x, _targetY, _doorTransform.position.z),
+                    _speed * Time.deltaTime);
+        }
+
+        private void Open()
+        {
+            _targetY = _minY;
+            SoundInstance.InstantiateOnTransform(
+                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
+                _volume, _audioSource);
         }
 
         private void VolumeChanged() =>

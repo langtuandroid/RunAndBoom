@@ -1,29 +1,38 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Enemy;
-using CodeBase.Logic.EnemySpawners;
-using CodeBase.StaticData;
 using CodeBase.StaticData.Enemies;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Logic.Level
 {
     public class AreaClearChecker : MonoBehaviour
     {
-        [FormerlySerializedAs("_areaTypeId")] public AreaTypeId AreaTypeId;
+        private AreaTypeId _areaTypeId;
+        private List<EnemyHealth> _enemyHealths;
 
-        [FormerlySerializedAs("_spawnMarkers")]
-        public List<SpawnMarker> SpawnMarkers;
+        public void Initialize(AreaTypeId areaTypeId)
+        {
+            _areaTypeId = areaTypeId;
+            Debug.Log($"Initialize areaTypeId {_areaTypeId}");
+        }
 
-        public AreaData AreaData;
+        public void InitializeEnemyHealths() =>
+            _enemyHealths = new List<EnemyHealth>();
 
-        private List<EnemyHealth> _enemyHealths = new List<EnemyHealth>();
-
-        public void InitializeAreaStaticData() =>
-            AreaData = new AreaData(AreaTypeId, SpawnMarkers, this);
-
-        public void AddEnemy(EnemyHealth enemyHealth) =>
+        public void AddEnemy(EnemyHealth enemyHealth)
+        {
+            Debug.Log($"AddEnemy areaTypeId {_areaTypeId}");
+            Debug.Log($"AddEnemy enemyHealth {enemyHealth}");
             _enemyHealths.Add(enemyHealth);
+        }
+
+        public void AddEnemy(EnemyHealth enemyHealth, AreaTypeId areaTypeId)
+        {
+            Debug.Log($"AddEnemy areaTypeId {_areaTypeId}");
+            Debug.Log($"AddEnemy enemyHealth {enemyHealth}");
+            _areaTypeId = areaTypeId;
+            _enemyHealths.Add(enemyHealth);
+        }
 
         public bool IsAreaClear()
         {

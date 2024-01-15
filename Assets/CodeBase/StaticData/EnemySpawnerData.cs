@@ -1,6 +1,6 @@
 ﻿using System;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData.Enemies;
-using UnityEngine;
 
 namespace CodeBase.StaticData
 {
@@ -8,13 +8,16 @@ namespace CodeBase.StaticData
     public class EnemySpawnerData
     {
         public EnemyTypeId EnemyTypeId;
-        public AreaTypeId AreaTypeId;
-        public Vector3 Position;
 
-        public EnemySpawnerData(EnemyTypeId enemyTypeId, AreaTypeId areaTypeId, Vector3 position)
+        // public AreaTypeId AreaTypeId;
+        public Vector3Data Position;
+
+        public EnemySpawnerData(EnemyTypeId enemyTypeId
+            // , AreaTypeId areaTypeId
+            , Vector3Data position)
         {
             EnemyTypeId = enemyTypeId;
-            AreaTypeId = areaTypeId;
+            // AreaTypeId = areaTypeId;
             Position = position;
         }
     }

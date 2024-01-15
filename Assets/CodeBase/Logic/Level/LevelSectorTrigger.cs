@@ -1,6 +1,6 @@
 using System;
-using CodeBase.Data;
 using CodeBase.Data.Progress;
+using CodeBase.Hero;
 using CodeBase.Services;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Factory;
@@ -37,7 +37,7 @@ namespace CodeBase.Logic.Level
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareByTag(Constants.HeroTag) && _isPassed == false)
+            if (other.TryGetComponent(out HeroHealth health) && _isPassed == false)
             {
                 if (_progressService.ProgressData.AllStats.IsMoneyEnough(MinItemValue))
                     ShowShopWindow();

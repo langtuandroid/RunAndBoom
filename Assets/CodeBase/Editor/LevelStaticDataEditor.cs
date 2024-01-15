@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using CodeBase.Data;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Enemies;
@@ -13,8 +14,6 @@ namespace CodeBase.Editor
     {
         private const string InitialPointTag = "InitialPoint";
 
-        private EnemySpawnerData _enemySpawnerData;
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -23,16 +22,13 @@ namespace CodeBase.Editor
 
             if (GUILayout.Button("Collect"))
             {
-                // AreaClearChecker[] areaClearCheckers = FindObjectsOfType<AreaClearChecker>();
+                SpawnMarker[] findObjectsOfType = FindObjectsOfType<SpawnMarker>();
+                levelData.EnemySpawners =
+                    findObjectsOfType
+                        .Select(x =>
+                            new EnemySpawnerData(x.EnemyTypeId, x.transform.position.AsVectorData()))
+                        .ToList();
 
-                // for (int i = 0; i < areaClearCheckers.Length; i++) 
-                //     areaClearCheckers[i].InitializeAreaStaticData();
-
-                // levelData.Areas = areaClearCheckers
-                //     .Select(x => x.AreaData)
-                //     .ToList();
-
-                levelData.EnemySpawners = new List<EnemySpawnerData>();
                 levelData.EnemyWithBatSpawners.Clear();
                 levelData.EnemyWithPistolSpawners.Clear();
                 levelData.EnemyWithShotgunSpawners.Clear();
@@ -40,36 +36,34 @@ namespace CodeBase.Editor
                 levelData.EnemyWithSRSpawners.Clear();
                 levelData.EnemyWithMGSpawners.Clear();
 
-                foreach (AreaData area in levelData.Areas)
+                foreach (SpawnMarker spawnMarker in findObjectsOfType)
                 {
-                    foreach (SpawnMarker spawnMarker in area.SpawnMarkers)
+                    switch (spawnMarker.EnemyTypeId)
                     {
-                        _enemySpawnerData = new EnemySpawnerData(spawnMarker.EnemyTypeId, area.AreaTypeId,
-                            spawnMarker.transform.position);
-
-                        levelData.EnemySpawners.Add(_enemySpawnerData);
-
-                        switch (spawnMarker.EnemyTypeId)
-                        {
-                            case EnemyTypeId.WithBat:
-                                levelData.EnemyWithBatSpawners.Add(_enemySpawnerData);
-                                break;
-                            case EnemyTypeId.WithPistol:
-                                levelData.EnemyWithPistolSpawners.Add(_enemySpawnerData);
-                                break;
-                            case EnemyTypeId.WithShotgun:
-                                levelData.EnemyWithShotgunSpawners.Add(_enemySpawnerData);
-                                break;
-                            case EnemyTypeId.WithSMG:
-                                levelData.EnemyWithSMGSpawners.Add(_enemySpawnerData);
-                                break;
-                            case EnemyTypeId.WithSniperRifle:
-                                levelData.EnemyWithSRSpawners.Add(_enemySpawnerData);
-                                break;
-                            case EnemyTypeId.WithMG:
-                                levelData.EnemyWithMGSpawners.Add(_enemySpawnerData);
-                                break;
-                        }
+                        case EnemyTypeId.WithBat:
+                            levelData.EnemyWithBatSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
+                        case EnemyTypeId.WithPistol:
+                            levelData.EnemyWithPistolSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
+                        case EnemyTypeId.WithShotgun:
+                            levelData.EnemyWithShotgunSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
+                        case EnemyTypeId.WithSMG:
+                            levelData.EnemyWithSMGSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
+                        case EnemyTypeId.WithSniperRifle:
+                            levelData.EnemyWithSRSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
+                        case EnemyTypeId.WithMG:
+                            levelData.EnemyWithMGSpawners.Add(new EnemySpawnerData(spawnMarker.EnemyTypeId,
+                                spawnMarker.transform.position.AsVectorData()));
+                            break;
                     }
                 }
 

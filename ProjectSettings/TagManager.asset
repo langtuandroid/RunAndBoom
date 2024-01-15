@@ -23,6 +23,12 @@ TagManager:
   - RpgRocketBlast
   - RocketLauncherRocketBlast
   - BombBlast
+  - Ground
+  - Destructable
+  - Wall
+  - Barrier
+  - FinishPoint
+  - InitialPoint
   layers:
   - Default
   - TransparentFX
@@ -40,7 +46,7 @@ TagManager:
   - EnemyProjectile
   - HeroProjectile
   - Dead
-  - 
+  - CheckEnemyTrigger
   - 
   - 
   - 

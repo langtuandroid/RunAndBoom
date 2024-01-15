@@ -76,7 +76,16 @@ namespace CodeBase.Infrastructure.Factories
             ConstructEnemyAttack(typeId, enemyData, enemy);
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Construct(enemyData.Hp);
+            // area.AreaClearChecker.AddEnemy(health,area.AreaTypeId);
             // area.AreaClearChecker.AddEnemy(health);
+            // LevelStaticData levelStaticData = _staticData.ForLevel(SceneId.Level_1);
+            //
+            // foreach (AreaEnemiesContainer areaEnemiesContainer in levelStaticData.AreaEnemiesContainers)
+            // {
+            //     Debug.Log($"AreaTypeId {areaEnemiesContainer.AreaTypeId}");
+            //     Debug.Log($"SpawnMarkers {areaEnemiesContainer.SpawnMarkers}");
+            // }
+
             return enemy;
         }
 

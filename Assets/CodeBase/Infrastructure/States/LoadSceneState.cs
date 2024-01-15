@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CodeBase.Data;
 using CodeBase.Data.Progress;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factories;
@@ -54,7 +55,7 @@ namespace CodeBase.Infrastructure.States
         private IAdsService _adsService;
         private GameObject _hero;
         private OpenSettings _openSettings;
-        private AreaClearChecker _areaClearChecker;
+        private AreaEnemiesContainer _areaEnemiesContainer;
         private MobileInput _mobileInput;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,
@@ -117,19 +118,19 @@ namespace CodeBase.Infrastructure.States
             switch (sceneId)
             {
                 case SceneId.Level_1:
-                    await InitGameWorld();
+                    await InitializeGameWorld();
                     break;
                 case SceneId.Level_2:
-                    await InitGameWorld();
+                    await InitializeGameWorld();
                     break;
                 case SceneId.Level_3:
-                    await InitGameWorld();
+                    await InitializeGameWorld();
                     break;
                 case SceneId.Level_4:
-                    await InitGameWorld();
+                    await InitializeGameWorld();
                     break;
                 case SceneId.Level_5:
-                    await InitGameWorld();
+                    await InitializeGameWorld();
                     break;
             }
 
@@ -143,15 +144,15 @@ namespace CodeBase.Infrastructure.States
                 progressReader.LoadProgressData(_progressService.ProgressData);
         }
 
-        private async Task InitGameWorld()
+        private async Task InitializeGameWorld()
         {
             LevelStaticData levelData = LevelStaticData();
 
             if (levelData.InitializeHeroPosition)
             {
                 _enemyFactory.CreateSpawnersRoot();
-                await InitGameWorld(levelData);
-                await InitSpawners(levelData);
+                await InitializeGameWorld(levelData);
+                await InitializeSpawners(levelData);
             }
         }
 
@@ -164,7 +165,7 @@ namespace CodeBase.Infrastructure.States
             return _staticDataService.ForLevel(sceneId);
         }
 
-        private async Task InitGameWorld(LevelStaticData levelData)
+        private async Task InitializeGameWorld(LevelStaticData levelData)
         {
             _hero = await InitHero(levelData);
             await InitHud(_hero);
@@ -174,16 +175,19 @@ namespace CodeBase.Infrastructure.States
             _hero.StopHero();
         }
 
-        private async Task InitSpawners(LevelStaticData levelData)
+        private async Task InitializeSpawners(LevelStaticData levelData)
         {
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
             {
-                // foreach (AreaData area in levelData.Areas)
+                // foreach (AreaData area in levelData.AreaDatas)
                 // {
                 //     if (spawnerData.AreaTypeId == area.AreaTypeId)
-                await _enemyFactory.CreateSpawner(spawnerData.Position, spawnerData.EnemyTypeId
+                //     {
+                // Debug.Log($"Area {area.AreaTypeId.ToString()}");
+                await _enemyFactory.CreateSpawner(spawnerData.Position.AsUnityVector(), spawnerData.EnemyTypeId
                     // , area
                 );
+                // }
                 // }
             }
         }

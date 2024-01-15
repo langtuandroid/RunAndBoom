@@ -34,11 +34,10 @@ namespace CodeBase.Projectiles
 
         private void CreateTrailVfx(GameObject prefab)
         {
-            Debug.Log($"trailVfx {_trailVfx}");
+            // Debug.Log($"trailVfx {_trailVfx}");
             if (_trailVfx == null)
                 _trailVfx = Instantiate(prefab, _trailPosition.position, Quaternion.identity, _trailPosition);
         }
-
 
         public void ShowTrail() =>
             StartCoroutine(CoroutineShowTrace());

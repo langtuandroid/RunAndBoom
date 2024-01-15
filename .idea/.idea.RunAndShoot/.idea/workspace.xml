@@ -13,6 +13,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/04357ffd4714400887f96e81d706ab7cd400/65/364d40f7/NavMeshAgent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/41914444499f4996a3e6af79cf6c1fdb574b98/ed/4bb24536/Array.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5879d8d225474494bcffdfe64965038e174000/d2/fc9112e0/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/64861216782042de93237b5c061bff1b951c00/00/9af39cdd/ProfilerWindow.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7ec8e29954a6455daa48484a381ec41846ac00/33/6ffbe8b0/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/2021.3.14f1-x86_64/Editor/Data/CGIncludes/UnityShaderVariables.cginc" root0="SKIP_HIGHLIGHTING" />
@@ -90,10 +91,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="26580">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="21360">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="26580" />
+      <option name="pid" value="21360" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -250,6 +251,10 @@
       <workItem from="1705052451536" duration="10476000" />
       <workItem from="1705110212810" duration="8819000" />
       <workItem from="1705206859779" duration="3140000" />
+      <workItem from="1705243374701" duration="7056000" />
+      <workItem from="1705251391913" duration="433000" />
+      <workItem from="1705279489644" duration="18001000" />
+      <workItem from="1705310732112" duration="12929000" />
     </task>
     <servers />
   </component>
@@ -330,19 +335,6 @@
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/ItemBase.cs</url>
-          <line>68</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\ItemBase.cs" initialLine="68" containingFunctionPresentation="Method 'Construct'">
-            <startOffsets>
-              <option value="2633" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2645" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/LeaderBoard/LeaderBoardWindow.cs</url>
           <line>238</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\LeaderBoard\LeaderBoardWindow.cs" initialLine="235" containingFunctionPresentation="Method 'ToGameEndWindow'">
@@ -367,45 +359,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Logic/Level/DoorMovement.cs</url>
-          <line>83</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Logic\Level\DoorMovement.cs" initialLine="83" containingFunctionPresentation="Method 'OnTriggerEnter'">
-            <startOffsets>
-              <option value="2608" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2750" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/StaticData/AreaData.cs</url>
-          <line>21</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\StaticData\AreaData.cs" initialLine="21" containingFunctionPresentation="Constructor 'AreaData'">
-            <startOffsets>
-              <option value="663" />
-            </startOffsets>
-            <endOffsets>
-              <option value="664" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Logic/Level/AreaClearChecker.cs</url>
-          <line>22</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Logic\Level\AreaClearChecker.cs" initialLine="22" containingFunctionPresentation="Method 'InitializeAreaStaticData'">
-            <startOffsets>
-              <option value="642" />
-            </startOffsets>
-            <endOffsets>
-              <option value="697" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
