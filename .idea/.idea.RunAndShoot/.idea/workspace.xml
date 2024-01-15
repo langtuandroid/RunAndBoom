@@ -91,10 +91,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="21360">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="21360" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -254,7 +254,8 @@
       <workItem from="1705243374701" duration="7056000" />
       <workItem from="1705251391913" duration="433000" />
       <workItem from="1705279489644" duration="18001000" />
-      <workItem from="1705310732112" duration="12929000" />
+      <workItem from="1705310732112" duration="13528000" />
+      <workItem from="1705332513638" duration="3888000" />
     </task>
     <servers />
   </component>
@@ -333,19 +334,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/LeaderBoard/LeaderBoardWindow.cs</url>
-          <line>238</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\LeaderBoard\LeaderBoardWindow.cs" initialLine="235" containingFunctionPresentation="Method 'ToGameEndWindow'">
-            <startOffsets>
-              <option value="9216" />
-            </startOffsets>
-            <endOffsets>
-              <option value="9268" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Settings/Audio/AudioButton.cs</url>

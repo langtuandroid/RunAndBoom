@@ -55,7 +55,6 @@ namespace CodeBase.Infrastructure.States
         private IAdsService _adsService;
         private GameObject _hero;
         private OpenSettings _openSettings;
-        private AreaEnemiesContainer _areaEnemiesContainer;
         private MobileInput _mobileInput;
 
         public LoadSceneState(IGameStateMachine gameStateMachine, ISceneLoader sceneLoader,

@@ -10,6 +10,7 @@ namespace CodeBase.Services.Input
         private MouseLook _mouseLook;
 
         public override bool IsAttackButtonUp() => _playerInput.Player.Shoot.IsPressed();
+        public override bool IsLeaderBoardButtonUp() => _playerInput.Player.LeaderBoardWindow.IsPressed();
 
         public override event Action<Vector2> Moved;
         public override event Action<Vector2> Looked;

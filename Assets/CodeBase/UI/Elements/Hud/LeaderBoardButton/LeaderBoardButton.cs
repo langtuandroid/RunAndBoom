@@ -1,4 +1,5 @@
-﻿using CodeBase.Services;
+﻿using System.Collections.Generic;
+using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PlayerAuthorization;
@@ -20,6 +21,12 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
         private IAdsService _adsService;
         private IAuthorization _authorization;
         private bool _isTutorialVisible;
+
+        private List<WindowId> _windowIds = new List<WindowId>()
+        {
+            WindowId.Start, WindowId.Shop, WindowId.Settings,
+            WindowId.Death, WindowId.Gifts, WindowId.GameEnd, WindowId.GameEnd
+        };
 
         private void OnEnable()
         {
@@ -52,16 +59,16 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
 
         private void Update()
         {
-            if (_inputService is MobileInputService || !Input.GetKeyUp(KeyCode.Tab))
-                return;
+            if (_inputService.IsLeaderBoardButtonUp())
+            {
+                CheckAuthorization();
 
-            CheckAuthorization();
+                if (!_isTutorialVisible)
+                    return;
 
-            if (!_isTutorialVisible)
-                return;
-
-            _tutorialPanel.HidePanel();
-            _isTutorialVisible = false;
+                _tutorialPanel.HidePanel();
+                _isTutorialVisible = false;
+            }
         }
 
         private void CheckAuthorization()
@@ -93,9 +100,9 @@ namespace CodeBase.UI.Elements.Hud.LeaderBoardButton
         }
 
         private void ToAuthorizationWindow() =>
-            _windowService.Show<AuthorizationWindow>(WindowId.Authorization, false);
+            _windowService.Show<AuthorizationWindow>(WindowId.Authorization, _windowIds);
 
         private void ToLeaderBoardWindow() =>
-            _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
+            _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, _windowIds);
     }
 }

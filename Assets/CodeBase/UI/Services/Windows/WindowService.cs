@@ -11,6 +11,7 @@ using CodeBase.UI.Windows.Results;
 using CodeBase.UI.Windows.Settings;
 using CodeBase.UI.Windows.Shop;
 using CodeBase.UI.Windows.Start;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
@@ -19,52 +20,71 @@ namespace CodeBase.UI.Services.Windows
     {
         private Dictionary<WindowId, GameObject> _windows;
 
+        private bool _isActive;
+        private WindowBase? _window;
+
         public WindowService()
         {
             _windows = new Dictionary<WindowId, GameObject>(DataExtensions.GetValues<WindowId>().Count());
         }
 
-        public WindowBase? Show<TWindowBase>(WindowId windowId, bool hideOthers = true)
+        public WindowBase? Show<TWindowBase>(WindowId windowId, [CanBeNull] List<WindowId> nonhidableWindows = null,
+            bool hideOthers = true)
         {
-            WindowBase? window = null;
+            _isActive = false;
+
+            if (nonhidableWindows != null)
+            {
+                if (nonhidableWindows.Count > 0)
+                {
+                    foreach (WindowId id in nonhidableWindows)
+                    {
+                        if (IsAnotherActive(id))
+                            _isActive = true;
+                    }
+                }
+            }
+
+            if (_isActive)
+                return _window;
 
             switch (windowId)
             {
                 case WindowId.Unknown:
                     break;
                 case WindowId.Settings:
-                    window = ShowWindow<SettingsWindow>(WindowId.Settings);
+                    _window = ShowWindow<SettingsWindow>(WindowId.Settings);
                     break;
                 case WindowId.Death:
-                    window = ShowWindow<DeathWindow>(WindowId.Death);
+                    _window = ShowWindow<DeathWindow>(WindowId.Death);
                     break;
                 case WindowId.Authorization:
-                    window = ShowWindow<AuthorizationWindow>(WindowId.Authorization);
+                    _window = ShowWindow<AuthorizationWindow>(WindowId.Authorization);
                     break;
                 case WindowId.LeaderBoard:
-                    window = ShowWindow<LeaderBoardWindow>(WindowId.LeaderBoard);
+                    _window = ShowWindow<LeaderBoardWindow>(WindowId.LeaderBoard);
                     break;
                 case WindowId.Shop:
-                    window = ShowWindow<ShopWindow>(WindowId.Shop);
+                    _window = ShowWindow<ShopWindow>(WindowId.Shop);
                     break;
                 case WindowId.Result:
-                    window = ShowWindow<ResultsWindow>(WindowId.Result);
+                    _window = ShowWindow<ResultsWindow>(WindowId.Result);
                     break;
                 case WindowId.Gifts:
-                    window = ShowWindow<GiftsWindow>(WindowId.Gifts);
+                    _window = ShowWindow<GiftsWindow>(WindowId.Gifts);
                     break;
                 case WindowId.GameEnd:
-                    window = ShowWindow<GameEndWindow>(WindowId.GameEnd);
+                    _window = ShowWindow<GameEndWindow>(WindowId.GameEnd);
                     break;
                 case WindowId.Start:
-                    window = ShowWindow<StartWindow>(WindowId.Start);
+                    _window = ShowWindow<StartWindow>(WindowId.Start);
                     break;
             }
 
             if (hideOthers)
                 HideOthers(windowId);
 
-            return window;
+            return _window;
         }
 
         public void ClearAll()

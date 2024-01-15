@@ -21,169 +21,409 @@ MonoBehaviour:
   LevelTransfer:
     TransferTo: 4
   EnemySpawners:
-  - EnemyTypeId: 0
-    Position: {x: 67.3, y: 2.4437504, z: 27.5}
   - EnemyTypeId: 1
-    Position: {x: 80.15, y: 3.7626972, z: 6.5277023}
-  - EnemyTypeId: 0
-    Position: {x: 92.9047, y: 5.057461, z: 6.622368}
-  - EnemyTypeId: 1
-    Position: {x: 58.29, y: 1.1000214, z: 56.429996}
-  - EnemyTypeId: 2
-    Position: {x: 20.04, y: -0.577078, z: 61.39}
-  - EnemyTypeId: 2
-    Position: {x: 0.07, y: -1.4474773, z: 36.75}
-  - EnemyTypeId: 2
-    Position: {x: 32.31, y: -0.5770761, z: 57.44}
-  - EnemyTypeId: 0
-    Position: {x: -4.16, y: -1.44, z: 42.04}
-  - EnemyTypeId: 0
-    Position: {x: -0.15, y: -1.4474773, z: 23}
-  - EnemyTypeId: 0
-    Position: {x: 1.98, y: -0.15499997, z: 63.449997}
-  - EnemyTypeId: 0
-    Position: {x: 68.23, y: 2.4596786, z: 59.679996}
-  - EnemyTypeId: 1
-    Position: {x: 99.55, y: 5.0574627, z: 14.927696}
-  - EnemyTypeId: 1
-    Position: {x: 32.177567, y: -0.57707417, z: 75.156235}
+    Position:
+      X: -3.49
+      Y: -1.4474773
+      Z: 19.43
   - EnemyTypeId: 5
-    Position: {x: 76.23, y: 3.7508926, z: 12.550003}
+    Position:
+      X: 93.44
+      Y: 3.7508945
+      Z: 10.550003
+  - EnemyTypeId: 1
+    Position:
+      X: 3.57
+      Y: -2.58
+      Z: 20.435226
+  - EnemyTypeId: 1
+    Position:
+      X: 80.15
+      Y: 3.7626972
+      Z: 6.5277023
+  - EnemyTypeId: 2
+    Position:
+      X: 67.68
+      Y: 5.057455
+      Z: 21.617699
+  - EnemyTypeId: 0
+    Position:
+      X: 94.62
+      Y: 5.057461
+      Z: 3.4177017
+  - EnemyTypeId: 0
+    Position:
+      X: 67.3
+      Y: 2.4437504
+      Z: 27.5
+  - EnemyTypeId: 0
+    Position:
+      X: 27.19218
+      Y: -0.577078
+      Z: 69.736145
+  - EnemyTypeId: 0
+    Position:
+      X: 1.98
+      Y: -0.15499997
+      Z: 63.449997
+  - EnemyTypeId: 0
+    Position:
+      X: 92.9047
+      Y: 5.057461
+      Z: 6.622368
+  - EnemyTypeId: 0
+    Position:
+      X: -4.16
+      Y: -1.44
+      Z: 42.04
+  - EnemyTypeId: 0
+    Position:
+      X: 72.53026
+      Y: 2.480072
+      Z: 27.298553
+  - EnemyTypeId: 2
+    Position:
+      X: 84.64
+      Y: 3.7626934
+      Z: 9.877701
+  - EnemyTypeId: 1
+    Position:
+      X: -8.36
+      Y: -1.4399834
+      Z: 30.06
+  - EnemyTypeId: 1
+    Position:
+      X: -23.38
+      Y: -1.4399805
+      Z: 29.77
+  - EnemyTypeId: 2
+    Position:
+      X: 26.48664
+      Y: -0.57707417
+      Z: 71.36473
+  - EnemyTypeId: 1
+    Position:
+      X: 99.55
+      Y: 5.0574627
+      Z: 14.927696
+  - EnemyTypeId: 0
+    Position:
+      X: 25.337093
+      Y: -0.57707417
+      Z: 69.77463
+  - EnemyTypeId: 1
+    Position:
+      X: 32.177567
+      Y: -0.57707417
+      Z: 75.156235
   - EnemyTypeId: 5
-    Position: {x: 93.44, y: 3.7508945, z: 10.550003}
-  - EnemyTypeId: 0
-    Position: {x: 94.62, y: 5.057461, z: 3.4177017}
-  - EnemyTypeId: 0
-    Position: {x: 25.337093, y: -0.57707417, z: 69.77463}
+    Position:
+      X: 105.79037
+      Y: 3.8362522
+      Z: -1.2302933
   - EnemyTypeId: 2
-    Position: {x: 69.59, y: 5.0574512, z: 5.247696}
+    Position:
+      X: 0.07
+      Y: -1.4474773
+      Z: 36.75
+  - EnemyTypeId: 0
+    Position:
+      X: 89.06
+      Y: 4.416527
+      Z: 13.757698
   - EnemyTypeId: 2
-    Position: {x: 84.64, y: 3.7626934, z: 9.877701}
+    Position:
+      X: 69.59
+      Y: 5.0574512
+      Z: 5.247696
+  - EnemyTypeId: 0
+    Position:
+      X: 68.23
+      Y: 2.4596786
+      Z: 59.679996
   - EnemyTypeId: 1
-    Position: {x: 69.67, y: 3.3937912, z: 22.6077}
+    Position:
+      X: 17.07
+      Y: -1.225
+      Z: 54.85
   - EnemyTypeId: 2
-    Position: {x: 105.11, y: 5.542, z: 9.387703}
-  - EnemyTypeId: 2
-    Position: {x: 26.48664, y: -0.57707417, z: 71.36473}
-  - EnemyTypeId: 1
-    Position: {x: 3.57, y: -2.58, z: 20.435226}
-  - EnemyTypeId: 0
-    Position: {x: 72.53026, y: 2.480072, z: 27.298553}
-  - EnemyTypeId: 0
-    Position: {x: 89.06, y: 4.416527, z: 13.757698}
-  - EnemyTypeId: 1
-    Position: {x: 58.21, y: 1.0993881, z: 63.109997}
-  - EnemyTypeId: 1
-    Position: {x: -23.38, y: -1.4399805, z: 29.77}
-  - EnemyTypeId: 2
-    Position: {x: 67.68, y: 5.057455, z: 21.617699}
-  - EnemyTypeId: 0
-    Position: {x: 70.17, y: 5.057455, z: 11.5877}
+    Position:
+      X: 20.04
+      Y: -0.577078
+      Z: 61.39
   - EnemyTypeId: 5
-    Position: {x: 105.79037, y: 3.8362522, z: -1.2302933}
+    Position:
+      X: 76.23
+      Y: 3.7508926
+      Z: 12.550003
   - EnemyTypeId: 2
-    Position: {x: 70.255356, y: 2.065, z: 48.949997}
+    Position:
+      X: -14.89
+      Y: -1.4399805
+      Z: 25.52
   - EnemyTypeId: 1
-    Position: {x: 17.07, y: -1.225, z: 54.85}
+    Position:
+      X: 4.52
+      Y: -1.4455795
+      Z: 41.91
+  - EnemyTypeId: 1
+    Position:
+      X: 58.21
+      Y: 1.0993881
+      Z: 63.109997
+  - EnemyTypeId: 1
+    Position:
+      X: 99.96
+      Y: 5.0574684
+      Z: 2.847702
   - EnemyTypeId: 2
-    Position: {x: 72.37, y: 3.6240559, z: 21.457699}
+    Position:
+      X: 72.37
+      Y: 3.6240559
+      Z: 21.457699
+  - EnemyTypeId: 2
+    Position:
+      X: 32.31
+      Y: -0.5770761
+      Z: 57.44
+  - EnemyTypeId: 1
+    Position:
+      X: 58.29
+      Y: 1.1000214
+      Z: 56.429996
   - EnemyTypeId: 0
-    Position: {x: 27.19218, y: -0.577078, z: 69.736145}
+    Position:
+      X: 70.17
+      Y: 5.057455
+      Z: 11.5877
   - EnemyTypeId: 2
-    Position: {x: -14.89, y: -1.4399805, z: 25.52}
-  - EnemyTypeId: 1
-    Position: {x: 99.96, y: 5.0574684, z: 2.847702}
+    Position:
+      X: 105.11
+      Y: 5.542
+      Z: 9.387703
+  - EnemyTypeId: 0
+    Position:
+      X: -0.15
+      Y: -1.4474773
+      Z: 23
   - EnemyTypeId: 2
-    Position: {x: -14.8, y: -1.03, z: 34.4}
+    Position:
+      X: 70.255356
+      Y: 2.065
+      Z: 48.949997
+  - EnemyTypeId: 2
+    Position:
+      X: -14.8
+      Y: -1.03
+      Z: 34.4
   - EnemyTypeId: 1
-    Position: {x: -8.36, y: -1.4399834, z: 30.06}
-  - EnemyTypeId: 1
-    Position: {x: 4.52, y: -1.4455795, z: 41.91}
-  - EnemyTypeId: 1
-    Position: {x: -3.49, y: -1.4474773, z: 19.43}
+    Position:
+      X: 69.67
+      Y: 3.3937912
+      Z: 22.6077
   EnemyWithBatSpawners:
   - EnemyTypeId: 0
-    Position: {x: 67.3, y: 2.4437504, z: 27.5}
+    Position:
+      X: 94.62
+      Y: 5.057461
+      Z: 3.4177017
   - EnemyTypeId: 0
-    Position: {x: 92.9047, y: 5.057461, z: 6.622368}
+    Position:
+      X: 67.3
+      Y: 2.4437504
+      Z: 27.5
   - EnemyTypeId: 0
-    Position: {x: -4.16, y: -1.44, z: 42.04}
+    Position:
+      X: 27.19218
+      Y: -0.577078
+      Z: 69.736145
   - EnemyTypeId: 0
-    Position: {x: -0.15, y: -1.4474773, z: 23}
+    Position:
+      X: 1.98
+      Y: -0.15499997
+      Z: 63.449997
   - EnemyTypeId: 0
-    Position: {x: 1.98, y: -0.15499997, z: 63.449997}
+    Position:
+      X: 92.9047
+      Y: 5.057461
+      Z: 6.622368
   - EnemyTypeId: 0
-    Position: {x: 68.23, y: 2.4596786, z: 59.679996}
+    Position:
+      X: -4.16
+      Y: -1.44
+      Z: 42.04
   - EnemyTypeId: 0
-    Position: {x: 94.62, y: 5.057461, z: 3.4177017}
+    Position:
+      X: 72.53026
+      Y: 2.480072
+      Z: 27.298553
   - EnemyTypeId: 0
-    Position: {x: 25.337093, y: -0.57707417, z: 69.77463}
+    Position:
+      X: 25.337093
+      Y: -0.57707417
+      Z: 69.77463
   - EnemyTypeId: 0
-    Position: {x: 72.53026, y: 2.480072, z: 27.298553}
+    Position:
+      X: 89.06
+      Y: 4.416527
+      Z: 13.757698
   - EnemyTypeId: 0
-    Position: {x: 89.06, y: 4.416527, z: 13.757698}
+    Position:
+      X: 68.23
+      Y: 2.4596786
+      Z: 59.679996
   - EnemyTypeId: 0
-    Position: {x: 70.17, y: 5.057455, z: 11.5877}
+    Position:
+      X: 70.17
+      Y: 5.057455
+      Z: 11.5877
   - EnemyTypeId: 0
-    Position: {x: 27.19218, y: -0.577078, z: 69.736145}
+    Position:
+      X: -0.15
+      Y: -1.4474773
+      Z: 23
   EnemyWithPistolSpawners:
   - EnemyTypeId: 1
-    Position: {x: 80.15, y: 3.7626972, z: 6.5277023}
+    Position:
+      X: -3.49
+      Y: -1.4474773
+      Z: 19.43
   - EnemyTypeId: 1
-    Position: {x: 58.29, y: 1.1000214, z: 56.429996}
+    Position:
+      X: 3.57
+      Y: -2.58
+      Z: 20.435226
   - EnemyTypeId: 1
-    Position: {x: 99.55, y: 5.0574627, z: 14.927696}
+    Position:
+      X: 80.15
+      Y: 3.7626972
+      Z: 6.5277023
   - EnemyTypeId: 1
-    Position: {x: 32.177567, y: -0.57707417, z: 75.156235}
+    Position:
+      X: -8.36
+      Y: -1.4399834
+      Z: 30.06
   - EnemyTypeId: 1
-    Position: {x: 69.67, y: 3.3937912, z: 22.6077}
+    Position:
+      X: -23.38
+      Y: -1.4399805
+      Z: 29.77
   - EnemyTypeId: 1
-    Position: {x: 3.57, y: -2.58, z: 20.435226}
+    Position:
+      X: 99.55
+      Y: 5.0574627
+      Z: 14.927696
   - EnemyTypeId: 1
-    Position: {x: 58.21, y: 1.0993881, z: 63.109997}
+    Position:
+      X: 32.177567
+      Y: -0.57707417
+      Z: 75.156235
   - EnemyTypeId: 1
-    Position: {x: -23.38, y: -1.4399805, z: 29.77}
+    Position:
+      X: 17.07
+      Y: -1.225
+      Z: 54.85
   - EnemyTypeId: 1
-    Position: {x: 17.07, y: -1.225, z: 54.85}
+    Position:
+      X: 4.52
+      Y: -1.4455795
+      Z: 41.91
   - EnemyTypeId: 1
-    Position: {x: 99.96, y: 5.0574684, z: 2.847702}
+    Position:
+      X: 58.21
+      Y: 1.0993881
+      Z: 63.109997
   - EnemyTypeId: 1
-    Position: {x: -8.36, y: -1.4399834, z: 30.06}
+    Position:
+      X: 99.96
+      Y: 5.0574684
+      Z: 2.847702
   - EnemyTypeId: 1
-    Position: {x: 4.52, y: -1.4455795, z: 41.91}
+    Position:
+      X: 58.29
+      Y: 1.1000214
+      Z: 56.429996
   - EnemyTypeId: 1
-    Position: {x: -3.49, y: -1.4474773, z: 19.43}
+    Position:
+      X: 69.67
+      Y: 3.3937912
+      Z: 22.6077
   EnemyWithShotgunSpawners:
   - EnemyTypeId: 2
-    Position: {x: 20.04, y: -0.577078, z: 61.39}
+    Position:
+      X: 67.68
+      Y: 5.057455
+      Z: 21.617699
   - EnemyTypeId: 2
-    Position: {x: 0.07, y: -1.4474773, z: 36.75}
+    Position:
+      X: 84.64
+      Y: 3.7626934
+      Z: 9.877701
   - EnemyTypeId: 2
-    Position: {x: 32.31, y: -0.5770761, z: 57.44}
+    Position:
+      X: 26.48664
+      Y: -0.57707417
+      Z: 71.36473
   - EnemyTypeId: 2
-    Position: {x: 69.59, y: 5.0574512, z: 5.247696}
+    Position:
+      X: 0.07
+      Y: -1.4474773
+      Z: 36.75
   - EnemyTypeId: 2
-    Position: {x: 84.64, y: 3.7626934, z: 9.877701}
+    Position:
+      X: 69.59
+      Y: 5.0574512
+      Z: 5.247696
   - EnemyTypeId: 2
-    Position: {x: 105.11, y: 5.542, z: 9.387703}
+    Position:
+      X: 20.04
+      Y: -0.577078
+      Z: 61.39
   - EnemyTypeId: 2
-    Position: {x: 26.48664, y: -0.57707417, z: 71.36473}
+    Position:
+      X: -14.89
+      Y: -1.4399805
+      Z: 25.52
   - EnemyTypeId: 2
-    Position: {x: 67.68, y: 5.057455, z: 21.617699}
+    Position:
+      X: 72.37
+      Y: 3.6240559
+      Z: 21.457699
   - EnemyTypeId: 2
-    Position: {x: 70.255356, y: 2.065, z: 48.949997}
+    Position:
+      X: 32.31
+      Y: -0.5770761
+      Z: 57.44
   - EnemyTypeId: 2
-    Position: {x: 72.37, y: 3.6240559, z: 21.457699}
+    Position:
+      X: 105.11
+      Y: 5.542
+      Z: 9.387703
   - EnemyTypeId: 2
-    Position: {x: -14.89, y: -1.4399805, z: 25.52}
+    Position:
+      X: 70.255356
+      Y: 2.065
+      Z: 48.949997
   - EnemyTypeId: 2
-    Position: {x: -14.8, y: -1.03, z: 34.4}
+    Position:
+      X: -14.8
+      Y: -1.03
+      Z: 34.4
   EnemyWithSMGSpawners: []
   EnemyWithSRSpawners:
   - EnemyTypeId: 5
-    Position: {x: 76.23, y: 3.7508926, z: 12.550003}
+    Position:
+      X: 93.44
+      Y: 3.7508945
+      Z: 10.550003
   - EnemyTypeId: 5
-    Position: {x: 93.44, y: 3.7508945, z: 10.550003}
+    Position:
+      X: 105.79037
+      Y: 3.8362522
+      Z: -1.2302933
   - EnemyTypeId: 5
-    Position: {x: 105.79037, y: 3.8362522, z: -1.2302933}
+    Position:
+      X: 76.23
+      Y: 3.7508926
+      Z: 12.550003
   EnemyWithMGSpawners: []

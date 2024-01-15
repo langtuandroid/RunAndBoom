@@ -73,7 +73,7 @@ namespace CodeBase.UI.Windows.Authorization
 
         private void ToLeaderBoardWindow()
         {
-            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, false);
+            WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard, null, false);
             Hide();
         }
     }

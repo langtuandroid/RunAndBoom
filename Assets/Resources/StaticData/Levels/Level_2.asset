@@ -22,395 +22,328 @@ MonoBehaviour:
     TransferTo: 3
   EnemySpawners:
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -52.27819
+      Y: 1.3309299
+      Z: 35.802185
+  - EnemyTypeId: 2
+    Position:
+      X: -24.00213
+      Y: 4.142852
+      Z: 79.65286
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: 11.075039
+      Y: 3.3528516
+      Z: 77.94002
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
+      X: -18.943895
+      Y: 1.68119
+      Z: 22.576252
+  - EnemyTypeId: 0
+    Position:
+      X: -49.98248
+      Y: 1.1271122
+      Z: 52.213383
+  - EnemyTypeId: 1
+    Position:
+      X: -48.87248
+      Y: 2.3511121
+      Z: 59.88423
+  - EnemyTypeId: 1
+    Position:
+      X: -48.510715
+      Y: 0.9419299
+      Z: 41.454163
+  - EnemyTypeId: 0
+    Position:
+      X: -22.64544
+      Y: 2.27119
+      Z: 18.869274
+  - EnemyTypeId: 1
+    Position:
+      X: -22.562843
+      Y: 2.0911899
+      Z: 16.6445
+  - EnemyTypeId: 0
+    Position:
+      X: -51.97018
+      Y: 2.32093
+      Z: 29.673931
+  - EnemyTypeId: 0
+    Position:
+      X: -33.037914
+      Y: 3.7228518
+      Z: 82.54364
+  - EnemyTypeId: 1
+    Position:
+      X: -51.0307
+      Y: 2.381112
+      Z: 59.904236
+  - EnemyTypeId: 1
+    Position:
+      X: 0.08503723
+      Y: 2.3428516
+      Z: 79.68002
+  - EnemyTypeId: 0
+    Position:
+      X: -49.71248
+      Y: 2.36093
+      Z: 18.702187
+  - EnemyTypeId: 1
+    Position:
+      X: -20.890053
+      Y: 1.86119
+      Z: 22.34276
+  - EnemyTypeId: 1
+    Position:
+      X: -13.413124
+      Y: 3.0528517
+      Z: 75.99584
+  - EnemyTypeId: 2
+    Position:
+      X: -19.387995
+      Y: 4.2828517
+      Z: 82.67332
+  - EnemyTypeId: 1
+    Position:
+      X: 3.5
+      Y: 1.16
       Z: 0
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -6.724968
+      Y: 2.3528516
+      Z: 76.580025
+  - EnemyTypeId: 0
+    Position:
+      X: -47.64083
+      Y: 2.4411123
+      Z: 63.3544
+  - EnemyTypeId: 0
+    Position:
+      X: 5.985031
+      Y: 2.9228516
+      Z: 82.53003
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -32.980007
+      Y: 3.6128516
+      Z: 77.461586
+  - EnemyTypeId: 0
+    Position:
+      X: -47.68248
+      Y: 2.5109298
+      Z: 29.842869
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -6.7749634
+      Y: 2.3928518
+      Z: 82.650024
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -53.07243
+      Y: 2.4411123
+      Z: 63.481033
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -52.401672
+      Y: 0.6909299
+      Z: 41.417667
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: 1.4671612
+      Y: 1.5765667
+      Z: 19.994503
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -13.371208
+      Y: 3.0528517
+      Z: 77.77757
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -53.748337
+      Y: 2.2409298
+      Z: 29.78944
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -3.5
+      Y: 0.47
+      Z: 0.48002625
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -45.832478
+      Y: 2.7509298
+      Z: 29.939953
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 2
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 2
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 0
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -48.31248
+      Y: 1.3909299
+      Z: 35.872185
   EnemyWithBatSpawners:
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -18.943895
+      Y: 1.68119
+      Z: 22.576252
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -49.98248
+      Y: 1.1271122
+      Z: 52.213383
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -22.64544
+      Y: 2.27119
+      Z: 18.869274
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -51.97018
+      Y: 2.32093
+      Z: 29.673931
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -33.037914
+      Y: 3.7228518
+      Z: 82.54364
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -49.71248
+      Y: 2.36093
+      Z: 18.702187
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -47.64083
+      Y: 2.4411123
+      Z: 63.3544
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: 5.985031
+      Y: 2.9228516
+      Z: 82.53003
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -47.68248
+      Y: 2.5109298
+      Z: 29.842869
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -53.07243
+      Y: 2.4411123
+      Z: 63.481033
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -52.401672
+      Y: 0.6909299
+      Z: 41.417667
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -13.371208
+      Y: 3.0528517
+      Z: 77.77757
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -3.5
+      Y: 0.47
+      Z: 0.48002625
   - EnemyTypeId: 0
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -48.31248
+      Y: 1.3909299
+      Z: 35.872185
   EnemyWithPistolSpawners:
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
+      X: -52.27819
+      Y: 1.3309299
+      Z: 35.802185
+  - EnemyTypeId: 1
+    Position:
+      X: 11.075039
+      Y: 3.3528516
+      Z: 77.94002
+  - EnemyTypeId: 1
+    Position:
+      X: -48.87248
+      Y: 2.3511121
+      Z: 59.88423
+  - EnemyTypeId: 1
+    Position:
+      X: -48.510715
+      Y: 0.9419299
+      Z: 41.454163
+  - EnemyTypeId: 1
+    Position:
+      X: -22.562843
+      Y: 2.0911899
+      Z: 16.6445
+  - EnemyTypeId: 1
+    Position:
+      X: -51.0307
+      Y: 2.381112
+      Z: 59.904236
+  - EnemyTypeId: 1
+    Position:
+      X: 0.08503723
+      Y: 2.3428516
+      Z: 79.68002
+  - EnemyTypeId: 1
+    Position:
+      X: -20.890053
+      Y: 1.86119
+      Z: 22.34276
+  - EnemyTypeId: 1
+    Position:
+      X: -13.413124
+      Y: 3.0528517
+      Z: 75.99584
+  - EnemyTypeId: 1
+    Position:
+      X: 3.5
+      Y: 1.16
       Z: 0
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -32.980007
+      Y: 3.6128516
+      Z: 77.461586
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -53.748337
+      Y: 2.2409298
+      Z: 29.78944
   - EnemyTypeId: 1
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
-  - EnemyTypeId: 1
-    AreaTypeId: 0
-    Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -45.832478
+      Y: 2.7509298
+      Z: 29.939953
   EnemyWithShotgunSpawners:
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -24.00213
+      Y: 4.142852
+      Z: 79.65286
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -19.387995
+      Y: 4.2828517
+      Z: 82.67332
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -6.724968
+      Y: 2.3528516
+      Z: 76.580025
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: -6.7749634
+      Y: 2.3928518
+      Z: 82.650024
   - EnemyTypeId: 2
-    AreaTypeId: 0
     Position:
-      X: 0
-      Y: 0
-      Z: 0
+      X: 1.4671612
+      Y: 1.5765667
+      Z: 19.994503
   EnemyWithSMGSpawners: []
   EnemyWithSRSpawners: []
   EnemyWithMGSpawners: []
-  AreaDatas: []
-  AreaEnemiesContainers: []
-  AreaClearCheckers: []
