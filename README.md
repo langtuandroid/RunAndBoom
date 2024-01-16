@@ -20,3 +20,10 @@ HOW TO PLAY.
 
 
 ![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/1ShopEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/2GLEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/3RPGEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/4DestructionEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/5MortarEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/6RLEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/7ResultEn.PNG?raw=true)
+![alt text](https://github.com/StasonicK/RunAndBoom/blob/develop/8GiftsEn.PNG?raw=true)
