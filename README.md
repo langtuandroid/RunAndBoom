@@ -2,6 +2,7 @@
 
 
 SHORT DESCRIPTION.
+
 "Run and Blast" is a first person shooter with 2 game difficulty modes, 3 songs, 4 guns, 5 levels, 6 enemies, progression and destructible environment. Dare!
 
 
