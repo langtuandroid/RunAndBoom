@@ -1,7 +1,7 @@
 # RunAndBoom
 
 SHORT DESCRIPTION.
-"Run and Blast" is a 1-person shooter with 2 game difficulty modes, 3 songs, 4 guns, 5 levels, 6 enemies, progression and destructible environment. Dare!
+"Run and Blast" is a first person shooter with 2 game difficulty modes, 3 songs, 4 guns, 5 levels, 6 enemies, progression and destructible environment. Dare!
 
 ABOUT THE GAME.
 - The game will be interesting for teenagers and adults.
