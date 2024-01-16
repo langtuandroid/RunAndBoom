@@ -1,5 +1,6 @@
 # RunAndBoom
 
+Platform: WebGL. Web games platform: Yandex Games. Link: https://yandex.com/games/app/223782?draft=true&lang=en
 
 SHORT DESCRIPTION.
 
