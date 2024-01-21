@@ -4,7 +4,7 @@ namespace CodeBase.Services.GameReadyService
 {
     public class YandexGameReadyService : IGameReadyService
     {
-        public void OnGameReadyButtonClick() =>
+        public void GameReady() =>
             YandexGamesSdk.GameReady();
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IGameReadyService : IService
     {
-        void OnGameReadyButtonClick();
+        void GameReady();
     }
 }

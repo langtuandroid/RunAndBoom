@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.GameReadyService;
 using CodeBase.Services.SaveLoad;
 using Plugins.SoundInstance.Core.Static;
@@ -20,12 +21,14 @@ namespace CodeBase.Infrastructure
         private ISaveLoadService _saveLoadService;
         private WaitForSeconds _waitForSeconds;
         private WaitForSeconds _forSeconds;
+        private IAdsService _adsService;
 
         public event Action FadedOut;
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
+            _adsService = AllServices.Container.Single<IAdsService>();
             _waitForSeconds = new WaitForSeconds(PrepareWaiting);
             _forSeconds = new WaitForSeconds(StepAlpha);
         }
@@ -45,21 +48,29 @@ namespace CodeBase.Infrastructure
 
         private IEnumerator FadeOut()
         {
-            if (!Application.isEditor)
-            {
-                AllServices.Container.Single<IGameReadyService>().OnGameReadyButtonClick();
-                Debug.Log("OnGameReadyButtonClick");
-            }
-
             yield return _waitForSeconds;
 
             while (_curtain.alpha > MinimumAlpha)
             {
+                if (_isInitial && !Application.isEditor)
+                {
+                    if (_adsService != null)
+                    {
+                        if (_adsService.IsInitialized())
+                        {
+                            AllServices.Container.Single<IGameReadyService>().GameReady();
+                            Debug.Log("OnGameReadyButtonClick");
+                        }
+                    }
+                }
+
                 _curtain.alpha -= StepAlpha;
                 yield return _forSeconds;
             }
 
+
             FadedOut?.Invoke();
+            _isInitial = false;
             SaveData();
             gameObject.SetActive(false);
         }
