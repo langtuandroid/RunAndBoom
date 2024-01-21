@@ -29,6 +29,7 @@ namespace CodeBase.UI.Windows.Common
         protected IStaticDataService StaticDataService;
         protected IAdsService AdsService;
         protected ILeaderboardService LeaderBoardService;
+        protected IInputService InputService;
         protected AudioSource AudioSource;
         protected GameObject Hero;
         protected float Volume;
@@ -40,9 +41,14 @@ namespace CodeBase.UI.Windows.Common
         private OpenSettings _openSettings;
         private bool _isInitial;
         private MobileInput _mobileInput;
+        protected PlayerInput PlayerInput;
 
-        private void Awake() =>
+        private void Awake()
+        {
+            PlayerInput = new PlayerInput();
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            InputService = AllServices.Container.Single<IInputService>();
+        }
 
         private void OnEnable()
         {

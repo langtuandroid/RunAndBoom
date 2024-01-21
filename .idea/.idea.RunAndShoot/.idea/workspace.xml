@@ -21,6 +21,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Samples/Web Utility/3.1.0/Playtesting Sample/PlaytestingCanvas.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.agava.webutility@32d39130ea/Runtime/WebApplication.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.agava.yandexgames@faf20595c0/Runtime/YandexGamesSdk.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventData/PointerEventData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
@@ -91,10 +92,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="56336">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="56336" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -256,6 +257,11 @@
       <workItem from="1705279489644" duration="18001000" />
       <workItem from="1705310732112" duration="13528000" />
       <workItem from="1705332513638" duration="3888000" />
+      <workItem from="1705384500660" duration="3797000" />
+      <workItem from="1705401577900" duration="320000" />
+      <workItem from="1705402780172" duration="2837000" />
+      <workItem from="1705568356499" duration="1310000" />
+      <workItem from="1705798320382" duration="5759000" />
     </task>
     <servers />
   </component>
@@ -350,26 +356,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
-          <line>128</line>
+          <line>134</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="124" containingFunctionPresentation="Method 'Show'">
             <startOffsets>
-              <option value="4728" />
+              <option value="4953" />
             </startOffsets>
             <endOffsets>
-              <option value="4747" />
+              <option value="4972" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/UI/Windows/Common/WindowBase.cs</url>
-          <line>112</line>
+          <line>118</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\UI\Windows\Common\WindowBase.cs" initialLine="110" containingFunctionPresentation="Method 'Hide'">
             <startOffsets>
-              <option value="4286" />
+              <option value="4511" />
             </startOffsets>
             <endOffsets>
-              <option value="4304" />
+              <option value="4529" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="92" />

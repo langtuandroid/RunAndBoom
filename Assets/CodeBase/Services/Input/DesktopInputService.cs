@@ -11,6 +11,7 @@ namespace CodeBase.Services.Input
 
         public override bool IsAttackButtonUp() => _playerInput.Player.Shoot.IsPressed();
         public override bool IsLeaderBoardButtonUp() => _playerInput.Player.LeaderBoardWindow.IsPressed();
+        public override bool IsEscButtonUp() => _playerInput.Player.ESC.IsPressed();
 
         public override event Action<Vector2> Moved;
         public override event Action<Vector2> Looked;

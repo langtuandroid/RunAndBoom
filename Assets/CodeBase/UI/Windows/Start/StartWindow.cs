@@ -5,6 +5,7 @@ using CodeBase.UI.Elements.Hud.MobileInputPanel;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Start
@@ -16,16 +17,21 @@ namespace CodeBase.UI.Windows.Start
         private IPlayerProgressService _progressService;
         private IAdsService _adsService;
 
-        private void OnEnable() =>
-            _startButton.onClick.AddListener(Close);
-
-        private void OnDisable() =>
-            _startButton.onClick.RemoveListener(Close);
-
-        private void Update()
+        private void OnEnable()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Close();
+            _startButton.onClick.AddListener(Close);
+            PlayerInput.Player.ESC.performed += Close;
+            PlayerInput.Enable();
+        }
+
+        private void Close(InputAction.CallbackContext obj) =>
+            Close();
+
+        private void OnDisable()
+        {
+            _startButton.onClick.RemoveListener(Close);
+            PlayerInput.Player.ESC.performed -= Close;
+            PlayerInput.Disable();
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, IPlayerProgressService progressService,

@@ -45,6 +45,12 @@ namespace CodeBase.Infrastructure
 
         private IEnumerator FadeOut()
         {
+            if (!Application.isEditor)
+            {
+                AllServices.Container.Single<IGameReadyService>().OnGameReadyButtonClick();
+                Debug.Log("OnGameReadyButtonClick");
+            }
+
             yield return _waitForSeconds;
 
             while (_curtain.alpha > MinimumAlpha)
@@ -56,12 +62,6 @@ namespace CodeBase.Infrastructure
             FadedOut?.Invoke();
             SaveData();
             gameObject.SetActive(false);
-
-            if (!Application.isEditor)
-            {
-                AllServices.Container.Single<IGameReadyService>().OnGameReadyButtonClick();
-                Debug.Log("OnGameReadyButtonClick");
-            }
         }
 
         private void SaveData()

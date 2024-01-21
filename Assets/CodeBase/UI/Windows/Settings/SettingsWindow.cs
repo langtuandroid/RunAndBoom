@@ -4,6 +4,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.Settings.Audio;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Settings
@@ -21,19 +22,20 @@ namespace CodeBase.UI.Windows.Settings
         {
             _restartButton.onClick.AddListener(Restart);
             _closeButton.onClick.AddListener(Close);
+            PlayerInput.Player.ESC.performed += Close;
+            PlayerInput.Enable();
         }
 
         private void OnDisable()
         {
             _restartButton.onClick.RemoveListener(Restart);
             _closeButton.onClick.RemoveListener(Close);
+            PlayerInput.Player.ESC.performed -= Close;
+            PlayerInput.Disable();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Close();
-        }
+        private void Close(InputAction.CallbackContext obj) =>
+            Close();
 
         public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput)
         {

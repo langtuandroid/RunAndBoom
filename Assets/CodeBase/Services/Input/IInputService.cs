@@ -7,6 +7,7 @@ namespace CodeBase.Services.Input
     {
         bool IsAttackButtonUp();
         bool IsLeaderBoardButtonUp();
+        bool IsEscButtonUp();
 
         public event Action<Vector2> Moved;
         public event Action<Vector2> Looked;

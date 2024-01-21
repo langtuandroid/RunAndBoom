@@ -3,6 +3,7 @@ using CodeBase.Services.Input;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Settings;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements.Hud
@@ -12,38 +13,35 @@ namespace CodeBase.UI.Elements.Hud
         [SerializeField] private Button _settingsButton;
 
         private IWindowService _windowService;
+        private IInputService _inputService;
+        private PlayerInput _playerInput;
+
+        private void Awake() =>
+            _playerInput = new PlayerInput();
 
         private void Start()
         {
             _windowService = AllServices.Container.Single<IWindowService>();
-
-            if (AllServices.Container.Single<IInputService>() is DesktopInputService)
-            {
-                _settingsButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                _settingsButton.gameObject.SetActive(true);
-                _settingsButton.onClick.AddListener(ShowSettingsWindow);
-            }
+            _inputService = AllServices.Container.Single<IInputService>();
+            _settingsButton.gameObject.SetActive(_inputService is not DesktopInputService);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                ShowSettingsWindow();
-        }
-
-        private void ShowSettingsWindow()
+        private void ShowSettingsWindow(InputAction.CallbackContext callbackContext)
         {
             enabled = false;
             _windowService.Show<SettingsWindow>(WindowId.Settings);
         }
 
-        public void On() =>
-            _settingsButton.onClick.AddListener(ShowSettingsWindow);
+        public void On()
+        {
+            _playerInput.Player.ESC.performed += ShowSettingsWindow;
+            _playerInput.Enable();
+        }
 
-        public void Off() =>
-            _settingsButton.onClick.RemoveListener(ShowSettingsWindow);
+        public void Off()
+        {
+            _playerInput.Player.ESC.performed -= ShowSettingsWindow;
+            _playerInput.Disable();
+        }
     }
 }
