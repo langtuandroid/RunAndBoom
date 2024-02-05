@@ -1,4 +1,5 @@
-﻿using CodeBase.Data.Progress;
+﻿using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.Services.Input;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
@@ -38,21 +39,13 @@ namespace CodeBase.UI.Windows.Common
             if (CostText != null)
                 CostText.text = $"{_shopAmmoStaticData.Cost}";
 
-            int count = GetCount(_shopAmmoStaticData.Count);
+            int count = InputService.GetCount(_shopAmmoStaticData.Count);
 
             CountText.text = $"{count}";
             TitleText.text =
                 LocalizationService.GetText(russian: $"{count} {_shopAmmoStaticData.RuTitle}",
                     turkish: $"{count} {_shopAmmoStaticData.TrTitle}",
                     english: $"{count} {_shopAmmoStaticData.EnTitle}");
-        }
-
-        protected int GetCount(int baseCount)
-        {
-            if (InputService is MobileInputService)
-                return (int)(baseCount * Constants.MobileAmmoMultiplier);
-            else
-                return baseCount;
         }
     }
 }

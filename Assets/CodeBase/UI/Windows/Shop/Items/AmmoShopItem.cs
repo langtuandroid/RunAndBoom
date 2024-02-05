@@ -1,4 +1,5 @@
-﻿using CodeBase.Data.Progress;
+﻿using CodeBase.Data;
+using CodeBase.Data.Progress;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
 using Plugins.SoundInstance.Core.Static;
@@ -22,7 +23,7 @@ namespace CodeBase.UI.Windows.Shop.Items
             {
                 ShopItemBalance.ReduceMoney(_shopAmmoStaticData.Cost);
                 ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
-                    GetCount(_shopAmmoStaticData.Count));
+                    InputService.GetCount(_shopAmmoStaticData.Count));
                 ClearData();
                 SoundInstance.InstantiateOnTransform(
                     audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),

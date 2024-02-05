@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Data.Progress;
 using CodeBase.Logic.EnemySpawners;
+using CodeBase.Services.Input;
 using CodeBase.Services.LeaderBoard;
 using UnityEngine;
 
@@ -69,6 +70,14 @@ namespace CodeBase.Data
                     else
                         return LeaderboardsConstants.LeaderboardStandardGameDifficulty;
             }
+        }
+
+        public static int GetCount(this IInputService inputService, int baseCount)
+        {
+            if (inputService is MobileInputService)
+                return (int)(baseCount * Constants.MobileAmmoMultiplier);
+            else
+                return baseCount;
         }
     }
 }
