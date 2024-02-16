@@ -1,4 +1,4 @@
-﻿namespace CodeBase.DestructableObject
+﻿namespace CodeBase.DestructableObjects
 {
     public enum DestructableTypeId
     {

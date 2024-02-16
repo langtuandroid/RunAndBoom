@@ -1,6 +1,5 @@
 ﻿using CodeBase.Data;
 using CodeBase.Data.Progress;
-using CodeBase.Services.Input;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Services;
 

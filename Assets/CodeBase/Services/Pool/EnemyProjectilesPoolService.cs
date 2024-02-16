@@ -14,9 +14,6 @@ namespace CodeBase.Services.Pool
         private const int InitialCapacity = 4;
         private const string PistolBulletTag = "PistolBullet";
         private const string ShotTag = "Shot";
-        private const string SniperRifleBulletTag = "SniperRifleBullet";
-        private const string SMGBulletTag = "SMGBullet";
-        private const string MGBulletTag = "MGBullet";
 
         private IAssets _assets;
         private IConstructorService _constructorService;
@@ -72,7 +69,7 @@ namespace CodeBase.Services.Pool
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithPistol);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
-                ProjectileTypeId.PistolBullet);
+                ProjectileTypeId.Bullet);
             return _projectile;
         }
 
@@ -90,7 +87,7 @@ namespace CodeBase.Services.Pool
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSniperRifle);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
-                ProjectileTypeId.RifleBullet);
+                ProjectileTypeId.Bullet);
             return _projectile;
         }
 
@@ -99,7 +96,7 @@ namespace CodeBase.Services.Pool
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSMG);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
-                ProjectileTypeId.PistolBullet);
+                ProjectileTypeId.Bullet);
             return _projectile;
         }
 
@@ -108,7 +105,7 @@ namespace CodeBase.Services.Pool
             _projectile = Object.Instantiate(_pistolBulletPrefab);
             _enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithMG);
             _constructorService.ConstructEnemyProjectile(_projectile, _enemyStaticData.Damage,
-                ProjectileTypeId.RifleBullet);
+                ProjectileTypeId.Bullet);
             return _projectile;
         }
 
@@ -141,14 +138,6 @@ namespace CodeBase.Services.Pool
                 _enemyPistolBulletsPool.Release(pooledObject);
             else if (pooledObject.CompareTag(ShotTag))
                 _enemyShotsPool.Release(pooledObject);
-            else if (pooledObject.CompareTag(SniperRifleBulletTag))
-                _enemySniperRifleBulletsPool.Release(pooledObject);
-            else if (pooledObject.CompareTag(SMGBulletTag))
-                _enemySMGBulletsPool.Release(pooledObject);
-            else if (pooledObject.CompareTag(MGBulletTag))
-                _enemyMGBulletsPool.Release(pooledObject);
-            else
-                return;
         }
 
         private void ReturnToBack(GameObject pooledObject)

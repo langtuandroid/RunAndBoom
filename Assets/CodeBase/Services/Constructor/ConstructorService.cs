@@ -46,17 +46,17 @@ namespace CodeBase.Services.Constructor
 
             switch (projectileTypeId)
             {
-                case ProjectileTypeId.PistolBullet:
+                case ProjectileTypeId.Bullet:
                     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
 
-                case ProjectileTypeId.RifleBullet:
-                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
-                    newProjectile.GetComponent<ProjectileMovement>()
-                        .Construct(projectileTypeId);
-                    break;
+                // case ProjectileTypeId.RifleBullet:
+                //     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                //     newProjectile.GetComponent<ProjectileMovement>()
+                //         .Construct(projectileTypeId);
+                //     break;
 
                 case ProjectileTypeId.Shot:
                     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);

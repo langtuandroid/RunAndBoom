@@ -1,11 +1,14 @@
-﻿using CodeBase.Data.Settings;
+﻿using System.Threading.Tasks;
+using CodeBase.Data.Settings;
 using CodeBase.Logic;
 using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.Services;
+using CodeBase.Services.Constructor;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
+using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
 using UnityEngine;
@@ -16,37 +19,37 @@ namespace CodeBase.Weapons
     [RequireComponent(typeof(AudioSource))]
     public abstract class BaseWeaponAppearance : MonoBehaviour
     {
-        [FormerlySerializedAs("_projectilesRespawns")] [SerializeField]
-        public Transform[] ProjectilesRespawns;
+        [FormerlySerializedAs("ProjectilesRespawns")] [SerializeField]
+        public Transform[] _projectilesRespawns;
 
-        [FormerlySerializedAs("MuzzlesRespawns")] [FormerlySerializedAs("_muzzlesRespawns")] [SerializeField]
-        protected Transform[] ShotVfxsRespawns;
+        [FormerlySerializedAs("ShotVfxsRespawns")]
+        [FormerlySerializedAs("MuzzlesRespawns")]
+        [FormerlySerializedAs("_muzzlesRespawns")]
+        [SerializeField]
+        protected Transform[] _shotVfxsRespawns;
 
         [FormerlySerializedAs("ShowProjectiles")] [SerializeField]
         protected bool _showProjectiles;
 
-        [SerializeField] protected ShotVfxsContainer ShotVfxsContainer;
+        [FormerlySerializedAs("ShotVfxsContainer")] [SerializeField]
+        protected ShotVfxsContainer _shotVfxsContainer;
 
-        protected AudioSource AudioSource;
-
-        protected IObjectsPoolService PoolService;
-
-        // protected IHeroProjectilesPoolService HeroProjectilesPoolService;
-        // protected IEnemyProjectilesPoolService EnemyProjectilesPoolService;
-        private bool _initialVisibility;
-        private ProjectileTypeId? _projectileTypeId;
-        private IDeath _death;
-        protected bool Enabled = true;
+        protected AudioSource _audioSource;
         private SettingsData _settingsData;
-        protected float Volume = 1f;
+        protected IStaticDataService _staticDataService;
+        protected IConstructorService _constructorService;
+        protected IObjectsPoolService _poolService;
+        private bool _initialVisibility;
+        protected ProjectileTypeId? _projectileTypeId;
+        private IDeath _death;
+        protected bool _enabled = true;
+        protected float _volume = 1f;
+        protected GameObject _projectile;
 
-        protected WaitForSeconds LaunchProjectileCooldown { get; private set; }
+        protected WaitForSeconds _launchProjectileCooldown { get; private set; }
 
-        private void Awake()
-        {
-            AudioSource = GetComponent<AudioSource>();
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
-        }
+        private void Awake() => 
+            _audioSource = GetComponent<AudioSource>();
 
         private void OnEnable() =>
             Enable();
@@ -58,19 +61,18 @@ namespace CodeBase.Weapons
             ShotVfxTypeId shotVfxTypeId)
         {
             _death = death;
-            PoolService = AllServices.Container.Single<IObjectsPoolService>();
-            // HeroProjectilesPoolService = AllServices.Container.Single<IHeroProjectilesPoolService>();
-            // EnemyProjectilesPoolService = AllServices.Container.Single<IEnemyProjectilesPoolService>();
-            ShotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
-            LaunchProjectileCooldown = new WaitForSeconds(cooldown);
+            _poolService = AllServices.Container.Single<IObjectsPoolService>();
+            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _constructorService = AllServices.Container.Single<IConstructorService>();
+            _shotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
+            _launchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectileTypeId = projectileTypeId;
-            // Enable();
-            // _death.Died += Disable;
         }
 
         private void Enable()
         {
-            Enabled = true;
+            _enabled = true;
 
             if (_death != null)
                 _death.Died += Disable;
@@ -86,7 +88,7 @@ namespace CodeBase.Weapons
 
         private void Disable()
         {
-            Enabled = false;
+            _enabled = false;
 
             if (_death != null)
                 _death.Died -= Disable;
@@ -98,10 +100,10 @@ namespace CodeBase.Weapons
             _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
-        protected GameObject SetNewProjectile(Transform respawn)
+        protected async Task<GameObject> SetNewProjectile(Transform respawn)
         {
             // Debug.Log("SetNewProjectile");
-            GameObject projectile = GetProjectile();
+            GameObject projectile = await GetProjectile();
             projectile.transform.SetParent(respawn);
             projectile.transform.localPosition = Vector3.zero;
             projectile.transform.rotation = respawn.rotation;
@@ -109,9 +111,9 @@ namespace CodeBase.Weapons
             return projectile;
         }
 
-        protected GameObject SetNewProjectile(Transform respawn, Vector3 targetPosition)
+        protected async Task<GameObject> SetNewProjectile(Transform respawn, Vector3 targetPosition)
         {
-            GameObject projectile = GetProjectile();
+            GameObject projectile = await GetProjectile();
             projectile.transform.SetParent(respawn);
             projectile.transform.localPosition = Vector3.zero;
             projectile.transform.rotation = RotationTo(targetPosition, respawn.position);
@@ -143,16 +145,16 @@ namespace CodeBase.Weapons
 
         protected abstract void PlayShootSound();
 
-        protected abstract GameObject GetProjectile();
+        protected abstract Task<GameObject> GetProjectile();
 
         protected abstract void Launch();
 
         protected abstract void Launch(Vector3 targetPosition);
 
         private void VolumeChanged() =>
-            Volume = _settingsData.SoundVolume;
+            _volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
+            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

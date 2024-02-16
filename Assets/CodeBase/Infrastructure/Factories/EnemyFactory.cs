@@ -41,23 +41,17 @@ namespace CodeBase.Infrastructure.Factories
             _spawnersRoot = gameObject.transform;
         }
 
-        public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId
-            // , AreaData area
-        )
+        public async Task CreateSpawner(Vector3 at, EnemyTypeId enemyTypeId)
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddresses.Spawner);
             GameObject spawnerObject = _registratorService.InstantiateRegistered(prefab, at);
             SpawnPoint spawner = spawnerObject.GetComponent<SpawnPoint>();
-            spawner.Construct(enemyTypeId
-                // , area
-            );
+            spawner.Construct(enemyTypeId);
             spawner.Initialize();
             spawnerObject.transform.SetParent(_spawnersRoot);
         }
 
-        public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent
-            // , AreaData area
-        )
+        public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
             EnemyWeaponStaticData enemyWeaponStaticData = _staticData.ForEnemyWeapon(enemyData.EnemyWeaponTypeId);
@@ -65,7 +59,7 @@ namespace CodeBase.Infrastructure.Factories
             GameObject enemy = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
             enemy.transform.position.AddY(Constants.AdditionYToEnemy);
             EnemyDeath death = enemy.GetComponent<EnemyDeath>();
-            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, enemyWeaponStaticData);
+            enemy.GetComponentInChildren<EnemyWeaponAppearance>()?.Construct(death, typeId, enemyWeaponStaticData);
             enemy.GetComponent<EnemyDeath>()
                 .Construct(_gameFactory.GetHero().GetComponentInChildren<HeroHealth>(), enemyData.Reward);
             enemy.GetComponent<AgentMoveToHero>().Construct(_gameFactory.GetHero().transform,
@@ -76,15 +70,6 @@ namespace CodeBase.Infrastructure.Factories
             ConstructEnemyAttack(typeId, enemyData, enemy);
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Construct(enemyData.Hp);
-            // area.AreaClearChecker.AddEnemy(health,area.AreaTypeId);
-            // area.AreaClearChecker.AddEnemy(health);
-            // LevelStaticData levelStaticData = _staticData.ForLevel(SceneId.Level_1);
-            //
-            // foreach (AreaEnemiesContainer areaEnemiesContainer in levelStaticData.AreaEnemiesContainers)
-            // {
-            //     Debug.Log($"AreaTypeId {areaEnemiesContainer.AreaTypeId}");
-            //     Debug.Log($"SpawnMarkers {areaEnemiesContainer.SpawnMarkers}");
-            // }
 
             return enemy;
         }

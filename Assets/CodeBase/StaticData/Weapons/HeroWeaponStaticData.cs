@@ -1,4 +1,5 @@
 using CodeBase.Services.Pool;
+using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace CodeBase.StaticData.Weapons
     {
         public HeroWeaponTypeId WeaponTypeId;
         public ProjectileTypeId ProjectileTypeId;
+        public BlastTypeId BlastTypeId;
 
         [FormerlySerializedAs("trailTypeId")] [FormerlySerializedAs("ProjectileTraceTypeId")]
         public TrailTypeId TrailTypeId;

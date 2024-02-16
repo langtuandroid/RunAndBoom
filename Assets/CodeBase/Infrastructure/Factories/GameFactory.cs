@@ -55,15 +55,8 @@ namespace CodeBase.Infrastructure.Factories
 
         public void WarmUp()
         {
-            // Debug.Log($"assets {_assets}");
-            // Debug.Log($"heroProjectilesPoolService {_heroProjectilesPoolService}");
-            // Debug.Log($"enemyProjectilesPoolService {_enemyProjectilesPoolService}");
-            // Debug.Log($"vfxsPoolService {_vfxsPoolService}");
             _assets.Initialize();
             _objectsPoolService.GenerateObjects();
-            // _heroProjectilesPoolService.GenerateObjects();
-            // _enemyProjectilesPoolService.GenerateObjects();
-            // _vfxsPoolService.GenerateObjects();
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)

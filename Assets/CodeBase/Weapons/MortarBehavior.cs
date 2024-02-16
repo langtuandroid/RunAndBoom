@@ -12,12 +12,12 @@ namespace CodeBase.Weapons
             _weaponRotation.GotTarget += SetTarget;
 
         private void SetTarget(Vector3 targetPosition) =>
-            TargetPosition = targetPosition;
+            _targetPosition = targetPosition;
 
         protected override IEnumerator CoroutineShootTo()
         {
-            Launch(TargetPosition);
-            yield return LaunchProjectileCooldown;
+            Launch(_targetPosition);
+            yield return _launchProjectileCooldown;
         }
     }
 }

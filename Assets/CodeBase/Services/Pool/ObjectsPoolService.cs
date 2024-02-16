@@ -1,43 +1,40 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Services.Constructor;
-using CodeBase.Services.StaticData;
-using CodeBase.StaticData.Enemies;
-using CodeBase.StaticData.Hits;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.ShotVfxs;
-using CodeBase.StaticData.Weapons;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace CodeBase.Services.Pool
 {
     public class ObjectsPoolService : IObjectsPoolService
     {
-        private const int InitialVfxCapacity = 15;
-        private const int InitialEnemyProjectilesCapacity = 50;
-        private const int InitialHeroProjectilesCapacity = 50;
+        private const int InitialVfxCapacity = 1;
+        private const int InitialEnemyProjectilesCapacity = 1;
+        private const int InitialHeroProjectilesCapacity = 1;
         private const int AdditionalCount = 5;
 
         private IAssets _assets;
-        private IConstructorService _constructorService;
-        private IStaticDataService _staticDataService;
-        private Dictionary<string, List<GameObject>> _heroProjectiles;
-        private Dictionary<string, List<GameObject>> _enemyProjectiles;
-        private Dictionary<string, List<GameObject>> _shotVfxs;
+        private Dictionary<string, List<GameObject>> _activeHeroProjectiles;
+        private Dictionary<string, List<GameObject>> _passiveHeroProjectiles;
+        private Dictionary<string, List<GameObject>> _activeEnemyProjectiles;
+        private Dictionary<string, List<GameObject>> _passiveEnemyProjectiles;
+        private Dictionary<string, List<GameObject>> _activeShotVfxs;
+        private Dictionary<string, List<GameObject>> _passiveShotVfxs;
         private Transform _enemyProjectilesRoot;
         private Transform _heroProjectilesRoot;
         private Transform _shotVfxsRoot;
-        private GameObject _gameObject;
-        private List<GameObject> _list = new List<GameObject>();
+        [CanBeNull] private GameObject _gameObject;
+        private int _currentVfxCapacity;
+        private int _currentEnemyProjectilesCapacity;
+        private int _currentHeroProjectilesCapacity;
+        private List<GameObject> _activeList;
+        private List<GameObject> _passiveList;
+        private List<GameObject> _tempList;
 
-        public ObjectsPoolService(IAssets assets, IConstructorService constructorService,
-            IStaticDataService staticDataService)
-        {
-            _staticDataService = staticDataService;
+        public ObjectsPoolService(IAssets assets) =>
             _assets = assets;
-            _constructorService = constructorService;
-        }
 
         public void GenerateObjects() =>
             CreateRoots();
@@ -63,251 +60,194 @@ namespace CodeBase.Services.Pool
 
         private async void GenerateEnemyProjectiles()
         {
-            _enemyProjectiles = new Dictionary<string, List<GameObject>>();
+            _activeEnemyProjectiles = new Dictionary<string, List<GameObject>>();
+            _passiveEnemyProjectiles = new Dictionary<string, List<GameObject>>();
+            _currentEnemyProjectilesCapacity = InitialEnemyProjectilesCapacity;
             List<GameObject> gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
-            GameObject projectile;
-            EnemyStaticData enemyStaticData;
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithPistol);
-                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
-                    ProjectileTypeId.PistolBullet);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _enemyProjectiles.Add(EnemyWeaponTypeId.Pistol.ToString(), gameObjects);
+            _passiveEnemyProjectiles.Add(ProjectileTypeId.Bullet.ToString(), gameObjects);
+            _activeEnemyProjectiles.Add(ProjectileTypeId.Bullet.ToString(),
+                new List<GameObject>(gameObjects.Count));
 
             gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                projectile = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
-                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithShotgun);
-                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
-                    ProjectileTypeId.Shot);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _enemyProjectiles.Add(EnemyWeaponTypeId.Shotgun.ToString(), gameObjects);
-
-            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSniperRifle);
-                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
-                    ProjectileTypeId.RifleBullet);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
-            }
-
-            _enemyProjectiles.Add(EnemyWeaponTypeId.SniperRifle.ToString(), gameObjects);
-
-            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithSMG);
-                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
-                    ProjectileTypeId.PistolBullet);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
-            }
-
-            _enemyProjectiles.Add(EnemyWeaponTypeId.SMG.ToString(), gameObjects);
-
-            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
-
-            for (int i = 0; i < gameObjects.Capacity; i++)
-            {
-                projectile = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
-                enemyStaticData = _staticDataService.ForEnemy(EnemyTypeId.WithMG);
-                _constructorService.ConstructEnemyProjectile(projectile, enemyStaticData.Damage,
-                    ProjectileTypeId.RifleBullet);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
-            }
-
-            _enemyProjectiles.Add(EnemyWeaponTypeId.MG.ToString(), gameObjects);
+            _passiveEnemyProjectiles.Add(ProjectileTypeId.Shot.ToString(), gameObjects);
+            _activeEnemyProjectiles.Add(ProjectileTypeId.Shot.ToString(),
+                new List<GameObject>(gameObjects.Count));
         }
 
         private async void GenerateHeroProjectiles()
         {
-            _heroProjectiles = new Dictionary<string, List<GameObject>>();
+            _passiveHeroProjectiles = new Dictionary<string, List<GameObject>>();
+            _activeHeroProjectiles = new Dictionary<string, List<GameObject>>();
+            _currentHeroProjectilesCapacity = InitialHeroProjectilesCapacity;
             List<GameObject> gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.Grenade, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Grenade, BlastTypeId.Grenade,
-                    HeroWeaponTypeId.GrenadeLauncher);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject = await _assets.Instantiate(AssetAddresses.Grenade, _heroProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _heroProjectiles.Add(HeroWeaponTypeId.GrenadeLauncher.ToString(), gameObjects);
+            _passiveHeroProjectiles.Add(ProjectileTypeId.Grenade.ToString(), gameObjects);
+            _activeHeroProjectiles.Add(ProjectileTypeId.Grenade.ToString(),
+                new List<GameObject>(gameObjects.Count));
 
             gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RpgRocket,
-                    BlastTypeId.RpgRocket, HeroWeaponTypeId.RPG);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _heroProjectiles.Add(HeroWeaponTypeId.RPG.ToString(), gameObjects);
+            _passiveHeroProjectiles.Add(ProjectileTypeId.RpgRocket.ToString(), gameObjects);
+            _activeHeroProjectiles.Add(ProjectileTypeId.RpgRocket.ToString(), new List<GameObject>(gameObjects.Count));
 
             gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile =
+                _gameObject =
                     await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.RocketLauncherRocket,
-                    BlastTypeId.RocketLauncherRocket, HeroWeaponTypeId.RocketLauncher);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _heroProjectiles.Add(HeroWeaponTypeId.RocketLauncher.ToString(), gameObjects);
+            _passiveHeroProjectiles.Add(ProjectileTypeId.RocketLauncherRocket.ToString(), gameObjects);
+            _activeHeroProjectiles.Add(ProjectileTypeId.RocketLauncherRocket.ToString(),
+                new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialHeroProjectilesCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject projectile = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
-                _constructorService.ConstructHeroProjectile(projectile, ProjectileTypeId.Bomb, BlastTypeId.Bomb,
-                    HeroWeaponTypeId.Mortar);
-                projectile.SetActive(false);
-                gameObjects.Add(projectile);
+                _gameObject = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _heroProjectiles.Add(HeroWeaponTypeId.Mortar.ToString(), gameObjects);
+            _passiveHeroProjectiles.Add(ProjectileTypeId.Bomb.ToString(), gameObjects);
+            _activeHeroProjectiles.Add(ProjectileTypeId.Bomb.ToString(), new List<GameObject>(gameObjects.Count));
         }
 
         private async void GenerateShotVfxs()
         {
-            _shotVfxs = new Dictionary<string, List<GameObject>>();
+            _passiveShotVfxs = new Dictionary<string, List<GameObject>>();
+            _activeShotVfxs = new Dictionary<string, List<GameObject>>();
+            _currentVfxCapacity = InitialVfxCapacity;
             List<GameObject> gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.GrenadeMuzzleFire, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.GrenadeMuzzleFire, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.Grenade.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.Grenade.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.Grenade.ToString(), new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.RpgRocket.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.RpgRocket.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.RpgRocket.ToString(), new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.BombMuzzle, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.BombMuzzle, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.Bomb.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.Bomb.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.Bomb.ToString(), new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.Bullet.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.Bullet.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.Bullet.ToString(), new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
             {
-                GameObject shotVfx = await _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _shotVfxsRoot);
-                shotVfx.SetActive(false);
-                gameObjects.Add(shotVfx);
+                _gameObject = await _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _shotVfxsRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
             }
 
-            _shotVfxs.Add(ShotVfxTypeId.Shot.ToString(), gameObjects);
+            _passiveShotVfxs.Add(ShotVfxTypeId.Shot.ToString(), gameObjects);
+            _activeShotVfxs.Add(ShotVfxTypeId.Shot.ToString(), new List<GameObject>(gameObjects.Count));
         }
 
-        public GameObject GetEnemyProjectile(string name) =>
-            GetGameObject(Pools.EnemyProjectiles, name, _enemyProjectiles, _enemyProjectilesRoot);
+        public async Task<GameObject> GetEnemyProjectile(string name) =>
+            await GetGameObject(Pools.EnemyProjectiles, name, _activeEnemyProjectiles, _passiveEnemyProjectiles);
 
-        public GameObject GetHeroProjectile(string name) =>
-            GetGameObject(Pools.HeroProjectiles, name, _heroProjectiles, _heroProjectilesRoot);
+        public async Task<GameObject> GetHeroProjectile(string name) =>
+            await GetGameObject(Pools.HeroProjectiles, name, _activeHeroProjectiles, _passiveHeroProjectiles);
 
-        public GameObject GetShotVfx(ShotVfxTypeId typeId)
+        public async Task<GameObject> GetShotVfx(ShotVfxTypeId typeId) =>
+            await GetGameObject(Pools.ShotVfxs, typeId.ToString(), _activeShotVfxs, _passiveShotVfxs);
+
+        public void ReturnEnemyProjectile(string name, GameObject gameObject)
         {
-            _gameObject = null;
-
-            switch (typeId)
-            {
-                case ShotVfxTypeId.Grenade:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Grenade.ToString(), _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-                case ShotVfxTypeId.RocketLauncherRocket:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RocketLauncherRocket.ToString(),
-                        _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-                case ShotVfxTypeId.RpgRocket:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.RpgRocket.ToString(), _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-                case ShotVfxTypeId.Bomb:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bomb.ToString(), _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-                case ShotVfxTypeId.Bullet:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Bullet.ToString(), _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-                case ShotVfxTypeId.Shot:
-                    _gameObject = GetGameObject(Pools.ShotVfxs, ShotVfxTypeId.Shot.ToString(), _shotVfxs,
-                        _shotVfxsRoot);
-                    break;
-            }
-
-            return _gameObject;
+            _passiveEnemyProjectiles[name].Add(gameObject);
+            _activeEnemyProjectiles[name].Remove(gameObject);
+            ReturnGameObject(gameObject, _enemyProjectilesRoot);
         }
 
-        public void ReturnEnemyProjectile(GameObject gameObject) =>
-            ReturnGameObject(gameObject, _enemyProjectilesRoot);
-
-        public void ReturnHeroProjectile(GameObject gameObject) =>
+        public void ReturnHeroProjectile(string name, GameObject gameObject)
+        {
+            _passiveHeroProjectiles[name].Add(gameObject);
+            _activeHeroProjectiles[name].Remove(gameObject);
             ReturnGameObject(gameObject, _heroProjectilesRoot);
+        }
 
-        public void ReturnShotVfx(GameObject gameObject) =>
+        public void ReturnShotVfx(string name, GameObject gameObject)
+        {
+            _passiveShotVfxs[name].Add(gameObject);
+            _activeShotVfxs[name].Remove(gameObject);
             ReturnGameObject(gameObject, _shotVfxsRoot);
+        }
 
         private void ReturnGameObject(GameObject gameObject, Transform parent)
         {
@@ -315,23 +255,31 @@ namespace CodeBase.Services.Pool
             gameObject.transform.SetParent(parent);
         }
 
-        private GameObject GetGameObject(Pools pool, string name, Dictionary<string, List<GameObject>> dictionary,
-            Transform parent)
+        private async Task<GameObject> GetGameObject(Pools pool, string name,
+            Dictionary<string, List<GameObject>> activeDictionary,
+            Dictionary<string, List<GameObject>> passiveDictionary)
         {
-            dictionary.TryGetValue(name, out List<GameObject> list);
+            activeDictionary.TryGetValue(name, out List<GameObject> activeList);
+            passiveDictionary.TryGetValue(name, out List<GameObject> passiveList);
             _gameObject = null;
 
-            if (list != null)
+            if (passiveList != null && activeList != null)
             {
-                _gameObject = list.FirstOrDefault(it => it.activeInHierarchy == false);
-
-                if (_gameObject != null)
+                if (passiveList.Count != 0)
                 {
+                    _gameObject = passiveList[0];
+                    passiveList.Remove(_gameObject);
+                    activeList.Add(_gameObject);
                     return _gameObject;
                 }
                 else
                 {
-                    _gameObject = ExtendList(pool, name, list, dictionary, parent);
+                    _activeList = activeList;
+                    _passiveList = passiveList;
+                    _gameObject = await ExtendList(pool, name);
+                    passiveList.AddRange(_passiveList);
+                    activeList.Add(_gameObject);
+                    passiveList.Remove(_gameObject);
                     return _gameObject;
                 }
             }
@@ -339,32 +287,70 @@ namespace CodeBase.Services.Pool
             return _gameObject;
         }
 
-        private GameObject ExtendList(Pools pool, string name, List<GameObject> list,
-            Dictionary<string, List<GameObject>> dictionary, Transform parent)
+        private async Task<GameObject> ExtendList(Pools pool, string name)
         {
-            List<GameObject> newList = new List<GameObject>(list.Count + AdditionalCount);
-            newList.AddRange(list);
+            int newCapacity = _activeList.Capacity + AdditionalCount;
+            _tempList = new List<GameObject>(newCapacity);
+            _tempList.AddRange(_passiveList);
+            int difference = newCapacity - _activeList.Count;
 
-            for (int i = 0; i < AdditionalCount; i++)
+            for (int i = 0; i < difference; i++)
+                _gameObject = await CreateObject(pool, name);
+
+            _passiveList = _tempList;
+            return _passiveList[0];
+        }
+
+        private async Task<GameObject> CreateObject(Pools pool, string name)
+        {
+            _gameObject = null;
+
+            switch (pool)
             {
-                GameObject original = newList[0];
-                GameObject newGameObject = Object.Instantiate(original, parent);
-
-                if (pool != Pools.ShotVfxs)
-                    _constructorService.ConstructProjectileLike(original, newGameObject);
-
-                newGameObject.SetActive(false);
-                newList.Add(newGameObject);
+                case Pools.HeroProjectiles when name == ProjectileTypeId.Grenade.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.Grenade, _heroProjectilesRoot);
+                    break;
+                case Pools.HeroProjectiles when name == ProjectileTypeId.RpgRocket.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.RpgRocket, _heroProjectilesRoot);
+                    break;
+                case Pools.HeroProjectiles when name == ProjectileTypeId.RocketLauncherRocket.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.RocketLauncherRocket, _heroProjectilesRoot);
+                    break;
+                case Pools.HeroProjectiles when name == ProjectileTypeId.Bomb.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
+                    break;
+                case Pools.EnemyProjectiles when name == ProjectileTypeId.Bullet.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                    break;
+                case Pools.EnemyProjectiles when name == ProjectileTypeId.Shot.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.Shot, _enemyProjectilesRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.Bullet.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _shotVfxsRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.Shot.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.ShotMuzzleFire, _shotVfxsRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.Grenade.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.BulletMuzzleFire, _shotVfxsRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.RpgRocket.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.RpgMuzzleFire, _shotVfxsRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.RocketLauncherRocket.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.RocketLauncherMuzzleBlue, _shotVfxsRoot);
+                    break;
+                case Pools.ShotVfxs when name == ShotVfxTypeId.Bomb.ToString():
+                    _gameObject = await _assets.Instantiate(AssetAddresses.BombMuzzle, _shotVfxsRoot);
+                    break;
             }
 
-            dictionary[name] = newList;
-            dictionary.TryGetValue(name, out List<GameObject> list1);
-            GameObject gameObject = list1?.FirstOrDefault(it => it.activeInHierarchy == false);
+            while (_gameObject == null)
+                Task.Yield();
 
-            if (gameObject != null)
-                return gameObject;
-            else
-                return ExtendList(pool, name, list1, dictionary, parent);
+            _gameObject.SetActive(false);
+            _tempList.Add(_gameObject);
+            return _gameObject;
         }
     }
 

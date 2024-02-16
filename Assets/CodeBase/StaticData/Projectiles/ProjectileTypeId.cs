@@ -6,8 +6,10 @@
         RocketLauncherRocket,
         RpgRocket,
         Bomb,
-        PistolBullet,
-        RifleBullet,
+        Bullet,
+
+        // PistolBullet,
+        // RifleBullet,
         Shot,
     }
 }

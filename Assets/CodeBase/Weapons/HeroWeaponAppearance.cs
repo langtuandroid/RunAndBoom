@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
@@ -14,7 +15,7 @@ namespace CodeBase.Weapons
     public class HeroWeaponAppearance : BaseWeaponAppearance
     {
         [SerializeField] private List<GameObject> _projectiles;
-        [HideInInspector] protected Vector3 TargetPosition;
+        [HideInInspector] protected Vector3 _targetPosition;
 
         private HeroReloading _heroReloading;
         private HeroWeaponSelection _heroWeaponSelection;
@@ -22,13 +23,14 @@ namespace CodeBase.Weapons
         private HeroDeath _death;
         private GameObject _firstProjectile;
         private bool _filled;
+        private HeroWeaponStaticData _heroWeaponStaticData;
 
         public void Construct(HeroDeath death, HeroReloading heroReloading, HeroWeaponSelection heroWeaponSelection)
         {
             _death = death;
             _heroReloading = heroReloading;
             _heroWeaponSelection = heroWeaponSelection;
-            _projectiles = new List<GameObject>(ProjectilesRespawns.Length);
+            _projectiles = new List<GameObject>(_projectilesRespawns.Length);
             _heroWeaponSelection.WeaponSelected += InitializeSelectedWeapon;
         }
 
@@ -46,13 +48,13 @@ namespace CodeBase.Weapons
         private void ReadyToShoot(GameObject arg1, HeroWeaponStaticData arg2, TrailStaticData arg3) =>
             ReadyToShoot();
 
-        private void ReadyToShoot()
+        private async void ReadyToShoot()
         {
-            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && Enabled)
+            if (gameObject.activeInHierarchy && (_filled == false || _projectiles.Count == 0) && _enabled)
             {
-                foreach (Transform respawn in ProjectilesRespawns)
+                foreach (Transform respawn in _projectilesRespawns)
                 {
-                    var projectile = SetNewProjectile(respawn);
+                    var projectile = await SetNewProjectile(respawn);
                     projectile.SetActive(true);
                     projectile.GetComponentInChildren<MeshRenderer>().enabled = _showProjectiles;
                     projectile.GetComponentInChildren<ProjectileBlast>()?.OffCollider();
@@ -65,23 +67,23 @@ namespace CodeBase.Weapons
 
         public void ShootTo()
         {
-            for (int i = 0; i < ProjectilesRespawns.Length; i++)
+            for (int i = 0; i < _projectilesRespawns.Length; i++)
             {
                 StartCoroutine(CoroutineShootTo());
                 Release();
                 PlayShootSound();
             }
 
-            ShotVfxsContainer.ShowShotVfx(ShotVfxsRespawns[0]);
+            _shotVfxsContainer.ShowShotVfx(_shotVfxsRespawns[0]);
         }
 
         public void ReturnShotsVfx() =>
-            ShotVfxsContainer.ReturnShotVfx();
+            _shotVfxsContainer.ReturnShotVfx();
 
         protected virtual IEnumerator CoroutineShootTo()
         {
             Launch();
-            yield return LaunchProjectileCooldown;
+            yield return _launchProjectileCooldown;
         }
 
         protected override void PlayShootSound()
@@ -91,33 +93,35 @@ namespace CodeBase.Weapons
                 case HeroWeaponTypeId.GrenadeLauncher:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotGl), transform: transform,
-                        Volume, AudioSource);
+                        _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.RPG:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRpg), transform: transform,
-                        Volume, AudioSource);
+                        _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRl), transform: transform,
-                        Volume, AudioSource);
+                        _volume, _audioSource);
                     break;
                 case HeroWeaponTypeId.Mortar:
                     SoundInstance.InstantiateOnTransform(
                         audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotMortar),
                         transform: transform,
-                        Volume, AudioSource);
+                        _volume, _audioSource);
                     break;
             }
         }
 
-        protected override GameObject GetProjectile() =>
-            // {
-            //     Debug.Log($"GetProjectile {HeroProjectilesPoolService}");
-            //     return HeroProjectilesPoolService.GetFromPool(_heroWeaponTypeId);
-            // }
-            PoolService.GetHeroProjectile(_heroWeaponTypeId.ToString());
+        protected override async Task<GameObject> GetProjectile()
+        {
+            _projectile = await _poolService.GetHeroProjectile(_projectileTypeId.ToString());
+            _heroWeaponStaticData = _staticDataService.ForHeroWeapon(_heroWeaponTypeId);
+            _constructorService.ConstructHeroProjectile(_projectile, _heroWeaponStaticData.ProjectileTypeId,
+                _heroWeaponStaticData.BlastTypeId, _heroWeaponTypeId);
+            return _projectile;
+        }
 
         protected override void Launch()
         {

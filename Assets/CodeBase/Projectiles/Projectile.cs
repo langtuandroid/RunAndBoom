@@ -8,8 +8,6 @@ namespace CodeBase.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
-        // private IHeroProjectilesPoolService _heroProjectilesPool;
-        // private IEnemyProjectilesPoolService _enemyProjectilesPoolService;
         private IObjectsPoolService _objectsPoolService;
         private ProjectileMovement _projectileMovement;
 
@@ -22,37 +20,30 @@ namespace CodeBase.Projectiles
             _projectileMovement.Stoped += ReturnToRoot;
         }
 
-        private void Awake()
-        {
-            // _heroProjectilesPool = AllServices.Container.Single<IHeroProjectilesPoolService>();
-            // _enemyProjectilesPoolService = AllServices.Container.Single<IEnemyProjectilesPoolService>();
+        private void Awake() =>
             _objectsPoolService = AllServices.Container.Single<IObjectsPoolService>();
-        }
 
         private void ReturnToRoot()
         {
-            switch (ProjectileTypeId)
-            {
-                case ProjectileTypeId.PistolBullet:
-                    // _enemyProjectilesPoolService.Return(gameObject);
-                    _objectsPoolService.ReturnEnemyProjectile(gameObject);
-                    break;
-
-                case ProjectileTypeId.RifleBullet:
-                    // _enemyProjectilesPoolService.Return(gameObject);
-                    _objectsPoolService.ReturnEnemyProjectile(gameObject);
-                    break;
-
-                case ProjectileTypeId.Shot:
-                    // _enemyProjectilesPoolService.Return(gameObject);
-                    _objectsPoolService.ReturnEnemyProjectile(gameObject);
-                    break;
-
-                default:
-                    // _heroProjectilesPool.Return(gameObject);
-                    _objectsPoolService.ReturnHeroProjectile(gameObject);
-                    break;
-            }
+            _objectsPoolService.ReturnHeroProjectile(ProjectileTypeId.ToString(), gameObject);
+            // switch (ProjectileTypeId)
+            // {
+            //     case ProjectileTypeId.Bullet:
+            //         _objectsPoolService.ReturnEnemyProjectile(EnemyWeaponTypeId.Pistol.ToString(),gameObject);
+            //         break;
+            //
+            //     // case ProjectileTypeId.RifleBullet:
+            //     //     _objectsPoolService.ReturnEnemyProjectile(gameObject);
+            //     //     break;
+            //
+            //     case ProjectileTypeId.Shot:
+            //         _objectsPoolService.ReturnEnemyProjectile(gameObject);
+            //         break;
+            //
+            //     default:
+            //         _objectsPoolService.ReturnHeroProjectile(gameObject);
+            //         break;
+            // }
         }
     }
 }

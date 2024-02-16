@@ -8,7 +8,7 @@ using CodeBase.Services.PersistentProgress;
 using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
-namespace CodeBase.DestructableObject
+namespace CodeBase.DestructableObjects
 {
     [RequireComponent(typeof(AudioSource))]
     public class DestructableObjectDeath : MonoBehaviour, IDeath
