@@ -97,10 +97,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11752">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29828">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="11752" />
+      <option name="pid" value="29828" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -272,6 +272,7 @@
       <workItem from="1707989828707" duration="15202000" />
       <workItem from="1708015330876" duration="1199000" />
       <workItem from="1708054111471" duration="2698000" />
+      <workItem from="1708076393871" duration="1852000" />
     </task>
     <servers />
   </component>
@@ -405,19 +406,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
-          <line>271</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="293" containingFunctionPresentation="Method 'GetGameObject'">
-            <startOffsets>
-              <option value="12447" />
-            </startOffsets>
-            <endOffsets>
-              <option value="12466" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
           <line>264</line>
           <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="315" containingFunctionPresentation="Method 'GetGameObject'">
             <startOffsets>
@@ -441,19 +429,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="130" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
-          <line>281</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="332" containingFunctionPresentation="Method 'GetGameObject'">
-            <startOffsets>
-              <option value="12860" />
-            </startOffsets>
-            <endOffsets>
-              <option value="12879" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
@@ -482,43 +457,30 @@
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
-          <line>349</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="349" containingFunctionPresentation="Method 'CreateObject'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Projectiles/Hit/BaseProjectileHit.cs</url>
+          <line>15</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Projectiles\Hit\BaseProjectileHit.cs" initialLine="15" containingFunctionPresentation="Method 'IsTargetTag'">
             <startOffsets>
-              <option value="16441" />
+              <option value="437" />
             </startOffsets>
             <endOffsets>
-              <option value="16470" />
+              <option value="463" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="154" />
+          <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
-          <line>347</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="347" containingFunctionPresentation="Method 'CreateObject'">
+          <url>file://$PROJECT_DIR$/Assets/CodeBase/Projectiles/Hit/ProjectileHit.cs</url>
+          <line>30</line>
+          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Projectiles\Hit\ProjectileHit.cs" initialLine="30" containingFunctionPresentation="Method 'StopProjectile'">
             <startOffsets>
-              <option value="16414" />
+              <option value="905" />
             </startOffsets>
             <endOffsets>
-              <option value="16427" />
+              <option value="974" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="155" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/CodeBase/Services/Pool/ObjectsPoolService.cs</url>
-          <line>346</line>
-          <properties documentPath="E:\Unity projects\My projects\RunAndShoot\Assets\CodeBase\Services\Pool\ObjectsPoolService.cs" initialLine="346" containingFunctionPresentation="Method 'CreateObject'">
-            <startOffsets>
-              <option value="16370" />
-            </startOffsets>
-            <endOffsets>
-              <option value="16397" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="156" />
+          <option name="timeStamp" value="166" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

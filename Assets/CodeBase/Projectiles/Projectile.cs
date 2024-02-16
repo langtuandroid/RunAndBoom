@@ -25,25 +25,21 @@ namespace CodeBase.Projectiles
 
         private void ReturnToRoot()
         {
-            _objectsPoolService.ReturnHeroProjectile(ProjectileTypeId.ToString(), gameObject);
-            // switch (ProjectileTypeId)
-            // {
-            //     case ProjectileTypeId.Bullet:
-            //         _objectsPoolService.ReturnEnemyProjectile(EnemyWeaponTypeId.Pistol.ToString(),gameObject);
-            //         break;
-            //
-            //     // case ProjectileTypeId.RifleBullet:
-            //     //     _objectsPoolService.ReturnEnemyProjectile(gameObject);
-            //     //     break;
-            //
-            //     case ProjectileTypeId.Shot:
-            //         _objectsPoolService.ReturnEnemyProjectile(gameObject);
-            //         break;
-            //
-            //     default:
-            //         _objectsPoolService.ReturnHeroProjectile(gameObject);
-            //         break;
-            // }
+            switch (ProjectileTypeId)
+            {
+                case ProjectileTypeId.Bullet:
+                case ProjectileTypeId.Shot:
+                    _objectsPoolService.ReturnEnemyProjectile(ProjectileTypeId.ToString(), gameObject);
+                    break;
+
+                case ProjectileTypeId.Grenade:
+                case ProjectileTypeId.RocketLauncherRocket:
+                case ProjectileTypeId.RpgRocket:
+                case ProjectileTypeId.Bomb:
+                default:
+                    _objectsPoolService.ReturnHeroProjectile(ProjectileTypeId.ToString(), gameObject);
+                    break;
+            }
         }
     }
 }

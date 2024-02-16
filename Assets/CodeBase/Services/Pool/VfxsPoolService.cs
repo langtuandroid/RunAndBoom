@@ -38,7 +38,6 @@ namespace CodeBase.Services.Pool
 
         public async void GenerateObjects()
         {
-            Debug.Log("VfxsPoolService GenerateObjects");
             if (_grenadeMuzzleFireVfxsPool != null)
                 _grenadeMuzzleFireVfxsPool.Dispose();
 

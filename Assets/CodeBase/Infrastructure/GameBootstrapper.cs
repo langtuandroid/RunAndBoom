@@ -45,7 +45,6 @@ namespace CodeBase.Infrastructure
         private Language GetLanguage()
         {
             SystemLanguage systemLanguage = Application.systemLanguage;
-            Debug.Log($"systemLanguage {systemLanguage}");
 
             switch (systemLanguage)
             {

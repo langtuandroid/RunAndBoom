@@ -193,8 +193,6 @@ namespace CodeBase.Projectiles.Hit
 
         private void ShowBlast()
         {
-            Debug.Log($"particleSystem {_particleSystem}");
-
             if (_particleSystem == null)
             {
                 _blastVfx = Instantiate(_prefab, transform.position, Quaternion.identity, null);

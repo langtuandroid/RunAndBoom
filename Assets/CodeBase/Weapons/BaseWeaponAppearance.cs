@@ -48,7 +48,7 @@ namespace CodeBase.Weapons
 
         protected WaitForSeconds _launchProjectileCooldown { get; private set; }
 
-        private void Awake() => 
+        private void Awake() =>
             _audioSource = GetComponent<AudioSource>();
 
         private void OnEnable() =>

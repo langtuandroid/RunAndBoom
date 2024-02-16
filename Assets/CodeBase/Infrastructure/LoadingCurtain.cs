@@ -57,10 +57,7 @@ namespace CodeBase.Infrastructure
                     if (_adsService != null)
                     {
                         if (_adsService.IsInitialized())
-                        {
                             AllServices.Container.Single<IGameReadyService>().GameReady();
-                            Debug.Log("OnGameReadyButtonClick");
-                        }
                     }
                 }
 

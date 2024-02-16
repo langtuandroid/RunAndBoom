@@ -79,7 +79,6 @@ namespace CodeBase.Hero
 
         public void SelectWeapon(HeroWeaponTypeId heroWeaponTypeId)
         {
-            Debug.Log($"heroWeaponTypeId: {heroWeaponTypeId}");
             if (_currentWeapon != _heroWeaponTypeIds.IndexOf(heroWeaponTypeId))
                 FindWeaponContainer(heroWeaponTypeId);
         }
