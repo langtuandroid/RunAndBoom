@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.Data.Progress;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Gifts.Items
@@ -22,13 +22,11 @@ namespace CodeBase.UI.Windows.Gifts.Items
 
         protected override void Clicked()
         {
-            ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
-                InputService.GetCount(_shopAmmoStaticData.Count));
+            _progressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
+                _inputService.GetCount(_shopAmmoStaticData.Count));
             ClearData();
             _generator.Clicked();
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),
-                transform: _heroTransform, Volume, AudioSource);
+            _audioService.LaunchShopSound(ShopSoundId.AmmoGotten, transform, _audioSource);
         }
     }
 }

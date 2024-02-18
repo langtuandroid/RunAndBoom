@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb44c5f355f49a2856a3fe027960bcc, type: 3}
   m_Name: RpgRocket
   m_EditorClassIdentifier: 
-  ProjectileTypeId: 2
+  ProjectileTypeId: 3
   TrailTypeId: 1
-  BlastTypeId: 3
-  HitTipeId: 0
   MovementLifeTime: 6
   Speed: 10

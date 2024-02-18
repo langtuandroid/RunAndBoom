@@ -72,8 +72,21 @@ namespace CodeBase.Services.Pool
                 gameObjects.Add(_gameObject);
             }
 
-            _passiveEnemyProjectiles.Add(ProjectileTypeId.Bullet.ToString(), gameObjects);
-            _activeEnemyProjectiles.Add(ProjectileTypeId.Bullet.ToString(),
+            _passiveEnemyProjectiles.Add(ProjectileTypeId.PistolBullet.ToString(), gameObjects);
+            _activeEnemyProjectiles.Add(ProjectileTypeId.PistolBullet.ToString(),
+                new List<GameObject>(gameObjects.Count));
+
+            gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
+
+            for (int i = 0; i < gameObjects.Capacity; i++)
+            {
+                _gameObject = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
+                _gameObject.SetActive(false);
+                gameObjects.Add(_gameObject);
+            }
+
+            _passiveEnemyProjectiles.Add(ProjectileTypeId.RifleBullet.ToString(), gameObjects);
+            _activeEnemyProjectiles.Add(ProjectileTypeId.RifleBullet.ToString(),
                 new List<GameObject>(gameObjects.Count));
 
             gameObjects = new List<GameObject>(InitialEnemyProjectilesCapacity);
@@ -183,7 +196,8 @@ namespace CodeBase.Services.Pool
             }
 
             _passiveShotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), gameObjects);
-            _activeShotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(), new List<GameObject>(gameObjects.Count));
+            _activeShotVfxs.Add(ShotVfxTypeId.RocketLauncherRocket.ToString(),
+                new List<GameObject>(gameObjects.Count));
             gameObjects = new List<GameObject>(InitialVfxCapacity);
 
             for (int i = 0; i < gameObjects.Capacity; i++)
@@ -319,7 +333,11 @@ namespace CodeBase.Services.Pool
                 case Pools.HeroProjectiles when name == ProjectileTypeId.Bomb.ToString():
                     _gameObject = await _assets.Instantiate(AssetAddresses.Bomb, _heroProjectilesRoot);
                     break;
-                case Pools.EnemyProjectiles when name == ProjectileTypeId.Bullet.ToString():
+                case Pools.EnemyProjectiles when name == ProjectileTypeId.None.ToString():
+                case Pools.ShotVfxs when name == ShotVfxTypeId.None.ToString():
+                    break;
+                case Pools.EnemyProjectiles when name == ProjectileTypeId.PistolBullet.ToString():
+                case Pools.EnemyProjectiles when name == ProjectileTypeId.RifleBullet.ToString():
                     _gameObject = await _assets.Instantiate(AssetAddresses.PistolBullet, _enemyProjectilesRoot);
                     break;
                 case Pools.EnemyProjectiles when name == ProjectileTypeId.Shot.ToString():

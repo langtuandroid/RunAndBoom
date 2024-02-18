@@ -2,11 +2,11 @@
 using CodeBase.Data;
 using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Stats;
-using CodeBase.Data.Settings;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Input;
 using CodeBase.Services.LeaderBoard;
 using CodeBase.Services.PersistentProgress;
@@ -23,18 +23,18 @@ namespace CodeBase.UI.Windows.Common
     [RequireComponent(typeof(AudioSource))]
     public abstract class WindowBase : MonoBehaviour, IProgressReader
     {
-        protected IWindowService WindowService;
-        protected ISaveLoadService SaveLoadService;
-        protected IGameStateMachine GameStateMachine;
-        protected IStaticDataService StaticDataService;
-        protected IAdsService AdsService;
-        protected ILeaderboardService LeaderBoardService;
-        protected IInputService InputService;
-        protected AudioSource AudioSource;
-        protected GameObject Hero;
+        protected IWindowService _windowService;
+        protected ISaveLoadService _saveLoadService;
+        protected IGameStateMachine _gameStateMachine;
+        protected IStaticDataService _staticDataService;
+        protected IAdsService _adsService;
+        protected ILeaderboardService _leaderBoardService;
+        protected IInputService _inputService;
+        protected IAudioService _audioService;
+        protected AudioSource _audioSource;
+        protected GameObject _hero;
         protected float Volume;
         protected ProgressData ProgressData;
-        private SettingsData _settingsData;
         private WindowId _windowId;
         protected LevelStats LevelStats;
         protected SceneId CurrentLevel;
@@ -43,58 +43,21 @@ namespace CodeBase.UI.Windows.Common
         private MobileInput _mobileInput;
         protected PlayerInput PlayerInput;
 
-        private void Awake()
-        {
+        private void Awake() =>
             PlayerInput = new PlayerInput();
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
-            InputService = AllServices.Container.Single<IInputService>();
-        }
-
-        private void OnEnable()
-        {
-            if (WindowService == null)
-                WindowService = AllServices.Container.Single<IWindowService>();
-
-            if (SaveLoadService == null)
-                SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
-
-            if (GameStateMachine == null)
-                GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
-
-            if (StaticDataService == null)
-                StaticDataService = AllServices.Container.Single<IStaticDataService>();
-
-            if (AdsService == null)
-                AdsService = AllServices.Container.Single<IAdsService>();
-
-            if (LeaderBoardService == null)
-                LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
-
-            if (AudioSource == null)
-                AudioSource = GetComponent<AudioSource>();
-
-            _settingsData.SoundSwitchChanged += SetVolume;
-            _settingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SetVolume();
-        }
-
-        private void OnDisable()
-        {
-            _settingsData.SoundSwitchChanged -= SetVolume;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
-        }
 
         protected void Construct(GameObject hero, WindowId windowId, OpenSettings openSettings, MobileInput mobileInput)
         {
-            WindowService = AllServices.Container.Single<IWindowService>();
-            SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
-            GameStateMachine = AllServices.Container.Single<IGameStateMachine>();
-            StaticDataService = AllServices.Container.Single<IStaticDataService>();
-            AdsService = AllServices.Container.Single<IAdsService>();
-            LeaderBoardService = AllServices.Container.Single<ILeaderboardService>();
-            AudioSource = GetComponent<AudioSource>();
-            Hero = hero;
+            _inputService = AllServices.Container.Single<IInputService>();
+            _windowService = AllServices.Container.Single<IWindowService>();
+            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+            _gameStateMachine = AllServices.Container.Single<IGameStateMachine>();
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _adsService = AllServices.Container.Single<IAdsService>();
+            _leaderBoardService = AllServices.Container.Single<ILeaderboardService>();
+            _audioService = AllServices.Container.Single<IAudioService>();
+            _audioSource = GetComponent<AudioSource>();
+            _hero = hero;
             _windowId = windowId;
             _openSettings = openSettings;
             _mobileInput = mobileInput;
@@ -106,12 +69,12 @@ namespace CodeBase.UI.Windows.Common
             gameObject.SetActive(false);
             PlayCloseSound();
 
-            if (!WindowService.IsAnotherActive(_windowId))
+            if (!_windowService.IsAnotherActive(_windowId))
             {
                 if (AllServices.Container.Single<IInputService>() is DesktopInputService)
                     Cursor.lockState = CursorLockMode.Locked;
 
-                Hero.ResumeHero();
+                _hero.ResumeHero();
                 Time.timeScale = Constants.TimeScaleResume;
                 _openSettings.On();
 
@@ -123,7 +86,7 @@ namespace CodeBase.UI.Windows.Common
         public void Show(bool showCursor = true)
         {
             gameObject.SetActive(true);
-            Hero.StopHero();
+            _hero.StopHero();
             Time.timeScale = Constants.TimeScaleStop;
 
             if (AllServices.Container.Single<IInputService>() is DesktopInputService)
@@ -143,21 +106,11 @@ namespace CodeBase.UI.Windows.Common
         private void ShowCursor(bool showCursor) =>
             Cursor.lockState = showCursor ? CursorLockMode.Confined : CursorLockMode.Locked;
 
-        protected virtual void PlayCloseSound()
-        {
-            SetVolume();
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuClose), transform: Hero.transform,
-                Volume, AudioSource);
-        }
+        private void PlayCloseSound() =>
+            _audioService.LaunchUIActionSound(UIActionSoundId.MenuClose, _hero.transform, _audioSource);
 
-        protected virtual void PlayOpenSound()
-        {
-            SetVolume();
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.MenuOpen), transform: Hero.transform,
-                Volume, AudioSource);
-        }
+        private void PlayOpenSound() =>
+            _audioService.LaunchUIActionSound(UIActionSoundId.MenuOpen, _hero.transform, _audioSource);
 
         public void LoadProgressData(ProgressData progressData)
         {
@@ -165,15 +118,9 @@ namespace CodeBase.UI.Windows.Common
             LevelStats = ProgressData.AllStats.CurrentLevelStats;
         }
 
-        private void VolumeChanged() =>
-            Volume = _settingsData.SoundVolume;
-
-        private void SetVolume() =>
-            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
-
         protected void RestartLevel()
         {
-            WindowService.ClearAll();
+            _windowService.ClearAll();
             ProgressData.AllStats.RestartedLevel();
             SoundInstance.StopRandomMusic();
             AllServices.Container.Single<IGameStateMachine>()
@@ -182,50 +129,50 @@ namespace CodeBase.UI.Windows.Common
 
         protected void InitializeAdsSDK()
         {
-            if (AdsService.IsInitialized())
+            if (_adsService.IsInitialized())
                 AdsServiceInitializedSuccess();
             else
-                StartCoroutine(AdsService.Initialize());
+                StartCoroutine(_adsService.Initialize());
         }
 
         protected virtual void AdsServiceInitializedSuccess() =>
-            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+            _adsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
 
         protected void InitializeLeaderBoard()
         {
-            if (LeaderBoardService.IsInitialized())
+            if (_leaderBoardService.IsInitialized())
                 RequestLeaderBoard();
             else
                 StartCoroutine(CoroutineInitializeLeaderBoard());
         }
 
         protected virtual void RequestLeaderBoard() =>
-            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
+            _leaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
 
         private IEnumerator CoroutineInitializeLeaderBoard()
         {
-            yield return LeaderBoardService.Initialize();
+            yield return _leaderBoardService.Initialize();
         }
 
         protected void ShowSetValueError(string error)
         {
             Debug.Log($"ShowSetValueError {error}");
-            LeaderBoardService.OnSetValueError -= ShowSetValueError;
+            _leaderBoardService.OnSetValueError -= ShowSetValueError;
         }
 
         protected void AddLevelResult()
         {
             Debug.Log($"AddLevelResult {LevelStats.SceneId} {LevelStats.Score}");
-            LeaderBoardService.OnSetValueError += ShowSetValueError;
+            _leaderBoardService.OnSetValueError += ShowSetValueError;
             SubscribeSetValueSuccess();
-            LeaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsAsianMode),
+            _leaderBoardService.SetValue(CurrentLevel.GetLeaderBoardName(ProgressData.IsAsianMode),
                 LevelStats.Score);
         }
 
         protected void SuccessSetValue() =>
-            LeaderBoardService.OnSetValueSuccess -= SuccessSetValue;
+            _leaderBoardService.OnSetValueSuccess -= SuccessSetValue;
 
         protected virtual void SubscribeSetValueSuccess() =>
-            LeaderBoardService.OnSetValueSuccess += SuccessSetValue;
+            _leaderBoardService.OnSetValueSuccess += SuccessSetValue;
     }
 }

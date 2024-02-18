@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7947970bbdee4d918a04358253a220e9, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  WeaponTypeId: 0
-  ProjectileTypeId: 4
-  ShotVfxTypeId: 4
+  WeaponTypeId: 1
+  ProjectileTypeId: 5
+  ShotVfxTypeId: 5
   MovementLifeTime: 5
   Cooldown: 2
   MuzzleVfxLifeTime: 1

@@ -70,7 +70,6 @@ namespace CodeBase.Infrastructure.Factories
             ConstructEnemyAttack(typeId, enemyData, enemy);
             EnemyHealth health = enemy.GetComponent<EnemyHealth>();
             health.Construct(enemyData.Hp);
-
             return enemy;
         }
 

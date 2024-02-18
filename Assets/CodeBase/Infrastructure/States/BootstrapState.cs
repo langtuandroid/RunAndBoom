@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factories;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.GameReadyService;
 using CodeBase.Services.Input;
@@ -61,8 +62,10 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IRandomService>(new RandomService());
             _services.RegisterSingle<IPlayerProgressService>(new PlayerProgressService());
+            _services.RegisterSingle<IAudioService>(new AudioService(_services.Single<IPlayerProgressService>()));
             _services.RegisterSingle<IRegistratorService>(new RegistratorService(_services.Single<IAssets>()));
-            _services.RegisterSingle<IConstructorService>(new ConstructorService());
+            _services.RegisterSingle<IConstructorService>(
+                new ConstructorService(_services.Single<IStaticDataService>()));
             _services.RegisterSingle<IUIFactory>(
                 new UIFactory(_services.Single<IAssets>(), _services.Single<IRegistratorService>())
             );

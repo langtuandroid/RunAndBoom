@@ -2,6 +2,7 @@
 {
     public enum ShotVfxTypeId
     {
+        None,
         Grenade,
         RocketLauncherRocket,
         RpgRocket,

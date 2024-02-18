@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data.Progress;
 using CodeBase.Hero;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Items;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Gifts.Items
@@ -25,9 +25,7 @@ namespace CodeBase.UI.Windows.Gifts.Items
             if (_itemStaticData.TypeId == ItemTypeId.HealthRecover)
             {
                 Health.Recover();
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.FullRecovery),
-                    transform: _heroTransform, Volume, AudioSource);
+                _audioService.LaunchShopSound(ShopSoundId.FullRecovery, transform, _audioSource);
             }
 
             ClearData();

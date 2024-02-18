@@ -27,11 +27,13 @@ namespace CodeBase.Projectiles
         {
             switch (ProjectileTypeId)
             {
-                case ProjectileTypeId.Bullet:
+                case ProjectileTypeId.PistolBullet:
+                case ProjectileTypeId.RifleBullet:
                 case ProjectileTypeId.Shot:
                     _objectsPoolService.ReturnEnemyProjectile(ProjectileTypeId.ToString(), gameObject);
                     break;
 
+                case ProjectileTypeId.None:
                 case ProjectileTypeId.Grenade:
                 case ProjectileTypeId.RocketLauncherRocket:
                 case ProjectileTypeId.RpgRocket:

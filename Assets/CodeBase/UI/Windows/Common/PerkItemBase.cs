@@ -11,10 +11,10 @@ namespace CodeBase.UI.Windows.Common
         protected PerkStaticData _perkStaticData;
 
         private void OnEnable() =>
-            Button?.onClick.AddListener(Clicked);
+            _button?.onClick.AddListener(Clicked);
 
         private void OnDisable() =>
-            Button?.onClick.RemoveListener(Clicked);
+            _button?.onClick.RemoveListener(Clicked);
 
         public void Construct(PerkItemData perkItemData, ProgressData progressData)
         {
@@ -25,28 +25,28 @@ namespace CodeBase.UI.Windows.Common
 
         protected override void FillData()
         {
-            _perkStaticData = StaticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
+            _perkStaticData = _staticDataService.ForPerk(_perkItemData.PerkTypeId, _perkItemData.LevelTypeId);
 
-            BackgroundIcon.color = Constants.ShopItemPerk;
-            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
-            MainIcon.sprite = _perkStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.Visible);
-            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
+            _backgroundIcon.color = Constants.ShopItemPerk;
+            _backgroundIcon.ChangeImageAlpha(Constants.Visible);
+            _mainIcon.sprite = _perkStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.Visible);
+            _additionalIcon.ChangeImageAlpha(Constants.Invisible);
 
             if (_perkStaticData.ILevel != null)
-                LevelIcon.sprite = _perkStaticData.ILevel;
+                _levelIcon.sprite = _perkStaticData.ILevel;
 
-            LevelIcon.ChangeImageAlpha(_perkStaticData.ILevel != null
+            _levelIcon.ChangeImageAlpha(_perkStaticData.ILevel != null
                 ? Constants.Visible
                 : Constants.Invisible);
 
-            if (CostText != null)
-                CostText.text = $"{_perkStaticData.Cost}";
+            if (_costText != null)
+                _costText.text = $"{_perkStaticData.Cost}";
 
-            CountText.text = "";
+            _countText.text = "";
             // CostText.color = Constants.ShopItemPerk;
-            TitleText.text =
-                $"{LocalizationService.GetText(russian: _perkStaticData.RuTitle, turkish: _perkStaticData.TrTitle, english: _perkStaticData.EnTitle)}";
+            _titleText.text =
+                $"{_localizationService.GetText(russian: _perkStaticData.RuTitle, turkish: _perkStaticData.TrTitle, english: _perkStaticData.EnTitle)}";
         }
     }
 }

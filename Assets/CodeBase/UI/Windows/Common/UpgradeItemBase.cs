@@ -14,10 +14,10 @@ namespace CodeBase.UI.Windows.Common
         private ShopUpgradeLevelStaticData _shopUpgradeLevelStaticData;
 
         private void OnEnable() =>
-            Button?.onClick.AddListener(Clicked);
+            _button?.onClick.AddListener(Clicked);
 
         private void OnDisable() =>
-            Button?.onClick.RemoveListener(Clicked);
+            _button?.onClick.RemoveListener(Clicked);
 
         public void Construct(UpgradeItemData upgradeItemData, ProgressData progressData)
         {
@@ -28,34 +28,34 @@ namespace CodeBase.UI.Windows.Common
 
         protected override void FillData()
         {
-            _upgradableWeaponStaticData = StaticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
-            _upgradeStaticData = StaticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
+            _upgradableWeaponStaticData = _staticDataService.ForUpgradableWeapon(_upgradeItemData.WeaponTypeId);
+            _upgradeStaticData = _staticDataService.ForShopUpgrade(_upgradeItemData.UpgradeTypeId);
             _upgradeLevelInfoStaticData =
-                StaticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
-            _shopUpgradeLevelStaticData = StaticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
+                _staticDataService.ForUpgradeLevelsInfo(_upgradeItemData.UpgradeTypeId, _upgradeItemData.LevelTypeId);
+            _shopUpgradeLevelStaticData = _staticDataService.ForShopUpgradeLevel(_upgradeItemData.LevelTypeId);
 
-            BackgroundIcon.color = Constants.ShopItemUpgrade;
-            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
-            MainIcon.sprite = _upgradableWeaponStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.Visible);
+            _backgroundIcon.color = Constants.ShopItemUpgrade;
+            _backgroundIcon.ChangeImageAlpha(Constants.Visible);
+            _mainIcon.sprite = _upgradableWeaponStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.Visible);
 
             if (_shopUpgradeLevelStaticData.MainImage != null)
-                LevelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
+                _levelIcon.sprite = _shopUpgradeLevelStaticData.MainImage;
 
-            LevelIcon.ChangeImageAlpha(_shopUpgradeLevelStaticData.MainImage != null
+            _levelIcon.ChangeImageAlpha(_shopUpgradeLevelStaticData.MainImage != null
                 ? Constants.Visible
                 : Constants.Invisible);
 
-            AdditionalIcon.sprite = _upgradeStaticData.MainImage;
-            AdditionalIcon.ChangeImageAlpha(Constants.Visible);
+            _additionalIcon.sprite = _upgradeStaticData.MainImage;
+            _additionalIcon.ChangeImageAlpha(Constants.Visible);
 
-            if (CostText != null)
-                CostText.text = $"{_upgradeLevelInfoStaticData.Cost}";
+            if (_costText != null)
+                _costText.text = $"{_upgradeLevelInfoStaticData.Cost}";
 
             // CostText.color = Constants.ShopItemPerk;
-            CountText.text = "";
-            TitleText.text =
-                $"{LocalizationService.GetText(russian: _upgradeStaticData.RuTitle, turkish: _upgradeStaticData.TrTitle, english: _upgradeStaticData.EnTitle)} {_shopUpgradeLevelStaticData.Level} {LocalizationService.GetText(russian: _upgradableWeaponStaticData.RuTitle, turkish: _upgradableWeaponStaticData.TrTitle, english: _upgradableWeaponStaticData.EnTitle)}";
+            _countText.text = "";
+            _titleText.text =
+                $"{_localizationService.GetText(russian: _upgradeStaticData.RuTitle, turkish: _upgradeStaticData.TrTitle, english: _upgradeStaticData.EnTitle)} {_shopUpgradeLevelStaticData.Level} {_localizationService.GetText(russian: _upgradableWeaponStaticData.RuTitle, turkish: _upgradableWeaponStaticData.TrTitle, english: _upgradableWeaponStaticData.EnTitle)}";
         }
     }
 }

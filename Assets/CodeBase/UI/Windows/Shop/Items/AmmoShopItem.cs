@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data;
 using CodeBase.Data.Progress;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Shop.Ammo;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Shop.Items
@@ -19,21 +19,17 @@ namespace CodeBase.UI.Windows.Shop.Items
 
         protected override void Clicked()
         {
-            if (ShopItemBalance.IsMoneyEnough(_shopAmmoStaticData.Cost))
+            if (_shopItemBalance.IsMoneyEnough(_shopAmmoStaticData.Cost))
             {
-                ShopItemBalance.ReduceMoney(_shopAmmoStaticData.Cost);
-                ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
-                    InputService.GetCount(_shopAmmoStaticData.Count));
+                _shopItemBalance.ReduceMoney(_shopAmmoStaticData.Cost);
+                _progressData.WeaponsData.WeaponsAmmoData.AddAmmo(_ammoItem.WeaponTypeId,
+                    _inputService.GetCount(_shopAmmoStaticData.Count));
                 ClearData();
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.AmmoGotten),
-                    transform: _heroTransform, Volume, AudioSource);
+                _audioService.LaunchShopSound(ShopSoundId.AmmoGotten, transform, _audioSource);
             }
             else
             {
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.NotEnoughMoney),
-                    transform: _heroTransform, Volume, AudioSource);
+                _audioService.LaunchShopSound(ShopSoundId.NotEnoughMoney, transform, _audioSource);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeBase.Logic;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Death;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace CodeBase.Hero
         public void Die()
         {
             Died?.Invoke();
+            AllServices.Container.Single<IAudioService>().LaunchGameEventSound(GameEventSoundId.Death, transform);
             _windowService.Show<DeathWindow>(WindowId.Death);
         }
     }

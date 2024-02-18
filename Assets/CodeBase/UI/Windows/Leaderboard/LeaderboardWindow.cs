@@ -2,12 +2,12 @@
 using Agava.YandexGames;
 using CodeBase.Data;
 using CodeBase.Data.Progress;
+using CodeBase.Services.Audio;
 using CodeBase.UI.Elements.Hud;
 using CodeBase.UI.Elements.Hud.MobileInputPanel;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows.Common;
 using CodeBase.UI.Windows.GameEnd;
-using Plugins.SoundInstance.Core.Static;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -38,13 +38,13 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _toGameEndWindowButton.onClick.AddListener(ToGameEndWindow);
             ActivateButtons();
 
-            if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
+            if (Application.isEditor || _leaderBoardService == null || ProgressData == null)
             {
                 AddTestData();
                 return;
             }
 
-            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            _leaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
         }
 
@@ -53,8 +53,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _closeButton.onClick.RemoveListener(Close);
             _toGameEndWindowButton.onClick.RemoveListener(ToGameEndWindow);
 
-            if (AdsService != null)
-                AdsService.OnInitializeSuccess -= RequestLeaderBoard;
+            if (_adsService != null)
+                _adsService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
@@ -129,34 +129,34 @@ namespace CodeBase.UI.Windows.LeaderBoard
         private void ShowGetEntriesError(string error)
         {
             Debug.Log($"ShowGetEntriesError {error}");
-            LeaderBoardService.OnGetEntriesError -= ShowGetEntriesError;
+            _leaderBoardService.OnGetEntriesError -= ShowGetEntriesError;
         }
 
         private void ShowGetEntryError(string error)
         {
             Debug.Log($"ShowGetEntryError {error}");
-            LeaderBoardService.OnGetEntryError -= ShowGetEntryError;
+            _leaderBoardService.OnGetEntryError -= ShowGetEntryError;
         }
 
         private void GetLeaderBoardData()
         {
             // Debug.Log("RequestLeaderBoardData");
-            LeaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
-            LeaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
+            _leaderBoardService.OnSuccessGetEntries += FillLeaderBoard;
+            _leaderBoardService.OnSuccessGetEntry += FillPlayerInfo;
             SceneId scene = ProgressData.AllStats.CurrentLevelStats.SceneId;
             // Debug.Log($"Scene {scene}");
-            LeaderBoardService.OnGetEntriesError += ShowGetEntriesError;
-            LeaderBoardService.OnGetEntryError += ShowGetEntryError;
+            _leaderBoardService.OnGetEntriesError += ShowGetEntriesError;
+            _leaderBoardService.OnGetEntryError += ShowGetEntryError;
 
             if (_isCurrentScene)
             {
-                LeaderBoardService.GetEntries(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
-                LeaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
+                _leaderBoardService.GetEntries(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
+                _leaderBoardService.GetPlayerEntry(scene.GetLeaderBoardName(ProgressData.IsAsianMode));
             }
             else
             {
-                LeaderBoardService.GetEntries(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
-                LeaderBoardService.GetPlayerEntry(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
+                _leaderBoardService.GetEntries(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
+                _leaderBoardService.GetPlayerEntry(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode));
                 _isCurrentScene = true;
             }
         }
@@ -190,8 +190,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
                 // Debug.Log($"rank {response.rank}");
             }
 
-            if (LeaderBoardService != null)
-                LeaderBoardService.OnSuccessGetEntries -= FillLeaderBoard;
+            if (_leaderBoardService != null)
+                _leaderBoardService.OnSuccessGetEntries -= FillLeaderBoard;
         }
 
         private void FillPlayerInfo(LeaderboardEntryResponse response)
@@ -204,8 +204,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
             _nameText.text = response.player.publicName;
             _scoreText.text = response.score.ToString();
 
-            if (LeaderBoardService != null)
-                LeaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
+            if (_leaderBoardService != null)
+                _leaderBoardService.OnSuccessGetEntry -= FillPlayerInfo;
 
             if (!string.IsNullOrEmpty(response.player.publicName))
                 _playerDataContainer.SetActive(true);
@@ -234,10 +234,8 @@ namespace CodeBase.UI.Windows.LeaderBoard
 
         private void ToGameEndWindow()
         {
-            WindowService.Show<GameEndWindow>(WindowId.GameEnd);
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.GameWon), transform: transform,
-                Volume, AudioSource);
+            _windowService.Show<GameEndWindow>(WindowId.GameEnd);
+            _audioService.LaunchGameEventSound(GameEventSoundId.GameWon, _hero.transform, _audioSource);
         }
     }
 }

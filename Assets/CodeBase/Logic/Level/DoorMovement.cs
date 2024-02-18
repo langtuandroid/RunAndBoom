@@ -1,8 +1,6 @@
-﻿using CodeBase.Data.Settings;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
-using Plugins.SoundInstance.Core.Static;
+using CodeBase.Services.Audio;
 using UnityEngine;
 
 namespace CodeBase.Logic.Level
@@ -23,7 +21,7 @@ namespace CodeBase.Logic.Level
         private Transform _doorTransform;
         private bool _close;
         private Coroutine _movementCoroutine;
-        private SettingsData _settingsData;
+        private IAudioService _audioService;
         private float _volume;
 
         private void Awake()
@@ -36,33 +34,19 @@ namespace CodeBase.Logic.Level
             _minY = _positionY - _door.GetComponent<MeshRenderer>().bounds.size.y;
             _maxY = _positionY;
 
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            _audioService = AllServices.Container.Single<IAudioService>();
         }
 
         private void OnEnable()
         {
             _trigger.Passed += Close;
             _areaTriggersChecker.Cleared += Open;
-
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged += SwitchChanged;
-            _settingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
         }
 
         private void OnDisable()
         {
             _trigger.Passed -= Close;
             _areaTriggersChecker.Cleared -= Open;
-
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void Update() =>
@@ -79,9 +63,7 @@ namespace CodeBase.Logic.Level
             if (other.TryGetComponent(out HeroHealth heroHealth) && _close == false)
             {
                 _targetY = _maxY;
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorOpening), transform: transform,
-                    _volume, _audioSource);
+                _audioService.LaunchDoorSound(DoorSoundId.DoorClosing, transform, _audioSource);
             }
         }
 
@@ -102,15 +84,7 @@ namespace CodeBase.Logic.Level
         private void Open()
         {
             _targetY = _minY;
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DoorClosing), transform: transform,
-                _volume, _audioSource);
+            _audioService.LaunchDoorSound(DoorSoundId.DoorOpening, transform, _audioSource);
         }
-
-        private void VolumeChanged() =>
-            _volume = _settingsData.SoundVolume;
-
-        private void SwitchChanged() =>
-            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

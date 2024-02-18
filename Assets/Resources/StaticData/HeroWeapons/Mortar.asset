@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Mortar
   m_EditorClassIdentifier: 
   WeaponTypeId: 3
-  ProjectileTypeId: 3
+  ProjectileTypeId: 4
   BlastTypeId: 4
   TrailTypeId: 0
-  ShotVfxTypeId: 3
+  ShotVfxTypeId: 4
   RotationSpeed: 3
   Cooldown: 3
   AimRange: 10

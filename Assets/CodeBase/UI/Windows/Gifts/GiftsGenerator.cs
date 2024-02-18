@@ -18,11 +18,11 @@ namespace CodeBase.UI.Windows.Gifts
             base.Construct(hero);
 
         public void SetMaxPrice(int maxPrice) =>
-            Money = maxPrice;
+            _money = maxPrice;
 
         public override void Generate()
         {
-            if (ProgressData == null)
+            if (_progressData == null)
                 return;
 
             SetHighlightingVisibility(false);
@@ -46,7 +46,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         protected override void GenerateAllItems()
         {
-            if (ProgressData.IsAsianMode)
+            if (_progressData.IsAsianMode)
             {
                 GenerateItems();
                 GenerateMoney();
@@ -60,7 +60,7 @@ namespace CodeBase.UI.Windows.Gifts
                 GenerateItems();
                 GenerateAmmo();
 
-                if (ProgressData.AllStats.AllMoney.Money < Constants.MinMoneyForGenerator)
+                if (_progressData.AllStats.AllMoney.Money < Constants.MinMoneyForGenerator)
                     GenerateMoney();
 
                 GeneratePerks();
@@ -71,9 +71,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void CreateAmmoItem(GameObject hero, GameObject parent, List<AmmoItem> list,
             bool isClickable)
         {
-            AmmoItem ammoItem = RandomService.NextFrom(list);
+            AmmoItem ammoItem = _randomService.NextFrom(list);
             AmmoGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(AmmoGiftItem)) as AmmoGiftItem;
-            view?.Construct(hero.transform, ammoItem, ProgressData, this);
+            view?.Construct(hero.transform, ammoItem, _progressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -83,7 +83,7 @@ namespace CodeBase.UI.Windows.Gifts
         {
             ItemGiftItem view =
                 parent.GetComponent<ShopCell>().GetView(typeof(ItemGiftItem)) as ItemGiftItem;
-            view?.Construct(hero.transform, itemTypeId, ProgressData, Health, this);
+            view?.Construct(hero.transform, itemTypeId, _progressData, _health, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -91,9 +91,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void CreateUpgradeItem(GameObject hero, GameObject parent, List<UpgradeItemData> list,
             bool isClickable)
         {
-            UpgradeItemData upgradeItemData = RandomService.NextFrom(list);
+            UpgradeItemData upgradeItemData = _randomService.NextFrom(list);
             UpgradeGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(UpgradeGiftItem)) as UpgradeGiftItem;
-            view?.Construct(hero.transform, upgradeItemData, ProgressData, this);
+            view?.Construct(hero.transform, upgradeItemData, _progressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -101,9 +101,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void CreatePerkItem(GameObject hero, GameObject parent, List<PerkItemData> list,
             bool isClickable)
         {
-            PerkItemData perkItemData = RandomService.NextFrom(list);
+            PerkItemData perkItemData = _randomService.NextFrom(list);
             PerkGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(PerkGiftItem)) as PerkGiftItem;
-            view?.Construct(hero.transform, perkItemData, ProgressData, this);
+            view?.Construct(hero.transform, perkItemData, _progressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -111,9 +111,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void CreateWeaponItem(GameObject hero, GameObject parent, List<HeroWeaponTypeId> list,
             bool isClickable)
         {
-            HeroWeaponTypeId weaponTypeId = RandomService.NextFrom(list);
+            HeroWeaponTypeId weaponTypeId = _randomService.NextFrom(list);
             WeaponGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(WeaponGiftItem)) as WeaponGiftItem;
-            view?.Construct(hero.transform, weaponTypeId, ProgressData, this);
+            view?.Construct(hero.transform, weaponTypeId, _progressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }
@@ -121,9 +121,9 @@ namespace CodeBase.UI.Windows.Gifts
         protected override void CreateMoneyItem(GameObject hero, GameObject parent, List<MoneyTypeId> list,
             bool isClickable)
         {
-            MoneyTypeId moneyTypeId = RandomService.NextFrom(list);
+            MoneyTypeId moneyTypeId = _randomService.NextFrom(list);
             MoneyGiftItem view = parent.GetComponent<ShopCell>().GetView(typeof(MoneyGiftItem)) as MoneyGiftItem;
-            view?.Construct(hero.transform, moneyTypeId, ProgressData, this);
+            view?.Construct(hero.transform, moneyTypeId, _progressData, this);
             view?.ChangeClickability(isClickable);
             parent.SetActive(true);
         }

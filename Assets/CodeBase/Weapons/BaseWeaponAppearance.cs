@@ -5,6 +5,7 @@ using CodeBase.Projectiles;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Constructor;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Pool;
@@ -35,6 +36,7 @@ namespace CodeBase.Weapons
         protected ShotVfxsContainer _shotVfxsContainer;
 
         protected AudioSource _audioSource;
+        protected IAudioService _audioService;
         private SettingsData _settingsData;
         protected IStaticDataService _staticDataService;
         protected IConstructorService _constructorService;
@@ -48,8 +50,10 @@ namespace CodeBase.Weapons
 
         protected WaitForSeconds _launchProjectileCooldown { get; private set; }
 
-        private void Awake() =>
+        private void Awake()
+        {
             _audioSource = GetComponent<AudioSource>();
+        }
 
         private void OnEnable() =>
             Enable();
@@ -65,6 +69,7 @@ namespace CodeBase.Weapons
             _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
             _constructorService = AllServices.Container.Single<IConstructorService>();
+            _audioService = AllServices.Container.Single<IAudioService>();
             _shotVfxsContainer.Construct(shotVfxLifeTime, shotVfxTypeId, transform);
             _launchProjectileCooldown = new WaitForSeconds(cooldown);
             _projectileTypeId = projectileTypeId;

@@ -38,7 +38,6 @@ namespace CodeBase.Enemy
         private void Awake()
         {
             _progressService = AllServices.Container.Single<IPlayerProgressService>();
-
             _enemyAnimator = GetComponent<EnemyAnimator>();
             _agentMoveToHero = GetComponent<AgentMoveToHero>();
             _rotateToHero = GetComponent<RotateToHero>();
@@ -51,14 +50,23 @@ namespace CodeBase.Enemy
             _diedBox.SetActive(false);
         }
 
-        private void OnEnable() =>
-            _health.HealthChanged += HealthChanged;
+        private void OnEnable()
+        {
+            if (_health != null)
+                _health.HealthChanged += HealthChanged;
+        }
 
-        private void OnDisable() =>
-            _health.HealthChanged -= HealthChanged;
+        private void OnDisable()
+        {
+            if (_health != null)
+                _health.HealthChanged -= HealthChanged;
+        }
 
-        private void OnDestroy() =>
-            _health.HealthChanged -= HealthChanged;
+        private void OnDestroy()
+        {
+            if (_health != null)
+                _health.HealthChanged -= HealthChanged;
+        }
 
         public void Construct(HeroHealth heroHealth, int reward)
         {

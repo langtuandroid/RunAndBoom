@@ -12,8 +12,6 @@
         public const string DestructionWoodenBox = "Destruction wooden box";
         public const string DestructionConcrete = "Destruction concrete";
 
-        public const string FullRecovery = "Full recovery";
-
         public const string ShotGl = "GL shot";
         public const string ShotMg = "MG shot";
         public const string ShotMortar = "Mortar shot";
@@ -41,6 +39,7 @@
         public const string UpgradeLevel_2 = "Upgrade level 2";
         public const string UpgradeLevel_3 = "Upgrade level 3";
         public const string NotEnoughMoney = "Not enough money";
+        public const string FullRecovery = "Full recovery";
 
         public const string GameWon = "Game won";
         public const string Death = "Dead";

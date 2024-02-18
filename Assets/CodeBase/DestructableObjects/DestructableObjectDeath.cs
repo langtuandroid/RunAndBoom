@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using CodeBase.Data.Settings;
 using CodeBase.Logic;
 using CodeBase.Services;
-using CodeBase.Services.PersistentProgress;
-using Plugins.SoundInstance.Core.Static;
+using CodeBase.Services.Audio;
 using UnityEngine;
 
 namespace CodeBase.DestructableObjects
@@ -22,8 +20,7 @@ namespace CodeBase.DestructableObjects
         private float _deathDelay = 50f;
         private bool _isBroken = false;
         private List<Rigidbody> _parts;
-        private SettingsData _settingsData;
-        private float _volume;
+        private IAudioService _audioService;
         private WaitForSeconds _waitForSeconds;
 
         public event Action Died;
@@ -34,33 +31,12 @@ namespace CodeBase.DestructableObjects
             _broken.SetActive(false);
             _parts = new List<Rigidbody>(_broken.transform.childCount);
             _audioSource = GetComponent<AudioSource>();
-
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            _audioService = AllServices.Container.Single<IAudioService>();
 
             for (int i = 0; i < _broken.transform.childCount; i++)
                 _parts.Add(_broken.transform.GetChild(i).GetComponent<Rigidbody>());
 
             _waitForSeconds = new WaitForSeconds(_deathDelay);
-        }
-
-        private void OnEnable()
-        {
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged += SwitchChanged;
-            _settingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
-        }
-
-        private void OnDisable()
-        {
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         public void Die()
@@ -85,14 +61,12 @@ namespace CodeBase.DestructableObjects
             switch (_typeId)
             {
                 case DestructableTypeId.WoodenBox:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DestructionWoodenBox),
-                        transform: transform, _volume, _audioSource);
+                    _audioService.LaunchDestructionSound(DestructionSoundId.DestructionWoodenBox, transform,
+                        _audioSource);
                     break;
                 case DestructableTypeId.Concrete:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.DestructionConcrete),
-                        transform: transform, _volume, _audioSource);
+                    _audioService.LaunchDestructionSound(DestructionSoundId.DestructionConcrete, transform,
+                        _audioSource);
                     break;
             }
         }
@@ -102,11 +76,5 @@ namespace CodeBase.DestructableObjects
             yield return _waitForSeconds;
             Destroy(gameObject);
         }
-
-        private void VolumeChanged() =>
-            _volume = _settingsData.SoundVolume;
-
-        private void SwitchChanged() =>
-            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

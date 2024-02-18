@@ -1,8 +1,8 @@
 ﻿using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Upgrades;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Gifts.Items
@@ -22,7 +22,7 @@ namespace CodeBase.UI.Windows.Gifts.Items
 
         protected override void Clicked()
         {
-            ProgressData.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
+            _progressData.WeaponsData.UpgradesData.LevelUp(_upgradableWeaponStaticData.WeaponTypeId,
                 _upgradeStaticData.UpgradeTypeId);
             ClearData();
             _generator.Clicked();
@@ -30,19 +30,13 @@ namespace CodeBase.UI.Windows.Gifts.Items
             switch (_upgradeLevelInfoStaticData.LevelTypeId)
             {
                 case LevelTypeId.None:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_1),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.UpgradeLevel_1, _heroTransform, _audioSource);
                     break;
                 case LevelTypeId.Level_1:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_2),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.UpgradeLevel_2, _heroTransform, _audioSource);
                     break;
                 case LevelTypeId.Level_2:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.UpgradeLevel_3),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.UpgradeLevel_3, _heroTransform, _audioSource);
                     break;
             }
         }

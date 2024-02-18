@@ -11,10 +11,10 @@ namespace CodeBase.UI.Windows.Common
         protected ShopWeaponStaticData _weaponStaticData;
 
         private void OnEnable() =>
-            Button?.onClick.AddListener(Clicked);
+            _button?.onClick.AddListener(Clicked);
 
         private void OnDisable() =>
-            Button?.onClick.RemoveListener(Clicked);
+            _button?.onClick.RemoveListener(Clicked);
 
         public void Construct(HeroWeaponTypeId weaponTypeId, ProgressData progressData)
         {
@@ -25,22 +25,22 @@ namespace CodeBase.UI.Windows.Common
 
         protected override void FillData()
         {
-            _weaponStaticData = StaticDataService.ForShopWeapon(_weaponTypeId);
+            _weaponStaticData = _staticDataService.ForShopWeapon(_weaponTypeId);
 
-            BackgroundIcon.color = Constants.ShopItemWeapon;
-            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
-            MainIcon.sprite = _weaponStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.Visible);
-            LevelIcon.ChangeImageAlpha(Constants.Invisible);
-            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
+            _backgroundIcon.color = Constants.ShopItemWeapon;
+            _backgroundIcon.ChangeImageAlpha(Constants.Visible);
+            _mainIcon.sprite = _weaponStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.Visible);
+            _levelIcon.ChangeImageAlpha(Constants.Invisible);
+            _additionalIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (CostText != null)
-                CostText.text = $"{_weaponStaticData.Cost}";
+            if (_costText != null)
+                _costText.text = $"{_weaponStaticData.Cost}";
 
             // CostText.color = Constants.ShopItemPerk;
-            CountText.text = "";
-            TitleText.text =
-                $"{LocalizationService.GetText(russian: _weaponStaticData.RuTitle, turkish: _weaponStaticData.TrTitle, english: _weaponStaticData.EnTitle)}";
+            _countText.text = "";
+            _titleText.text =
+                $"{_localizationService.GetText(russian: _weaponStaticData.RuTitle, turkish: _weaponStaticData.TrTitle, english: _weaponStaticData.EnTitle)}";
         }
     }
 }

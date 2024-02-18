@@ -12,10 +12,10 @@ namespace CodeBase.UI.Windows.Common
         protected ShopAmmoStaticData _shopAmmoStaticData;
 
         private void OnEnable() =>
-            Button?.onClick.AddListener(Clicked);
+            _button?.onClick.AddListener(Clicked);
 
         private void OnDisable() =>
-            Button?.onClick.RemoveListener(Clicked);
+            _button?.onClick.RemoveListener(Clicked);
 
         protected void Construct(AmmoItem ammoItem, ProgressData progressData)
         {
@@ -26,23 +26,23 @@ namespace CodeBase.UI.Windows.Common
 
         protected override void FillData()
         {
-            _shopAmmoStaticData = StaticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
+            _shopAmmoStaticData = _staticDataService.ForShopAmmo(_ammoItem.WeaponTypeId, _ammoItem.CountType);
 
-            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
-            BackgroundIcon.color = Constants.ShopItemAmmo;
-            MainIcon.sprite = _shopAmmoStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.Visible);
-            LevelIcon.ChangeImageAlpha(Constants.Invisible);
-            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
+            _backgroundIcon.ChangeImageAlpha(Constants.Visible);
+            _backgroundIcon.color = Constants.ShopItemAmmo;
+            _mainIcon.sprite = _shopAmmoStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.Visible);
+            _levelIcon.ChangeImageAlpha(Constants.Invisible);
+            _additionalIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (CostText != null)
-                CostText.text = $"{_shopAmmoStaticData.Cost}";
+            if (_costText != null)
+                _costText.text = $"{_shopAmmoStaticData.Cost}";
 
-            int count = InputService.GetCount(_shopAmmoStaticData.Count);
+            int count = _inputService.GetCount(_shopAmmoStaticData.Count);
 
-            CountText.text = $"{count}";
-            TitleText.text =
-                LocalizationService.GetText(russian: $"{count} {_shopAmmoStaticData.RuTitle}",
+            _countText.text = $"{count}";
+            _titleText.text =
+                _localizationService.GetText(russian: $"{count} {_shopAmmoStaticData.RuTitle}",
                     turkish: $"{count} {_shopAmmoStaticData.TrTitle}",
                     english: $"{count} {_shopAmmoStaticData.EnTitle}");
         }

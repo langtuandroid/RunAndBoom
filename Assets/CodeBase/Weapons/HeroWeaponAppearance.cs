@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using CodeBase.Hero;
 using CodeBase.Projectiles.Hit;
 using CodeBase.Projectiles.Movement;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Projectiles;
 using CodeBase.StaticData.Weapons;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -71,10 +71,10 @@ namespace CodeBase.Weapons
             {
                 StartCoroutine(CoroutineShootTo());
                 Release();
-                PlayShootSound();
             }
 
             _shotVfxsContainer.ShowShotVfx(_shotVfxsRespawns[0]);
+            PlayShootSound();
         }
 
         public void ReturnShotsVfx() =>
@@ -91,25 +91,16 @@ namespace CodeBase.Weapons
             switch (_heroWeaponTypeId)
             {
                 case HeroWeaponTypeId.GrenadeLauncher:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotGl), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotGl, transform, _audioSource);
                     break;
                 case HeroWeaponTypeId.RPG:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRpg), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotRpg, transform, _audioSource);
                     break;
                 case HeroWeaponTypeId.RocketLauncher:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotRl), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotRl, transform, _audioSource);
                     break;
                 case HeroWeaponTypeId.Mortar:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotMortar),
-                        transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotMortar, transform, _audioSource);
                     break;
             }
         }

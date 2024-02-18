@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using CodeBase.Enemy;
 using CodeBase.Projectiles.Movement;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Enemies;
 using CodeBase.StaticData.Weapons;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Weapons
@@ -47,6 +47,7 @@ namespace CodeBase.Weapons
             }
 
             _shotVfxsContainer.ShowShotVfx(_shotVfxsRespawns[0]);
+            PlayShootSound();
         }
 
         private IEnumerator CoroutineShootTo(Vector3 targetPosition)
@@ -89,30 +90,22 @@ namespace CodeBase.Weapons
         {
             switch (_enemyWeaponTypeId)
             {
+                case EnemyWeaponTypeId.None:
+                    break;
                 case EnemyWeaponTypeId.Pistol:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotPistol),
-                        transform: transform, _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotPistol, transform, _audioSource);
                     break;
                 case EnemyWeaponTypeId.Shotgun:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotShotgun),
-                        transform: transform, _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotShotgun, transform, _audioSource);
                     break;
                 case EnemyWeaponTypeId.SniperRifle:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotSr), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotSr, transform, _audioSource);
                     break;
                 case EnemyWeaponTypeId.SMG:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotSmg), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotSmg, transform, _audioSource);
                     break;
                 case EnemyWeaponTypeId.MG:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.ShotMg), transform: transform,
-                        _volume, _audioSource);
+                    _audioService.LaunchShotSound(ShotSoundId.ShotMg, transform, _audioSource);
                     break;
             }
         }

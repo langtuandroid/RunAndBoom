@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec2c914c56d4c0b9820ddade2a5e046, type: 3}
-  m_Name: RlRocket
+  m_Script: {fileID: 11500000, guid: 7947970bbdee4d918a04358253a220e9, type: 3}
+  m_Name: None
   m_EditorClassIdentifier: 
-  TypeId: 1
-  Prefab: {fileID: 169982, guid: 03b5266e6b05a334a996d475667697e3, type: 3}
+  WeaponTypeId: 0
+  ProjectileTypeId: 0
+  ShotVfxTypeId: 0
+  MovementLifeTime: 1
+  Cooldown: 0
+  MuzzleVfxLifeTime: 0

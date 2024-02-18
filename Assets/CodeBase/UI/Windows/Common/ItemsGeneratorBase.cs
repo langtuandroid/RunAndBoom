@@ -6,9 +6,9 @@ using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Perks;
 using CodeBase.Data.Progress.Upgrades;
 using CodeBase.Data.Progress.Weapons;
-using CodeBase.Data.Settings;
 using CodeBase.Hero;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
@@ -21,7 +21,6 @@ using CodeBase.StaticData.Items.Shop.Weapons;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Shop;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Common
@@ -34,8 +33,7 @@ namespace CodeBase.UI.Windows.Common
 
         private IInputService _inputService;
         private IStaticDataService _staticDataService;
-        protected IRandomService RandomService;
-        private SettingsData _settingsData;
+        protected IRandomService _randomService;
         private HashSet<int> _shopItemsNumbers;
         private List<AmmoItem> _unavailableAmmunition;
         private List<ItemTypeId> _unavailableItems;
@@ -48,44 +46,39 @@ namespace CodeBase.UI.Windows.Common
         private List<HeroWeaponTypeId> _availableWeapons;
         private List<PerkItemData> _availablePerks;
         private List<MoneyTypeId> _moneyTypeIds;
-        protected HeroHealth Health;
-        protected int Money;
-        protected ProgressData ProgressData;
-        protected GameObject Hero;
+        protected HeroHealth _health;
+        protected int _money;
+        protected ProgressData _progressData;
+        protected GameObject _hero;
         private Coroutine _coroutineShopItemsGeneration;
-        protected float Volume;
+        private IAudioService _audioService;
 
         public virtual event Action GenerationStarted;
         public virtual event Action GenerationEnded;
 
         protected void Construct(GameObject hero)
         {
-            Hero = hero;
-            Health = hero.GetComponent<HeroHealth>();
+            _hero = hero;
+            _health = hero.GetComponent<HeroHealth>();
             _inputService = AllServices.Container.Single<IInputService>();
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
-            RandomService = AllServices.Container.Single<IRandomService>();
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            _randomService = AllServices.Container.Single<IRandomService>();
+            _audioService = AllServices.Container.Single<IAudioService>();
         }
 
         public abstract void Generate();
 
-        private void SetVolume() =>
-            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
 
         protected void PlaySound()
         {
             if (_shopItemsNumbers.Count == GameObjectItems.Length)
                 return;
 
-            SetVolume();
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Generate), transform: Hero.transform,
-                Volume);
+            _audioService.LaunchUIActionSound(UIActionSoundId.Generate, _hero.transform);
         }
 
         protected void GetMoney() =>
-            Money = ProgressData.AllStats.AllMoney.Money;
+            _money = _progressData.AllStats.AllMoney.Money;
 
         protected void InitializeEmptyData()
         {
@@ -113,8 +106,8 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateNextLevelUpgrades()
         {
             WeaponData[] availableWeapons =
-                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
-            List<UpgradeItemData> upgradeItemDatas = ProgressData.WeaponsData.UpgradesData.UpgradeItemDatas;
+                _progressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
+            List<UpgradeItemData> upgradeItemDatas = _progressData.WeaponsData.UpgradesData.UpgradeItemDatas;
 
             foreach (WeaponData weaponData in availableWeapons)
             {
@@ -123,7 +116,7 @@ namespace CodeBase.UI.Windows.Common
                     if (weaponData.WeaponTypeId == upgradeItemData.WeaponTypeId)
                     {
                         UpgradeItemData nextLevelUpgrade =
-                            ProgressData.WeaponsData.UpgradesData.GetNextLevelUpgrade(weaponData.WeaponTypeId,
+                            _progressData.WeaponsData.UpgradesData.GetNextLevelUpgrade(weaponData.WeaponTypeId,
                                 upgradeItemData.UpgradeTypeId);
 
                         if (nextLevelUpgrade.LevelTypeId != LevelTypeId.None)
@@ -132,7 +125,7 @@ namespace CodeBase.UI.Windows.Common
                                 _staticDataService.ForUpgradeLevelsInfo(nextLevelUpgrade.UpgradeTypeId,
                                     nextLevelUpgrade.LevelTypeId);
 
-                            if (Money >= upgradeLevelInfoStaticData.Cost)
+                            if (_money >= upgradeLevelInfoStaticData.Cost)
                                 _availableUpgrades.Add(nextLevelUpgrade);
                             else
                                 _unavailableUpgrades.Add(nextLevelUpgrade);
@@ -146,14 +139,14 @@ namespace CodeBase.UI.Windows.Common
         {
             foreach (PerkTypeId perkTypeId in DataExtensions.GetValues<PerkTypeId>())
             {
-                PerkItemData nextLevelPerk = ProgressData.PerksData.GetNextLevelPerk(perkTypeId);
+                PerkItemData nextLevelPerk = _progressData.PerksData.GetNextLevelPerk(perkTypeId);
 
                 if (nextLevelPerk.LevelTypeId != LevelTypeId.None)
                 {
                     PerkStaticData perkStaticData =
                         _staticDataService.ForPerk(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId);
 
-                    if (Money >= perkStaticData.Cost)
+                    if (_money >= perkStaticData.Cost)
                         _availablePerks.Add(new PerkItemData(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId));
                     else
                         _unavailablePerks.Add(new PerkItemData(nextLevelPerk.PerkTypeId, nextLevelPerk.LevelTypeId));
@@ -164,7 +157,7 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateAmmunition()
         {
             WeaponData[] availableWeapons =
-                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
+                _progressData.WeaponsData.WeaponData.Where(data => data.IsAvailable).ToArray();
 
             foreach (WeaponData weaponData in availableWeapons)
                 CheckAmmoCount(weaponData);
@@ -175,7 +168,7 @@ namespace CodeBase.UI.Windows.Common
             ShopAmmoStaticData maxShopAmmoStaticData =
                 _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Max);
 
-            if (Money >= maxShopAmmoStaticData.Count)
+            if (_money >= maxShopAmmoStaticData.Count)
             {
                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Max, maxShopAmmoStaticData);
                 return;
@@ -184,7 +177,7 @@ namespace CodeBase.UI.Windows.Common
             ShopAmmoStaticData medShopAmmoStaticData =
                 _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium);
 
-            if (Money >= medShopAmmoStaticData.Count)
+            if (_money >= medShopAmmoStaticData.Count)
             {
                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Medium, medShopAmmoStaticData);
                 return;
@@ -193,7 +186,7 @@ namespace CodeBase.UI.Windows.Common
             ShopAmmoStaticData minShopAmmoStaticData =
                 _staticDataService.ForShopAmmo(weaponData.WeaponTypeId, AmmoCountType.Min);
 
-            if (Money >= minShopAmmoStaticData.Count)
+            if (_money >= minShopAmmoStaticData.Count)
             {
                 AddAmmo(weaponData.WeaponTypeId, AmmoCountType.Min, minShopAmmoStaticData);
                 return;
@@ -203,13 +196,13 @@ namespace CodeBase.UI.Windows.Common
         protected void CreateWeapons()
         {
             WeaponData[] unavailableWeapons =
-                ProgressData.WeaponsData.WeaponData.Where(data => data.IsAvailable == false).ToArray();
+                _progressData.WeaponsData.WeaponData.Where(data => data.IsAvailable == false).ToArray();
 
             foreach (WeaponData weaponData in unavailableWeapons)
             {
                 ShopWeaponStaticData weaponStaticData = _staticDataService.ForShopWeapon(weaponData.WeaponTypeId);
 
-                if (Money >= weaponStaticData.Cost)
+                if (_money >= weaponStaticData.Cost)
                     _availableWeapons.Add(weaponData.WeaponTypeId);
                 else
                     _unavailableWeapons.Add(weaponData.WeaponTypeId);
@@ -222,7 +215,7 @@ namespace CodeBase.UI.Windows.Common
             {
                 ShopItemStaticData itemStaticData = _staticDataService.ForShopItem(itemTypeId);
 
-                if (Money >= itemStaticData.Cost)
+                if (_money >= itemStaticData.Cost)
                     _availableItems.Add(itemTypeId);
                 else
                     _unavailableItems.Add(itemTypeId);
@@ -233,7 +226,7 @@ namespace CodeBase.UI.Windows.Common
         {
             foreach (MoneyTypeId moneyTypeId in DataExtensions.GetValues<MoneyTypeId>())
             {
-                if (ProgressData.IsAsianMode)
+                if (_progressData.IsAsianMode)
                 {
                     if (moneyTypeId == MoneyTypeId.Bag)
                         _moneyTypeIds.Add(moneyTypeId);
@@ -251,7 +244,7 @@ namespace CodeBase.UI.Windows.Common
         {
             AmmoItem ammoItem = new AmmoItem(typeId, ammoCountType, GetCount(shopAmmoStaticData.Count));
 
-            if (Money >= shopAmmoStaticData.Cost)
+            if (_money >= shopAmmoStaticData.Cost)
                 _availableAmmunition.Add(ammoItem);
             else
                 _unavailableAmmunition.Add(ammoItem);
@@ -287,16 +280,16 @@ namespace CodeBase.UI.Windows.Common
         {
             if (_availableItems.Count != 0 && _shopItemsNumbers.Count != 0)
             {
-                float healthPercentage = Health.Current / Health.Max;
+                float healthPercentage = _health.Current / _health.Max;
                 ShopItemStaticData shopItemStaticData = _staticDataService.ForShopItem(ItemTypeId.HealthRecover);
 
                 if (healthPercentage <= DangerousHealthLevel && _availableItems.Contains(ItemTypeId.HealthRecover) &&
-                    Money >= shopItemStaticData.Cost)
+                    _money >= shopItemStaticData.Cost)
                 {
                     GameObject view = GetRandomShopItem();
 
                     if (view != null)
-                        CreateItemItem(Hero, view, ItemTypeId.HealthRecover, true);
+                        CreateItemItem(_hero, view, ItemTypeId.HealthRecover, true);
                 }
             }
         }
@@ -308,7 +301,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateAmmoItem(Hero, view, _availableAmmunition, true);
+                    CreateAmmoItem(_hero, view, _availableAmmunition, true);
             }
         }
 
@@ -319,7 +312,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateUpgradeItem(Hero, view, _availableUpgrades, true);
+                    CreateUpgradeItem(_hero, view, _availableUpgrades, true);
             }
         }
 
@@ -330,7 +323,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateWeaponItem(Hero, view, _availableWeapons, true);
+                    CreateWeaponItem(_hero, view, _availableWeapons, true);
             }
         }
 
@@ -341,7 +334,7 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreatePerkItem(Hero, view, _availablePerks, true);
+                    CreatePerkItem(_hero, view, _availablePerks, true);
             }
         }
 
@@ -352,13 +345,13 @@ namespace CodeBase.UI.Windows.Common
                 GameObject view = GetRandomShopItem();
 
                 if (view != null)
-                    CreateMoneyItem(Hero, view, _moneyTypeIds, true);
+                    CreateMoneyItem(_hero, view, _moneyTypeIds, true);
             }
         }
 
         private GameObject GetRandomShopItem()
         {
-            int i = RandomService.NextNumberFrom(_shopItemsNumbers);
+            int i = _randomService.NextNumberFrom(_shopItemsNumbers);
             return GameObjectItems[i];
         }
 
@@ -371,6 +364,6 @@ namespace CodeBase.UI.Windows.Common
         }
 
         public void LoadProgressData(ProgressData progressData) =>
-            ProgressData = progressData;
+            _progressData = progressData;
     }
 }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Grenade launcher
   m_EditorClassIdentifier: 
   WeaponTypeId: 0
-  ProjectileTypeId: 0
+  ProjectileTypeId: 1
   BlastTypeId: 1
   TrailTypeId: 0
-  ShotVfxTypeId: 0
+  ShotVfxTypeId: 1
   RotationSpeed: 6
   Cooldown: 1
   AimRange: 6

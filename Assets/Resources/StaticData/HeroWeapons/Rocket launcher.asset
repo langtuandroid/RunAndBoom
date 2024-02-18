@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Rocket launcher
   m_EditorClassIdentifier: 
   WeaponTypeId: 2
-  ProjectileTypeId: 1
+  ProjectileTypeId: 2
   BlastTypeId: 2
   TrailTypeId: 1
-  ShotVfxTypeId: 1
+  ShotVfxTypeId: 2
   RotationSpeed: 7
   Cooldown: 2
   AimRange: 5

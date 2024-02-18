@@ -2,14 +2,13 @@
 {
     public enum ProjectileTypeId
     {
+        None,
         Grenade,
         RocketLauncherRocket,
         RpgRocket,
         Bomb,
-        Bullet,
-
-        // PistolBullet,
-        // RifleBullet,
+        PistolBullet,
+        RifleBullet,
         Shot,
     }
 }

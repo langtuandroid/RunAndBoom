@@ -11,10 +11,10 @@ namespace CodeBase.Services.Constructor
 {
     public class ConstructorService : IConstructorService
     {
-        private IStaticDataService _staticDataService;
+        private readonly IStaticDataService _staticDataService;
 
-        public ConstructorService() =>
-            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+        public ConstructorService(IStaticDataService staticDataService) =>
+            _staticDataService = staticDataService;
 
         public void ConstructEnemyProjectile(GameObject projectile, float damage, ProjectileTypeId typeId)
         {
@@ -46,24 +46,21 @@ namespace CodeBase.Services.Constructor
 
             switch (projectileTypeId)
             {
-                case ProjectileTypeId.Bullet:
+                case ProjectileTypeId.PistolBullet:
                     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
-
-                // case ProjectileTypeId.RifleBullet:
-                //     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
-                //     newProjectile.GetComponent<ProjectileMovement>()
-                //         .Construct(projectileTypeId);
-                //     break;
-
+                case ProjectileTypeId.RifleBullet:
+                    newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
+                    newProjectile.GetComponent<ProjectileMovement>()
+                        .Construct(projectileTypeId);
+                    break;
                 case ProjectileTypeId.Shot:
                     newProjectile.GetComponent<Projectile>().Construct(projectileTypeId);
                     newProjectile.GetComponent<ProjectileMovement>()
                         .Construct(projectileTypeId);
                     break;
-
                 case ProjectileTypeId.Grenade:
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.Grenade);
@@ -76,7 +73,6 @@ namespace CodeBase.Services.Constructor
                             HeroWeaponTypeId.GrenadeLauncher);
                     newProjectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
                     break;
-
                 case ProjectileTypeId.RpgRocket:
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.RpgRocket);
@@ -88,7 +84,6 @@ namespace CodeBase.Services.Constructor
                         blastStaticData.Radius, blastStaticData.Damage, HeroWeaponTypeId.RPG);
                     newProjectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
                     break;
-
                 case ProjectileTypeId.RocketLauncherRocket:
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.RocketLauncherRocket);
@@ -101,7 +96,6 @@ namespace CodeBase.Services.Constructor
                             HeroWeaponTypeId.RocketLauncher);
                     newProjectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
                     break;
-
                 case ProjectileTypeId.Bomb:
                     projectileStaticData = _staticDataService.ForProjectile(projectileTypeId);
                     blastStaticData = _staticDataService.ForBlast(BlastTypeId.Bomb);
@@ -114,6 +108,7 @@ namespace CodeBase.Services.Constructor
                             HeroWeaponTypeId.Mortar);
                     newProjectile.GetComponent<ProjectileTrail>().Construct(trailStaticData);
                     break;
+                case ProjectileTypeId.None: break;
             }
         }
     }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RPG
   m_EditorClassIdentifier: 
   WeaponTypeId: 1
-  ProjectileTypeId: 2
+  ProjectileTypeId: 3
   BlastTypeId: 3
   TrailTypeId: 1
-  ShotVfxTypeId: 2
+  ShotVfxTypeId: 3
   RotationSpeed: 6
   Cooldown: 2
   AimRange: 7

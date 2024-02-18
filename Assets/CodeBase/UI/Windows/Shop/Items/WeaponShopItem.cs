@@ -1,7 +1,7 @@
 ﻿using CodeBase.Data.Progress;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Weapons;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Shop.Items
@@ -18,20 +18,16 @@ namespace CodeBase.UI.Windows.Shop.Items
 
         protected override void Clicked()
         {
-            if (ShopItemBalance.IsMoneyEnough(_weaponStaticData.Cost))
+            if (_shopItemBalance.IsMoneyEnough(_weaponStaticData.Cost))
             {
-                ShopItemBalance.ReduceMoney(_weaponStaticData.Cost);
-                ProgressData.WeaponsData.SetAvailableWeapon(_weaponTypeId);
+                _shopItemBalance.ReduceMoney(_weaponStaticData.Cost);
+                _progressData.WeaponsData.SetAvailableWeapon(_weaponTypeId);
                 ClearData();
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.WeaponGotten),
-                    transform: _heroTransform, Volume, AudioSource);
+                _audioService.LaunchShopSound(ShopSoundId.WeaponGotten, _heroTransform, _audioSource);
             }
             else
             {
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.NotEnoughMoney),
-                    transform: _heroTransform, Volume, AudioSource);
+                _audioService.LaunchShopSound(ShopSoundId.NotEnoughMoney, _heroTransform, _audioSource);
             }
         }
     }

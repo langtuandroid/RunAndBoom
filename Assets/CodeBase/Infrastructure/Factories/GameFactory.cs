@@ -14,26 +14,11 @@ namespace CodeBase.Infrastructure.Factories
         private const float Yaddition = 0.5f;
         private readonly IAssets _assets;
         private readonly IRegistratorService _registratorService;
-        private readonly IHeroProjectilesPoolService _heroProjectilesPoolService;
-        private readonly IEnemyProjectilesPoolService _enemyProjectilesPoolService;
-        private readonly IVfxsPoolService _vfxsPoolService;
         private readonly IObjectsPoolService _objectsPoolService;
         private GameObject _heroGameObject;
 
         public List<IProgressReader> ProgressReaders { get; set; } = new List<IProgressReader>();
         public List<IProgressSaver> ProgressWriters { get; set; } = new List<IProgressSaver>();
-
-        public GameFactory(IAssets assets, IHeroProjectilesPoolService heroProjectilesPoolService,
-            IEnemyProjectilesPoolService enemyProjectilesPoolService, IVfxsPoolService vfxsPoolService,
-            IRegistratorService registratorService)
-        {
-            _heroProjectilesPoolService = heroProjectilesPoolService;
-            _enemyProjectilesPoolService = enemyProjectilesPoolService;
-            _vfxsPoolService = vfxsPoolService;
-            _assets = assets;
-            _registratorService = registratorService;
-            SetProgressReadersWriters(registratorService);
-        }
 
         public GameFactory(IAssets assets, IObjectsPoolService objectsPoolService,
             IRegistratorService registratorService)

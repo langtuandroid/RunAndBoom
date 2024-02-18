@@ -22,11 +22,11 @@ namespace CodeBase.UI.Windows.GameEnd
             _startNewStandardGameButton.onClick.AddListener(StartNewStandardDifficultyGame);
             _startNewHardGameButton.onClick.AddListener(StartNewAsianDifficultyGame);
 
-            if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
+            if (Application.isEditor || _leaderBoardService == null || ProgressData == null)
                 return;
 
             ProgressData.AllStats.SaveCurrentLevelStats();
-            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            _leaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
         }
 
@@ -34,7 +34,7 @@ namespace CodeBase.UI.Windows.GameEnd
         {
             _startNewStandardGameButton.onClick.RemoveListener(StartNewStandardDifficultyGame);
             _startNewHardGameButton.onClick.RemoveListener(StartNewAsianDifficultyGame);
-            LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
+            _leaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
@@ -47,7 +47,7 @@ namespace CodeBase.UI.Windows.GameEnd
         }
 
         protected override void SubscribeSetValueSuccess() =>
-            LeaderBoardService.OnSetValueSuccess += AddGameResult;
+            _leaderBoardService.OnSetValueSuccess += AddGameResult;
 
         private void StartNewStandardDifficultyGame()
         {
@@ -64,17 +64,17 @@ namespace CodeBase.UI.Windows.GameEnd
         private void PrepareToStartNewGame()
         {
             SoundInstance.StopRandomMusic();
-            WindowService.ClearAll();
-            SaveLoadService.ClearProgressData();
+            _windowService.ClearAll();
+            _saveLoadService.ClearProgressData();
         }
 
         private void AddGameResult()
         {
             int allLevelsScore = ProgressData.AllStats.GetAllLevelsStats();
             Debug.Log($"AddGameResult {allLevelsScore}");
-            LeaderBoardService.OnSetValueError += ShowSetValueError;
-            LeaderBoardService.OnSetValueSuccess += SuccessSetValue;
-            LeaderBoardService.SetValue(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode),
+            _leaderBoardService.OnSetValueError += ShowSetValueError;
+            _leaderBoardService.OnSetValueSuccess += SuccessSetValue;
+            _leaderBoardService.SetValue(SceneId.Initial.GetLeaderBoardName(ProgressData.IsAsianMode),
                 allLevelsScore);
         }
     }

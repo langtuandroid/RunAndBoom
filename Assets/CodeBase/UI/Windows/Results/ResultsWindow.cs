@@ -32,10 +32,10 @@ namespace CodeBase.UI.Windows.Results
         {
             _restartButton.onClick.AddListener(RestartLevel);
 
-            if (Application.isEditor || LeaderBoardService == null || ProgressData == null)
+            if (Application.isEditor || _leaderBoardService == null || ProgressData == null)
                 return;
 
-            LeaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
+            _leaderBoardService.OnInitializeSuccess += RequestLeaderBoard;
             InitializeLeaderBoard();
         }
 
@@ -43,8 +43,8 @@ namespace CodeBase.UI.Windows.Results
         {
             _restartButton.onClick.RemoveListener(RestartLevel);
 
-            if (LeaderBoardService != null)
-                LeaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
+            if (_leaderBoardService != null)
+                _leaderBoardService.OnInitializeSuccess -= RequestLeaderBoard;
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
@@ -79,13 +79,13 @@ namespace CodeBase.UI.Windows.Results
 
         private void ToGameLeaderBoardWindow()
         {
-            WindowBase windowBase = WindowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
+            WindowBase windowBase = _windowService.Show<LeaderBoardWindow>(WindowId.LeaderBoard);
             (windowBase as LeaderBoardWindow)?.SetGameLeaderBoard();
         }
 
         private void ToGiftsWindow()
         {
-            WindowBase giftsWindow = WindowService.Show<GiftsWindow>(WindowId.Gifts);
+            WindowBase giftsWindow = _windowService.Show<GiftsWindow>(WindowId.Gifts);
             (giftsWindow as GiftsWindow).AddData(_nextSceneId);
             GiftsGenerator giftsGenerator = (giftsWindow as GiftsWindow)?.gameObject.GetComponent<GiftsGenerator>();
             giftsGenerator?.SetMaxPrice(_maxPrice);

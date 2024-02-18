@@ -10,10 +10,10 @@ namespace CodeBase.UI.Windows.Common
         protected MoneyStaticData _moneyStaticData;
 
         private void OnEnable() =>
-            Button?.onClick.AddListener(Clicked);
+            _button?.onClick.AddListener(Clicked);
 
         private void OnDisable() =>
-            Button?.onClick.RemoveListener(Clicked);
+            _button?.onClick.RemoveListener(Clicked);
 
         protected void Construct(MoneyTypeId moneyTypeId, ProgressData progressData)
         {
@@ -24,22 +24,22 @@ namespace CodeBase.UI.Windows.Common
 
         protected override void FillData()
         {
-            _moneyStaticData = StaticDataService.ForMoney(_moneyTypeId);
+            _moneyStaticData = _staticDataService.ForMoney(_moneyTypeId);
 
-            BackgroundIcon.ChangeImageAlpha(Constants.Visible);
-            BackgroundIcon.color = Constants.ShopItemAmmo;
-            MainIcon.sprite = _moneyStaticData.MainImage;
-            MainIcon.ChangeImageAlpha(Constants.Visible);
-            LevelIcon.ChangeImageAlpha(Constants.Invisible);
-            AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
+            _backgroundIcon.ChangeImageAlpha(Constants.Visible);
+            _backgroundIcon.color = Constants.ShopItemAmmo;
+            _mainIcon.sprite = _moneyStaticData.MainImage;
+            _mainIcon.ChangeImageAlpha(Constants.Visible);
+            _levelIcon.ChangeImageAlpha(Constants.Invisible);
+            _additionalIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (CostText != null)
-                CostText.text = "";
+            if (_costText != null)
+                _costText.text = "";
 
             // CostText.color = Constants.ShopItemPerk;
-            CountText.text = "";
+            _countText.text = "";
             // CountText.color = Constants.ShopItemCountField;
-            TitleText.text = $"+{_moneyStaticData.Value}";
+            _titleText.text = $"+{_moneyStaticData.Value}";
         }
     }
 }

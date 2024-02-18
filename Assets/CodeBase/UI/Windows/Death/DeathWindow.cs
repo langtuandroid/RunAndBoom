@@ -32,12 +32,12 @@ namespace CodeBase.UI.Windows.Death
             if (Application.isEditor)
                 return;
 
-            if (AdsService == null)
+            if (_adsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnClosedVideoAd += RecoverForAds;
-            AdsService.OnShowVideoAdError += ShowError;
+            _adsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
+            _adsService.OnClosedVideoAd += RecoverForAds;
+            _adsService.OnShowVideoAdError += ShowError;
             InitializeAdsSDK();
         }
 
@@ -46,12 +46,12 @@ namespace CodeBase.UI.Windows.Death
             _recoverForAdsButton.onClick.RemoveListener(ShowAds);
             _restartButton.onClick.RemoveListener(RestartLevel);
 
-            if (AdsService == null)
+            if (_adsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnClosedVideoAd -= RecoverForAds;
-            AdsService.OnShowVideoAdError -= ShowError;
+            _adsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+            _adsService.OnClosedVideoAd -= RecoverForAds;
+            _adsService.OnShowVideoAdError -= ShowError;
         }
 
         public void Construct(GameObject hero, OpenSettings openSettings, MobileInput mobileInput) =>
@@ -71,7 +71,7 @@ namespace CodeBase.UI.Windows.Death
             }
             else
             {
-                AdsService.ShowVideoAd();
+                _adsService.ShowVideoAd();
                 SoundInstance.StopRandomMusic(false);
             }
         }
@@ -93,54 +93,47 @@ namespace CodeBase.UI.Windows.Death
         }
 
         private void RecoverHealth() =>
-            Hero.GetComponent<HeroHealth>().Recover();
+            _hero.GetComponent<HeroHealth>().Recover();
 
         private void TryAddAmmo()
         {
             int additionalAmmo;
 
             if (ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.GrenadeLauncher] <
-                InputService.GetCount(MIN_GRENADE_LAUNCHER_AMMO_COUNT))
+                _inputService.GetCount(MIN_GRENADE_LAUNCHER_AMMO_COUNT))
             {
-                additionalAmmo = InputService.GetCount(MIN_GRENADE_LAUNCHER_AMMO_COUNT) -
+                additionalAmmo = _inputService.GetCount(MIN_GRENADE_LAUNCHER_AMMO_COUNT) -
                                  ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[
                                      HeroWeaponTypeId.GrenadeLauncher];
                 ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.GrenadeLauncher, additionalAmmo);
             }
 
             if (ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RPG] <
-                InputService.GetCount(MIN_RPG_AMMO_COUNT))
+                _inputService.GetCount(MIN_RPG_AMMO_COUNT))
             {
-                additionalAmmo = InputService.GetCount(MIN_RPG_AMMO_COUNT) -
+                additionalAmmo = _inputService.GetCount(MIN_RPG_AMMO_COUNT) -
                                  ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[
                                      HeroWeaponTypeId.RPG];
                 ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RPG, additionalAmmo);
             }
 
             if (ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.RocketLauncher] <
-                InputService.GetCount(MIN_ROCKET_LAUNCHER_AMMO_COUNT))
+                _inputService.GetCount(MIN_ROCKET_LAUNCHER_AMMO_COUNT))
             {
-                additionalAmmo = InputService.GetCount(MIN_ROCKET_LAUNCHER_AMMO_COUNT) -
+                additionalAmmo = _inputService.GetCount(MIN_ROCKET_LAUNCHER_AMMO_COUNT) -
                                  ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[
                                      HeroWeaponTypeId.RocketLauncher];
                 ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.RocketLauncher, additionalAmmo);
             }
 
             if (ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[HeroWeaponTypeId.Mortar] <
-                InputService.GetCount(MIN_MORTAR_AMMO_COUNT))
+                _inputService.GetCount(MIN_MORTAR_AMMO_COUNT))
             {
-                additionalAmmo = InputService.GetCount(MIN_MORTAR_AMMO_COUNT) -
+                additionalAmmo = _inputService.GetCount(MIN_MORTAR_AMMO_COUNT) -
                                  ProgressData.WeaponsData.WeaponsAmmoData.Amunition.Dictionary[
                                      HeroWeaponTypeId.Mortar];
                 ProgressData.WeaponsData.WeaponsAmmoData.AddAmmo(HeroWeaponTypeId.Mortar, additionalAmmo);
             }
-        }
-
-        protected override void PlayOpenSound()
-        {
-            SoundInstance.InstantiateOnTransform(
-                audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.Death), transform: transform,
-                Volume, AudioSource);
         }
     }
 }

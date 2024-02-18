@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb44c5f355f49a2856a3fe027960bcc, type: 3}
   m_Name: RocketLauncherRocket
   m_EditorClassIdentifier: 
-  ProjectileTypeId: 1
+  ProjectileTypeId: 2
   TrailTypeId: 1
   MovementLifeTime: 6
   Speed: 7

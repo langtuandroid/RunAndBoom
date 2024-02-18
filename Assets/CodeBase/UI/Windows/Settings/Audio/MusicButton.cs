@@ -9,12 +9,12 @@ namespace CodeBase.UI.Windows.Settings.Audio
 
         protected override void SwitchAudio()
         {
-            SettingsData.SetMusicSwitch(!IsTurnedOn);
-            IsTurnedOn = !IsTurnedOn;
-            SaveLoadService.SaveMusicOn(IsTurnedOn);
+            _settingsData.SetMusicSwitch(!_isTurnedOn);
+            _isTurnedOn = !_isTurnedOn;
+            _saveLoadService.SaveMusicOn(_isTurnedOn);
         }
 
         protected override void SetSelection() =>
-            IsTurnedOn = SettingsData.MusicOn;
+            _isTurnedOn = _settingsData.MusicOn;
     }
 }

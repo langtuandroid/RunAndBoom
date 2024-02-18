@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7947970bbdee4d918a04358253a220e9, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  WeaponTypeId: 1
-  ProjectileTypeId: 6
-  ShotVfxTypeId: 5
+  WeaponTypeId: 2
+  ProjectileTypeId: 7
+  ShotVfxTypeId: 6
   MovementLifeTime: 3
   Cooldown: 2
   MuzzleVfxLifeTime: 1

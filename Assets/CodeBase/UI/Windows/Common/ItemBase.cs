@@ -1,111 +1,105 @@
 ﻿using CodeBase.Data.Progress;
-using CodeBase.Data.Settings;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Input;
 using CodeBase.Services.Localization;
-using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services;
 using CodeBase.UI.Windows.Gifts;
 using CodeBase.UI.Windows.Shop;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Common
 {
     public abstract class ItemBase : MonoBehaviour
     {
-        [SerializeField] protected Image BackgroundIcon;
-        [SerializeField] protected Image MainIcon;
-        [SerializeField] protected Image LevelIcon;
-        [SerializeField] protected Image AdditionalIcon;
-        [SerializeField] protected TextMeshProUGUI CostText;
-        [SerializeField] protected TextMeshProUGUI CountText;
-        [SerializeField] protected TextMeshProUGUI TitleText;
-        [SerializeField] protected Button Button;
+        [FormerlySerializedAs("BackgroundIcon")] [SerializeField]
+        protected Image _backgroundIcon;
+
+        [FormerlySerializedAs("MainIcon")] [SerializeField]
+        protected Image _mainIcon;
+
+        [FormerlySerializedAs("LevelIcon")] [SerializeField]
+        protected Image _levelIcon;
+
+        [FormerlySerializedAs("AdditionalIcon")] [SerializeField]
+        protected Image _additionalIcon;
+
+        [FormerlySerializedAs("CostText")] [SerializeField]
+        protected TextMeshProUGUI _costText;
+
+        [FormerlySerializedAs("CountText")] [SerializeField]
+        protected TextMeshProUGUI _countText;
+
+        [FormerlySerializedAs("TitleText")] [SerializeField]
+        protected TextMeshProUGUI _titleText;
+
+        [FormerlySerializedAs("Button")] [SerializeField]
+        protected Button _button;
 
         private ShopItemHighlighter _shopItemHighlighter;
-        protected IStaticDataService StaticDataService;
-        protected ILocalizationService LocalizationService;
-        protected IInputService InputService;
-        protected ProgressData ProgressData;
-        protected ShopItemBalance ShopItemBalance;
-        protected GiftsItemBalance GiftsItemBalance;
-        protected float Volume;
-        protected AudioSource AudioSource;
-        private SettingsData _settingsData;
+        protected IStaticDataService _staticDataService;
+        protected ILocalizationService _localizationService;
+        protected IInputService _inputService;
+        protected IAudioService _audioService;
+        protected ProgressData _progressData;
+        protected ShopItemBalance _shopItemBalance;
+        protected GiftsItemBalance _giftsItemBalance;
+        protected float _volume;
+        protected AudioSource _audioSource;
 
         private void Awake()
         {
             var parent = transform.parent;
             _shopItemHighlighter = parent.GetComponent<ShopItemHighlighter>();
-            AudioSource = parent.GetComponent<AudioSource>();
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
-        }
-
-        private void OnEnable()
-        {
-            _settingsData.SoundSwitchChanged += SetVolume;
-            _settingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SetVolume();
-        }
-
-        private void OnDisable()
-        {
-            _settingsData.SoundSwitchChanged -= SetVolume;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
+            _audioSource = parent.GetComponent<AudioSource>();
+            _audioService = AllServices.Container.Single<IAudioService>();
         }
 
         protected void Construct(ProgressData progressData)
         {
-            ProgressData = progressData;
-            StaticDataService = AllServices.Container.Single<IStaticDataService>();
-            LocalizationService = AllServices.Container.Single<ILocalizationService>();
-            InputService = AllServices.Container.Single<IInputService>();
-            ShopItemBalance = new ShopItemBalance();
-            GiftsItemBalance = new GiftsItemBalance();
-            SetVolume();
+            _progressData = progressData;
+            _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _localizationService = AllServices.Container.Single<ILocalizationService>();
+            _inputService = AllServices.Container.Single<IInputService>();
+            _shopItemBalance = new ShopItemBalance();
+            _giftsItemBalance = new GiftsItemBalance();
         }
 
         protected void ClearData()
         {
-            if (BackgroundIcon != null)
-                BackgroundIcon.ChangeImageAlpha(Constants.Invisible);
+            if (_backgroundIcon != null)
+                _backgroundIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (MainIcon != null)
-                MainIcon.ChangeImageAlpha(Constants.Invisible);
+            if (_mainIcon != null)
+                _mainIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (LevelIcon != null)
-                LevelIcon.ChangeImageAlpha(Constants.Invisible);
+            if (_levelIcon != null)
+                _levelIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (AdditionalIcon != null)
-                AdditionalIcon.ChangeImageAlpha(Constants.Invisible);
+            if (_additionalIcon != null)
+                _additionalIcon.ChangeImageAlpha(Constants.Invisible);
 
-            if (CostText != null)
-                CostText.text = "";
+            if (_costText != null)
+                _costText.text = "";
 
-            if (CountText != null)
-                CountText.text = "";
+            if (_countText != null)
+                _countText.text = "";
 
-            if (TitleText != null)
-                TitleText.text = "";
+            if (_titleText != null)
+                _titleText.text = "";
 
             _shopItemHighlighter.enabled = false;
             gameObject.SetActive(false);
         }
 
         public void ChangeClickability(bool isClickable) =>
-            Button.enabled = isClickable;
+            _button.enabled = isClickable;
 
         protected abstract void FillData();
         protected abstract void Clicked();
-
-        private void VolumeChanged() =>
-            Volume = _settingsData.SoundVolume;
-
-        protected void SetVolume() =>
-            Volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

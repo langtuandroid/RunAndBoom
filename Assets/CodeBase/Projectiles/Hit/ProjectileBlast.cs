@@ -2,14 +2,13 @@
 using System.Linq;
 using CodeBase.Data.Progress;
 using CodeBase.Data.Progress.Upgrades;
-using CodeBase.Data.Settings;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Items;
 using CodeBase.StaticData.Items.Shop.WeaponsUpgrades;
 using CodeBase.StaticData.Weapons;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.Projectiles.Hit
@@ -25,8 +24,8 @@ namespace CodeBase.Projectiles.Hit
         private const float SphereCastRadius = 0.2f;
 
         private IStaticDataService _staticDataService;
+        private IAudioService _audioService;
         private ProgressData _progressData;
-        private SettingsData _settingsData;
         private float _baseBlastRadius;
         private UpgradeItemData _blastItemData;
         private float _blastRadiusRatio = BaseRatio;
@@ -38,7 +37,6 @@ namespace CodeBase.Projectiles.Hit
         private CapsuleCollider _hitCollider;
         private HeroWeaponTypeId? _heroWeaponTypeId;
         private AudioSource _audioSource;
-        private float _volume = 1f;
         private WaitForSeconds _waitForSecondsBlast;
 
         private void Awake()
@@ -50,7 +48,6 @@ namespace CodeBase.Projectiles.Hit
                 Constants.EnemyTag, Constants.ObstacleTag, Constants.BarrierTag, Constants.DestructableTag,
                 Constants.WallTag, Constants.GroundTag
             };
-            _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
         }
 
         public void OffCollider() =>
@@ -65,26 +62,12 @@ namespace CodeBase.Projectiles.Hit
 
             if (_blastItemData != null)
                 _blastItemData.LevelChanged += ChangeBlastSize;
-
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged += SwitchChanged;
-            _settingsData.SoundVolumeChanged += VolumeChanged;
-            VolumeChanged();
-            SwitchChanged();
         }
 
         private void OnDisable()
         {
             if (_blastItemData != null)
                 _blastItemData.LevelChanged -= ChangeBlastSize;
-
-            if (_settingsData == null)
-                return;
-
-            _settingsData.SoundSwitchChanged -= SwitchChanged;
-            _settingsData.SoundVolumeChanged -= VolumeChanged;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -115,42 +98,35 @@ namespace CodeBase.Projectiles.Hit
             }
         }
 
-        private void PlaySound()
-        {
-            switch (_heroWeaponTypeId)
-            {
-                case HeroWeaponTypeId.GrenadeLauncher:
-                    SoundInstance.InstantiateOnPos(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastGrenadeLauncher),
-                        position: transform.position, _volume, _audioSource);
-                    break;
-                case HeroWeaponTypeId.RPG:
-                    SoundInstance.InstantiateOnPos(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
-                        position: transform.position, _volume, _audioSource);
-                    break;
-                case HeroWeaponTypeId.RocketLauncher:
-                    SoundInstance.InstantiateOnPos(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastRocketLauncherAndRpg),
-                        position: transform.position, _volume, _audioSource);
-                    break;
-                case HeroWeaponTypeId.Mortar:
-                    SoundInstance.InstantiateOnPos(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.BlastMortar),
-                        position: transform.position, _volume, _audioSource);
-                    break;
-            }
-        }
-
         public void Construct(GameObject prefab, float radius, float damage, HeroWeaponTypeId? heroWeaponTypeId = null)
         {
             _heroWeaponTypeId = heroWeaponTypeId;
             _staticDataService = AllServices.Container.Single<IStaticDataService>();
+            _audioService = AllServices.Container.Single<IAudioService>();
 
             _prefab = prefab;
             _sphereRadius = radius;
             _damage = damage;
             _waitForSecondsBlast = new WaitForSeconds(BlastDuration);
+        }
+
+        private void PlaySound()
+        {
+            switch (_heroWeaponTypeId)
+            {
+                case HeroWeaponTypeId.GrenadeLauncher:
+                    _audioService.LaunchBlastSound(BlastSoundId.BlastGrenadeLauncher, transform, _audioSource);
+                    break;
+                case HeroWeaponTypeId.RPG:
+                    _audioService.LaunchBlastSound(BlastSoundId.BlastRocketLauncherAndRpg, transform, _audioSource);
+                    break;
+                case HeroWeaponTypeId.RocketLauncher:
+                    _audioService.LaunchBlastSound(BlastSoundId.BlastRocketLauncherAndRpg, transform, _audioSource);
+                    break;
+                case HeroWeaponTypeId.Mortar:
+                    _audioService.LaunchBlastSound(BlastSoundId.BlastMortar, transform, _audioSource);
+                    break;
+            }
         }
 
         private void SetBlastSize()
@@ -225,11 +201,5 @@ namespace CodeBase.Projectiles.Hit
             if (_heroWeaponTypeId != null)
                 SetBlastSize();
         }
-
-        private void VolumeChanged() =>
-            _volume = _settingsData.SoundVolume;
-
-        private void SwitchChanged() =>
-            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
     }
 }

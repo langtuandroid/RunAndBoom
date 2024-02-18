@@ -1,10 +1,10 @@
 ﻿using CodeBase.Data.Progress;
 using CodeBase.Data.Settings;
 using CodeBase.Services;
+using CodeBase.Services.Audio;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +16,10 @@ namespace CodeBase.UI.Windows.Settings.Audio
         [SerializeField] protected Image ImageSelected;
         [SerializeField] protected Image ImageUnselected;
 
-        protected SettingsData SettingsData;
-        protected ISaveLoadService SaveLoadService;
-        protected bool IsTurnedOn;
+        protected SettingsData _settingsData;
+        protected ISaveLoadService _saveLoadService;
+        protected IAudioService _audioService;
+        protected bool _isTurnedOn;
         private float _volume;
         private AudioSource _audioSource;
         private Transform _heroTransform;
@@ -34,11 +35,14 @@ namespace CodeBase.UI.Windows.Settings.Audio
 
         private void Start()
         {
-            if (SettingsData == null)
-                SettingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
+            if (_settingsData == null)
+                _settingsData = AllServices.Container.Single<IPlayerProgressService>().SettingsData;
 
-            if (SaveLoadService == null)
-                SaveLoadService = AllServices.Container.Single<ISaveLoadService>();
+            if (_saveLoadService == null)
+                _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
+
+            if (_audioService == null)
+                _audioService = AllServices.Container.Single<IAudioService>();
         }
 
         private void ButtonPressed()
@@ -49,14 +53,14 @@ namespace CodeBase.UI.Windows.Settings.Audio
         }
 
         private void VolumeChanged() =>
-            _volume = SettingsData.SoundVolume;
+            _volume = _settingsData.SoundVolume;
 
         private void SwitchChanged() =>
-            _volume = SettingsData.SoundOn ? SettingsData.SoundVolume : Constants.Zero;
+            _volume = _settingsData.SoundOn ? _settingsData.SoundVolume : Constants.Zero;
 
         private void ChangeImage()
         {
-            if (IsTurnedOn)
+            if (_isTurnedOn)
             {
                 ImageSelected.ChangeImageAlpha(Constants.Visible);
                 ImageUnselected.ChangeImageAlpha(Constants.Invisible);
@@ -68,23 +72,18 @@ namespace CodeBase.UI.Windows.Settings.Audio
             }
         }
 
-        private void ButtonClickAudio()
-        {
-            if (_volume != Constants.Zero)
-                SoundInstance.InstantiateOnTransform(
-                    audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.CheckboxClick),
-                    transform: _heroTransform, _volume, _audioSource);
-        }
+        private void ButtonClickAudio() =>
+            _audioService.LaunchUIActionSound(UIActionSoundId.CheckboxClick, _heroTransform, _audioSource);
 
         public void LoadProgressData(ProgressData progressData)
         {
             _button.onClick.AddListener(ButtonPressed);
 
-            if (SettingsData == null)
+            if (_settingsData == null)
                 return;
 
-            SettingsData.SoundSwitchChanged += SwitchChanged;
-            SettingsData.SoundVolumeChanged += VolumeChanged;
+            _settingsData.SoundSwitchChanged += SwitchChanged;
+            _settingsData.SoundVolumeChanged += VolumeChanged;
             VolumeChanged();
             SwitchChanged();
             SetSelection();

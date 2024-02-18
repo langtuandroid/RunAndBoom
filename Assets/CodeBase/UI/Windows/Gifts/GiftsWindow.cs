@@ -25,7 +25,7 @@ namespace CodeBase.UI.Windows.Gifts
 
         private void ToNextLevel()
         {
-            LevelStaticData levelStaticData = StaticDataService.ForLevel(_nextScene);
+            LevelStaticData levelStaticData = _staticDataService.ForLevel(_nextScene);
             ProgressData.WorldData.LevelNameData.ChangeLevel(_nextScene.ToString());
 
             if (ProgressData.IsAsianMode)
@@ -36,11 +36,11 @@ namespace CodeBase.UI.Windows.Gifts
                     levelStaticData.MaxStarsScoreStandard, levelStaticData.EnemySpawners.Count);
 
             ProgressData.WorldData.ShowAdOnLevelStart = true;
-            SaveLoadService.SaveProgressData();
-            SaveLoadService.SaveSettingsData();
-            WindowService.ClearAll();
+            _saveLoadService.SaveProgressData();
+            _saveLoadService.SaveSettingsData();
+            _windowService.ClearAll();
             Close();
-            GameStateMachine.Enter<LoadSceneState, SceneId>(_nextScene);
+            _gameStateMachine.Enter<LoadSceneState, SceneId>(_nextScene);
         }
 
         private void OnEnable()
@@ -53,13 +53,13 @@ namespace CodeBase.UI.Windows.Gifts
             if (Application.isEditor)
                 return;
 
-            if (AdsService == null)
+            if (_adsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
-            AdsService.OnShowVideoAdError += ShowError;
-            AdsService.OnClosedVideoAd += ShowClosed;
-            AdsService.OnRewardedAd += AddCoinsAfterAds;
+            _adsService.OnInitializeSuccess += AdsServiceInitializedSuccess;
+            _adsService.OnShowVideoAdError += ShowError;
+            _adsService.OnClosedVideoAd += ShowClosed;
+            _adsService.OnRewardedAd += AddCoinsAfterAds;
             InitializeAdsSDK();
         }
 
@@ -67,13 +67,13 @@ namespace CodeBase.UI.Windows.Gifts
         {
             _addCoinsButton.onClick.RemoveListener(ShowAds);
 
-            if (AdsService == null)
+            if (_adsService == null)
                 return;
 
-            AdsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
-            AdsService.OnShowVideoAdError -= ShowError;
-            AdsService.OnClosedVideoAd -= ShowClosed;
-            AdsService.OnRewardedAd -= AddCoinsAfterAds;
+            _adsService.OnInitializeSuccess -= AdsServiceInitializedSuccess;
+            _adsService.OnShowVideoAdError -= ShowError;
+            _adsService.OnClosedVideoAd -= ShowClosed;
+            _adsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
         public void AddData(SceneId nextLevel)
@@ -94,14 +94,14 @@ namespace CodeBase.UI.Windows.Gifts
         private void ShowClosed()
         {
             SoundInstance.StartRandomMusic();
-            AdsService.OnClosedVideoAd -= ShowClosed;
+            _adsService.OnClosedVideoAd -= ShowClosed;
         }
 
         private void ShowError(string message)
         {
             SoundInstance.StartRandomMusic();
             Debug.Log($"OnErrorFullScreenAd: {message}");
-            AdsService.OnShowVideoAdError -= ShowError;
+            _adsService.OnShowVideoAdError -= ShowError;
         }
 
         private void Close()
@@ -120,14 +120,14 @@ namespace CodeBase.UI.Windows.Gifts
                 return;
             }
 
-            AdsService.ShowVideoAd();
+            _adsService.ShowVideoAd();
         }
 
         private void AddCoinsAfterAds()
         {
             SoundInstance.StartRandomMusic();
             AddCoins();
-            AdsService.OnRewardedAd -= AddCoinsAfterAds;
+            _adsService.OnRewardedAd -= AddCoinsAfterAds;
         }
 
         private void AddCoins()

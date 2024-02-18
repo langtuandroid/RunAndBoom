@@ -1,7 +1,7 @@
 ﻿using CodeBase.Data.Progress;
+using CodeBase.Services.Audio;
 using CodeBase.StaticData.Items.Gifts;
 using CodeBase.UI.Windows.Common;
-using Plugins.SoundInstance.Core.Static;
 using UnityEngine;
 
 namespace CodeBase.UI.Windows.Gifts.Items
@@ -21,26 +21,20 @@ namespace CodeBase.UI.Windows.Gifts.Items
 
         protected override void Clicked()
         {
-            GiftsItemBalance.AddMoney(_moneyStaticData.Value);
+            _giftsItemBalance.AddMoney(_moneyStaticData.Value);
             ClearData();
             _generator.Clicked();
 
             switch (_moneyStaticData.TypeId)
             {
                 case MoneyTypeId.Coin:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.OneMoneyGotten),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.OneMoneyGotten, _heroTransform, _audioSource);
                     break;
                 case MoneyTypeId.Banknote:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.FewMoneyGotten),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.FewMoneyGotten, _heroTransform, _audioSource);
                     break;
                 case MoneyTypeId.Bag:
-                    SoundInstance.InstantiateOnTransform(
-                        audioClip: SoundInstance.GetClipFromLibrary(AudioClipAddresses.PouringMoneyGotten),
-                        transform: _heroTransform, Volume, AudioSource);
+                    _audioService.LaunchShopSound(ShopSoundId.PouringMoneyGotten, _heroTransform, _audioSource);
                     break;
             }
         }
