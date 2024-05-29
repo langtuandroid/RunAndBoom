@@ -1,10 +1,10 @@
-# RunAndBoom
+# Run And Boom
 
 Platform: WebGL. Web games platform: Yandex Games. Link: https://yandex.com/games/app/223782?draft=true&lang=en
 
 SHORT DESCRIPTION.
 
-"Run and Blast" is a first person shooter with 2 game difficulty modes, 3 songs, 4 guns, 5 levels, 6 enemies, progression and destructible environment. Dare!
+"Run And Boom" is a first person shooter with 2 game difficulty modes, 3 songs, 4 guns, 5 levels, 6 enemies, progression and destructible environment. Dare!
 
 
 ABOUT THE GAME.
