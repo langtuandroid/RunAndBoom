@@ -25,7 +25,6 @@ namespace CodeBase.Infrastructure.States
 {
     public class BootstrapState : IState
     {
-        private const string AppMetricaApiKey = "96bfc941-4dd6-4695-a1f6-d39aaa04d339";
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private AllServices _services;
@@ -83,11 +82,6 @@ namespace CodeBase.Infrastructure.States
                     _services.Single<IGameFactory>()));
             _services.RegisterSingle<ISaveLoadService>(
                 new SaveLoadService(_services.Single<IGameFactory>()));
-        }
-
-        private void RegisterAppMetrica()
-        {
-            AppMetrica.Instance.ActivateWithConfiguration(new YandexAppMetricaConfig(AppMetricaApiKey));
         }
 
         private void RegisterStaticData()
